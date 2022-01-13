@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NotFound from '../components/NotFound.vue';
 import Index from '../pages/index.vue';
+import About from '../pages/about.vue';
 
 
 function guest(to, from, next) {
@@ -30,6 +31,12 @@ const routes = [
         name: 'Home',
         path: '/',
         component: Index,
+        // beforeEnter: guard,
+    },
+    {
+        name: 'About',
+        path: '/about',
+        component: About,
         // beforeEnter: guard,
     },
     {

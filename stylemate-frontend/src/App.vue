@@ -9,8 +9,10 @@
 </template>
 
 <script>
+// import { MetaInfo } from 'vue-meta'
+
 export default {
-  name: 'App'
+  name: 'App',
 }
 </script>
 
