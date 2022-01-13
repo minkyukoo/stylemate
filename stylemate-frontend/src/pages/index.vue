@@ -1,30 +1,16 @@
 <template>
   <div>
-    <h1>Home</h1>
-    <router-link to="/about">About</router-link>
+    <h1><ImageSlider/></h1>
   </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
-import { useHead } from '@vueuse/head'
+import ImageSlider from '../components/ImageSlider.vue'
   export default {
     name: 'Home',
-    setup(){
-    const siteData = reactive({
-      title: `My Stylemate Home page`,
-      description: `My beautiful website`,
-    });
-    useHead({
-      title: computed(() => siteData.title),
-      meta: [
-        {
-          name: `description`,
-          content: computed(() => siteData.description),
-        },
-      ],
-    });
-  }
+    components:{
+      ImageSlider
+    }
   }
 </script>
 

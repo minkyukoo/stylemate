@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vueuse/head": "^0.7.4",
+    "@splidejs/vue-splide": "^0.5.15",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
     "vue": "^3.2.25",
@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
-    "node-sass": "^7.0.1",
     "postcss-import": "^14.0.2",
     "sass": "^1.47.0",
     "sass-loader": "^12.4.0",
