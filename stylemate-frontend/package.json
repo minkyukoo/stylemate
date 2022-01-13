@@ -7,11 +7,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25"
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
+    "node-sass": "^7.0.1",
+    "postcss-import": "^14.0.2",
     "sass": "^1.47.0",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.0.13",
     "vite": "^2.7.2"
   }
 }
