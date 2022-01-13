@@ -7,9 +7,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/head": "^0.7.4",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.5",
     "vue": "^3.2.25",
+    "vue-3-meta": "^2.4.0",
+    "vue-head": "^2.2.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
