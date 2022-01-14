@@ -1,5 +1,8 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {},
     container: {
@@ -7,24 +10,35 @@ module.exports = {
       padding: '20px',
     },
     colors: {
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#273444',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+      'white': {
+        1:  '#ffffff',
+        2:  '#F7F7F7'
+      },
+      'black': {
+        1:  '#090909',
+        2:  '#25282B'
+      },
+      'grey': {
+        1:  '#C4C4C4',
+        2:  '#E5E5E5',
+        3:  '#797979'
+      },
+      'purple': {
+        1:  '#5700FF',
+      },
+      'red': {
+        1:  '#F44848',
+      },
+      'pink': {
+        1:  '#E299C3',
+      },
+      'blue': {
+        1:  '#ADDAD9',
+      },
+      'green': {
+        1:  '#BCD46C',
+      }
     },
-    screens: {
-      'sm': '375px',
-      // => @media (min-width: 375px) { ... }
-
-      'md': '500px',
-      // => @media (min-width: 500px) { ... }
-
-    }
   },
   plugins: [],
 }
