@@ -1,34 +1,45 @@
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  mode: 'jit',
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {},
-    colors: {
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#273444',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+    container: {
+      center: true,
+      padding: '20px',
     },
-    screens: {
-      'sm': '640px',
-      // => @media (min-width: 640px) { ... }
-
-      'md': '768px',
-      // => @media (min-width: 768px) { ... }
-
-      'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
-      'xl': '1280px',
-      // => @media (min-width: 1280px) { ... }
-
-      '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
-    }
+    colors: {
+      'white': {
+        1:  '#ffffff',
+        2:  '#F7F7F7'
+      },
+      'black': {
+        1:  '#090909',
+        2:  '#25282B'
+      },
+      'grey': {
+        1:  '#C4C4C4',
+        2:  '#E5E5E5',
+        3:  '#797979'
+      },
+      'purple': {
+        1:  '#5700FF',
+      },
+      'red': {
+        1:  '#F44848',
+      },
+      'pink': {
+        1:  '#E299C3',
+      },
+      'blue': {
+        1:  '#ADDAD9',
+      },
+      'green': {
+        1:  '#BCD46C',
+      }
+    },
   },
   plugins: [],
 }

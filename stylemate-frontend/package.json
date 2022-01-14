@@ -7,14 +7,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.5",
+    "@splidejs/vue-splide": "^0.5.15",
+    "@vueuse/head": "^0.7.4",
     "vue": "^3.2.25",
+    "vue-3-meta": "^2.4.0",
+    "vue-head": "^2.2.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",
-    "node-sass": "^7.0.1",
+    "@vue/compiler-sfc": "^3.2.22",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
     "postcss-import": "^14.0.2",
     "sass": "^1.47.0",
     "sass-loader": "^12.4.0",
