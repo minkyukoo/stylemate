@@ -1,6 +1,6 @@
 <template>
   <ion-content>
-    <h1>Main Content</h1>
+    <h1 class="bg-green-300 text-purple-1" >Main Content</h1>
     <ion-list>
       <ion-item key="1">
         <ion-label>Pokémon Yellow</ion-label>
@@ -32,4 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+  // color: red;
+  // color: $red;
+}
 </style>
