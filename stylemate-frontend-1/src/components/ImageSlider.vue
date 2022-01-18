@@ -18,7 +18,7 @@
       </div>
   </div>-->
   <div>
-    <Splide :options="{ rewind: true }" class="mySplide">
+    <Splide :options="options" class="mySplide">
       <SplideSlide
         v-for="(slide, i) in slides"
         v-bind:key="slide"
@@ -31,12 +31,13 @@
   </div>
 </template>
 <script>
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
+// import { Splide, SplideSlide } from '@splidejs/vue-splide';
+// import { Grid } from '@splidejs/splide-extension-grid';
 //import { defineComponent } from 'vue';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+// import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 export default {
   name: 'ImageSlider',
-  components: { Splide, SplideSlide },
+  // components: { Splide, SplideSlide, Grid },
   data() {
     return {
       slides: [
@@ -46,9 +47,22 @@ export default {
         'https://source.unsplash.com/random/800x400?i=4',
         'https://source.unsplash.com/random/800x400?i=5',
         'https://source.unsplash.com/random/800x400?i=6',
+        'https://source.unsplash.com/random/800x400?i=1',
+        'https://source.unsplash.com/random/800x400?i=2',
+        'https://source.unsplash.com/random/800x400?i=3',
+        'https://source.unsplash.com/random/800x400?i=4',
+        'https://source.unsplash.com/random/800x400?i=5',
+        'https://source.unsplash.com/random/800x400?i=6',
       ],
-      //current: 0
     }
+  },
+  setup() {
+    const options = {
+      rewind: true,
+      perPage: 1
+    };
+
+    return { options };
   },
   methods: {
     //     selectSlide: function(i) {

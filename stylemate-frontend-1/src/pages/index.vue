@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <h1><ImageSlider/></h1>
-  </div>
+    <ImageSlider/>
+  
 </template>
 
 <script>
