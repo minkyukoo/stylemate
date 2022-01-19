@@ -9,19 +9,22 @@
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Tab 3</ion-title>
+          <h1></h1>
         </ion-toolbar>
       </ion-header>
       
-      <ExploreContainer name="Tab 3 page" />
+      <!-- <ExploreContainer name="Tab 3 page" /> -->
+     <BrandList/>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+//import ExploreContainer from '@/components/ExploreContainer.vue';
+import BrandList from './pages/BrandList.vue'
 
 export default  {
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { BrandList, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>
