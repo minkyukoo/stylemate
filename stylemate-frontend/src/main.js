@@ -22,7 +22,8 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import './styles/css/main.css';
+import '@/styles/css/main.css';
+// import '@/styles/scss/style.scss';
 
 const app = createApp(App)
   .use(IonicVue)
