@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons>
           <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-title>List Details</ion-title>
