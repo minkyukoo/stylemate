@@ -17,17 +17,47 @@
           <!-- <ion-img src="@/assets/icons/Vector.svg"></ion-img> -->
           </ion-card-title></ion-card-header>
       <ion-card-content>ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
-      <ion-button color="dark">Brand Introduction</ion-button>
-      <ion-button color="light">View items</ion-button>
+      <!-- <ion-button class="button1" >Brand Introduction</ion-button>
+      <ion-button class="button2">View items</ion-button> -->
+
+  
+      <!-- <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="Brand Introduction">
+       Brand Introduction
+      </ion-segment-button>
+      <ion-segment-button value=" View items">
+       View items
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar> -->
+
+ <ion-tab-bar >
+        <ion-tab-button tab="Brand Introduction" href="/tabs/home">
+          <ion-icon :icon="square" />
+          <ion-label>Brand Introduction</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="tab1" href="/tabs/home">
+          <ion-icon :icon="square" />
+          <ion-label> View items</ion-label>
+        </ion-tab-button>
+
+        </ion-tab-bar>
+
+  <div></div>
+  <div></div>
+ 
      </ion-card>
     </ion-content>
     </ion-page>
 </template>
 <script>
-import { IonButton } from '@ionic/vue';
+import { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,} from '@ionic/vue';
 export default {
 name:'BrandDetails',
-components: { IonButton },
+components: { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,},
+
 data(){
     return{
 slides: [
@@ -80,4 +110,14 @@ font-size: 10px;
     display: flex;
     align-items: center
 }
+
+ion-segment-button{
+background: #f0eaea;
+border-radius: 8px;
+ 
+/* background-activated: #ffffff;
+background-checked: #ffffff;
+background-hover: #ffffff; */
+}
+
 </style>
