@@ -19,10 +19,11 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab4" href="/tabs/tab4">
-          <!-- <ion-icon :icon="heart" /> -->
           <ion-icon :src="require(`@/assets/icons/home.svg`)" />
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
+
+        
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
