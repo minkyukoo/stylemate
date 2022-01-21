@@ -16,3 +16,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss">
+.ion-page {
+  background-color: #E5E5E5;
+}
+</style>

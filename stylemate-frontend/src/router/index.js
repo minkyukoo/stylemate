@@ -6,7 +6,7 @@ import TabsPage from '../views/TabsPage.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/tabs/home'
   },
   {
     path: '/tabs/',
@@ -14,17 +14,11 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/tabs/home'
       },
       {
-        path: 'tab1/',
-        component: () => import('@/views/Tab1Page.vue'),
-        // children: [
-        //   {
-        //     path: 'list-details',
-        //     component: () => import('@/views/ListDetails.vue')
-        //   }
-        // ]
+        path: 'home/',
+        component: () => import('@/views/Home.vue'),
       },
       {
         path: 'tab2',
@@ -41,10 +35,15 @@ const routes = [
       {
         path: '/tabs/tab1/list-details',
         component: () => import('@/views/pages/ListDetails.vue')
-      }
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('@/components/utilities/NotFound.vue')
+      },
     ]
   },
-  
+
 ]
 
 const router = createRouter({

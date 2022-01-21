@@ -20,9 +20,13 @@ module.exports = {
   overrides: [
     {
       files: [
+        'src/views/**/*.vue',
         '**/__tests__/*.{j,t}s?(x)',
         '**/tests/unit/**/*.spec.{j,t}s?(x)'
       ],
+      rules: {
+        'vue/multi-word-component-names': 0,
+      },
       env: {
         jest: true
       }
