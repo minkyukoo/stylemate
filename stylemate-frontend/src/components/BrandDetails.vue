@@ -17,7 +17,7 @@
           <!-- <ion-img src="@/assets/icons/Vector.svg"></ion-img> -->
           </ion-card-title></ion-card-header>
       <ion-card-content>ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
-      <!-- <ion-button class="button1" >Brand Introduction</ion-button>
+    <!-- <ion-button class="button1" >BrandIntroduction</ion-button>
       <ion-button class="button2">View items</ion-button> -->
 
   
@@ -32,31 +32,36 @@
     </ion-segment>
   </ion-toolbar> -->
 
- <ion-tab-bar >
-        <ion-tab-button tab="Brand Introduction" href="/tabs/home">
+ <!-- <ion-tab-bar >
+        <ion-tab-button tab="Brand Introduction">
           <ion-icon :icon="square" />
-          <ion-label>Brand Introduction</ion-label>
+          <ion-label >Brand Introduction</ion-label>
+          <div><BrandIntroduction/></div>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab1" href="/tabs/home">
+        <ion-tab-button tab="tab1">
           <ion-icon :icon="square" />
           <ion-label> View items</ion-label>
+          <div> <BrandItem/></div>
         </ion-tab-button>
-
-        </ion-tab-bar>
-
+        </ion-tab-bar> -->
+<ion-content>
+    <div></div>
   <div></div>
-  <div></div>
+</ion-content>
+
  
      </ion-card>
     </ion-content>
     </ion-page>
 </template>
 <script>
-import { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,} from '@ionic/vue';
+//import { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,} from '@ionic/vue';
+//import BrandIntroduction from './BrandIntroduction.vue'
+//import BrandItem from './BrandItem.vue'
 export default {
 name:'BrandDetails',
-components: { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,},
+//components: { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,BrandIntroduction,BrandItem},
 
 data(){
     return{
@@ -75,7 +80,8 @@ slides: [
         'https://source.unsplash.com/random/800x400?i=6',
       ],
     }
-}
+},
+
 }
 </script>
 <style>
