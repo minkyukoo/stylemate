@@ -41,6 +41,11 @@ const routes = [
         name: 'NotFound',
         component: () => import('@/components/utilities/NotFound.vue')
       },
+      {
+        path: '/login',
+        name: 'Login',
+        component: ()=> import('@/views/pages/Login.vue')
+      }
     ]
   },
 
