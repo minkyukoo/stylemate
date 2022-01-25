@@ -1,4 +1,9 @@
 <template>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
   <ion-content class="ion-padding">
     <h1>Please login in Stylemate</h1>
@@ -29,15 +34,21 @@
 <script>
 import {
   IonCard,
+  IonHeader,
+  IonTitle,
   IonContent, IonItem, IonButton
 } from '@ionic/vue';
 export default {
   name: 'Login',
   components: {
+
+    IonHeader,
+    IonTitle,
     IonContent,
     IonCard,
     IonItem,
     IonButton
+
   },
 }
 </script>
