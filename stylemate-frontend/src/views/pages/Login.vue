@@ -1,7 +1,7 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Login</ion-title>
+      <ion-title class="login">Login</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -56,5 +56,11 @@ export default {
 <style>
 .border_input {
   border-block: groove;
+}
+.login{
+  text-align: center;
+}
+h1{
+ text-align: center; 
 }
 </style>
