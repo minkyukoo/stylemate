@@ -7,20 +7,18 @@
           <h1></h1>
         </ion-toolbar>
       </ion-header>
-      
+
       <!-- <ExploreContainer name="Tab 3 page" /> -->
       <ion-grid>
         <ion-row>
-    <ion-col>
-      <BrandList/>
-    </ion-col>
-    <ion-col>
-<BrandDetails/>
-    </ion-col>
-    </ion-row>
+          <ion-col>
+            <BrandList />
+          </ion-col>
+          <ion-col>
+            <BrandDetails />
+          </ion-col>
+        </ion-row>
       </ion-grid>
-     
-
     </ion-content>
   </ion-page>
 </template>
@@ -31,7 +29,8 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
 import BrandList from './pages/BrandList.vue'
 import BrandDetails from '@/components/BrandDetails.vue'
 
-export default  {
+export default {
+  name: 'Brand',
   components: { BrandList, BrandDetails, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>

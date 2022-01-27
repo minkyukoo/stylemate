@@ -1,15 +1,76 @@
 <template>
   <ion-content>
-    <h1 class="text-purple-1" >Main Content</h1>
-          <p class="text-2xl bg-red-600">The quick brown fox ...</p>
-          <button class="bg-indigo-500 bg-purple-1">
-  Save changes
-</button>
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <h1 class="text-3xl font-bold underline">Hello world!</h1>
 
     <ion-list>
+      <ion-item key="1">
+        <ion-label>Pokémon Yellow</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="2">
+        <ion-label>Mega Man X</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="3">
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item key="4">
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item key="5">
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+      <ion-item key="1">
+        <ion-label>Pokémon Yellow</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="2">
+        <ion-label>Mega Man X</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="3">
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item key="4">
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item key="5">
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+      <ion-item key="1">
+        <ion-label>Pokémon Yellow</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="2">
+        <ion-label>Mega Man X</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="3">
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item key="4">
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item key="5">
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
+      <ion-item key="1">
+        <ion-label>Pokémon Yellow</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="2">
+        <ion-label>Mega Man X</ion-label>
+        <ion-button router-link="tab1/list-details">Go to detail</ion-button>
+      </ion-item>
+      <ion-item key="3">
+        <ion-label>The Legend of Zelda</ion-label>
+      </ion-item>
+      <ion-item key="4">
+        <ion-label>Pac-Man</ion-label>
+      </ion-item>
+      <ion-item key="5">
+        <ion-label>Super Mario World</ion-label>
+      </ion-item>
       <ion-item key="1">
         <ion-label>Pokémon Yellow</ion-label>
         <ion-button router-link="tab1/list-details">Go to detail</ion-button>

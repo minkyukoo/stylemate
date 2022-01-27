@@ -6,31 +6,35 @@ import TabsPage from '../views/TabsPage.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/tabs/home'
+    redirect: '/home'
   },
   {
-    path: '/tabs/',
+    path: '/',
     component: TabsPage,
     children: [
       {
         path: '',
-        redirect: '/tabs/home'
+        redirect: '/home'
       },
       {
-        path: 'home/',
+        path: 'home',
         component: () => import('@/views/Home.vue'),
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        path: 'item',
+        component: () => import('@/views/Item.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
+        path: 'brand',
+        component: () => import('@/views/Brand.vue')
       },
       {
-        path: 'tab4',
-        component: () => import('@/views/Tab4Page.vue')
+        path: 'contents',
+        component: () => import('@/views/Contents.vue')
+      },
+      {
+        path: 'mypage',
+        component: () => import('@/views/Mypage.vue')
       },
       {
         path: '/tabs/tab1/list-details',

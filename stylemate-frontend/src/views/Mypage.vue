@@ -3,13 +3,11 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Tab 2</ion-title>
+          <ion-title size="large">My page</ion-title>
         </ion-toolbar>
       </ion-header>
       
-      <ion-checkbox color="primary"></ion-checkbox>
-      
-      <ExploreContainer name="Tab 2 page" />
+      <ExploreContainer name="My page" />
     </ion-content>
   </ion-page>
 </template>
@@ -19,6 +17,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCheckbox } fro
 import ExploreContainer from '@/components/ExploreContainer.vue';
 
 export default  {
+  name: 'Mypage',
   components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCheckbox }
 }
 </script>
