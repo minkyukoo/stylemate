@@ -1,23 +1,31 @@
 <template>
   <ion-page>
+    <!-- header -->
+    <TopNav></TopNav>
+    <!-- End header -->
+    <!-- page content -->
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">My page</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      
+
+      <!-- <Login/> -->
+
+
+
+
+
       <ExploreContainer name="My page" />
     </ion-content>
+    <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCheckbox } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
+import TopNav from '@/components/TopNav.vue';
+import Login from '@/views/pages/Login.vue'
 
-export default  {
+export default {
   name: 'Mypage',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCheckbox }
+  components: { TopNav, Login, ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCheckbox }
 }
 </script>
