@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import { Server } from './utils/server.js'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 import { IonicVue } from '@ionic/vue';
 
@@ -27,7 +30,9 @@ import '@/styles/css/main.css';
 
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
+  .use(router) 
+  .use(Server)
+  .use(VueAxios, axios);
   
 router.isReady().then(() => {
   app.mount('#app');

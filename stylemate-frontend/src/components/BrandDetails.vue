@@ -19,8 +19,6 @@
       <ion-card-content>ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
     <!-- <ion-button class="button1" >BrandIntroduction</ion-button>
       <ion-button class="button2">View items</ion-button> -->
-
-  
       <!-- <ion-toolbar>
     <ion-segment>
       <ion-segment-button value="Brand Introduction">
@@ -32,29 +30,41 @@
     </ion-segment>
   </ion-toolbar> -->
 
- <!-- <ion-tab-bar >
-        <ion-tab-button tab="Brand Introduction">
+
+        <!-- <ion-tab-button tab="Brand Introduction">
           <ion-icon :icon="square" />
           <ion-label >Brand Introduction</ion-label>
           <div><BrandIntroduction/></div>
-        </ion-tab-button>
+        </ion-tab-button> -->
 
-        <ion-tab-button tab="tab1">
+        <ion-button  (click)="dispaly=!display">Brand Introduction</ion-button>
+        {{display}}
+<div v-if="display"><BrandIntroduction /></div>
+
+
+  <!-- <ion-content v-if="display">
+        <h3>‘Nike’ starts with having faith and confidence in my own abilities and values.<br/>
+
+It has the meaning of French 'amour propre' which contains the meaning of self-esteem and self-respect. We pursue a sensible everyday look so that the wearer can have a natural look of their own with minimal and neat details and a snug fit that fits the body type.</h3>
+
+<div>
+    <ion-img src="@/assets/icon/Rectangle7.jpg"></ion-img>
+</div>
+    </ion-content> -->
+
+        <!-- <ion-tab-button tab="tab1">
           <ion-icon :icon="square" />
           <ion-label> View items</ion-label>
-          <div> <BrandItem/></div>
-        </ion-tab-button>
-        </ion-tab-bar> -->
-<ion-content>
-    <div></div>
-  <div></div>
-</ion-content>
+          <div> <BrandItem/></div> 
+        </ion-tab-button>-->
+       
+
 
  
      </ion-card>
     </ion-content>
     </ion-page>
-    <div class="container">
+    <!-- <div class="container">
   <h2>Simple Collapsible</h2>
   <p>Click on the button to toggle between showing and hiding content.</p>
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
@@ -63,15 +73,15 @@
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </div>
-</div>
+</div> -->
 </template>
 <script>
-//import { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,} from '@ionic/vue';
+import { IonIcon, IonPage,} from '@ionic/vue';
 //import BrandIntroduction from './BrandIntroduction.vue'
 //import BrandItem from './BrandItem.vue'
 export default {
 name:'BrandDetails',
-//components: { IonTabBar, IonTabButton, IonLabel, IonIcon, IonPage,BrandIntroduction,BrandItem},
+components: {  IonIcon, IonPage,},
 
 data(){
     return{
@@ -89,6 +99,7 @@ slides: [
         'https://source.unsplash.com/random/800x400?i=5',
         'https://source.unsplash.com/random/800x400?i=6',
       ],
+      display:false
     }
 },
 
