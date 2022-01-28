@@ -25,29 +25,29 @@ import TabsPage from '../views/TabsPage.vue';
 //   }
 // }
 
-function guest(to, from, next) {
-  if (localStorage.token) {
-    next({ name: 'home' });
-    // Toast.fire({
-    //   icon: "info",
-    //   title: 'You already logged in',
-    // });
-    alert('You already logged in');
-  } else next();
-}
+// function guest(to, from, next) {
+//   if (localStorage.token) {
+//     next({ name: 'home' });
+//     // Toast.fire({
+//     //   icon: "info",
+//     //   title: 'You already logged in',
+//     // });
+//     alert('You already logged in');
+//   } else next();
+// }
 
-function guard(to, from, next) {
-  if (localStorage.token) {
-    next();
-  } else {
-    next({ name: 'Login' });
-    // Toast.fire({
-    //   icon: "info",
-    //   title: 'Please login to access',
-    // });
-    alert('Please login to access');
-  }
-}
+// function guard(to, from, next) {
+//   if (localStorage.token) {
+//     next();
+//   } else {
+//     next({ name: 'Login' });
+//     // Toast.fire({
+//     //   icon: "info",
+//     //   title: 'Please login to access',
+//     // });
+//     alert('Please login to access');
+//   }
+// }
 
 
 
@@ -103,7 +103,11 @@ const routes = [
       },
     ]
   },
-
+  {
+    path: '/brand-details',
+    name:'BrandDetails',
+    component: () => import('@/views/pages/BrandDetails.vue')
+  }
 ]
 
 const router = createRouter({

@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage,  IonContent } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
 
 export default  {
   name: 'Contents',
-  components: { TopNav, ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { TopNav, ExploreContainer,  IonContent, IonPage }
 }
 </script>

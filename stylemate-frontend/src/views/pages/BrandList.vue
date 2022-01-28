@@ -1,21 +1,66 @@
 <template>
-  <div class="main">
-    <ion-card class="maincard">
-      <img src="@/assets/images/Rectangle4.png" class="imgsec" alt="ion" />
-      <ion-card-header>
-        <ion-card-title>
-          Hotel Panama Garden
-          <ion-icon :icon="heart" />
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content
-        class="maincontent"
-      >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
-      <ion-card-content
-        class="subcontent"
-      >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
-    </ion-card>
-  </div>
+<div class="main">
+
+   <ion-card class="maincard" >
+  <ion-item><img src="@/assets/images/Rectangle1.png" class="imgsec" alt="ion"></ion-item>
+  <ion-card-header>
+    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /> 
+
+    <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="maincontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+  </ion-card-content>
+   <ion-card-content class="subcontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
+  </ion-card-content>
+</ion-card>
+
+
+
+   <ion-card class="maincard">
+  <img src="@/assets/images/Rectangle2.png" class="imgsec" alt="ion">
+  <ion-card-header>
+  <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="maincontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+  </ion-card-content>
+   <ion-card-content class="subcontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="maincard">
+  <ion-item><img src="@/assets/images/Rectangle3.png" class="imgsec" alt="ion"></ion-item>
+  <ion-card-header>
+    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="maincontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+  </ion-card-content>
+   <ion-card-content class="subcontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="maincard">
+  <img src="@/assets/images/Rectangle4.png" class="imgsec" alt="ion">
+  <ion-card-header>
+    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="maincontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
+  </ion-card-content>
+   <ion-card-content class="subcontent">
+    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
+  </ion-card-content>
+</ion-card>
+
+</div>
+ 
 </template>
 
 <script>
