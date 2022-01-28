@@ -5,24 +5,27 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-    
       <ExploreContainer name="Home page" />
-      <Tab1List/>
-
-
+      <Tab1List />
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonContent } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import Tab1List from '@/components/Tab1List.vue';
 import TopNav from '@/components/TopNav.vue';
 
-export default  {
+export default {
   name: 'Home',
-  components: { ExploreContainer,TopNav,Tab1List, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { ExploreContainer, TopNav, Tab1List, IonContent, IonPage },
+  mounted() {
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    console.log(token);
+  }
 }
 </script>

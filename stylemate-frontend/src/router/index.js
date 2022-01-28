@@ -65,7 +65,6 @@ const routes = [
   {
     path: '/',
     redirect: '/home',
-    // beforeEnter: guard,
   },
   // Tabs
   {
@@ -79,13 +78,11 @@ const routes = [
       {
         path: 'home',
         component: () => import('@/views/Home.vue'),
-        // beforeEnter: guard,
         meta: { requiresAuth: true }
       },
       {
         path: 'item',
         component: () => import('@/views/Item.vue'),
-        // beforeEnter: guard,
         meta: { requiresAuth: true }
       },
       {

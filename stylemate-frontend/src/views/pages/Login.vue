@@ -7,7 +7,7 @@
 
   <ion-content class="ion-padding">
     <h1>Please login in Stylemate</h1>
-    <ion-button expand="block" fill="outline" color="dark">Login</ion-button>
+    <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
     <ion-card>
       <ion-item>
         <h2>Customer service center</h2>
@@ -36,21 +36,27 @@ import {
   IonCard,
   IonHeader,
   IonTitle,
-  IonContent, IonItem, IonButton
-} from '@ionic/vue';
+  IonContent,
+  IonItem,
+  IonButton,
+} from "@ionic/vue";
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
-
     IonHeader,
     IonTitle,
     IonContent,
     IonCard,
     IonItem,
-    IonButton
-
+    IonButton,
   },
-}
+  methods: {
+    loginHandaler() {
+      alert('Login');
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI('http://localhost:8100/home');
+    }
+  },
+};
 </script>
 
 <style>

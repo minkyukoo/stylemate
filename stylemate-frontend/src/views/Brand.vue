@@ -29,6 +29,6 @@ import TopNav from '@/components/TopNav.vue';
 
 export default {
   name: 'Brand',
-  components: { TopNav, BrandList, BrandDetails, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { TopNav, BrandList, BrandDetails, IonContent, IonPage }
 }
 </script>
