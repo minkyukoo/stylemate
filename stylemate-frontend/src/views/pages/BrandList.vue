@@ -1,5 +1,6 @@
 <template>
 <div class="main">
+
    <ion-card class="maincard" >
   <ion-item><img src="@/assets/images/Rectangle1.png" class="imgsec" alt="ion"></ion-item>
   <ion-card-header>
@@ -57,6 +58,7 @@
     ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
   </ion-card-content>
 </ion-card>
+
 </div>
  
 </template>
