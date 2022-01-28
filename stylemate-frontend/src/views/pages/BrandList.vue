@@ -59,51 +59,42 @@ export default {
   },
   data() {
     return {
-      datas: [
+      data: [
         {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama Garden",
-          content:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashcontent#":
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices....",
+          "src": 'https://source.unsplash.com/random/800x400?i=1',
+          "title": "Hotel Panama Garden",
+          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
         },
         {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Panama Garden",
-          content:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashcontent:
-            "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices...",
+          "src": 'https://source.unsplash.com/random/800x400?i=1',
+          "title": "Panama Garden",
+          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "subcontent": "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
         },
         {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama",
-          content:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashcontent:
-            "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices....",
+          "src": 'https://source.unsplash.com/random/800x400?i=1',
+          "title": "Hotel Panama",
+          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "subcontent": "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
         },
         {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama Garden value",
-          content:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashcontent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices...",
+          "src": 'https://source.unsplash.com/random/800x400?i=1',
+          "title": "Hotel Panama Garden value",
+          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
         },
         {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama Garden amet",
-          content:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashcontent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices....",
-        },
-      ],
-    };
-  },
-};
+          "src": 'https://source.unsplash.com/random/800x400?i=1',
+          "title": "Hotel Panama Garden amet",
+          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
+        }
+      ]
+    }
+
+  }
+}
 </script>
 <style>
 .subcontent {

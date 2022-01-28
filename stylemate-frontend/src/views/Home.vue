@@ -19,18 +19,15 @@ import Tab1List from "@/components/Tab1List.vue";
 import TopNav from "@/components/TopNav.vue";
 //import axios from 'axios';
 
+
 export default {
-  name: "Home",
+  name: 'Home',
   components: { ExploreContainer, TopNav, Tab1List, IonContent, IonPage },
-  // mounted(){
-  // this.axios.get('https://elsa.beta.mediance.co.kr').then(function (response) {
-  //     // handle success
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     // handle error
-  //     console.log(error);
-  //   })
-  // }
-};
+  mounted() {
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    console.log(token);
+  }
+}
 </script>
