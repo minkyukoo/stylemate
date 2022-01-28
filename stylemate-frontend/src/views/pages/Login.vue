@@ -36,31 +36,31 @@ import {
   IonCard,
   IonHeader,
   IonTitle,
-  IonContent, IonItem, IonButton
-} from '@ionic/vue';
+  IonContent,
+  IonItem,
+  IonButton,
+} from "@ionic/vue";
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
-
     IonHeader,
     IonTitle,
     IonContent,
     IonCard,
     IonItem,
-    IonButton
-
+    IonButton,
   },
-}
+};
 </script>
 
 <style>
 .border_input {
   border-block: groove;
 }
-.login{
+.login {
   text-align: center;
 }
-h1{
- text-align: center; 
+h1 {
+  text-align: center;
 }
 </style>
