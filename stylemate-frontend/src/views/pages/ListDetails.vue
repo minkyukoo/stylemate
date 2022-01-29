@@ -19,12 +19,25 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons } from '@ionic/vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+} from "@ionic/vue";
 export default {
-  name: 'ListDetails',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButtons }
-}
+  name: "ListDetails",
+  components: {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonButtons,
+  },
+};
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

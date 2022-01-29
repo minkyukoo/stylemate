@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import { IonPage,  IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
-import Tab1List from '@/components/Tab1List.vue';
-import TopNav from '@/components/TopNav.vue';
+import { IonPage, IonContent } from "@ionic/vue";
+import ExploreContainer from "@/components/ExploreContainer.vue";
+import Tab1List from "@/components/Tab1List.vue";
+import TopNav from "@/components/TopNav.vue";
 //import axios from 'axios';
 
 

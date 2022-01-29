@@ -30,7 +30,6 @@
     <!-- End page content -->
   </ion-page>
 </template>
-
 <script>
 import { IonCardContent, IonCardHeader, IonCardTitle, IonItem } from '@ionic/vue';
 import { heart } from 'ionicons/icons';
