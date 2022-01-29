@@ -1,0 +1,33 @@
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+@mixin flex-justify-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex-justify-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@mixin inline-flex-justify-center {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex-column-align-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// title
+@mixin heading-1 {
+  font-family: $default-font;
+  font-weight: 600;
+  font-size: 43px;
+  line-height: 59px;
+  // color: #ffffff;
+}

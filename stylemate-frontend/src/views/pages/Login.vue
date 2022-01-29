@@ -1,41 +1,40 @@
 <template>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title class="login">Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content class="ion-padding">
-    <h1>Please login in Stylemate</h1>
-    <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
-    <ion-card>
-      <ion-item>
-        <h2>Customer service center</h2>
-      </ion-item>
-      <ion-item>
-        <h1>Notice</h1>
-      </ion-item>
-      <ion-item>
-        <h1>FAQ</h1>
-      </ion-item>
-      <ion-item>
-        <h1>1:1 inquiry</h1>
-      </ion-item>
-      <ion-item>
-        <h1>Terms of Use</h1>
-      </ion-item>
-      <ion-item>
-        <h1>Privacy Policy</h1>
-      </ion-item>
-    </ion-card>
-  </ion-content>
+  <ion-page>
+    <!-- header -->
+    <TopNav></TopNav>
+    <!-- End header -->
+    <!-- page content -->
+    <ion-content class="ion-padding" :fullscreen="true">
+      <h1>Please login in Stylemate</h1>
+      <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
+      <ion-card>
+        <ion-item>
+          <h2>Customer service center</h2>
+        </ion-item>
+        <ion-item>
+          <h1>Notice</h1>
+        </ion-item>
+        <ion-item>
+          <h1>FAQ</h1>
+        </ion-item>
+        <ion-item>
+          <h1>1:1 inquiry</h1>
+        </ion-item>
+        <ion-item>
+          <h1>Terms of Use</h1>
+        </ion-item>
+        <ion-item>
+          <h1>Privacy Policy</h1>
+        </ion-item>
+      </ion-card>
+    </ion-content>
+    <!-- End page content -->
+  </ion-page>
 </template>
 
 <script>
 import {
   IonCard,
-  IonHeader,
-  IonTitle,
   IonContent,
   IonItem,
   IonButton,
@@ -43,8 +42,6 @@ import {
 export default {
   name: "Login",
   components: {
-    IonHeader,
-    IonTitle,
     IonContent,
     IonCard,
     IonItem,
@@ -63,10 +60,10 @@ export default {
 .border_input {
   border-block: groove;
 }
-.login{
+.login {
   text-align: center;
 }
-h1{
- text-align: center; 
+h1 {
+  text-align: center;
 }
 </style>

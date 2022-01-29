@@ -1,2 +1,18 @@
-@import './variables';
+@import "./resets";
+@import "./font";
+@import "./Variables";
+@import "./mixins";
+@import "./icons";
 
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  font-family: $default-font;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}

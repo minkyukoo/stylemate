@@ -1,75 +1,43 @@
 <template>
-<div class="main">
+  <ion-page>
+    <!-- header -->
+    <TopNav></TopNav>
+    <!-- End header -->
+    <!-- page content -->
+    <ion-content :fullscreen="true">
+      <div class="main">
+        <div class="maincard" v-for="(item, i) of data" :key="i+1" @click="$router.push({name: 'signUp'})">
+          <ion-item>
+            <img src="@/assets/images/Rectangle1.png" class="imgsec" alt="ion" />
+          </ion-item>
+          <ion-card-header>
+            <ion-card-title>
+              Hotel Panama Garden
+              <ion-icon :icon="heart" />
 
-   <ion-card class="maincard" >
-  <ion-item><img src="@/assets/images/Rectangle1.png" class="imgsec" alt="ion"></ion-item>
-  <ion-card-header>
-    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /> 
-
-    <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
-
-    </ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="maincontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
-  </ion-card-content>
-   <ion-card-content class="subcontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
-  </ion-card-content>
-</ion-card>
-
-
-
-   <ion-card class="maincard">
-  <img src="@/assets/images/Rectangle2.png" class="imgsec" alt="ion">
-  <ion-card-header>
-  <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="maincontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
-  </ion-card-content>
-   <ion-card-content class="subcontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
-  </ion-card-content>
-</ion-card>
-
-<ion-card class="maincard">
-  <ion-item><img src="@/assets/images/Rectangle3.png" class="imgsec" alt="ion"></ion-item>
-  <ion-card-header>
-    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="maincontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
-  </ion-card-content>
-   <ion-card-content class="subcontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
-  </ion-card-content>
-</ion-card>
-
-<ion-card class="maincard">
-  <img src="@/assets/images/Rectangle4.png" class="imgsec" alt="ion">
-  <ion-card-header>
-    <ion-card-title>Hotel Panama Garden  <ion-icon :icon="heart" /></ion-card-title>
-  </ion-card-header>
-  <ion-card-content class="maincontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.
-  </ion-card-content>
-   <ion-card-content class="subcontent">
-    ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
-  </ion-card-content>
-</ion-card>
-
-</div>
- 
+              <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content
+            class="maincontent"
+          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+          <ion-card-content
+            class="subcontent"
+          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+        </div>
+      </div>
+    </ion-content>
+    <!-- End page content -->
+  </ion-page>
 </template>
 
 <script>
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem } from '@ionic/vue';
+import { IonCardContent, IonCardHeader, IonCardTitle, IonItem } from '@ionic/vue';
 import { heart } from 'ionicons/icons';
 
 export default {
   name: 'BrandList',
-  components: { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem },
+  components: { IonCardContent, IonCardHeader, IonCardTitle, IonItem },
   setup() {
     return { heart };
   },
@@ -112,7 +80,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .subcontent {
   font-family: Pretendard;
   color: #c4c4c4;
