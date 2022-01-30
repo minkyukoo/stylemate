@@ -10,49 +10,33 @@
           {{ data.hashconent }}
           <ion-item><img :src="data.src" class="imgsec" alt="ion" /></ion-item>
           <ion-card-header>
-            <ion-card-title
-              >{{ data.title }}
+            <ion-card-title>
+              Hotel Panama Garden
               <ion-icon :icon="heart" />
+
               <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
             </ion-card-title>
           </ion-card-header>
-          <ion-card-content class="maincontent">
-            {{ data.content }}
-          </ion-card-content>
-          <ion-card-content class="subcontent">
-            {{ data.hashconent }}
-          </ion-card-content>
+          <ion-card-content
+            class="maincontent"
+          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+          <ion-card-content
+            class="subcontent"
+          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
         </ion-card>
-      </div>
-      <!-- <BrandDetails /> -->
+        </div>
+   
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 <script>
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonItem,
-  IonPage,
-  IonContent,
-} from "@ionic/vue";
-import { heart } from "ionicons/icons";
-//import BrandDetails from './BrandDetails.vue'
+import { IonCardContent, IonCardHeader, IonCardTitle, IonItem } from '@ionic/vue';
+import { heart } from 'ionicons/icons';
 
 export default {
-  name: "BrandList",
-  components: {
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonItem,
-    IonPage,
-    IonContent,
-  },
+  name: 'BrandList',
+  components: { IonCardContent, IonCardHeader, IonCardTitle, IonItem },
   setup() {
     return { heart };
   },
@@ -95,7 +79,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .subcontent {
   font-family: Pretendard;
   color: #c4c4c4;

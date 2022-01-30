@@ -1,5 +1,5 @@
 <template>
-  <div class="header bg-green-1">
+  <div class="header">
     <div class="container mx-auto">
       <div class="flex items-center justify-center relative">
         <img src="../assets/images/logo-black.svg" alt="Stylemate Logo" />
