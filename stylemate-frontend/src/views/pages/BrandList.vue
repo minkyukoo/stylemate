@@ -6,10 +6,9 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="main">
-        <div class="maincard" v-for="(item, i) of data" :key="i+1" @click="$router.push({name: 'signUp'})">
-          <ion-item>
-            <img src="@/assets/images/Rectangle1.png" class="imgsec" alt="ion" />
-          </ion-item>
+        <ion-card class="maincard" v-for="data in datas" :key="data"  @click="$router.push({name: 'BrandDetails'})">
+          {{ data.hashconent }}
+          <ion-item><img :src="data.src" class="imgsec" alt="ion" /></ion-item>
           <ion-card-header>
             <ion-card-title>
               Hotel Panama Garden
@@ -24,8 +23,9 @@
           <ion-card-content
             class="subcontent"
           >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+        </ion-card>
         </div>
-      </div>
+   
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -42,36 +42,36 @@ export default {
   },
   data() {
     return {
-      data: [
+      datas: [
         {
           "src": 'https://source.unsplash.com/random/800x400?i=1',
           "title": "Hotel Panama Garden",
-          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
+          "content": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
         },
         {
           "src": 'https://source.unsplash.com/random/800x400?i=1',
           "title": "Panama Garden",
           "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "subcontent": "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          "hashconent": "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
         },
         {
           "src": 'https://source.unsplash.com/random/800x400?i=1',
           "title": "Hotel Panama",
           "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "subcontent": "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
+          "hashconent": "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
         },
         {
           "src": 'https://source.unsplash.com/random/800x400?i=1',
           "title": "Hotel Panama Garden value",
           "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
+          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
         },
         {
           "src": 'https://source.unsplash.com/random/800x400?i=1',
           "title": "Hotel Panama Garden amet",
           "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "subcontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
+          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
         }
       ]
     }
@@ -98,6 +98,7 @@ export default {
   justify-content: center;
   justify-self: center;
   align-self: center;
+  cursor: pointer;
 }
 .main {
   width: fit-content;
