@@ -1,10 +1,10 @@
 <template>
-  <ion-page>
+  <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="Login"/>
     <!-- End header -->
     <!-- page content -->
-    <ion-content class="ion-padding" :fullscreen="true">
+    <ion-content class="ion-padding">
       <h1>Please login in Stylemate</h1>
       <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
       <ion-card>
@@ -27,6 +27,8 @@
           <h1>Privacy Policy</h1>
         </ion-item>
       </ion-card>
+      <ion-button router-link="/home">Go to detail</ion-button>
+      <ion-button router-link="/mypage">Go to detail</ion-button>
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -40,7 +42,7 @@ import {
   IonButton,
 } from "@ionic/vue";
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     IonContent,
     IonCard,
@@ -50,13 +52,26 @@ export default {
   methods: {
     loginHandaler() {
       alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI('http://localhost:8100/home');
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI('http://localhost:8100/mypage');
+      var queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var token = urlParams.get('token')
+      localStorage.setItem('token', token);
+      console.log(urlParams);
+      console.log(token);
     }
   },
 };
 </script>
 
 <style>
+.main-container {
+  max-width: 500px;
+  min-width: 360px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+}
 .border_input {
   border-block: groove;
 }

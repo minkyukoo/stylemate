@@ -40,6 +40,7 @@ import { ellipse, square, triangle, heart } from 'ionicons/icons';
 // import TopNav from '@/components/TopNav.vue';
 
 export default {
+  name: 'TabPage',
   components: { IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage, IonRouterOutlet },
   setup() {
     return {
@@ -52,7 +53,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .main-container {
   max-width: 500px;
   min-width: 360px;
@@ -60,7 +61,7 @@ export default {
   height: 100vh;
   margin: 0 auto;
 }
-page-tabs .tabs .tabbar {
+.page-tabs .tabs .tabbar {
     background: #121212;
     width: 90% !important;
     max-width: 400px !important;

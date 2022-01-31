@@ -5,6 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
+       <ion-button router-link="/mypage">mypage</ion-button>
       <ExploreContainer name="Home page" />
       <Tab1List />
     </ion-content>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage, IonContent, IonButton } from "@ionic/vue";
 import ExploreContainer from "@/components/ExploreContainer.vue";
 import Tab1List from "@/components/Tab1List.vue";
 import TopNav from "@/components/TopNav.vue";
@@ -22,12 +23,12 @@ import TopNav from "@/components/TopNav.vue";
 
 export default {
   name: 'Home',
-  components: { ExploreContainer, TopNav, Tab1List, IonContent, IonPage },
-  mounted() {
-    var queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    var token = urlParams.get('token')
-    console.log(token);
-  }
+  components: { ExploreContainer, TopNav, Tab1List, IonContent, IonPage, IonButton },
+  // mounted() {
+  //   var queryString = window.location.search;
+  //   const urlParams = new URLSearchParams(queryString);
+  //   var token = urlParams.get('token')
+  //   console.log(token);
+  // }
 }
 </script>

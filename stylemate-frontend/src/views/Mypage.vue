@@ -1,18 +1,13 @@
 <template>
   <ion-page>
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="My page"/>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
 
       <Login/>
 
-
-
-
-
-      <!-- <ExploreContainer name="My page" /> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -26,6 +21,14 @@ import Login from '@/views/pages/Login.vue'
 
 export default {
   name: 'Mypage',
-  components: { TopNav,  Login,  IonContent, IonPage, }
+  components: { TopNav,  Login,  IonContent, IonPage, },
+  mounted() {
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    localStorage.setItem('token', token);
+    console.log(urlParams);
+    console.log(token);
+  }
 }
 </script>

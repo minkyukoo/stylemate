@@ -11,7 +11,8 @@
   <ion-header class="header" v-else-if="innerHeader">
     <ion-toolbar>
       <div class="flex items-center justify-center relative">
-        <ion-title>Main header</ion-title>
+        <ion-title v-if="headerTitle" class="text-center">{{headerTitle}}</ion-title>
+        <ion-title v-else class="text-center">Main Header</ion-title>
       </div>
     </ion-toolbar>
   </ion-header>
@@ -25,6 +26,9 @@ import NotificationIcon from "./utilities/NotificationIcon.vue";
 export default {
   name: 'TopNav',
   components: { IonHeader, IonToolbar, IonTitle, NotificationIcon },
+  props: {
+    headerTitle: String,
+  },
   data() {
     return {
       mainHeader: false,
@@ -35,5 +39,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+}
 </style>
