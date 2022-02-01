@@ -31,8 +31,8 @@ export default {
   },
   data() {
     return {
-      mainHeader: false,
-      innerHeader: true,
+      mainHeader: true,
+      innerHeader: false,
       siteLogo: '@/assets/images/logo-black.svg',
     }
   }
