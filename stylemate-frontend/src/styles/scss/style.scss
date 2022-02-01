@@ -16,3 +16,13 @@ body {
   padding: 0;
   height: 100%;
 }
+
+.multiSlideWrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  div{
+    width: 49%;
+  }
+}
