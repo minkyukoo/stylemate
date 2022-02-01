@@ -1,66 +1,72 @@
 <template>
-  <ion-page>
-    <!-- header -->
-    <TopNav></TopNav>
-    <!-- End header -->
-    <!-- page content -->
-    <ion-content>
-      <ion-card class="main">
-        <!-- Slide of image start -->
+  <ion-page class="main-container relative">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title style="text-align:center">View details</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
+      
+     <div class="parallax"></div>
 
-        <ion-item class="mainslide">
-          <ion-slides>
-            <ion-slide>
-              <!-- <div v-for="slide in slides"
-              :key="slide"> 
-              <img :src="slide" alt="Sample 1" />
-              </div> -->
-              <img src="@/assets/images/Rectangle1.png" />
-            </ion-slide>
-          </ion-slides>
-        </ion-item>
-        <!-- Slide of image End -->
-
-        <!-- Content card start -->
-        <ion-card class="maincard">
+<div  class="scrolldiv">
+ <ion-card class="maincard">
           <ion-card-header>
-            <ion-card-title
-              >Hotel Panama Garden <ion-icon :icon="heart" />
-              <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+            <ion-card-title>
+              Hotel Panama Garden
+              <!-- <ion-icon :icon="heart" /> -->
+              <img src="@/assets/icons/Vector.svg" alt="img" style="height:20px">
             </ion-card-title>
           </ion-card-header>
-          <ion-card-content class="subcontent">
-            ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis
-            mollis ligula sed ultrices.
+          <ion-card-content
+            class="subcontent"
+          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
           </ion-card-content>
-          <div>
+           <div>
             <ion-button
               v-on:click="show()"
               :class="{ active: display == 'bnt1' }"
               >Brand Introduction</ion-button
-            >{{ display }}
+            >
             <ion-button
-              v-on:click="show()"
-              :class="{ active: display == 'bnt2' }"
+              v-on:click="showItems()"
+              :class="{ active: visible == 'bnt1' }"
               >View items</ion-button
-            >{{ display }}
-            <div v-if="display" id="bnt1"><BrandIntroduction /></div>
-            <div v-else id="bnt2"><BrandItem /></div>
+            >{{visible}}
+            <div>
+                  <div v-if="display" id="bnt1"><BrandIntroduction /></div>
+            <div v-if="visible" id="bnt2"><BrandItem /></div>
+            </div>
           </div>
         </ion-card>
-        <!-- End Content card -->
-      </ion-card>
+       
+</div>
     </ion-content>
-    <!-- End page content -->
   </ion-page>
 </template>
 <script>
-import { IonIcon, IonPage, IonContent } from "@ionic/vue";
+import {   IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons, } from "@ionic/vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
 export default {
   name: "BrandDetails",
-  components: { IonIcon, BrandIntroduction, BrandItem, IonPage, IonContent },
+  components: {   IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  BrandIntroduction,
+  BrandItem
+ },
 
   data() {
     return {
@@ -78,47 +84,68 @@ export default {
         "https://source.unsplash.com/random/800x400?i=5",
         "https://source.unsplash.com/random/800x400?i=6",
       ],
+
       display: false,
       visible: false,
     };
   },
   methods: {
     show() {
-      this.display = !this.display;
+      this.display = true;
     },
+    showItems(){
+      this.visible=!this.visible
+    }
   },
 };
 </script>
 <style>
+.parallax { 
+  /* The image used */
+ background-image: url("https://source.unsplash.com/random/800x400?i=1"); 
+
+  /* Set a specific height */
+  min-height: 500px;  
+
+  /* Create the parallax scrolling effect */
+   background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; 
+ } 
+.main-container {
+  max-width: 500px;
+  min-width: 500px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+}
+.scrolldiv{
+  height:1000px;
+   max-width: 500px;
+  min-width: 500px;
+  background-color:rgb(238, 230, 230);
+  font-size:36px
+}
 .subcontent {
   font-family: Pretendard;
   color: #c4c4c4;
   font-size: 10px;
 }
-.maincontent {
-  font-size: 14px;
-  color: #25282b;
-}
 .miancard {
-  width: 0px;
-  height: 150px;
-  background-color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  align-self: center;
+ display: flex;
+        flex-direction: column;
+        margin: 0 !important;
+       
+        width: 500px;
+   /* max-width: 500px;
+  min-width: 500px; */
+  background-color:rgb(238, 230, 230);
+  font-size:36px
 }
-.main {
-  width: fit-content;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
-  padding: center;
-}
-.mainslide {
+/* .mainslide {
   background-color: #c4c4c4;
-}
+} */
 img {
   width: 100%;
   height: 300px;

@@ -6,12 +6,11 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="main">
-        <ion-card class="maincard" v-for="data in datas" :key="data"  @click="$router.push({name: 'BrandDetails'})">
-          {{ data.hashconent }}
+        <ion-card class="maincard" v-for="data in datas" :key="data+1"  @click="$router.push({name: 'BrandDetails'})">
           <ion-item><img :src="data.src" class="imgsec" alt="ion" /></ion-item>
           <ion-card-header>
             <ion-card-title>
-              Hotel Panama Garden
+             {{ data.title }}
               <ion-icon :icon="heart" />
 
               <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
@@ -19,10 +18,10 @@
           </ion-card-header>
           <ion-card-content
             class="maincontent"
-          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+          > {{ data.content }}</ion-card-content>
           <ion-card-content
             class="subcontent"
-          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.</ion-card-content>
+          > {{ data.hashconent }}</ion-card-content>
         </ion-card>
         </div>
    

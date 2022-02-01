@@ -5,7 +5,8 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <ExploreContainer name="Contents page" />
+      <!-- <ExploreContainer name="Contents page" /> -->
+      <ContentPage/>
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -13,11 +14,12 @@
 
 <script>
 import { IonPage,  IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+//import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
+import ContentPage from './pages/ContentPage.vue';
 
 export default  {
   name: 'Contents',
-  components: { TopNav, ExploreContainer,  IonContent, IonPage }
+  components: { TopNav, IonContent, IonPage  , ContentPage}
 }
 </script>
