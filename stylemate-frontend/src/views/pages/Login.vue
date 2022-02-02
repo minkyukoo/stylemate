@@ -52,7 +52,7 @@ export default {
   methods: {
     loginHandaler() {
       alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI('http://localhost:8100/mypage');
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI('http://localhost:8100/home');
       var queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       var token = urlParams.get('token')
