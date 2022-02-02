@@ -79,13 +79,15 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 
 export default {
   name: 'Home',
-  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide, Swiper, SwiperSlide},
-  // mounted() {
-  //   var queryString = window.location.search;
-  //   const urlParams = new URLSearchParams(queryString);
-  //   var token = urlParams.get('token')
-  //   console.log(token);
-  // }
+  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide},
+  mounted() {
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    localStorage.setItem('token', token);
+    console.log(urlParams);
+    console.log(token);
+  },
   setup() {
     // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
     const slideOpts = {
