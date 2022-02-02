@@ -49,6 +49,18 @@
           </div>
         </ion-slide>
       </ion-slides>
+
+      <swiper
+        :slides-per-view="3"
+        :space-between="50"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+      >
+        <swiper-slide>Slide 1</swiper-slide>
+        <swiper-slide>Slide 2</swiper-slide>
+        <swiper-slide>Slide 3</swiper-slide>
+        ...
+      </swiper>
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -60,12 +72,14 @@ import { IonPage, IonContent } from "@ionic/vue";
 // import Tab1List from "@/components/Tab1List.vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+// import 'swiper/css';
 //import axios from 'axios';
 
 
 export default {
   name: 'Home',
-  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide},
+  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide, Swiper, SwiperSlide},
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -79,6 +93,18 @@ export default {
       speed: 400
     }; 
     return { slideOpts }
+
+    const onSwiper = (swiper) => {
+        console.log(swiper);
+      };
+      const onSlideChange = () => {
+        console.log('slide change');
+      };
+      return {
+        onSwiper,
+        onSlideChange,
+      };
   }
 };
 </script>
+
