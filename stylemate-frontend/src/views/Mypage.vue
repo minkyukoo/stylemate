@@ -22,13 +22,13 @@ import Login from '@/views/pages/Login.vue'
 export default {
   name: 'Mypage',
   components: { TopNav,  Login,  IonContent, IonPage, },
-  mounted() {
-    var queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    var token = urlParams.get('token')
-    localStorage.setItem('token', token);
-    console.log(urlParams);
-    console.log(token);
-  }
+  // mounted() {
+  //   var queryString = window.location.search;
+  //   const urlParams = new URLSearchParams(queryString);
+  //   var token = urlParams.get('token')
+  //   localStorage.setItem('token', token);
+  //   console.log(urlParams);
+  //   console.log(token);
+  // }
 }
 </script>
