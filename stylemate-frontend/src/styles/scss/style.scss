@@ -16,8 +16,13 @@ body {
   padding: 0;
   height: 100%;
 }
-.test {
-  h1 {
-    background-color: $purple-1;
+
+.multiSlideWrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  div{
+    width: 49%;
   }
 }

@@ -31,6 +31,16 @@ export default {
 
 <style>
 .mainse {
-  text-align: left;
+height:1000px;
+   max-width: 500px;
+  min-width: 500px;
 }
+.imgsec{
+  position: absolute;
+  width: 500px;
+height: 1000px;
+left: 20px;
+top: 800px;
+}
+
 </style>
