@@ -6,6 +6,7 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
 
+ <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
       <Login/>
 
     </ion-content>
@@ -14,14 +15,14 @@
 </template>
 
 <script>
-import { IonPage,  IonContent } from '@ionic/vue';
+import { IonPage,  IonContent,  IonButton, } from '@ionic/vue';
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
 import Login from '@/views/pages/Login.vue'
 
 export default {
   name: 'Mypage',
-  components: { TopNav,  Login,  IonContent, IonPage, },
+  components: { TopNav,  Login,  IonContent, IonPage,  IonButton,},
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -30,5 +31,11 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  methods: {
+  openlink(){
+console.log("clivk");
+  },
 }
+}
+
 </script>

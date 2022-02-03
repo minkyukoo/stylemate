@@ -4,21 +4,16 @@
       <ion-title>Content Detaisl</ion-title>
     </ion-toolbar>
   </ion-header> -->
-  <ion-content :fullscreen="true" >
-   <div class="ion-page">
-      <img
-        src="@/assets/images/Rectanglec5.png"
-        alt="modalImage"
-        class="modalimage"
-      />
+  <ion-content :fullscreen="true">
+    <div class="ion-page" v-for="data in datas" :key="data">
+      <img :src="data.src" v-bind:alt="img" class="modalimage" />
       <p class="text">
-        #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie
-        #streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close
+        {{data.content}}
       </p>
       <ion-button expand="full" color="dark" @click="closeModal()"
         >to close</ion-button
       >
-</div>
+    </div>
   </ion-content>
 </template>
 
@@ -33,7 +28,26 @@ export default defineComponent({
   },
   data() {
     return {
-      content: "Content",
+      datas:[
+       { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "1 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "2 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "3 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "4 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "5 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "6 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "7 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "8 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+        { src: "https://source.unsplash.com/random/800x400?i=1", 
+        content: "9 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
+      ]
     };
   },
   components: { IonContent, IonButton },
@@ -46,22 +60,22 @@ export default defineComponent({
 </script>
 <style>
 .ion-page {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    justify-content: space-between;
-    contain: layout size style;
-    overflow: hidden;
-    z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-between;
+  contain: layout size style;
+  overflow: hidden;
+  z-index: 0;
 }
 .modalimage {
   width: 100%;
-    padding: 10px;
-    height: 89%;
+  padding: 10px;
+  height: 89%;
 }
 .text {
   text-align: center;
