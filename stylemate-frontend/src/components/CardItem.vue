@@ -52,7 +52,13 @@ export default defineComponent({
       speed: 400,
       pager: false,
     };
-    return { slideOpts };
+
+    const customPopoverOptions = {
+      header: 'Hair Color',
+      subHeader: 'Select your hair color',
+      message: 'Only select your dominant hair color'
+    };
+    return { slideOpts, customPopoverOptions };
   },
 
   data() {
@@ -168,7 +174,7 @@ export default defineComponent({
 .item-scroller-nav{
     position: fixed;
     background: #ffffff;
-    top: 57px;
+    top: 61px;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
