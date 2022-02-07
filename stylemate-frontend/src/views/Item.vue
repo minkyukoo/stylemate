@@ -6,6 +6,7 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <ExploreContainer name="Item page" /> -->
+      
       <CardItem />
     </ion-content>
     <!-- End page content -->
