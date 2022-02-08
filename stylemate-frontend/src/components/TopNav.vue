@@ -1,6 +1,7 @@
 <template>
   <ion-header class="header" v-if="mainHeader">
     <ion-toolbar>
+      div.container
       <div class="flex items-center justify-center relative">
         <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
         <NotificationIcon notificationCount="24" />
