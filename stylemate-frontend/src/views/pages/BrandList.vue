@@ -12,9 +12,9 @@
           :key="info"
           @click="$router.push({ name: 'BrandDetails' })"
         >
-          <ion-item
-            ><img :src="info.imageThumbnailPath" class="imgsec" alt="ion"
-          /></ion-item>
+          <ion-item>
+            <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
+          </ion-item>
           <ion-card-header>
             <ion-card-title>
               {{ info.korName }}
@@ -23,12 +23,10 @@
               <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
             </ion-card-title>
           </ion-card-header>
-          <ion-card-content class="maincontent">
-            {{ info.description }}</ion-card-content
-          >
+          <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
           <!-- <ion-card-content
             class="subcontent" v-if="info.tag"
-          > {{ data.hashconent }}</ion-card-content> -->
+          > {{ data.hashconent }}</ion-card-content>-->
         </ion-card>
       </div>
     </ion-content>
@@ -43,7 +41,8 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
-import axios from "axios";
+// import axios from "axios";
+import BrandService from '@/services/BrandService';
 export default {
   name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonItem },
@@ -116,13 +115,14 @@ export default {
       ],
     };
   },
+  created() {
+    this.brandService = new BrandService();
+  },
   mounted() {
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
-      .then((response) => {
-        this.brand_info = response.data.data;
-        console.log("aaa", response.data);
-      });
+    this.brandService.getBrandList().then((data) => {
+      console.log(data)
+      this.brand_info = data;
+    });
   },
 };
 </script>
