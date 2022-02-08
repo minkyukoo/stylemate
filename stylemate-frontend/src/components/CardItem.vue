@@ -14,8 +14,7 @@
     <img src="@/assets/images/product-banner.jpg" />
   </div>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content
-      loading-spinner="bubbles">
+    <ion-infinite-scroll-content loading-spinner="bubbles">
       <div class="item-wrapper">
         <div class="top-section">
           <div class="left-section">
@@ -27,17 +26,25 @@
               </ion-select>
             </ion-item>
           </div>
-          <div class="right-section">
-            abc
-          </div>
+          <div class="right-section">abc</div>
         </div>
-        <ul class="product-list">
+        <ul class="product-list grid-view" style="display: none">
           <li
             v-for="(product, index) in products"
             :key="index"
             class="product-list-item"
           >
-            <figure><img src="@/assets/images/Rectangle-2.jpg" /></figure>
+            <figure>
+              <img src="@/assets/images/Rectangle-2.jpg" />
+              <div class="top-float-div">
+                <div class="social-icon">
+                  <img src="@/assets/icons/instagram.svg" />
+                </div>
+                <div class="favorite">
+                  <img src="@/assets/icons/heart-outline.svg" />
+                </div>
+              </div>
+            </figure>
             <h3>{{ product.title }}</h3>
             <p>{{ product.description }}</p>
             <!-- <span>{{ product.hashtags }}</span> -->
@@ -45,6 +52,38 @@
               <span v-for="(hash, index) in product.hashtag" :key="index">{{
                 hash.name
               }}</span>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="product-list list-view">
+          <li
+            v-for="(product, index) in products"
+            :key="index"
+            class="product-list-item"
+          >
+            <figure>
+              <img src="@/assets/images/Rectangle-2.jpg" />
+              <div class="top-float-div">
+                <div class="social-icon">
+                  <img src="@/assets/icons/instagram.svg" />
+                </div>
+              </div>
+            </figure>
+            <div class="desc-box">
+              <div class="text-box">
+                <h3>{{ product.title }}</h3>
+                <div class="favorite">
+                  <img src="@/assets/icons/heart-outline.svg" />
+                </div>
+              </div>
+              <p>{{ product.description }}</p>
+              <!-- <span>{{ product.hashtags }}</span> -->
+              <div class="hashWrap">
+                <span v-for="(hash, index) in product.hashtag" :key="index">{{
+                  hash.name
+                }}</span>
+              </div>
             </div>
           </li>
         </ul>
@@ -60,14 +99,22 @@ import {
   IonItem,
   IonSelect,
   IonSelectOption,
-  IonInfiniteScroll, 
+  IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardItem",
-  components: { IonSlides, IonSlide, IonItem, IonSelect, IonSelectOption, IonInfiniteScroll,  IonInfiniteScrollContent},
+  components: {
+    IonSlides,
+    IonSlide,
+    IonItem,
+    IonSelect,
+    IonSelectOption,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
+  },
 
   setup() {
     const slideOpts = {
@@ -191,12 +238,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.top-section{
+.top-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.item-native{
+.item-native {
   padding-inline-start: 0 !important;
   padding-left: 0;
 }
@@ -223,7 +270,7 @@ export default defineComponent({
   flex-wrap: wrap;
   margin: 0 -4px;
 }
-.item-wrapper .product-list .product-list-item {
+.item-wrapper .grid-view .product-list-item {
   width: 50%;
   flex: 0 0 50%;
   max-width: 50%;
@@ -232,9 +279,12 @@ export default defineComponent({
   text-align: left;
 }
 .item-wrapper .product-list .product-list-item figure {
+  position: relative;
   margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
 }
-.item-wrapper .product-list .product-list-item figure img {
+.item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
 }
 .item-wrapper .product-list .product-list-item h3 {
@@ -289,5 +339,52 @@ export default defineComponent({
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
+}
+.grid-view .top-float-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  padding: 7px;
+}
+.grid-view .top-float-div img {
+  cursor: pointer;
+}
+.list-view .product-list-item{
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  width: 100%;
+}
+.list-view .product-list-item:first-child{
+  margin-top: 0;
+}
+.list-view .product-list-item figure{
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.list-view .product-list-item .social-icon {
+  position: absolute;
+  top: 0;
+  padding: 7px;
+}
+.list-view .product-list-item .social-icon img{
+  cursor: pointer;
+}
+.desc-box{
+  padding-left: 12px;
+  text-align: left;
+  width: calc( 100% - 120px);
+}
+.desc-box .text-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.item-wrapper .list-view .product-list-item h3{
+  margin-bottom: 16px;
 }
 </style>
