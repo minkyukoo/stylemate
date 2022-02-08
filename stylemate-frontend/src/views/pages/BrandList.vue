@@ -6,77 +6,125 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="main">
-        <ion-card class="maincard" v-for="data in datas" :key="data+1"  @click="$router.push({name: 'BrandDetails'})">
-          <ion-item><img :src="data.src" class="imgsec" alt="ion" /></ion-item>
+        <ion-card
+          class="maincard"
+          v-for="info in brand_info"
+          :key="info"
+          @click="$router.push({ name: 'BrandDetails' })"
+        >
+          <ion-item
+            ><img :src="info.imageThumbnailPath" class="imgsec" alt="ion"
+          /></ion-item>
           <ion-card-header>
             <ion-card-title>
-             {{ data.title }}
+              {{ info.korName }}
               <ion-icon :icon="heart" />
 
               <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
             </ion-card-title>
           </ion-card-header>
-          <ion-card-content
-            class="maincontent"
-          > {{ data.content }}</ion-card-content>
-          <ion-card-content
-            class="subcontent"
-          > {{ data.hashconent }}</ion-card-content>
+          <ion-card-content class="maincontent">
+            {{ info.description }}</ion-card-content
+          >
+          <!-- <ion-card-content
+            class="subcontent" v-if="info.tag"
+          > {{ data.hashconent }}</ion-card-content> -->
         </ion-card>
-        </div>
-   
+      </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 <script>
-import { IonCardContent, IonCardHeader, IonCardTitle, IonItem } from '@ionic/vue';
-import { heart } from 'ionicons/icons';
-
+import {
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonItem,
+} from "@ionic/vue";
+import { heart } from "ionicons/icons";
+import axios from "axios";
 export default {
-  name: 'BrandList',
+  name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonItem },
   setup() {
     return { heart };
   },
   data() {
     return {
+      brand_info: null,
       datas: [
         {
-          "src": 'https://source.unsplash.com/random/800x400?i=1',
-          "title": "Hotel Panama Garden",
-          "content": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
+          id: 12,
+          createdAt: "2022-02-03T18:30:18.000+09:00",
+          updatedAt: "2022-02-03T18:33:14.000+09:00",
+          deletedAt: null,
+          status: "active",
+          korName: "테스트",
+          engName: null,
+          isDisplay: true,
+          description: "<p>123</p>",
+          imageThumbnailPath:
+            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880610289_20220203063010.jpeg",
+          imageMainPath:
+            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880616414_20220203063016.jpg",
+          tag: [],
+          isInfluenceLike: false,
         },
-        {
-          "src": 'https://source.unsplash.com/random/800x400?i=1',
-          "title": "Panama Garden",
-          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashconent": "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-        },
-        {
-          "src": 'https://source.unsplash.com/random/800x400?i=1',
-          "title": "Hotel Panama",
-          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashconent": "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
-        },
-        {
-          "src": 'https://source.unsplash.com/random/800x400?i=1',
-          "title": "Hotel Panama Garden value",
-          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
-        },
-        {
-          "src": 'https://source.unsplash.com/random/800x400?i=1',
-          "title": "Hotel Panama Garden amet",
-          "maincontent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          "hashconent": "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
-        }
-      ]
-    }
 
-  }
-}
+        {
+          id: 13,
+          createdAt: "2022-02-03T18:30:18.000+09:00",
+          updatedAt: "2022-02-03T18:33:14.000+09:00",
+          deletedAt: null,
+          status: "active",
+          korName: "테스트",
+          engName: null,
+          isDisplay: true,
+          description: "<p>123</p>",
+          imageThumbnailPath:
+            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880610289_20220203063010.jpeg",
+          imageMainPath:
+            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880616414_20220203063016.jpg",
+          tag: [],
+          isInfluenceLike: false,
+        },
+        {
+          src: "https://source.unsplash.com/random/800x400?i=1",
+          title: "Hotel Panama",
+          maincontent:
+            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          hashconent:
+            "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
+        },
+        {
+          src: "https://source.unsplash.com/random/800x400?i=1",
+          title: "Hotel Panama Garden value",
+          maincontent:
+            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          hashconent:
+            "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
+        },
+        {
+          src: "https://source.unsplash.com/random/800x400?i=1",
+          title: "Hotel Panama Garden amet",
+          maincontent:
+            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
+          hashconent:
+            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
+        },
+      ],
+    };
+  },
+  mounted() {
+    axios
+      .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
+      .then((response) => {
+        this.brand_info = response.data.data;
+        console.log("aaa", response);
+      });
+  },
+};
 </script>
 <style scoped>
 .subcontent {

@@ -50,6 +50,14 @@
         </ion-slide>
       </ion-slides>
 
+        <div class="lookBookMain">
+          <div class="bookLabel1">1</div>
+          <div class="bookLabel1">
+            <div>C1</div>
+            <div>C2</div>
+          </div>
+        </div>
+
     </ion-content>
     <!-- End page content -->
   </ion-page>
