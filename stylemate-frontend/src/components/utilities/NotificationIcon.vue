@@ -1,8 +1,10 @@
 <template>
+<router-link to="/notification">
   <div class="notification">
     <i class="icon-notification"></i>
     <span class="badge">{{ notificationCount }}</span>
   </div>
+  </router-link>
 </template>
 
 <script>

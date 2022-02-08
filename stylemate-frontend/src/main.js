@@ -27,6 +27,13 @@ import './theme/variables.css';
 import './styles/css/main.css';
 import './styles/scss/style.scss';
 
+axios.defaults.baseURL = 'https://elsa.beta.mediance.co.kr';
+// axios.defaults.headers = {
+//     // source: 'dvcon',
+//     // apiKey: 'coN21di1202VII01Ed0OnNiMDa2P3p0M',
+//     token: localStorage.getItem('token'),
+// };
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router) 

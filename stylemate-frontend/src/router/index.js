@@ -83,7 +83,7 @@ const routes = [
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
     meta: [
-      
+
     ]
   },
   {
