@@ -5,21 +5,20 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <!-- <ExploreContainer name="Item page" /> -->
-      
-      <CardItem />
+      <h1>Notifications</h1>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage,  IonContent,} from '@ionic/vue';
+import { IonPage, IonContent, } from '@ionic/vue';
 import TopNav from '@/components/TopNav.vue';
-import CardItem from '@/components/CardItem.vue';
-
-export default  {
-  name: 'Item',
-  components: { TopNav,  IonContent, IonPage, CardItem}
+export default {
+  name: 'Notifications',
+  components: { TopNav, IonContent, IonPage }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

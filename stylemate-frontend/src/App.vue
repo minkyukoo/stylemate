@@ -1,7 +1,11 @@
 <template>
   <ion-app>
     <ion-router-outlet />
-    <router-view/>
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </ion-app>
 </template>
 
@@ -20,6 +24,6 @@ export default defineComponent({
 
 <style lang="scss">
 .ion-page {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 </style>

@@ -121,7 +121,7 @@ export default {
       .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
       .then((response) => {
         this.brand_info = response.data.data;
-        console.log("aaa", response);
+        console.log("aaa", response.data);
       });
   },
 };
