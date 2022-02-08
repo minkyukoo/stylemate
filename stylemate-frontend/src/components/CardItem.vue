@@ -1,6 +1,6 @@
 <template>
   <div class="item-scroller-nav">
-    <ion-slides pager="true" :options="slideOpts">
+    <!-- <ion-slides pager="true" :options="slideOpts">
       <ion-slide>
         <ul>
           <li v-for="slide in slides" :key="slide">
@@ -8,9 +8,23 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
+    <ion-segment scrollable value="heart">
+      <!-- <ion-segment-button v-for="slide in slides" :key="slide" value="{{slide.value}}">
+        <p name="{{slide.name}}">{{ slide.title }}</p>
+      </ion-segment-button> -->
+      <ion-segment-button value="home">
+        <p>dadsad</p>
+      </ion-segment-button>
+      <ion-segment-button value="heart">
+        <p>bvc</p>
+      </ion-segment-button>
+      <ion-segment-button value="pin">
+        <p>tryrtyrty</p>
+      </ion-segment-button>
+    </ion-segment>
   </div>
-  
+
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
       <div class="item-wrapper">
@@ -25,10 +39,16 @@
             </ion-item>
           </div>
           <div class="right-section">
-            <button @click="layout = 'list'" :class="{ active: layout === 'grid'}">
+            <button
+              @click="layout = 'list'"
+              :class="{ active: layout === 'grid' }"
+            >
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button @click="layout = 'grid'" :class="{ active: layout === 'list'}">
+            <button
+              @click="layout = 'grid'"
+              :class="{ active: layout === 'list' }"
+            >
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -99,8 +119,8 @@
 
 <script>
 import {
-  IonSlides,
-  IonSlide,
+  IonSegment,
+  IonSegmentButton,
   IonItem,
   IonSelect,
   IonSelectOption,
@@ -112,8 +132,8 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "CardItem",
   components: {
-    IonSlides,
-    IonSlide,
+    IonSegment,
+    IonSegmentButton,
     IonItem,
     IonSelect,
     IonSelectOption,
@@ -139,13 +159,36 @@ export default defineComponent({
   data() {
     return {
       slides: [
-        { title: "전체" },
-        { title: "상의" },
-        { title: "아우터" },
-        { title: "바지" },
-        { title: "원피스" },
-        { title: "스커트" },
-        { title: "전체" },
+        {
+          title: "전체",
+          value: "all",
+          name: "all",
+        },
+        {
+          title: "상의",
+          value: "top",
+          name: "top",
+        },
+        {
+          title: "아우터",
+          value: "outer",
+          name: "outer",
+        },
+        {
+          title: "바지",
+          value: "pants",
+          name: "pants",
+        },
+        {
+          title: "원피스",
+          value: "onepiece",
+          name: "onepiece",
+        },
+        {
+          title: "스커트",
+          value: "skirt",
+          name: "skirt",
+        },
       ],
       products: [
         {
@@ -237,7 +280,7 @@ export default defineComponent({
           ],
         },
       ],
-      layout: 'grid',
+      layout: "grid",
     };
   },
 });
@@ -308,7 +351,7 @@ export default defineComponent({
   line-height: 12px;
   color: #c4c4c4;
 }
-.swiper-pagination.swiper-pagination-bullets{
+.swiper-pagination.swiper-pagination-bullets {
   display: none !important;
 }
 .swiper-container-horizontal > .swiper-pagination-bullets {
@@ -352,16 +395,16 @@ export default defineComponent({
 .grid-view .top-float-div img {
   cursor: pointer;
 }
-.list-view .product-list-item{
+.list-view .product-list-item {
   display: flex;
   align-items: center;
   margin-top: 12px;
   width: 100%;
 }
-.list-view .product-list-item:first-child{
+.list-view .product-list-item:first-child {
   margin-top: 0;
 }
-.list-view .product-list-item figure{
+.list-view .product-list-item figure {
   position: relative;
   width: 120px;
   height: 120px;
@@ -371,26 +414,26 @@ export default defineComponent({
   top: 0;
   padding: 7px;
 }
-.list-view .product-list-item .social-icon img{
+.list-view .product-list-item .social-icon img {
   cursor: pointer;
 }
-.desc-box{
+.desc-box {
   padding-left: 12px;
   text-align: left;
-  width: calc( 100% - 120px);
+  width: calc(100% - 120px);
 }
-.desc-box .text-box{
+.desc-box .text-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.item-wrapper .list-view .product-list-item h3{
+.item-wrapper .list-view .product-list-item h3 {
   margin-bottom: 16px;
 }
-.right-section button{
+.right-section button {
   display: none;
 }
-.right-section button.active{
+.right-section button.active {
   display: block;
 }
 </style>
