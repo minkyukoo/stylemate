@@ -16,7 +16,27 @@ body {
   padding: 0;
   height: 100%;
 }
+
+.headerLine{
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px 0 20px 0;
+  h4{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 150%;
+    color: $black-1;
+  }
+  span{
+    cursor: pointer;
+  }
+}
+
 .mainslide{
+  position: relative;
+  z-index: 1;
   ion-slide{
     position: relative;
     .bannerCont{
@@ -30,21 +50,37 @@ body {
       width: 100%;
     }
   }
+  .swiper-pagination-bullets{
+    bottom: 60px;
+  }
+}
+
+.swiper-pagination-bullet{
+  opacity: 1;
+}
+.swiper-pagination-bullet-active{
+  background: $black-1;
 }
 .overlapSlide{
-  margin-top: -20px;
-  position: relative;
-  z-index: 1;
+  position: relative; 
+  z-index: 2; 
+  border-radius: 10px; 
+  top: -20px; 
+  background: rgb(222,222,222); 
+  background: linear-gradient(180deg, rgba(222,222,222,1) 0%, rgba(255,255,255,1) 15%);
+  .headerLine{
+    margin: 0;
+    padding: 60px 20px 20px 20px;
+  }
 }
+
 .multiSlideWrap{
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   border-radius: 15px;
-  padding: 45px 20px;
-  background: rgb(241,241,241);
-  background: linear-gradient(180deg, rgba(241,241,241,1) 0%, rgba(255,255,255,1) 15%);
+  padding: 0 20px 45px;
   .slideItem{
     width: 49%;
     border-radius: 5px;
@@ -83,7 +119,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 5px 20px;
   .bookLabel1{
     display: flex;
     align-items: center;
@@ -94,6 +130,14 @@ body {
     }
     div:first-child{
       margin-bottom: 20px;
+    }
+  }
+  .bookLabel2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div{
+      width: 32%;
     }
   }
   .pattern1{
