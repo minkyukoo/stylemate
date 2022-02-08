@@ -20,11 +20,12 @@
 <script>
 import { IonContent, IonButton, modalController } from "@ionic/vue";
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "ContentDetails",
   props: {
-    title: { type: String, default: "Super Modal" },
+    title: { type: String, default: "Super Modal", title: String },
   },
   data() {
     return {
@@ -51,6 +52,20 @@ export default defineComponent({
     };
   },
   components: { IonContent, IonButton },
+     mounted() {
+    axios
+      .get("https://elsa.beta.mediance.co.kr/stylemates/contents/6")
+      .then((response) => {
+        this.new_contents = response.data.data;
+        console.log("contentdetaisl", response);
+      })
+      .catch((e) => {
+        this.error.push(e);
+      });
+  },
+  created: function() {
+		console.log('this.title', this.title);
+	},
   methods: {
     closeModal() {
       modalController.dismiss({ closebutton: true });

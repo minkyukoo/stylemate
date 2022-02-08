@@ -37,10 +37,10 @@
             sizeLg="4"
             sizeMd="4"
             sizeXs="6"
-            v-for="image in img_new"
+            v-for="image in new_contents"
             :key="image"
           >
-            <img :src="image.srci" v-bind:alt="img" @click="openModal" />
+            <img :src="image.campaign.imageThumbnailPath " v-bind:alt="img" @click="openModal(image.campaign.imageMainPath, image.campaign.brandId)" />
           </ion-col>
         </ion-row>
       </div>
@@ -60,11 +60,13 @@ import {
 //import ExploreContainer from "@/components/ExploreContainer.vue";
 //import TopNav from "@/components/TopNav.vue";
 import ContentDetails from "@/components/ContentDetails.vue";
+import axios from "axios";
 export default {
   name: "ContentPage",
   components: { IonContent, IonCol, IonGrid, IonRow },
   data() {
     return {
+    new_contents:[],
       img: [
         { src: "https://source.unsplash.com/random/800x400?i=1" },
         { src: "https://source.unsplash.com/random/800x400?i=1" },
@@ -103,10 +105,27 @@ export default {
       ],
     };
   },
+    mounted() {
+    axios
+      .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
+      .then((response) => {
+        this.new_contents = response.data.data;
+        console.log("content", response);
+      })
+      .catch((e) => {
+        this.error.push(e);
+      });
+  },
   methods: {
     async openModal() {
       const modal = await modalController.create({
         component: ContentDetails,
+        componentProps: {
+					propsData: {
+						title: 'String to pass!',
+					},
+         
+				},
       });
       return modal.present();
     },
