@@ -65,8 +65,6 @@
 
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
-// import ExploreContainer from "@/components/ExploreContainer.vue";
-// import Tab1List from "@/components/Tab1List.vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
 //import axios from 'axios';
@@ -84,23 +82,11 @@ export default {
     console.log(token);
   },
   setup() {
-    // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
     const slideOpts = {
       initialSlide: 1,
       speed: 400
     }; 
     return { slideOpts }
-
-    // const onSwiper = (swiper) => {
-    //     console.log(swiper);
-    //   };
-    //   const onSlideChange = () => {
-    //     console.log('slide change');
-    //   };
-    //   return {
-    //     onSwiper,
-    //     onSlideChange,
-    //   };
   }
 };
 </script>

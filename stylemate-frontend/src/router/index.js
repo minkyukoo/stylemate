@@ -79,6 +79,14 @@ const routes = [
     ],
   },
   {
+    path:"/notification",
+    name: "Notifications",
+    component: () => import("@/views/pages/Notifications.vue"),
+    meta: [
+
+    ]
+  },
+  {
     path: "/brand-details",
     name: "BrandDetails",
     component: () => import("@/views/pages/BrandDetails.vue"),

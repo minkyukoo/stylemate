@@ -3,6 +3,7 @@
 @import "./Variables";
 @import "./mixins";
 @import "./icons";
+@import "./spacing";
 
 * {
   box-sizing: border-box;
@@ -39,3 +40,8 @@ body {
     width: 49%;
   }
 }
+
+.inner-container {
+ padding: 0 20px;
+}
+
