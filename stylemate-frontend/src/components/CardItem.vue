@@ -4,15 +4,13 @@
       <ion-slide>
         <ul>
           <li v-for="slide in slides" :key="slide">
-            <a>{{ slide.title }}</a>
+            <a href="#">{{ slide.title }}</a>
           </li>
         </ul>
       </ion-slide>
     </ion-slides>
   </div>
-  <div class="product-main-banner">
-    <img src="@/assets/images/product-banner.jpg" />
-  </div>
+  
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
       <div class="item-wrapper">
@@ -26,9 +24,16 @@
               </ion-select>
             </ion-item>
           </div>
-          <div class="right-section">abc</div>
+          <div class="right-section">
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid'}">
+              <img src="@/assets/icons/list-view.svg" />
+            </button>
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list'}">
+              <img src="@/assets/icons/grid-view.svg" />
+            </button>
+          </div>
         </div>
-        <ul class="product-list grid-view" style="display: none">
+        <ul v-if="layout === 'grid'" class="product-list grid-view">
           <li
             v-for="(product, index) in products"
             :key="index"
@@ -56,7 +61,7 @@
           </li>
         </ul>
 
-        <ul class="product-list list-view">
+        <ul v-if="layout === 'list'" class="product-list list-view">
           <li
             v-for="(product, index) in products"
             :key="index"
@@ -232,6 +237,7 @@ export default defineComponent({
           ],
         },
       ],
+      layout: 'grid',
     };
   },
 });
@@ -247,16 +253,7 @@ export default defineComponent({
   padding-inline-start: 0 !important;
   padding-left: 0;
 }
-.product-main-banner {
-  position: fixed;
-  top: 105px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.product-main-banner img {
-  width: 100%;
-}
+
 .item-wrapper {
   padding: 20px 20px 60px;
   border-top-left-radius: 20px;
@@ -311,7 +308,10 @@ export default defineComponent({
   line-height: 12px;
   color: #c4c4c4;
 }
-.swiper-pagination {
+.swiper-pagination.swiper-pagination-bullets{
+  display: none !important;
+}
+.swiper-container-horizontal > .swiper-pagination-bullets {
   display: none !important;
 }
 .item-scroller-nav {
@@ -386,5 +386,11 @@ export default defineComponent({
 }
 .item-wrapper .list-view .product-list-item h3{
   margin-bottom: 16px;
+}
+.right-section button{
+  display: none;
+}
+.right-section button.active{
+  display: block;
 }
 </style>
