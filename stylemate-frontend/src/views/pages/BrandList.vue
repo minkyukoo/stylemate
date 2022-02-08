@@ -19,16 +19,15 @@
             <ion-card-title>
               {{ info.korName }}
               <ion-icon :icon="heart" />
-
               <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
             </ion-card-title>
           </ion-card-header>
           <ion-card-content class="maincontent">
             {{ info.description }}</ion-card-content
           >
-          <!-- <ion-card-content
-            class="subcontent" v-if="info.tag"
-          > {{ data.hashconent }}</ion-card-content> -->
+          <ion-card-content
+            class="subcontent" v-for="tagdata in info.tag" :key="tagdata" 
+          > # {{ tagdata.tag }}</ion-card-content>
         </ion-card>
       </div>
     </ion-content>
@@ -52,68 +51,9 @@ export default {
   },
   data() {
     return {
-      brand_info: null,
-      datas: [
-        {
-          id: 12,
-          createdAt: "2022-02-03T18:30:18.000+09:00",
-          updatedAt: "2022-02-03T18:33:14.000+09:00",
-          deletedAt: null,
-          status: "active",
-          korName: "테스트",
-          engName: null,
-          isDisplay: true,
-          description: "<p>123</p>",
-          imageThumbnailPath:
-            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880610289_20220203063010.jpeg",
-          imageMainPath:
-            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880616414_20220203063016.jpg",
-          tag: [],
-          isInfluenceLike: false,
-        },
-
-        {
-          id: 13,
-          createdAt: "2022-02-03T18:30:18.000+09:00",
-          updatedAt: "2022-02-03T18:33:14.000+09:00",
-          deletedAt: null,
-          status: "active",
-          korName: "테스트",
-          engName: null,
-          isDisplay: true,
-          description: "<p>123</p>",
-          imageThumbnailPath:
-            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880610289_20220203063010.jpeg",
-          imageMainPath:
-            "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/c/12/1643880616414_20220203063016.jpg",
-          tag: [],
-          isInfluenceLike: false,
-        },
-        {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama",
-          maincontent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashconent:
-            "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
-        },
-        {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama Garden value",
-          maincontent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashconent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
-        },
-        {
-          src: "https://source.unsplash.com/random/800x400?i=1",
-          title: "Hotel Panama Garden amet",
-          maincontent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-          hashconent:
-            "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
-        },
-      ],
+      brand_info:[],
+      error:[],
+      hashcontent:[]
     };
   },
   mounted() {
@@ -121,8 +61,8 @@ export default {
       .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
       .then((response) => {
         this.brand_info = response.data.data;
-        console.log("aaa", response.data);
-      });
+        console.log("aaa",response);
+      })
   },
 };
 </script>
