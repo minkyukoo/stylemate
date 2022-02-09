@@ -171,57 +171,56 @@
             </div>
           </ion-slide>
         </ion-slides>
+      
+        <div class="headerLine">
+          <h4>LOOKBOOK</h4>
+          <span><img src="@/assets/icons/arrow-right.svg"></span>
+        </div>
+        <div class="lookBookMain">
+          <div class="bookLabel1 pattern1">
+            <img src="@/assets/images/book1.png">
+          </div>
+          <div class="bookLabel1 pattern2">
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="lookBookMain">
+          <div class="bookLabel2">
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="lookBookMain">
+          <div class="bookLabel1 pattern2">
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+            <div>
+              <img src="@/assets/images/Rectanglec1.png">
+            </div>
+          </div>
+          <div class="bookLabel1 pattern1">
+            <img src="@/assets/images/book1.png">
+          </div>
+        </div>
+        <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
+        <button class="greyBtnFull"><span>중요</span> [알림] 서비스 점검 안내</button>
       </div>
       
-
-      <div class="headerLine">
-        <h4>LOOKBOOK</h4>
-        <span><img src="@/assets/icons/arrow-right.svg"></span>
-      </div>
-      <div class="lookBookMain">
-        <div class="bookLabel1 pattern1">
-          <img src="@/assets/images/book1.png">
-        </div>
-        <div class="bookLabel1 pattern2">
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-        </div>
-      </div>
-
-      <div class="lookBookMain">
-        <div class="bookLabel2">
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-        </div>
-      </div>
-
-      <div class="lookBookMain">
-        <div class="bookLabel1 pattern2">
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-          <div>
-            <img src="@/assets/images/Rectanglec1.png">
-          </div>
-        </div>
-        <div class="bookLabel1 pattern1">
-          <img src="@/assets/images/book1.png">
-        </div>
-      </div>
-      
-      <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
-      <button class="greyBtnFull"><span>중요</span> [알림] 서비스 점검 안내</button>
 
     </ion-content>
     <!-- End page content -->
