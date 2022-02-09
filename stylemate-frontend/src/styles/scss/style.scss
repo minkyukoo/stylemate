@@ -18,14 +18,101 @@ body {
   height: 100%;
 }
 
-.multiSlideWrap {
-  // background: $purple-1;
+.headerLine{
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px 0 20px 0;
+  h4{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 150%;
+    color: $black-1;
+  }
+  span{
+    cursor: pointer;
+  }
+}
+
+.mainslide{
+  position: relative;
+  z-index: 1;
+  ion-slide{
+    position: relative;
+    .bannerCont{
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      text-align: center;
+    }  
+    img{
+      width: 100%;
+    }
+  }
+  .swiper-pagination-bullets{
+    bottom: 60px;
+  }
+}
+
+.swiper-pagination-bullet{
+  opacity: 1;
+}
+.swiper-pagination-bullet-active{
+  background: $black-1;
+}
+.overlapSlide{
+  position: relative; 
+  z-index: 2; 
+  border-radius: 10px; 
+  top: -20px; 
+  background: rgb(222,222,222); 
+  background: linear-gradient(180deg, rgba(222,222,222,1) 0%, rgba(255,255,255,1) 15%);
+  .headerLine{
+    margin: 0;
+    padding: 60px 20px 20px 20px;
+  }
+}
+
+.multiSlideWrap{
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  div {
+  border-radius: 15px;
+  padding: 0 20px 45px;
+  .slideItem{
     width: 49%;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: justify;
+    margin-bottom: 24px;
+    img{
+      width: 100%;
+    }
+    h4{
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 150%;
+      margin-bottom: 5px;
+      color: $black-2;
+      margin-top: 12px;
+    }
+    p{
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 150%;
+      margin-bottom: 5px;
+      color: $black-2;
+    }
+    span{
+      display: block;
+      color: $grey-1;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 150%;
+    }
   }
 }
 
@@ -33,11 +120,32 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .bookLabel1 {
+  padding: 5px 20px;
+  .bookLabel1{
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     width: 49%;
+    img{
+      width: 100%;
+    }
+    div:first-child{
+      margin-bottom: 20px;
+    }
+  }
+  .bookLabel2{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div{
+      width: 32%;
+    }
+  }
+  .pattern1{
+    width: 67%;
+  }
+  .pattern2{
+    width: 31%;
   }
 }
 

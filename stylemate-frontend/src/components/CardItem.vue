@@ -1,6 +1,6 @@
 <template>
   <div class="item-scroller-nav">
-    <!-- <ion-slides pager="true" :options="slideOpts">
+    <ion-slides :options="slideOpts">
       <ion-slide>
         <ul>
           <li v-for="slide in slides" :key="slide">
@@ -8,21 +8,7 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides> -->
-    <ion-segment scrollable value="heart">
-      <!-- <ion-segment-button v-for="slide in slides" :key="slide" value="{{slide.value}}">
-        <p name="{{slide.name}}">{{ slide.title }}</p>
-      </ion-segment-button> -->
-      <ion-segment-button value="home">
-        <p>dadsad</p>
-      </ion-segment-button>
-      <ion-segment-button value="heart">
-        <p>bvc</p>
-      </ion-segment-button>
-      <ion-segment-button value="pin">
-        <p>tryrtyrty</p>
-      </ion-segment-button>
-    </ion-segment>
+    </ion-slides>
   </div>
 
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
@@ -119,8 +105,8 @@
 
 <script>
 import {
-  IonSegment,
-  IonSegmentButton,
+  // IonSegment,
+  // IonSegmentButton,
   IonItem,
   IonSelect,
   IonSelectOption,
@@ -132,8 +118,8 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "CardItem",
   components: {
-    IonSegment,
-    IonSegmentButton,
+    // IonSegment,
+    // IonSegmentButton,
     IonItem,
     IonSelect,
     IonSelectOption,
