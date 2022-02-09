@@ -74,7 +74,8 @@ export default {
           name: "skirt",
         }
       ],
-      childCategory: false,
+      childCategoryArray: [],
+      childCategory: false
     };
   },
 
