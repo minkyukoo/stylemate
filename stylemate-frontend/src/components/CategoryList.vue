@@ -17,7 +17,7 @@
     <ion-slides :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="slide in slides" :key="slide">
+          <li v-for="slide in childCategoryArray" :key="slide">
             <a @click="handleClick(slide, index)">{{ slide.title }}</a>
             <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
                 <li>
@@ -83,6 +83,7 @@ export default {
           name: "skirt",
         },
       ],
+      childCategoryArray: [],
       childCategory: false
     };
   },
@@ -94,13 +95,17 @@ export default {
     // }
     handleClick(a) {
       // console.log(a, a["Proxy"], b);
-      if(typeof a !== 'undefined') {
-        console.log(a);
-      } 
+
+      console.log(a);
 
 
 
       if(typeof a !== 'undefined') {
+        var arr = Object.keys(a)
+        
+        console.log(arr);
+        this.childCategoryArray.push(arr);
+        console.log(this.childCategoryArray);
         this.childCategory = true;
         this.onClickButton(false);
       } else {

@@ -281,8 +281,10 @@ export default defineComponent({
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
-  background: #ffffff;
+  /* background-color: #ffffff; */
   transition: all 0.5s ease-in-out;
+  background-image: linear-gradient(148.66deg, rgba(241, 241, 241, 0.5) 18.92%, rgba(255, 255, 255, 0.1) 80.41%);
+  backdrop-filter: blur(30px);
 }
 .item-wrapper.withoutbanner {
   top: 70px;
