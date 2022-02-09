@@ -1,40 +1,31 @@
 <template>
-  <ion-page>
-    <!-- header -->
-    <TopNav></TopNav>
-    <!-- End header -->
-    <!-- page content -->
-    <ion-content :fullscreen="true">
-      <div class="inner-container">
-        <div class="main">
-          <div
-            class="maincard"
-            v-for="info in brand_info"
-            :key="info"
-            @click="$router.push({ name: 'BrandDetails' })"
-          >
-            <figure class="img-wrap">
-              <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
-            </figure>
-            <ion-card-header>
-              <ion-card-title>
-                {{ info.korName }}
-                <ion-icon :icon="heart" />
-                <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
-            <ion-card-content
-              class="subcontent"
-              v-for="tagdata in info.tag"
-              :key="tagdata"
-            ># {{ tagdata.tag }}</ion-card-content>
-          </div>
-        </div>
+  <div class="inner-container">
+    <div class="main">
+      <div
+        class="maincard"
+        v-for="info in brand_info"
+        :key="info"
+        @click="$router.push({ name: 'BrandDetails' })"
+      >
+        <figure class="img-wrap">
+          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
+        </figure>
+        <ion-card-header>
+          <ion-card-title>
+            {{ info.korName }}
+            <ion-icon :icon="heart" />
+            <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
+        <ion-card-content
+          class="subcontent"
+          v-for="tagdata in info.tag"
+          :key="tagdata"
+        ># {{ tagdata.tag }}</ion-card-content>
       </div>
-    </ion-content>
-    <!-- End page content -->
-  </ion-page>
+    </div>
+  </div>
 </template>
 <script>
 import {
