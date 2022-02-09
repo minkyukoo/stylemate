@@ -2,9 +2,14 @@
   <div class="item-scroller-nav">
     <ion-slides :options="slideOpts">
       <ion-slide>
-        <ul>
+        <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a href="#">{{ slide.title }}</a>
+            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
+            <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
+                <li>
+                    <a href="#">{{child.title}}</a>
+                </li>
+            </ul> -->
           </li>
         </ul>
       </ion-slide>
@@ -37,6 +42,9 @@ export default {
           title: "상의",
           value: "top",
           name: "top",
+          child: [
+                { title: "top 1" }, { title: "top 2" }, { title: "top 3" }
+          ],
         },
         {
           title: "아우터",
@@ -61,6 +69,16 @@ export default {
       ],
     };
   },
+
+  methods: {
+        // toggleMenu(slide){
+        //     console.log(slide)
+            
+        // }
+        // handleClick: function(a, b){
+        //     this.
+        // }
+      },
 };
 </script>
 
@@ -85,10 +103,12 @@ export default {
   font-size: 14px;
   line-height: 18px;
   color: #797979;
+  cursor: pointer;
 }
 .item-scroller-nav ul li a.active {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
 }
+
 </style>
