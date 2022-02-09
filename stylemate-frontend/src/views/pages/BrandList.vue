@@ -1,60 +1,52 @@
 <template>
-  <ion-page>
-    <!-- header -->
-    <TopNav></TopNav>
-    <!-- End header -->
-    <!-- page content -->
-    <ion-content :fullscreen="true">
-      <div class="main">
-        <ion-card
-          class="maincard"
-          v-for="info in brand_info"
-          :key="info"
-          @click="$router.push({ name: 'BrandDetails' })"
-        >
-          <ion-item>
-            <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
-          </ion-item>
-          <ion-card-header>
-            <ion-card-title>
-              {{ info.korName }}
-              <ion-icon :icon="heart" />
-              <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content class="maincontent">
-            {{ info.description }}</ion-card-content
-          >
-          <ion-card-content
-            class="subcontent" v-for="tagdata in info.tag" :key="tagdata" 
-          > # {{ tagdata.tag }}</ion-card-content>
-        </ion-card>
+  <div class="inner-container">
+    <div class="main">
+      <div
+        class="maincard"
+        v-for="info in brand_info"
+        :key="info"
+        @click="$router.push({ name: 'BrandDetails' })"
+      >
+        <figure class="img-wrap">
+          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
+        </figure>
+        <ion-card-header>
+          <ion-card-title>
+            {{ info.korName }}
+            <ion-icon :icon="heart" />
+            <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
+        <ion-card-content
+          class="subcontent"
+          v-for="tagdata in info.tag"
+          :key="tagdata"
+        ># {{ tagdata.tag }}</ion-card-content>
       </div>
-    </ion-content>
-    <!-- End page content -->
-  </ion-page>
+    </div>
+  </div>
 </template>
 <script>
 import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonItem,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 // import axios from "axios";
 import BrandService from '@/services/BrandService';
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle, IonItem },
+  components: { IonCardContent, IonCardHeader, IonCardTitle },
   setup() {
     return { heart };
   },
   data() {
     return {
-      brand_info:[],
-      error:[],
-      hashcontent:[]
+      brand_info: [],
+      error: [],
+      hashcontent: []
     };
   },
   created() {
@@ -79,8 +71,8 @@ export default {
   color: #25282b;
 }
 .miancard {
-  width: 0px;
-  height: 150px;
+  width: 100%;
+  min-height: 150px;
   background-color: #eee;
   display: flex;
   align-items: center;
@@ -90,14 +82,21 @@ export default {
   cursor: pointer;
 }
 .main {
-  width: fit-content;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
-  padding: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.img-wrap {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #c4c4c4;
 }
 .imgsec {
   width: 100%;
+  object-fit: cover;
 }
 img:hover {
   background-color: rgb(36, 29, 29);
