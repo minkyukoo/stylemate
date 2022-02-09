@@ -5,11 +5,6 @@
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
             <a @click="handleClick(slide.child)">{{ slide.title }}</a>
-            <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
-                <li>
-                    <a href="#">{{child.title}}</a>
-                </li>
-            </ul>-->
           </li>
         </ul>
       </ion-slide>
@@ -17,13 +12,8 @@
     <ion-slides :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
-            <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
-                <li>
-                    <a href="#">{{child.title}}</a>
-                </li>
-            </ul>-->
+          <li v-for="child in slides.child" :key="child">
+            <a @click="handleClick(slide, index)">{{ child.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -60,7 +50,7 @@ export default {
           title: "상의",
           value: "top",
           name: "top",
-          child: [{ title: "top 1" }, { title: "top 2" }, { title: "top 3" }],
+          child: [{ name: "top 1" }, { name: "top 2" }, { name: "top 3" }],
         },
         {
           title: "아우터",
@@ -76,31 +66,26 @@ export default {
           title: "원피스",
           value: "onepiece",
           name: "onepiece",
+          child: [{ name: "onepiece 1" }, { name: "onepiece 2" }, { name: "onepiece 3" }],
         },
         {
           title: "스커트",
           value: "skirt",
           name: "skirt",
-        },
+        }
       ],
-      childCategory: false
+      childCategory: false,
     };
   },
 
   methods: {
-    // toggleMenu(slide){
-    //     console.log(slide)
-
-    // }
     handleClick(a) {
-      // console.log(a, a["Proxy"], b);
-      if(typeof a !== 'undefined') {
+    //   console.log(this.slides);
+      if (typeof a !== "undefined") {
         console.log(a);
-      } 
+      }
 
-
-
-      if(typeof a !== 'undefined') {
+      if (typeof a !== "undefined") {
         this.childCategory = true;
         this.onClickButton(false);
       } else {
@@ -111,8 +96,8 @@ export default {
 
     onClickButton(ve) {
       // this.$emit('clicked', false)
-      this.$emit('clicked', ve)
-    }
+      this.$emit("clicked", ve);
+    },
   },
 };
 </script>

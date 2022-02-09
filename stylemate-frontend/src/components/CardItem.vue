@@ -136,38 +136,6 @@ export default defineComponent({
 
   data() {
     return {
-      slides: [
-        {
-          title: "전체",
-          value: "all",
-          name: "all",
-        },
-        {
-          title: "상의",
-          value: "top",
-          name: "top",
-        },
-        {
-          title: "아우터",
-          value: "outer",
-          name: "outer",
-        },
-        {
-          title: "바지",
-          value: "pants",
-          name: "pants",
-        },
-        {
-          title: "원피스",
-          value: "onepiece",
-          name: "onepiece",
-        },
-        {
-          title: "스커트",
-          value: "skirt",
-          name: "skirt",
-        },
-      ],
       products: [
         {
           title: "Areuban",
@@ -281,8 +249,10 @@ export default defineComponent({
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
-  background: #ffffff;
+  background-image: linear-gradient(148.66deg, rgba(241, 241, 241, 0.5) 18.92%, rgba(255, 255, 255, 0.1) 80.41%);
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
+  backdrop-filter: blur(30px);
 }
 .item-wrapper.withoutbanner {
   top: 70px;
