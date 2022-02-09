@@ -1,7 +1,8 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
-      <div class="item-wrapper">
+      {{isBanner}}
+      <div :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
@@ -105,6 +106,9 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardItem",
+  props:{
+    isBanner: Boolean,
+  },
   components: {
     // IonSegment,
     // IonSegmentButton,
@@ -278,6 +282,11 @@ export default defineComponent({
   position: relative;
   top: 180px;
   background: #ffffff;
+  transition: all 0.5s ease-in-out;
+}
+.item-wrapper.withoutbanner {
+  top: 70px;
+  transition: all 0.5s ease-in-out;
 }
 .item-wrapper .product-list {
   display: flex;

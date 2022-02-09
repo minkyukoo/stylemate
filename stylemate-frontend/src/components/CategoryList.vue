@@ -4,12 +4,12 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a>{{ slide.title }}</a>
+            <a @click="handleClick(slide.child)">{{ slide.title }}</a>
             <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
                 <li>
                     <a href="#">{{child.title}}</a>
                 </li>
-            </ul> -->
+            </ul>-->
           </li>
         </ul>
       </ion-slide>
@@ -18,7 +18,12 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a>{{ slide.title }}</a>
+            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
+            <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
+                <li>
+                    <a href="#">{{child.title}}</a>
+                </li>
+            </ul>-->
           </li>
         </ul>
       </ion-slide>
@@ -78,12 +83,36 @@ export default {
           name: "skirt",
         },
       ],
-      childCategory: true,
+      childCategory: false
     };
   },
 
   methods: {
-    //
+    // toggleMenu(slide){
+    //     console.log(slide)
+
+    // }
+    handleClick(a) {
+      // console.log(a, a["Proxy"], b);
+      if(typeof a !== 'undefined') {
+        console.log(a);
+      } 
+
+
+
+      if(typeof a !== 'undefined') {
+        this.childCategory = true;
+        this.onClickButton(false);
+      } else {
+        this.childCategory = false;
+        this.onClickButton(true);
+      }
+    },
+
+    onClickButton(ve) {
+      // this.$emit('clicked', false)
+      this.$emit('clicked', ve)
+    }
   },
 };
 </script>
