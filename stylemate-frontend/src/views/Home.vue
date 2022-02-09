@@ -40,53 +40,41 @@
         <ion-slides pager="true" :options="multiSlideOpts">
           <ion-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">
+              <div class="slideItem">      
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>       
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </ion-slide>
-          <ion-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
@@ -97,24 +85,84 @@
           <ion-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
+                <img src="@/assets/images/main-item1.jpg">
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="multiSlideWrap">
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
+                <img src="@/assets/images/main-item1.jpg">
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
+                <img src="@/assets/images/main-item1.jpg">
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
+                <img src="@/assets/images/main-item1.jpg">
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta">
+                  <img src="@/assets/icons/wish.svg" class="wishList">
+                </div>
                 <img src="@/assets/images/main-item1.jpg">
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
@@ -172,6 +220,9 @@
         </div>
       </div>
       
+      <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
+      <button class="greyBtnFull"><span>중요</span> [알림] 서비스 점검 안내</button>
+
     </ion-content>
     <!-- End page content -->
   </ion-page>
