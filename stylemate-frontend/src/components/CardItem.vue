@@ -1,16 +1,4 @@
 <template>
-  <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
-      <ion-slide>
-        <ul>
-          <li v-for="slide in slides" :key="slide">
-            <a href="#">{{ slide.title }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
       <div class="item-wrapper">
@@ -342,32 +330,6 @@ export default defineComponent({
 }
 .swiper-container-horizontal > .swiper-pagination-bullets {
   display: none !important;
-}
-.item-scroller-nav {
-  position: fixed;
-  background: #ffffff;
-  top: 61px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.item-scroller-nav ul {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-.item-scroller-nav ul li a {
-  padding: 13px 0;
-  display: block;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 18px;
-  color: #797979;
-}
-.item-scroller-nav ul li a.active {
-  border-bottom: solid 2px #090909;
-  font-weight: bold;
-  color: #090909;
 }
 .grid-view .top-float-div {
   width: 100%;

@@ -35,6 +35,16 @@ body {
   }
 }
 
+.mt-5{
+  margin-top: 50px;
+}
+
+.mt-6{
+  margin-top: 60px !important;
+}
+
+/* main  css start */
+
 .mainslide{
   position: relative;
   z-index: 1;
@@ -83,6 +93,7 @@ body {
   border-radius: 15px;
   padding: 0 20px 45px;
   .slideItem{
+    position: relative;
     width: 49%;
     border-radius: 5px;
     overflow: hidden;
@@ -112,6 +123,27 @@ body {
       font-size: 14px;
       font-weight: 400;
       line-height: 150%;
+    }
+    .socialBLock{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      .insta{
+        width: 25px;
+        position: relative;
+        left: 15px;
+        top: 15px;
+      }
+      .wishList{
+        width: 20px;
+        position: relative;
+        right: 15px;
+        top: 15px;
+      }
     }
   }
 }
@@ -165,4 +197,39 @@ body {
 
 .inner-scroll::-webkit-scrollbar-thumb {
   background-color: #6d02f0 !important;
+}
+
+
+/* buttons style */
+
+.outlineBtnFull{
+  padding: 21px 0;
+  border: 1px solid $grey-1;
+  font-size: 14px;
+  font-weight: 400;
+  color: $grey-3;
+  line-height: 150%;
+  background: none;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0 20px;
+  width: calc(100% - 40px);
+}
+.greyBtnFull{
+  padding: 21px 0;
+  font-weight: 400;
+  font-size: 14px;
+  color: $black-2;
+  line-height: 150%;
+  background: $white-3;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  margin: 0 20px;
+  width: calc(100% - 40px);
+  margin-top: 8px;
+  span{
+    color: $purple-1;
+  }
 }
