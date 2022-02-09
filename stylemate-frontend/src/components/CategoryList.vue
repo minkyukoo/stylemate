@@ -4,7 +4,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
+            <a>{{ slide.title }}</a>
             <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
                 <li>
                     <a href="#">{{child.title}}</a>
@@ -18,12 +18,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
-            <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
-                <li>
-                    <a href="#">{{child.title}}</a>
-                </li>
-            </ul> -->
+            <a>{{ slide.title }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -31,8 +26,8 @@
   </div>
 
   <div class="product-main-banner" v-if="!childCategory">
-        <img src="@/assets/images/product-banner.jpg" />
-    </div>
+    <img src="@/assets/images/product-banner.jpg" />
+  </div>
 </template>
 
 <script>
@@ -83,18 +78,12 @@ export default {
           name: "skirt",
         },
       ],
-      childCategory: true
+      childCategory: true,
     };
   },
 
   methods: {
-    // toggleMenu(slide){
-    //     console.log(slide)
-
-    // }
-    handleClick: function (a, b) {
-      console.log(a, a["Proxy"], b);
-    },
+    //
   },
 };
 </script>
