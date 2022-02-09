@@ -4,12 +4,12 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide, index)">{{ slide.title }}</a>
+            <a @click="handleClick(slide.child)">{{ slide.title }}</a>
             <!-- <ul class="sub-menu" v-if="slide.child && slide.child.length > 0">
                 <li>
                     <a href="#">{{child.title}}</a>
                 </li>
-            </ul> -->
+            </ul>-->
           </li>
         </ul>
       </ion-slide>
@@ -23,7 +23,7 @@
                 <li>
                     <a href="#">{{child.title}}</a>
                 </li>
-            </ul> -->
+            </ul>-->
           </li>
         </ul>
       </ion-slide>
@@ -31,8 +31,8 @@
   </div>
 
   <div class="product-main-banner" v-if="!childCategory">
-        <img src="@/assets/images/product-banner.jpg" />
-    </div>
+    <img src="@/assets/images/product-banner.jpg" />
+  </div>
 </template>
 
 <script>
@@ -83,7 +83,7 @@ export default {
           name: "skirt",
         },
       ],
-      childCategory: true
+      childCategory: false
     };
   },
 
@@ -92,9 +92,27 @@ export default {
     //     console.log(slide)
 
     // }
-    handleClick: function (a, b) {
-      console.log(a, a["Proxy"], b);
+    handleClick(a) {
+      // console.log(a, a["Proxy"], b);
+      if(typeof a !== 'undefined') {
+        console.log(a);
+      } 
+
+
+
+      if(typeof a !== 'undefined') {
+        this.childCategory = true;
+        this.onClickButton(false);
+      } else {
+        this.childCategory = false;
+        this.onClickButton(true);
+      }
     },
+
+    onClickButton(ve) {
+      // this.$emit('clicked', false)
+      this.$emit('clicked', ve)
+    }
   },
 };
 </script>
