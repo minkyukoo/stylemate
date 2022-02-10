@@ -13,8 +13,9 @@
         <ion-card-header>
           <ion-card-title>
             {{ info.korName }}
-            <ion-icon :icon="heart" />
-            <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+            <div class="text-box">
+ <img src="@/assets/icons/heart-outline.svg" />
+            </div>
           </ion-card-title>
         </ion-card-header>
         <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
@@ -102,5 +103,11 @@ img:hover {
   background-color: rgb(36, 29, 29);
   border-color: rgb(63, 13, 110);
   border: #25282b;
+}
+
+ .text-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
