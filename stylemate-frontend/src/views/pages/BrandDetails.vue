@@ -13,76 +13,25 @@
         <img src="@/assets/images/product-banner.jpg" />
       </div>
       <div class="item-wrapper">
-        <div>
-          <h1>Hotel Panama Garden</h1>
-          <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
-          <p class="subcontent">
+        <div class="itemMain">
+          <div class="itemHeader">
+            <h2>BEMUSE MANSION</h2>
+            <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
+          </div>
+          <p>
             ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis
             mollis ligula sed ultrices.
           </p>
         </div>
         <div>
-          <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }"
-            >Brand Introduction</ion-button
-          >
-          <ion-button
-            v-on:click="showItems()"
-            :class="{ active: visible == 'bnt1' }"
-            >View items</ion-button
-          >{{ visible }}
-          <div>
-            <div v-if="display" id="bnt1"><BrandIntroduction /></div>
-            <div v-if="visible" id="bnt2"><BrandItem /></div>
-          </div>
-        </div>
-
-        <!-- <ul class="product-list">
-      <li
-        v-for="(product, index) in products"
-        :key="index"
-        class="product-list-item"
-      >
-        <figure><img src="@/assets/images/Rectangle-2.jpg" /></figure>
-        <h3>title</h3>
-        <p>titleewer</p>
-        <span>data</span>
-      </li>
-    </ul> -->
-      </div>
-
-      <!-- <div class="parallax"></div> -->
-      <!-- <div  class="scrolldiv">
- <ion-card class="maincard">
-          <ion-card-header>
-            <ion-card-title>
-              Hotel Panama Garden
-              <ion-icon :icon="heart" />
-              <img src="@/assets/icons/Vector.svg" alt="img" style="height:20px">
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content
-            class="subcontent"
-          >ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices. 
-          </ion-card-content>
-           <div>
-            <ion-button
-              v-on:click="show()"
-              :class="{ active: display == 'bnt1' }"
-              >Brand Introduction</ion-button
-            >
-            <ion-button
-              v-on:click="showItems()"
-              :class="{ active: visible == 'bnt1' }"
-              >View items</ion-button
-            >{{visible}}
+          <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }">Brand Introduction</ion-button>
+          <ion-button v-on:click="showItems()" :class="{ active: visible == 'bnt1'}">View items</ion-button>
             <div>
-                  <div v-if="display" id="bnt1"><BrandIntroduction /></div>
-            <div v-if="visible" id="bnt2"><BrandItem /></div>
+              <div v-if="display" id="bnt1"><BrandIntroduction /></div>
+              <div v-if="visible" id="bnt2"><BrandItem /></div>
             </div>
-          </div>
-        </ion-card>
-       
-</div> -->
+        </div>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -137,7 +86,6 @@ export default {
       .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
       .then((response) => {
         this.brand_info = response.data.data;
-        console.log("aaa", response);
       })
       .catch((e) => {
         this.error.push(e);
@@ -181,11 +129,6 @@ export default {
   background-color: rgb(238, 230, 230);
   font-size: 36px;
 }
-.subcontent {
-  font-family: Pretendard;
-  color: #c4c4c4;
-  font-size: 10px;
-}
 .miancard {
   display: flex;
   flex-direction: column;
@@ -208,7 +151,7 @@ img {
 
 .product-main-banner {
   position: fixed;
-  top: 105px;
+  top: 55px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
@@ -217,12 +160,13 @@ img {
   width: 100%;
 }
 .item-wrapper {
-  padding: 20px;
+  padding: 40px 20px 0;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top: 180px;
+  top: 280px;
   background: #ffffff;
+  min-height: 600px;
 }
 .item-wrapper .product-list {
   display: flex;

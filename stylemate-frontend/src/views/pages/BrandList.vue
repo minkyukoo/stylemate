@@ -1,5 +1,8 @@
 <template>
-  <div class="inner-container">
+  <div class="inner-container listmain">
+    <ion-searchbar
+    placeholder="브랜드 이름으로 검색해 보세요."
+    ></ion-searchbar>
     <div class="main">
       <div
         class="maincard"
@@ -13,8 +16,9 @@
         <ion-card-header>
           <ion-card-title>
             {{ info.korName }}
-            <ion-icon :icon="heart" />
-            <!-- <img src="@/assets/icons/Vector.svg" alt="" slot="end"> -->
+            <div class="text-box">
+ <img src="@/assets/icons/heart-outline.svg" />
+            </div>
           </ion-card-title>
         </ion-card-header>
         <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
@@ -102,5 +106,11 @@ img:hover {
   background-color: rgb(36, 29, 29);
   border-color: rgb(63, 13, 110);
   border: #25282b;
+}
+
+ .text-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
