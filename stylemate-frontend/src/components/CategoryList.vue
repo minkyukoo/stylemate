@@ -76,6 +76,7 @@ export default {
         }
       ],
       allCategories: null,
+      allCategories2: null,
       childCategoryArray: [],
       childCategory: false
     };
@@ -85,7 +86,10 @@ export default {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
       console.log('data:',data);
-      this.allCategories = data
+      let arr = data;
+      this.allCategories2 = arr.unshift({name: 'All'});
+      this.allCategories = data;
+      console.log(this.allCategories);
     });
   },
   mounted() {
