@@ -305,6 +305,8 @@ export default defineComponent({
   margin-bottom: 12px;
   border-radius: 6px;
   overflow: hidden;
+  width: 100%;
+  height: auto;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;

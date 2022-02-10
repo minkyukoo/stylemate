@@ -4,7 +4,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="category in allCategories" :key="category.name">
-            <a @click="handleClick(category.childCategory)">{{ category.id}} {{ category.name }}</a>
+            <a @click="handleClick(category.childCategory)">{{ category.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -13,7 +13,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
-            <a @click="handleClick(category)">{{ childCategory.id}} {{ childCategory.name }}</a>
+            <a @click="handleClick(category)">{{ childCategory.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -77,7 +77,8 @@ export default {
       ],
       allCategories: null,
       childCategoryArray: [],
-      childCategory: false
+      childCategory: false,
+      categorylist: null,
     };
   },
 
@@ -85,7 +86,12 @@ export default {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
       console.log('data:',data);
-      this.allCategories = data
+      this.allCategories = data;
+      let valuelist = this.allCategories.push({name: "all"});
+      console.log("dddd", valuelist);
+      // this.categorylist = this.allCategories.push({name:"all"});
+      this.allCategories = valuelist;
+      console.log("this.allCategories",this.allCategories);
     });
   },
   mounted() {
