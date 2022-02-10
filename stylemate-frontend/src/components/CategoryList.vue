@@ -3,8 +3,8 @@
     <ion-slides :options="slideOpts">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide.child)">{{ slide.title }}</a>
+          <li v-for="category in allCategories" :key="category.name">
+            <a @click="handleClick(category.childCategory)">{{ category.id}} {{ category.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -12,8 +12,8 @@
     <ion-slides :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="child in childCategoryArray" :key="child">
-            <a>{{ child.name }}</a>
+          <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
+            <a @click="handleClick(category)">{{ childCategory.id}} {{ childCategory.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import ItemService from "@/services/ItemService";
 export default {
   name: "CategoryList",
 
@@ -74,11 +75,22 @@ export default {
           name: "skirt",
         }
       ],
+      allCategories: null,
       childCategoryArray: [],
       childCategory: false
     };
   },
 
+  created(){
+    this.itemServices = new ItemService();
+    this.itemServices.getProductCategories().then((data) => {
+      console.log('data:',data);
+      this.allCategories = data
+    });
+  },
+  mounted() {
+
+  },
   methods: {
     handleClick(childCategory) {
       if (typeof childCategory !== "undefined") {
