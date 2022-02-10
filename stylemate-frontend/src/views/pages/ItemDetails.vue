@@ -86,7 +86,8 @@ export default {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top: 180px;
+  z-index: 1;
+  top: 490px;
   /* background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
