@@ -1,13 +1,18 @@
 <template>
   <div class="inner-container listmain">
-    <ion-searchbar
+    <ion-searchbar @ionChange="sreachWord()" v-model="searchValue"
     placeholder="브랜드 이름으로 검색해 보세요."
     ></ion-searchbar>
+    <div class="right-section">
+            <button>
+              <img src="@/assets/icons/list-view.svg" />
+            </button>
+    </div>
     <div class="main">
       <div
         class="maincard"
-        v-for="info in brand_info"
-        :key="info"
+        v-for="info in keywords"
+        :key="info.id"
         @click="$router.push({ name: 'BrandDetails' })"
       >
         <figure class="img-wrap">
@@ -17,7 +22,7 @@
           <ion-card-title>
             {{ info.korName }}
             <div class="text-box">
- <img src="@/assets/icons/heart-outline.svg" />
+ <img src="@/assets/icons/heart-outline.svg"  slot="end"/>
             </div>
           </ion-card-title>
         </ion-card-header>
@@ -36,13 +41,14 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonSearchbar
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 // import axios from "axios";
 import BrandService from '@/services/BrandService';
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle },
+  components: { IonCardContent, IonCardHeader, IonCardTitle , IonSearchbar},
   setup() {
     return { heart };
   },
@@ -50,18 +56,57 @@ export default {
     return {
       brand_info: [],
       error: [],
-      hashcontent: []
+      hashcontent: [],
+      searchValue: '',
+      keywords:[],
+      search: ""
+
     };
   },
   created() {
-    this.brandService = new BrandService();
+    this.brandService = new BrandService();   
   },
   mounted() {
     this.brandService.getBrandList().then((data) => {
       console.log(data)
       this.brand_info = data;
+      this.keywords=data;
     });
   },
+  // computed: {
+  //   sreachWord() {
+
+      
+  //     return this.brand_info.filter(p => {
+  //       console.log("p",p);
+  //       // return true if the product should be visible
+
+  //       // in this example we just check if the search string
+  //       // is a substring of the product name (case insensitive)
+  //       return p.korName.toLowerCase().indexOf(this.search.toLowerCase()) != -1;
+  //     });
+  //   }
+  // },
+  methods: {
+    sreachWord(){
+    
+  
+
+      if(this.searchValue){
+          this.keywords=this.brand_info.filter((word)=>{
+          //  console.log("wordss", word.korName);
+          return word.korName.toUpperCase()
+            .includes(this.searchValue.toUpperCase())
+
+        })
+        console.log("keywordresults",this.keywords);
+      }
+      else this.keywords=this.brand_info;
+      
+      
+    }
+
+  }
 };
 </script>
 <style scoped>
@@ -110,7 +155,11 @@ img:hover {
 
  .text-box {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: right;
 }
+
+.right-section{
+  text-align: right;
+}
+
 </style>
