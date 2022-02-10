@@ -1,16 +1,4 @@
 <template>
-  <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
-      <ion-slide>
-        <ul>
-          <li v-for="slide in categories_info" :key="slide">
-            <a href="#">{{ slide.name }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
       {{isBanner}}

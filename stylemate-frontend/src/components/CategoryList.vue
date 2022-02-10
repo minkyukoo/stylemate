@@ -12,8 +12,8 @@
     <ion-slides :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="child in slides.child" :key="child">
-            <a @click="handleClick(slide, index)">{{ child.name }}</a>
+          <li v-for="child in childCategoryArray" :key="child">
+            <a>{{ child.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -42,12 +42,12 @@ export default {
     return {
       slides: [
         {
-          title: "전체",
+          title: "all",
           value: "all",
           name: "all",
         },
         {
-          title: "상의",
+          title: "top",
           value: "top",
           name: "top",
           child: [{ name: "top 1" }, { name: "top 2" }, { name: "top 3" }],
@@ -80,13 +80,12 @@ export default {
   },
 
   methods: {
-    handleClick(a) {
-    //   console.log(this.slides);
-      if (typeof a !== "undefined") {
-        console.log(a);
-      }
-
-      if (typeof a !== "undefined") {
+    handleClick(childCategory) {
+      if (typeof childCategory !== "undefined") {
+        this.childCategoryArray = [];
+        childCategory.forEach(element => {
+          this.childCategoryArray.push(element);
+        });
         this.childCategory = true;
         this.onClickButton(false);
       } else {
