@@ -3,8 +3,8 @@
     <ion-slides :options="slideOpts">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="slide in slides" :key="slide">
-            <a @click="handleClick(slide.child)">{{ slide.title }}</a>
+          <li v-for="category in allCategories" :key="category.name">
+            <a @click="handleClick(category.childCategory)">{{ category.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -12,8 +12,8 @@
     <ion-slides :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
-          <li v-for="child in slides.child" :key="child">
-            <a @click="handleClick(slide, index)">{{ child.name }}</a>
+          <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
+            <a @click="handleClick(category)">{{ childCategory.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import ItemService from "@/services/ItemService";
 export default {
   name: "CategoryList",
 
@@ -42,12 +43,12 @@ export default {
     return {
       slides: [
         {
-          title: "전체",
+          title: "all",
           value: "all",
           name: "all",
         },
         {
-          title: "상의",
+          title: "top",
           value: "top",
           name: "top",
           child: [{ name: "top 1" }, { name: "top 2" }, { name: "top 3" }],
@@ -74,19 +75,34 @@ export default {
           name: "skirt",
         }
       ],
+      allCategories: null,
+      allCategories2: null,
       childCategoryArray: [],
-      childCategory: false
+      childCategory: false,
+      categorylist: null,
     };
   },
 
-  methods: {
-    handleClick(a) {
-    //   console.log(this.slides);
-      if (typeof a !== "undefined") {
-        console.log(a);
-      }
+  created(){
+    this.itemServices = new ItemService();
+    this.itemServices.getProductCategories().then((data) => {
+      console.log('data:',data);
+      let arr = data;
+      this.allCategories2 = arr.unshift({name: 'All'});
+      this.allCategories = data;
+      console.log(this.allCategories);
+    });
+  },
+  mounted() {
 
-      if (typeof a !== "undefined") {
+  },
+  methods: {
+    handleClick(childCategory) {
+      if (typeof childCategory !== "undefined") {
+        this.childCategoryArray = [];
+        childCategory.forEach(element => {
+          this.childCategoryArray.push(element);
+        });
         this.childCategory = true;
         this.onClickButton(false);
       } else {

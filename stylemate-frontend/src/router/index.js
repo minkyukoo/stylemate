@@ -28,17 +28,26 @@ const routes = [
   {
     path: "/",
     redirect: "/home",
+    meta: {
+      mainHeader: true,
+    }
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("@/components/utilities/NotFound.vue"),
+    meta: {
+      mainHeader: true,
+    }
   },
   {
     path: "/login",
     name: "Login",
     beforeEnter: guest,
     component: Login,
+    meta: {
+      mainHeader: true,
+    }
   },
   // Tabs
   {
@@ -54,11 +63,17 @@ const routes = [
         path: "home",
         name: "Home",
         component: Home,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "item",
         name: "Item",
         component: Item,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "brand",
@@ -82,9 +97,9 @@ const routes = [
     path:"/notification",
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
-    meta: [
-
-    ]
+    meta: {
+      innerHeader: true,
+    }
   },
   {
     path: "/brand-details",
