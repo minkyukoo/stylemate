@@ -15,6 +15,7 @@
       <ion-buttons slot="start">
         <ion-back-button default-href="/home"></ion-back-button>
       </ion-buttons>
+      <Button @click="$router.go(-1)">back</Button>
       <div class="flex items-center justify-center relative">
         <ion-title v-if="headerTitle" class="text-center">{{ headerTitle }}</ion-title>
         <ion-title v-else class="text-center">Main Header</ion-title>
@@ -47,6 +48,7 @@ export default {
 </script>
 
 <style scoped>
+ion-toolbar,
 .header {
   display: flex;
   align-items: center;
@@ -58,5 +60,6 @@ export default {
 .siteLogo {
   max-width: 120px;
   width: 100%;
+  height: auto;
 }
 </style>
