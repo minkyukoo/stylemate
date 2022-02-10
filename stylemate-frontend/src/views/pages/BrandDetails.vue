@@ -101,7 +101,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .parallax {
   /* The image used */
   background-image: url("https://source.unsplash.com/random/800x400?i=1");
