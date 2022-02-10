@@ -1,7 +1,7 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content loading-spinner="bubbles">
-      {{isBanner}}
+      {{ isBanner }}
       <div :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
@@ -33,6 +33,7 @@
             v-for="(product, index) in item_list"
             :key="index"
             class="product-list-item"
+            @click="$router.push({ name: 'ItemDetails' })"
           >
             <figure>
               <img :src="product.imageThumbnailPath" />
@@ -103,11 +104,11 @@ import {
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import ItemService from '@/services/ItemService';
+import ItemService from "@/services/ItemService";
 
 export default defineComponent({
   name: "CardItem",
-  props:{
+  props: {
     isBanner: Boolean,
   },
   components: {
@@ -228,30 +229,30 @@ export default defineComponent({
         },
       ],
       layout: "grid",
-      categories_info:[],
-      item_list:[],
-      product_details:[]
+      categories_info: [],
+      item_list: [],
+      product_details: [],
     };
   },
-   created() {
+  created() {
     this.itemService = new ItemService();
   },
   mounted() {
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info",data)
+      console.log("categories_info", data);
       this.categories_info = data;
     });
-// Product list
-    this.itemService.getProductLsit().then((data)=>{
-      console.log("ItemList",data)
-this.item_list=data;
-// Product details
- this.itemService.getProductDetails().then((data)=>{
-      console.log("ProductDetails",data)
-this.product_details=data;
-    })
-    })
+    // Product list
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      this.item_list = data;
+      // Product details
+      this.itemService.getProductDetails().then((data) => {
+        console.log("ProductDetails", data);
+        this.product_details = data;
+      });
+    });
   },
 });
 </script>
@@ -273,10 +274,14 @@ this.product_details=data;
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
-  background-image: linear-gradient(148.66deg, rgba(241, 241, 241, 0.5) 18.92%, rgba(255, 255, 255, 0.1) 80.41%);
-  /* background: #ffffff; */
+  /* background-image: linear-gradient(
+    148.66deg,
+    rgba(241, 241, 241, 0.5) 18.92%,
+    rgba(255, 255, 255, 0.1) 80.41%
+  ); */
+  background: #ffffff;
   transition: all 0.5s ease-in-out;
-  backdrop-filter: blur(30px);
+  /* backdrop-filter: blur(30px); */
 }
 .item-wrapper.withoutbanner {
   top: 70px;

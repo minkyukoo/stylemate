@@ -110,7 +110,12 @@ const routes = [
     path:"/link-channel",
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
-  }
+  },
+  {
+    path: "/product-details",
+    name: "ItemDetails",
+    component: () => import("@/views/pages/ItemDetails.vue"),
+  },
 ];
 
 const router = createRouter({
