@@ -4,7 +4,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="category in allCategories" :key="category.name">
-            <a @click="handleClick(category.childCategory)">{{ category.id}} {{ category.name }}</a>
+            <a @click="handleClick(category.childCategory)">{{ category.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -13,7 +13,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
-            <a @click="handleClick(category)">{{ childCategory.id}} {{ childCategory.name }}</a>
+            <a @click="handleClick(category)">{{ childCategory.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -78,7 +78,8 @@ export default {
       allCategories: null,
       allCategories2: null,
       childCategoryArray: [],
-      childCategory: false
+      childCategory: false,
+      categorylist: null,
     };
   },
 
