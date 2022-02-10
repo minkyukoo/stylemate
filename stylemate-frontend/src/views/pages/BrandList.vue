@@ -1,5 +1,8 @@
 <template>
-  <div class="inner-container">
+  <div class="inner-container listmain">
+    <ion-searchbar
+    placeholder="브랜드 이름으로 검색해 보세요."
+    ></ion-searchbar>
     <div class="main">
       <div
         class="maincard"
