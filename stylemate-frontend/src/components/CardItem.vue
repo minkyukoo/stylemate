@@ -229,9 +229,11 @@ export default defineComponent({
         },
       ],
       layout: "grid",
-      categories_info: [],
-      item_list: [],
-      product_details: [],
+      categories_info:[],
+      item_list:[],
+      product_details:[],
+      banner:[],
+
     };
   },
   created() {
@@ -243,16 +245,22 @@ export default defineComponent({
       console.log("categories_info", data);
       this.categories_info = data;
     });
-    // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      this.item_list = data;
-      // Product details
-      this.itemService.getProductDetails().then((data) => {
-        console.log("ProductDetails", data);
-        this.product_details = data;
-      });
-    });
+// Product list
+    this.itemService.getProductLsit().then((data)=>{
+      console.log("ItemList",data)
+this.item_list=data;
+ })
+// Product details error
+//  this.itemService.getProductDetails().then((data)=>{
+//       console.log("ProductDetails",data)
+// this.product_details=data;
+//     })
+   
+    this.itemService.getbanner().then((data)=>{
+      console.log("banner",data)
+this.banner=data;
+    })
+
   },
 });
 </script>
