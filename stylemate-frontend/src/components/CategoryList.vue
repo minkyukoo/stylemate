@@ -9,7 +9,8 @@
         </ul>
       </ion-slide>
     </ion-slides>
-    <ion-slides :options="slideOpts" v-if="childCategory">
+
+    <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
