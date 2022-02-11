@@ -83,6 +83,10 @@
           </li>
         </ul>
       </div>
+
+      <!-- <div class="nodata" v-if="!isproductfilter">yes data found</div>
+      <div v-else></div> -->
+
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </template>
@@ -105,6 +109,7 @@ export default defineComponent({
   props: {
     isBanner: Boolean,
     isFltData: Boolean,
+    isproductfilter: Boolean,
   },
   components: {
     // IonSegment,
@@ -239,7 +244,7 @@ export default defineComponent({
   mounted() {
 
      console.log('isFltData', this.isFltData);
-
+    console.log('isproductfilter', this.isproductfilter);
 
     // Slide title
     this.itemService.getProductCategories().then((data) => {
