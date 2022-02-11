@@ -83,6 +83,8 @@ import {
 } from "@ionic/vue";
 import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
+
+
 export default {
   name: "BrandDetails",
   components: {
