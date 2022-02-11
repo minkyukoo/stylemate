@@ -336,3 +336,11 @@ img {
 ion-infinite-scroll-content{
   text-align: inherit;
 }
+
+.nodata {
+  height: 80vh;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}

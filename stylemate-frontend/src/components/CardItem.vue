@@ -1,8 +1,8 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content>
-      {{ isBanner }}
-      <div :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+      <div class="nodata" v-if="!isFltData">NO data</div>
+      <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
@@ -104,6 +104,7 @@ export default defineComponent({
   name: "CardItem",
   props: {
     isBanner: Boolean,
+    isFltData: Boolean,
   },
   components: {
     // IonSegment,
@@ -232,8 +233,14 @@ export default defineComponent({
   },
   created() {
     this.itemService = new ItemService();
+   
   },
+
   mounted() {
+
+     console.log('isFltData', this.isFltData);
+
+
     // Slide title
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
