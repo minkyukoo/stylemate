@@ -79,17 +79,26 @@ const routes = [
         path: "brand",
         name: "Brand",
         component: Brand,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "contents",
         name: "Contents",
         component: Contents,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "mypage",
         name: "Mypage",
         beforeEnter: guard,
         component: Mypage,
+        meta: {
+          mainHeader: true,
+        }
       },
     ],
   },

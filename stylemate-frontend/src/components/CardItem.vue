@@ -14,16 +14,10 @@
             </ion-item>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -50,19 +44,17 @@
             <p>{{ product.description }}</p>
             <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
-              <span v-for="(hash, index) in product.tag" :key="index">{{
-                hash.tag
-              }}</span>
+              <span v-for="(hash, index) in product.tag" :key="index">
+                {{
+                  hash.tag
+                }}
+              </span>
             </div>
           </li>
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li
-            v-for="(product, index) in item_list"
-            :key="index"
-            class="product-list-item"
-          >
+          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
@@ -81,9 +73,11 @@
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -229,10 +223,10 @@ export default defineComponent({
         },
       ],
       layout: "grid",
-      categories_info:[],
-      item_list:[],
-      product_details:[],
-      banner:[],
+      categories_info: [],
+      item_list: [],
+      product_details: [],
+      banner: [],
 
     };
   },
@@ -245,21 +239,21 @@ export default defineComponent({
       console.log("categories_info", data);
       this.categories_info = data;
     });
-// Product list
-    this.itemService.getProductLsit().then((data)=>{
-      console.log("ItemList",data)
-this.item_list=data;
- })
-// Product details error
-//  this.itemService.getProductDetails().then((data)=>{
-//       console.log("ProductDetails",data)
-// this.product_details=data;
-//     })
-   
-    this.itemService.getbanner().then((data)=>{
-      console.log("banner",data)
-this.banner=data;
+    // Product list
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data)
+      this.item_list = data;
     })
+    // Product details error
+    //  this.itemService.getProductDetails().then((data)=>{
+    //       console.log("ProductDetails",data)
+    // this.product_details=data;
+    //     })
+
+    // this.itemService.getbanner().then((data) => {
+    //   console.log("banner", data)
+    //   this.banner = data;
+    // })
 
   },
 });
