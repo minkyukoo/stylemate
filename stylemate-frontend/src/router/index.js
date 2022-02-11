@@ -116,6 +116,11 @@ const routes = [
     name: "ItemDetails",
     component: () => import("@/views/pages/ItemDetails.vue"),
   },
+  {
+    path: "/fb-login",
+    name: "facebookLogin",
+    component: () => import("@/views/pages/FbLogin.vue"),
+  },
 ];
 
 const router = createRouter({
