@@ -21,7 +21,11 @@
     </ion-slides>
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
+  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData" >
+    <img src="@/assets/images/product-banner.jpg" />
+  </div>
+
+  <div class="product-main-banner" v-if="!childCategory" v-show="!listproduct" >
     <img src="@/assets/images/product-banner.jpg" />
   </div>
 
@@ -82,7 +86,8 @@ export default {
       childCategoryArray: [],
       childCategory: false,
       categorylist: null,
-      nofltData: false
+      nofltData: false,
+      filterproductList: null,
     };
   },
 
@@ -106,25 +111,26 @@ export default {
         if (data.length == 0) {
           alert('nodata')
           this.nofltData = true;
-          this.$emit('fltData', false)
+          this.$emit('fltData', false);
+
         } else {
           this.nofltData = false;
-          this.$emit('fltData', true)
-          console.log('filterdata', data);
+          this.$emit('fltData', true);
+         
+          this.filterproductList = data;
+          console.log('filterproductList', this.filterproductList);
+          this.$emit("filterproductlist",true);
         }
       });
     },
+
     handleClick(childCategory, ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
         childCategory.forEach(element => {
           this.childCategoryArray.push(element);
         });
-
         alert(ids);
-
-
-
         this.childCategory = true;
         this.onClickButton(false);
       } else {
