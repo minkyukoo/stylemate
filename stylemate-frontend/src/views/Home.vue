@@ -10,27 +10,42 @@
       <!-- <Tab1List /> -->
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
-          <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+          <ion-slide v-for="slide in list" :key="slide">
+            <div>
+              <img :src="slide.pcImagePath" alt="">
+              <!-- <img :src="slide.mobileImagePath" alt=""> -->
+            </div>
+            </ion-slide>
+           <!-- <img src="@/assets/images/main-banner-1.png"> -->
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
             </div> -->
-          </ion-slide>
-          <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+
+            <!-- </ion-slide> -->
+            <!-- <template v-for="s in slideData" :key="s.id">
+              <swiper>
+                <swiper-slide>
+                  <ion-card>
+                 <ion-card-content> Slide Name:{{ s.name }} </ion-card-content>
+                  </ion-card>
+                  </swiper-slide>
+              </swiper>
+            </template> -->
+          <!-- <ion-slide>
+            <img src="@/assets/images/main-banner-1.png"> -->
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
             </div> -->
-          </ion-slide>
+          <!-- </ion-slide>
           <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+            <img src="@/assets/images/main-banner-1.png"> -->
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
             </div> -->
-          </ion-slide>
+          <!-- </ion-slide> -->
         </ion-slides>
       </div>
       <div class="overlapSlide">
@@ -181,10 +196,10 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
-//import axios from 'axios';
-
-
-export default {
+// import axios from 'axios';
+import BannerService from '@/services/BannerService'
+// import {Swiper,SwiperSlide} from "swiper/vue";
+export default { 
   name: 'Home',
   components: { TopNav, IonContent, IonPage, IonSlides, IonSlide},
   mounted() {
@@ -193,14 +208,35 @@ export default {
     var token = urlParams.get('token')
     localStorage.setItem('token', token);
     console.log(urlParams);
-    console.log(token);
+    console.log(token)
+
+    this.bannerService.getBannerList("home").then((resp) => {
+                    console.log(resp)
+                    this.list = resp;
+                })
+  },
+  data(){
+    return{
+      list:null
+    }
   },
   setup() {
+    // const slideData = ref<any>([
+    //   {id:1,name:"initial slides"},
+    //   {id:1,name:"initial slides2"},
+
+    //   ]);
+    //   return {
+    //     slideData
+    //   };
     const slideOpts = {
       initialSlide: 1,
       speed: 400
     }; 
     return { slideOpts }
+  },
+  created(){
+    this.bannerService = new BannerService() 
   }
 };
 </script>
