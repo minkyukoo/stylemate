@@ -21,7 +21,7 @@
                 /></ion-item>
                 <ion-card-header>
                   <ion-card-title>
-                    {{ product.name }} <ion-icon :icon="heart"
+                    {{ product.name }} <ion-icon class="float-right" :icon="heart"
                   /></ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="maincontent">

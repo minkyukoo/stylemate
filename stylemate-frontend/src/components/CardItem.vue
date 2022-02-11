@@ -1,19 +1,8 @@
 <template>
-  <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
-      <ion-slide>
-        <ul>
-          <li v-for="slide in slides" :key="slide">
-            <a href="#">{{ slide.title }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content loading-spinner="bubbles">
-      <div class="item-wrapper">
+    <ion-infinite-scroll-content>
+      <div class="nodata" v-if="!isFltData">NO data</div>
+      <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
@@ -25,28 +14,23 @@
             </ion-item>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
           <li
-            v-for="(product, index) in products"
+            v-for="(product, index) in item_list"
             :key="index"
             class="product-list-item"
+            @click="$router.push({ name: 'ItemDetails' })"
           >
             <figure>
-              <img src="@/assets/images/Rectangle-2.jpg" />
+              <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
                 <div class="social-icon">
                   <img src="@/assets/icons/instagram.svg" />
@@ -56,25 +40,23 @@
                 </div>
               </div>
             </figure>
-            <h3>{{ product.title }}</h3>
+            <!-- <h3>{{ product.title }}</h3> -->
             <p>{{ product.description }}</p>
             <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
-              <span v-for="(hash, index) in product.hashtag" :key="index">{{
-                hash.name
-              }}</span>
+              <span v-for="(hash, index) in product.tag" :key="index">
+                {{
+                  hash.tag
+                }}
+              </span>
             </div>
           </li>
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li
-            v-for="(product, index) in products"
-            :key="index"
-            class="product-list-item"
-          >
+          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
-              <img src="@/assets/images/Rectangle-2.jpg" />
+              <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
                 <div class="social-icon">
                   <img src="@/assets/icons/instagram.svg" />
@@ -83,17 +65,19 @@
             </figure>
             <div class="desc-box">
               <div class="text-box">
-                <h3>{{ product.title }}</h3>
+                <h3></h3>
                 <div class="favorite">
                   <img src="@/assets/icons/heart-outline.svg" />
                 </div>
               </div>
               <p>{{ product.description }}</p>
-              <!-- <span>{{ product.hashtags }}</span> -->
+              <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.hashtag" :key="index">{{
-                  hash.name
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -114,9 +98,14 @@ import {
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
+import ItemService from "@/services/ItemService";
 
 export default defineComponent({
   name: "CardItem",
+  props: {
+    isBanner: Boolean,
+    isFltData: Boolean,
+  },
   components: {
     // IonSegment,
     // IonSegmentButton,
@@ -144,38 +133,6 @@ export default defineComponent({
 
   data() {
     return {
-      slides: [
-        {
-          title: "전체",
-          value: "all",
-          name: "all",
-        },
-        {
-          title: "상의",
-          value: "top",
-          name: "top",
-        },
-        {
-          title: "아우터",
-          value: "outer",
-          name: "outer",
-        },
-        {
-          title: "바지",
-          value: "pants",
-          name: "pants",
-        },
-        {
-          title: "원피스",
-          value: "onepiece",
-          name: "onepiece",
-        },
-        {
-          title: "스커트",
-          value: "skirt",
-          name: "skirt",
-        },
-      ],
       products: [
         {
           title: "Areuban",
@@ -267,7 +224,44 @@ export default defineComponent({
         },
       ],
       layout: "grid",
+      categories_info: [],
+      item_list: [],
+      product_details: [],
+      banner: [],
+
     };
+  },
+  created() {
+    this.itemService = new ItemService();
+   
+  },
+
+  mounted() {
+
+     console.log('isFltData', this.isFltData);
+
+
+    // Slide title
+    this.itemService.getProductCategories().then((data) => {
+      console.log("categories_info", data);
+      this.categories_info = data;
+    });
+    // Product list
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data)
+      this.item_list = data;
+    })
+    // Product details error
+    //  this.itemService.getProductDetails().then((data)=>{
+    //       console.log("ProductDetails",data)
+    // this.product_details=data;
+    //     })
+
+    // this.itemService.getbanner().then((data) => {
+    //   console.log("banner", data)
+    //   this.banner = data;
+    // })
+
   },
 });
 </script>
@@ -289,7 +283,18 @@ export default defineComponent({
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
+  /* background-image: linear-gradient(
+    148.66deg,
+    rgba(241, 241, 241, 0.5) 18.92%,
+    rgba(255, 255, 255, 0.1) 80.41%
+  ); */
   background: #ffffff;
+  transition: all 0.5s ease-in-out;
+  /* backdrop-filter: blur(30px); */
+}
+.item-wrapper.withoutbanner {
+  top: 70px;
+  transition: all 0.5s ease-in-out;
 }
 .item-wrapper .product-list {
   display: flex;
@@ -309,6 +314,8 @@ export default defineComponent({
   margin-bottom: 12px;
   border-radius: 6px;
   overflow: hidden;
+  width: 100%;
+  height: auto;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
@@ -342,32 +349,6 @@ export default defineComponent({
 }
 .swiper-container-horizontal > .swiper-pagination-bullets {
   display: none !important;
-}
-.item-scroller-nav {
-  position: fixed;
-  background: #ffffff;
-  top: 61px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.item-scroller-nav ul {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-.item-scroller-nav ul li a {
-  padding: 13px 0;
-  display: block;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 18px;
-  color: #797979;
-}
-.item-scroller-nav ul li a.active {
-  border-bottom: solid 2px #090909;
-  font-weight: bold;
-  color: #090909;
 }
 .grid-view .top-float-div {
   width: 100%;
