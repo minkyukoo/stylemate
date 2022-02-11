@@ -13,9 +13,8 @@
   <ion-header class="header" v-else-if="$route.meta.innerHeader">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button default-href="/home"></ion-back-button>
+         <Button @click="$router.go(-1)"><i class="icon-left-arrow"></i></Button>
       </ion-buttons>
-      <Button @click="$router.go(-1)">back</Button>
       <div class="flex items-center justify-center relative">
         <ion-title v-if="headerTitle" class="text-center">{{ headerTitle }}</ion-title>
         <ion-title v-else class="text-center">Main Header</ion-title>

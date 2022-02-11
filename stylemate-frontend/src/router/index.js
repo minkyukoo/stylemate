@@ -6,11 +6,11 @@ import Item from "@/views/Item.vue";
 import Brand from "@/views/Brand.vue";
 import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
-import Login from "../views/pages/Login.vue";
+import LoginPage from "../views/pages/Login.vue";
 
 function guest(to, from, next) {
   if (localStorage.token) {
-    next({ name: "home" });
+    next({ name: "Home" });
     alert("You already logged in");
   } else next();
 }
@@ -19,7 +19,7 @@ function guard(to, from, next) {
   if (localStorage.token) {
     next();
   } else {
-    next({ name: "Login" });
+    next({ name: "LoginPage" });
     alert("Please login to access");
   }
 }
@@ -42,11 +42,11 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
+    name: "LoginPage",
     beforeEnter: guest,
-    component: Login,
+    component: LoginPage,
     meta: {
-      mainHeader: true,
+      innerHeader: true,
     }
   },
   // Tabs

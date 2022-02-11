@@ -4,50 +4,54 @@
     <TopNav headerTitle="Login"/>
     <!-- End header -->
     <!-- page content -->
-    <ion-content class="ion-padding">
-      <h1>Please login in Stylemate</h1>
-      <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
-      <ion-card>
-        <ion-item>
-          <h2>Customer service center</h2>
-        </ion-item>
-        <ion-item>
-          <h1>Notice</h1>
-        </ion-item>
-        <ion-item>
-          <h1>FAQ</h1>
-        </ion-item>
-        <ion-item>
-          <h1>1:1 inquiry</h1>
-        </ion-item>
-        <ion-item>
-          <h1>Terms of Use</h1>
-        </ion-item>
-        <ion-item>
-          <h1>Privacy Policy</h1>
-        </ion-item>
-      </ion-card>
-      <ion-button router-link="/home">Go to detail</ion-button>
-      <ion-button router-link="/mypage">Go to detail</ion-button>
+    <ion-content>
+      <div class="login-wrap">
+        <h1>Please login in Stylemate</h1>
+        <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
+        <ion-card>
+          <ion-item>
+            <h2>Customer service center</h2>
+          </ion-item>
+          <ion-item>
+            <h1>Notice</h1>
+          </ion-item>
+          <ion-item>
+            <h1>FAQ</h1>
+          </ion-item>
+          <ion-item>
+            <h1>1:1 inquiry</h1>
+          </ion-item>
+          <ion-item>
+            <h1>Terms of Use</h1>
+          </ion-item>
+          <ion-item>
+            <h1>Privacy Policy</h1>
+          </ion-item>
+        </ion-card>
+        <ion-button router-link="/home">Go to detail</ion-button>
+        <ion-button router-link="/mypage">Go to detail</ion-button>
+      </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
+import TopNav from "@/components/TopNav.vue";
 import {
-  IonCard,
   IonContent,
+  IonCard,
   IonItem,
   IonButton,
 } from "@ionic/vue";
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   components: {
     IonContent,
     IonCard,
     IonItem,
     IonButton,
+    TopNav
   },
   data() {
     return {
@@ -67,7 +71,7 @@ export default {
       console.log(token);
     }
   },
-};
+}
 </script>
 
 <style>

@@ -6,8 +6,8 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
 
- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
       <Login/>
+ <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
 
     </ion-content>
     <!-- End page content -->

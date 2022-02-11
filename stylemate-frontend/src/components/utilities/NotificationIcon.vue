@@ -1,16 +1,9 @@
 <template>
-  <!-- <ion-route url="/notification" component="Notifications">
-    <div class="notification">
+  <router-link class="notification" to="/notification">
+    <div class="notification-inner">
       <i class="icon-notification"></i>
       <span class="badge">{{ notificationCount }}</span>
     </div>
-  </ion-route> -->
-
-  <router-link to="/notification">
-  <div class="notification">
-    <i class="icon-notification"></i>
-    <span class="badge">{{ notificationCount }}</span>
-  </div>
   </router-link>
 </template>
 
@@ -28,6 +21,8 @@ export default {
 
 <style scoped>
 .notification {
+  height: 24px;
+  width: 24px;
   position: absolute;
   right: 0;
 }
