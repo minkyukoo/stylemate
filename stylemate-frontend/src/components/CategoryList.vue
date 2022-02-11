@@ -4,7 +4,7 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="category in allCategories" :key="category.name">
-            <a @click="handleClick(category.childCategory)">{{ category.name }}</a>
+            <a @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
           </li>
         </ul>
       </ion-slide>
@@ -13,16 +13,17 @@
       <ion-slide>
         <ul class="main-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
-            <a @click="handleClick(category)">{{ childCategory.name }}</a>
+            <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
           </li>
         </ul>
       </ion-slide>
     </ion-slides>
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory">
+  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
     <img src="@/assets/images/product-banner.jpg" />
   </div>
+
 </template>
 
 <script>
@@ -80,15 +81,16 @@ export default {
       childCategoryArray: [],
       childCategory: false,
       categorylist: null,
+      nofltData: false
     };
   },
 
-  created(){
+  created() {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
-      console.log('data:',data);
+      console.log('data:', data);
       let arr = data;
-      this.allCategories2 = arr.unshift({name: 'All'});
+      this.allCategories2 = arr.unshift({ name: 'All' });
       this.allCategories = data;
       console.log(this.allCategories);
     });
@@ -97,12 +99,31 @@ export default {
 
   },
   methods: {
-    handleClick(childCategory) {
+    handleClick2(ids) {
+      alert(ids);
+      this.itemServices.getFilterProduct(ids).then((data) => {
+        if (data.length == 0) {
+          alert('nodata')
+          this.nofltData = true;
+          this.$emit('fltData', false)
+        } else {
+          this.nofltData = false;
+          this.$emit('fltData', true)
+          console.log('filterdata', data);
+        }
+      });
+    },
+    handleClick(childCategory, ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
         childCategory.forEach(element => {
           this.childCategoryArray.push(element);
         });
+
+        alert(ids);
+
+
+
         this.childCategory = true;
         this.onClickButton(false);
       } else {
