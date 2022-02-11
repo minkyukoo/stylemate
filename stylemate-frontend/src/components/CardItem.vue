@@ -1,6 +1,6 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content loading-spinner="bubbles">
+    <ion-infinite-scroll-content>
       {{ isBanner }}
       <div :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
