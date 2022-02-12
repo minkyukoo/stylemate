@@ -5,9 +5,9 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-
-      <Login/>
- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
+        <h1>My page</h1>
+      <!-- <Login/> -->
+      <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
 
     </ion-content>
     <!-- End page content -->
@@ -18,11 +18,11 @@
 import { IonPage,  IonContent,  IonButton, } from '@ionic/vue';
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
-import Login from '@/views/pages/Login.vue'
+// import Login from '@/views/pages/Login.vue'
 
 export default {
   name: 'Mypage',
-  components: { TopNav,  Login,  IonContent, IonPage,  IonButton,},
+  components: { TopNav,  IonContent, IonPage,  IonButton,},
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);

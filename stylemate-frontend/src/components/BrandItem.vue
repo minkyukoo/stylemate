@@ -1,15 +1,6 @@
 <template>
-  <ion-page>
-    <!-- <ion-header>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title>Brand Items</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
-
-    <ion-content :fullscreen="true">
+  <!-- <ion-page>
+    <ion-content :fullscreen="true"> -->
       <div>
        <!-- Product details start  -->
         <ion-grid>
@@ -36,102 +27,18 @@
         </ion-grid>
         <!--  Product details end  --> 
       </div>
-    </ion-content>
-  </ion-page>
+    <!-- </ion-content>
+  </ion-page> -->
 </template>
 <script>
-import { IonCol, IonGrid, IonRow, IonPage, IonContent } from "@ionic/vue";
+import { IonCol, IonGrid, IonRow} from "@ionic/vue";
 import axios from "axios";
 export default {
   name: "BrandItems",
-  components: { IonCol, IonGrid, IonRow, IonPage, IonContent },
+  components: { IonCol, IonGrid, IonRow },
   data() {
     return {
-      products: [],
-      // column: [
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden",
-      //     content:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Panama Garden",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden value",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden amet",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
-      //   },
-      // ],
-      // column1: [
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden",
-      //     content:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Panama Garden",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur. Phasellus iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden value",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. iaculis mollis ligula sed ultrices.",
-      //   },
-      //   {
-      //     src: "https://source.unsplash.com/random/800x400?i=1",
-      //     title: "Hotel Panama Garden amet",
-      //     maincontent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis mollis ligula sed ultrices.",
-      //     hashconent:
-      //       "ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ligula sed ultrices.",
-      //   },
-      // ],
+      products: null,
     };
   },
   mounted() {
@@ -139,7 +46,6 @@ export default {
       .get("https://elsa.beta.mediance.co.kr/stylemates/brands/9")
       .then((response) => {
         this.products = response.data.product;
-        console.log("aaaoooo", response);
       });
   },
 };

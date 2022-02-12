@@ -9,19 +9,21 @@ import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 
 function guest(to, from, next) {
-  if (localStorage.token) {
-    next({ name: "Home" });
-    alert("You already logged in");
-  } else next();
+  next();
+  // if (localStorage.token) {
+  //   next({ name: "Home" });
+  //   alert("You already logged in");
+  // } else next();
 }
 
 function guard(to, from, next) {
-  if (localStorage.token) {
-    next();
-  } else {
-    next({ name: "LoginPage" });
-    alert("Please login to access");
-  }
+  next();
+  // if (localStorage.token) {
+  //   next();
+  // } else {
+  //   next({ name: "LoginPage" });
+  //   alert("Please login to access");
+  // }
 }
 
 const routes = [

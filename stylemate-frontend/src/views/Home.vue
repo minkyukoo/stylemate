@@ -5,121 +5,79 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-       <!-- <ion-button router-link="/mypage">mypage</ion-button> -->
+      <!-- <ion-button router-link="/mypage">mypage</ion-button> -->
       <!-- <ExploreContainer name="Home page" /> -->
       <!-- <Tab1List /> -->
+
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
           <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+            <img src="@/assets/images/main-banner-1.png" />
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div> -->
+            </div>-->
           </ion-slide>
           <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+            <img src="@/assets/images/main-banner-1.png" />
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div> -->
+            </div>-->
           </ion-slide>
           <ion-slide>
-            <img src="@/assets/images/main-banner-1.png">
+            <img src="@/assets/images/main-banner-1.png" />
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div> -->
+            </div>-->
           </ion-slide>
         </ion-slides>
       </div>
       <div class="overlapSlide">
+        <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
           <h4>NEW ITEM</h4>
         </div>
         <ion-slides pager="true" :options="multiSlideOpts">
           <ion-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">      
+              <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
-                </div>       
-                <img src="@/assets/images/main-item1.jpg">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </ion-slide>
-          <ion-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
-                </div>
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
-                </div>
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
-                </div>
-                <img src="@/assets/images/main-item1.jpg">
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
-                </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
@@ -130,40 +88,84 @@
             <div class="multiSlideWrap">
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
               </div>
               <div class="slideItem">
                 <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta">
-                  <img src="@/assets/icons/wish.svg" class="wishList">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg">
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div class="multiSlideWrap">
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
@@ -171,21 +173,23 @@
             </div>
           </ion-slide>
         </ion-slides>
-      
+
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
-          <span><img src="@/assets/icons/arrow-right.svg"></span>
+          <span>
+            <img src="@/assets/icons/arrow-right.svg" />
+          </span>
         </div>
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
-            <img src="@/assets/images/book1.png">
+            <img src="@/assets/images/book1.png" />
           </div>
           <div class="bookLabel1 pattern2">
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
           </div>
         </div>
@@ -193,13 +197,13 @@
         <div class="lookBookMain">
           <div class="bookLabel2">
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
           </div>
         </div>
@@ -207,21 +211,21 @@
         <div class="lookBookMain">
           <div class="bookLabel1 pattern2">
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
             <div>
-              <img src="@/assets/images/Rectanglec1.png">
+              <img src="@/assets/images/Rectanglec1.png" />
             </div>
           </div>
           <div class="bookLabel1 pattern1">
-            <img src="@/assets/images/book1.png">
+            <img src="@/assets/images/book1.png" />
           </div>
         </div>
         <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
-        <button class="greyBtnFull"><span>중요</span> [알림] 서비스 점검 안내</button>
+        <button class="greyBtnFull">
+          <span>중요</span> [알림] 서비스 점검 안내
+        </button>
       </div>
-      
-
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -232,26 +236,47 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
 //import axios from 'axios';
+import UserInfoService from "@/services/UserInfoService";
 
 
 export default {
   name: 'Home',
-  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide},
+  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide },
   mounted() {
     // login methods
-    var queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    var token = urlParams.get('token')
-    localStorage.setItem('token', token);
-    console.log(urlParams);
-    console.log(token);
+    // var queryString = window.location.search;
+    // const urlParams = new URLSearchParams(queryString);
+    // var token = urlParams.get('token')
+    // var refreshToken = urlParams.get('refreshToken')
+    // localStorage.setItem('token', token);
+    // localStorage.setItem('refreshToken', refreshToken);
+    // console.log(urlParams);
+    // console.log('token', token);
+    // console.log('refreshToken', urlParams.get('refreshToken'));
 
+  },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
+  methods: {
+    getMyinfo() {
+      this.userInfoService.getUserInfo().then(res => {
+        if (res.response) {
+          if(res.response.status == 401) {
+            this.$router.push('/login');
+          } 
+        }
+        else {
+         console.log(res.data);
+        }
+      });
+    },
   },
   setup() {
     const slideOpts = {
       initialSlide: 1,
       speed: 400
-    }; 
+    };
     return { slideOpts }
   }
 };
