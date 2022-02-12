@@ -165,6 +165,7 @@ export default {
 .product-description{
     margin-top: 19px;
     margin-bottom: 42px;
+    text-align: left;
 }
 .product-description h2{
     font-weight: normal;
