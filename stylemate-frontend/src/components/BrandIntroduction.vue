@@ -32,12 +32,13 @@ export default {
   height: 1000px;
   max-width: 500px;
   min-width: 500px;
+  padding: 30px 0 0 0;
 }
-.imgsec {
-  position: absolute;
+
+.mainse p{
+    margin: 0 0 20px 0;
+  }
+.imgsec{
   width: 500px;
-  height: 1000px;
-  left: 20px;
-  top: 800px;
 }
 </style>

@@ -17,7 +17,7 @@
           <ion-card-title>
             {{ info.korName }}
             <div class="text-box">
-              <img src="@/assets/icons/heart-outline.svg" slot="end" />
+              <img src="@/assets/icons/heart-outline.svg" />
             </div>
           </ion-card-title>
         </ion-card-header>
@@ -54,7 +54,7 @@
           <ion-card-title>
             {{ info.korName }}
             <div class="text-box">
-              <img src="@/assets/icons/heart-outline.svg" slot="end" />
+              <img src="@/assets/icons/heart-outline.svg"  />
             </div>
           </ion-card-title>
         </ion-card-header>
@@ -184,12 +184,14 @@ img:hover {
 }
 
 .text-box {
-  display: flex;
-  text-align: right;
+  /* display: flex;
+  text-align: right; */
   height: 16px;
+  float: right;
 }
 .right-section {
   text-align: right;
+  margin-top: 32px;
 }
 .content-not-found {
   text-align: center;
