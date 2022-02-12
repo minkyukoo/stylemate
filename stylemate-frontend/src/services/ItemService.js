@@ -13,6 +13,8 @@ export default class ItemService {
     return await axios.get(`/stylemates/products?categoryId=${ids}`,{categoryId: ids}).then((res) => res.data.data);
   }
 
+
+
   //error
   //    async getProductDetails(){
   //     return await axios.get(`/stylemates/products/id`, { id:70 }).then((res) => res.data.data);

@@ -1,73 +1,86 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="Login"/>
+    <TopNav headerTitle="Login" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content class="ion-padding">
-      <h1>Please login in Stylemate</h1>
-      <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
-      <ion-card>
-        <ion-item>
-          <h2>Customer service center</h2>
-        </ion-item>
-        <ion-item>
-          <h1>Notice</h1>
-        </ion-item>
-        <ion-item>
-          <h1>FAQ</h1>
-        </ion-item>
-        <ion-item>
-          <h1>1:1 inquiry</h1>
-        </ion-item>
-        <ion-item>
-          <h1>Terms of Use</h1>
-        </ion-item>
-        <ion-item>
-          <h1>Privacy Policy</h1>
-        </ion-item>
-      </ion-card>
-      <ion-button router-link="/home">Go to detail</ion-button>
-      <ion-button router-link="/mypage">Go to detail</ion-button>
+    <ion-content>
+      <div class="login-wrap">
+        <h1>Please login in Stylemate</h1>
+        <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
+        <ion-card>
+          <ion-item>
+            <h2>Customer service center</h2>
+          </ion-item>
+          <ion-item>
+            <h1>Notice</h1>
+          </ion-item>
+          <ion-item>
+            <h1>FAQ</h1>
+          </ion-item>
+          <ion-item>
+            <h1>1:1 inquiry</h1>
+          </ion-item>
+          <ion-item>
+            <h1>Terms of Use</h1>
+          </ion-item>
+          <ion-item>
+            <h1>Privacy Policy</h1>
+          </ion-item>
+        </ion-card>
+        <ion-button router-link="/home">Go to detail</ion-button>
+        <ion-button router-link="/mypage">Go to detail</ion-button>
+      </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
+import TopNav from "@/components/TopNav.vue";
 import {
-  IonCard,
   IonContent,
+  IonCard,
   IonItem,
   IonButton,
 } from "@ionic/vue";
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   components: {
     IonContent,
     IonCard,
     IonItem,
     IonButton,
+    TopNav
   },
   data() {
     return {
       serverUrl: 'http://stylemate.dvconsulting.org/stylemate/home',
-      localUrl: 'http://localhost:8100/home',
+      localUrl: 'http://localhost:8100/login',
+      redirectlocalUrl: 'http://localhost:8100/home',
+    }
+  },
+  mounted() {
+    var queryString = window.location.search;
+    console.log('queryString', queryString);
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    var refreshToken = urlParams.get('refreshToken');
+    console.log('token', token);
+    console.log('refreshToken', refreshToken);
+    if (token && refreshToken) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('refreshToken', refreshToken);
+      window.location.href = this.redirectlocalUrl;
     }
   },
   methods: {
     loginHandaler() {
       alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
-      var queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      var token = urlParams.get('token')
-      localStorage.setItem('token', token);
-      console.log(urlParams);
-      console.log(token);
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
     }
   },
-};
+}
 </script>
 
 <style>

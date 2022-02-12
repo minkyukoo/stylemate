@@ -23,12 +23,35 @@
             mollis ligula sed ultrices.
           </p>
         </div>
-        <div>
-          <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }">Brand Introduction</ion-button>
+        <div class="brandTab">
+          <!-- <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }">Brand Introduction</ion-button>
           <ion-button v-on:click="showItems()" :class="{ active: visible == 'bnt1'}">View items</ion-button>
             <div>
               <div v-if="display" id="bnt1"><BrandIntroduction /></div>
               <div v-if="visible" id="bnt2"><BrandItem /></div>
+            </div> -->
+            <!-- <TabProductDetails/> -->
+            <div class="tab-wrap">
+              <div class="tabs">
+                <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">
+                  캠페인
+                </button>
+                <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">
+                  가이드
+                </button>
+              </div>
+
+              <!-- tab content 1 -->
+              <div class="tab-content" v-if="layout === 'tab1'">
+                <BrandIntroduction />
+                1
+              </div>
+
+              <!-- tab content 2 -->
+              <div class="tab-content" v-if="layout === 'tab2'">
+                <BrandItem />
+                2
+              </div>
             </div>
         </div>
       </div>
@@ -62,23 +85,24 @@ export default {
 
   data() {
     return {
-      slides: [
-        "https://source.unsplash.com/random/800x400?i=1",
-        "https://source.unsplash.com/random/800x400?i=2",
-        "https://source.unsplash.com/random/800x400?i=3",
-        "https://source.unsplash.com/random/800x400?i=4",
-        "https://source.unsplash.com/random/800x400?i=5",
-        "https://source.unsplash.com/random/800x400?i=6",
-        "https://source.unsplash.com/random/800x400?i=1",
-        "https://source.unsplash.com/random/800x400?i=2",
-        "https://source.unsplash.com/random/800x400?i=3",
-        "https://source.unsplash.com/random/800x400?i=4",
-        "https://source.unsplash.com/random/800x400?i=5",
-        "https://source.unsplash.com/random/800x400?i=6",
-      ],
+      // slides: [
+      //   "https://source.unsplash.com/random/800x400?i=1",
+      //   "https://source.unsplash.com/random/800x400?i=2",
+      //   "https://source.unsplash.com/random/800x400?i=3",
+      //   "https://source.unsplash.com/random/800x400?i=4",
+      //   "https://source.unsplash.com/random/800x400?i=5",
+      //   "https://source.unsplash.com/random/800x400?i=6",
+      //   "https://source.unsplash.com/random/800x400?i=1",
+      //   "https://source.unsplash.com/random/800x400?i=2",
+      //   "https://source.unsplash.com/random/800x400?i=3",
+      //   "https://source.unsplash.com/random/800x400?i=4",
+      //   "https://source.unsplash.com/random/800x400?i=5",
+      //   "https://source.unsplash.com/random/800x400?i=6",
+      // ],
 
       display: false,
       visible: false,
+      layout: "tab1"
     };
   },
   mounted() {
@@ -105,11 +129,7 @@ export default {
 .parallax {
   /* The image used */
   background-image: url("https://source.unsplash.com/random/800x400?i=1");
-
-  /* Set a specific height */
   min-height: 500px;
-
-  /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -135,14 +155,9 @@ export default {
   margin: 0 !important;
 
   width: 500px;
-  /* max-width: 500px;
-  min-width: 500px; */
   background-color: rgb(238, 230, 230);
   font-size: 36px;
 }
-/* .mainslide {
-  background-color: #c4c4c4;
-} */
 img {
   width: 100%;
   height: 300px;
@@ -209,5 +224,108 @@ img {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+}
+
+/* tab styling */
+
+.tab-wrap{
+  width: 100%;
+}
+.brandTab{
+  border: 0;
+}
+.tabs {
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  display: flex;
+}
+
+.tabs .tab {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #797979;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 50%;
+}
+.tabs .tab.active {
+  color: #ffffff;
+  background: #090909;
+}
+.pre-div {
+  margin-top: 42px;
+}
+.pre-div h3 {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #25282b;
+}
+.pre-div h3 span {
+  margin-right: 4px;
+}
+.pre-div .text-box {
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 30px 20px 60px;
+  margin-top: 13px;
+  text-align: left;
+}
+.pre-div .text-box p {
+  font-size: 12px;
+  line-height: 16px;
+  color: #595959;
+  margin-top: 20px;
+}
+.pre-div .text-box p:first-child {
+  margin-top: 0;
+}
+.tag-info{
+    border: 1px solid #797979;
+    padding: 0 20px;
+    border-radius: 6px;
+}
+.tag-info .tag-info-row{
+    border-top: solid 1px #F6F6F6;
+    padding: 20px 0;
+}
+.tag-info .tag-info-rowfirst-child{
+    border-top: 0;
+}
+.tag-info .tag-info-row .top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tag-info .tag-info-row .top h3{
+    font-size: 12px;
+    line-height: 16px;
+    color: #797979;
+}
+.tag-info .tag-info-row .top span{
+    font-size: 10px;
+    line-height: 12px;
+    color: #595959;
+    border: 1px solid #595959;
+    border-radius: 4px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tag-content{
+    margin-top: 8px;
+    text-align: left;
+}
+.tag-content span{
+    font-size: 10px;
+    line-height: 12px;
+    color: #595959;
 }
 </style>

@@ -1,25 +1,27 @@
 <template>
   <ion-page>
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav  headerTitle="Contents"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <ExploreContainer name="Contents page" /> -->
-      <ContentPage/>
+      <div class="inner-container pad-t-40">
+        <ContentPage />
+      </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage,  IonContent } from '@ionic/vue';
+import { IonPage, IonContent } from '@ionic/vue';
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
 import ContentPage from './pages/ContentPage.vue';
 
-export default  {
+export default {
   name: 'Contents',
-  components: { TopNav, IonContent, IonPage  , ContentPage}
+  components: { TopNav, IonContent, IonPage, ContentPage }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <ion-header class="header" v-if="$route.meta.mainHeader">
+  <ion-header class="header main-header" v-if="$route.meta.mainHeader">
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
@@ -10,20 +10,22 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-header class="header" v-else-if="$route.meta.innerHeader">
+  <ion-header class="header inner-header" v-else-if="$route.meta.innerHeader">
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button default-href="/home"></ion-back-button>
-      </ion-buttons>
-      <Button @click="$router.go(-1)">back</Button>
-      <div class="flex items-center justify-center relative">
-        <ion-title v-if="headerTitle" class="text-center">{{ headerTitle }}</ion-title>
-        <ion-title v-else class="text-center">Main Header</ion-title>
+      <div class="container">
+        <div class="flex items-center justify-center relative">
+          <ion-buttons slot="start" class="back-btn-wrap">
+            <Button class="back-btn" @click="$router.go(-1)">
+              <i class="icon-left-arrow"></i>
+            </Button>
+          </ion-buttons>
+          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
+          <h1 v-else class="header-title text-center">Main Header</h1>
+          <NotificationIcon notificationCount="24" />
+        </div>
       </div>
     </ion-toolbar>
   </ion-header>
-
-  
 </template>
 
 <script>
@@ -56,6 +58,24 @@ ion-toolbar,
   height: 60px;
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
+}
+.header-title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+}
+.back-btn-wrap {
+  position: absolute;
+  left: 0;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .siteLogo {
   max-width: 120px;

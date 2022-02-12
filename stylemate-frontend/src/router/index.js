@@ -6,22 +6,24 @@ import Item from "@/views/Item.vue";
 import Brand from "@/views/Brand.vue";
 import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
-import Login from "../views/pages/Login.vue";
+import LoginPage from "../views/pages/Login.vue";
 
 function guest(to, from, next) {
-  if (localStorage.token) {
-    next({ name: "home" });
-    alert("You already logged in");
-  } else next();
+  next();
+  // if (localStorage.token) {
+  //   next({ name: "Home" });
+  //   alert("You already logged in");
+  // } else next();
 }
 
 function guard(to, from, next) {
-  if (localStorage.token) {
-    next();
-  } else {
-    next({ name: "Login" });
-    alert("Please login to access");
-  }
+  next();
+  // if (localStorage.token) {
+  //   next();
+  // } else {
+  //   next({ name: "LoginPage" });
+  //   alert("Please login to access");
+  // }
 }
 
 const routes = [
@@ -42,11 +44,11 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Login",
+    name: "LoginPage",
     beforeEnter: guest,
-    component: Login,
+    component: LoginPage,
     meta: {
-      mainHeader: true,
+      innerHeader: true,
     }
   },
   // Tabs
@@ -88,7 +90,7 @@ const routes = [
         name: "Contents",
         component: Contents,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
