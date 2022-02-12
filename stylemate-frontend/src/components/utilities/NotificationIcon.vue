@@ -3,6 +3,7 @@
     <div class="notification-inner">
       <i class="icon-notification"></i>
       <span class="badge">{{ notificationCount }}</span>
+      <i class="icon-blue-dot"></i>
     </div>
   </router-link>
 </template>
@@ -26,6 +27,15 @@ export default {
   position: absolute;
   right: 0;
 }
+.notification .icon-blue-dot {
+  position: absolute;
+  right: 0px;
+  top: -2px;
+  width: 4px;
+  height: 4px;
+  background-color: #00a8ff;
+  border-radius: 50%;
+}
 .notification .badge {
   position: absolute;
   background: #090909;
@@ -42,5 +52,8 @@ export default {
   font-weight: normal;
   font-size: 14px;
   line-height: 14px;
+}
+.inner-header .notification .badge, .main-header .notification .icon-blue-dot {
+  display: none;
 }
 </style>

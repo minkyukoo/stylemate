@@ -88,7 +88,7 @@ const routes = [
         name: "Contents",
         component: Contents,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
