@@ -25,7 +25,7 @@
           >See how to connect</ion-button
         >
         <div v-for="data in cards" :key="data">
-          {{}}
+          <img :src="data.src" />
           <h1>{{ data.cardName }}</h1>
           <div class="addcard">
  <ion-card>
@@ -52,16 +52,17 @@ import TopNav from "@/components/TopNav.vue";
 //import AddChannelsVue from "@/components/AddChannels.vue";
 import { sync, add } from "ionicons/icons";
 
+
 export default {
   name: "LinkChannel",
-  components: { IonContent, IonPage, TopNav, IonGrid, IonButton },
+  components: { IonContent, IonPage, TopNav, IonGrid, IonButton ,},
   data() {
     return {
       cards: [
-        { src: "", cardName: "Instagram" },
-        { src: "", cardName: "Youtube" },
-        { src: "", cardName: "Tiktok" },
-        { src: "", cardName: "Facebook" },
+        { src: "@/assets/icons/instagram.svg", cardName: "Instagram" },
+        { src: "@/assets/icons/instagram.svg", cardName: "Youtube" },
+        { src: "@/assets/icons/instagram.svg", cardName: "Tiktok" },
+        { src: "@/assets/icons/instagram.svg", cardName: "Facebook" },
       ],
     };
   },
@@ -71,7 +72,8 @@ export default {
       add,
     };
   },
-  methods: {},
+   methods: {
+  },
 };
 </script>
 <style>
@@ -91,6 +93,7 @@ export default {
   font-family: Pretendard;
 }
 .btnadd {
-  background: #ffffff;
+  background: #969090;
+  
 }
 </style>

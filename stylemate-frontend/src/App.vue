@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-    <ion-router-outlet />
+    <!-- <ion-router-outlet /> -->
     <router-view :key="$route.path" v-slot="{ Component }">
       <transition name="route" mode="out-in">
         <component :is="Component" />

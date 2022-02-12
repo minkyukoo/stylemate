@@ -1,73 +1,44 @@
 <template>
-  <!-- header -->
-  <!-- <ion-header>
-      <ion-toolbar>
-        <ion-title>ContentPage</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
-  <!-- End header -->
-  <!-- page content -->
-  <ion-content :fullscreen="true">
-    <ion-grid>
-      <h1 class="title">BEST CONTENTS</h1>
-      <br />
-      <!-- Content row start -->
-      <div>
-        <ion-row>
-          <ion-col
-            sizeLg="4"
-            sizeMd="4"
-            sizeXs="6"
-            v-for="image in img"
-            :key="image"
-          >
-            <img :src="image.src" v-bind:alt="img" @click="openModal" />
-          </ion-col>
-        </ion-row>
+  <div class="contents-div pad-t-40">
+    <h1 class="title">BEST CONTENTS</h1>
+    <!-- Content row start -->
+    <div class="gridcontainer">
+      <div v-for="(image, i) of img" :key="i + 1" :class="'a' + (i + 1)">
+        <img :src="image.src" v-bind:alt="img" @click="openModal" />
       </div>
-      <br />
-      <!-- Content row Ends -->
+    </div>
+    <br />
+    <!-- Content row Ends -->
 
-      <div>
-        <h1 class="title">NEW</h1>
-        <br />
-         <!-- New content start -->
-        <ion-row>
-          <ion-col
-            sizeLg="4"
-            sizeMd="4"
-            sizeXs="6"
-            v-for="image in new_contents"
-            :key="image"
-          >
-            <img :src="image.campaign.imageThumbnailPath " v-bind:alt="img" @click="openModal(image.campaign.imageMainPath, image.campaign.brandId)" />
-          </ion-col>
-        </ion-row>
+    <div>
+      <h1 class="title">NEW</h1>
+      <!-- New content start -->
+      <div class="new-row">
+        <div class="new-grid" v-for="image in new_contents" :key="image">
+          <img
+            :src="image.campaign.imageThumbnailPath"
+            v-bind:alt="img"
+            @click="openModal(image.campaign.imageMainPath, image.campaign.brandId)"
+          />
+        </div>
       </div>
-      <!-- New content ends -->
-    </ion-grid>
-  </ion-content>
-  <!-- End page content -->
+    </div>
+    <!-- New content ends -->
+  </div>
 </template>
 <script>
 import {
-  IonContent,
-  IonCol,
-  IonGrid,
-  IonRow,
   modalController,
 } from "@ionic/vue";
-//import ExploreContainer from "@/components/ExploreContainer.vue";
-//import TopNav from "@/components/TopNav.vue";
 import ContentDetails from "@/components/ContentDetails.vue";
 import axios from "axios";
 export default {
   name: "ContentPage",
-  components: { IonContent, IonCol, IonGrid, IonRow },
   data() {
     return {
-    new_contents:[],
+      new_contents: [],
       img: [
+        { src: "https://source.unsplash.com/random/800x400?i=1" },
         { src: "https://source.unsplash.com/random/800x400?i=1" },
         { src: "https://source.unsplash.com/random/800x400?i=1" },
         { src: "https://source.unsplash.com/random/800x400?i=1" },
@@ -105,7 +76,7 @@ export default {
       ],
     };
   },
-    mounted() {
+  mounted() {
     axios
       .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
       .then((response) => {
@@ -121,18 +92,71 @@ export default {
       const modal = await modalController.create({
         component: ContentDetails,
         componentProps: {
-					propsData: {
-						title: 'String to pass!',
-					},
-         
-				},
+          propsData: {
+            title: 'String to pass!',
+          },
+
+        },
       });
       return modal.present();
     },
   },
 };
 </script>
-<style>
+<style scoped>
+.contents-div {
+  padding-top: 40px;
+}
+.gridcontainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px 10px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "a a b"
+    "a a c"
+    "d e f"
+    "h g g"
+    "i g g";
+}
+
+.a1 {
+  grid-area: a;
+}
+
+.a2 {
+  grid-area: b;
+}
+
+.a3 {
+  grid-area: c;
+}
+
+.a4 {
+  grid-area: d;
+}
+
+.a5 {
+  grid-area: e;
+}
+
+.a6 {
+  grid-area: f;
+}
+
+.a7 {
+  grid-area: g;
+}
+
+.a8 {
+  grid-area: h;
+}
+
+.a9 {
+  grid-area: i;
+}
+
 .row1 {
   height: 200px;
   width: 100%;
@@ -142,7 +166,7 @@ export default {
   width: 100%;
 }
 .title {
-  position: absolute;
+  /* position: absolute; */
   font-family: Europa-Bold;
   font-weight: bold;
   display: flex;

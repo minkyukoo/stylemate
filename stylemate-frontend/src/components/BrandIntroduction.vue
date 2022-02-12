@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .mainse {
 height:1000px;
    max-width: 500px;

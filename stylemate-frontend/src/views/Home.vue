@@ -238,12 +238,14 @@ export default {
   name: 'Home',
   components: { TopNav, IonContent, IonPage, IonSlides, IonSlide},
   mounted() {
+    // login methods
     var queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     var token = urlParams.get('token')
     localStorage.setItem('token', token);
     console.log(urlParams);
     console.log(token);
+
   },
   setup() {
     const slideOpts = {

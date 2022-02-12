@@ -5,7 +5,8 @@
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar >
         <ion-tab-button tab="tab1" href="/home">
-           <ion-icon :src="require(`@/assets/icons/home.svg`)" />
+           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
+           <i class="icon-home"/>
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
@@ -54,12 +55,25 @@ export default {
 </script>
 
 <style scoped>
+ion-icon {
+  color: blue;
+  --ionicon-stroke-width: 16px;
+}
+
 .main-container {
   max-width: 500px;
   min-width: 360px;
   width: 100%;
   height: 100vh;
   margin: 0 auto;
+}
+ion-tab-bar {
+    background: black;
+    border-radius: 8px;
+}
+ion-tab-button {
+    background: black;
+    overflow: hidden;
 }
 .page-tabs .tabs .tabbar {
     background: #121212;
@@ -70,4 +84,5 @@ export default {
     max-height: 56px;
     height: 56px;
 }
+
 </style>

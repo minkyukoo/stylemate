@@ -6,11 +6,11 @@ import Item from "@/views/Item.vue";
 import Brand from "@/views/Brand.vue";
 import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
-import Login from "../views/pages/Login.vue";
+import LoginPage from "../views/pages/Login.vue";
 
 function guest(to, from, next) {
   if (localStorage.token) {
-    next({ name: "home" });
+    next({ name: "Home" });
     alert("You already logged in");
   } else next();
 }
@@ -19,7 +19,7 @@ function guard(to, from, next) {
   if (localStorage.token) {
     next();
   } else {
-    next({ name: "Login" });
+    next({ name: "LoginPage" });
     alert("Please login to access");
   }
 }
@@ -28,17 +28,26 @@ const routes = [
   {
     path: "/",
     redirect: "/home",
+    meta: {
+      mainHeader: true,
+    }
   },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("@/components/utilities/NotFound.vue"),
+    meta: {
+      mainHeader: true,
+    }
   },
   {
     path: "/login",
-    name: "Login",
+    name: "LoginPage",
     beforeEnter: guest,
-    component: Login,
+    component: LoginPage,
+    meta: {
+      innerHeader: true,
+    }
   },
   // Tabs
   {
@@ -54,27 +63,42 @@ const routes = [
         path: "home",
         name: "Home",
         component: Home,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "item",
         name: "Item",
         component: Item,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "brand",
         name: "Brand",
         component: Brand,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "contents",
         name: "Contents",
         component: Contents,
+        meta: {
+          mainHeader: true,
+        }
       },
       {
         path: "mypage",
         name: "Mypage",
         beforeEnter: guard,
         component: Mypage,
+        meta: {
+          mainHeader: true,
+        }
       },
     ],
   },
@@ -82,9 +106,9 @@ const routes = [
     path:"/notification",
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
-    meta: [
-
-    ]
+    meta: {
+      innerHeader: true,
+    }
   },
   {
     path: "/brand-details",
@@ -95,7 +119,17 @@ const routes = [
     path:"/link-channel",
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
-  }
+  },
+  {
+    path: "/product-details",
+    name: "ItemDetails",
+    component: () => import("@/views/pages/ItemDetails.vue"),
+  },
+  {
+    path: "/fb-login",
+    name: "facebookLogin",
+    component: () => import("@/views/pages/FbLogin.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -1,13 +1,17 @@
 <template>
   <div class="inner-container listmain">
     <ion-searchbar
-    placeholder="브랜드 이름으로 검색해 보세요."
+      @ionChange="sreachWord()"
+      v-model="searchValue"
+      placeholder="브랜드 이름으로 검색해 보세요."
     ></ion-searchbar>
-    <div class="main">
+    <div v-if="this.keywords == !this.brand_info" class="content-not-found">
+      <p>We couldn't find any suitable brands. How about the brands below?</p>
+      <div class="main"></div>
       <div
         class="maincard"
         v-for="info in brand_info"
-        :key="info"
+        :key="info.id"
         @click="$router.push({ name: 'BrandDetails' })"
       >
         <figure class="img-wrap">
@@ -17,16 +21,55 @@
           <ion-card-title>
             {{ info.korName }}
             <div class="text-box">
- <img src="@/assets/icons/heart-outline.svg" />
+              <img src="@/assets/icons/heart-outline.svg" slot="end" />
             </div>
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
+        <ion-card-content class="maincontent">{{
+          info.description
+        }}</ion-card-content>
         <ion-card-content
           class="subcontent"
           v-for="tagdata in info.tag"
           :key="tagdata"
-        ># {{ tagdata.tag }}</ion-card-content>
+          ># {{ tagdata.tag }}</ion-card-content
+        >
+      </div>
+    </div>
+  
+    <div class="right-section" v-else>
+      <button>
+        <img src="@/assets/icons/list-view.svg" />
+      </button>
+    </div>
+   
+    <div class="main">
+      <div
+        class="maincard"
+        v-for="info in keywords"
+        :key="info.id"
+        @click="$router.push({ name: 'BrandDetails' })"
+      >
+        <figure class="img-wrap">
+          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
+        </figure>
+        <ion-card-header>
+          <ion-card-title>
+            {{ info.korName }}
+            <div class="text-box">
+              <img src="@/assets/icons/heart-outline.svg" slot="end" />
+            </div>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="maincontent">{{
+          info.description
+        }}</ion-card-content>
+        <ion-card-content
+          class="subcontent"
+          v-for="tagdata in info.tag"
+          :key="tagdata"
+          ># {{ tagdata.tag }}</ion-card-content
+        >
       </div>
     </div>
   </div>
@@ -36,13 +79,14 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 // import axios from "axios";
-import BrandService from '@/services/BrandService';
+import BrandService from "@/services/BrandService";
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle },
+  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
   setup() {
     return { heart };
   },
@@ -50,7 +94,10 @@ export default {
     return {
       brand_info: [],
       error: [],
-      hashcontent: []
+      hashcontent: [],
+      searchValue: "",
+      keywords: [],
+      show_error: false,
     };
   },
   created() {
@@ -58,9 +105,39 @@ export default {
   },
   mounted() {
     this.brandService.getBrandList().then((data) => {
-      console.log(data)
+      console.log(data);
       this.brand_info = data;
+      this.keywords = data;
     });
+  },
+  // computed: {
+  //   sreachWord() {
+
+  //     return this.brand_info.filter(p => {
+  //       console.log("p",p);
+  //       // return true if the product should be visible
+
+  //       // in this example we just check if the search string
+  //       // is a substring of the product name (case insensitive)
+  //       return p.korName.toLowerCase().indexOf(this.search.toLowerCase()) != -1;
+  //     });
+  //   }
+  // },
+  methods: {
+    sreachWord() {
+      if (this.searchValue) {
+        this.keywords = this.brand_info.filter((word) => {
+          //  console.log("wordss", word.korName);
+          return word.korName
+            .toUpperCase()
+            .includes(this.searchValue.toUpperCase());
+        });
+        console.log("keywordresults", this.keywords);
+      } else {
+        this.keywords = this.brand_info;
+        this.show_error = !this.show_error;
+      }
+    },
   },
 };
 </script>
@@ -108,9 +185,21 @@ img:hover {
   border: #25282b;
 }
 
- .text-box {
+.text-box {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: right;
+  height: 16px;
+}
+.right-section {
+  text-align: right;
+}
+.content-not-found {
+  text-align: center;
+  font-family: Pretendard;
+  position: absolute;
+  width: 227px;
+  height: 40px;
+  left: 67px;
+  top: 160px;
 }
 </style>

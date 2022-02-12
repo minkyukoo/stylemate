@@ -1,20 +1,8 @@
 <template>
-  <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
-      <ion-slide>
-        <ul>
-          <li v-for="slide in categories_info" :key="slide">
-            <a href="#">{{ slide.name }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content loading-spinner="bubbles">
-      {{isBanner}}
-      <div :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+    <ion-infinite-scroll-content>
+      <div class="nodata" v-if="!isFltData">NO data</div>
+      <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
@@ -26,16 +14,10 @@
             </ion-item>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -45,6 +27,7 @@
             v-for="(product, index) in item_list"
             :key="index"
             class="product-list-item"
+            @click="$router.push({ name: 'ItemDetails' })"
           >
             <figure>
               <img :src="product.imageThumbnailPath" />
@@ -61,19 +44,17 @@
             <p>{{ product.description }}</p>
             <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
-              <span v-for="(hash, index) in product.tag" :key="index">{{
-                hash.tag
-              }}</span>
+              <span v-for="(hash, index) in product.tag" :key="index">
+                {{
+                  hash.tag
+                }}
+              </span>
             </div>
           </li>
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li
-            v-for="(product, index) in item_list"
-            :key="index"
-            class="product-list-item"
-          >
+          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
@@ -92,14 +73,20 @@
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
         </ul>
       </div>
+
+      <!-- <div class="nodata" v-if="!isproductfilter">yes data found</div>
+      <div v-else></div> -->
+
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </template>
@@ -115,12 +102,14 @@ import {
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import ItemService from '@/services/ItemService';
+import ItemService from "@/services/ItemService";
 
 export default defineComponent({
   name: "CardItem",
-  props:{
+  props: {
     isBanner: Boolean,
+    isFltData: Boolean,
+    isproductfilter: Boolean,
   },
   components: {
     // IonSegment,
@@ -240,30 +229,44 @@ export default defineComponent({
         },
       ],
       layout: "grid",
-      categories_info:[],
-      item_list:[],
-      product_details:[]
+      categories_info: [],
+      item_list: [],
+      product_details: [],
+      banner: [],
+
     };
   },
-   created() {
+  created() {
     this.itemService = new ItemService();
+   
   },
+
   mounted() {
+
+     console.log('isFltData', this.isFltData);
+    console.log('isproductfilter', this.isproductfilter);
+
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info",data)
+      console.log("categories_info", data);
       this.categories_info = data;
     });
-// Product list
-    this.itemService.getProductLsit().then((data)=>{
-      console.log("ItemList",data)
-this.item_list=data;
-// Product details
- this.itemService.getProductDetails().then((data)=>{
-      console.log("ProductDetails",data)
-this.product_details=data;
+    // Product list
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data)
+      this.item_list = data;
     })
-    })
+    // Product details error
+    //  this.itemService.getProductDetails().then((data)=>{
+    //       console.log("ProductDetails",data)
+    // this.product_details=data;
+    //     })
+
+    // this.itemService.getbanner().then((data) => {
+    //   console.log("banner", data)
+    //   this.banner = data;
+    // })
+
   },
 });
 </script>
@@ -285,10 +288,14 @@ this.product_details=data;
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
-  background-image: linear-gradient(148.66deg, rgba(241, 241, 241, 0.5) 18.92%, rgba(255, 255, 255, 0.1) 80.41%);
-  /* background: #ffffff; */
+  /* background-image: linear-gradient(
+    148.66deg,
+    rgba(241, 241, 241, 0.5) 18.92%,
+    rgba(255, 255, 255, 0.1) 80.41%
+  ); */
+  background: #ffffff;
   transition: all 0.5s ease-in-out;
-  backdrop-filter: blur(30px);
+  /* backdrop-filter: blur(30px); */
 }
 .item-wrapper.withoutbanner {
   top: 70px;
@@ -312,6 +319,8 @@ this.product_details=data;
   margin-bottom: 12px;
   border-radius: 6px;
   overflow: hidden;
+  width: 100%;
+  height: auto;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
