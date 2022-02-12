@@ -1,36 +1,38 @@
 <template>
-    <!-- Product details start  -->
-   <div class="main">
-      <div
-        class="maincard"
-        v-for="info in brandItem"
-        :key="info.id"
-        @click="$router.push({ name: 'BrandDetails',  params: { id: info.id } })"
+  <!-- Product details start  -->
+  <div class="brand-product">
+    <ul class="product-list grid-view">
+      <li
+        v-for="(product, index) in brandItem"
+        :key="index"
+        class="product-list-item"
+        @click="$router.push({ name: 'ItemDetails' })"
       >
-        <figure class="img-wrap">
-          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
-        </figure>
-        <ion-card-header>
-          <ion-card-title>
-            {{ info.korName }}
-            <div class="text-box">
-              <img src="@/assets/icons/heart-outline.svg"  />
+        <figure>
+          <img :src="product.imageThumbnailPath" />
+          <div class="top-float-div">
+            <div class="social-icon">
+              <img src="@/assets/icons/instagram.svg" />
             </div>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content class="maincontent">
-          {{
-            info.description
-          }}
-        </ion-card-content>
-        <ion-card-content
-          class="subcontent"
-          v-for="tagdata in info.tag"
-          :key="tagdata"
-        ># {{ tagdata.tag }}</ion-card-content>
-      </div>
-    </div>
-    <!--  Product details end  -->
+            <div class="favorite">
+              <img src="@/assets/icons/heart-outline.svg" />
+            </div>
+          </div>
+        </figure>
+        <!-- <h3>{{ product.title }}</h3> -->
+        <p>{{ product.description }}</p>
+        <!-- <span>{{ product.hashtags }}</span> -->
+        <div class="hashWrap">
+          <span v-for="(hash, index) in product.tag" :key="index">
+            {{
+              '#' + hash.tag
+            }}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!--  Product details end  -->
 </template>
 <script>
 export default {
@@ -48,5 +50,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>
