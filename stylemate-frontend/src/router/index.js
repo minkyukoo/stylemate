@@ -78,7 +78,7 @@ const routes = [
         }
       },
       {
-        path: "brand",
+        path: "brands",
         name: "Brand",
         component: Brand,
         meta: {
@@ -113,9 +113,12 @@ const routes = [
     }
   },
   {
-    path: "/brand-details",
+    path: "/brands/:id",
     name: "BrandDetails",
     component: () => import("@/views/pages/BrandDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
   },
   {
     path:"/link-channel",

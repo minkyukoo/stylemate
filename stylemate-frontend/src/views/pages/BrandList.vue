@@ -1,10 +1,6 @@
 <template>
   <div class="inner-container listmain">
-    <ion-searchbar
-      @ionChange="sreachWord()"
-      v-model="searchValue"
-      placeholder="브랜드 이름으로 검색해 보세요."
-    ></ion-searchbar>
+    <ion-searchbar @ionChange="sreachWord()" v-model="searchValue" placeholder="브랜드 이름으로 검색해 보세요."></ion-searchbar>
     <div v-if="this.keywords == !this.brand_info" class="content-not-found">
       <p>We couldn't find any suitable brands. How about the brands below?</p>
       <div class="main"></div>
@@ -12,7 +8,7 @@
         class="maincard"
         v-for="info in brand_info"
         :key="info.id"
-        @click="$router.push({ name: 'BrandDetails' })"
+        @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
       >
         <figure class="img-wrap">
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
@@ -25,30 +21,31 @@
             </div>
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="maincontent">{{
-          info.description
-        }}</ion-card-content>
+        <ion-card-content class="maincontent">
+          {{
+            info.description
+          }}
+        </ion-card-content>
         <ion-card-content
           class="subcontent"
           v-for="tagdata in info.tag"
           :key="tagdata"
-          ># {{ tagdata.tag }}</ion-card-content
-        >
+        ># {{ tagdata.tag }}</ion-card-content>
       </div>
     </div>
-  
+
     <div class="right-section" v-else>
       <button>
         <img src="@/assets/icons/list-view.svg" />
       </button>
     </div>
-   
+
     <div class="main">
       <div
         class="maincard"
         v-for="info in keywords"
         :key="info.id"
-        @click="$router.push({ name: 'BrandDetails' })"
+        @click="$router.push({ name: 'BrandDetails',  params: { id: info.id } })"
       >
         <figure class="img-wrap">
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
@@ -61,15 +58,16 @@
             </div>
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="maincontent">{{
-          info.description
-        }}</ion-card-content>
+        <ion-card-content class="maincontent">
+          {{
+            info.description
+          }}
+        </ion-card-content>
         <ion-card-content
           class="subcontent"
           v-for="tagdata in info.tag"
           :key="tagdata"
-          ># {{ tagdata.tag }}</ion-card-content
-        >
+        ># {{ tagdata.tag }}</ion-card-content>
       </div>
     </div>
   </div>
