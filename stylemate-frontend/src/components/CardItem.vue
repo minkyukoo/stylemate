@@ -320,10 +320,12 @@ export default defineComponent({
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  height: auto;
+  height: 256px;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .item-wrapper .product-list .product-list-item h3 {
   font-weight: bold;
