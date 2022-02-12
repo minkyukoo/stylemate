@@ -1,43 +1,40 @@
 <template>
-  <!-- <ion-page>
-  <ion-content :fullscreen="true">-->
-  <div>
     <!-- Product details start  -->
-    <ion-grid class="iongrid">
-      {{ brandItem }}
-      <ion-row>
-        <ion-col sizeLg="4" sizeMd="4" sizeXs="6" v-for="product in brandItem" :key="product">
-          <ion-card class="maincard" v-for="data in column" :key="data + 1">
-            <ion-item>
-              <img :src="product.imageThumbnailPath" class="imgsec" alt="ion" />
-            </ion-item>
-            <ion-card-header>
-              <ion-card-title>
-                {{ product.name }}
-                {{brandItem}}
-                <ion-icon class="float-right" :icon="heart" />
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="maincontent">{{ product.description }}</ion-card-content>
-            <ion-card-content
-              class="subcontent"
-              v-for="tagdata in  product.tag"
-              :key="tagdata"
-            >{{ tagdata.tag }}</ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+   <div class="main">
+      <div
+        class="maincard"
+        v-for="info in brandItem"
+        :key="info.id"
+        @click="$router.push({ name: 'BrandDetails',  params: { id: info.id } })"
+      >
+        <figure class="img-wrap">
+          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
+        </figure>
+        <ion-card-header>
+          <ion-card-title>
+            {{ info.korName }}
+            <div class="text-box">
+              <img src="@/assets/icons/heart-outline.svg"  />
+            </div>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content class="maincontent">
+          {{
+            info.description
+          }}
+        </ion-card-content>
+        <ion-card-content
+          class="subcontent"
+          v-for="tagdata in info.tag"
+          :key="tagdata"
+        ># {{ tagdata.tag }}</ion-card-content>
+      </div>
+    </div>
     <!--  Product details end  -->
-  </div>
-  <!-- </ion-content>
-  </ion-page>-->
 </template>
 <script>
-import { IonCol, IonGrid, IonRow } from "@ionic/vue";
 export default {
   name: "BrandItems",
-  components: { IonCol, IonGrid, IonRow },
   props: {
     brandItem: {
       type: Array,

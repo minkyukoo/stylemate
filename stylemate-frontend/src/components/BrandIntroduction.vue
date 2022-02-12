@@ -9,7 +9,7 @@
       neat details and a snug fit that fits the body type.-->
       {{ brandIntro }}
     </p>
-    <img src="@/assets/images/Rectangle10.png" class="imgsec" />
+    <img :src="`${brandThumb}`" class="imgsec" />
   </div>
 </template>
 <script>
@@ -30,8 +30,9 @@ export default {
 <style scoped>
 .mainse {
   height: 1000px;
-  max-width: 500px;
-  min-width: 500px;
+  /* max-width: 500px;
+  min-width: 500px; */
+  width: 100%;
   padding: 30px 0 0 0;
 }
 
