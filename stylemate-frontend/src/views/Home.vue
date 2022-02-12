@@ -55,7 +55,7 @@
           <h4>NEW ITEM</h4>
         </div>
         <ion-slides pager="true" :options="multiSlideOpts">
-          <ion-slide >
+          <ion-slide v-for="banner in list1" :key="banner" >
             <div class="multiSlideWrap">
               <div class="slideItem">
                 <div class="socialBLock">
@@ -267,14 +267,12 @@ export default {
     this.bannerService.getBannerList("home").then((resp) => {
                     console.log(resp)
                     this.list = resp;
-                    this.list1 = resp;
-                    console.log("list1",this.list1);
-
+                  
                 })
-    // this.bannerService.getNewItemList().then((resp) => {
-    //                 console.log(resp)
-    //                 //  this.list1 = resp;
-    //             })
+    this.bannerService.getNewItemList().then((resp) => {
+                    console.log(resp)
+                      this.list1 = resp;
+                })
   },
   data(){
     return{
