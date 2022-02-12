@@ -1,53 +1,128 @@
 <template>
-  <!-- <ion-page>
-    <ion-content :fullscreen="true"> -->
-      <div>
-       <!-- Product details start  -->
-        <ion-grid>
-          <ion-row>
-            <ion-col sizeLg="4" sizeMd="4" sizeXs="6" v-for="product in products" :key="product">
-              <ion-card class="maincard" v-for="data in column" :key="data + 1">
-                <ion-item
-                  ><img :src="product.imageThumbnailPath" class="imgsec" alt="ion"
-                /></ion-item>
-                <ion-card-header>
-                  <ion-card-title>
-                    {{ product.name }} <ion-icon class="float-right" :icon="heart"
-                  /></ion-card-title>
-                </ion-card-header>
-                <ion-card-content class="maincontent">
-                  {{ product.description }}
-                </ion-card-content>
-                <ion-card-content class="subcontent" v-for="tagdata in  product.tag" :key="tagdata">
-                  {{ tagdata.tag }}
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <!--  Product details end  --> 
-      </div>
-    <!-- </ion-content>
-  </ion-page> -->
+  <!-- Product details start  -->
+  <div class="brand-product">
+    <ul class="product-list grid-view">
+      <li
+        v-for="(product, index) in brandItem"
+        :key="index"
+        class="product-list-item"
+        @click="$router.push({ name: 'ItemDetails' })"
+      >
+        <figure>
+          <img :src="product.imageThumbnailPath" />
+          <div class="top-float-div">
+            <div class="social-icon">
+              <img src="@/assets/icons/instagram.svg" />
+            </div>
+            <div class="favorite">
+              <img src="@/assets/icons/heart-outline.svg" />
+            </div>
+          </div>
+        </figure>
+        <!-- <h3>{{ product.title }}</h3> -->
+        <p>{{ product.description }}</p>
+        <!-- <span>{{ product.hashtags }}</span> -->
+        <div class="hashWrap">
+          <span v-for="(hash, index) in product.tag" :key="index">
+            {{
+              '#' + hash.tag
+            }}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!--  Product details end  -->
 </template>
 <script>
-import { IonCol, IonGrid, IonRow} from "@ionic/vue";
-import axios from "axios";
 export default {
   name: "BrandItems",
-  components: { IonCol, IonGrid, IonRow },
+  props: {
+    brandItem: {
+      type: Array,
+    },
+  },
   data() {
     return {
       products: null,
     };
   },
-  mounted() {
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/brands/9")
-      .then((response) => {
-        this.products = response.data.product;
-      });
-  },
 };
 </script>
-<style></style>
+<style scoped>
+.brand-product .product-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 30px -4px;
+  padding-bottom: 100px;
+}
+.brand-product .grid-view .product-list-item {
+  width: 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0 4px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.brand-product .product-list .product-list-item figure {
+  position: relative;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+.brand-product .product-list .product-list-item figure > img {
+  width: 100%;
+}
+.brand-product .product-list .product-list-item h3 {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+  color: #25282b;
+  margin-bottom: 4px;
+}
+.brand-product .product-list .product-list-item p {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #25282b;
+  margin-bottom: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.brand-product .product-list .product-list-item span {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
+}
+.brand-product .product-list .product-list-item figure{
+  height: 256px;
+}
+
+.brand-product .product-list .product-list-item figure img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.brand-product .product-list-item figure {
+  position: relative;
+  width: 120px;
+}
+.brand-product .product-list-item .social-icon {
+  position: absolute;
+  top: 0;
+  padding: 7px;
+}
+.brand-product .product-list-item .social-icon img {
+  cursor: pointer;
+}
+.brand-product .product-list-item .favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+</style>

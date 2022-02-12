@@ -15,7 +15,7 @@
           <ion-label>ITEM</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/brand">
+        <ion-tab-button tab="tab3" href="/brands">
           <ion-icon :src="require(`@/assets/icons/brand.svg`)" />
           <ion-label>BRAND</ion-label>
         </ion-tab-button>

@@ -7,6 +7,7 @@ import Brand from "@/views/Brand.vue";
 import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
+import BrandDetails from "@/views/pages/BrandDetails.vue";
 
 function guest(to, from, next) {
   next();
@@ -78,11 +79,19 @@ const routes = [
         }
       },
       {
-        path: "brand",
+        path: "brands",
         name: "Brand",
         component: Brand,
         meta: {
           mainHeader: true,
+        },
+      },
+      {
+        path: "/brands/:id",
+        name: "BrandDetails",
+        component: BrandDetails,
+        meta: {
+          innerHeader: true,
         }
       },
       {
@@ -105,20 +114,23 @@ const routes = [
     ],
   },
   {
-    path:"/notification",
+    path: "/notification",
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
     meta: {
       innerHeader: true,
     }
   },
+  // {
+  //   path: "/brands/:id",
+  //   name: "BrandDetails",
+  //   component: () => import("@/views/pages/BrandDetails.vue"),
+  //   meta: {
+  //     innerHeader: true,
+  //   }
+  // },
   {
-    path: "/brand-details",
-    name: "BrandDetails",
-    component: () => import("@/views/pages/BrandDetails.vue"),
-  },
-  {
-    path:"/link-channel",
+    path: "/link-channel",
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
   },

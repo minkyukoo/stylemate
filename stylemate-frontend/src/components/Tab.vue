@@ -9,8 +9,14 @@
       </button>
     </div>
 
+    <div class="subscribe-wrap">
+      <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
+      <button class="black-btn">협찬 신청</button>
+    </div>
+
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
+      <figure class="product-banner"><img src="@/assets/images/product-details.jpg" /></figure>
       <div class="pre-div">
         <h3>
           <span><img src="@/assets/icons/warning.svg" /></span>
@@ -47,6 +53,76 @@
           </div>
         </div>
       </div>
+
+      <div class="terms-wrap">
+        <div class="guide">
+          <div class="heading">
+            <span><img src="@/assets/icons/icon-check.svg"/></span>
+            <h3>꼭 읽어주세요</h3>
+          </div>
+          <ul class="guide-body">
+            <li>
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+            </li>
+            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
+              (ex_2개 선택 시 포스팅 2개)</li>
+            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
+              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
+            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide">
+          <div class="heading">
+            <span><img src="@/assets/icons/icon-image.svg"/></span>
+            <h3>꼭 읽어주세요</h3>
+          </div>
+          <ul class="guide-body">
+            <li>
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+            </li>
+            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
+              (ex_2개 선택 시 포스팅 2개)</li>
+            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
+              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
+            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide">
+          <div class="heading">
+            <span><img src="@/assets/icons/icon-text.svg"/></span>
+            <h3>텍스트 가이드</h3>
+          </div>
+          <ul class="guide-body">
+            <li>
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+            </li>
+            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
+              (ex_2개 선택 시 포스팅 2개)</li>
+            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
+              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
+            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide">
+          <div class="heading">
+            <span><img src="@/assets/icons/icon-calendar.svg"/></span>
+            <h3>일정 가이드</h3>
+          </div>
+          <ul class="guide-body">
+            <li>
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+            </li>
+            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
+              (ex_2개 선택 시 포스팅 2개)</li>
+            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
+              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
+            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -81,13 +157,37 @@ export default({
           ],
         }
       ],
-      layout: "tab2",
+      layout: "tab1",
     };
   },
 });
 </script>
 
 <style scoped>
+.subscribe-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+}
+.subscribe-wrap figure{
+  margin-right: 10px;
+}
+.subscribe-wrap .black-btn{
+  font-size: 14px;
+  line-height: 18px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+}
+.tab-wrap .tab-content{
+  padding-bottom: 50px;
+}
 .tabs {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
@@ -109,6 +209,9 @@ export default({
 .tabs .tab.active {
   color: #ffffff;
   background: #090909;
+}
+.product-banner img{
+  margin: 0 auto;
 }
 .pre-div {
   margin-top: 42px;
@@ -182,4 +285,33 @@ export default({
     line-height: 12px;
     color: #595959;
 }
+.terms-wrap .guide{
+  margin-top: 58px;
+}
+
+.terms-wrap .guide .heading{
+  display: flex;
+  align-items: center;
+}
+.terms-wrap .guide .heading h3{
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #25282B;
+}
+.terms-wrap .guide .heading span{
+  margin-right: 4px;
+}
+.terms-wrap .guide .guide-body{
+  margin-top: 12px;
+  border-top: solid 1px #F7F7F7;
+  padding-top: 12px;
+}
+.terms-wrap .guide .guide-body li{
+  text-align: left;
+  font-size: 12px;
+  line-height: 18px;
+  color: #797979;
+}
+
 </style>
