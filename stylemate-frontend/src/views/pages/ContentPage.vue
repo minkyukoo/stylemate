@@ -3,7 +3,7 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div v-for="(image, i) of img" :key="i + 1" :class="'a' + (i + 1)">
+      <div v-for="(image, i) of img" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
         <img :src="image.src" v-bind:alt="img" @click="openModal" />
       </div>
     </div>
@@ -38,15 +38,15 @@ export default {
     return {
       new_contents: [],
       img: [
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
-        { src: "https://source.unsplash.com/random/800x400?i=1" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/3" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/4" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/5" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/6" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
+        { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
       ],
       img_new: [
         {
@@ -157,6 +157,18 @@ export default {
   grid-area: i;
 }
 
+.g-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.new-row {
+
+}
+
+
+
 .row1 {
   height: 200px;
   width: 100%;
@@ -167,11 +179,12 @@ export default {
 }
 .title {
   /* position: absolute; */
-  font-family: Europa-Bold;
+  /* font-family: Europa-Bold; */
   font-weight: bold;
   display: flex;
   font-size: 24px;
   line-height: 24px;
+  margin-bottom: 20px;
 }
 .newimage {
   background-size: cover;
