@@ -7,27 +7,19 @@
     <ion-content :fullscreen="true">
       <div class="product-main-banner">
         <!-- <img src="@/assets/images/product-banner.jpg" /> -->
-        <img :src="productDetails.imageMainPath" />
+        <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
       </div>
       <div class="item-wrapper">
         <div class="itemMain">
           <div class="itemHeader">
-            <h2>{{ productDetails.korName }}</h2>
+            <h2>{{ brandDetails.korName }}</h2>
             <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
           </div>
           <ul class="hastags">
             <li>
-              <p v-for="(item, i) of productDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
-            </li>
-            <li>
-              <p v-for="(item, i) of productDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
-            </li>
-            <li>
-              <p v-for="(item, i) of productDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
+              <p v-for="(item, i) of brandDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
             </li>
           </ul>
-          <!-- <p v-for="(item, i) of productDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
-          <p v-for="(item, i) of productDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p> -->
         </div>
         <div class="brandTab">
           <!-- <TabProductDetails/> -->
@@ -47,12 +39,12 @@
 
             <!-- tab content 1 -->
             <div class="tab-content" v-if="layout === 'tab1'">
-              <BrandIntroduction />1
+              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />1
             </div>
 
             <!-- tab content 2 -->
             <div class="tab-content" v-if="layout === 'tab2'">
-              <BrandItem />2
+              <BrandItem :brandItem="brandDetails.product" />2
             </div>
           </div>
         </div>
@@ -85,7 +77,7 @@ export default {
       display: false,
       visible: false,
       layout: "tab1",
-      productDetails: Object,
+      brandDetails: Object,
     };
   },
   created() {
@@ -103,7 +95,7 @@ export default {
       // success
       else {
         console.log('res', res);
-        this.productDetails = res;
+        this.brandDetails = res;
       }
     });
   },
