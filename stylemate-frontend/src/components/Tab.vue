@@ -1,14 +1,16 @@
 <template>
   <div class="tab-wrap">
     <div class="tabs">
-      <button class="tab">
+      <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">
         캠페인
       </button>
-      <button class="tab">
+      <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">
         가이드
       </button>
     </div>
-    <div class="tab-content">
+
+    <!-- tab content 1 -->
+    <div class="tab-content" v-if="layout === 'tab1'">
       <div class="pre-div">
         <h3>
           <span><img src="@/assets/icons/warning.svg" /></span>
@@ -31,6 +33,21 @@
           </div>
       </div>
     </div>
+
+    <!-- tab content 2 -->
+    <div class="tab-content" v-if="layout === 'tab2'">
+      <div class="tag-info">
+        <div v-for="tagcell in tagrow" :key="tagcell" class="tag-info-row">
+          <div class="top">
+            <h3>{{tagcell.name}}</h3>
+            <span>복사</span>
+          </div>
+          <div class="tag-content">
+            <span v-for="hash in tagcell.hashtag" :key="hash">{{hash.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,6 +56,34 @@
 
 export default({
   name: "TabProductDetails",
+  data() {
+    return {
+      tagrow:[
+        {
+          name: '해시태그',
+          hashtag: [
+            { name: "#스트릿패션" },
+            { name: "#스우파" },
+            { name: "#후디" },
+            { name: "#스트릿패션" },
+            { name: "#스우파" },
+            { name: "#후디" },
+            { name: "#스트릿패션" },
+            { name: "#스우파" },
+            { name: "#후디" },
+          ],
+        },
+        {
+          name: '계정태그',
+          hashtag: [
+            { name: "@stylemate_official" },
+            { name: '@oef__official'}
+          ],
+        }
+      ],
+      layout: "tab2",
+    };
+  },
 });
 </script>
 
@@ -61,7 +106,7 @@ export default({
   padding: 20px;
   width: 50%;
 }
-.tabs .tab.active-tab {
+.tabs .tab.active {
   color: #ffffff;
   background: #090909;
 }
@@ -84,6 +129,7 @@ export default({
   border-radius: 6px;
   padding: 30px 20px 60px;
   margin-top: 13px;
+  text-align: left;
 }
 .pre-div .text-box p {
   font-size: 12px;
@@ -129,6 +175,7 @@ export default({
 }
 .tag-content{
     margin-top: 8px;
+    text-align: left;
 }
 .tag-content span{
     font-size: 10px;
