@@ -18,6 +18,10 @@ body {
   height: 100%;
 }
 
+img:hover{
+  background-color: transparent !important;
+}
+
 .headerLine{
   padding: 0 20px;
   display: flex;
