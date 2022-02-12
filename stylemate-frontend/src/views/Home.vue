@@ -5,42 +5,123 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <!-- <ion-button router-link="/mypage">mypage</ion-button> -->
-      <!-- <ExploreContainer name="Home page" /> -->
-      <!-- <Tab1List /> -->
-
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
-          <ion-slide>
-            <img src="@/assets/images/main-banner-1.png" />
-            <!-- <div class="bannerCont">
+          <ion-slide v-for="slide in list" :key="slide">
+            <div>
+              <img :src="slide.pcImagePath" alt />
+              <!-- <img :src="slide.mobileImagePath" alt=""> -->
+            </div>
+          </ion-slide>
+          <!-- <img src="@/assets/images/main-banner-1.png"> -->
+          <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div>-->
-          </ion-slide>
-          <ion-slide>
-            <img src="@/assets/images/main-banner-1.png" />
-            <!-- <div class="bannerCont">
+          </div>-->
+
+          <!-- </ion-slide> -->
+          <!-- <template v-for="s in slideData" :key="s.id">
+              <swiper>
+                <swiper-slide>
+                  <ion-card>
+                 <ion-card-content> Slide Name:{{ s.name }} </ion-card-content>
+                  </ion-card>
+                  </swiper-slide>
+              </swiper>
+          </template>-->
+          <!-- <ion-slide>
+          <img src="@/assets/images/main-banner-1.png">-->
+          <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div>-->
-          </ion-slide>
+          </div>-->
+          <!-- </ion-slide>
           <ion-slide>
-            <img src="@/assets/images/main-banner-1.png" />
-            <!-- <div class="bannerCont">
+          <img src="@/assets/images/main-banner-1.png">-->
+          <!-- <div class="bannerCont">
               <h1>IDUN</h1>
               <p>MINERALS<span>Stockholm</span></p>
-            </div>-->
-          </ion-slide>
+          </div>-->
+          <!-- </ion-slide> -->
         </ion-slides>
       </div>
+
+
+
+
       <div class="overlapSlide">
         <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
           <h4>NEW ITEM</h4>
         </div>
         <ion-slides pager="true" :options="multiSlideOpts">
-          <ion-slide>
+
+
+          <ion-slide v-for="(slide, i) of NewProItems" :key="i+1">
+
+            <div class="multiSlideWrap">
+
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban {{i+1}}</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+
+
+
+              <!-- <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <div class="slideItem">
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img src="@/assets/images/main-item1.jpg" />
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div> -->
+            </div>
+
+          </ion-slide>
+
+
+
+
+          <!-- <ion-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
                 <div class="socialBLock">
@@ -171,8 +252,13 @@
                 <span>#street fashion #sufa #hoodie</span>
               </div>
             </div>
-          </ion-slide>
+          </ion-slide> -->
         </ion-slides>
+
+
+
+
+
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -235,50 +321,68 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
-//import axios from 'axios';
-import UserInfoService from "@/services/UserInfoService";
+import BannerService from '@/services/BannerService';
+import ItemService from '@/services/ItemService';
 
 
 export default {
   name: 'Home',
   components: { TopNav, IonContent, IonPage, IonSlides, IonSlide },
-  mounted() {
-    // login methods
-    // var queryString = window.location.search;
-    // const urlParams = new URLSearchParams(queryString);
-    // var token = urlParams.get('token')
-    // var refreshToken = urlParams.get('refreshToken')
-    // localStorage.setItem('token', token);
-    // localStorage.setItem('refreshToken', refreshToken);
-    // console.log(urlParams);
-    // console.log('token', token);
-    // console.log('refreshToken', urlParams.get('refreshToken'));
+  data() {
+    return {
+      list: null,
+      newItems: null,
 
+      tempNewProItems: [],
+      NewProItems: null
+
+    }
   },
   created() {
-    this.userInfoService = new UserInfoService();
+    this.bannerService = new BannerService();
+    this.itemService = new ItemService();
+
+    this.itemService.getProductLsit().then((resp) => {
+      console.log('newItems', resp);
+      // this.newItems = resp;
+      // const slicedArray = resp.slice(0, 5);
+      // console.log('slicedArray', slicedArray);
+
+      var i, temporary, chunk = 4;
+      for (i = 0; i < 12; i += chunk) {
+        temporary = resp.slice(i, i + chunk);
+        // do whatever
+        this.tempNewProItems.push(temporary);
+        // console.log('temporary', temporary);
+      }
+      this.NewProItems = this.tempNewProItems;
+      console.log('this.NewProItems', this.NewProItems);
+    });
+
   },
-  methods: {
-    getMyinfo() {
-      this.userInfoService.getUserInfo().then(res => {
-        if (res.response) {
-          if(res.response.status == 401) {
-            this.$router.push('/login');
-          } 
-        }
-        else {
-         console.log(res.data);
-        }
-      });
-    },
+  mounted() {
+
+    // this.bannerService.getBannerList("home").then((resp) => {
+    //                 console.log(resp)
+    //                 this.list = resp;
+
+    //             })
+    // this.bannerService.getNewItemList().then((resp) => {
+    //   console.log('newItems', resp);
+
+    //   this.newItems = resp;
+    // })
+    
   },
+
   setup() {
     const slideOpts = {
       initialSlide: 1,
       speed: 400
     };
     return { slideOpts }
-  }
+  },
+
 };
 </script>
 

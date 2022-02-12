@@ -22,7 +22,7 @@
     "dayjs": "^1.10.7",
     "js-cookie": "^3.0.1",
     "stylemate": "file:",
-    "swiper": "^8.0.2",
+    "swiper": "^8.0.3",
     "vue": "^3.2.21",
     "vue-axios": "^3.4.0",
     "vue-router": "^4.0.12",
@@ -54,5 +54,11 @@
     "ts-jest": "^27.0.7",
     "webpack": "^5.67.0"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC"
 }

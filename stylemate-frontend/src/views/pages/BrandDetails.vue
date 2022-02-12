@@ -44,7 +44,7 @@
 
             <!-- tab content 2 -->
             <div class="tab-content" v-if="layout === 'tab2'">
-              <BrandItem :brandItem="brandDetails.product" />2
+              <BrandItem :brandItem="brandDetails.product" />
             </div>
           </div>
         </div>
