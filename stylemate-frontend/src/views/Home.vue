@@ -5,9 +5,6 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <!-- <ion-button router-link="/mypage">mypage</ion-button> -->
-      <!-- <ExploreContainer name="Home page" /> -->
-      <!-- <Tab1List /> -->
 
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
@@ -34,6 +31,7 @@
           </ion-slide>
         </ion-slides>
       </div>
+
       <div class="overlapSlide">
         <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
@@ -226,6 +224,7 @@
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
+      
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -235,7 +234,6 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { IonSlides, IonSlide } from '@ionic/vue';
-//import axios from 'axios';
 import UserInfoService from "@/services/UserInfoService";
 
 
@@ -243,16 +241,6 @@ export default {
   name: 'Home',
   components: { TopNav, IonContent, IonPage, IonSlides, IonSlide },
   mounted() {
-    // login methods
-    // var queryString = window.location.search;
-    // const urlParams = new URLSearchParams(queryString);
-    // var token = urlParams.get('token')
-    // var refreshToken = urlParams.get('refreshToken')
-    // localStorage.setItem('token', token);
-    // localStorage.setItem('refreshToken', refreshToken);
-    // console.log(urlParams);
-    // console.log('token', token);
-    // console.log('refreshToken', urlParams.get('refreshToken'));
 
   },
   created() {
