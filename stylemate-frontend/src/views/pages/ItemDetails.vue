@@ -47,7 +47,7 @@
                 <span><img src="@/assets/icons/arrow-left.svg" /></span>
               </div>
               <div class="right-section">
-                <img src="@/assets/icons/share.svg" />
+                <button @click="showAlert"><img src="@/assets/icons/share.svg" /></button>
               </div>
             </div>
             <div class="product-description">
@@ -115,6 +115,18 @@ export default {
     };
   },
 
+  methods: {
+    showAlert(){
+      // Use sweetalret2
+      // this.$swal('Hello Vue world!!!');
+      this.$swal.fire({
+        title: '공유하기',
+        html:
+          '<ul class="shareList"><li><a href="#"><img src="../assets/icons/icon-fb.svg"/><span>페이스북</span></a></li><li><a href="#"><img src="../assets/icons/icon-kakaotalk.svg"/><span>카카오톡</span></a></li><li><a href="#"><img src="../assets/icons/icon-url.svg"/><span>URL</span></a></li></ul>',
+        confirmButtonText:'닫기',
+      })
+    }
+  }
 };
 </script>
 
@@ -194,4 +206,5 @@ export default {
 .product-description p span{
     margin-right: 7px;
 }
+
 </style>
