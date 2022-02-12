@@ -3,7 +3,7 @@
   <ion-content :fullscreen="true">-->
   <div>
     <!-- Product details start  -->
-    <ion-grid>
+    <ion-grid class="iongrid">
       {{ brandItem }}
       <ion-row>
         <ion-col sizeLg="4" sizeMd="4" sizeXs="6" v-for="product in brandItem" :key="product">
