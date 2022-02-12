@@ -1,119 +1,106 @@
 <template>
   <ion-page class="main-container relative">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title style="text-align: center">View details</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <!-- header -->
+    <TopNav headerTitle="View Details"></TopNav>
+    <!-- End header -->
+    <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="product-main-banner">
-        <img src="@/assets/images/product-banner.jpg" />
+        <!-- <img src="@/assets/images/product-banner.jpg" /> -->
+        <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
       </div>
       <div class="item-wrapper">
         <div class="itemMain">
           <div class="itemHeader">
-            <h2>BEMUSE MANSION</h2>
+            <h2>{{ brandDetails.korName }}</h2>
             <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
           </div>
-          <p>
-            ipsum dolor sit amet, consectetur adipiscing elit. Phasellus iaculis
-            mollis ligula sed ultrices.
-          </p>
+          <ul class="hastags">
+            <li>
+              <p v-for="(item, i) of brandDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
+            </li>
+          </ul>
         </div>
         <div class="brandTab">
-          <!-- <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }">Brand Introduction</ion-button>
-          <ion-button v-on:click="showItems()" :class="{ active: visible == 'bnt1'}">View items</ion-button>
-            <div>
-              <div v-if="display" id="bnt1"><BrandIntroduction /></div>
-              <div v-if="visible" id="bnt2"><BrandItem /></div>
-            </div> -->
-            <!-- <TabProductDetails/> -->
-            <div class="tab-wrap">
-              <div class="tabs">
-                <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">
-                  캠페인
-                </button>
-                <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">
-                  가이드
-                </button>
-              </div>
-
-              <!-- tab content 1 -->
-              <div class="tab-content" v-if="layout === 'tab1'">
-                <BrandIntroduction />
-                1
-              </div>
-
-              <!-- tab content 2 -->
-              <div class="tab-content" v-if="layout === 'tab2'">
-                <BrandItem />
-                2
-              </div>
+          <!-- <TabProductDetails/> -->
+          <div class="tab-wrap">
+            <div class="tabs">
+              <button
+                class="tab"
+                @click="layout = 'tab1'"
+                :class="{ active: layout === 'tab1' }"
+              >캠페인</button>
+              <button
+                class="tab"
+                @click="layout = 'tab2'"
+                :class="{ active: layout === 'tab2' }"
+              >가이드</button>
             </div>
+
+            <!-- tab content 1 -->
+            <div class="tab-content" v-if="layout === 'tab1'">
+              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />1
+            </div>
+
+            <!-- tab content 2 -->
+            <div class="tab-content" v-if="layout === 'tab2'">
+              <BrandItem :brandItem="brandDetails.product" />2
+            </div>
+          </div>
         </div>
       </div>
     </ion-content>
+    <!-- End page content -->
   </ion-page>
 </template>
 <script>
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonButtons,
 } from "@ionic/vue";
+import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
-import axios from "axios";
+import BrandService from "@/services/BrandService";
 export default {
   name: "BrandDetails",
   components: {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
+    TopNav,
     IonContent,
-    IonButtons,
     BrandIntroduction,
     BrandItem,
   },
 
   data() {
     return {
-      // slides: [
-      //   "https://source.unsplash.com/random/800x400?i=1",
-      //   "https://source.unsplash.com/random/800x400?i=2",
-      //   "https://source.unsplash.com/random/800x400?i=3",
-      //   "https://source.unsplash.com/random/800x400?i=4",
-      //   "https://source.unsplash.com/random/800x400?i=5",
-      //   "https://source.unsplash.com/random/800x400?i=6",
-      //   "https://source.unsplash.com/random/800x400?i=1",
-      //   "https://source.unsplash.com/random/800x400?i=2",
-      //   "https://source.unsplash.com/random/800x400?i=3",
-      //   "https://source.unsplash.com/random/800x400?i=4",
-      //   "https://source.unsplash.com/random/800x400?i=5",
-      //   "https://source.unsplash.com/random/800x400?i=6",
-      // ],
-
       display: false,
       visible: false,
-      layout: "tab1"
+      layout: "tab1",
+      brandDetails: Object,
     };
   },
+  created() {
+    this.brandService = new BrandService();
+
+    var proId = this.$route.params.id;
+    this.brandService.getBrandDetails(proId).then((res) => {
+      // catch error
+      if (res.response) {
+        if (res.response.status == 404) {
+          alert(res.response.data.error.message);
+          this.$router.push('/brands');
+        }
+      }
+      // success
+      else {
+        console.log('res', res);
+        this.brandDetails = res;
+      }
+    });
+  },
   mounted() {
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/brands")
-      .then((response) => {
-        this.brand_info = response.data.data;
-      })
-      .catch((e) => {
-        this.error.push(e);
-      });
+
   },
   methods: {
     show() {
@@ -126,14 +113,12 @@ export default {
 };
 </script>
 <style scoped>
-.parallax {
-  /* The image used */
-  background-image: url("https://source.unsplash.com/random/800x400?i=1");
-  min-height: 500px;
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.hastags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 14px;
 }
 .main-container {
   max-width: 500px;
@@ -228,10 +213,10 @@ img {
 
 /* tab styling */
 
-.tab-wrap{
+.tab-wrap {
   width: 100%;
 }
-.brandTab{
+.brandTab {
   border: 0;
 }
 .tabs {
@@ -286,46 +271,46 @@ img {
 .pre-div .text-box p:first-child {
   margin-top: 0;
 }
-.tag-info{
-    border: 1px solid #797979;
-    padding: 0 20px;
-    border-radius: 6px;
+.tag-info {
+  border: 1px solid #797979;
+  padding: 0 20px;
+  border-radius: 6px;
 }
-.tag-info .tag-info-row{
-    border-top: solid 1px #F6F6F6;
-    padding: 20px 0;
+.tag-info .tag-info-row {
+  border-top: solid 1px #f6f6f6;
+  padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child{
-    border-top: 0;
+.tag-info .tag-info-rowfirst-child {
+  border-top: 0;
 }
-.tag-info .tag-info-row .top{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.tag-info .tag-info-row .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.tag-info .tag-info-row .top h3{
-    font-size: 12px;
-    line-height: 16px;
-    color: #797979;
+.tag-info .tag-info-row .top h3 {
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
 }
-.tag-info .tag-info-row .top span{
-    font-size: 10px;
-    line-height: 12px;
-    color: #595959;
-    border: 1px solid #595959;
-    border-radius: 4px;
-    padding: 4px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tag-info .tag-info-row .top span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #595959;
+  border: 1px solid #595959;
+  border-radius: 4px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.tag-content{
-    margin-top: 8px;
-    text-align: left;
+.tag-content {
+  margin-top: 8px;
+  text-align: left;
 }
-.tag-content span{
-    font-size: 10px;
-    line-height: 12px;
-    color: #595959;
+.tag-content span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #595959;
 }
 </style>

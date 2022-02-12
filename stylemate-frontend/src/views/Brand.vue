@@ -6,6 +6,7 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <BrandList />
+      <!-- <router-view></router-view> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
