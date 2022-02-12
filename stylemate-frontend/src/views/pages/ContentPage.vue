@@ -164,11 +164,21 @@ export default {
 }
 
 .new-row {
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 156px;
+  gap: 8px 8px;
+  grid-auto-flow: row;
 }
-
-
-
+.new-row .new-grid {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.new-row .new-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .row1 {
   height: 200px;
   width: 100%;
