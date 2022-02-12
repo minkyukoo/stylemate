@@ -34,23 +34,21 @@
             <div class="tab-wrap">
               <div class="tabs">
                 <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">
-                  캠페인
+                  브랜드 소개
                 </button>
                 <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">
-                  가이드
+                  아이템 보기
                 </button>
               </div>
 
               <!-- tab content 1 -->
               <div class="tab-content" v-if="layout === 'tab1'">
                 <BrandIntroduction />
-                1
               </div>
 
               <!-- tab content 2 -->
               <div class="tab-content" v-if="layout === 'tab2'">
                 <BrandItem />
-                2
               </div>
             </div>
         </div>
