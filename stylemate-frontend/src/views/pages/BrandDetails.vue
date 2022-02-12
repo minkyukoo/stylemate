@@ -23,7 +23,7 @@
             mollis ligula sed ultrices.
           </p>
         </div>
-        <div>
+        <div class="brandTab">
           <ion-button v-on:click="show()" :class="{ active: display == 'bnt1' }">Brand Introduction</ion-button>
           <ion-button v-on:click="showItems()" :class="{ active: visible == 'bnt1'}">View items</ion-button>
             <div>
@@ -62,20 +62,20 @@ export default {
 
   data() {
     return {
-      slides: [
-        "https://source.unsplash.com/random/800x400?i=1",
-        "https://source.unsplash.com/random/800x400?i=2",
-        "https://source.unsplash.com/random/800x400?i=3",
-        "https://source.unsplash.com/random/800x400?i=4",
-        "https://source.unsplash.com/random/800x400?i=5",
-        "https://source.unsplash.com/random/800x400?i=6",
-        "https://source.unsplash.com/random/800x400?i=1",
-        "https://source.unsplash.com/random/800x400?i=2",
-        "https://source.unsplash.com/random/800x400?i=3",
-        "https://source.unsplash.com/random/800x400?i=4",
-        "https://source.unsplash.com/random/800x400?i=5",
-        "https://source.unsplash.com/random/800x400?i=6",
-      ],
+      // slides: [
+      //   "https://source.unsplash.com/random/800x400?i=1",
+      //   "https://source.unsplash.com/random/800x400?i=2",
+      //   "https://source.unsplash.com/random/800x400?i=3",
+      //   "https://source.unsplash.com/random/800x400?i=4",
+      //   "https://source.unsplash.com/random/800x400?i=5",
+      //   "https://source.unsplash.com/random/800x400?i=6",
+      //   "https://source.unsplash.com/random/800x400?i=1",
+      //   "https://source.unsplash.com/random/800x400?i=2",
+      //   "https://source.unsplash.com/random/800x400?i=3",
+      //   "https://source.unsplash.com/random/800x400?i=4",
+      //   "https://source.unsplash.com/random/800x400?i=5",
+      //   "https://source.unsplash.com/random/800x400?i=6",
+      // ],
 
       display: false,
       visible: false,
@@ -101,15 +101,12 @@ export default {
   },
 };
 </script>
+
 <style>
 .parallax {
   /* The image used */
   background-image: url("https://source.unsplash.com/random/800x400?i=1");
-
-  /* Set a specific height */
   min-height: 500px;
-
-  /* Create the parallax scrolling effect */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -135,14 +132,9 @@ export default {
   margin: 0 !important;
 
   width: 500px;
-  /* max-width: 500px;
-  min-width: 500px; */
   background-color: rgb(238, 230, 230);
   font-size: 36px;
 }
-/* .mainslide {
-  background-color: #c4c4c4;
-} */
 img {
   width: 100%;
   height: 300px;

@@ -298,3 +298,19 @@ body {
     color: $purple-1;
   }
 }
+
+.brandTab{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $grey-2;
+  border-radius: 10px;
+  overflow: hidden;
+  button{
+    width: 50%;
+    // background: $black-1;
+    color: $grey-3;
+    padding: 20px 0;
+    text-align: center;
+  }
+}
