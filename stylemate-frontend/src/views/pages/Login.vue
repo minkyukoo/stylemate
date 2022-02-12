@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="Login"/>
+    <TopNav headerTitle="Login" />
     <!-- End header -->
     <!-- page content -->
     <ion-content>
@@ -56,19 +56,28 @@ export default {
   data() {
     return {
       serverUrl: 'http://stylemate.dvconsulting.org/stylemate/home',
-      localUrl: 'http://localhost:8100/home',
+      localUrl: 'http://localhost:8100/login',
+      redirectlocalUrl: 'http://localhost:8100/home',
+    }
+  },
+  mounted() {
+    var queryString = window.location.search;
+    console.log('queryString', queryString);
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    var refreshToken = urlParams.get('refreshToken');
+    console.log('token', token);
+    console.log('refreshToken', refreshToken);
+    if (token && refreshToken) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('refreshToken', refreshToken);
+      window.location.href = this.redirectlocalUrl;
     }
   },
   methods: {
     loginHandaler() {
       alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
-      var queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      var token = urlParams.get('token')
-      localStorage.setItem('token', token);
-      console.log(urlParams);
-      console.log(token);
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
     }
   },
 }
