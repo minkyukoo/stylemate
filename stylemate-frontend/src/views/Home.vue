@@ -11,12 +11,12 @@
 
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
-          <ion-slide v-for="slide in list" :key="slide">
+          <!-- <ion-slide v-for="slide in list" :key="slide">
             <div>
-              <img :src="slide.pcImagePath" alt="">
+              <img :src="slide.pcImagePath" alt=""> -->
               <!-- <img :src="slide.mobileImagePath" alt=""> -->
-            </div>
-            </ion-slide>
+            <!-- </div>
+            </ion-slide> -->
            <!-- <img src="@/assets/images/main-banner-1.png"> -->
             <!-- <div class="bannerCont">
               <h1>IDUN</h1>
@@ -269,15 +269,15 @@ export default {
     //                 this.list = resp;
                   
     //             })
-    this.bannerService.getNewItemList().then((resp) => {
+    this.bannerService.getProductItemList().then((resp) => {
                     console.log(resp)
-                      this.list1 = resp;
+                      // this.list1 = resp;
                 })
   },
   data(){
     return{
-      list:null,
-       list1:null
+      // list:null,
+      //  list1:null
     }
   },
   setup() {
