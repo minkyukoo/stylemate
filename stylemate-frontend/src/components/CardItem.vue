@@ -23,7 +23,7 @@
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
-          {{isproductfilter}}
+          <!-- {{isproductfilter}} -->
           <li
             v-for="(product, index) in item_list"
             :key="index"
@@ -55,7 +55,7 @@
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li  v-for="(product, index) in item_list" :key="index" class="product-list-item">
+          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
@@ -89,6 +89,7 @@
 </template>
 
 <script>
+
 import {
   // IonSegment,
   // IonSegmentButton,
@@ -117,8 +118,8 @@ export default defineComponent({
     IonInfiniteScroll,
     IonInfiniteScrollContent,
   },
-
   setup() {
+    provide( 'store', store)
     const slideOpts = {
       initialSlide: 1,
       speed: 400,
@@ -135,96 +136,6 @@ export default defineComponent({
 
   data() {
     return {
-      products: [
-        {
-          title: "Areuban",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: " 리플렉 오버핏 조거 스웨",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "hovehover",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[BOOTSCUT.FIT] Chana...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Etmon",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[JACKET.FIT] Heavy jac...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "OEF",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[WIDE.FIT] Island jeans...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Areuban",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: " 리플렉 오버핏 조거 스웨",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "hovehover",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[BOOTSCUT.FIT] Chana...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Etmon",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[JACKET.FIT] Heavy jac...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "OEF",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[WIDE.FIT] Island jeans...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-      ],
       layout: "grid",
       categories_info: [],
       item_list: [],
@@ -236,55 +147,57 @@ export default defineComponent({
   },
   created() {
     this.itemService = new ItemService();
-   console.log("this.isproductfilter",this.isproductfilter);
-
-    // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      if (this.isproductfilter) {
-        alert("yes")
-        this.item_list = this.isproductfilter;
-      } else{
-        this.item_list = data;
-      }
-    })
   },
 
-mounted() {
+  mounted() {
 
-    console.log('isFltData', this.isFltData);
-    console.log('isproductfilter', this.isproductfilter);
+    // console.log('isFltData', this.isFltData);
+    // console.log('isproductfilter', this.isproductfilter);
+
+    console.log("from carditem this.isproductfilter", this.isproductfilter);
+
 
     // Slide title
-      this.itemService.getProductCategories().then((data) => {
+    this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
     this.itemService.getProductLsit().then((data) => {
       console.log("ItemList", data);
-      if (this.isproductfilter) {
-        alert("yes")
-        this.item_list = this.isproductfilter;
-      }else{
-        alert("no")
+      alert("updated filterdata")
       this.item_list = data;
+    })
+  },
+
+  updated() {
+    console.log("from carditem this.isproductfilter", this.isproductfilter);
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      if (this.isproductfilter) {
+        alert("updated filterdata")
+        this.item_list = this.isproductfilter;
+      } else {
+        alert("updated all filterdata")
+        this.item_list = data;
       }
     })
-    // Product details error
-    //  this.itemService.getProductDetails().then((data)=>{
-    //       console.log("ProductDetails",data)
-    // this.product_details=data;
-    //     })
-
-    // this.itemService.getbanner().then((data) => {
-    //   console.log("banner", data)
-    //   this.banner = data;
-    // })
-
   },
 
   methods: {
+
+    productListing() {
+      this.itemService.getProductLsit().then((data) => {
+        console.log("ItemList", data);
+        if (this.isproductfilter) {
+          alert("updated filterdata")
+          this.item_list = this.isproductfilter;
+        } else {
+          alert("updated all filterdata")
+          this.item_list = data;
+        }
+      });
+    }
 
     // productList(){
     //   if (this.isproductfilter) {
@@ -315,16 +228,16 @@ mounted() {
 }
 
 .nodata {
-    justify-content: center;
-    min-height: 60vh;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #C4C4C4;
+  justify-content: center;
+  min-height: 60vh;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #c4c4c4;
 }
 
 .item-wrapper {

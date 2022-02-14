@@ -47,7 +47,6 @@ export default {
       // console.log("this.isproductfilter",isproductfilter);
       // this.$emit("isproductfilter",isproductfilter);
       console.log("this.isproductfilter",this.isproductfilter);
-      alert(event);
     },
   }
 }
