@@ -376,6 +376,7 @@ import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
 import ItemService from "@/services/ItemService";
+import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Home",
@@ -419,7 +420,9 @@ export default {
   created() {
     this.bannerService = new BannerService();
     this.itemService = new ItemService();
+    this.userInfoService = new UserInfoService();
   },
+  
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
       console.log("bres", res);
@@ -445,6 +448,20 @@ export default {
     //   this.newProItems = result;
     //   console.log('newProItems', this.newProItems);
     // });
+  },
+  methods: {
+    getMyinfo() {
+      this.userInfoService.getUserInfo().then(res => {
+        if (res.response) {
+          if(res.response.status == 401) {
+            this.$router.push('/login');
+          } 
+        }
+        else {
+         console.log(res.data);
+        }
+      });
+    },
   },
 };
 </script>
