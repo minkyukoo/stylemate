@@ -96,7 +96,9 @@
                 </div>
               </template>
 
-              <template v-slot:footer> This is a new modal footer. </template>
+              <template v-slot:footer>
+                
+              </template>
             </CustomModal>
 
             <TabProductDetails />
@@ -268,13 +270,5 @@ export default {
   color: #595959;
   margin-top: 4px;
 }
-.modal-header h2 {
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 20px;
-  color: #25282b;
-  text-align: center;
-  margin-top: 24px;
-  width: 100%;
-}
+
 </style>
