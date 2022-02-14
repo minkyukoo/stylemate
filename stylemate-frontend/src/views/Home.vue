@@ -5,129 +5,56 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <div class="mainslide">
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <div class="mainslide-banner-wrap">
-              <img :src="slide.pcImagePath" alt />
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
+      <!-- <ion-button router-link="/mypage">mypage</ion-button> -->
+      <!-- <ExploreContainer name="Home page" /> -->
+      <!-- <Tab1List /> -->
 
+      <div class="mainslide">
+        <ion-slides pager="true" :options="slideOpts">
+          <ion-slide v-for="slide in list" :key="slide">
+            <div>
+              <img :src="slide.pcImagePath" alt="">
+              <!-- <img :src="slide.mobileImagePath" alt=""> -->
+            </div>
+            </ion-slide>
+           <!-- <img src="@/assets/images/main-banner-1.png"> -->
+            <!-- <div class="bannerCont">
+              <h1>IDUN</h1>
+              <p>MINERALS<span>Stockholm</span></p>
+            </div> -->
+
+            <!-- </ion-slide> -->
+            <!-- <template v-for="s in slideData" :key="s.id">
+              <swiper>
+                <swiper-slide>
+                  <ion-card>
+                 <ion-card-content> Slide Name:{{ s.name }} </ion-card-content>
+                  </ion-card>
+                  </swiper-slide>
+              </swiper>
+            </template> -->
+          <!-- <ion-slide>
+            <img src="@/assets/images/main-banner-1.png"> -->
+            <!-- <div class="bannerCont">
+              <h1>IDUN</h1>
+              <p>MINERALS<span>Stockholm</span></p>
+            </div> -->
+          <!-- </ion-slide>
+          <ion-slide>
+            <img src="@/assets/images/main-banner-1.png"> -->
+            <!-- <div class="bannerCont">
+              <h1>IDUN</h1>
+              <p>MINERALS<span>Stockholm</span></p>
+            </div> -->
+          <!-- </ion-slide> -->
+        </ion-slides>
+      </div>
       <div class="overlapSlide">
         <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
           <h4>NEW ITEM</h4>
         </div>
-
-        <swiper
-        :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </swiper-slide>
-        </swiper>
-
-        <!-- <ion-slides pager="true" :options="multiSlideOpts">
+        <ion-slides pager="true" :options="multiSlideOpts">
           <ion-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
@@ -260,51 +187,7 @@
               </div>
             </div>
           </ion-slide>
-          <ion-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </ion-slide>
-        </ion-slides>-->
+        </ion-slides>
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -364,18 +247,22 @@
 </template>
 
 <script>
-// Import Swiper Vue.js components
-import { Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/vue";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-// import { IonSlides, IonSlide } from "@ionic/vue";
-import BannerService from "@/services/BannerService";
-import ItemService from "@/services/ItemService";
+import { IonSlides, IonSlide } from '@ionic/vue';
+// import axios from 'axios';
+import BannerService from '@/services/BannerService'
+// import {Swiper,SwiperSlide} from "swiper/vue";
+export default { 
+  name: 'Home',
+  components: { TopNav, IonContent, IonPage, IonSlides, IonSlide },
+  mounted() {
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var token = urlParams.get('token')
+    localStorage.setItem('token', token);
+    console.log(urlParams);
+    console.log(token)
 
     this.bannerService.getBannerList("home").then((resp) => {
                     console.log(resp)
@@ -389,83 +276,28 @@ import ItemService from "@/services/ItemService";
   },
   data(){
     return{
-      list:null,
+      // list:null,
       //  list1:null
     }
   },
   setup() {
-    // const slideOpts = {
-    //   initialSlide: 1,
-    //   speed: 400,
-    //   loop: true,
-    //   autoplay:true
-    // };
-    // return { slideOpts }
+    // const slideData = ref<any>([
+    //   {id:1,name:"initial slides"},
+    //   {id:1,name:"initial slides2"},
 
-    const onSwiper = (swiper) => {
-      console.log(swiper);
+    //   ]);
+    //   return {
+    //     slideData
+    //   };
+    const slideOpts = {
+      initialSlide: 1,
+      speed: 400
     };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-      modules: [Pagination],
-    };
+    return { slideOpts }
   },
-  data() {
-    return {
-      bannerList: null,
-      newItems: null,
-      newProItems: null,
-    };
-  },
-  created() {
-    this.bannerService = new BannerService();
-    this.itemService = new ItemService();
-  },
-  mounted() {
-    this.bannerService.getBannerList("home").then((res) => {
-      console.log("bres", res);
-      this.bannerList = res;
-    });
-
-    // this.itemService.getProductLsit().then((resp) => {
-    //   console.log('newItems', resp);
-    //   this.newItems = resp;
-    //   const slicedArray = resp.slice(0, 12); //total items 12
-    //   console.log('slicedArray', slicedArray);
-
-    //   var perChunk = 4 // items per chunk
-    //   var inputArray = slicedArray  //array to split
-    //   var result = inputArray.reduce((resultArray, item, index) => {
-    //     const chunkIndex = Math.floor(index / perChunk)
-    //     if (!resultArray[chunkIndex]) {
-    //       resultArray[chunkIndex] = [] // start a new chunk
-    //     }
-    //     resultArray[chunkIndex].push(item)
-    //     return resultArray
-    //   }, []);
-    //   this.newProItems = result;
-    //   console.log('newProItems', this.newProItems);
-    // });
-  },
+  created(){
+    this.bannerService = new BannerService() 
+  }
 };
 </script>
-
-<style scoped>
-.mainslide-banner-wrap {
-  max-height: 380px;
-  height: 380px;
-  background: #c4c4c4;
-  overflow: hidden;
-}
-.mainslide-banner-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-</style>
 
