@@ -96,15 +96,17 @@
                 </div>
               </template>
 
-              <template v-slot:footer>
-                
-              </template>
+              <template v-slot:footer> </template>
             </CustomModal>
 
             <TabProductDetails />
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
+      <div class="subscribe-wrap">
+        <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
+        <button class="black-btn">협찬 신청</button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -270,5 +272,59 @@ export default {
   color: #595959;
   margin-top: 4px;
 }
-
+.subscribe-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  border: 1px solid #F7F7F7;
+  background: #ffffff;
+}
+.subscribe-wrap figure {
+  margin-right: 10px;
+}
+.subscribe-wrap .black-btn {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+}
+.subscribe-wrap .white-btn {
+  font-size: 14px;
+  line-height: 18px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+  border: 1px solid #595959;
+}
+.subscribe-wrap .grey-btn {
+  font-size: 14px;
+  line-height: 18px;
+  background: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #797979;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+  border: 1px solid #c4c4c4;
+}
 </style>

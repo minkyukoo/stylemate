@@ -8,12 +8,6 @@
         가이드
       </button>
     </div>
-
-    <div class="subscribe-wrap">
-      <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
-      <button class="black-btn">협찬 신청</button>
-    </div>
-
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
       <figure class="product-banner"><img src="@/assets/images/product-details.jpg" /></figure>
@@ -164,40 +158,6 @@ export default({
 </script>
 
 <style scoped>
-.subscribe-wrap{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 21px;
-}
-.subscribe-wrap figure{
-  margin-right: 10px;
-}
-.subscribe-wrap .black-btn{
-  font-size: 14px;
-  line-height: 18px;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #090909;
-  border-radius: 6px;
-  padding: 24px;
-  width: calc(100% - 30px);
-}
-.subscribe-wrap .white-btn{
-  font-size: 14px;
-  line-height: 18px;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #090909;
-  border-radius: 6px;
-  padding: 24px;
-  width: calc(100% - 30px);
-  border: 1px solid #595959;
-}
 .tab-wrap .tab-content{
   padding-bottom: 50px;
 }
