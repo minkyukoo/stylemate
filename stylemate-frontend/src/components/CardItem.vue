@@ -1,37 +1,23 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content>
-      <div class="nodata" v-if="!isFltData">
-        카테고리에 해당하는 제품이 없습니다
-      </div>
+      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
       <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
               <ion-select interface="popover" placeholder="인기순">
-                <ion-select-option @click="latestOrder()" value="f"
-                  >최신순</ion-select-option
-                >
-                <ion-select-option @click="popularity()" value="m"
-                  >인기순</ion-select-option
-                >
-                <ion-select-option @click="closeSoon()" value="v"
-                  >마감임박순</ion-select-option
-                >
+                <ion-select-option @click="latestOrder()" value="f">최신순</ion-select-option>
+                <ion-select-option @click="popularity()" value="m">인기순</ion-select-option>
+                <ion-select-option @click="closeSoon()" value="v">마감임박순</ion-select-option>
               </ion-select>
             </ion-item>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -60,18 +46,16 @@
             <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
               <span v-for="(hash, index) in product.tag" :key="index">
-                {{ hash.tag }}
+                {{
+                  hash.tag
+                }}
               </span>
             </div>
           </li>
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li
-            v-for="(product, index) in item_list"
-            :key="index"
-            class="product-list-item"
-          >
+          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
@@ -91,7 +75,9 @@
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ hash.tag }}
+                  {{
+                    hash.tag
+                  }}
                 </span>
               </div>
             </div>
@@ -103,16 +89,15 @@
 </template>
 
 <script>
+
 import {
-  // IonSegment,
-  // IonSegmentButton,
   IonItem,
   IonSelect,
   IonSelectOption,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent, inject, onMounted } from "vue";
+import { defineComponent,inject, onMounted, } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -123,8 +108,6 @@ export default defineComponent({
     isproductfilter: null,
   },
   components: {
-    // IonSegment,
-    // IonSegmentButton,
     IonItem,
     IonSelect,
     IonSelectOption,
@@ -132,23 +115,24 @@ export default defineComponent({
     IonInfiniteScrollContent,
   },
   setup() {
-    const store = inject("store");
-    onMounted(() => {
-      store.methods.getData();
-      console.log(store.state.AppData, store.state.status);
-    });
-
     const slideOpts = {
       initialSlide: 1,
       speed: 400,
       pager: false,
     };
+    const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
       message: "Only select your dominant hair color",
     };
+
+    onMounted(() => {
+      store.methods.getData();
+      console.log('store.state.AppData', store.state.AppData);
+    });
+
     return { slideOpts, customPopoverOptions, store };
   },
 
@@ -159,20 +143,16 @@ export default defineComponent({
       item_list: [],
       product_details: [],
       banner: [],
-
       latestList: [],
     };
   },
+
   created() {
     this.itemService = new ItemService();
   },
 
   mounted() {
-    // console.log('isFltData', this.isFltData);
-    // console.log('isproductfilter', this.isproductfilter);
-
     console.log("from carditem this.isproductfilter", this.isproductfilter);
-
     // Slide title
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
@@ -181,9 +161,9 @@ export default defineComponent({
     // Product list
     this.itemService.getProductLsit().then((data) => {
       console.log("ItemList", data);
-      alert("updated filterdata");
+      alert("updated filterdata")
       this.item_list = data;
-    });
+    })
   },
 
   updated() {
@@ -191,51 +171,10 @@ export default defineComponent({
     this.itemService.getProductLsit().then((data) => {
       console.log("ItemList", data);
       if (this.isproductfilter) {
-        alert("updated filterdata");
+        alert("updated filterdata")
         this.item_list = this.isproductfilter;
       } else {
-        alert("updated all filterdata");
-        this.item_list = data;
-      }
-    });
-  },
-
-  methods: {
-    productListing() {
-      this.itemService.getProductLsit().then((data) => {
-        console.log("ItemList", data);
-        if (this.isproductfilter) {
-          alert("updated filterdata");
-          this.item_list = this.isproductfilter;
-        } else {
-          alert("updated all filterdata");
-          this.item_list = data;
-        }
-      });
-    },
-
-    // productList(){
-    //   if (this.isproductfilter) {
-    //     alert("yes")
-    //     this.item_list = this.isproductfilter;
-    //   }
-    // },
-
-    // latestOrder() {
-    //   alert("ok")
-    //   let latestList = ''
-    //   latestList = this.item_list;
-    //   console.log("latestList",latestList);
-    // },
-  },
-
-  updated(){
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      if (this.isproductfilter) {
-        alert("yes")
-        this.item_list = this.isproductfilter;
-      } else{
+        alert("updated all filterdata")
         this.item_list = data;
       }
     })
