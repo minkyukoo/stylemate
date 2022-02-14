@@ -1,7 +1,7 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content>
-      <div class="nodata" v-if="!isFltData">NO data</div>
+      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
       <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
