@@ -47,40 +47,6 @@ export default {
 
   data() {
     return {
-      slides: [
-        {
-          title: "all",
-          value: "all",
-          name: "all",
-        },
-        {
-          title: "top",
-          value: "top",
-          name: "top",
-          child: [{ name: "top 1" }, { name: "top 2" }, { name: "top 3" }],
-        },
-        {
-          title: "아우터",
-          value: "outer",
-          name: "outer",
-        },
-        {
-          title: "바지",
-          value: "pants",
-          name: "pants",
-        },
-        {
-          title: "원피스",
-          value: "onepiece",
-          name: "onepiece",
-          child: [{ name: "onepiece 1" }, { name: "onepiece 2" }, { name: "onepiece 3" }],
-        },
-        {
-          title: "스커트",
-          value: "skirt",
-          name: "skirt",
-        }
-      ],
       allCategories: null,
       allCategories2: null,
       childCategoryArray: [],
@@ -121,7 +87,7 @@ export default {
 
           let filterproductList = data;
           this.$emit("filterproductList",filterproductList);
-          console.log('filterproductList', filterproductList);
+          // console.log('filterproductList', filterproductList);
         }
       });
     },

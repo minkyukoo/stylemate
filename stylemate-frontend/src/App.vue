@@ -12,12 +12,16 @@
 <script>
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { defineComponent } from 'vue';
+import store from "./store/index";
 
 export default defineComponent({
   name: 'App',
   components: {
     IonApp,
     IonRouterOutlet
+  },
+  setup() {
+    provide('store', store)
   }
 });
 </script>
@@ -42,7 +46,7 @@ export default defineComponent({
 }
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
-  background-color: #dd0000 !important; 
+  background-color: #dd0000 !important;
 }
 
 ::-webkit-scrollbar {
