@@ -23,7 +23,6 @@
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
-          {{isproductfilter}}
           <li
             v-for="(product, index) in item_list"
             :key="index"
@@ -237,17 +236,6 @@ export default defineComponent({
   created() {
     this.itemService = new ItemService();
    console.log("this.isproductfilter",this.isproductfilter);
-
-    // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      if (this.isproductfilter) {
-        alert("yes")
-        this.item_list = this.isproductfilter;
-      } else{
-        this.item_list = data;
-      }
-    })
   },
 
 mounted() {
@@ -266,22 +254,12 @@ mounted() {
       if (this.isproductfilter) {
         alert("yes")
         this.item_list = this.isproductfilter;
-      }else{
+        console.log("this.item_list",this.item_list)
+      }else if(!this.isproductfilter){
         alert("no")
-      this.item_list = data;
+        this.item_list = data;
       }
     })
-    // Product details error
-    //  this.itemService.getProductDetails().then((data)=>{
-    //       console.log("ProductDetails",data)
-    // this.product_details=data;
-    //     })
-
-    // this.itemService.getbanner().then((data) => {
-    //   console.log("banner", data)
-    //   this.banner = data;
-    // })
-
   },
 
   methods: {
@@ -300,6 +278,19 @@ mounted() {
     //   console.log("latestList",latestList);
     // },
   },
+
+  updated(){
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      if (this.isproductfilter) {
+        alert("yes")
+        this.item_list = this.isproductfilter;
+      } else{
+        this.item_list = data;
+      }
+    })
+  },
+
 });
 </script>
 
