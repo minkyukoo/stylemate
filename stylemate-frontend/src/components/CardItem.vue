@@ -365,7 +365,7 @@ mounted() {
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  height: 256px;
+  height: 156px;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
@@ -425,8 +425,8 @@ mounted() {
 }
 .list-view .product-list-item figure {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 120px !important;
+  height: 120px !important;
 }
 .list-view .product-list-item .social-icon {
   position: absolute;

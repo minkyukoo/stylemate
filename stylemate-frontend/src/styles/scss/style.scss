@@ -319,23 +319,3 @@ img:hover{
     text-align: center;
   }
 }
-
-// sweet alert
-.swal2-actions{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0px 0px 6px 6px;
-  overflow: hidden;
-}
-.swal2-confirm{
-  background: #090909;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 19px;
-  color: #FFFFFF;
-  padding: 20px;
-}
