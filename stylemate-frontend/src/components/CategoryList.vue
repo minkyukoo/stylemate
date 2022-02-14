@@ -12,7 +12,7 @@
 
     <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
       <ion-slide>
-        <ul class="main-menu">
+        <ul class="main-menu sub-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
             <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
           </li>
@@ -120,8 +120,8 @@ export default {
           this.$emit('fltData', true);
 
           let filterproductList = data;
+          this.$emit("filterproductList",filterproductList);
           console.log('filterproductList', filterproductList);
-          this.$emit("filterproductlist",true);
         }
       });
     },
@@ -186,5 +186,8 @@ export default {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
+}
+.item-scroller-nav ul.sub-menu{
+  background: #F7F7F7;
 }
 </style>
