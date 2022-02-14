@@ -6,8 +6,10 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <ExploreContainer name="Item page" /> -->
-      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" />
-      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
+      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" />
+      <!-- <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" /> -->
+      <CardItem :isBanner=isBanner :isFltData ="isFltData"/>
+      <!-- <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>

@@ -7,9 +7,9 @@
           <div class="left-section">
             <ion-item>
               <ion-select interface="popover" placeholder="인기순">
-                <ion-select-option value="f">최신순</ion-select-option>
-                <ion-select-option value="m">인기순</ion-select-option>
-                <ion-select-option value="v">마감임박순</ion-select-option>
+                <ion-select-option @click="latestOrder()" value="f">최신순</ion-select-option>
+                <ion-select-option @click="popularity()" value="m">인기순</ion-select-option>
+                <ion-select-option @click="closeSoon()" value="v">마감임박순</ion-select-option>
               </ion-select>
             </ion-item>
           </div>
@@ -54,7 +54,7 @@
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
-          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
+          <li  v-for="(product, index) in item_list" :key="index" class="product-list-item">
             <figure>
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
@@ -234,6 +234,7 @@ export default defineComponent({
       product_details: [],
       banner: [],
 
+      latestList: [],
     };
   },
   created() {
@@ -243,7 +244,7 @@ export default defineComponent({
 
   mounted() {
 
-     console.log('isFltData', this.isFltData);
+    console.log('isFltData', this.isFltData);
     console.log('isproductfilter', this.isproductfilter);
 
     // Slide title
@@ -268,6 +269,15 @@ export default defineComponent({
     // })
 
   },
+
+  methods: {
+    latestOrder() {
+      alert("ok")
+      let latestList = ''
+      latestList = this.item_list;
+      console.log("latestList",latestList);
+    }
+  },
 });
 </script>
 
@@ -280,6 +290,18 @@ export default defineComponent({
 .item-native {
   padding-inline-start: 0 !important;
   padding-left: 0;
+}
+.nodata {
+    justify-content: center;
+    min-height: 60vh;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #C4C4C4;
 }
 
 .item-wrapper {
@@ -320,12 +342,10 @@ export default defineComponent({
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  height: 256px;
+  height: auto;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 .item-wrapper .product-list .product-list-item h3 {
   font-weight: bold;
