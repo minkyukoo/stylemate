@@ -256,7 +256,7 @@ export default defineComponent({
   /* backdrop-filter: blur(30px);  */
 }
 .item-wrapper.withoutbanner {
-  top: 70px;
+  top: 90px;
   transition: all 0.5s ease-in-out;
 }
 .item-wrapper .product-list {

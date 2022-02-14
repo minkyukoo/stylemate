@@ -126,185 +126,114 @@
             </div>
           </swiper-slide>
         </swiper>
-
-        <!-- <ion-slides pager="true" :options="multiSlideOpts">
-          <ion-slide>
+      
+       <div class="brandSlider">
+         <div class="headerLine">
+            <h4>NEW BRAND</h4>
+          </div>
+          <!-- <swiper
+            :modules="modules"
+            :slides-per-view="3"
+            :space-between="1"
+            :pagination="{ clickable: true }"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <swiper-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
                 <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
               </div>
             </div>
-          </ion-slide>
-          <ion-slide>
+          </swiper-slide>
+          <swiper-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
                 <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
               </div>
             </div>
-          </ion-slide>
-          <ion-slide>
+          </swiper-slide>
+          <swiper-slide>
             <div class="multiSlideWrap">
               <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
                 <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
               </div>
             </div>
-          </ion-slide>
-          <ion-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-            </div>
-          </ion-slide>
-        </ion-slides>-->
+          </swiper-slide>
+          </swiper> -->
+          <swiper
+            :effect="'coverflow'"
+            :grabCursor="true"
+            :centeredSlides="true"
+            :slidesPerView="'1.3'"
+            :coverflowEffect="{
+              rotate: 0,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }"
+            :pagination="true"
+            :modules="modules"
+            class="mySwiper"
+          >
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+            <swiper-slide class="brandSliderimg">
+              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+            </swiper-slide>
+          </swiper>
+        </div>
+        
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -365,11 +294,12 @@
 
 <script>
 // Import Swiper Vue.js components
-import { Pagination } from "swiper";
+import { Pagination, EffectCoverflow } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
@@ -390,6 +320,7 @@ export default {
     SwiperSlide,
   },
   setup() {
+    
     // const slideOpts = {
     //   initialSlide: 1,
     //   speed: 400,
@@ -407,7 +338,8 @@ export default {
     return {
       onSwiper,
       onSlideChange,
-      modules: [Pagination],
+      modules: [Pagination, EffectCoverflow, Pagination],
+      // modules: [EffectCoverflow, Pagination],
     };
   },
   data() {
@@ -479,5 +411,55 @@ export default {
   object-fit: cover;
   object-position: center;
 }
+
+.brandSlider{
+  background: rgba(0,0,0,0.5);
+  padding: 60px 20px;
+}
+.brandSlider .headerLine{
+  padding-left: 0;
+}
+.brandSlider .headerLine h4{
+  color: #F6F6F6;
+}
+.brandSlider .multiSlideWrap{
+  display: inherit;
+  justify-content: inherit;
+}
+.brandSlider .multiSlideWrap .slideItem{
+  width: auto;
+}
+.brandHeader{
+  background: #fff;
+  border-end-end-radius: 10px;
+  padding: 24px 16px;
+}
+
+.brandHeader .headerLine{
+  padding: 0;
+}
+.brandHeader .headerLine h4{
+  color: #25282B;
+  font-size: 20px;
+}
+
+.brandSliderimg img{
+  width: 100%;
+}
+.brandHeader p{
+  font-size: 10px !important;
+  color: #797979 !important;
+}
+.brandHeader span{
+  font-size: 12px !important;
+  color: #25282B !important;
+}
+
+/* .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+} */
 </style>
 
