@@ -1,5 +1,6 @@
-import { reactive,inject } from "vue";
-import axios from "axios";
+import { reactive } from "vue";
+// import axios from "axios";
+import ItemService from "@/services/ItemService";
 
 const state = reactive({
   AppData: undefined,
@@ -7,29 +8,15 @@ const state = reactive({
   status: "NotEmpty",
 });
 
+var itemService = new ItemService();
+
+
  const methods = {
-  async getData() {
-    await axios
-      .get("list_data")
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.success) {
-          state.status = 'NotEmpty';
-          loader.hide();
-          state.AppData = response.data.data;
-        } else {
-          state.status = 'Empty';
-          loader.hide();
-          Toast.fire({
-            icon: "error",
-            title: response.data.data,
-          });
-          // console.log("else success false");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  getData() {
+    itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      state.AppData = data;
+    })
   },
 };
 
