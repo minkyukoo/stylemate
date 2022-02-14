@@ -159,7 +159,7 @@ export default({
 
 <style scoped>
 .tab-wrap .tab-content{
-  padding-bottom: 50px;
+  padding: 20px 0 50px;
 }
 .tabs {
   border: 1px solid #e5e5e5;
