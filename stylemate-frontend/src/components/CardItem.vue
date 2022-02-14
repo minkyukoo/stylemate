@@ -291,6 +291,7 @@ export default defineComponent({
   padding-inline-start: 0 !important;
   padding-left: 0;
 }
+
 .nodata {
     justify-content: center;
     min-height: 60vh;
@@ -317,7 +318,7 @@ export default defineComponent({
   ); */
   background: #ffffff;
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px); */
+  /* backdrop-filter: blur(30px);  */
 }
 .item-wrapper.withoutbanner {
   top: 70px;
@@ -342,10 +343,12 @@ export default defineComponent({
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  height: auto;
+  height: 256px;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .item-wrapper .product-list .product-list-item h3 {
   font-weight: bold;
