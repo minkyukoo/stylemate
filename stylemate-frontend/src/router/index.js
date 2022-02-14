@@ -144,6 +144,11 @@ const routes = [
     name: "facebookLogin",
     component: () => import("@/views/pages/FbLogin.vue"),
   },
+  {
+    path: "/slider",
+    name: "Slider",
+    component: () => import("@/views/pages/Slider.vue"),
+  },
 ];
 
 const router = createRouter({
