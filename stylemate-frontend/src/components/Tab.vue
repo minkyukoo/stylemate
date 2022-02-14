@@ -185,6 +185,19 @@ export default({
   padding: 24px;
   width: calc(100% - 30px);
 }
+.subscribe-wrap .white-btn{
+  font-size: 14px;
+  line-height: 18px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+  border: 1px solid #595959;
+}
 .tab-wrap .tab-content{
   padding-bottom: 50px;
 }
