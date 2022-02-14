@@ -23,6 +23,7 @@
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
+          {{isproductfilter}}
           <li
             v-for="(product, index) in item_list"
             :key="index"
@@ -83,10 +84,6 @@
           </li>
         </ul>
       </div>
-
-      <!-- <div class="nodata" v-if="!isproductfilter">yes data found</div>
-      <div v-else></div> -->
-
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </template>
@@ -109,7 +106,7 @@ export default defineComponent({
   props: {
     isBanner: Boolean,
     isFltData: Boolean,
-    isproductfilter: Boolean,
+    isproductfilter: null,
   },
   components: {
     // IonSegment,
@@ -239,23 +236,40 @@ export default defineComponent({
   },
   created() {
     this.itemService = new ItemService();
-   
+   console.log("this.isproductfilter",this.isproductfilter);
+
+    // Product list
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      if (this.isproductfilter) {
+        alert("yes")
+        this.item_list = this.isproductfilter;
+      } else{
+        this.item_list = data;
+      }
+    })
   },
 
-  mounted() {
+mounted() {
 
     console.log('isFltData', this.isFltData);
     console.log('isproductfilter', this.isproductfilter);
 
     // Slide title
-    this.itemService.getProductCategories().then((data) => {
+      this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
     this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data)
+      console.log("ItemList", data);
+      if (this.isproductfilter) {
+        alert("yes")
+        this.item_list = this.isproductfilter;
+      }else{
+        alert("no")
       this.item_list = data;
+      }
     })
     // Product details error
     //  this.itemService.getProductDetails().then((data)=>{
@@ -271,12 +285,20 @@ export default defineComponent({
   },
 
   methods: {
-    latestOrder() {
-      alert("ok")
-      let latestList = ''
-      latestList = this.item_list;
-      console.log("latestList",latestList);
-    }
+
+    // productList(){
+    //   if (this.isproductfilter) {
+    //     alert("yes")
+    //     this.item_list = this.isproductfilter;
+    //   }
+    // },
+
+    // latestOrder() {
+    //   alert("ok")
+    //   let latestList = ''
+    //   latestList = this.item_list;
+    //   console.log("latestList",latestList);
+    // },
   },
 });
 </script>

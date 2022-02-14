@@ -120,8 +120,8 @@ export default {
           this.$emit('fltData', true);
 
           let filterproductList = data;
+          this.$emit("filterproductList",filterproductList);
           console.log('filterproductList', filterproductList);
-          this.$emit("filterproductlist",true);
         }
       });
     },
