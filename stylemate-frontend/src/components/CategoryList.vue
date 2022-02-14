@@ -108,6 +108,8 @@ export default {
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
+        console.log("filterproductList", data);
+          
         if (data.length == 0) {
           alert('nodata')
           this.nofltData = true;
@@ -116,9 +118,9 @@ export default {
         } else {
           this.nofltData = false;
           this.$emit('fltData', true);
-         
-          this.filterproductList = data;
-          console.log('filterproductList', this.filterproductList);
+
+          let filterproductList = data;
+          console.log('filterproductList', filterproductList);
           this.$emit("filterproductlist",true);
         }
       });
