@@ -32,6 +32,7 @@ import {
 } from "@ionic/vue";
 import ContentDetails from "@/components/ContentDetails.vue";
 import axios from "axios";
+import PostService from "@/services/PostService";
 export default {
   name: "ContentPage",
   data() {
@@ -76,7 +77,15 @@ export default {
       ],
     };
   },
+  created(){
+
+    this.postService = new PostService();
+
+  },
   mounted() {
+    this.postService.getPost('post', 2).then((res) => {
+      console.log('res', res);
+    });
     axios
       .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
       .then((response) => {
