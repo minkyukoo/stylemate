@@ -1,5 +1,5 @@
 <template>
-  <div class="top-fixed">
+  <div class="">
     <div class="top-container">
       <div class="img-con">
         <img src="@/assets/images/profile-img.png" />

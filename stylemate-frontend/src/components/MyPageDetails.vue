@@ -34,12 +34,12 @@ export default defineComponent({
 .details-container {
   padding: 0px 20px 56px;
   position: relative;
-  top: 255px;
+  
 }
 .link-wrap {
   background: white;
-  padding: 0px 20px;
-  /* margin: 0 -20px; */
+  /* padding: 0px 20px;
+  margin: 0 -20px; */
 }
 .logout{
     padding: 40px 0 10px;

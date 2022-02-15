@@ -54,6 +54,7 @@ export default {
   padding: 20px 40px;
   /* position: relative;
   top: -50px; */
+  margin-top: -50px;
 }
 .rating-item {
   padding: 0 15px;
