@@ -151,17 +151,17 @@ export default defineComponent({
     this.itemService = new ItemService();
 
      this.itemService.getProductList().then((data) => {
-      console.log("ItemList", data);
-      alert("updated filterdata")
+      // console.log("ItemList", data);
+      // alert("updated filterdata")
       this.item_list = data;
     })
   },
 
   mounted() {
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -173,14 +173,14 @@ export default defineComponent({
   },
 
   updated() {
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
+    this.itemService.getProductList().then((data) => {
+      // console.log("ItemList", data);
       if (this.isproductfilter) {
-        alert("updated filterdata")
+        // alert("updated filterdata")
         this.item_list = this.isproductfilter;
       } else {
-        alert("updated all filterdata")
+        // alert("updated all filterdata")
         this.item_list = data;
       }
     })

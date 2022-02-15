@@ -131,7 +131,7 @@ const routes = [
         name: "Item",
         component: Item,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
@@ -139,7 +139,7 @@ const routes = [
         name: "Brand",
         component: Brand,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         },
       },
       {

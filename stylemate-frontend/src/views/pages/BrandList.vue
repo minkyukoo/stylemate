@@ -40,7 +40,7 @@
       </button>
     </div>
 
-    <div class="main">
+    <div class="main pad-b-40">
       <div
         class="maincard"
         v-for="info in keywords"

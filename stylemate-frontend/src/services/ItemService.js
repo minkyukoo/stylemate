@@ -6,7 +6,7 @@ export default class ItemService {
   }
 
   async getProductList() {
-    return await axios.get(`/stylemates/products`).then((res) => res.data);
+    return await axios.get(`/stylemates/products`).then((res) => res.data.data);
   }
 
   async getFilterProduct(ids) {
