@@ -84,7 +84,18 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">
+              <div class="slideItem" v-for="val in ProductSlideTwo" :key="val">
+                <div class="socialBLock">
+                   <img :src="val.imageThumbnailPath" alt />
+                  <!-- <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" /> -->
+                </div>
+                <!-- <img src="@/assets/images/main-item1.jpg" /> -->
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <!-- <div class="slideItem">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -113,17 +124,7 @@
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
+              </div> -->
             </div>
           </swiper-slide>
         </swiper>
@@ -361,6 +362,7 @@ export default {
       Brand:null,
       BrandSlider:null,
       ProductSlide:resp.data,
+      ProductSlideTwo:resp.data,
     };
   },
   created() {
@@ -378,8 +380,17 @@ export default {
       console.log(res);
       this.ProductSlide= res;
       this.ProductSlide.map((val,index) => {      
-        while(index < 4){
-                 return( val ) 
+        while(index <=3){
+           return( val ) 
+        }
+})
+    });
+    this.bannerService.getProductItemListSecond().then((res) => {
+      console.log(res);
+      this.ProductSlideTwo= res;
+      this.ProductSlideTwo.map((val,index) => {      
+        if(index >=4 && index <=7){
+           return( val ) 
         }
 })
     });

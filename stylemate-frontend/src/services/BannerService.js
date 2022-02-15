@@ -8,6 +8,9 @@ export default class BannerService {
   async getProductItemList() {
     return await axios.get(`/stylemates/products?perPage=10&page=1&order=latest`).then((res) => res.data.data);
   }
+  async getProductItemListSecond() {
+    return await axios.get(`/stylemates/products?perPage=10&page=1&order=latest`).then((res) => res.data.data);
+  }
   async getBrandList() {
     return await axios.get(`/stylemates/front-manages?type=brand`).then((res) => res.data);
   }
