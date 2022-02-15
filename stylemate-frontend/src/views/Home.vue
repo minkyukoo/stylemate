@@ -29,7 +29,7 @@
         </div>
 
         <swiper
-        :modules="modules"
+          :modules="modules"
           :slides-per-view="1"
           :space-between="50"
           :pagination="{ clickable: true }"
@@ -38,97 +38,45 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newOddItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
               </div>
             </div>
           </swiper-slide>
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newEvanItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
               </div>
             </div>
           </swiper-slide>
         </swiper>
-      
-       <div class="brandSlider">
-         <div class="headerLine">
+
+        <div class="brandSlider">
+          <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
           <!-- <swiper
@@ -208,32 +156,47 @@
             class="mySwiper"
           >
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
+              <div class="swiper-slide">
+                <img src="@/assets/images/main-item1.jpg" />
+              </div>
             </swiper-slide>
           </swiper>
         </div>
-        
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -320,7 +283,6 @@ export default {
     SwiperSlide,
   },
   setup() {
-    
     // const slideOpts = {
     //   initialSlide: 1,
     //   speed: 400,
@@ -345,7 +307,8 @@ export default {
   data() {
     return {
       bannerList: null,
-      newItems: null,
+      newOddItems: [],
+      newEvanItems: [],
       newProItems: null,
     };
   },
@@ -354,13 +317,13 @@ export default {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
   },
-  
+
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
-      console.log("bres", res);
+      // console.log("bres", res);
       this.bannerList = res;
     });
-
+    this.getProductItemList();
     // this.itemService.getProductLsit().then((resp) => {
     //   console.log('newItems', resp);
     //   this.newItems = resp;
@@ -382,17 +345,49 @@ export default {
     // });
   },
   methods: {
+    getProductItemList() {
+      let perPage = 12;
+      this.bannerService.getProductItemList(perPage).then((res) => {
+        var OddArray = [];
+        var EvanArray = [];
+        var newOddIndex = 0;
+        var newEvanIndex = 0;
+        res.forEach((value, i) => {
+          if (i % 2 == 0) {
+            OddArray[newOddIndex] = value;
+            newOddIndex++;
+          } else {
+            EvanArray[newEvanIndex] = value;
+            newEvanIndex++;
+          }
+        });
+        this.newOddItems = OddArray;
+        this.newEvanItems = EvanArray;
+        console.log(OddArray);
+        console.log(EvanArray);
+      });
+    },
+
     getMyinfo() {
-      this.userInfoService.getUserInfo().then(res => {
+      this.userInfoService.getUserInfo().then((res) => {
         if (res.response) {
-          if(res.response.status == 401) {
-            this.$router.push('/login');
-          } 
-        }
-        else {
-         console.log(res.data);
+          if (res.response.status == 401) {
+            this.$router.push("/login");
+          }
+        } else {
+          console.log(res.data);
         }
       });
+    },
+
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
     },
   },
 };
@@ -412,47 +407,47 @@ export default {
   object-position: center;
 }
 
-.brandSlider{
-  background: rgba(0,0,0,0.5);
+.brandSlider {
+  background: rgba(0, 0, 0, 0.5);
   padding: 60px 20px;
 }
-.brandSlider .headerLine{
+.brandSlider .headerLine {
   padding-left: 0;
 }
-.brandSlider .headerLine h4{
-  color: #F6F6F6;
+.brandSlider .headerLine h4 {
+  color: #f6f6f6;
 }
-.brandSlider .multiSlideWrap{
+.brandSlider .multiSlideWrap {
   display: inherit;
   justify-content: inherit;
 }
-.brandSlider .multiSlideWrap .slideItem{
+.brandSlider .multiSlideWrap .slideItem {
   width: auto;
 }
-.brandHeader{
+.brandHeader {
   background: #fff;
   border-end-end-radius: 10px;
   padding: 24px 16px;
 }
 
-.brandHeader .headerLine{
+.brandHeader .headerLine {
   padding: 0;
 }
-.brandHeader .headerLine h4{
-  color: #25282B;
+.brandHeader .headerLine h4 {
+  color: #25282b;
   font-size: 20px;
 }
 
-.brandSliderimg img{
+.brandSliderimg img {
   width: 100%;
 }
-.brandHeader p{
+.brandHeader p {
   font-size: 10px !important;
   color: #797979 !important;
 }
-.brandHeader span{
+.brandHeader span {
   font-size: 12px !important;
-  color: #25282B !important;
+  color: #25282b !important;
 }
 
 /* .swiper-slide {

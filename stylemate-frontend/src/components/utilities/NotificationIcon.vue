@@ -6,18 +6,18 @@
       <i class="icon-blue-dot"></i>
     </div>
   </router-link>
+  <ion-popover> </ion-popover>
 </template>
 
 <script>
-// import { IonRoute } from '@ionic/vue';
+// import { IonPopover } from '@ionic/vue';
 export default {
-  name: 'NotificationIcon',
-  // components: { IonRoute },
+  name: "NotificationIcon",
+  // components: { IonPopover },
   props: {
-    notificationCount: String
-  }
-
-}
+    notificationCount: String,
+  },
+};
 </script>
 
 <style scoped>
@@ -53,7 +53,8 @@ export default {
   font-size: 14px;
   line-height: 14px;
 }
-.inner-header .notification .badge, .main-header .notification .icon-blue-dot {
+.inner-header .notification .badge,
+.main-header .notification .icon-blue-dot {
   display: none;
 }
 </style>

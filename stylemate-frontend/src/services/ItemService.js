@@ -6,7 +6,7 @@ export default class ItemService {
   }
 
   async getProductLsit() {
-    return await axios.get(`/stylemates/products`).then((res) => res.data.data);
+    return await axios.get(`/stylemates/front-manages?type=product`).then((res) => res.data.data);
   }
 
   async getFilterProduct(ids) {
