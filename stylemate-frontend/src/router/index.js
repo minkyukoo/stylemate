@@ -9,22 +9,40 @@ import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
 
+// function guest(to, from, next) {
+//   if (localStorage.token) {
+//     next({ name: "Home" });
+//     alert("You already logged in");
+//   } else next();
+// }
+
+// function guard(to, from, next) {
+//   if (localStorage.token) {
+//     next();
+//   } else {
+//     next({ name: "LoginPage" });
+//     alert("Please login to access");
+//   }
+// }
+
 function guest(to, from, next) {
-  next();
-  // if (localStorage.token) {
-  //   next({ name: "Home" });
-  //   alert("You already logged in");
-  // } else next();
+  var currentTime = new Date().getTime();
+  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+    next();
+  } else {
+    next({ name: "Mypage" });
+    alert("You already logged in");
+  }
 }
 
 function guard(to, from, next) {
-  next();
-  // if (localStorage.token) {
-  //   next();
-  // } else {
-  //   next({ name: "LoginPage" });
-  //   alert("Please login to access");
-  // }
+  var currentTime = new Date().getTime();
+  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+    next({ name: "LoginPage" });
+    alert("Please login to access");
+  } else {
+    next();
+  }
 }
 
 const routes = [

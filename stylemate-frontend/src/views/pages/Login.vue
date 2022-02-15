@@ -66,11 +66,27 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     var token = urlParams.get('token')
     var refreshToken = urlParams.get('refreshToken');
-    console.log('token', token);
-    console.log('refreshToken', refreshToken);
+
     if (token && refreshToken) {
+
+      var cuttentTime = new Date().getTime();
+      var d = urlParams.get('expiresAt');
+      var position = d.search(" ");
+      var dateTime = new Date(d.substring(0, position)).getTime();
+      console.log('dateTime', dateTime);
+
+      var token_expiresAt = dateTime;
+
+      console.log('dateTime', dateTime);
+      console.log('cuttentTime', new Date().getTime());
+
+
+
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('tokenexpiresAt', token_expiresAt);
+      localStorage.setItem('cuttentTime', cuttentTime);
+      // localStorage.setItem('refreshExpiresAt', refreshExpiresAt);
       window.location.href = this.redirectlocalUrl;
     }
   },
