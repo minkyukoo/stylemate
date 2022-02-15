@@ -373,8 +373,6 @@ export default {
         });
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
-        console.log(OddArray);
-        console.log(EvanArray);
       });
     },
 
