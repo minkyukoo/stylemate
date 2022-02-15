@@ -8,21 +8,31 @@
         <h3>안녕하세요, 옹한아님</h3>
         <p>hana.oh@mediance.co.kr</p>
       </div>
-      <div class="btn-con">
-        <button class="btn-dark">로그아웃</button>
-      </div>
-      <!-- <div class="social-media">
-        <a href="#" class="btn-instagram media-icons">
-          <img src="../assets/icons/instagram.svg" />
+      <div class="social-media" v-if="viewSocialMedia">
+        <div class="media-item">
+          <a href="#" class="btn-instagram media-icons">
+            <img src="../assets/icons/instagram.svg" />
+          </a>
           <span>150k</span>
-        </a>
-        <a href="#" class="btn-facebook">
-          <img src="@/assets/images/facebook.png" />
-        </a>
-        <a href="#" class="btn-twitter">
-          <img src="@/assets/images/twitter.png" />
-        </a>
-      </div> -->
+        </div>
+        <div class="media-item">
+          <a href="#" class="btn-facebook media-icons">
+            <img src="../assets/icons/tiktok.svg" />
+          </a>
+          <span>150k</span>
+        </div>
+        <div class="media-item">
+          <a href="#" class="btn-twitter media-icons">
+            <img src="../assets/icons/youtube.svg" />
+          </a>
+          <span>150k</span>
+        </div>
+      </div>
+      <div class="btn-con" v-else>
+        <button class="btn-dark" @click="() => (this.viewSocialMedia = true)">
+          로그아웃
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +40,11 @@
 <script>
 export default {
   name: "MyPageTop",
+  data() {
+    return {
+      viewSocialMedia: false,
+    };
+  },
 };
 </script>
 
@@ -116,5 +131,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 7px;
+}
+.media-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 16px;
+}
+.media-item span {
+  font-size: 12px;
+  line-height: 12px;
+  color: #f7f7f7;
 }
 </style>
