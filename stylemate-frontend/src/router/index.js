@@ -130,7 +130,7 @@ const routes = [
         beforeEnter: guard,
         component: Mypage,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
     ],
