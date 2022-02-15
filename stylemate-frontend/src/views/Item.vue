@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import { IonPage, IonContent, } from '@ionic/vue';
-import TopNav from '@/components/TopNav.vue';
-import CardItem from '@/components/CardItem.vue';
-import CategoryList from '@/components/CategoryList.vue';
+import { IonPage, IonContent } from "@ionic/vue";
+import TopNav from "@/components/TopNav.vue";
+import CardItem from "@/components/CardItem.vue";
+import CategoryList from "@/components/CategoryList.vue";
 
 export default {
-  name: 'Item',
+  name: "Item",
   components: { TopNav, IonContent, IonPage, CardItem, CategoryList },
-  data(){
+  data() {
     return {
       isBanner: true,
       isFltData: true,
@@ -32,12 +32,12 @@ export default {
   },
   methods: {
     onClickChild(value) {
-      console.log(value) // someValue
+      console.log(value); // someValue
       this.isBanner = value;
     },
-    fltData2(event){
+    fltData2(event) {
       this.isFltData = event;
-      alert(event)
+      alert(event);
     },
    
     filterproductList2(event){
@@ -48,8 +48,8 @@ export default {
       // this.$emit("isproductfilter",isproductfilter);
       console.log("this.isproductfilter",this.isproductfilter);
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

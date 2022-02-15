@@ -5,9 +5,11 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-
-    <!-- <Login/> -->
-    <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button>
+        <!-- <h1>My page</h1> -->
+        <MyTop />
+      <!-- <Login/> -->
+      <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
+        <MyPageDetails />
 
     </ion-content>
     <!-- End page content -->
@@ -17,10 +19,11 @@
 </template>
 
 <script>
-// import { Swiper, SwiperSlide } from "swiper/vue";
-import { IonPage } from "@ionic/vue";
-//import ExploreContainer from '@/components/ExploreContainer.vue';
-import TopNav from "@/components/TopNav.vue";
+import { IonPage,  IonContent, } from '@ionic/vue';
+// import ExploreContainer from '@/components/ExploreContainer.vue';
+import TopNav from '@/components/TopNav.vue';
+import MyTop from '@/components/MyPageTop.vue';
+import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
 // Import Swiper styles
 // import "swiper/css";
@@ -30,8 +33,8 @@ import TopNav from "@/components/TopNav.vue";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 export default {
-  name: "Mypage",
-  components: { TopNav, IonPage },
+  name: 'Mypage',
+  components: { TopNav,  IonContent, IonPage, MyTop, MyPageDetails },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);

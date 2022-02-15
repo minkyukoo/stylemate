@@ -245,7 +245,16 @@
             <img src="@/assets/images/book1.png" />
           </div>
         </div>
-        <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
+        <div class="gotoFamily">
+          <div class="gotofamilyList" :class="{active: isActive}">
+            <ul>
+              <li><a href="#"><img src="@/assets/images/logo-1.png" /></a></li>
+              <li><a href="#"><img src="@/assets/images/logo-2.png" /></a></li>
+            </ul>
+          </div>
+          <button @click="myFilter">패밀리 사이트 바로가기</button>
+        </div>
+        <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
@@ -310,6 +319,7 @@ export default {
       newOddItems: [],
       newEvanItems: [],
       newProItems: null,
+      isActive: false
     };
   },
   created() {
@@ -389,6 +399,10 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
+    myFilter: function() {
+      this.isActive = !this.isActive;
+      // some code to filter users
+    }
   },
 };
 </script>
@@ -456,5 +470,52 @@ export default {
   width: 300px;
   height: 300px;
 } */
+.gotoFamily {
+  position: relative;
+  width: calc(100% - 40px);
+  margin-top: 60px;
+  margin: 60px 20px 0;
+}
+.gotoFamily button{
+  padding: 21px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #797979;
+  line-height: 150%;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #C4C4C4;
+  background: none;
+  display: block;
+  border-radius: 5px;
+  width: 100%;
+}
+.gotofamilyList{
+  position: absolute;
+  bottom: 100%;
+  width: 100%;
+  display: none;
+}
+.gotofamilyList.active{
+  display: block;
+}
+.gotofamilyList ul{
+  background: #FFFFFF;
+  border: 1px solid #C4C4C4;
+  border-radius: 6px;
+  padding: 0 20px;
+}
+.gotofamilyList ul li{
+  border-top: 1px solid #F7F7F7;
+}
+.gotofamilyList ul li:first-child{
+  border-top: none;
+}
+.gotofamilyList ul li a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
 </style>
 

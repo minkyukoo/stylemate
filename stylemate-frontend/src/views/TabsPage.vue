@@ -70,6 +70,7 @@ ion-icon {
 ion-tab-bar {
     background: black;
     border-radius: 8px;
+    height: 70px;
 }
 ion-tab-button {
     background: black;

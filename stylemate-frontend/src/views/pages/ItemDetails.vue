@@ -68,12 +68,12 @@
 
             <CustomModal v-show="isModalVisible" @close="closeModal">
               <template v-slot:header>
-                <h2>공유하기</h2>
+                <h2>회원님은 미승인 회원입니다.</h2>
               </template>
 
               <template v-slot:body>
                 <div class="modal-content">
-                  <ul class="shareList">
+                  <!-- <ul class="shareList">
                     <li>
                       <a href="#">
                         <img src="@/assets/icons/icon-fb.svg" />
@@ -92,7 +92,8 @@
                         <span>URL</span>
                       </a>
                     </li>
-                  </ul>
+                  </ul> -->
+                  <p>스타일 메이트는 승인된 회원만 <br/>이용할 수 있는 서비스 입니다.</p>
                 </div>
               </template>
 
