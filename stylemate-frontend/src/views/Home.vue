@@ -38,7 +38,18 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem">
+                <div class="slideItem" v-for="val in ProductSlide" :key="val">
+                <div class="socialBLock">
+                  <img :src="val.imageThumbnailPath" alt />
+                  <!-- <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" /> -->
+                </div>
+                <!-- <img src="@/assets/images/main-item1.jpg" /> -->
+                <h4>Areuban</h4>
+                <p>리플렉 오버핏 조거 스웨...</p>
+                <span>#street fashion #sufa #hoodie</span>
+              </div>
+              <!-- <div class="slideItem">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -67,17 +78,7 @@
                 <h4>Areuban</h4>
                 <p>리플렉 오버핏 조거 스웨...</p>
                 <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
+              </div> -->
             </div>
           </swiper-slide>
 
@@ -207,7 +208,12 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg">
+            <swiper-slide class="brandSliderimg"  v-for="(slides, i) of BrandSlider" :key="i + 1" >
+              <div class="swiper-slide">
+               <img :src="slides.imageThumbnailPath" alt />
+               </div>
+            </swiper-slide>
+            <!-- <swiper-slide class="brandSliderimg">
               <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
@@ -227,10 +233,7 @@
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
               <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
+            </swiper-slide> -->
           </swiper>
         </div>
         
@@ -356,6 +359,8 @@ export default {
       newItems: null,
       newProItems: null,
       Brand:null,
+      BrandSlider:null,
+      ProductSlide:resp.data,
     };
   },
   created() {
@@ -369,9 +374,22 @@ export default {
       console.log("bres", res);
       this.bannerList = res;
     });
+    this.bannerService.getProductItemList().then((res) => {
+      console.log(res);
+      this.ProductSlide= res;
+      this.ProductSlide.map((val,index) => {      
+        while(index < 4){
+                 return( val ) 
+        }
+})
+    });
     this.bannerService.getBrandList().then((res) => {
       console.log(res);
       this.Brand = res;
+    });
+    this.bannerService.getNewBrandDetails().then((res) => {
+      console.log(res);
+      this.BrandSlider = res;
     });
 
     // this.itemService.getProductLsit().then((resp) => {
@@ -407,6 +425,7 @@ export default {
         }
       });
     },
+    
   },
 };
 </script>

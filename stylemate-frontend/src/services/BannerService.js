@@ -11,4 +11,7 @@ export default class BannerService {
   async getBrandList() {
     return await axios.get(`/stylemates/front-manages?type=brand`).then((res) => res.data);
   }
+  async getNewBrandDetails() {
+    return await axios.get(`/stylemates/front-manages?type=product`).then((res) => res.data);
+  }
 }
