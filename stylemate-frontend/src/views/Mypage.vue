@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <!-- header -->
-    <TopNav headerTitle="My page"/>
+    <TopNav headerTitle="My page" />
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -13,6 +13,8 @@
 
     </ion-content>
     <!-- End page content -->
+
+    
   </ion-page>
 </template>
 
@@ -23,6 +25,12 @@ import TopNav from '@/components/TopNav.vue';
 import MyTop from '@/components/MyPageTop.vue';
 import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
+// Import Swiper styles
+// import "swiper/css";
+
+// import "swiper/css/free-mode";
+// import "swiper/css/scrollbar";
+// import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 export default {
   name: 'Mypage',
@@ -36,10 +44,9 @@ export default {
   //   console.log(token);
   // }
   methods: {
-  openlink(){
-console.log("clivk");
+    openlink() {
+      console.log("clivk");
+    },
   },
-}
-}
-
+};
 </script>

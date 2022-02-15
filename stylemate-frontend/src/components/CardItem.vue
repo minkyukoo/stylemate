@@ -1,15 +1,15 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content>
-      <div class="nodata" v-if="!isFltData">NO data</div>
+      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
       <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
               <ion-select interface="popover" placeholder="인기순">
-                <ion-select-option value="f">최신순</ion-select-option>
-                <ion-select-option value="m">인기순</ion-select-option>
-                <ion-select-option value="v">마감임박순</ion-select-option>
+                <ion-select-option @click="latestOrder()" value="f">최신순</ion-select-option>
+                <ion-select-option @click="popularity()" value="m">인기순</ion-select-option>
+                <ion-select-option @click="closeSoon()" value="v">마감임박순</ion-select-option>
               </ion-select>
             </ion-item>
           </div>
@@ -23,6 +23,7 @@
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
+          <!-- {{isproductfilter}} -->
           <li
             v-for="(product, index) in item_list"
             :key="index"
@@ -83,25 +84,20 @@
           </li>
         </ul>
       </div>
-
-      <!-- <div class="nodata" v-if="!isproductfilter">yes data found</div>
-      <div v-else></div> -->
-
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </template>
 
 <script>
+
 import {
-  // IonSegment,
-  // IonSegmentButton,
   IonItem,
   IonSelect,
   IonSelectOption,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent,inject, onMounted, } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -109,165 +105,87 @@ export default defineComponent({
   props: {
     isBanner: Boolean,
     isFltData: Boolean,
-    isproductfilter: Boolean,
+    isproductfilter: null,
   },
   components: {
-    // IonSegment,
-    // IonSegmentButton,
     IonItem,
     IonSelect,
     IonSelectOption,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
   },
-
   setup() {
     const slideOpts = {
       initialSlide: 1,
       speed: 400,
       pager: false,
     };
+    const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
       message: "Only select your dominant hair color",
     };
-    return { slideOpts, customPopoverOptions };
+
+    onMounted(() => {
+      store.methods.getData();
+      console.log('store.state.AppData', store.state.AppData);
+    });
+
+    return { slideOpts, customPopoverOptions, store };
   },
 
   data() {
     return {
-      products: [
-        {
-          title: "Areuban",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: " 리플렉 오버핏 조거 스웨",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "hovehover",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[BOOTSCUT.FIT] Chana...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Etmon",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[JACKET.FIT] Heavy jac...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "OEF",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[WIDE.FIT] Island jeans...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Areuban",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: " 리플렉 오버핏 조거 스웨",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "hovehover",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[BOOTSCUT.FIT] Chana...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "Etmon",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[JACKET.FIT] Heavy jac...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          title: "OEF",
-          // image: require("../../assets/images/Rectangle-2.jpg"),
-          id: 1,
-          description: "[WIDE.FIT] Island jeans...",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-      ],
       layout: "grid",
       categories_info: [],
       item_list: [],
       product_details: [],
       banner: [],
-
+      latestList: [],
     };
   },
+
   created() {
     this.itemService = new ItemService();
-   
+
+     this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      alert("updated filterdata")
+      this.item_list = data;
+    })
   },
 
   mounted() {
-
-     console.log('isFltData', this.isFltData);
-    console.log('isproductfilter', this.isproductfilter);
-
+    console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data)
-      this.item_list = data;
-    })
-    // Product details error
-    //  this.itemService.getProductDetails().then((data)=>{
-    //       console.log("ProductDetails",data)
-    // this.product_details=data;
-    //     })
-
-    // this.itemService.getbanner().then((data) => {
-    //   console.log("banner", data)
-    //   this.banner = data;
+    // this.itemService.getProductLsit().then((data) => {
+    //   console.log("ItemList", data);
+    //   alert("updated filterdata")
+    //   this.item_list = data;
     // })
-
   },
+
+  updated() {
+    console.log("from carditem this.isproductfilter", this.isproductfilter);
+    this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      if (this.isproductfilter) {
+        alert("updated filterdata")
+        this.item_list = this.isproductfilter;
+      } else {
+        alert("updated all filterdata")
+        this.item_list = data;
+      }
+    })
+  },
+
 });
 </script>
 
@@ -280,6 +198,19 @@ export default defineComponent({
 .item-native {
   padding-inline-start: 0 !important;
   padding-left: 0;
+}
+
+.nodata {
+  justify-content: center;
+  min-height: 60vh;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #c4c4c4;
 }
 
 .item-wrapper {
@@ -295,10 +226,10 @@ export default defineComponent({
   ); */
   background: #ffffff;
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px); */
+  /* backdrop-filter: blur(30px);  */
 }
 .item-wrapper.withoutbanner {
-  top: 70px;
+  top: 90px;
   transition: all 0.5s ease-in-out;
 }
 .item-wrapper .product-list {
@@ -320,10 +251,12 @@ export default defineComponent({
   border-radius: 6px;
   overflow: hidden;
   width: 100%;
-  height: auto;
+  height: 156px;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .item-wrapper .product-list .product-list-item h3 {
   font-weight: bold;
@@ -378,8 +311,8 @@ export default defineComponent({
 }
 .list-view .product-list-item figure {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 120px !important;
+  height: 120px !important;
 }
 .list-view .product-list-item .social-icon {
   position: absolute;

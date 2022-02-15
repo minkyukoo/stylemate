@@ -9,22 +9,44 @@ import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
 
+// function guest(to, from, next) {
+//   if (localStorage.token) {
+//     next({ name: "Home" });
+//     alert("You already logged in");
+//   } else next();
+// }
+
+// function guard(to, from, next) {
+//   if (localStorage.token) {
+//     next();
+//   } else {
+//     next({ name: "LoginPage" });
+//     alert("Please login to access");
+//   }
+// }
+
 function guest(to, from, next) {
-  next();
-  // if (localStorage.token) {
-  //   next({ name: "Home" });
-  //   alert("You already logged in");
-  // } else next();
+  var currentTime = new Date().getTime();
+  console.log('guest_currentTime', currentTime);
+  console.log('expireTime', localStorage.tokenexpiresAt);
+  console.log(localStorage.tokenexpiresAt < currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
+    next();
+  } else {
+    next({ name: "Mypage" });
+    console.log("You already logged in");
+  }
 }
 
 function guard(to, from, next) {
-  next();
-  // if (localStorage.token) {
-  //   next();
-  // } else {
-  //   next({ name: "LoginPage" });
-  //   alert("Please login to access");
-  // }
+  var currentTime = new Date().getTime();
+  console.log('guard_currentTime', currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
+    next({ name: "LoginPage" });
+    console.log("Please login to access");
+  } else {
+    next();
+  }
 }
 
 const routes = [
@@ -108,7 +130,7 @@ const routes = [
         beforeEnter: guard,
         component: Mypage,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
     ],
@@ -143,6 +165,11 @@ const routes = [
     path: "/fb-login",
     name: "facebookLogin",
     component: () => import("@/views/pages/FbLogin.vue"),
+  },
+  {
+    path: "/slider",
+    name: "Slider",
+    component: () => import("@/views/pages/Slider.vue"),
   },
 ];
 

@@ -1,35 +1,37 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="Login" />
+    <TopNav headerTitle="로그인" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content>
-      <div class="login-wrap">
-        <h1>Please login in Stylemate</h1>
-        <ion-button expand="block" fill="outline" color="dark" @click="loginHandaler">Login</ion-button>
-        <ion-card>
-          <ion-item>
-            <h2>Customer service center</h2>
-          </ion-item>
-          <ion-item>
-            <h1>Notice</h1>
-          </ion-item>
-          <ion-item>
-            <h1>FAQ</h1>
-          </ion-item>
-          <ion-item>
-            <h1>1:1 inquiry</h1>
-          </ion-item>
-          <ion-item>
-            <h1>Terms of Use</h1>
-          </ion-item>
-          <ion-item>
-            <h1>Privacy Policy</h1>
-          </ion-item>
-        </ion-card>
-        <ion-button router-link="/home">Go to detail</ion-button>
-        <ion-button router-link="/mypage">Go to detail</ion-button>
+    <ion-content :fullscreen="true">
+      <div class="inner-container listmain">
+        <div class="login-wrap">
+          <h1 class="page-title pad-t-40">스타일메이트에 로그인 해주세요</h1>
+          <button class="login-btn" @click="loginHandaler">로그인</button>
+          <ion-card>
+            <ion-item>
+              <h2>Customer service center</h2>
+            </ion-item>
+            <ion-item>
+              <h1>Notice</h1>
+            </ion-item>
+            <ion-item>
+              <h1>FAQ</h1>
+            </ion-item>
+            <ion-item>
+              <h1>1:1 inquiry</h1>
+            </ion-item>
+            <ion-item>
+              <h1>Terms of Use</h1>
+            </ion-item>
+            <ion-item>
+              <h1>Privacy Policy</h1>
+            </ion-item>
+          </ion-card>
+          <ion-button router-link="/home">Go to detail</ion-button>
+          <ion-button router-link="/mypage">Go to detail</ion-button>
+        </div>
       </div>
     </ion-content>
     <!-- End page content -->
@@ -66,11 +68,27 @@ export default {
     const urlParams = new URLSearchParams(queryString);
     var token = urlParams.get('token')
     var refreshToken = urlParams.get('refreshToken');
-    console.log('token', token);
-    console.log('refreshToken', refreshToken);
+
     if (token && refreshToken) {
+
+      // var cuttentTime = new Date().getTime();
+      var d = urlParams.get('expiresAt');
+      var position = d.search(" ");
+      var dateTime = new Date(d.substring(0, position)).getTime();
+      console.log('dateTime', dateTime);
+
+      var token_expiresAt = dateTime;
+
+      console.log('dateTime', dateTime);
+      console.log('cuttentTime', new Date().getTime());
+
+
+
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('tokenexpiresAt', token_expiresAt);
+      // localStorage.setItem('cuttentTime', cuttentTime);
+      // localStorage.setItem('refreshExpiresAt', refreshExpiresAt);
       window.location.href = this.redirectlocalUrl;
     }
   },
@@ -90,6 +108,29 @@ export default {
   width: 100%;
   height: 100vh;
   margin: 0 auto;
+}
+.login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #090909;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #090909;
+}
+.page-title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #090909;
+  margin-bottom: 22px;
 }
 .border_input {
   border-block: groove;

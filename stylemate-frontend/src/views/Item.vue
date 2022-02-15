@@ -6,16 +6,9 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <ExploreContainer name="Item page" /> -->
-      <CategoryList
-        @clicked="onClickChild"
-        v-on:fltData="fltData2($event)"
-        v-on:filterproductList="filterproductList2($event)"
-      />
-      <CardItem
-        :isBanner="isBanner"
-        :isFltData="isFltData"
-        :isproductfilter="isproductfilter"
-      />
+      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" />
+      
+      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -34,8 +27,8 @@ export default {
     return {
       isBanner: true,
       isFltData: true,
-      isproductfilter: true,
-    };
+      isproductfilter: null,
+    }
   },
   methods: {
     onClickChild(value) {
@@ -46,11 +39,14 @@ export default {
       this.isFltData = event;
       alert(event);
     },
-
-    filterproductList2(event) {
+   
+    filterproductList2(event){
+      // let isproductfilter = null;
+      // isproductfilter = event;
       this.isproductfilter = event;
-      console.log("this.isproductfilter", this.isproductfilter);
-      alert(event);
+      // console.log("this.isproductfilter",isproductfilter);
+      // this.$emit("isproductfilter",isproductfilter);
+      console.log("this.isproductfilter",this.isproductfilter);
     },
   },
 };

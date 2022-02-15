@@ -47,14 +47,16 @@
                 <span><img src="@/assets/icons/arrow-left.svg" /></span>
               </div>
               <div class="right-section">
-                <button @click="showAlert"><img src="@/assets/icons/share.svg" /></button>
+                <button @click="showModal">
+                  <img src="@/assets/icons/share.svg" />
+                </button>
               </div>
             </div>
             <div class="product-description">
               <h2>[STRAIGHT.FIT] Powder cream BOOTSCUT.FIT Chana jeans.632</h2>
 
               <div class="hashwrap">
-                <span v-for="hash in hashtag" :key="hash">{{hash.name}}</span>
+                <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span>
                 <!-- <span>hi</span> -->
               </div>
 
@@ -64,10 +66,47 @@
               </p>
             </div>
 
-            <TabProductDetails/>
+            <CustomModal v-show="isModalVisible" @close="closeModal">
+              <template v-slot:header>
+                <h2>공유하기</h2>
+              </template>
+
+              <template v-slot:body>
+                <div class="modal-content">
+                  <ul class="shareList">
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-fb.svg" />
+                        <span>페이스북</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-kakaotalk.svg" />
+                        <span>카카오톡</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-url.svg" />
+                        <span>URL</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </template>
+
+              <template v-slot:footer> </template>
+            </CustomModal>
+
+            <TabProductDetails />
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
+      <div class="subscribe-wrap">
+        <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
+        <button class="black-btn">협찬 신청</button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -83,7 +122,7 @@ import {
 } from "@ionic/vue";
 import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
-
+import CustomModal from "@/components/Modal.vue";
 
 export default {
   name: "BrandDetails",
@@ -96,37 +135,36 @@ export default {
     IonSlides,
     IonSlide,
     IonInfiniteScroll,
-    IonInfiniteScrollContent, TabProductDetails
+    IonInfiniteScrollContent,
+    TabProductDetails,
+    CustomModal,
   },
 
   data() {
     return {
-        hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-        ],
+      hashtag: [
+        { name: "#스트릿패션" },
+        { name: "#스우파" },
+        { name: "#후디" },
+        { name: "#스트릿패션" },
+        { name: "#스우파" },
+        { name: "#후디" },
+        { name: "#스트릿패션" },
+        { name: "#스우파" },
+        { name: "#후디" },
+      ],
+      isModalVisible: false,
     };
   },
 
   methods: {
-    showAlert(){
-      // Use sweetalret2
-      // this.$swal('Hello Vue world!!!');
-      this.$swal.fire({
-        title: '공유하기',
-        html:
-          '<ul class="shareList"><li><a href="#"><img src="../assets/icons/icon-fb.svg"/><span>페이스북</span></a></li><li><a href="#"><img src="../assets/icons/icon-kakaotalk.svg"/><span>카카오톡</span></a></li><li><a href="#"><img src="../assets/icons/icon-url.svg"/><span>URL</span></a></li></ul>',
-        confirmButtonText:'닫기',
-      })
-    }
-  }
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+  },
 };
 </script>
 
@@ -174,37 +212,119 @@ export default {
 .left-section > span {
   margin-right: 4px;
 }
-.product-description{
-    margin-top: 19px;
-    margin-bottom: 42px;
-    text-align: left;
+.product-description {
+  margin-top: 19px;
+  margin-bottom: 42px;
+  text-align: left;
 }
-.product-description h2{
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    color: #595959;
+.product-description h2 {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #595959;
 }
-.hashwrap{
-    margin: 12px 0 15px;
+.hashwrap {
+  margin: 12px 0 15px;
 }
-.hashwrap span{
-    font-size: 10px;
-    line-height: 12px;
-    color: #C4C4C4;
+.hashwrap span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
 }
-.product-description{
-    margin-top: 12px;
+.product-description {
+  margin-top: 12px;
 }
 .product-description p {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    line-height: 14px;
-    color: #797979;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 14px;
+  color: #797979;
 }
-.product-description p span{
-    margin-right: 7px;
+.product-description p span {
+  margin-right: 7px;
 }
-
+.shareList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0 35px;
+}
+.shareList li {
+  margin-left: 20px;
+}
+.shareList li:first-child {
+  margin-left: 0;
+}
+.shareList li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.shareList li a img {
+  width: 52px;
+  height: 52px;
+}
+.shareList li a span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #595959;
+  margin-top: 4px;
+}
+.subscribe-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  padding: 8px;
+  border: 1px solid #F7F7F7;
+  background: #ffffff;
+}
+.subscribe-wrap figure {
+  margin-right: 10px;
+}
+.subscribe-wrap .black-btn {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+}
+.subscribe-wrap .white-btn {
+  font-size: 14px;
+  line-height: 18px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #090909;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+  border: 1px solid #595959;
+}
+.subscribe-wrap .grey-btn {
+  font-size: 14px;
+  line-height: 18px;
+  background: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #797979;
+  border-radius: 6px;
+  padding: 24px;
+  width: calc(100% - 30px);
+  border: 1px solid #c4c4c4;
+}
 </style>

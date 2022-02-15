@@ -12,7 +12,7 @@
 
     <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
       <ion-slide>
-        <ul class="main-menu">
+        <ul class="main-menu sub-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
             <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
           </li>
@@ -47,40 +47,6 @@ export default {
 
   data() {
     return {
-      slides: [
-        {
-          title: "all",
-          value: "all",
-          name: "all",
-        },
-        {
-          title: "top",
-          value: "top",
-          name: "top",
-          child: [{ name: "top 1" }, { name: "top 2" }, { name: "top 3" }],
-        },
-        {
-          title: "아우터",
-          value: "outer",
-          name: "outer",
-        },
-        {
-          title: "바지",
-          value: "pants",
-          name: "pants",
-        },
-        {
-          title: "원피스",
-          value: "onepiece",
-          name: "onepiece",
-          child: [{ name: "onepiece 1" }, { name: "onepiece 2" }, { name: "onepiece 3" }],
-        },
-        {
-          title: "스커트",
-          value: "skirt",
-          name: "skirt",
-        }
-      ],
       allCategories: null,
       allCategories2: null,
       childCategoryArray: [],
@@ -108,6 +74,8 @@ export default {
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
+        console.log("filterproductList", data);
+          
         if (data.length == 0) {
           alert('nodata')
           this.nofltData = true;
@@ -116,10 +84,10 @@ export default {
         } else {
           this.nofltData = false;
           this.$emit('fltData', true);
-         
-          this.filterproductList = data;
-          console.log('filterproductList', this.filterproductList);
-          this.$emit("filterproductlist",true);
+
+          let filterproductList = data;
+          this.$emit("filterproductList",filterproductList);
+          // console.log('filterproductList', filterproductList);
         }
       });
     },
@@ -184,5 +152,8 @@ export default {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
+}
+.item-scroller-nav ul.sub-menu{
+  background: #F7F7F7;
 }
 </style>
