@@ -8,7 +8,7 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
-import TokenService from "@/services/TokenService";
+// import TokenService from "@/services/TokenService";
 
 // function guest(to, from, next) {
 //   if (localStorage.token) {
@@ -40,11 +40,9 @@ function guest(to, from, next) {
 }
 
 function guard(to, from, next) {
-  // var currentTime = new Date().getTime();
-  // console.log('guard_currentTime', currentTime);
-  // if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
-    console.log('isAuth', isAuth());
-  if (isAuth()) {
+  var currentTime = new Date().getTime();
+  console.log('guard_currentTime', currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
     next({ name: "LoginPage" });
     console.log("Please login to access");
   } else {
@@ -52,38 +50,38 @@ function guard(to, from, next) {
   }
 }
 
-var tokenService = new TokenService();
-function isAuth() {
-  var currentTime = new Date().getTime();
-  console.log('isAuth_currentTime', currentTime);
-  //check for Invalid authendication
-  if (!localStorage.token || !localStorage.tokenexpiresAt) {
-    return false;
-  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
-    return tokenService.getRefreshToken()
-      .then(function (res) {
-        console.log('res', res.status);
-        if (res.status && res.status !== 200) {
-          return false;
-        } else {
-          var d = res.data.tokenexpiresAt;
-          var position = d.search(" ");
-          var dateTime = new Date(d.substring(0, position)).getTime();
-          console.log('dateTime', dateTime);
-          var token_expiresAt = dateTime;
+// var tokenService = new TokenService();
+// function isAuth() {
+//   var currentTime = new Date().getTime();
+//   console.log('isAuth_currentTime', currentTime);
+//   //check for Invalid authendication
+//   if (!localStorage.token || !localStorage.tokenexpiresAt) {
+//     return false;
+//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
+//     return tokenService.getRefreshToken()
+//       .then(function (res) {
+//         console.log('res', res.status);
+//         if (res.status && res.status !== 200) {
+//           return false;
+//         } else {
+//           var d = res.data.tokenexpiresAt;
+//           var position = d.search(" ");
+//           var dateTime = new Date(d.substring(0, position)).getTime();
+//           console.log('dateTime', dateTime);
+//           var token_expiresAt = dateTime;
           
-          localStorage.setItem('token', res.data.token);
-          localStorage.setItem('refreshToken', res.data.refreshToken);
-          localStorage.setItem('tokenexpiresAt', token_expiresAt);
-          return true;
-        }
-      })
-  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-    return true;
-  } else {
-    return false;
-  }
-}
+//           localStorage.setItem('token', res.data.token);
+//           localStorage.setItem('refreshToken', res.data.refreshToken);
+//           localStorage.setItem('tokenexpiresAt', token_expiresAt);
+//           return true;
+//         }
+//       })
+//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 const routes = [
   {
