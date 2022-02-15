@@ -283,13 +283,13 @@
           </div>
         </div>
         <div class="gotoFamily">
-          <div class="gotofamilyList" :class="{ active : active_el == 1 }">
+          <div class="gotofamilyList" :class="{active: isActive}">
             <ul>
               <li><a href="#"><img src="@/assets/images/logo-1.png" /></a></li>
               <li><a href="#"><img src="@/assets/images/logo-2.png" /></a></li>
             </ul>
           </div>
-          <button @click="activate(1)">패밀리 사이트 바로가기</button>
+          <button @click="myFilter">패밀리 사이트 바로가기</button>
         </div>
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
@@ -356,7 +356,7 @@ export default {
       bannerList: null,
       newItems: null,
       newProItems: null,
-      active_el:0
+      isActive: false
     };
   },
   created() {
@@ -404,8 +404,9 @@ export default {
         }
       });
     },
-    activate:function(el){
-        this.active_el = el;
+    myFilter: function() {
+      this.isActive = !this.isActive;
+      // some code to filter users
     }
   },
 };
