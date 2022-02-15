@@ -97,7 +97,7 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent,inject, onMounted, } from "vue";
+import { defineComponent } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -120,7 +120,7 @@ export default defineComponent({
       speed: 400,
       pager: false,
     };
-    const store = inject("store");
+    // const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
@@ -128,12 +128,12 @@ export default defineComponent({
       message: "Only select your dominant hair color",
     };
 
-    onMounted(() => {
-      store.methods.getData();
-      console.log('store.state.AppData', store.state.AppData);
-    });
+    // onMounted(() => {
+    //   store.methods.getData();
+    //   console.log('store.state.AppData', store.state.AppData);
+    // });
 
-    return { slideOpts, customPopoverOptions, store };
+    return { slideOpts, customPopoverOptions };
   },
 
   data() {
@@ -150,7 +150,7 @@ export default defineComponent({
   created() {
     this.itemService = new ItemService();
 
-     this.itemService.getProductLsit().then((data) => {
+     this.itemService.getProductList().then((data) => {
       console.log("ItemList", data);
       alert("updated filterdata")
       this.item_list = data;
