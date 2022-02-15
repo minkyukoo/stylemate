@@ -149,6 +149,12 @@ export default defineComponent({
 
   created() {
     this.itemService = new ItemService();
+
+     this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      alert("updated filterdata")
+      this.item_list = data;
+    })
   },
 
   mounted() {
@@ -159,11 +165,11 @@ export default defineComponent({
       this.categories_info = data;
     });
     // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      alert("updated filterdata")
-      this.item_list = data;
-    })
+    // this.itemService.getProductLsit().then((data) => {
+    //   console.log("ItemList", data);
+    //   alert("updated filterdata")
+    //   this.item_list = data;
+    // })
   },
 
   updated() {

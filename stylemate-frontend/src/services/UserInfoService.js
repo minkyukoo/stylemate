@@ -1,11 +1,11 @@
-import axiox from 'axios';
+import axios from 'axios';
 
 var token = localStorage.getItem('token');
 
 export default class UserInfoService {
   
   async getUserInfo() {
-    return await axiox.get(`/stylemates/myInfo`, {
+    return await axios.get(`/stylemates/myInfo`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
