@@ -31,7 +31,7 @@
               @click="close"
               aria-label="Close modal"
             >
-              to close
+              닫기
             </button>
           </slot>
         </footer>
@@ -73,7 +73,14 @@ export default {
   padding: 0;
   border-radius: 6px;
 }
-
+.modal-content{
+  padding: 24px;
+}
+.modal-content p{
+  font-size: 14px;
+  line-height: 18px;
+  color: #25282B;
+}
 .modal-header {
   position: relative;
   justify-content: space-between;
