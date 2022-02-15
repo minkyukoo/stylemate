@@ -91,15 +91,13 @@
 <script>
 
 import {
-  // IonSegment,
-  // IonSegmentButton,
   IonItem,
   IonSelect,
   IonSelectOption,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent,inject, onMounted, } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -110,8 +108,6 @@ export default defineComponent({
     isproductfilter: null,
   },
   components: {
-    // IonSegment,
-    // IonSegmentButton,
     IonItem,
     IonSelect,
     IonSelectOption,
@@ -119,19 +115,25 @@ export default defineComponent({
     IonInfiniteScrollContent,
   },
   setup() {
-    provide( 'store', store)
     const slideOpts = {
       initialSlide: 1,
       speed: 400,
       pager: false,
     };
+    const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
       message: "Only select your dominant hair color",
     };
-    return { slideOpts, customPopoverOptions };
+
+    onMounted(() => {
+      store.methods.getData();
+      console.log('store.state.AppData', store.state.AppData);
+    });
+
+    return { slideOpts, customPopoverOptions, store };
   },
 
   data() {
@@ -141,33 +143,33 @@ export default defineComponent({
       item_list: [],
       product_details: [],
       banner: [],
-
       latestList: [],
     };
   },
+
   created() {
     this.itemService = new ItemService();
+
+     this.itemService.getProductLsit().then((data) => {
+      console.log("ItemList", data);
+      alert("updated filterdata")
+      this.item_list = data;
+    })
   },
 
   mounted() {
-
-    // console.log('isFltData', this.isFltData);
-    // console.log('isproductfilter', this.isproductfilter);
-
     console.log("from carditem this.isproductfilter", this.isproductfilter);
-
-
     // Slide title
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      alert("updated filterdata")
-      this.item_list = data;
-    })
+    // this.itemService.getProductLsit().then((data) => {
+    //   console.log("ItemList", data);
+    //   alert("updated filterdata")
+    //   this.item_list = data;
+    // })
   },
 
   updated() {
@@ -184,35 +186,6 @@ export default defineComponent({
     })
   },
 
-  methods: {
-
-    productListing() {
-      this.itemService.getProductLsit().then((data) => {
-        console.log("ItemList", data);
-        if (this.isproductfilter) {
-          alert("updated filterdata")
-          this.item_list = this.isproductfilter;
-        } else {
-          alert("updated all filterdata")
-          this.item_list = data;
-        }
-      });
-    }
-
-    // productList(){
-    //   if (this.isproductfilter) {
-    //     alert("yes")
-    //     this.item_list = this.isproductfilter;
-    //   }
-    // },
-
-    // latestOrder() {
-    //   alert("ok")
-    //   let latestList = ''
-    //   latestList = this.item_list;
-    //   console.log("latestList",latestList);
-    // },
-  },
 });
 </script>
 
