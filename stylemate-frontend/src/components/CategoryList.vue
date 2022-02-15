@@ -139,7 +139,7 @@ export default {
 }
 .item-scroller-nav ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
 }
 .item-scroller-nav ul li{
