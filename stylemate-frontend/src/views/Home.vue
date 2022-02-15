@@ -283,13 +283,13 @@
           </div>
         </div>
         <div class="gotoFamily">
-          <div class="gotofamilyList">
+          <div class="gotofamilyList" :class="{ active : active_el == 1 }">
             <ul>
               <li><a href="#"><img src="@/assets/images/logo-1.png" /></a></li>
               <li><a href="#"><img src="@/assets/images/logo-2.png" /></a></li>
             </ul>
           </div>
-          <button>패밀리 사이트 바로가기</button>
+          <button @click="activate(1)">패밀리 사이트 바로가기</button>
         </div>
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
@@ -356,6 +356,7 @@ export default {
       bannerList: null,
       newItems: null,
       newProItems: null,
+      active_el:0
     };
   },
   created() {
@@ -403,6 +404,9 @@ export default {
         }
       });
     },
+    activate:function(el){
+        this.active_el = el;
+    }
   },
 };
 </script>
@@ -474,7 +478,7 @@ export default {
   position: relative;
   width: calc(100% - 40px);
   margin-top: 60px;
-  margin: 0 20px;
+  margin: 60px 20px 0;
 }
 .gotoFamily button{
   padding: 21px 0;
@@ -494,6 +498,10 @@ export default {
   position: absolute;
   bottom: 100%;
   width: 100%;
+  display: none;
+}
+.gotofamilyList.active{
+  display: block;
 }
 .gotofamilyList ul{
   background: #FFFFFF;
