@@ -1,36 +1,64 @@
 <template>
   <div class="tab-wrap">
     <div class="tabs">
-      <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">
+      <button
+        class="tab"
+        @click="layout = 'tab1'"
+        :class="{ active: layout === 'tab1' }"
+      >
         캠페인
       </button>
-      <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">
+      <button
+        class="tab"
+        @click="layout = 'tab2'"
+        :class="{ active: layout === 'tab2' }"
+      >
         가이드
       </button>
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
-      <figure class="product-banner"><img src="@/assets/images/product-details.jpg" /></figure>
+      <figure class="product-banner">
+        <img src="@/assets/images/product-details.jpg" />
+        <img src="@/assets/images/product-details.jpg" />
+      </figure>
+      <div class="product-desc">
+        <ul>
+          <li>전면부 시그니처 스몰 로고 자수 처리</li>
+          <li>남녀공용 오버핏 사이즈로 제작</li>
+          <li>국내생산 7게이지 2합원사 편직가공</li>
+          <li>밀도 높고 짜임새 좋게 제작</li>
+          <li>여유로운 실루엣의 오버핏</li>
+          <li>투톤 컬러의 단추로 포인트 있게 제작</li>
+        </ul>
+      </div>
       <div class="pre-div">
         <h3>
           <span><img src="@/assets/icons/warning.svg" /></span>
-          주의사항</h3>
-          <div class="text-box">
-            <p>※ 본 캠페인의 참여로 제작, 게재된 회원님의 포스트는 캠페인 종료 후 
-              1년간 영리 목적의 홍보나 기타 필요에 의해 미디언스가 임의로 사용하거나 공유할 수 있습니다.
-               이를 원하지 않으실 경우 캠페인 신청을 취소하거나 이미 캠페인을 진행한 경우 지급 받은 보상을 반환해야 합니다.
-            </p>
-            <p>
-              ※ 캠페인에 선정된 분들께는 선정 안내 문자를 발송해드립니다. 단, 수신자 휴대폰의 
-              스팸설정 또는 기타 에러 등으로 인해 문자를 받지 못하는 경우가 발생할 수도 있습니다. 
-              따라서 캠페인에 지원하신 분들은 선정자 발표일에 미디언스 앱 > 나의 캠페인에서 승인여부를 꼭 확인해주세요.
-            </p>
-            <p>
-              ※ 캠페인을 통해 제공받으신 물품은 중고나라 등 온라인 거래사이트에서 거래하실 수 
-              없습니다. 거래행위가 적발될 시 유무형적인 브랜드 이미지와 가치 측면에서 발생한 
-              손해에 대하여 손해배상청구를 할 수 있습니다.
-            </p>
-          </div>
+          주의사항
+        </h3>
+        <div class="text-box">
+          <p>
+            ※ 본 캠페인의 참여로 제작, 게재된 회원님의 포스트는 캠페인 종료 후
+            1년간 영리 목적의 홍보나 기타 필요에 의해 미디언스가 임의로
+            사용하거나 공유할 수 있습니다. 이를 원하지 않으실 경우 캠페인 신청을
+            취소하거나 이미 캠페인을 진행한 경우 지급 받은 보상을 반환해야
+            합니다.
+          </p>
+          <p>
+            ※ 캠페인에 선정된 분들께는 선정 안내 문자를 발송해드립니다. 단,
+            수신자 휴대폰의 스팸설정 또는 기타 에러 등으로 인해 문자를 받지
+            못하는 경우가 발생할 수도 있습니다. 따라서 캠페인에 지원하신 분들은
+            선정자 발표일에 미디언스 앱 > 나의 캠페인에서 승인여부를 꼭
+            확인해주세요.
+          </p>
+          <p>
+            ※ 캠페인을 통해 제공받으신 물품은 중고나라 등 온라인 거래사이트에서
+            거래하실 수 없습니다. 거래행위가 적발될 시 유무형적인 브랜드
+            이미지와 가치 측면에서 발생한 손해에 대하여 손해배상청구를 할 수
+            있습니다.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -39,11 +67,13 @@
       <div class="tag-info">
         <div v-for="tagcell in tagrow" :key="tagcell" class="tag-info-row">
           <div class="top">
-            <h3>{{tagcell.name}}</h3>
+            <h3>{{ tagcell.name }}</h3>
             <span>복사</span>
           </div>
           <div class="tag-content">
-            <span v-for="hash in tagcell.hashtag" :key="hash">{{hash.name}}</span>
+            <span v-for="hash in tagcell.hashtag" :key="hash">{{
+              hash.name
+            }}</span>
           </div>
         </div>
       </div>
@@ -51,69 +81,105 @@
       <div class="terms-wrap">
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-check.svg"/></span>
+            <span><img src="@/assets/icons/icon-check.svg" /></span>
             <h3>꼭 읽어주세요</h3>
           </div>
           <ul class="guide-body">
             <li>
-              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
+              연락처를 최신화 해주세요.
             </li>
-            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
-              (ex_2개 선택 시 포스팅 2개)</li>
-            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
-              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
-            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+            <li>
+              ※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품
+              선택에 따라 포스팅 해주셔야 합니다. (ex_2개 선택 시 포스팅 2개)
+            </li>
+            <li>
+              ※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인
+              부탁드립니다. 포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지
+              않도록 유의부탁드립니다.
+            </li>
+            <li>
+              ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
+              수 있습니다.
+            </li>
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-image.svg"/></span>
+            <span><img src="@/assets/icons/icon-image.svg" /></span>
             <h3>꼭 읽어주세요</h3>
           </div>
           <ul class="guide-body">
             <li>
-              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
+              연락처를 최신화 해주세요.
             </li>
-            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
-              (ex_2개 선택 시 포스팅 2개)</li>
-            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
-              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
-            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+            <li>
+              ※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품
+              선택에 따라 포스팅 해주셔야 합니다. (ex_2개 선택 시 포스팅 2개)
+            </li>
+            <li>
+              ※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인
+              부탁드립니다. 포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지
+              않도록 유의부탁드립니다.
+            </li>
+            <li>
+              ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
+              수 있습니다.
+            </li>
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-text.svg"/></span>
+            <span><img src="@/assets/icons/icon-text.svg" /></span>
             <h3>텍스트 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
-              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
+              연락처를 최신화 해주세요.
             </li>
-            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
-              (ex_2개 선택 시 포스팅 2개)</li>
-            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
-              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
-            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+            <li>
+              ※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품
+              선택에 따라 포스팅 해주셔야 합니다. (ex_2개 선택 시 포스팅 2개)
+            </li>
+            <li>
+              ※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인
+              부탁드립니다. 포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지
+              않도록 유의부탁드립니다.
+            </li>
+            <li>
+              ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
+              수 있습니다.
+            </li>
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-calendar.svg"/></span>
+            <span><img src="@/assets/icons/icon-calendar.svg" /></span>
             <h3>일정 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
-              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와 연락처를 최신화 해주세요.
+              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
+              연락처를 최신화 해주세요.
             </li>
-            <li>※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품 선택에 따라 포스팅 해주셔야 합니다. 
-              (ex_2개 선택 시 포스팅 2개)</li>
-            <li>※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인 부탁드립니다. 
-              포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지 않도록 유의부탁드립니다.</li>
-            <li>※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴 수 있습니다.</li>
+            <li>
+              ※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품
+              선택에 따라 포스팅 해주셔야 합니다. (ex_2개 선택 시 포스팅 2개)
+            </li>
+            <li>
+              ※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인
+              부탁드립니다. 포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지
+              않도록 유의부탁드립니다.
+            </li>
+            <li>
+              ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
+              수 있습니다.
+            </li>
           </ul>
         </div>
       </div>
@@ -122,15 +188,13 @@
 </template>
 
 <script>
-
-
-export default({
+export default {
   name: "TabProductDetails",
   data() {
     return {
-      tagrow:[
+      tagrow: [
         {
-          name: '해시태그',
+          name: "해시태그",
           hashtag: [
             { name: "#스트릿패션" },
             { name: "#스우파" },
@@ -144,22 +208,22 @@ export default({
           ],
         },
         {
-          name: '계정태그',
+          name: "계정태그",
           hashtag: [
             { name: "@stylemate_official" },
-            { name: '@oef__official'}
+            { name: "@oef__official" },
           ],
-        }
+        },
       ],
       layout: "tab1",
     };
   },
-});
+};
 </script>
 
 <style scoped>
-.tab-wrap .tab-content{
-  padding: 20px 0 50px;
+.tab-wrap .tab-content {
+  padding: 50px 0 100px;
 }
 .tabs {
   border: 1px solid #e5e5e5;
@@ -183,8 +247,22 @@ export default({
   color: #ffffff;
   background: #090909;
 }
-.product-banner img{
-  margin: 0 auto;
+.product-banner img {
+  margin: 16px auto 0;
+}
+.product-banner img:first-child {
+  margin-top: 0;
+}
+.product-desc{
+  margin-top: 20px;
+  padding-left: 20px;
+}
+.product-desc ul li{
+  list-style-type: disc;
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-align: left;
 }
 .pre-div {
   margin-top: 42px;
@@ -216,75 +294,74 @@ export default({
 .pre-div .text-box p:first-child {
   margin-top: 0;
 }
-.tag-info{
-    border: 1px solid #797979;
-    padding: 0 20px;
-    border-radius: 6px;
+.tag-info {
+  border: 1px solid #797979;
+  padding: 0 20px;
+  border-radius: 6px;
 }
-.tag-info .tag-info-row{
-    border-top: solid 1px #F6F6F6;
-    padding: 20px 0;
+.tag-info .tag-info-row {
+  border-top: solid 1px #f6f6f6;
+  padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child{
-    border-top: 0;
+.tag-info .tag-info-rowfirst-child {
+  border-top: 0;
 }
-.tag-info .tag-info-row .top{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.tag-info .tag-info-row .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.tag-info .tag-info-row .top h3{
-    font-size: 12px;
-    line-height: 16px;
-    color: #797979;
+.tag-info .tag-info-row .top h3 {
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
 }
-.tag-info .tag-info-row .top span{
-    font-size: 10px;
-    line-height: 12px;
-    color: #595959;
-    border: 1px solid #595959;
-    border-radius: 4px;
-    padding: 4px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.tag-info .tag-info-row .top span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #595959;
+  border: 1px solid #595959;
+  border-radius: 4px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.tag-content{
-    margin-top: 8px;
-    text-align: left;
+.tag-content {
+  margin-top: 8px;
+  text-align: left;
 }
-.tag-content span{
-    font-size: 10px;
-    line-height: 12px;
-    color: #595959;
+.tag-content span {
+  font-size: 10px;
+  line-height: 12px;
+  color: #595959;
 }
-.terms-wrap .guide{
+.terms-wrap .guide {
   margin-top: 58px;
 }
 
-.terms-wrap .guide .heading{
+.terms-wrap .guide .heading {
   display: flex;
   align-items: center;
 }
-.terms-wrap .guide .heading h3{
+.terms-wrap .guide .heading h3 {
   font-weight: bold;
   font-size: 14px;
   line-height: 17px;
-  color: #25282B;
+  color: #25282b;
 }
-.terms-wrap .guide .heading span{
+.terms-wrap .guide .heading span {
   margin-right: 4px;
 }
-.terms-wrap .guide .guide-body{
+.terms-wrap .guide .guide-body {
   margin-top: 12px;
-  border-top: solid 1px #F7F7F7;
+  border-top: solid 1px #f7f7f7;
   padding-top: 12px;
 }
-.terms-wrap .guide .guide-body li{
+.terms-wrap .guide .guide-body li {
   text-align: left;
   font-size: 12px;
   line-height: 18px;
   color: #797979;
 }
-
 </style>
