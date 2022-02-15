@@ -69,7 +69,7 @@ export default {
 
     if (token && refreshToken) {
 
-      var cuttentTime = new Date().getTime();
+      // var cuttentTime = new Date().getTime();
       var d = urlParams.get('expiresAt');
       var position = d.search(" ");
       var dateTime = new Date(d.substring(0, position)).getTime();
@@ -85,7 +85,7 @@ export default {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('tokenexpiresAt', token_expiresAt);
-      localStorage.setItem('cuttentTime', cuttentTime);
+      // localStorage.setItem('cuttentTime', cuttentTime);
       // localStorage.setItem('refreshExpiresAt', refreshExpiresAt);
       window.location.href = this.redirectlocalUrl;
     }

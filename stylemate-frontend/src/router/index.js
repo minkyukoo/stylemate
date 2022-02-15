@@ -27,19 +27,23 @@ import BrandDetails from "@/views/pages/BrandDetails.vue";
 
 function guest(to, from, next) {
   var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+  console.log('guest_currentTime', currentTime);
+  console.log('expireTime', localStorage.tokenexpiresAt);
+  console.log(localStorage.tokenexpiresAt < currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
     next();
   } else {
     next({ name: "Mypage" });
-    alert("You already logged in");
+    console.log("You already logged in");
   }
 }
 
 function guard(to, from, next) {
   var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+  console.log('guard_currentTime', currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
     next({ name: "LoginPage" });
-    alert("Please login to access");
+    console.log("Please login to access");
   } else {
     next();
   }
