@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     handleClick2(ids) {
-      // alert(ids);
+      alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("filterproductList", data);
           
@@ -104,7 +104,9 @@ export default {
         });
 
         let arr1 = this.childCategoryArray;
-        this.childCategories2 = arr1.unshift({ name: 'All', id:"All" });
+        console.log("arr1",arr1);
+        this.childCategories2 = arr1.unshift({ name: 'All', id:"Allchild" });
+        console.log("this.childCategories2",this.childCategories2);
 
         alert(ids);
         this.childCategory = true;
