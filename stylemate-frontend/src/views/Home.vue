@@ -79,66 +79,6 @@
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
-          <!-- <swiper
-            :modules="modules"
-            :slides-per-view="3"
-            :space-between="1"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          </swiper> -->
           <swiper
             :effect="'coverflow'"
             :grabCursor="true"
@@ -158,41 +98,46 @@
             <swiper-slide class="brandSliderimg">
               <div class="swiper-slide">
                 <img src="@/assets/images/main-item1.jpg" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
+                </div>
               </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
               <div class="swiper-slide">
                 <img src="@/assets/images/main-item1.jpg" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
+                </div>
               </div>
             </swiper-slide>
             <swiper-slide class="brandSliderimg">
               <div class="swiper-slide">
                 <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
+                <div class="brandHeader">
+                  <div class="headerLine">
+                    <h4>LOOKBOOK</h4>
+                    <span>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </span>
+                  </div>
+                  <p>리플렉 오버핏 조거 스웨...</p>
+                  <span>#street fashion #sufa #hoodie</span>
+                </div>
               </div>
             </swiper-slide>
           </swiper>
@@ -421,10 +366,18 @@ export default {
 
 .brandSlider {
   background: rgba(0, 0, 0, 0.5);
-  padding: 60px 20px;
+  padding: 60px 20px 110px;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.brandSlider .swiper{
+  overflow: inherit;
+}
+.brandSlider > .swiper > .swiper-paginationl{
+  bottom: -100px !important;
 }
 .brandSlider .headerLine {
-  padding-left: 0;
+  padding: 0 20px 20px;
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
