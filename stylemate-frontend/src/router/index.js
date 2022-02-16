@@ -185,6 +185,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/userinfo",
+    name: "Userinfo",
+    component: () => import("@/views/pages/Userinfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
