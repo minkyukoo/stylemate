@@ -91,7 +91,7 @@
               modifier: 1,
               slideShadows: true,
             }"
-            :pagination="true"
+            :pagination="{ clickable: true }"
             :modules="modules"
             class="mySwiper"
           >
@@ -391,7 +391,8 @@ export default {
 }
 .brandHeader {
   background: #fff;
-  border-end-end-radius: 10px;
+  /* border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px; */
   padding: 24px 16px;
 }
 
@@ -414,13 +415,10 @@ export default {
   font-size: 12px !important;
   color: #25282b !important;
 }
-
-/* .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-} */
+.swiper-slide {
+  border-radius: 10px;
+  overflow: hidden;
+}
 .gotoFamily {
   position: relative;
   width: calc(100% - 40px);
