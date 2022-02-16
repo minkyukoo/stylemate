@@ -18,13 +18,13 @@
 
 <script>
 // import Vue from 'vue';
-import vSelect from 'vue-select';
+// import vSelect from 'vue-select';
 
 export default {
     name: 'DrawerBottom',
-    components: {
-        vSelect,
-    }
+    // components: {
+    //     vSelect,
+    // }
     // Vue.component('v-select', vSelect)
 }
 </script>
