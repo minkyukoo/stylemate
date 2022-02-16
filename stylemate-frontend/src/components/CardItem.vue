@@ -141,7 +141,7 @@ export default defineComponent({
     return {
       layout: "grid",
       categories_info: [],
-      item_list: [],
+      item_list: null,
       product_details: [],
       banner: [],
       filtervalue: [],
@@ -162,7 +162,7 @@ export default defineComponent({
     // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      // console.log("categories_info", data);
+      console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -174,10 +174,29 @@ export default defineComponent({
   },
   methods: {
     AllValue(){
-        this.itemService.getProductLsit().then((data) => {
+        this.itemService.getProductList().then((data) => {
         console.log("ItemList", data);
         this.item_list = data;
         console.log("myvalues", this.item_list);
+        alert("values")
+
+        !this.isFltData;
+        this.isBanner;
+        this.layout = "grid";
+// console.log("!this.isFltData", !this.isFltData);
+        //  if (data.length == 0) {
+        //   // alert('nodata')
+        //   this.nofltData = true;
+        //   this.$emit('fltData', false);
+        //   console.log("this.nofltData",this.nofltData);
+        // } else {
+        //   this.nofltData = false;
+        //   this.$emit('fltData', true);
+
+        //    this.item_list = data;
+        //   this.$emit("filterproductList",this.item_list);
+        // }
+
       })
     },
 
@@ -201,9 +220,7 @@ export default defineComponent({
       } 
       else if(!this.isFltData){
         alert("all values");
-        // this.item_list = data;
         this.AllValue();
-        // console.log("Success", this.item_list);
       }
       else {
         alert("updated all filterdata")
