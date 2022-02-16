@@ -28,11 +28,8 @@
             v-for="(product, index) in item_list"
             :key="index"
             class="product-list-item active_font"
-            @click="$router.push({ name: 'ItemDetails' })"
           >
-            <figure>
-              <img :src="product.imageThumbnailPath" />
-              <div class="top-float-div">
+            <div class="top-float-div">
                 <div class="social-icon">
                   <img src="@/assets/icons/instagram.svg" />
                 </div>
@@ -40,23 +37,27 @@
                   <img src="@/assets/icons/heart-outline.svg" />
                 </div>
               </div>
+            <figure @click="$router.push({ name: 'ItemDetails' })">
+              <img :src="product.imageThumbnailPath" />
             </figure>
             <!-- <h3>{{ product.title }}</h3> -->
-            <p>{{ product.description }}</p>
-            <!-- <span>{{ product.hashtags }}</span> -->
-            <div class="hashWrap">
-              <span v-for="(hash, index) in product.tag" :key="index">
-                {{
-                  hash.tag
-                }}
-              </span>
+            <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+              <p>{{ product.description }}</p>
+              <!-- <span>{{ product.hashtags }}</span> -->
+              <div class="hashWrap">
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    hash.tag
+                  }}
+                </span>
+              </div>
             </div>
           </li>
         </ul>
 
         <ul v-if="layout === 'list'" class="product-list list-view">
           <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
-            <figure>
+            <figure @click="$router.push({ name: 'ItemDetails' })">
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
                 <div class="social-icon">
@@ -64,12 +65,12 @@
                 </div>
               </div>
             </figure>
-            <div class="desc-box">
+            <div class="favorite">
+              <img src="@/assets/icons/heart-outline.svg" />
+            </div>
+            <div class="desc-box" @click="$router.push({ name: 'ItemDetails' })">
               <div class="text-box">
                 <h3></h3>
-                <div class="favorite">
-                  <img src="@/assets/icons/heart-outline.svg" />
-                </div>
               </div>
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
@@ -274,9 +275,9 @@ export default defineComponent({
   padding: 0 4px;
   margin-bottom: 24px;
   text-align: left;
+  position: relative;
 }
 .item-wrapper .product-list .product-list-item figure {
-  position: relative;
   margin-bottom: 12px;
   border-radius: 6px;
   overflow: hidden;
@@ -330,11 +331,15 @@ export default defineComponent({
 .grid-view .top-float-div img {
   cursor: pointer;
 }
+.grid-view .top-float-div .favorite {
+  margin-right: 12px;
+}
 .list-view .product-list-item {
   display: flex;
   align-items: center;
   margin-top: 12px;
   width: 100%;
+  position: relative;
 }
 .list-view .product-list-item:first-child {
   margin-top: 0;
@@ -343,6 +348,7 @@ export default defineComponent({
   position: relative;
   width: 120px !important;
   height: 120px !important;
+  margin-bottom: 0 !important;
 }
 .list-view .product-list-item .social-icon {
   position: absolute;
@@ -350,6 +356,13 @@ export default defineComponent({
   padding: 7px;
 }
 .list-view .product-list-item .social-icon img {
+  cursor: pointer;
+}
+.list-view .product-list-item .favorite {
+  position: absolute;
+  right: 0;
+  top: 22px;
+  margin-right: 0;
   cursor: pointer;
 }
 .desc-box {
@@ -361,8 +374,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.item-wrapper .list-view .product-list-item h3 {
   margin-bottom: 16px;
 }
 .right-section button {
