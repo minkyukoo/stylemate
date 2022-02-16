@@ -54,6 +54,8 @@ export default {
       categorylist: null,
       nofltData: false,
       filterproductList: null,
+
+      childCategories2:null,
     };
   },
 
@@ -62,9 +64,9 @@ export default {
     this.itemServices.getProductCategories().then((data) => {
       console.log('data:', data);
       let arr = data;
-      this.allCategories2 = arr.unshift({ name: 'All' });
+      this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
-      console.log(this.allCategories);
+      console.log("this.allCategories",this.allCategories);
     });
   },
   mounted() {
@@ -87,7 +89,6 @@ export default {
 
           let filterproductList = data;
           this.$emit("filterproductList",filterproductList);
-          // console.log('filterproductList', filterproductList);
         }
       });
     },
@@ -95,13 +96,19 @@ export default {
     handleClick(childCategory, ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
+
         childCategory.forEach(element => {
           this.childCategoryArray.push(element);
         });
+
+        let arr1 = this.childCategoryArray;
+        this.childCategories2 = arr1.unshift({ name: 'All', id:"All" });
+
         alert(ids);
         this.childCategory = true;
         this.onClickButton(false);
       } else {
+        alert(ids);
         this.childCategory = false;
         this.onClickButton(true);
       }
