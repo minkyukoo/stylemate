@@ -22,8 +22,8 @@
 import { IonPage,  IonContent, } from '@ionic/vue';
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
-import MyTop from '@/components/MyPageTop.vue';
-import MyPageDetails from '@/components/MyPageDetails.vue';
+import MyTop from '@/components/MyPage/MyPageTop.vue';
+import MyPageDetails from '@/components/MyPage/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
 // Import Swiper styles
 // import "swiper/css";
