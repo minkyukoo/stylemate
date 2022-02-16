@@ -5,6 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
+      <!-- <div class="main-wrap"> -->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -191,6 +192,7 @@
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
+      <!-- </div> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -205,7 +207,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
@@ -217,7 +219,7 @@ export default {
   name: "Home",
   components: {
     TopNav,
-    IonContent,
+    // IonContent,
     IonPage,
     // IonSlides,
     // IonSlide,
@@ -327,11 +329,26 @@ export default {
       this.isActive = !this.isActive;
       // some code to filter users
     },
+
+    // for pushnotification
+    pushNotification(res) {
+      alert(res);
+      this.$router.push({
+        name: "Item",
+        params: {
+          data: res,
+        },
+      });
+    },
+
   },
 };
 </script>
 
 <style scoped>
+.inner-scroll {
+  margin-right: -20px !important;
+}
 .mainslide-banner-wrap {
   max-height: 380px;
   height: 380px;
