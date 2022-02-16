@@ -345,11 +345,10 @@ export default defineComponent({
   top: 0;
   padding: 7px;
 }
-.grid-view .top-float-div img {
-  cursor: pointer;
-}
+
 .grid-view .top-float-div .favorite {
   margin-right: 12px;
+  cursor: pointer;
 }
 .list-view .product-list-item {
   display: flex;
@@ -371,9 +370,6 @@ export default defineComponent({
   position: absolute;
   top: 0;
   padding: 7px;
-}
-.list-view .product-list-item .social-icon img {
-  cursor: pointer;
 }
 .list-view .product-list-item .favorite {
   position: absolute;
