@@ -41,6 +41,8 @@ export default {
       initialSlide: 1,
       speed: 400,
       pager: false,
+      // slidesPerView: 1,
+      scrollbar: true
     };
     return { slideOpts };
   },
@@ -62,11 +64,11 @@ export default {
   created() {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
-      console.log('data:', data);
+      // console.log('data:', data);
       let arr = data;
       this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
-      console.log("this.allCategories",this.allCategories);
+      // console.log(this.allCategories);
     });
   },
   mounted() {
@@ -74,12 +76,12 @@ export default {
   },
   methods: {
     handleClick2(ids) {
-      alert(ids);
+      // alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
-        console.log("filterproductList", data);
+        // console.log("filterproductList", data);
           
         if (data.length == 0) {
-          alert('nodata')
+          // alert('nodata')
           this.nofltData = true;
           this.$emit('fltData', false);
 
@@ -93,7 +95,7 @@ export default {
       });
     },
 
-    handleClick(childCategory, ids) {
+    handleClick(childCategory,ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
 
@@ -140,11 +142,18 @@ export default {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 .item-scroller-nav ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
+}
+.item-scroller-nav ul li{
+  margin-left: 28px;
+}
+.item-scroller-nav ul li:first-child{
+  margin-left: 0;
 }
 .item-scroller-nav ul li a {
   padding: 13px 0;
@@ -154,6 +163,7 @@ export default {
   line-height: 18px;
   color: #797979;
   cursor: pointer;
+  white-space: nowrap;
 }
 .item-scroller-nav ul li a.active {
   border-bottom: solid 2px #090909;

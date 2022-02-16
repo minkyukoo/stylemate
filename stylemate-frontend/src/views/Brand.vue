@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="Brand"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">

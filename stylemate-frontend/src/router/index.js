@@ -8,6 +8,7 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
+// import TokenService from "@/services/TokenService";
 
 // function guest(to, from, next) {
 //   if (localStorage.token) {
@@ -27,23 +28,60 @@ import BrandDetails from "@/views/pages/BrandDetails.vue";
 
 function guest(to, from, next) {
   var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+  console.log('guest_currentTime', currentTime);
+  console.log('expireTime', localStorage.tokenexpiresAt);
+  console.log(localStorage.tokenexpiresAt < currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
     next();
   } else {
     next({ name: "Mypage" });
-    alert("You already logged in");
+    console.log("You already logged in");
   }
 }
 
 function guard(to, from, next) {
   var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+  console.log('guard_currentTime', currentTime);
+  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
     next({ name: "LoginPage" });
-    alert("Please login to access");
+    console.log("Please login to access");
   } else {
     next();
   }
 }
+
+// var tokenService = new TokenService();
+// function isAuth() {
+//   var currentTime = new Date().getTime();
+//   console.log('isAuth_currentTime', currentTime);
+//   //check for Invalid authendication
+//   if (!localStorage.token || !localStorage.tokenexpiresAt) {
+//     return false;
+//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
+//     return tokenService.getRefreshToken()
+//       .then(function (res) {
+//         console.log('res', res.status);
+//         if (res.status && res.status !== 200) {
+//           return false;
+//         } else {
+//           var d = res.data.tokenexpiresAt;
+//           var position = d.search(" ");
+//           var dateTime = new Date(d.substring(0, position)).getTime();
+//           console.log('dateTime', dateTime);
+//           var token_expiresAt = dateTime;
+          
+//           localStorage.setItem('token', res.data.token);
+//           localStorage.setItem('refreshToken', res.data.refreshToken);
+//           localStorage.setItem('tokenexpiresAt', token_expiresAt);
+//           return true;
+//         }
+//       })
+//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 const routes = [
   {
@@ -93,7 +131,7 @@ const routes = [
         name: "Item",
         component: Item,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
@@ -101,7 +139,7 @@ const routes = [
         name: "Brand",
         component: Brand,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         },
       },
       {
@@ -126,10 +164,18 @@ const routes = [
         beforeEnter: guard,
         component: Mypage,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
     ],
+  },
+  {
+    path: "/product-details",
+    name: "ItemDetails",
+    component: () => import("@/views/pages/ItemDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
   },
   {
     path: "/notification",
@@ -152,11 +198,7 @@ const routes = [
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
   },
-  {
-    path: "/product-details",
-    name: "ItemDetails",
-    component: () => import("@/views/pages/ItemDetails.vue"),
-  },
+  
   {
     path: "/fb-login",
     name: "facebookLogin",

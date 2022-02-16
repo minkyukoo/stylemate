@@ -97,7 +97,7 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent,inject, onMounted, } from "vue";
+import { defineComponent } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -120,7 +120,7 @@ export default defineComponent({
       speed: 400,
       pager: false,
     };
-    const store = inject("store");
+    // const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
@@ -128,12 +128,12 @@ export default defineComponent({
       message: "Only select your dominant hair color",
     };
 
-    onMounted(() => {
-      store.methods.getData();
-      console.log('store.state.AppData', store.state.AppData);
-    });
+    // onMounted(() => {
+    //   store.methods.getData();
+    //   console.log('store.state.AppData', store.state.AppData);
+    // });
 
-    return { slideOpts, customPopoverOptions, store };
+    return { slideOpts, customPopoverOptions };
   },
 
   data() {
@@ -150,20 +150,18 @@ export default defineComponent({
   created() {
     this.itemService = new ItemService();
 
-     this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      alert("updated filterdata")
+     this.itemService.getProductList().then((data) => {
+      // console.log("ItemList", data);
+      // alert("updated filterdata")
       this.item_list = data;
     })
   },
 
   mounted() {
-    console.log("from carditem this.isFltData", this.isFltData);
-
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -192,14 +190,11 @@ export default defineComponent({
   },
 
   updated() {
-    console.log("from carditem this.isFltData", this.isFltData);
-
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
+    this.itemService.getProductList().then((data) => {
+      // console.log("ItemList", data);
       if (this.isproductfilter) {
-        alert("updated filterdata")
+        // alert("updated filterdata")
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
       } 
