@@ -88,6 +88,7 @@ export default {
         });
       } else {
         this.brandService.getBrandList().then((data) => {
+          this.notFound = false;
           this.brands = data;
         });
       }
