@@ -8,7 +8,7 @@
       <h3>0</h3>
       <p>post activity</p>
     </div>
-    <div class="sponsor-item">
+    <div class="sponsor-item" @click="() => this.$router.push('/mypage-liked')">
       <h3>0</h3>
       <p>like</p>
     </div>

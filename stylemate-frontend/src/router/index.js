@@ -10,6 +10,7 @@ import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
 import Sponsorships from "../views/Sponsorship.vue";
 import PostActivity from "../views/PostActivity.vue";
+import MyPageLiked from "../views/MyPageLiked.vue";
 // import TokenService from "@/services/TokenService";
 
 // function guest(to, from, next) {
@@ -183,6 +184,15 @@ const routes = [
         name: "Post Activity",
         beforeEnter: guard,
         component: PostActivity,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "mypage-liked",
+        name: "MyPage Liked",
+        // beforeEnter: guard,
+        component: MyPageLiked,
         meta: {
           innerHeader: true,
         }

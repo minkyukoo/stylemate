@@ -2,12 +2,10 @@
   <div class="item-card">
     <div class="img-con">
       <img
-        :src="`${require('../../assets/images/' + progressDetails.img)}`"
+        :src="`${require('../../../assets/images/' + progressDetails.img)}`"
         alt=""
       />
-      <!-- <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
-        progressDetails.imgTag
-      }}</span> -->
+      <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" />
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
@@ -74,13 +72,11 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(173, 218, 217, 0.75);
-  backdrop-filter: blur(10px);
+  width: 24px;
+  height: 24px;
   border-radius: 6px 0px;
   font-size: 10px;
   line-height: 12px;
-  color: #ffffff;
-  display: inline-block;
   padding: 3px 4px;
 }
 .item-card .img-con img {
@@ -118,5 +114,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.heading-wrap img {
+    width: 16px;
+    height: 15px;
+    margin-right: 5px;
 }
 </style>
