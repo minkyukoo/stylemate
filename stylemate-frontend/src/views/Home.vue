@@ -114,7 +114,11 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
+            <swiper-slide
+              class="brandSliderimg"
+              v-for="item in brandList"
+              :key="item.id"
+            >
               <div class="swiper-slide">
                 <img :src="item.imageThumbnailPath" />
               </div>
@@ -284,7 +288,7 @@ export default {
           if (i % 3 === 0) {
             startArray[newStartArray] = value;
             newStartArray++;
-          } else if (i % 2 == 0) {
+          } else if (i % 2 === 0) {
             OddArray[newOddIndex] = value;
             newOddIndex++;
           } else {
@@ -347,16 +351,17 @@ export default {
   margin-left: -20px;
   margin-right: -20px;
 }
-.brandSlider .swiper{
+.brandSlider .swiper {
   overflow: inherit;
 }
 /* .brandSlider .swiper .swiper-paginationl{
   bottom: -100px !important;
 } */
 
-.swiper-horizontal > .swiper-pagination-bullets, 
-.swiper-pagination-bullets.swiper-pagination-horizontal, 
-.swiper-pagination-custom, .swiper-pagination-fraction{
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
   bottom: -100px !important;
 }
 .brandSlider .headerLine {

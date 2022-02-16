@@ -1,8 +1,7 @@
 <template>
   <div class="details-container">
     <RatingBox />
-
-    <SponsorshipBox />
+    <SponsorshipBox v-on:setPage="setPageType($event)" />
     <div class="link-wrap">
       <MyInformation />
       <CustomerService />
@@ -15,7 +14,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import RatingBox from "@/components/RatingBox.vue";
+import RatingBox from "./RatingBox.vue";
 import SponsorshipBox from "./SponsershipBox.vue";
 import MyInformation from "./MyInformation.vue";
 import CustomerService from "./CustomerService.vue";
@@ -26,6 +25,11 @@ export default defineComponent({
     SponsorshipBox,
     MyInformation,
     CustomerService,
+  },
+  methods: {
+    setPageType(page) {
+      this.$emit("setPage", page);
+    },
   },
 });
 </script>
