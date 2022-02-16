@@ -32,9 +32,7 @@
         </ion-card-content>
         <ion-card-content
           class="subcontent"
-          v-for="tagdata in info.tag"
-          :key="tagdata"
-          ># {{ tagdata.tag }}</ion-card-content
+          >{{ setTags(info.tag) }}</ion-card-content
         >
       </div>
     </div>
@@ -93,6 +91,16 @@ export default {
           this.brands = data;
         });
       }
+    },
+
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
     },
   },
 };
