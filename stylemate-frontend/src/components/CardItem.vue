@@ -6,10 +6,10 @@
         <div class="top-section">
           <div class="left-section">
             <ion-item>
-              <ion-select interface="popover" placeholder="인기순">
-                <ion-select-option @click="latestOrder()" value="f">최신순</ion-select-option>
-                <ion-select-option @click="popularity()" value="m">인기순</ion-select-option>
-                <ion-select-option @click="closeSoon()" value="v">마감임박순</ion-select-option>
+              <ion-select interface="popover" @click = "orderPopularity()" placeholder="인기순">
+                <ion-select-option value="f">최신순</ion-select-option>
+                <ion-select-option value="m">인기순</ion-select-option>
+                <ion-select-option value="v">마감임박순</ion-select-option>
               </ion-select>
             </ion-item>
           </div>
@@ -23,11 +23,11 @@
           </div>
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
-          <!-- {{isproductfilter}} -->
+          <!-- {{item_list}} -->
           <li
             v-for="(product, index) in item_list"
             :key="index"
-            class="product-list-item"
+            class="product-list-item active_font"
             @click="$router.push({ name: 'ItemDetails' })"
           >
             <figure>
@@ -97,7 +97,7 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { defineComponent,inject, onMounted, } from "vue";
+import { defineComponent } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -120,7 +120,7 @@ export default defineComponent({
       speed: 400,
       pager: false,
     };
-    const store = inject("store");
+    // const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
@@ -128,12 +128,12 @@ export default defineComponent({
       message: "Only select your dominant hair color",
     };
 
-    onMounted(() => {
-      store.methods.getData();
-      console.log('store.state.AppData', store.state.AppData);
-    });
+    // onMounted(() => {
+    //   store.methods.getData();
+    //   console.log('store.state.AppData', store.state.AppData);
+    // });
 
-    return { slideOpts, customPopoverOptions, store };
+    return { slideOpts, customPopoverOptions };
   },
 
   data() {
@@ -143,25 +143,25 @@ export default defineComponent({
       item_list: [],
       product_details: [],
       banner: [],
-      latestList: [],
+      filtervalue: [],
     };
   },
 
   created() {
     this.itemService = new ItemService();
 
-     this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      alert("updated filterdata")
+     this.itemService.getProductList().then((data) => {
+      // console.log("ItemList", data);
+      // alert("updated filterdata")
       this.item_list = data;
     })
   },
 
   mounted() {
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -171,20 +171,47 @@ export default defineComponent({
     //   this.item_list = data;
     // })
   },
+  methods: {
+    AllValue(){
+        this.itemService.getProductLsit().then((data) => {
+        console.log("ItemList", data);
+        this.item_list = data;
+        console.log("myvalues", this.item_list);
+      })
+    },
+
+    // orderPopularity(){
+    //   this.itemService.getProductLsit().then((data) => {
+    //     console.log("filtervalue", data);
+    //     this.filtervalue = data;
+    //     console.log("filtervalue",this.filtervalue);
+    //   })
+    // },
+  },
 
   updated() {
-    console.log("from carditem this.isproductfilter", this.isproductfilter);
-    this.itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
+    // console.log("from carditem this.isproductfilter", this.isproductfilter);
+    this.itemService.getProductList().then((data) => {
+      // console.log("ItemList", data);
       if (this.isproductfilter) {
-        alert("updated filterdata")
+        // alert("updated filterdata")
         this.item_list = this.isproductfilter;
-      } else {
+        console.log("this.isproductfilter", this.item_list);
+      } 
+      else if(!this.isFltData){
+        alert("all values");
+        // this.item_list = data;
+        this.AllValue();
+        // console.log("Success", this.item_list);
+      }
+      else {
         alert("updated all filterdata")
         this.item_list = data;
       }
     })
   },
+
+  
 
 });
 </script>
@@ -236,6 +263,9 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   margin: 0 -4px;
+}
+.active_font{
+  font-weight: bold;
 }
 .item-wrapper .grid-view .product-list-item {
   width: 50%;

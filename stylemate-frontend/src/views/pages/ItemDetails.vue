@@ -1,13 +1,9 @@
 <template>
   <ion-page class="main-container relative">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title style="text-align: center">View details</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <!-- header -->
+    <TopNav headerTitle="상세보기"></TopNav>
+    <!-- End header -->
+    <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
@@ -108,37 +104,36 @@
         <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
         <button class="black-btn">협찬 신청</button>
       </div>
+
+      <DrawerBottom />
     </ion-content>
+    <!-- End page content -->
   </ion-page>
 </template>
 <script>
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
 import CustomModal from "@/components/Modal.vue";
+import TopNav from "@/components/TopNav.vue";
+import DrawerBottom from "@/components/DrawerBottom.vue";
 
 export default {
   name: "BrandDetails",
   components: {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
     IonSlides,
     IonSlide,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     TabProductDetails,
     CustomModal,
+    TopNav,
+    DrawerBottom
   },
 
   data() {

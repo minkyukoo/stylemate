@@ -131,7 +131,7 @@ const routes = [
         name: "Item",
         component: Item,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
@@ -139,7 +139,7 @@ const routes = [
         name: "Brand",
         component: Brand,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         },
       },
       {
@@ -170,6 +170,14 @@ const routes = [
     ],
   },
   {
+    path: "/product-details",
+    name: "ItemDetails",
+    component: () => import("@/views/pages/ItemDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
     path: "/notification",
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
@@ -190,11 +198,7 @@ const routes = [
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
   },
-  {
-    path: "/product-details",
-    name: "ItemDetails",
-    component: () => import("@/views/pages/ItemDetails.vue"),
-  },
+  
   {
     path: "/fb-login",
     name: "facebookLogin",

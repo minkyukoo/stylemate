@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="ITEM"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -28,12 +28,14 @@ export default {
       isBanner: true,
       isFltData: true,
       isproductfilter: null,
+      // finalresult: true,
     }
   },
   methods: {
     onClickChild(value) {
       console.log(value); // someValue
       this.isBanner = value;
+      // this.finalresult = value;
     },
     fltData2(event) {
       this.isFltData = event;
@@ -41,11 +43,7 @@ export default {
     },
    
     filterproductList2(event){
-      // let isproductfilter = null;
-      // isproductfilter = event;
       this.isproductfilter = event;
-      // console.log("this.isproductfilter",isproductfilter);
-      // this.$emit("isproductfilter",isproductfilter);
       console.log("this.isproductfilter",this.isproductfilter);
     },
   },

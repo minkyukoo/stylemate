@@ -40,6 +40,25 @@
             <div class="multiSlideWrap">
               <div
                 class="slideItem"
+                v-for="(item, index) in newEvanItems"
+                :key="index"
+              >
+                <div class="socialBLock">
+                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
+                  <img src="@/assets/icons/wish.svg" class="wishList" />
+                </div>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
+              </div>
+            </div>
+          </swiper-slide>
+
+          <swiper-slide>
+            <div class="multiSlideWrap">
+              <div
+                class="slideItem"
                 v-for="(item, index) in newOddItems"
                 :key="index"
               >
@@ -59,7 +78,7 @@
             <div class="multiSlideWrap">
               <div
                 class="slideItem"
-                v-for="(item, index) in newEvanItems"
+                v-for="(item, index) in newStartItems"
                 :key="index"
               >
                 <div class="socialBLock">
@@ -91,53 +110,13 @@
               modifier: 1,
               slideShadows: true,
             }"
-            :pagination="{ clickable: true }"
+            :pagination="true"
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg">
+            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
               <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
+                <img :src="item.imageThumbnailPath" />
               </div>
             </swiper-slide>
           </swiper>
@@ -191,10 +170,14 @@
           </div>
         </div>
         <div class="gotoFamily">
-          <div class="gotofamilyList" :class="{active: isActive}">
+          <div class="gotofamilyList" :class="{ active: isActive }">
             <ul>
-              <li><a href="#"><img src="@/assets/images/logo-1.png" /></a></li>
-              <li><a href="#"><img src="@/assets/images/logo-2.png" /></a></li>
+              <li>
+                <a href="#"><img src="@/assets/images/logo-1.png" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="@/assets/images/logo-2.png" /></a>
+              </li>
             </ul>
           </div>
           <button @click="myFilter">패밀리 사이트 바로가기</button>
@@ -222,6 +205,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
+import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
 
@@ -261,54 +245,46 @@ export default {
   data() {
     return {
       bannerList: null,
+      brandList: [],
+      newStartItems: [],
       newOddItems: [],
       newEvanItems: [],
       newProItems: null,
-      isActive: false
+      isActive: false,
     };
   },
   created() {
     this.bannerService = new BannerService();
+    this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
   },
 
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
-      // console.log("bres", res);
       this.bannerList = res;
     });
     this.getProductItemList();
-    // this.itemService.getProductLsit().then((resp) => {
-    //   console.log('newItems', resp);
-    //   this.newItems = resp;
-    //   const slicedArray = resp.slice(0, 12); //total items 12
-    //   console.log('slicedArray', slicedArray);
-
-    //   var perChunk = 4 // items per chunk
-    //   var inputArray = slicedArray  //array to split
-    //   var result = inputArray.reduce((resultArray, item, index) => {
-    //     const chunkIndex = Math.floor(index / perChunk)
-    //     if (!resultArray[chunkIndex]) {
-    //       resultArray[chunkIndex] = [] // start a new chunk
-    //     }
-    //     resultArray[chunkIndex].push(item)
-    //     return resultArray
-    //   }, []);
-    //   this.newProItems = result;
-    //   console.log('newProItems', this.newProItems);
-    // });
+    this.brandService.getBrandList().then((res) => {
+      this.brandList = res;
+      console.log(res);
+    });
   },
   methods: {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        var OddArray = [];
-        var EvanArray = [];
-        var newOddIndex = 0;
-        var newEvanIndex = 0;
+        let startArray = [];
+        let OddArray = [];
+        let EvanArray = [];
+        let newStartArray = 0;
+        let newOddIndex = 0;
+        let newEvanIndex = 0;
         res.forEach((value, i) => {
-          if (i % 2 == 0) {
+          if (i % 3 === 0) {
+            startArray[newStartArray] = value;
+            newStartArray++;
+          } else if (i % 2 == 0) {
             OddArray[newOddIndex] = value;
             newOddIndex++;
           } else {
@@ -316,6 +292,7 @@ export default {
             newEvanIndex++;
           }
         });
+        this.newStartItems = startArray;
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
       });
@@ -342,10 +319,10 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
-    myFilter: function() {
+    myFilter: function () {
       this.isActive = !this.isActive;
       // some code to filter users
-    }
+    },
   },
 };
 </script>
@@ -373,7 +350,13 @@ export default {
 .brandSlider .swiper{
   overflow: inherit;
 }
-.brandSlider > .swiper > .swiper-paginationl{
+/* .brandSlider .swiper .swiper-paginationl{
+  bottom: -100px !important;
+} */
+
+.swiper-horizontal > .swiper-pagination-bullets, 
+.swiper-pagination-bullets.swiper-pagination-horizontal, 
+.swiper-pagination-custom, .swiper-pagination-fraction{
   bottom: -100px !important;
 }
 .brandSlider .headerLine {
@@ -425,7 +408,7 @@ export default {
   margin-top: 60px;
   margin: 60px 20px 0;
 }
-.gotoFamily button{
+.gotoFamily button {
   padding: 21px 0;
   font-size: 14px;
   font-weight: 400;
@@ -433,34 +416,34 @@ export default {
   line-height: 150%;
   cursor: pointer;
   text-align: center;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   background: none;
   display: block;
   border-radius: 5px;
   width: 100%;
 }
-.gotofamilyList{
+.gotofamilyList {
   position: absolute;
   bottom: 100%;
   width: 100%;
   display: none;
 }
-.gotofamilyList.active{
+.gotofamilyList.active {
   display: block;
 }
-.gotofamilyList ul{
-  background: #FFFFFF;
-  border: 1px solid #C4C4C4;
+.gotofamilyList ul {
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
   border-radius: 6px;
   padding: 0 20px;
 }
-.gotofamilyList ul li{
-  border-top: 1px solid #F7F7F7;
+.gotofamilyList ul li {
+  border-top: 1px solid #f7f7f7;
 }
-.gotofamilyList ul li:first-child{
+.gotofamilyList ul li:first-child {
   border-top: none;
 }
-.gotofamilyList ul li a{
+.gotofamilyList ul li a {
   display: flex;
   align-items: center;
   justify-content: center;

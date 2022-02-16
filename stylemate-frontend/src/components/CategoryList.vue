@@ -56,17 +56,19 @@ export default {
       categorylist: null,
       nofltData: false,
       filterproductList: null,
+
+      childCategories2:null,
     };
   },
 
   created() {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
-      console.log('data:', data);
+      // console.log('data:', data);
       let arr = data;
-      this.allCategories2 = arr.unshift({ name: 'All' });
+      this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
-      console.log(this.allCategories);
+      // console.log(this.allCategories);
     });
   },
   mounted() {
@@ -74,12 +76,12 @@ export default {
   },
   methods: {
     handleClick2(ids) {
-      alert(ids);
+      // alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
-        console.log("filterproductList", data);
+        // console.log("filterproductList", data);
           
         if (data.length == 0) {
-          alert('nodata')
+          // alert('nodata')
           this.nofltData = true;
           this.$emit('fltData', false);
 
@@ -89,21 +91,26 @@ export default {
 
           let filterproductList = data;
           this.$emit("filterproductList",filterproductList);
-          // console.log('filterproductList', filterproductList);
         }
       });
     },
 
-    handleClick(childCategory, ids) {
+    handleClick(childCategory,ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
+
         childCategory.forEach(element => {
           this.childCategoryArray.push(element);
         });
+
+        let arr1 = this.childCategoryArray;
+        this.childCategories2 = arr1.unshift({ name: 'All', id:"All" });
+
         alert(ids);
         this.childCategory = true;
         this.onClickButton(false);
       } else {
+        alert(ids);
         this.childCategory = false;
         this.onClickButton(true);
       }
