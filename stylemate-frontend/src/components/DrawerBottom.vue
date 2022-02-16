@@ -3,7 +3,13 @@
         <div class="drawer-top">
             <div class="selectWrap">
                 <vue-select
-                v-model="selectedItem"
+                 placeholder="COLOR"
+                 :options="options"> </vue-select>
+            </div>
+
+            <div class="selectWrap">
+                <vue-select
+                 placeholder="SIZE"
                  :options="options"> </vue-select>
             </div>
         </div>
@@ -16,7 +22,7 @@
 
 <script>
 // import Vue from 'vue';
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import VueNextSelect from 'vue-next-select';
 
 export default defineComponent({
@@ -30,12 +36,12 @@ export default defineComponent({
         }
     },
     setup() {
-        const selectedItem = ref("NL");
+        // const selectedItem = ref("Black");
 
         const options = [
-           'Red', 'Green'
+           'Black', 'White', 'Green', 'Yellow', 'Bright blue','Black', 'White', 'Green', 'Yellow', 'Bright blue'
         ];
-        return { selectedItem, options };
+        return { options };
     },
 })
 </script>
@@ -53,6 +59,18 @@ export default defineComponent({
 .drawer-top{
     padding: 24px 20px;
 }
+.drawer-top .selectWrap{
+    margin-top: 4px;
+}
+.drawer-top .selectWrap:first-child{
+    margin-top: 0;
+}
+.drawer-top .selectWrap .vue-select{
+    width: 100%;
+    border: 1px solid #C4C4C4;
+    border-radius: 6px;
+}
+
 .button-group{
     display: flex;
 }
