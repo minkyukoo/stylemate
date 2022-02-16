@@ -104,6 +104,8 @@
         <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
         <button class="black-btn">협찬 신청</button>
       </div>
+
+      <DrawerBottom />
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -118,6 +120,7 @@ import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
 import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
+import DrawerBottom from "@/components/DrawerBottom.vue";
 
 export default {
   name: "BrandDetails",
@@ -129,7 +132,8 @@ export default {
     IonInfiniteScrollContent,
     TabProductDetails,
     CustomModal,
-    TopNav
+    TopNav,
+    DrawerBottom
   },
 
   data() {
