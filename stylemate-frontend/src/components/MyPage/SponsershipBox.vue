@@ -1,6 +1,6 @@
 <template>
   <div class="sponsor-box">
-    <div class="sponsor-item">
+    <div class="sponsor-item" @click="setPage('sponsorship')">
       <h3>0</h3>
       <p>Sponsorship</p>
     </div>
@@ -18,6 +18,11 @@
 <script>
 export default {
   name: "SponsorshipBox",
+  methods: {
+    setPage(page) {
+      this.$emit("setPage", page);
+    },
+  },
 };
 </script>
 
