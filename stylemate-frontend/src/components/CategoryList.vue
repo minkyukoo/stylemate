@@ -1,6 +1,17 @@
 <template>
   <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
+    <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="28"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="category in allCategories" :key="category.name">
+        <a @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+      </swiper-slide>
+    </swiper>
+    <!-- <ion-slides :options="slideOpts">
       <ion-slide>
         <ul class="main-menu">
           <li v-for="category in allCategories" :key="category.name">
@@ -8,9 +19,21 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
 
-    <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
+    <swiper  v-if="childCategory"
+      class="main-menu sub-menu"
+      :slides-per-view="'auto'"
+      :space-between="28"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+        <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
+      </swiper-slide>
+    </swiper>
+
+    <!-- <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu sub-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
@@ -18,7 +41,7 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
   </div>
 
   <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData" >
@@ -33,18 +56,39 @@
 
 <script>
 import ItemService from "@/services/ItemService";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/scrollbar";
 export default {
   name: "CategoryList",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
 
+  // setup() {
+  //   const slideOpts = {
+  //     initialSlide: 1,
+  //     speed: 400,
+  //     pager: false,
+  //     // slidesPerView: 1,
+  //     scrollbar: true
+  //   };
+  //   return { slideOpts };
+  // },
   setup() {
-    const slideOpts = {
-      initialSlide: 1,
-      speed: 400,
-      pager: false,
-      // slidesPerView: 1,
-      scrollbar: true
+    const onSwiper = (swiper) => {
+      console.log(swiper);
     };
-    return { slideOpts };
+    const onSlideChange = () => {
+      console.log("slide change");
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
   },
 
   data() {
@@ -76,7 +120,7 @@ export default {
   },
   methods: {
     handleClick2(ids) {
-      // alert(ids);
+      alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("filterproductList", data);
           
@@ -104,7 +148,9 @@ export default {
         });
 
         let arr1 = this.childCategoryArray;
-        this.childCategories2 = arr1.unshift({ name: 'All', id:"All" });
+        console.log("arr1",arr1);
+        this.childCategories2 = arr1.unshift({ name: 'All', id:"Allchild" });
+        console.log("this.childCategories2",this.childCategories2);
 
         alert(ids);
         this.childCategory = true;
@@ -142,20 +188,15 @@ export default {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  padding: 0 20px;
 }
-.item-scroller-nav ul {
+.item-scroller-nav .main-menu {
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  padding: 0 20px;
 }
-.item-scroller-nav ul li{
-  margin-left: 28px;
-}
-.item-scroller-nav ul li:first-child{
-  margin-left: 0;
-}
-.item-scroller-nav ul li a {
+
+.item-scroller-nav .main-menu .swiper-slide a {
   padding: 13px 0;
   display: block;
   font-weight: normal;
@@ -165,12 +206,15 @@ export default {
   cursor: pointer;
   white-space: nowrap;
 }
-.item-scroller-nav ul li a.active {
+.item-scroller-nav .main-menu .swiper-slide a.active {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
 }
-.item-scroller-nav ul.sub-menu{
+.item-scroller-nav .sub-menu{
   background: #F7F7F7;
+}
+.swiper-slide{
+  width: auto;
 }
 </style>
