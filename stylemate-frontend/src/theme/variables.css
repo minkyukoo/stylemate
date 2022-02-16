@@ -234,7 +234,7 @@ http://ionicframework.com/docs/theming/ */
   }
 }
 
-@media(pointer: fine) {
+/* @media(prefers-color-scheme: primary) {
   ::-webkit-scrollbar {
     width: 2px;
   }
@@ -253,4 +253,4 @@ http://ionicframework.com/docs/theming/ */
   .inner-scroll {
     scrollbar-width: thin
   }
-}
+} */

@@ -46,15 +46,15 @@ export default defineComponent({
 }
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
-  background-color: #dd0000 !important;
+  /* background-color: #dd0000 !important; */
 }
 
 ::-webkit-scrollbar {
-  width: 2px !important;
-  background-color: #ba1414 !important;
+  width: 0px !important;
+  /* background-color: #ba1414 !important; */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #6d02f0 !important;
+  /* background-color: #6d02f0 !important; */
 }
 </style>
