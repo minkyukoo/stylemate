@@ -34,11 +34,11 @@
       </div>
     </div>
 
-    <div class="right-section" v-else>
+    <!-- <div class="right-section" v-else>
       <button>
         <img src="@/assets/icons/list-view.svg" />
       </button>
-    </div>
+    </div> -->
 
     <div class="main pad-b-40">
       <div
