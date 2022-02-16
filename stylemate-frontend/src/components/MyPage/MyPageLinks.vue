@@ -3,7 +3,7 @@
     <div class="link-box" @click="reDirectPage(items.Pagelink)">
       <h3>{{ items.name }}</h3>
       <div v-if="items.arrow != false">
-        <img src="../assets/icons/arrow-right.svg" alt="" />
+        <img src="../../assets/icons/arrow-right.svg" alt="" />
       </div>
       <div v-else>
         <span>{{ items.version }}</span>
