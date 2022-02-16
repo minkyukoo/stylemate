@@ -1,10 +1,10 @@
 <template>
   <div class="sponsor-box">
-    <div class="sponsor-item" @click="setPage('sponsorship')">
+    <div class="sponsor-item" @click="() => this.$router.push('/sponsorships')">
       <h3>0</h3>
       <p>Sponsorship</p>
     </div>
-    <div class="sponsor-item">
+    <div class="sponsor-item" @click="() => this.$router.push('/post-activity')">
       <h3>0</h3>
       <p>post activity</p>
     </div>
@@ -18,11 +18,11 @@
 <script>
 export default {
   name: "SponsorshipBox",
-  methods: {
-    setPage(page) {
-      this.$emit("setPage", page);
-    },
-  },
+  // methods: {
+  //   setPage(page) {
+  //     this.$emit("setPage", page);
+  //   },
+  // },
 };
 </script>
 

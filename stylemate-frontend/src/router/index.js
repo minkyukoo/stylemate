@@ -8,6 +8,8 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
+import Sponsorships from "../views/Sponsorship.vue";
+import PostActivity from "../views/PostActivity.vue";
 // import TokenService from "@/services/TokenService";
 
 // function guest(to, from, next) {
@@ -163,6 +165,24 @@ const routes = [
         name: "Mypage",
         beforeEnter: guard,
         component: Mypage,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "sponsorships",
+        name: "Sponsorships",
+        beforeEnter: guard,
+        component: Sponsorships,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "post-activity",
+        name: "Post Activity",
+        beforeEnter: guard,
+        component: PostActivity,
         meta: {
           innerHeader: true,
         }

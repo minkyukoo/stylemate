@@ -1,28 +1,42 @@
 <template>
-  <div class="sponsor-filters">
-    <ion-slides :options="slideOpts">
-      <ion-slide class="main-menu" v-for="category in allCategories" :key="category.name">
-        <div class="slide-item">
-            <a @click="handleClick(category.id)">{{ category.name }}</a>
-        </div>
-      </ion-slide>
-    </ion-slides>
+  <div class="item-scroller-nav">
+    <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="4"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="category in allCategories" :key="category.name">
+        <a @click="handleClick( category.id)">{{ category.name }}</a>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "swiper/vue";
+// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import "swiper/css";
+import "swiper/css/scrollbar";
 export default {
   name: "SponsorFilter",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   setup() {
-    const slideOpts = {
-      initialSlide: 1,
-      slidesPerView: 2,
-      speed: 400,
-      pager: false,
-      // slidesPerView: 1,
-      scrollbar: true,
+    const onSwiper = (swiper) => {
+      console.log(swiper);
     };
-    return { slideOpts };
+    const onSlideChange = () => {
+      console.log("slide change");
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+    //   modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
   },
   data() {
     return {
@@ -46,8 +60,7 @@ export default {
         {
           id: "sponsor-selection",
           name: "협찬선정",
-        },
-        
+        },  
       ],
     };
   },
@@ -55,22 +68,41 @@ export default {
 </script>
 
 <style scoped>
-.sponsor-filters .main-menu {
-    display: flex;
-    justify-content: flex-start;
-    padding: 0;
-    width: 100%;
+.item-scroller-nav {
+  background: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
-.sponsor-filters .main-menu .slide-item {
-  margin-right: 4px;
+.item-scroller-nav .main-menu {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.item-scroller-nav .main-menu .swiper-slide a {
   padding: 8px 16px;
   border: 1px solid #E5E5E5;
-  border-radius: 60px;
-  word-break: keep-all;
-  flex-grow: 1;
-  /* width: 100%; */
+  border-radius: 100px;
+  display: block;
+  font-weight: normal;
+  font-size: 12px;
+line-height: 16px;
+  color: #C4C4C4;
+  cursor: pointer;
+  background: #ffffff;
+  white-space: nowrap;
 }
-.sponsor-filters .main-menu .slide-item.active {
-  border: 1px solid #E5E5E5;
+.item-scroller-nav .main-menu .swiper-slide a.active {
+  border: 1px solid #090909;
+  background: #090909;
+  font-weight: bold;
+  color: #090909;
+}
+
+.swiper-slide{
+  width: auto;
 }
 </style>
