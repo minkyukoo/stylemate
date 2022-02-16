@@ -17,9 +17,15 @@
 </template>
 
 <script>
+// import Vue from 'vue';
+import vSelect from 'vue-select';
+
 export default {
     name: 'DrawerBottom',
-    components: 'DrawerBottom'
+    components: {
+        vSelect,
+    }
+    // Vue.component('v-select', vSelect)
 }
 </script>
 
