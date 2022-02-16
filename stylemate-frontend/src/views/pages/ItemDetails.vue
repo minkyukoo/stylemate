@@ -100,7 +100,7 @@
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-      <div class="subscribe-wrap">
+      <div class="subscribe-wrap" style="display: none;">
         <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
         <button class="black-btn">협찬 신청</button>
       </div>
