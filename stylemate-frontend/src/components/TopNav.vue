@@ -58,6 +58,7 @@ ion-toolbar,
   height: 60px;
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
+  z-index: 1;
 }
 .header-title {
   font-style: normal;
