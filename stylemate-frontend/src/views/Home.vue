@@ -174,44 +174,9 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg">
+            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
               <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
-              </div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide">
-                <img src="@/assets/images/main-item1.jpg" />
+                <img :src="item.imageThumbnailPath" />
               </div>
             </swiper-slide>
           </swiper>
@@ -300,6 +265,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
+import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
 
@@ -339,6 +305,7 @@ export default {
   data() {
     return {
       bannerList: null,
+      brandList: [],
       newStartItems: [],
       newOddItems: [],
       newEvanItems: [],
@@ -348,46 +315,31 @@ export default {
   },
   created() {
     this.bannerService = new BannerService();
+    this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
   },
 
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
-      // console.log("bres", res);
       this.bannerList = res;
     });
     this.getProductItemList();
-    // this.itemService.getProductLsit().then((resp) => {
-    //   console.log('newItems', resp);
-    //   this.newItems = resp;
-    //   const slicedArray = resp.slice(0, 12); //total items 12
-    //   console.log('slicedArray', slicedArray);
-
-    //   var perChunk = 4 // items per chunk
-    //   var inputArray = slicedArray  //array to split
-    //   var result = inputArray.reduce((resultArray, item, index) => {
-    //     const chunkIndex = Math.floor(index / perChunk)
-    //     if (!resultArray[chunkIndex]) {
-    //       resultArray[chunkIndex] = [] // start a new chunk
-    //     }
-    //     resultArray[chunkIndex].push(item)
-    //     return resultArray
-    //   }, []);
-    //   this.newProItems = result;
-    //   console.log('newProItems', this.newProItems);
-    // });
+    this.brandService.getBrandList().then((res) => {
+      this.brandList = res;
+      console.log(res);
+    });
   },
   methods: {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        var startArray = [];
-        var OddArray = [];
-        var EvanArray = [];
-        var newStartArray = 0;
-        var newOddIndex = 0;
-        var newEvanIndex = 0;
+        let startArray = [];
+        let OddArray = [];
+        let EvanArray = [];
+        let newStartArray = 0;
+        let newOddIndex = 0;
+        let newEvanIndex = 0;
         res.forEach((value, i) => {
           if (i % 3 === 0) {
             startArray[newStartArray] = value;
