@@ -133,7 +133,7 @@ export default {
     TabProductDetails,
     CustomModal,
     TopNav,
-    DrawerBottom
+    DrawerBottom,
   },
 
   data() {

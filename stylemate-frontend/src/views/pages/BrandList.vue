@@ -4,7 +4,18 @@
       @keyup="sreachWord($event.target.value)"
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
+      @ionClear="sreachWordClear"
     ></ion-searchbar>
+    <div class="history-keywords" v-if="history">
+      <ul>
+        <li v-for="(item, i) in searchKeywords" :key="i">
+          <span @click="sreachWithHistory(item.searchKeyword)">{{
+            item.searchKeyword
+          }}</span>
+        </li>
+      </ul>
+    </div>
+
     <div v-if="notFound" class="content-not-found">
       <p>We couldn't find any suitable brands. How about the brands below?</p>
     </div>
@@ -30,10 +41,9 @@
         <ion-card-content class="maincontent">
           {{ info.description }}
         </ion-card-content>
-        <ion-card-content
-          class="subcontent"
-          >{{ setTags(info.tag) }}</ion-card-content
-        >
+        <ion-card-content class="subcontent">{{
+          setTags(info.tag)
+        }}</ion-card-content>
       </div>
     </div>
   </div>
@@ -48,6 +58,7 @@ import {
 import { heart } from "ionicons/icons";
 // import axios from "axios";
 import BrandService from "@/services/BrandService";
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
@@ -60,21 +71,43 @@ export default {
       error: [],
       hashcontent: [],
       searchValue: "",
-      keywords: [],
+      searchKeywords: [],
+      history: false,
       notFound: false,
       show_error: false,
+      user: null,
     };
   },
   created() {
     this.brandService = new BrandService();
+    this.userInfoService = new UserInfoService();
   },
   mounted() {
-    this.brandService.getBrandList().then((data) => {
-      this.brands = data;
-    });
+    this.setUser();
+    this.getBrandList();
   },
 
   methods: {
+    setUser() {
+      this.userInfoService.getUserInfo().then((res) => {
+        this.user = res.data;
+        this.setHistoryKeywords(res.data.uid);
+      });
+    },
+
+    getBrandList() {
+      this.brandService.getBrandList().then((data) => {
+        this.brands = data;
+      });
+    },
+
+    setHistoryKeywords(uid) {
+      this.brandService.brandSearchHistory(uid).then((res) => {
+        this.history = res.length > 0 ? true : false;
+        this.searchKeywords = res;
+      });
+    },
+
     sreachWord(keyword) {
       if (keyword.length > 0) {
         this.brandService.searchBrand(keyword).then((res) => {
@@ -82,16 +115,24 @@ export default {
             this.brands = res;
             this.notFound = false;
           } else {
-            this.brands = [];
+            this.getBrandList();
             this.notFound = true;
           }
         });
       } else {
-        this.brandService.getBrandList().then((data) => {
-          this.notFound = false;
-          this.brands = data;
-        });
+        this.notFound = false;
+        this.getBrandList();
       }
+    },
+
+    sreachWithHistory(history) {
+      this.searchValue = history;
+      this.sreachWord(history);
+    },
+
+    sreachWordClear() {
+      this.searchValue = null;
+      this.getBrandList();
     },
 
     setTags(items) {
@@ -163,10 +204,12 @@ img:hover {
 .content-not-found {
   text-align: center;
   font-family: Pretendard;
-  position: absolute;
-  width: 227px;
-  height: 40px;
-  left: 67px;
-  top: 160px;
+  /* position: absolute; */
+  width: 50%;
+  margin: auto;
+  height: auto;
+  padding-top: 10px;
+  /* left: 67px; */
+  /* top: 160px; */
 }
 </style>

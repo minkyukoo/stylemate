@@ -15,7 +15,7 @@ export default {
       infoArr: [
         {
           name: "회원정보",
-          Pagelink: "mypage",
+          Pagelink: "Userinfo",
         },
         {
           name: "채널연결",
