@@ -2,11 +2,9 @@
     <div class="drawer-wrap">
         <div class="drawer-top">
             <div class="selectWrap">
-                <v-select
-                    class="style-chooser"
-                    placeholder="Choose a Styling Option"
-                    :options="['Components', 'CSS / Variables', 'Slots']"
-                />
+                <vue-select
+                v-model="selectedItem"
+                 :options="options"> </vue-select>
             </div>
         </div>
         <div class="button-group">
@@ -18,15 +16,28 @@
 
 <script>
 // import Vue from 'vue';
-// import vSelect from 'vue-select';
+import { defineComponent, ref } from "vue";
+import VueNextSelect from 'vue-next-select';
 
-export default {
+export default defineComponent({
     name: 'DrawerBottom',
-    // components: {
-    //     vSelect,
-    // }
-    // Vue.component('v-select', vSelect)
-}
+    components: {
+        'vue-select': VueNextSelect,
+    },
+    data() {
+        return {
+            //
+        }
+    },
+    setup() {
+        const selectedItem = ref("NL");
+
+        const options = [
+           'Red', 'Green'
+        ];
+        return { selectedItem, options };
+    },
+})
 </script>
 
 <style scoped>
@@ -37,6 +48,10 @@ export default {
     width: 100%;
     max-width: 500px;
     background: #ffffff;
+    border-radius: 20px 20px 0px 0px;
+}
+.drawer-top{
+    padding: 24px 20px;
 }
 .button-group{
     display: flex;
