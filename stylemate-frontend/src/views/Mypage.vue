@@ -9,7 +9,7 @@
         <MyTop />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
-        <MyPageDetails />
+        <MyPageDetailsDefault />
 
     </ion-content>
     <!-- End page content -->
@@ -23,7 +23,7 @@ import { IonPage,  IonContent, } from '@ionic/vue';
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
 import MyTop from '@/components/MyPage/MyPageTop.vue';
-import MyPageDetails from '@/components/MyPage/MyPageDetails.vue';
+import MyPageDetailsDefault from '@/components/MyPage/MyPageDetailsDefault.vue';
 // import Login from '@/views/pages/Login.vue'
 // Import Swiper styles
 // import "swiper/css";
@@ -34,7 +34,7 @@ import MyPageDetails from '@/components/MyPage/MyPageDetails.vue';
 
 export default {
   name: 'Mypage',
-  components: { TopNav,  IonContent, IonPage, MyTop, MyPageDetails },
+  components: { TopNav,  IonContent, IonPage, MyTop, MyPageDetailsDefault },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
