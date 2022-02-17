@@ -8,6 +8,8 @@ import { IonicVue } from '@ionic/vue';
 
 // import Vue from 'vue';
 import VueSweetalert2 from 'vue-sweetalert2';
+import VueNextSelect from 'vue-next-select';
+import "vue-next-select/dist/index.css";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -30,6 +32,7 @@ import './theme/variables.css';
 import './styles/css/main.css';
 import './styles/scss/style.scss';
 
+
 axios.defaults.baseURL = 'https://elsa.beta.mediance.co.kr';
 // axios.defaults.headers = {
 //     // source: 'dvcon',
@@ -41,7 +44,8 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router) 
   .use(VueAxios, axios)
-  .use(VueSweetalert2);
+  .use(VueSweetalert2)
+  .component('vue-select', VueNextSelect);
   
 router.isReady().then(() => {
   app.mount('#app');

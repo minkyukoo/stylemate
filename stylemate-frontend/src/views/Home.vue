@@ -5,6 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
+      <!-- <div class="main-wrap"> -->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -98,66 +99,6 @@
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
-          <!-- <swiper
-            :modules="modules"
-            :slides-per-view="3"
-            :space-between="1"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          </swiper> -->
           <swiper
             :effect="'coverflow'"
             :grabCursor="true"
@@ -174,7 +115,11 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
+            <swiper-slide
+              class="brandSliderimg"
+              v-for="item in brandList"
+              :key="item.id"
+            >
               <div class="swiper-slide">
                 <img :src="item.imageThumbnailPath" />
               </div>
@@ -247,6 +192,7 @@
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
+      <!-- </div> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -261,7 +207,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
@@ -273,7 +219,7 @@ export default {
   name: "Home",
   components: {
     TopNav,
-    IonContent,
+    // IonContent,
     IonPage,
     // IonSlides,
     // IonSlide,
@@ -344,7 +290,7 @@ export default {
           if (i % 3 === 0) {
             startArray[newStartArray] = value;
             newStartArray++;
-          } else if (i % 2 == 0) {
+          } else if (i % 2 === 0) {
             OddArray[newOddIndex] = value;
             newOddIndex++;
           } else {
@@ -383,11 +329,26 @@ export default {
       this.isActive = !this.isActive;
       // some code to filter users
     },
+
+    // for pushnotification
+    pushNotification(res) {
+      alert(res);
+      this.$router.push({
+        name: "Item",
+        params: {
+          data: res,
+        },
+      });
+    },
+
   },
 };
 </script>
 
 <style scoped>
+.inner-scroll {
+  margin-right: -20px !important;
+}
 .mainslide-banner-wrap {
   max-height: 380px;
   height: 380px;
@@ -403,10 +364,25 @@ export default {
 
 .brandSlider {
   background: rgba(0, 0, 0, 0.5);
-  padding: 60px 20px;
+  padding: 60px 20px 110px;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.brandSlider .swiper {
+  overflow: inherit;
+}
+/* .brandSlider .swiper .swiper-paginationl{
+  bottom: -100px !important;
+} */
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: -100px !important;
 }
 .brandSlider .headerLine {
-  padding-left: 0;
+  padding: 0 20px 20px;
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
@@ -420,7 +396,8 @@ export default {
 }
 .brandHeader {
   background: #fff;
-  border-end-end-radius: 10px;
+  /* border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px; */
   padding: 24px 16px;
 }
 
@@ -443,13 +420,10 @@ export default {
   font-size: 12px !important;
   color: #25282b !important;
 }
-
-/* .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-} */
+.swiper-slide {
+  border-radius: 10px;
+  overflow: hidden;
+}
 .gotoFamily {
   position: relative;
   width: calc(100% - 40px);

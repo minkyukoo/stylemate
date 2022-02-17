@@ -100,13 +100,16 @@
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
-      <div class="subscribe-wrap" style="display: none;">
+      <div class="subscribe-wrap">
         <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
-        <button class="black-btn">협찬 신청</button>
+        <button @click="hideSponserButton" class="black-btn">협찬 신청</button>
+        <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
-      <DrawerBottom />
+      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }"/>
+      <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
+    
     <!-- End page content -->
   </ion-page>
 </template>
@@ -133,7 +136,7 @@ export default {
     TabProductDetails,
     CustomModal,
     TopNav,
-    DrawerBottom
+    DrawerBottom,
   },
 
   data() {
@@ -150,6 +153,7 @@ export default {
         { name: "#후디" },
       ],
       isModalVisible: false,
+      isActive: false,
     };
   },
 
@@ -160,11 +164,30 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
+    hideSponserButton(){
+      this.isActive = !this.isActive;
+    }
   },
 };
 </script>
 
 <style scoped>
+.overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(9, 9, 9, 0.75);
+  z-index: 1;
+  display: none;
+}
+.bottomDrawer{
+  display: none;
+}
+.bottomDrawer.active, .overlay.active{
+  display: block;
+}
 .mainslide figure {
   position: relative;
   width: 100%;

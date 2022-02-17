@@ -8,30 +8,17 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
-// import TokenService from "@/services/TokenService";
+import Sponsorships from "../views/Sponsorship.vue";
+import PostActivity from "../views/PostActivity.vue";
+import MyPageLiked from "../views/MyPageLiked.vue";
+import TokenService from "@/services/TokenService";
 
-// function guest(to, from, next) {
-//   if (localStorage.token) {
-//     next({ name: "Home" });
-//     alert("You already logged in");
-//   } else next();
-// }
 
-// function guard(to, from, next) {
-//   if (localStorage.token) {
-//     next();
-//   } else {
-//     next({ name: "LoginPage" });
-//     alert("Please login to access");
-//   }
-// }
-
-function guest(to, from, next) {
-  var currentTime = new Date().getTime();
-  console.log('guest_currentTime', currentTime);
-  console.log('expireTime', localStorage.tokenexpiresAt);
-  console.log(localStorage.tokenexpiresAt < currentTime);
-  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
+// Router guest
+async function guest(to, from, next) {
+  var isLogedIn = await isAuth();
+  console.log('isLogedIn', isLogedIn);
+  if (!isLogedIn) {
     next();
   } else {
     next({ name: "Mypage" });
@@ -39,10 +26,11 @@ function guest(to, from, next) {
   }
 }
 
-function guard(to, from, next) {
-  var currentTime = new Date().getTime();
-  console.log('guard_currentTime', currentTime);
-  if (!localStorage.token || !localStorage.tokenexpiresAt || (localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime)) {
+// Router guard
+async function guard(to, from, next) {
+  var isLogedIn = await isAuth();
+  console.log('isLogedIn', isLogedIn);
+  if (!isLogedIn) {
     next({ name: "LoginPage" });
     console.log("Please login to access");
   } else {
@@ -50,39 +38,37 @@ function guard(to, from, next) {
   }
 }
 
-// var tokenService = new TokenService();
-// function isAuth() {
-//   var currentTime = new Date().getTime();
-//   console.log('isAuth_currentTime', currentTime);
-//   //check for Invalid authendication
-//   if (!localStorage.token || !localStorage.tokenexpiresAt) {
-//     return false;
-//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
-//     return tokenService.getRefreshToken()
-//       .then(function (res) {
-//         console.log('res', res.status);
-//         if (res.status && res.status !== 200) {
-//           return false;
-//         } else {
-//           var d = res.data.tokenexpiresAt;
-//           var position = d.search(" ");
-//           var dateTime = new Date(d.substring(0, position)).getTime();
-//           console.log('dateTime', dateTime);
-//           var token_expiresAt = dateTime;
-          
-//           localStorage.setItem('token', res.data.token);
-//           localStorage.setItem('refreshToken', res.data.refreshToken);
-//           localStorage.setItem('tokenexpiresAt', token_expiresAt);
-//           return true;
-//         }
-//       })
-//   } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
+// Authentication Checking for Invalid authendication
+var tokenService = new TokenService(); // TokenService 
+async function isAuth() {
+  var currentTime = new Date().getTime();
+  console.log('isAuth_currentTime', currentTime);
+  //check for Invalid authendication
+  if (!localStorage.token || !localStorage.tokenexpiresAt) {
+    return false;
+  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
+    return await tokenService.getRefreshToken()
+      .then(function (res) {
+        console.log('res', res.status);
+        if (res.status && res.status !== 200) {
+          return false;
+        } else {
+          var d_expiresAt = res.data.expiresAt;
+          var token_expiresAt = new Date(d_expiresAt).getTime();
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('refreshToken', res.data.refreshToken);
+          localStorage.setItem('tokenexpiresAt', token_expiresAt);
+          return true;
+        }
+      })
+  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
+// All routes
 const routes = [
   {
     path: "/",
@@ -167,6 +153,33 @@ const routes = [
           innerHeader: true,
         }
       },
+      {
+        path: "sponsorships",
+        name: "Sponsorships",
+        beforeEnter: guard,
+        component: Sponsorships,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "post-activity",
+        name: "Post Activity",
+        beforeEnter: guard,
+        component: PostActivity,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "mypage-liked",
+        name: "MyPage Liked",
+        // beforeEnter: guard,
+        component: MyPageLiked,
+        meta: {
+          innerHeader: true,
+        }
+      },
     ],
   },
   {
@@ -185,6 +198,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/userinfo",
+    name: "Userinfo",
+    component: () => import("@/views/pages/Userinfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
@@ -198,7 +219,7 @@ const routes = [
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
   },
-  
+
   {
     path: "/fb-login",
     name: "facebookLogin",
@@ -211,30 +232,10 @@ const routes = [
   },
 ];
 
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     // this route requires auth, check if logged in
-//     // if not, redirect to login page.
-//     var isAuthenticated = false;
-//     if (localStorage.getItem('LoggedUser'))
-//       isAuthenticated = true;
-//     else
-//       isAuthenticated = false;
-//     if (!isAuthenticated) {
-//       next({
-//         path: '/login',
-//         query: { redirect: to.fullPath }
-//       })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next() // make sure to always call next()!
-//   }
-// });
 
 export default router;
