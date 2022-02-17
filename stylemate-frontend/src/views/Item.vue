@@ -35,7 +35,6 @@ export default {
     onClickChild(value) {
       console.log(value); // someValue
       this.isBanner = value;
-      // this.finalresult = value;
     },
     fltData2(event) {
       this.isFltData = event;

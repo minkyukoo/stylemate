@@ -8,7 +8,7 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+        <a class="active" @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- <ion-slides :options="slideOpts">
@@ -108,7 +108,6 @@ export default {
   created() {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
-      // console.log('data:', data);
       let arr = data;
       this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
@@ -119,6 +118,17 @@ export default {
 
   },
   methods: {
+    //  listItemStyle() {
+    //   var style = {};
+    //   this.itemServices.getProductCategories().then((data) => {
+    //     this.allCategories = data;
+    //     if (this.allCategories[0]) {
+    //       style.fontWeight = 'bold';
+    //     }
+    //     return style;
+    //    });
+    // },
+
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
@@ -206,7 +216,7 @@ export default {
   cursor: pointer;
   white-space: nowrap;
 }
-.item-scroller-nav .main-menu .swiper-slide a.active {
+.item-scroller-nav .main-menu .swiper-slide a.active:hover {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
