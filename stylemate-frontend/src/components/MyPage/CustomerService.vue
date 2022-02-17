@@ -15,7 +15,7 @@ export default {
       customerArr: [
         {
           name: "공지사항",
-          Pagelink: "mypage",
+          Pagelink: "Notice",
         },
         {
           name: "FAQ",

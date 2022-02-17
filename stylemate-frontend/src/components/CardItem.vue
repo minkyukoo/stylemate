@@ -27,7 +27,8 @@
           <li
             v-for="(product, index) in item_list"
             :key="index"
-            class="product-list-item active_font"
+            class="product-list-item"
+            @click="$router.push({ name: 'ItemDetails' })"
           >
             <div class="top-float-div">
                 <div class="social-icon">
@@ -162,7 +163,7 @@ export default defineComponent({
     // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -180,22 +181,21 @@ export default defineComponent({
         console.log("myvalues", this.item_list);
         alert("values")
 
-        !this.isFltData;
-        this.isBanner;
-        this.layout = "grid";
+        // !this.isFltData;
+        // this.isBanner;
 // console.log("!this.isFltData", !this.isFltData);
-        //  if (data.length == 0) {
-        //   // alert('nodata')
-        //   this.nofltData = true;
-        //   this.$emit('fltData', false);
-        //   console.log("this.nofltData",this.nofltData);
-        // } else {
-        //   this.nofltData = false;
-        //   this.$emit('fltData', true);
+        if (data.length == 0) {
+          // alert('nodata')
+          this.nofltData = true;
+          this.$emit('fltData', false);
 
-        //    this.item_list = data;
-        //   this.$emit("filterproductList",this.item_list);
-        // }
+        } else {
+          this.nofltData = false;
+          this.$emit('fltData', true);
+
+          let filterproductList = data;
+          this.$emit("filterproductList",filterproductList);
+        }
 
       })
     },
@@ -281,9 +281,6 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   margin: 0 -4px;
-}
-.active_font{
-  font-weight: bold;
 }
 .item-wrapper .grid-view .product-list-item {
   width: 50%;

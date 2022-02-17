@@ -97,17 +97,17 @@
 
         <div class="brandSlider">
           <div class="headerLine">
-            <h4>NEW BRAND</h4>
+            <h4>NEW BRAND1</h4>
           </div>
           <swiper
             :effect="'coverflow'"
             :grabCursor="true"
             :centeredSlides="true"
-            :slidesPerView="'1.3'"
+            :slidesPerView="'1.4'"
             :coverflowEffect="{
               rotate: 0,
               stretch: 0,
-              depth: 100,
+              depth: 300,
               modifier: 1,
               slideShadows: true,
             }"
@@ -120,8 +120,13 @@
               v-for="item in brandList"
               :key="item.id"
             >
-              <div class="swiper-slide">
+              <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
+              </div>
+              <div class="brandDetails">
+                <h3>Title 1 <b><img src="@/assets/icons/arrow-right.svg" /></b></h3>
+                <p>sdasds das as das</p>
+                <span>dfsf fsddf</span>
               </div>
             </swiper-slide>
           </swiper>
@@ -412,6 +417,17 @@ export default {
 .brandSliderimg img {
   width: 100%;
 }
+.nb-img-wrap {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+.nb-img-wrap img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
 .brandHeader p {
   font-size: 10px !important;
   color: #797979 !important;
@@ -423,6 +439,7 @@ export default {
 .swiper-slide {
   border-radius: 10px;
   overflow: hidden;
+  background: #fff;
 }
 .gotoFamily {
   position: relative;
@@ -470,6 +487,30 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
+}
+
+.brandDetails{
+  background: #fff;
+  padding: 22px 16px;
+}
+.brandDetails h3{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 5px;
+}
+.brandDetails p{
+  font-size: 12px;
+  font-weight: 400;
+  color: #797979;
+  margin-bottom: 10px;
+}
+.brandDetails span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #25282B;
 }
 </style>
 
