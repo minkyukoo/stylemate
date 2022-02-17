@@ -57,9 +57,8 @@
       </div>
       <div v-for="inquiry in inquirylist" :key="inquiry" class="notice-row">
         <div class="tag-row">
-          <span class="notice-tag red-solid">알림</span>
-          <span class="notice-tag red-outline">중요</span>
-          <span class="notice-tag dark-solid">이벤트</span>
+          <span class="notice-tag grey-solid">확인중</span>
+          <span class="notice-tag dark-outline">답변완료</span>
         </div>
         <div class="text-desc">
           <p>{{inquiry.desc}}</p>
@@ -111,9 +110,14 @@ export default {
       ],
       inquirylist: [
           {
-              desc: '숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이',
-              type: "인스타그램 캠페인 문의",
-              date: "2021.01.03",
+            desc: '숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이',
+            type: "인스타그램 캠페인 문의",
+            date: "2021.01.03",
+          },
+          {
+            desc: '빠르고 강력한 알레르기 치료제 알지싹 세티!',
+            type: "유튜브 캠페인 문의",
+            date: "2021.01.03",
           }
       ]
     };
@@ -175,6 +179,16 @@ export default {
 .notice-tag.dark-solid {
   background: #52525b;
   color: #ffffff;
+}
+.notice-tag.grey-solid{
+    border: 1px solid #A1A1AA;
+    background: #E4E4E7;
+    color: #212226;
+}
+.notice-tag.dark-outline{
+    color: #212226;
+    border: 1px solid #A1A1AA;
+    background: #ffffff;
 }
 .text-desc {
   margin: 12px 0;
