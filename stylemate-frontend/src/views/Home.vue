@@ -351,6 +351,10 @@ export default {
 </script>
 
 <style scoped>
+/* // Hide scrollbar for Chrome, Safari and Opera */
+.scroll-y::part(scroll)::-webkit-scrollbar {
+  display: none !important;
+}
 .inner-scroll {
   margin-right: -20px !important;
 }
