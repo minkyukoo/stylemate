@@ -63,7 +63,7 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { ellipse, square, triangle, heart } from "ionicons/icons";
+// import { ellipse, square, triangle, heart } from "ionicons/icons";
 // import TopNav from '@/components/TopNav.vue';
 
 export default {
@@ -77,29 +77,21 @@ export default {
     IonPage,
     IonRouterOutlet,
   },
-  setup() {
-    return {
-      ellipse,
-      square,
-      triangle,
-      heart,
-    };
-  },
   data() {
     return {
       hover: true,
     };
   },
   methods: {
-    // onHoverState(ev) {
-    //   var target = ev.target;
-    //   console.log('target', target);
-    //   if (target) {
-    //     for (let i = 0; i < target.children.length; i++) {
-    //       console.log(target.children[0].tagName);
-    //     }
-    //   }
-    // },
+    onHoverState(ev) {
+      var target = ev.target;
+      console.log('target', target);
+      if (target) {
+        for (let i = 0; i < target.children.length; i++) {
+          console.log(target.children[0].tagName);
+        }
+      }
+    },
   },
 };
 </script>
