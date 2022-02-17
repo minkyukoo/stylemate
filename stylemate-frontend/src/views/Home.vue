@@ -103,11 +103,11 @@
             :effect="'coverflow'"
             :grabCursor="true"
             :centeredSlides="true"
-            :slidesPerView="'1.3'"
+            :slidesPerView="'1.4'"
             :coverflowEffect="{
               rotate: 0,
               stretch: 0,
-              depth: 100,
+              depth: 300,
               modifier: 1,
               slideShadows: true,
             }"
@@ -120,7 +120,7 @@
               v-for="item in brandList"
               :key="item.id"
             >
-              <div class="swiper-slide">
+              <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
               </div>
               <div class="brandDetails">
@@ -416,6 +416,17 @@ export default {
 
 .brandSliderimg img {
   width: 100%;
+}
+.nb-img-wrap {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+.nb-img-wrap img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  object-fit: cover;
 }
 .brandHeader p {
   font-size: 10px !important;
