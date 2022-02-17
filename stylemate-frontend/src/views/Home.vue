@@ -5,6 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
+      <!-- <div class="main-wrap"> -->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -29,7 +30,7 @@
         </div>
 
         <swiper
-        :modules="modules"
+          :modules="modules"
           :slides-per-view="1"
           :space-between="50"
           :pagination="{ clickable: true }"
@@ -38,161 +39,66 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-                <div class="slideItem" v-for="val in ProductSlide" :key="val">
-                <div class="socialBLock">
-                  <img :src="val.imageThumbnailPath" alt />
-                  <!-- <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" /> -->
-                </div>
-                <!-- <img src="@/assets/images/main-item1.jpg" /> -->
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <!-- <div class="slideItem">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newEvanItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
               </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div> -->
             </div>
           </swiper-slide>
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem" v-for="val in ProductSlideTwo" :key="val">
-                <div class="socialBLock">
-                   <img :src="val.imageThumbnailPath" alt />
-                  <!-- <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" /> -->
-                </div>
-                <!-- <img src="@/assets/images/main-item1.jpg" /> -->
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div>
-              <!-- <div class="slideItem">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newOddItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
               </div>
-              <div class="slideItem">
+            </div>
+          </swiper-slide>
+
+          <swiper-slide>
+            <div class="multiSlideWrap">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newStartItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
                 </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
+                <img :src="item.imageThumbnailPath" />
+                <h4>{{ item.brand.engName }}</h4>
+                <p>{{ item.name }}</p>
+                <span>{{ setTags(item.tag) }}</span>
               </div>
-              <div class="slideItem">
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
-                </div>
-                <img src="@/assets/images/main-item1.jpg" />
-                <h4>Areuban</h4>
-                <p>리플렉 오버핏 조거 스웨...</p>
-                <span>#street fashion #sufa #hoodie</span>
-              </div> -->
             </div>
           </swiper-slide>
         </swiper>
-      
-       <div class="brandSlider">
-         <div class="headerLine">
+
+        <div class="brandSlider">
+          <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
-          <!-- <swiper
-            :modules="modules"
-            :slides-per-view="3"
-            :space-between="1"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          <swiper-slide>
-            <div class="multiSlideWrap">
-              <div class="slideItem">
-                <img src="@/assets/images/main-item1.jpg" />
-                <div class="brandHeader">
-                  <div class="headerLine">
-                    <h4>LOOKBOOK</h4>
-                    <span>
-                      <img src="@/assets/icons/arrow-right.svg" />
-                    </span>
-                  </div>
-                  <p>리플렉 오버핏 조거 스웨...</p>
-                  <span>#street fashion #sufa #hoodie</span>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-          </swiper> -->
           <swiper
             :effect="'coverflow'"
             :grabCursor="true"
@@ -209,35 +115,17 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg"  v-for="(slides, i) of BrandSlider" :key="i + 1" >
+            <swiper-slide
+              class="brandSliderimg"
+              v-for="item in brandList"
+              :key="item.id"
+            >
               <div class="swiper-slide">
-               <img :src="slides.imageThumbnailPath" alt />
-               </div>
+                <img :src="item.imageThumbnailPath" />
+              </div>
             </swiper-slide>
-            <!-- <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide>
-            <swiper-slide class="brandSliderimg">
-              <div class="swiper-slide"><img src="@/assets/images/main-item1.jpg" /></div>
-            </swiper-slide> -->
           </swiper>
         </div>
-        
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -245,29 +133,21 @@
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
-
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
             <img src="@/assets/images/book1.png" />
           </div>
-          <swiper>
-            <swiper-slide v-for="brand in Brand" :key="brand">
-            <div>
-              <img :src="brand.imageThumbnailPath" alt />
-            </div>
-          </swiper-slide>
-          </swiper>
-          <!-- <div class="bookLabel1 pattern2">
+          <div class="bookLabel1 pattern2">
             <div>
               <img src="@/assets/images/Rectanglec1.png" />
             </div>
             <div>
               <img src="@/assets/images/Rectanglec1.png" />
-            </div> -->
-          <!-- </div> -->
+            </div>
+          </div>
         </div>
 
-        <!-- <div class="lookBookMain">
+        <div class="lookBookMain">
           <div class="bookLabel2">
             <div>
               <img src="@/assets/images/Rectanglec1.png" />
@@ -279,9 +159,9 @@
               <img src="@/assets/images/Rectanglec1.png" />
             </div>
           </div>
-        </div> -->
+        </div>
 
-        <!-- <div class="lookBookMain">
+        <div class="lookBookMain">
           <div class="bookLabel1 pattern2">
             <div>
               <img src="@/assets/images/Rectanglec1.png" />
@@ -293,12 +173,26 @@
           <div class="bookLabel1 pattern1">
             <img src="@/assets/images/book1.png" />
           </div>
-        </div> -->
-        <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button>
+        </div>
+        <div class="gotoFamily">
+          <div class="gotofamilyList" :class="{ active: isActive }">
+            <ul>
+              <li>
+                <a href="#"><img src="@/assets/images/logo-1.png" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="@/assets/images/logo-2.png" /></a>
+              </li>
+            </ul>
+          </div>
+          <button @click="myFilter">패밀리 사이트 바로가기</button>
+        </div>
+        <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
+      <!-- </div> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -313,10 +207,11 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
+import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
 
@@ -324,7 +219,7 @@ export default {
   name: "Home",
   components: {
     TopNav,
-    IonContent,
+    // IonContent,
     IonPage,
     // IonSlides,
     // IonSlide,
@@ -332,7 +227,6 @@ export default {
     SwiperSlide,
   },
   setup() {
-    
     // const slideOpts = {
     //   initialSlide: 1,
     //   speed: 400,
@@ -357,91 +251,104 @@ export default {
   data() {
     return {
       bannerList: null,
-      newItems: null,
+      brandList: [],
+      newStartItems: [],
+      newOddItems: [],
+      newEvanItems: [],
       newProItems: null,
-      Brand:null,
-      BrandSlider:null,
-      ProductSlide:resp.data,
-      ProductSlideTwo:resp.data,
+      isActive: false,
     };
   },
   created() {
     this.bannerService = new BannerService();
+    this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
   },
-  
+
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
-      console.log("bres", res);
       this.bannerList = res;
     });
-    this.bannerService.getProductItemList().then((res) => {
+    this.getProductItemList();
+    this.brandService.getBrandList().then((res) => {
+      this.brandList = res;
       console.log(res);
-      this.ProductSlide= res;
-      this.ProductSlide.map((val,index) => {      
-        while(index <=3){
-           return( val ) 
-        }
-})
     });
-    this.bannerService.getProductItemListSecond().then((res) => {
-      console.log(res);
-      this.ProductSlideTwo= res;
-      this.ProductSlideTwo.map((val,index) => {      
-        if(index >=4 && index <=7){
-           return( val ) 
-        }
-})
-    });
-    this.bannerService.getBrandList().then((res) => {
-      console.log(res);
-      this.Brand = res;
-    });
-    this.bannerService.getNewBrandDetails().then((res) => {
-      console.log(res);
-      this.BrandSlider = res;
-    });
-
-    // this.itemService.getProductLsit().then((resp) => {
-    //   console.log('newItems', resp);
-    //   this.newItems = resp;
-    //   const slicedArray = resp.slice(0, 12); //total items 12
-    //   console.log('slicedArray', slicedArray);
-
-    //   var perChunk = 4 // items per chunk
-    //   var inputArray = slicedArray  //array to split
-    //   var result = inputArray.reduce((resultArray, item, index) => {
-    //     const chunkIndex = Math.floor(index / perChunk)
-    //     if (!resultArray[chunkIndex]) {
-    //       resultArray[chunkIndex] = [] // start a new chunk
-    //     }
-    //     resultArray[chunkIndex].push(item)
-    //     return resultArray
-    //   }, []);
-    //   this.newProItems = result;
-    //   console.log('newProItems', this.newProItems);
-    // });
   },
   methods: {
+    getProductItemList() {
+      let perPage = 12;
+      this.bannerService.getProductItemList(perPage).then((res) => {
+        let startArray = [];
+        let OddArray = [];
+        let EvanArray = [];
+        let newStartArray = 0;
+        let newOddIndex = 0;
+        let newEvanIndex = 0;
+        res.forEach((value, i) => {
+          if (i % 3 === 0) {
+            startArray[newStartArray] = value;
+            newStartArray++;
+          } else if (i % 2 === 0) {
+            OddArray[newOddIndex] = value;
+            newOddIndex++;
+          } else {
+            EvanArray[newEvanIndex] = value;
+            newEvanIndex++;
+          }
+        });
+        this.newStartItems = startArray;
+        this.newOddItems = OddArray;
+        this.newEvanItems = EvanArray;
+      });
+    },
+
     getMyinfo() {
-      this.userInfoService.getUserInfo().then(res => {
+      this.userInfoService.getUserInfo().then((res) => {
         if (res.response) {
-          if(res.response.status == 401) {
-            this.$router.push('/login');
-          } 
-        }
-        else {
-         console.log(res.data);
+          if (res.response.status == 401) {
+            this.$router.push("/login");
+          }
+        } else {
+          console.log(res.data);
         }
       });
     },
-    
+
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
+    },
+    myFilter: function () {
+      this.isActive = !this.isActive;
+      // some code to filter users
+    },
+
+    // for pushnotification
+    pushNotification(res) {
+      alert(res);
+      this.$router.push({
+        name: "Item",
+        params: {
+          data: res,
+        },
+      });
+    },
+
   },
 };
 </script>
 
 <style scoped>
+.inner-scroll {
+  margin-right: -20px !important;
+}
 .mainslide-banner-wrap {
   max-height: 380px;
   height: 380px;
@@ -455,54 +362,114 @@ export default {
   object-position: center;
 }
 
-.brandSlider{
-  background: rgba(0,0,0,0.5);
-  padding: 60px 20px;
+.brandSlider {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 60px 20px 110px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
-.brandSlider .headerLine{
-  padding-left: 0;
+.brandSlider .swiper {
+  overflow: inherit;
 }
-.brandSlider .headerLine h4{
-  color: #F6F6F6;
+/* .brandSlider .swiper .swiper-paginationl{
+  bottom: -100px !important;
+} */
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: -100px !important;
 }
-.brandSlider .multiSlideWrap{
+.brandSlider .headerLine {
+  padding: 0 20px 20px;
+}
+.brandSlider .headerLine h4 {
+  color: #f6f6f6;
+}
+.brandSlider .multiSlideWrap {
   display: inherit;
   justify-content: inherit;
 }
-.brandSlider .multiSlideWrap .slideItem{
+.brandSlider .multiSlideWrap .slideItem {
   width: auto;
 }
-.brandHeader{
+.brandHeader {
   background: #fff;
-  border-end-end-radius: 10px;
+  /* border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px; */
   padding: 24px 16px;
 }
 
-.brandHeader .headerLine{
+.brandHeader .headerLine {
   padding: 0;
 }
-.brandHeader .headerLine h4{
-  color: #25282B;
+.brandHeader .headerLine h4 {
+  color: #25282b;
   font-size: 20px;
 }
 
-.brandSliderimg img{
+.brandSliderimg img {
   width: 100%;
 }
-.brandHeader p{
+.brandHeader p {
   font-size: 10px !important;
   color: #797979 !important;
 }
-.brandHeader span{
+.brandHeader span {
   font-size: 12px !important;
-  color: #25282B !important;
+  color: #25282b !important;
 }
-
-/* .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-} */
+.swiper-slide {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.gotoFamily {
+  position: relative;
+  width: calc(100% - 40px);
+  margin-top: 60px;
+  margin: 60px 20px 0;
+}
+.gotoFamily button {
+  padding: 21px 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #797979;
+  line-height: 150%;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #c4c4c4;
+  background: none;
+  display: block;
+  border-radius: 5px;
+  width: 100%;
+}
+.gotofamilyList {
+  position: absolute;
+  bottom: 100%;
+  width: 100%;
+  display: none;
+}
+.gotofamilyList.active {
+  display: block;
+}
+.gotofamilyList ul {
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  padding: 0 20px;
+}
+.gotofamilyList ul li {
+  border-top: 1px solid #f7f7f7;
+}
+.gotofamilyList ul li:first-child {
+  border-top: none;
+}
+.gotofamilyList ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
 </style>
 

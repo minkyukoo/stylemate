@@ -5,7 +5,7 @@ export default class ItemService {
     return await axios.get(`/stylemates/categories`).then((res) => res.data.data);
   }
 
-  async getProductLsit() {
+  async getProductList() {
     return await axios.get(`/stylemates/products`).then((res) => res.data.data);
   }
 

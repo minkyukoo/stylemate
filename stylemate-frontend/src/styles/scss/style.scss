@@ -200,23 +200,30 @@ img:hover{
   }
 }
 
+.main-wrap {
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+}
 .inner-container {
   padding: 0 20px;
 }
+// .inner-scroll {
+//   margin-right: -20px !important;
+// }
+// .inner-scroll::-webkit-scrollbar-track {
+//   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
+//   background-color: #dd0000 !important; 
+// }
 
-.inner-scroll::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
-  background-color: #dd0000 !important; 
-}
+// .inner-scroll::-webkit-scrollbar {
+//   width: 2px !important;
+//   background-color: #ba1414 !important;
+// }
 
-.inner-scroll::-webkit-scrollbar {
-  width: 2px !important;
-  background-color: #ba1414 !important;
-}
-
-.inner-scroll::-webkit-scrollbar-thumb {
-  background-color: #6d02f0 !important;
-}
+// .inner-scroll::-webkit-scrollbar-thumb {
+//   background-color: #6d02f0 !important;
+// }
 
 
 /* brand list style */
@@ -317,5 +324,42 @@ img:hover{
     color: $grey-3;
     padding: 20px 0;
     text-align: center;
+  }
+}
+// drwaer with dropdown
+.drawer-top {
+  .selectWrap {
+    .vue-select {
+      .vue-select-header {
+        .vue-input{
+          padding: 12px 20px;
+        }
+        .icon.arrow-downward{
+          border: none;
+          background: url('../../../src/assets/icons/arrow-down-select.svg') no-repeat center center;
+          background-size: 100%;
+          height: 24px;
+          width: 24px;
+          display: inline-block;
+          margin-right: 18px;
+        }
+      }
+      .vue-dropdown{
+        border-radius: 6px;
+        background: #FFFFFF;
+        border: none;
+        .vue-dropdown-item{
+          padding: 18px 19px;
+          span{
+            font-size: 14px;
+            line-height: 14px;
+            color: #000000;
+          }
+          &.highlighted{
+            background: rgba(229, 229, 229, 0.5);
+          }
+        }
+      }
+    }
   }
 }

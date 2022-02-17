@@ -1,13 +1,9 @@
 <template>
   <ion-page class="main-container relative">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title style="text-align: center">View details</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <!-- header -->
+    <TopNav headerTitle="상세보기"></TopNav>
+    <!-- End header -->
+    <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
         <ion-slides pager="true" :options="slideOpts">
@@ -68,12 +64,12 @@
 
             <CustomModal v-show="isModalVisible" @close="closeModal">
               <template v-slot:header>
-                <h2>공유하기</h2>
+                <h2>회원님은 미승인 회원입니다.</h2>
               </template>
 
               <template v-slot:body>
                 <div class="modal-content">
-                  <ul class="shareList">
+                  <!-- <ul class="shareList">
                     <li>
                       <a href="#">
                         <img src="@/assets/icons/icon-fb.svg" />
@@ -92,7 +88,8 @@
                         <span>URL</span>
                       </a>
                     </li>
-                  </ul>
+                  </ul> -->
+                  <p>스타일 메이트는 승인된 회원만 <br/>이용할 수 있는 서비스 입니다.</p>
                 </div>
               </template>
 
@@ -105,39 +102,41 @@
       </ion-infinite-scroll>
       <div class="subscribe-wrap">
         <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
-        <button class="black-btn">협찬 신청</button>
+        <button @click="hideSponserButton" class="black-btn">협찬 신청</button>
+        <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
+
+      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }"/>
+      <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
+    
+    <!-- End page content -->
   </ion-page>
 </template>
 <script>
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
 import CustomModal from "@/components/Modal.vue";
+import TopNav from "@/components/TopNav.vue";
+import DrawerBottom from "@/components/DrawerBottom.vue";
 
 export default {
   name: "BrandDetails",
   components: {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButtons,
     IonSlides,
     IonSlide,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     TabProductDetails,
     CustomModal,
+    TopNav,
+    DrawerBottom,
   },
 
   data() {
@@ -154,6 +153,7 @@ export default {
         { name: "#후디" },
       ],
       isModalVisible: false,
+      isActive: false,
     };
   },
 
@@ -164,11 +164,30 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
+    hideSponserButton(){
+      this.isActive = !this.isActive;
+    }
   },
 };
 </script>
 
 <style scoped>
+.overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(9, 9, 9, 0.75);
+  z-index: 1;
+  display: none;
+}
+.bottomDrawer{
+  display: none;
+}
+.bottomDrawer.active, .overlay.active{
+  display: block;
+}
 .mainslide figure {
   position: relative;
   width: 100%;

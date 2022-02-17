@@ -1,6 +1,17 @@
 <template>
   <div class="item-scroller-nav">
-    <ion-slides :options="slideOpts">
+    <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="28"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="category in allCategories" :key="category.name">
+        <a class="active" @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+      </swiper-slide>
+    </swiper>
+    <!-- <ion-slides :options="slideOpts">
       <ion-slide>
         <ul class="main-menu">
           <li v-for="category in allCategories" :key="category.name">
@@ -8,9 +19,21 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
 
-    <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
+    <swiper  v-if="childCategory"
+      class="main-menu sub-menu"
+      :slides-per-view="'auto'"
+      :space-between="28"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+        <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
+      </swiper-slide>
+    </swiper>
+
+    <!-- <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
       <ion-slide>
         <ul class="main-menu sub-menu">
           <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
@@ -18,7 +41,7 @@
           </li>
         </ul>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
   </div>
 
   <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData" >
@@ -33,16 +56,39 @@
 
 <script>
 import ItemService from "@/services/ItemService";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/scrollbar";
 export default {
   name: "CategoryList",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
 
+  // setup() {
+  //   const slideOpts = {
+  //     initialSlide: 1,
+  //     speed: 400,
+  //     pager: false,
+  //     // slidesPerView: 1,
+  //     scrollbar: true
+  //   };
+  //   return { slideOpts };
+  // },
   setup() {
-    const slideOpts = {
-      initialSlide: 1,
-      speed: 400,
-      pager: false,
+    const onSwiper = (swiper) => {
+      console.log(swiper);
     };
-    return { slideOpts };
+    const onSlideChange = () => {
+      console.log("slide change");
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
   },
 
   data() {
@@ -54,30 +100,42 @@ export default {
       categorylist: null,
       nofltData: false,
       filterproductList: null,
+
+      childCategories2:null,
     };
   },
 
   created() {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
-      console.log('data:', data);
       let arr = data;
-      this.allCategories2 = arr.unshift({ name: 'All' });
+      this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
-      console.log(this.allCategories);
+      // console.log(this.allCategories);
     });
   },
   mounted() {
 
   },
   methods: {
+    //  listItemStyle() {
+    //   var style = {};
+    //   this.itemServices.getProductCategories().then((data) => {
+    //     this.allCategories = data;
+    //     if (this.allCategories[0]) {
+    //       style.fontWeight = 'bold';
+    //     }
+    //     return style;
+    //    });
+    // },
+
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
-        console.log("filterproductList", data);
+        // console.log("filterproductList", data);
           
         if (data.length == 0) {
-          alert('nodata')
+          // alert('nodata')
           this.nofltData = true;
           this.$emit('fltData', false);
 
@@ -87,21 +145,28 @@ export default {
 
           let filterproductList = data;
           this.$emit("filterproductList",filterproductList);
-          // console.log('filterproductList', filterproductList);
         }
       });
     },
 
-    handleClick(childCategory, ids) {
+    handleClick(childCategory,ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
+
         childCategory.forEach(element => {
           this.childCategoryArray.push(element);
         });
+
+        let arr1 = this.childCategoryArray;
+        console.log("arr1",arr1);
+        this.childCategories2 = arr1.unshift({ name: 'All', id:"Allchild" });
+        console.log("this.childCategories2",this.childCategories2);
+
         alert(ids);
         this.childCategory = true;
         this.onClickButton(false);
       } else {
+        alert(ids);
         this.childCategory = false;
         this.onClickButton(true);
       }
@@ -134,12 +199,14 @@ export default {
   max-width: 500px;
   margin: 0 auto;
 }
-.item-scroller-nav ul {
+.item-scroller-nav .main-menu {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
+  padding: 0 20px;
 }
-.item-scroller-nav ul li a {
+
+.item-scroller-nav .main-menu .swiper-slide a {
   padding: 13px 0;
   display: block;
   font-weight: normal;
@@ -147,13 +214,17 @@ export default {
   line-height: 18px;
   color: #797979;
   cursor: pointer;
+  white-space: nowrap;
 }
-.item-scroller-nav ul li a.active {
+.item-scroller-nav .main-menu .swiper-slide a.active:hover {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;
 }
-.item-scroller-nav ul.sub-menu{
+.item-scroller-nav .sub-menu{
   background: #F7F7F7;
+}
+.swiper-slide{
+  width: auto;
 }
 </style>

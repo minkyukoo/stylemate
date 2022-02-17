@@ -8,43 +8,67 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
+import Sponsorships from "../views/Sponsorship.vue";
+import PostActivity from "../views/PostActivity.vue";
+import MyPageLiked from "../views/MyPageLiked.vue";
+import TokenService from "@/services/TokenService";
 
-// function guest(to, from, next) {
-//   if (localStorage.token) {
-//     next({ name: "Home" });
-//     alert("You already logged in");
-//   } else next();
-// }
 
-// function guard(to, from, next) {
-//   if (localStorage.token) {
-//     next();
-//   } else {
-//     next({ name: "LoginPage" });
-//     alert("Please login to access");
-//   }
-// }
-
-function guest(to, from, next) {
-  var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+// Router guest
+async function guest(to, from, next) {
+  var isLogedIn = await isAuth();
+  console.log('isLogedIn', isLogedIn);
+  if (!isLogedIn) {
     next();
   } else {
     next({ name: "Mypage" });
-    alert("You already logged in");
+    console.log("You already logged in");
   }
 }
 
-function guard(to, from, next) {
-  var currentTime = new Date().getTime();
-  if (!localStorage.token || (localStorage.expireTime && localStorage.expireTime < currentTime)) {
+// Router guard
+async function guard(to, from, next) {
+  var isLogedIn = await isAuth();
+  console.log('isLogedIn', isLogedIn);
+  if (!isLogedIn) {
     next({ name: "LoginPage" });
-    alert("Please login to access");
+    console.log("Please login to access");
   } else {
     next();
   }
 }
 
+// Authentication Checking for Invalid authendication
+var tokenService = new TokenService(); // TokenService 
+async function isAuth() {
+  var currentTime = new Date().getTime();
+  console.log('isAuth_currentTime', currentTime);
+  //check for Invalid authendication
+  if (!localStorage.token || !localStorage.tokenexpiresAt) {
+    return false;
+  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
+    return await tokenService.getRefreshToken()
+      .then(function (res) {
+        console.log('res', res.status);
+        if (res.status && res.status !== 200) {
+          return false;
+        } else {
+          var d_expiresAt = res.data.expiresAt;
+          var token_expiresAt = new Date(d_expiresAt).getTime();
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('refreshToken', res.data.refreshToken);
+          localStorage.setItem('tokenexpiresAt', token_expiresAt);
+          return true;
+        }
+      })
+  } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// All routes
 const routes = [
   {
     path: "/",
@@ -93,7 +117,7 @@ const routes = [
         name: "Item",
         component: Item,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         }
       },
       {
@@ -101,7 +125,7 @@ const routes = [
         name: "Brand",
         component: Brand,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
         },
       },
       {
@@ -126,15 +150,58 @@ const routes = [
         beforeEnter: guard,
         component: Mypage,
         meta: {
-          mainHeader: true,
+          innerHeader: true,
+        }
+      },
+      {
+        path: "sponsorships",
+        name: "Sponsorships",
+        beforeEnter: guard,
+        component: Sponsorships,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "post-activity",
+        name: "Post Activity",
+        beforeEnter: guard,
+        component: PostActivity,
+        meta: {
+          innerHeader: true,
+        }
+      },
+      {
+        path: "mypage-liked",
+        name: "MyPage Liked",
+        // beforeEnter: guard,
+        component: MyPageLiked,
+        meta: {
+          innerHeader: true,
         }
       },
     ],
   },
   {
+    path: "/product-details",
+    name: "ItemDetails",
+    component: () => import("@/views/pages/ItemDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
     path: "/notification",
     name: "Notifications",
     component: () => import("@/views/pages/Notifications.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/userinfo",
+    name: "Userinfo",
+    component: () => import("@/views/pages/Userinfo.vue"),
     meta: {
       innerHeader: true,
     }
@@ -152,11 +219,7 @@ const routes = [
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
   },
-  {
-    path: "/product-details",
-    name: "ItemDetails",
-    component: () => import("@/views/pages/ItemDetails.vue"),
-  },
+
   {
     path: "/fb-login",
     name: "facebookLogin",
@@ -169,30 +232,10 @@ const routes = [
   },
 ];
 
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     // this route requires auth, check if logged in
-//     // if not, redirect to login page.
-//     var isAuthenticated = false;
-//     if (localStorage.getItem('LoggedUser'))
-//       isAuthenticated = true;
-//     else
-//       isAuthenticated = false;
-//     if (!isAuthenticated) {
-//       next({
-//         path: '/login',
-//         query: { redirect: to.fullPath }
-//       })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next() // make sure to always call next()!
-//   }
-// });
 
 export default router;

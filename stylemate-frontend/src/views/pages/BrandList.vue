@@ -1,12 +1,29 @@
 <template>
   <div class="inner-container listmain">
-    <ion-searchbar @ionChange="sreachWord()" v-model="searchValue" placeholder="브랜드 이름으로 검색해 보세요."></ion-searchbar>
-    <div v-if="this.keywords == !this.brand_info" class="content-not-found">
+    <ion-searchbar
+      @keyup="sreachWord($event.target.value)"
+      v-model="searchValue"
+      placeholder="브랜드 이름으로 검색해 보세요."
+      @ionClear="sreachWordClear"
+    ></ion-searchbar>
+    <div class="history-keywords" v-if="history">
+      <ul>
+        <li v-for="(item, i) in searchKeywords" :key="i">
+          <span @click="sreachWithHistory(item.searchKeyword)">{{
+            item.searchKeyword
+          }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div v-if="notFound" class="content-not-found">
       <p>We couldn't find any suitable brands. How about the brands below?</p>
-      <div class="main"></div>
+    </div>
+
+    <div class="main pad-b-40">
       <div
         class="maincard"
-        v-for="info in brand_info"
+        v-for="info in brands"
         :key="info.id"
         @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
       >
@@ -22,52 +39,11 @@
           </ion-card-title>
         </ion-card-header>
         <ion-card-content class="maincontent">
-          {{
-            info.description
-          }}
+          {{ info.description }}
         </ion-card-content>
-        <ion-card-content
-          class="subcontent"
-          v-for="tagdata in info.tag"
-          :key="tagdata"
-        ># {{ tagdata.tag }}</ion-card-content>
-      </div>
-    </div>
-
-    <div class="right-section" v-else>
-      <button>
-        <img src="@/assets/icons/list-view.svg" />
-      </button>
-    </div>
-
-    <div class="main">
-      <div
-        class="maincard"
-        v-for="info in keywords"
-        :key="info.id"
-        @click="$router.push({ name: 'BrandDetails',  params: { id: info.id } })"
-      >
-        <figure class="img-wrap">
-          <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
-        </figure>
-        <ion-card-header>
-          <ion-card-title>
-            {{ info.korName }}
-            <div class="text-box">
-              <img src="@/assets/icons/heart-outline.svg"  />
-            </div>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content class="maincontent">
-          {{
-            info.description
-          }}
-        </ion-card-content>
-        <ion-card-content
-          class="subcontent"
-          v-for="tagdata in info.tag"
-          :key="tagdata"
-        ># {{ tagdata.tag }}</ion-card-content>
+        <ion-card-content class="subcontent">{{
+          setTags(info.tag)
+        }}</ion-card-content>
       </div>
     </div>
   </div>
@@ -82,6 +58,7 @@ import {
 import { heart } from "ionicons/icons";
 // import axios from "axios";
 import BrandService from "@/services/BrandService";
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
@@ -90,51 +67,82 @@ export default {
   },
   data() {
     return {
-      brand_info: [],
+      brands: [],
       error: [],
       hashcontent: [],
       searchValue: "",
-      keywords: [],
+      searchKeywords: [],
+      history: false,
+      notFound: false,
       show_error: false,
+      user: null,
     };
   },
   created() {
     this.brandService = new BrandService();
+    this.userInfoService = new UserInfoService();
   },
   mounted() {
-    this.brandService.getBrandList().then((data) => {
-      console.log(data);
-      this.brand_info = data;
-      this.keywords = data;
-    });
+    this.setUser();
+    this.getBrandList();
   },
-  // computed: {
-  //   sreachWord() {
 
-  //     return this.brand_info.filter(p => {
-  //       console.log("p",p);
-  //       // return true if the product should be visible
-
-  //       // in this example we just check if the search string
-  //       // is a substring of the product name (case insensitive)
-  //       return p.korName.toLowerCase().indexOf(this.search.toLowerCase()) != -1;
-  //     });
-  //   }
-  // },
   methods: {
-    sreachWord() {
-      if (this.searchValue) {
-        this.keywords = this.brand_info.filter((word) => {
-          //  console.log("wordss", word.korName);
-          return word.korName
-            .toUpperCase()
-            .includes(this.searchValue.toUpperCase());
+    setUser() {
+      this.userInfoService.getUserInfo().then((res) => {
+        this.user = res.data;
+        this.setHistoryKeywords(res.data.uid);
+      });
+    },
+
+    getBrandList() {
+      this.brandService.getBrandList().then((data) => {
+        this.brands = data;
+      });
+    },
+
+    setHistoryKeywords(uid) {
+      this.brandService.brandSearchHistory(uid).then((res) => {
+        this.history = res.length > 0 ? true : false;
+        this.searchKeywords = res;
+      });
+    },
+
+    sreachWord(keyword) {
+      if (keyword.length > 0) {
+        this.brandService.searchBrand(keyword).then((res) => {
+          if (res.length > 0) {
+            this.brands = res;
+            this.notFound = false;
+          } else {
+            this.getBrandList();
+            this.notFound = true;
+          }
         });
-        console.log("keywordresults", this.keywords);
       } else {
-        this.keywords = this.brand_info;
-        this.show_error = !this.show_error;
+        this.notFound = false;
+        this.getBrandList();
       }
+    },
+
+    sreachWithHistory(history) {
+      this.searchValue = history;
+      this.sreachWord(history);
+    },
+
+    sreachWordClear() {
+      this.searchValue = null;
+      this.getBrandList();
+    },
+
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
     },
   },
 };
@@ -196,10 +204,12 @@ img:hover {
 .content-not-found {
   text-align: center;
   font-family: Pretendard;
-  position: absolute;
-  width: 227px;
-  height: 40px;
-  left: 67px;
-  top: 160px;
+  /* position: absolute; */
+  width: 50%;
+  margin: auto;
+  height: auto;
+  padding-top: 10px;
+  /* left: 67px; */
+  /* top: 160px; */
 }
 </style>

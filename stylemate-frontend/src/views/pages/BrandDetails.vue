@@ -1,7 +1,7 @@
 <template>
-  <ion-page class="main-container relative">
+  <ion-page class="relative">
     <!-- header -->
-    <TopNav headerTitle="View Details"></TopNav>
+    <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">

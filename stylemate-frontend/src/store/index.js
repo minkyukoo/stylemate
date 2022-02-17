@@ -15,7 +15,7 @@ var itemService = new ItemService();
   getData() {
     itemService.getProductLsit().then((data) => {
       console.log("ItemList", data);
-      state.AppData = data;
+      // state.AppData = data;
     })
   },
 };

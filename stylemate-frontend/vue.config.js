@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/stylemate/' : '/' ,
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/' ,
   filenameHashing: false
 };

@@ -108,7 +108,7 @@
         <div class="guide">
           <div class="heading">
             <span><img src="@/assets/icons/icon-image.svg" /></span>
-            <h3>꼭 읽어주세요</h3>
+            <h3>이미지 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
@@ -181,6 +181,17 @@
               수 있습니다.
             </li>
           </ul>
+        </div>
+
+        <div class="guide">
+          <div class="heading">
+            <span><img src="@/assets/icons/icon-check-2.svg" /></span>
+            <h3>브랜디드 콘텐츠 광고 레이블 가이드</h3>
+          </div>
+          <div class="desc">
+            <p>브랜디드 콘텐츠 광고 레이블 추가는 필수사항이며 미추가 시, 레이블 추가 요청을 드릴 수 있습니다.</p>
+            <a class="see-more" href="#">추가방법 보러가기</a>
+          </div>
         </div>
       </div>
     </div>
@@ -363,5 +374,28 @@ export default {
   font-size: 12px;
   line-height: 18px;
   color: #797979;
+}
+.terms-wrap .guide .desc{
+  margin-top: 26px;
+}
+.terms-wrap .guide .desc p{
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-align: left;
+}
+.terms-wrap .guide .desc .see-more{
+  font-size: 12px;
+  line-height: 16px;
+  color: #090909;
+  border: 1px solid #595959;
+  border-radius: 6px;
+  background: #FFFFFF;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  width: 208px;
 }
 </style>

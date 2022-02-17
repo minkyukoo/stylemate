@@ -3,55 +3,105 @@
     <ion-tabs>
       <!-- <TopNav></TopNav> -->
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar >
-        <ion-tab-button tab="tab1" href="/home">
-           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
-           <i class="icon-home"/>
+      <ion-tab-bar>
+        <ion-tab-button
+          class="tab-button"
+          tab="tab1"
+          href="/home"
+          @mouseover="onHoverState"
+        >
+          <!-- <ion-icon src="../assets/icons/home.svg" /> -->
+          <i class="icon icon-dft icon-home" />
+          <i class="icon icon-hvr icon-home-white" />
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/item">
-         <ion-icon :src="require(`@/assets/icons/item.svg`)" />
+        <ion-tab-button
+          class="tab-button"
+          tab="tab2"
+          href="/item"
+          @mouseover="onHoverState"
+        >
+          <!-- <ion-icon :src="require(`@/assets/icons/item.svg`)" /> -->
+          <i class="icon icon-dft icon-item" />
+          <i class="icon icon-hvr icon-item-white" />
           <ion-label>ITEM</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/brands">
-          <ion-icon :src="require(`@/assets/icons/brand.svg`)" />
+        <ion-tab-button class="tab-button" tab="tab3" href="/brands">
+          <!-- <ion-icon :src="require(`@/assets/icons/brand.svg`)" /> -->
+          <i class="icon icon-dft icon-brand" />
+          <i class="icon icon-hvr icon-brand-white" />
           <ion-label>BRAND</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab4" href="/contents">
-          <ion-icon :src="require(`@/assets/icons/contents.svg`)" />
+        <ion-tab-button class="tab-button" tab="tab4" href="/contents">
+          <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
+           <i class="icon icon-dft icon-contents" />
+          <i class="icon icon-hvr icon-contents-white" />
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="tab5" href="/mypage">
-          <ion-icon :src="require(`@/assets/icons/mypage.svg`)" />
+        <ion-tab-button class="tab-button" tab="tab5" href="/mypage">
+          <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
+           <i class="icon icon-dft icon-mypage" />
+          <i class="icon icon-hvr icon-mypage-white" />
           <ion-label>MY PAGE</ion-label>
         </ion-tab-button>
-
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
 </template>
 
 <script>
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { ellipse, square, triangle, heart } from 'ionicons/icons';
+import {
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  IonLabel,
+  // IonIcon,
+  IonPage,
+  IonRouterOutlet,
+} from "@ionic/vue";
+import { ellipse, square, triangle, heart } from "ionicons/icons";
 // import TopNav from '@/components/TopNav.vue';
 
 export default {
-  name: 'TabPage',
-  components: { IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage, IonRouterOutlet },
+  name: "TabPage",
+  components: {
+    IonLabel,
+    IonTabs,
+    IonTabBar,
+    IonTabButton,
+    // IonIcon,
+    IonPage,
+    IonRouterOutlet,
+  },
   setup() {
     return {
       ellipse,
       square,
       triangle,
-      heart
-    }
-  }
-}
+      heart,
+    };
+  },
+  data() {
+    return {
+      hover: true,
+    };
+  },
+  methods: {
+    // onHoverState(ev) {
+    //   var target = ev.target;
+    //   console.log('target', target);
+    //   if (target) {
+    //     for (let i = 0; i < target.children.length; i++) {
+    //       console.log(target.children[0].tagName);
+    //     }
+    //   }
+    // },
+  },
+};
 </script>
 
 <style scoped>
@@ -68,21 +118,43 @@ ion-icon {
   margin: 0 auto;
 }
 ion-tab-bar {
-    background: black;
-    border-radius: 8px;
+  background: black;
+  border-radius: 8px;
+  height: 70px;
 }
 ion-tab-button {
-    background: black;
-    overflow: hidden;
+  background: black;
+  overflow: hidden;
+}
+ion-tab-button .icon.icon-hvr {
+  display: none;
+}
+ion-tab-button:hover .icon.icon-hvr {
+  display: block;
+}
+ion-tab-button:hover .icon.icon-dft {
+  display: none;
+}
+ion-label {
+  /* font-family: Europa-Bold; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 9px;
+  color: #797979;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+ion-tab-button:hover ion-label {
+  color: #ffffff;
 }
 .page-tabs .tabs .tabbar {
-    background: #121212;
-    width: 90% !important;
-    max-width: 400px !important;
-    border-radius: 30px;
-    margin: 0px 0px 20px 5% !important;
-    max-height: 56px;
-    height: 56px;
+  background: #121212;
+  width: 90% !important;
+  max-width: 400px !important;
+  border-radius: 30px;
+  margin: 0px 0px 20px 5% !important;
+  max-height: 56px;
+  height: 56px;
 }
-
 </style>
