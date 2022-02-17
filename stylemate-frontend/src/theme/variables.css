@@ -244,10 +244,10 @@ http://ionicframework.com/docs/theming/ */
 }
 
 ion-content {
-  width: calc(100% + 1.05rem);
+  width: calc(100% + 17px);
 }
 ion-content {
-  padding-right: 1.05rem;
+  padding-right: 17px;
 }
 
 ion-content::part(scroll)::-webkit-scrollbar {

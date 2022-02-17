@@ -119,14 +119,20 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
               </div>
               <div class="brandDetails">
-                <h3>Title 1 <b><img src="@/assets/icons/arrow-right.svg" /></b></h3>
-                <p>sdasds das as das</p>
-                <span>dfsf fsddf</span>
+                <h3>
+                  {{ item.engName }}
+                  <b><img src="@/assets/icons/arrow-right.svg" /></b>
+                </h3>
+                <p>{{ setTags(item.tag) }}</p>
+                <span>{{ item.description }}</span>
               </div>
             </swiper-slide>
           </swiper>
@@ -345,7 +351,6 @@ export default {
         },
       });
     },
-
   },
 };
 </script>
@@ -489,11 +494,11 @@ export default {
   padding: 20px 0;
 }
 
-.brandDetails{
+.brandDetails {
   background: #fff;
   padding: 22px 16px;
 }
-.brandDetails h3{
+.brandDetails h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -501,16 +506,15 @@ export default {
   font-weight: 700;
   margin: 0 0 5px;
 }
-.brandDetails p{
+.brandDetails p {
   font-size: 12px;
   font-weight: 400;
   color: #797979;
   margin-bottom: 10px;
 }
-.brandDetails span{
+.brandDetails span {
   font-size: 14px;
   font-weight: 400;
-  color: #25282B;
+  color: #25282b;
 }
 </style>
-
