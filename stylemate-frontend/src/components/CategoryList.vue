@@ -1,5 +1,6 @@
 <template>
   <div class="item-scroller-nav">
+    <!-- for Category -->
     <swiper
       class="main-menu"
       :slides-per-view="'auto'"
@@ -11,52 +12,37 @@
         <a  @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
       </swiper-slide>
     </swiper>
-    <!-- <ion-slides :options="slideOpts">
-      <ion-slide>
-        <ul class="main-menu">
-          <li v-for="category in allCategories" :key="category.name">
-            <a @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides> -->
-
-    <swiper  v-if="childCategory"
+    <!-- End for Category -->
+    <!-- for Child Category -->
+    <swiper
+      v-if="childCategory"
       class="main-menu sub-menu"
       :slides-per-view="'auto'"
       :space-between="28"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+      <swiper-slide
+        v-for="childCategory in childCategoryArray"
+        :key="childCategory.name"
+      >
         <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
       </swiper-slide>
     </swiper>
-
-    <!-- <ion-slides class="childCategory-slide" :options="slideOpts" v-if="childCategory">
-      <ion-slide>
-        <ul class="main-menu sub-menu">
-          <li v-for="childCategory in childCategoryArray" :key="childCategory.name">
-            <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
-          </li>
-        </ul>
-      </ion-slide>
-    </ion-slides> -->
+    <!-- End for Child Category -->
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData" >
+  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
     <img src="@/assets/images/product-banner.jpg" />
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory" v-show="!listproduct" >
+  <!-- <div class="product-main-banner" v-if="!childCategory" v-show="!listproduct">
     <img src="@/assets/images/product-banner.jpg" />
-  </div>
-
+  </div> -->
 </template>
 
 <script>
 import ItemService from "@/services/ItemService";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
@@ -67,16 +53,6 @@ export default {
     SwiperSlide,
   },
 
-  // setup() {
-  //   const slideOpts = {
-  //     initialSlide: 1,
-  //     speed: 400,
-  //     pager: false,
-  //     // slidesPerView: 1,
-  //     scrollbar: true
-  //   };
-  //   return { slideOpts };
-  // },
   setup() {
     const onSwiper = (swiper) => {
       console.log(swiper);
@@ -87,7 +63,6 @@ export default {
     return {
       onSwiper,
       onSlideChange,
-      modules: [Navigation, Pagination, Scrollbar, A11y],
     };
   },
 
@@ -110,7 +85,7 @@ export default {
     this.itemServices = new ItemService();
     this.itemServices.getProductCategories().then((data) => {
       let arr = data;
-      this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
+      this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
       console.log("this.allCategories",this.allCategories);
       this.activeId = this.allCategories.name;
@@ -139,27 +114,26 @@ export default {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("filterproductList", data);
-          
+
         if (data.length == 0) {
           // alert('nodata')
           this.nofltData = true;
-          this.$emit('fltData', false);
-
+          this.$emit("fltData", false);
         } else {
           this.nofltData = false;
-          this.$emit('fltData', true);
+          this.$emit("fltData", true);
 
           let filterproductList = data;
-          this.$emit("filterproductList",filterproductList);
+          this.$emit("filterproductList", filterproductList);
         }
       });
     },
 
-    handleClick(childCategory,ids) {
+    handleClick(childCategory, ids) {
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
 
-        childCategory.forEach(element => {
+        childCategory.forEach((element) => {
           this.childCategoryArray.push(element);
         });
 
@@ -167,9 +141,9 @@ export default {
         console.log("this.activeId",this.activeId);
 
         let arr1 = this.childCategoryArray;
-        console.log("arr1",arr1);
-        this.childCategories2 = arr1.unshift({ name: 'All', id:"Allchild" });
-        console.log("this.childCategories2",this.childCategories2);
+        console.log("arr1", arr1);
+        this.childCategories2 = arr1.unshift({ name: "All", id: "Allchild" });
+        console.log("this.childCategories2", this.childCategories2);
 
         alert(ids);
         this.childCategory = true;
@@ -184,7 +158,6 @@ export default {
     },
 
     onClickButton(ve) {
-      // this.$emit('clicked', false)
       this.$emit("clicked", ve);
     },
   },
@@ -232,10 +205,10 @@ export default {
   font-weight: bold;
   color: #090909;
 }
-.item-scroller-nav .sub-menu{
-  background: #F7F7F7;
+.item-scroller-nav .sub-menu {
+  background: #f7f7f7;
 }
-.swiper-slide{
+.swiper-slide {
   width: auto;
 }
 </style>

@@ -232,6 +232,18 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-card-background: #1e1e1e;
   }
+
+}
+
+ion-content {
+  width: calc(100% + 17px);
+}
+ion-content {
+  padding-right: 17px;
+}
+
+ion-content::part(scroll)::-webkit-scrollbar {
+  display: none;
 }
 
 /* @media(prefers-color-scheme: primary) {
