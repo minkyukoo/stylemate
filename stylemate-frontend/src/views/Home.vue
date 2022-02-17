@@ -340,6 +340,10 @@ export default {
 </script>
 
 <style scoped>
+.overlapSlide{
+  background: rgb(222,222,222);
+  background: linear-gradient(180deg, rgba(222,222,222,1) 0%, rgba(255,255,255,1) 2%);
+}
 .inner-scroll {
   margin-right: -20px !important;
 }
