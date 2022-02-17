@@ -6,7 +6,6 @@
       <i class="icon-blue-dot"></i>
     </div>
   </router-link>
-  <ion-popover> </ion-popover>
 </template>
 
 <script>
