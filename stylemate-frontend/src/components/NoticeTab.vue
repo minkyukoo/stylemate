@@ -42,7 +42,9 @@
 
     <!-- tab content 2 -->
     <div class="tab-content" v-if="layout === 'tab2'">
-      tab 2
+      <div class="faq-wrap">
+          <NoticeAccordion/>
+      </div>
     </div>
 
     <!-- tab content 3 -->
@@ -53,11 +55,15 @@
 </template>
 
 <script>
+import NoticeAccordion from '@/components/NoticeAccordion.vue'
 export default {
   name: "NoticeTab",
+  components: {
+      NoticeAccordion
+  },
   data() {
     return {
-      layout: "tab1",
+      layout: "tab2",
       noticelist:[
           {
               desc: '숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이',
