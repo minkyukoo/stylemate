@@ -235,16 +235,16 @@ http://ionicframework.com/docs/theming/ */
 
 }
 
-ion-content {
+/* ion-content {
   width: calc(100% + 17px);
 }
 ion-content {
   padding-right: 17px;
-}
+} */
 
 ion-content::part(scroll)::-webkit-scrollbar {
-  display: none;
-}
+  display: none !important;
+} 
 
 /* @media(prefers-color-scheme: primary) {
   ::-webkit-scrollbar {
