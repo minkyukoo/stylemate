@@ -10,19 +10,19 @@
 </template>
 
 <script>
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent, provide } from 'vue';
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { defineComponent, provide } from "vue";
 import store from "./store/index";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     IonApp,
-    IonRouterOutlet
+    IonRouterOutlet,
   },
   setup() {
-    provide('store', store)
-  }
+    provide("store", store);
+  },
 });
 </script>
 
