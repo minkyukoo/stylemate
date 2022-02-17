@@ -97,7 +97,7 @@
 
         <div class="brandSlider">
           <div class="headerLine">
-            <h4>NEW BRAND</h4>
+            <h4>NEW BRAND1</h4>
           </div>
           <swiper
             :effect="'coverflow'"
