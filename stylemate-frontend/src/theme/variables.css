@@ -235,14 +235,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-card-background: #1e1e1e;
   }
 
-  ion-content::-webkit-scrollbar {
-    /* display: none; */
-    width: 2px;
-  }
-  ion-content::part(scroll)::-webkit-scrollbar {
-    display: none;
-    width: 2px;
- }
 }
 
 /* @media(prefers-color-scheme: primary) {

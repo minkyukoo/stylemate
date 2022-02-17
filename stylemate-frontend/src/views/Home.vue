@@ -252,7 +252,7 @@ export default {
     this.itemService = new ItemService();
 
     // setTimeout(() => {
-    //   this.pushNotification(this.jdata);
+    //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
   },
 
@@ -313,11 +313,12 @@ export default {
 
     // for pushnotification
     pushNotification(res) {
-      const obj = JSON.parse(JSON.stringify(res));
-      alert(obj.product_URL);
-      console.log('res', obj);
-      if (obj.product_URL) {
-        this.$router.push(obj.product_URL);
+      // const obj = JSON.parse(JSON.stringify(res));
+      alert(res);
+      console.log('res', res);
+      if (res) {
+        this.$router.push(res);
+        // this.$router.push({name: 'products.index', params: { id: 1 }});
       }
     },
 
