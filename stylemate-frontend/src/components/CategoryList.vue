@@ -8,8 +8,8 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide :class="{'active':childCategoryArray.name===activeId}" v-for="category in allCategories" :key="category.name">
-        <a  @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+      <swiper-slide v-for="category in allCategories" :key="category.name">
+        <a :class="{'active':category.id===activeId}" @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -26,7 +26,7 @@
         v-for="childCategory in childCategoryArray"
         :key="childCategory.name"
       >
-        <a @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
+        <a :class="{'active':childCategory.id===childactiveId}" @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -78,6 +78,7 @@ export default {
 
       childCategories2:null,
       activeId:-1,
+      childactiveId:-1,
     };
   },
 
@@ -87,33 +88,21 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
-      console.log("this.allCategories",this.allCategories);
-      this.activeId = this.allCategories.name;
-      console.log("this.activeId",this.activeId);
+
+      this.activeId = "All";
+
     });
   },
   mounted() {
-      // console.log("this.listItemStyle",this.listItemStyle());
+     
   },
   methods: {
-    //  listItemStyle() {
-    //   var style = {};
-    //   this.itemServices.getProductCategories().then((data) => {
-    //     this.allCategories = data;
-
-    //     // var style = {};
-    //     if (this.allCategories[0]) {
-    //       style.font-weight = 'bold';
-    //     }
-        
-    //    });
-    //    return style;
-    // },
-
+  
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("filterproductList", data);
+        this.childactiveId = ids; //To activate the All button
 
         if (data.length == 0) {
           // alert('nodata')
@@ -130,14 +119,18 @@ export default {
     },
 
     handleClick(childCategory, ids) {
+      alert(ids);
+      if(ids === "All") {
+         this.activeId = ids;
+      }
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
 
         childCategory.forEach((element) => {
           this.childCategoryArray.push(element);
         });
-
-        this.activeId = this.childCategoryArray;
+        
+        this.activeId = ids;
         console.log("this.activeId",this.activeId);
 
         let arr1 = this.childCategoryArray;
@@ -207,6 +200,11 @@ export default {
 }
 .item-scroller-nav .sub-menu {
   background: #f7f7f7;
+}
+.item-scroller-nav .sub-menu .swiper-slide a.active {
+  border-bottom: solid 2px #090909;
+  font-weight: bold;
+  color: #090909;
 }
 .swiper-slide {
   width: auto;

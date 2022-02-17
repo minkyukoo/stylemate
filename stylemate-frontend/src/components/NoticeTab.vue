@@ -51,7 +51,7 @@
     <div class="tab-content" v-if="layout === 'tab3'">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
-        <button class="black-btn">
+        <button class="black-btn" @click="$router.push({ name: 'InquiryDetails' })">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>

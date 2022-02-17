@@ -12,6 +12,50 @@
           <vue-select placeholder="전체알림" :options="options"> </vue-select>
         </div>
         <ul class="loopList">
+          <li v-for="item in notifications" :key="item.id">
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>{{ humanReadableFormat(item.createdAt) }}</span>
+              <b>{{ item.title }}</b>
+              <p>{{ item.message }}</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li>
+          <!-- <li>
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>2021년 01월 26일</span>
+              <b>포스트 등록 요청</b>
+              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li> -->
+          <!-- <li>
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>2021년 01월 26일</span>
+              <b>포스트 등록 요청</b>
+              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li>
+          <li>
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>2021년 01월 26일</span>
+              <b>포스트 등록 요청</b>
+              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li>
           <li>
             <span class="circle"
               ><img src="@/assets/icons/calender.svg"
@@ -34,6 +78,28 @@
               <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
             </div>
           </li>
+          <li>
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>2021년 01월 26일</span>
+              <b>포스트 등록 요청</b>
+              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li>
+          <li>
+            <span class="circle"
+              ><img src="@/assets/icons/calender.svg"
+            /></span>
+            <div class="loopInner">
+              <span>2021년 01월 26일</span>
+              <b>포스트 등록 요청</b>
+              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
+              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+            </div>
+          </li> -->
         </ul>
       </div>
       </div>
