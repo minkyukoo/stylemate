@@ -14,7 +14,7 @@
       </div>
       <div>
         <!-- <h4>{{ progressDetails.desc }}</h4> -->
-        <h6>End date {{ progressDetails.endDate }}</h6>
+        <h6>#street fashion #sufa #hoodie</h6>
         <!-- <div
           class="item-button"
           v-if="progressDetails.status === 're-registration'"
@@ -88,8 +88,8 @@ export default {
 .item-card .item-desc {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 0 0 0 24px;
+  justify-content: center;
+  padding: 0 0 0 12px;
   width: calc(100% - 100px);
 }
 .item-desc h2 {
@@ -107,7 +107,7 @@ export default {
 .item-desc h6 {
   font-size: 12px;
   line-height: 16px;
-  color: #5700ff;
+  color: #C4C4C4;
   margin-top: 5px;
 }
 .item-desc .heading-wrap {

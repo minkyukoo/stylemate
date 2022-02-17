@@ -18,6 +18,7 @@
             store.state.sponsorTabState === 'application-details' &&
             progressDetails.status === 'sponsor-selection'
           "
+          @click="() => (store.state.cancelPopup = true)"
           >Cancellation of sponsorship</span
         >
       </div>
@@ -26,13 +27,19 @@
         <h6>End date {{ progressDetails.endDate }}</h6>
         <div
           class="item-button"
-          v-if="progressDetails.status === 're-registration'"
+          v-if="
+            progressDetails.status === 're-registration' &&
+            store.state.sponsorTabState !== 'application-details'
+          "
         >
           <button>re-registration</button>
         </div>
         <div
           class="item-button"
-          v-else-if="progressDetails.status === 'post-registration'"
+          v-else-if="
+            progressDetails.status === 'post-registration' &&
+            store.state.sponsorTabState !== 'application-details'
+          "
         >
           <button @click="() => (store.state.isPostModalVisible = true)">
             Register a post
@@ -115,7 +122,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 0 0 24px;
+  padding: 0 0 0 12px;
   width: calc(100% - 100px);
 }
 .item-desc .heading-wrap {

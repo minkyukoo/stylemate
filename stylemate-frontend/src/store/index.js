@@ -9,6 +9,7 @@ const state = reactive({
   likedTabState: "item",
   sponsorTabState: "progress",
   isPostModalVisible: false,
+  cancelPopup: false,
 });
 
 var itemService = new ItemService();
