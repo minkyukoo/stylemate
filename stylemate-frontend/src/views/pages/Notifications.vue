@@ -4,23 +4,25 @@
     <TopNav headerTitle="알림"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <!-- <ion-content :fullscreen="true"> -->
-      <div class="main-wrap">
+    <ion-content :fullscreen="true" part="scroll">
       <div class="inner-container">
         <!-- <DropDown class="pad-t-32" /> -->
         <div class="notiWrap">
-          <vue-select placeholder="전체알림" :options="options"> </vue-select>
+          <vue-select placeholder="전체알림" :options="options"></vue-select>
         </div>
         <ul class="loopList">
           <li v-for="item in notifications" :key="item.id">
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
+            <span class="circle">
+              <img src="@/assets/icons/calender.svg" />
+            </span>
             <div class="loopInner">
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
               <b>{{ item.title }}</b>
               <p>{{ item.message }}</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+              <a href="#">
+                바로가기
+                <img src="@/assets/icons/smallarw.png" />
+              </a>
             </div>
           </li>
           <!-- <li>
@@ -33,7 +35,7 @@
               <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
               <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
             </div>
-          </li> -->
+          </li>-->
           <!-- <li>
             <span class="circle"
               ><img src="@/assets/icons/calender.svg"
@@ -99,17 +101,16 @@
               <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
               <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
             </div>
-          </li> -->
+          </li>-->
         </ul>
       </div>
-      </div>
-    <!-- </ion-content> -->
+    </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage } from "@ionic/vue";
+import { IonPage,IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 // import DropDown from "@/components/utilities/DropDown.vue";
 
@@ -118,7 +119,7 @@ import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Notifications",
-  components: { TopNav, IonPage, "vue-select": VueNextSelect },
+  components: { TopNav, IonContent, IonPage, "vue-select": VueNextSelect },
   data() {
     return {
       notifications: [],
