@@ -15,9 +15,9 @@
       <div class="container">
         <div class="flex items-center justify-center relative">
           <ion-buttons slot="start" class="back-btn-wrap">
-            <Button class="back-btn" @click="$router.go(-1)">
+            <button class="back-btn" @click="$router.go(-1)">
               <i class="icon-left-arrow"></i>
-            </Button>
+            </button>
           </ion-buttons>
           <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
