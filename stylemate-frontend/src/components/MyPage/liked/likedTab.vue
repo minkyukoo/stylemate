@@ -1,16 +1,28 @@
 <template>
   <div class="sponsor-tab">
-    <div class="sponsor-tab-item" @click="setTab('progress')">
+    <div
+      class="sponsor-tab-item"
+      @click="() => (store.state.likedTabState = 'item')"
+    >
       <button
-        :class="[tab === 'progress' ? 'sponsor-btn active' : 'sponsor-btn']"
+        :class="[
+          store.state.likedTabState === 'item'
+            ? 'sponsor-btn active'
+            : 'sponsor-btn',
+        ]"
       >
         item
       </button>
     </div>
-    <div class="sponsor-tab-item" @click="setTab('application-details')">
+    <div
+      class="sponsor-tab-item"
+      @click="() => (store.state.likedTabState = 'brand')"
+    >
       <button
         :class="[
-          tab === 'application-details' ? 'sponsor-btn active' : 'sponsor-btn',
+          store.state.likedTabState === 'brand'
+            ? 'sponsor-btn active'
+            : 'sponsor-btn',
         ]"
       >
         brand
@@ -20,18 +32,28 @@
 </template>
 
 <script>
+import { inject, onMounted } from "vue";
 export default {
   name: "likedTab",
   data() {
     return {
-      tab: "progress",
+      tab: "item",
+    };
+  },
+  setup() {
+    const store = inject("store");
+    onMounted(() => {
+      console.log("from Store", store.state.likedTabState);
+    });
+
+    return {
+      store,
     };
   },
   methods: {
-    setTab(val) {
-      this.tab = val;
-      this.$emit("setTab", this.tab);
-    },
+    // setTab(val) {
+    //   this.tab = val;
+    // },
   },
 };
 </script>

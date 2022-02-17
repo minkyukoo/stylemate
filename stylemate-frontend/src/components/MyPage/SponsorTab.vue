@@ -1,16 +1,22 @@
 <template>
   <div class="sponsor-tab">
-    <div class="sponsor-tab-item" @click="setTab('progress')">
+    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('progress')">
       <button
-        :class="[tab === 'progress' ? 'sponsor-btn active' : 'sponsor-btn']"
+        :class="[
+          store.state.sponsorTabState === 'progress'
+            ? 'sponsor-btn active'
+            : 'sponsor-btn',
+        ]"
       >
         진행내역
       </button>
     </div>
-    <div class="sponsor-tab-item" @click="setTab('application-details')">
+    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('application-details')">
       <button
         :class="[
-          tab === 'application-details' ? 'sponsor-btn active' : 'sponsor-btn',
+          store.state.sponsorTabState === 'application-details'
+            ? 'sponsor-btn active'
+            : 'sponsor-btn',
         ]"
       >
         신청내역
@@ -20,11 +26,20 @@
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   name: "SponsorTab",
   data() {
     return {
       tab: "progress",
+    };
+  },
+  setup() {
+    const store = inject("store");
+
+
+    return {
+      store,
     };
   },
   methods: {

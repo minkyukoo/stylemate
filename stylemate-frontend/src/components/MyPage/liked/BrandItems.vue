@@ -2,29 +2,20 @@
   <div class="item-card">
     <div class="img-con">
       <img
-        :src="`${require('../../assets/images/' + progressDetails.img)}`"
+        :src="`${require('../../../assets/images/' + progressDetails.img)}`"
         alt=""
       />
-      <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
-        progressDetails.imgTag
-      }}</span>
+      <!-- <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" /> -->
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
         <h2>{{ progressDetails.title }}</h2>
-        <span
-          class="cancel-tag"
-          v-if="
-            store.state.sponsorTabState === 'application-details' &&
-            progressDetails.status === 'sponsor-selection'
-          "
-          >Cancellation of sponsorship</span
-        >
+        <img src="../../../assets/icons/heart-filled.svg" alt="" />
       </div>
       <div>
-        <h4>{{ progressDetails.desc }}</h4>
+        <!-- <h4>{{ progressDetails.desc }}</h4> -->
         <h6>End date {{ progressDetails.endDate }}</h6>
-        <div
+        <!-- <div
           class="item-button"
           v-if="progressDetails.status === 're-registration'"
         >
@@ -34,34 +25,19 @@
           class="item-button"
           v-else-if="progressDetails.status === 'post-registration'"
         >
-          <button @click="() => (store.state.isPostModalVisible = true)">
-            Register a post
-          </button>
+          <button>Register a post</button>
         </div>
-        <div v-else></div>
+        <div v-else></div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { inject } from "vue";
 export default {
-  name: "ItemCard",
+  name: "BrandItems",
   props: {
     progressDetails: Object,
-  },
-  setup() {
-    const store = inject("store");
-
-    // function setTab(val) {
-    //   store.state.sponsorTabState = val;
-    // }
-
-    return {
-      store,
-      // setTab,
-    };
   },
   methods: {
     getColor() {
@@ -96,13 +72,11 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(173, 218, 217, 0.75);
-  backdrop-filter: blur(10px);
+  width: 24px;
+  height: 24px;
   border-radius: 6px 0px;
   font-size: 10px;
   line-height: 12px;
-  color: #ffffff;
-  display: inline-block;
   padding: 3px 4px;
 }
 .item-card .img-con img {
@@ -117,19 +91,6 @@ export default {
   justify-content: space-around;
   padding: 0 0 0 24px;
   width: calc(100% - 100px);
-}
-.item-desc .heading-wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.heading-wrap .cancel-tag {
-  font-size: 10px;
-  line-height: 12px;
-  color: #797979;
-  border: 1px solid #c4c4c4;
-  border-radius: 6px;
-  padding: 2px 8px;
 }
 .item-desc h2 {
   font-weight: bold;
@@ -149,16 +110,14 @@ export default {
   color: #5700ff;
   margin-top: 5px;
 }
-.item-button button {
-  width: 100%;
-  padding: 10px 0;
-  background: #ffffff;
-  border: 1px solid #595959;
-  box-sizing: border-box;
-  border-radius: 6px;
-  font-size: 12px;
-  line-height: 16px;
-  color: #090909;
-  margin-top: 10px;
+.item-desc .heading-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading-wrap img {
+    width: 16px;
+    height: 15px;
+    margin-right: 5px;
 }
 </style>
