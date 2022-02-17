@@ -4,7 +4,7 @@
     <TopNav></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <ion-content :fullscreen="true" part="scrollbarHide">
       <!-- <div class="main-wrap"> -->
       <div class="mainslide">
         <swiper
@@ -22,9 +22,7 @@
           </swiper-slide>
         </swiper>
       </div>
-
       <div class="overlapSlide">
-        <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
           <h4>NEW ITEM</h4>
         </div>
@@ -39,11 +37,7 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newEvanItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newEvanItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -58,11 +52,7 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newOddItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newOddItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -77,11 +67,7 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newStartItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newStartItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -97,7 +83,7 @@
 
         <div class="brandSlider">
           <div class="headerLine">
-            <h4>NEW BRAND1</h4>
+            <h4>NEW BRAND</h4>
           </div>
           <swiper
             :effect="'coverflow'"
@@ -119,14 +105,20 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
               </div>
               <div class="brandDetails">
-                <h3>Title 1 <b><img src="@/assets/icons/arrow-right.svg" /></b></h3>
-                <p>sdasds das as das</p>
-                <span>dfsf fsddf</span>
+                <h3>
+                  {{ item.engName }}
+                  <b><img src="@/assets/icons/arrow-right.svg" /></b>
+                </h3>
+                <p>{{ setTags(item.tag) }}</p>
+                <span>{{ item.description }}</span>
               </div>
             </swiper-slide>
           </swiper>
@@ -138,6 +130,7 @@
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
+
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
             <img src="@/assets/images/book1.png" />
@@ -179,25 +172,30 @@
             <img src="@/assets/images/book1.png" />
           </div>
         </div>
+
         <div class="gotoFamily">
           <div class="gotofamilyList" :class="{ active: isActive }">
             <ul>
               <li>
-                <a href="#"><img src="@/assets/images/logo-1.png" /></a>
+                <a href="#">
+                  <img src="@/assets/images/logo-1.png" />
+                </a>
               </li>
               <li>
-                <a href="#"><img src="@/assets/images/logo-2.png" /></a>
+                <a href="#">
+                  <img src="@/assets/images/logo-2.png" />
+                </a>
               </li>
             </ul>
           </div>
           <button @click="myFilter">패밀리 사이트 바로가기</button>
         </div>
+
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
-      <!-- </div> -->
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -212,34 +210,22 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-// import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
-import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Home",
   components: {
     TopNav,
-    // IonContent,
     IonPage,
-    // IonSlides,
-    // IonSlide,
     Swiper,
     SwiperSlide,
+    IonContent
   },
   setup() {
-    // const slideOpts = {
-    //   initialSlide: 1,
-    //   speed: 400,
-    //   loop: true,
-    //   autoplay:true
-    // };
-    // return { slideOpts }
-
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
@@ -262,13 +248,17 @@ export default {
       newEvanItems: [],
       newProItems: null,
       isActive: false,
+      // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
   created() {
     this.bannerService = new BannerService();
     this.brandService = new BrandService();
     this.itemService = new ItemService();
-    this.userInfoService = new UserInfoService();
+
+    // setTimeout(() => {
+    //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
+    // }, 5000);
   },
 
   mounted() {
@@ -280,6 +270,9 @@ export default {
       this.brandList = res;
       console.log(res);
     });
+
+    window.callJsFunction = this.callJsFunction;
+    window.pushNotification = this.pushNotification;
   },
   methods: {
     getProductItemList() {
@@ -309,18 +302,6 @@ export default {
       });
     },
 
-    getMyinfo() {
-      this.userInfoService.getUserInfo().then((res) => {
-        if (res.response) {
-          if (res.response.status == 401) {
-            this.$router.push("/login");
-          }
-        } else {
-          console.log(res.data);
-        }
-      });
-    },
-
     setTags(items) {
       var filterItems = [];
       items.forEach((value) => {
@@ -337,20 +318,38 @@ export default {
 
     // for pushnotification
     pushNotification(res) {
+      // const obj = JSON.parse(JSON.stringify(res));
       alert(res);
-      this.$router.push({
-        name: "Item",
-        params: {
-          data: res,
-        },
-      });
+      console.log('res', res);
+      if (res) {
+        this.$router.push(res);
+        // this.$router.push({name: 'products.index', params: { id: 1 }});
+      }
     },
+
+    // onMessage(res) {
+    //   console.log("Data : " + res),
+    //     alert(res)
+    // },
+    // sendMessage(res) {
+    //   console.log(res);
+    //   window.parent.postMessage({
+    //     data: res
+    //   }, "*");
+    // },
+    callJsFunction(res) {
+      alert(res)
+    }
 
   },
 };
 </script>
 
 <style scoped>
+.overlapSlide{
+  background: rgb(222,222,222);
+  background: linear-gradient(180deg, rgba(222,222,222,1) 0%, rgba(255,255,255,1) 2%);
+}
 .inner-scroll {
   margin-right: -20px !important;
 }
@@ -414,6 +413,10 @@ export default {
   font-size: 20px;
 }
 
+.brandSliderimg {
+  border-radius: 6px;
+  overflow: hidden;
+}
 .brandSliderimg img {
   width: 100%;
 }
@@ -435,11 +438,6 @@ export default {
 .brandHeader span {
   font-size: 12px !important;
   color: #25282b !important;
-}
-.swiper-slide {
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
 }
 .gotoFamily {
   position: relative;
@@ -489,11 +487,11 @@ export default {
   padding: 20px 0;
 }
 
-.brandDetails{
+.brandDetails {
   background: #fff;
   padding: 22px 16px;
 }
-.brandDetails h3{
+.brandDetails h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -501,16 +499,15 @@ export default {
   font-weight: 700;
   margin: 0 0 5px;
 }
-.brandDetails p{
+.brandDetails p {
   font-size: 12px;
   font-weight: 400;
   color: #797979;
   margin-bottom: 10px;
 }
-.brandDetails span{
+.brandDetails span {
   font-size: 14px;
   font-weight: 400;
-  color: #25282B;
+  color: #25282b;
 }
 </style>
-
