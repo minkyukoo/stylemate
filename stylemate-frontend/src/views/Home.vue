@@ -123,6 +123,11 @@
               <div class="swiper-slide">
                 <img :src="item.imageThumbnailPath" />
               </div>
+              <div class="brandDetails">
+                <h3>Title 1 <b><img src="@/assets/icons/arrow-right.svg" /></b></h3>
+                <p>sdasds das as das</p>
+                <span>dfsf fsddf</span>
+              </div>
             </swiper-slide>
           </swiper>
         </div>
@@ -423,6 +428,7 @@ export default {
 .swiper-slide {
   border-radius: 10px;
   overflow: hidden;
+  background: #fff;
 }
 .gotoFamily {
   position: relative;
@@ -470,6 +476,30 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
+}
+
+.brandDetails{
+  background: #fff;
+  padding: 22px 16px;
+}
+.brandDetails h3{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 5px;
+}
+.brandDetails p{
+  font-size: 12px;
+  font-weight: 400;
+  color: #797979;
+  margin-bottom: 10px;
+}
+.brandDetails span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #25282B;
 }
 </style>
 
