@@ -4,8 +4,8 @@
     <TopNav></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <!-- <ion-content :fullscreen="true"> -->
-    <div class="main-wrap">
+    <ion-content :fullscreen="true" part="scrollbarHide">
+      <!-- <div class="main-wrap"> -->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -101,19 +101,24 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
+            <swiper-slide
+              class="brandSliderimg"
+              v-for="item in brandList"
+              :key="item.id"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
+            >
               <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
               </div>
               <div class="brandDetails">
                 <h3>
-                  Title 1
-                  <b>
-                    <img src="@/assets/icons/arrow-right.svg" />
-                  </b>
+                  {{ item.engName }}
+                  <b><img src="@/assets/icons/arrow-right.svg" /></b>
                 </h3>
-                <p>sdasds das as das</p>
-                <span>dfsf fsddf</span>
+                <p>{{ setTags(item.tag) }}</p>
+                <span>{{ item.description }}</span>
               </div>
             </swiper-slide>
           </swiper>
@@ -191,8 +196,7 @@
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
-    </div>
-    <!-- </ion-content> -->
+    </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
@@ -506,4 +510,3 @@ export default {
   color: #25282b;
 }
 </style>
-
