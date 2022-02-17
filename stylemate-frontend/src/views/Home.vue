@@ -210,7 +210,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
@@ -223,6 +223,7 @@ export default {
     IonPage,
     Swiper,
     SwiperSlide,
+    IonContent
   },
   setup() {
     const onSwiper = (swiper) => {
