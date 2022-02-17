@@ -1,8 +1,8 @@
 <template>
   <transition name="modal-fade">
-    <div class="modal-backdrop">
+    <div :class="`modal-backdrop ${modalSize? 'pad-t-60' : ''}`">
       <div
-        class="modal"
+        :class="`modal ${modalSize? modalSize : ''}`"
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
@@ -43,6 +43,9 @@
 <script>
 export default {
   name: "CustomModal",
+  props: {
+    modalSize: String,
+  },
   methods: {
     close() {
       this.$emit("close");
@@ -57,10 +60,11 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
 
 .modal {
@@ -72,6 +76,9 @@ export default {
   max-width: 100%;
   padding: 0;
   border-radius: 6px;
+}
+.modal.modal-lg{
+  width: 320px;
 }
 .modal-content{
   padding: 24px;

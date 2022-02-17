@@ -5,7 +5,7 @@
         :src="`${require('../../../assets/images/' + progressDetails.img)}`"
         alt=""
       />
-      <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" />
+      <!-- <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" /> -->
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
@@ -13,8 +13,8 @@
         <img src="../../../assets/icons/heart-filled.svg" alt="" />
       </div>
       <div>
-        <h4>{{ progressDetails.desc }}</h4>
-        <h6>End date {{ progressDetails.endDate }}</h6>
+        <!-- <h4>{{ progressDetails.desc }}</h4> -->
+        <h6>#street fashion #sufa #hoodie</h6>
         <!-- <div
           class="item-button"
           v-if="progressDetails.status === 're-registration'"
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: "ItemCard",
+  name: "BrandItems",
   props: {
     progressDetails: Object,
   },
@@ -64,7 +64,7 @@ export default {
 }
 .item-card .img-con {
   width: 100px;
-  height: 120px;
+  height: 100px;
   border-radius: 6px;
   position: relative;
 }
@@ -88,8 +88,8 @@ export default {
 .item-card .item-desc {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: 0 0 0 24px;
+  justify-content: center;
+  padding: 0 0 0 12px;
   width: calc(100% - 100px);
 }
 .item-desc h2 {
@@ -107,7 +107,7 @@ export default {
 .item-desc h6 {
   font-size: 12px;
   line-height: 16px;
-  color: #5700ff;
+  color: #C4C4C4;
   margin-top: 5px;
 }
 .item-desc .heading-wrap {

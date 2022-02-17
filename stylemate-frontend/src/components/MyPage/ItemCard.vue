@@ -10,21 +10,40 @@
       }}</span>
     </div>
     <div class="item-desc">
-      <h2>{{ progressDetails.title }}</h2>
+      <div class="heading-wrap">
+        <h2>{{ progressDetails.title }}</h2>
+        <span
+          class="cancel-tag"
+          v-if="
+            store.state.sponsorTabState === 'application-details' &&
+            progressDetails.status === 'sponsor-selection'
+          "
+          @click="() => (store.state.cancelPopup = true)"
+          >Cancellation of sponsorship</span
+        >
+      </div>
       <div>
         <h4>{{ progressDetails.desc }}</h4>
         <h6>End date {{ progressDetails.endDate }}</h6>
         <div
           class="item-button"
-          v-if="progressDetails.status === 're-registration'"
+          v-if="
+            progressDetails.status === 're-registration' &&
+            store.state.sponsorTabState !== 'application-details'
+          "
         >
           <button>re-registration</button>
         </div>
         <div
           class="item-button"
-          v-else-if="progressDetails.status === 'post-registration'"
+          v-else-if="
+            progressDetails.status === 'post-registration' &&
+            store.state.sponsorTabState !== 'application-details'
+          "
         >
-          <button>Register a post</button>
+          <button @click="() => (store.state.isPostModalVisible = true)">
+            Register a post
+          </button>
         </div>
         <div v-else></div>
       </div>
@@ -33,10 +52,23 @@
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   name: "ItemCard",
   props: {
     progressDetails: Object,
+  },
+  setup() {
+    const store = inject("store");
+
+    // function setTab(val) {
+    //   store.state.sponsorTabState = val;
+    // }
+
+    return {
+      store,
+      // setTab,
+    };
   },
   methods: {
     getColor() {
@@ -90,8 +122,21 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 0 0 24px;
+  padding: 0 0 0 12px;
   width: calc(100% - 100px);
+}
+.item-desc .heading-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading-wrap .cancel-tag {
+  font-size: 10px;
+  line-height: 12px;
+  color: #797979;
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  padding: 2px 8px;
 }
 .item-desc h2 {
   font-weight: bold;

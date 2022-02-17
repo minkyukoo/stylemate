@@ -3,7 +3,11 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
+          <img
+            src="@/assets/images/logo-black.svg"
+            class="siteLogo"
+            alt="Logo"
+          />
           <NotificationIcon notificationCount="24" />
         </div>
       </div>
@@ -19,7 +23,9 @@
               <i class="icon-left-arrow"></i>
             </button>
           </ion-buttons>
-          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
+          <h1 v-if="headerTitle" class="header-title text-center">
+            {{ headerTitle }}
+          </h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
           <NotificationIcon notificationCount="24" />
         </div>
@@ -30,10 +36,10 @@
 
 <script>
 // import { IonHeader,IonIcon, IonToolbar, IonTitle,IonButtons } from '@ionic/vue';
-import { IonButtons, IonHeader, IonToolbar } from '@ionic/vue';
+import { IonButtons, IonHeader, IonToolbar } from "@ionic/vue";
 import NotificationIcon from "./utilities/NotificationIcon.vue";
 export default {
-  name: 'TopNav',
+  name: "TopNav",
   // components: { IonHeader, IonToolbar, IonTitle, NotificationIcon, IonButtons, IonIcon },
   components: { IonButtons, IonHeader, IonToolbar, NotificationIcon },
   props: {
@@ -43,10 +49,10 @@ export default {
     return {
       mainHeader: false,
       innerHeader: true,
-      siteLogo: '@/assets/images/logo-black.svg',
-    }
-  }
-}
+      siteLogo: "@/assets/images/logo-black.svg",
+    };
+  },
+};
 </script>
 
 <style scoped>
