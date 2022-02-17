@@ -7,8 +7,8 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a class="active" @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+      <swiper-slide :class="{'active':childCategoryArray.name===activeId}" v-for="category in allCategories" :key="category.name">
+        <a  @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- <ion-slides :options="slideOpts">
@@ -102,6 +102,7 @@ export default {
       filterproductList: null,
 
       childCategories2:null,
+      activeId:-1,
     };
   },
 
@@ -111,22 +112,27 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: 'All', id:"All" });
       this.allCategories = data;
-      // console.log(this.allCategories);
+      console.log("this.allCategories",this.allCategories);
+      this.activeId = this.allCategories.name;
+      console.log("this.activeId",this.activeId);
     });
   },
   mounted() {
-
+      // console.log("this.listItemStyle",this.listItemStyle());
   },
   methods: {
     //  listItemStyle() {
     //   var style = {};
     //   this.itemServices.getProductCategories().then((data) => {
     //     this.allCategories = data;
+
+    //     // var style = {};
     //     if (this.allCategories[0]) {
-    //       style.fontWeight = 'bold';
+    //       style.font-weight = 'bold';
     //     }
-    //     return style;
+        
     //    });
+    //    return style;
     // },
 
     handleClick2(ids) {
@@ -157,6 +163,9 @@ export default {
           this.childCategoryArray.push(element);
         });
 
+        this.activeId = this.childCategoryArray;
+        console.log("this.activeId",this.activeId);
+
         let arr1 = this.childCategoryArray;
         console.log("arr1",arr1);
         this.childCategories2 = arr1.unshift({ name: 'All', id:"Allchild" });
@@ -165,6 +174,8 @@ export default {
         alert(ids);
         this.childCategory = true;
         this.onClickButton(false);
+        console.log("this",this);
+        
       } else {
         alert(ids);
         this.childCategory = false;
@@ -216,7 +227,7 @@ export default {
   cursor: pointer;
   white-space: nowrap;
 }
-.item-scroller-nav .main-menu .swiper-slide a.active:hover {
+.item-scroller-nav .main-menu .swiper-slide a.active {
   border-bottom: solid 2px #090909;
   font-weight: bold;
   color: #090909;

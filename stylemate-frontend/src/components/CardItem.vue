@@ -175,15 +175,14 @@ export default defineComponent({
   },
   methods: {
     AllValue(){
+      !this.isFltData;
+      console.log("this.isFltData;",!this.isFltData);
         this.itemService.getProductList().then((data) => {
         console.log("ItemList", data);
         this.item_list = data;
         console.log("myvalues", this.item_list);
         alert("values")
 
-        // !this.isFltData;
-        // this.isBanner;
-// console.log("!this.isFltData", !this.isFltData);
         if (data.length == 0) {
           // alert('nodata')
           this.nofltData = true;
@@ -210,6 +209,7 @@ export default defineComponent({
   },
 
   updated() {
+    console.log("this.isFltData;",this.isFltData);
     // console.log("from carditem this.isproductfilter", this.isproductfilter);
     this.itemService.getProductList().then((data) => {
       // console.log("ItemList", data);
@@ -219,6 +219,7 @@ export default defineComponent({
         console.log("this.isproductfilter", this.item_list);
       } 
       else if(!this.isFltData){
+        !this.isFltData;
         alert("all values");
         this.AllValue();
       }
