@@ -4,8 +4,8 @@
     <TopNav></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
-      <!-- <div class="main-wrap"> -->
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -22,9 +22,7 @@
           </swiper-slide>
         </swiper>
       </div>
-
       <div class="overlapSlide">
-        <button @click="getMyinfo">My Info</button>
         <div class="headerLine">
           <h4>NEW ITEM</h4>
         </div>
@@ -39,11 +37,7 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newEvanItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newEvanItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -58,11 +52,7 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newOddItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newOddItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -77,11 +67,7 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newStartItems"
-                :key="index"
-              >
+              <div class="slideItem" v-for="(item, index) in newStartItems" :key="index">
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -97,7 +83,7 @@
 
         <div class="brandSlider">
           <div class="headerLine">
-            <h4>NEW BRAND1</h4>
+            <h4>NEW BRAND</h4>
           </div>
           <swiper
             :effect="'coverflow'"
@@ -115,16 +101,17 @@
             :modules="modules"
             class="mySwiper"
           >
-            <swiper-slide
-              class="brandSliderimg"
-              v-for="item in brandList"
-              :key="item.id"
-            >
+            <swiper-slide class="brandSliderimg" v-for="item in brandList" :key="item.id">
               <div class="nb-img-wrap">
                 <img :src="item.imageThumbnailPath" />
               </div>
               <div class="brandDetails">
-                <h3>Title 1 <b><img src="@/assets/icons/arrow-right.svg" /></b></h3>
+                <h3>
+                  Title 1
+                  <b>
+                    <img src="@/assets/icons/arrow-right.svg" />
+                  </b>
+                </h3>
                 <p>sdasds das as das</p>
                 <span>dfsf fsddf</span>
               </div>
@@ -138,6 +125,7 @@
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
+
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
             <img src="@/assets/images/book1.png" />
@@ -179,26 +167,32 @@
             <img src="@/assets/images/book1.png" />
           </div>
         </div>
+
         <div class="gotoFamily">
           <div class="gotofamilyList" :class="{ active: isActive }">
             <ul>
               <li>
-                <a href="#"><img src="@/assets/images/logo-1.png" /></a>
+                <a href="#">
+                  <img src="@/assets/images/logo-1.png" />
+                </a>
               </li>
               <li>
-                <a href="#"><img src="@/assets/images/logo-2.png" /></a>
+                <a href="#">
+                  <img src="@/assets/images/logo-2.png" />
+                </a>
               </li>
             </ul>
           </div>
           <button @click="myFilter">패밀리 사이트 바로가기</button>
         </div>
+
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull">
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
-      <!-- </div> -->
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
@@ -214,32 +208,19 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-// import { IonSlides, IonSlide } from "@ionic/vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
-import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Home",
   components: {
     TopNav,
-    // IonContent,
     IonPage,
-    // IonSlides,
-    // IonSlide,
     Swiper,
     SwiperSlide,
   },
   setup() {
-    // const slideOpts = {
-    //   initialSlide: 1,
-    //   speed: 400,
-    //   loop: true,
-    //   autoplay:true
-    // };
-    // return { slideOpts }
-
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
@@ -262,13 +243,17 @@ export default {
       newEvanItems: [],
       newProItems: null,
       isActive: false,
+      // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
   created() {
     this.bannerService = new BannerService();
     this.brandService = new BrandService();
     this.itemService = new ItemService();
-    this.userInfoService = new UserInfoService();
+
+    // setTimeout(() => {
+    //   this.pushNotification(this.jdata);
+    // }, 5000);
   },
 
   mounted() {
@@ -280,6 +265,9 @@ export default {
       this.brandList = res;
       console.log(res);
     });
+
+    window.callJsFunction = this.callJsFunction;
+    window.pushNotification = this.pushNotification;
   },
   methods: {
     getProductItemList() {
@@ -309,18 +297,6 @@ export default {
       });
     },
 
-    getMyinfo() {
-      this.userInfoService.getUserInfo().then((res) => {
-        if (res.response) {
-          if (res.response.status == 401) {
-            this.$router.push("/login");
-          }
-        } else {
-          console.log(res.data);
-        }
-      });
-    },
-
     setTags(items) {
       var filterItems = [];
       items.forEach((value) => {
@@ -337,14 +313,27 @@ export default {
 
     // for pushnotification
     pushNotification(res) {
-      alert(res);
-      this.$router.push({
-        name: "Item",
-        params: {
-          data: res,
-        },
-      });
+      const obj = JSON.parse(JSON.stringify(res));
+      alert(obj.product_URL);
+      console.log('res', obj);
+      if (obj.product_URL) {
+        this.$router.push(obj.product_URL);
+      }
     },
+
+    // onMessage(res) {
+    //   console.log("Data : " + res),
+    //     alert(res)
+    // },
+    // sendMessage(res) {
+    //   console.log(res);
+    //   window.parent.postMessage({
+    //     data: res
+    //   }, "*");
+    // },
+    callJsFunction(res) {
+      alert(res)
+    }
 
   },
 };
@@ -414,6 +403,10 @@ export default {
   font-size: 20px;
 }
 
+.brandSliderimg {
+  border-radius: 6px;
+  overflow: hidden;
+}
 .brandSliderimg img {
   width: 100%;
 }
@@ -435,11 +428,6 @@ export default {
 .brandHeader span {
   font-size: 12px !important;
   color: #25282b !important;
-}
-.swiper-slide {
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
 }
 .gotoFamily {
   position: relative;
@@ -489,11 +477,11 @@ export default {
   padding: 20px 0;
 }
 
-.brandDetails{
+.brandDetails {
   background: #fff;
   padding: 22px 16px;
 }
-.brandDetails h3{
+.brandDetails h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -501,16 +489,16 @@ export default {
   font-weight: 700;
   margin: 0 0 5px;
 }
-.brandDetails p{
+.brandDetails p {
   font-size: 12px;
   font-weight: 400;
   color: #797979;
   margin-bottom: 10px;
 }
-.brandDetails span{
+.brandDetails span {
   font-size: 14px;
   font-weight: 400;
-  color: #25282B;
+  color: #25282b;
 }
 </style>
 
