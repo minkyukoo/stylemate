@@ -160,7 +160,6 @@ export default defineComponent({
   },
 
   mounted() {
-    // console.log("from carditem this.isproductfilter", this.isproductfilter);
     // Slide title
     this.itemService.getProductCategories().then((data) => {
       // console.log("categories_info", data);
@@ -175,26 +174,11 @@ export default defineComponent({
   },
   methods: {
     AllValue(){
-      !this.isFltData;
-      console.log("this.isFltData;",!this.isFltData);
         this.itemService.getProductList().then((data) => {
         console.log("ItemList", data);
         this.item_list = data;
         console.log("myvalues", this.item_list);
         alert("values")
-
-        if (data.length == 0) {
-          // alert('nodata')
-          this.nofltData = true;
-          this.$emit('fltData', false);
-
-        } else {
-          this.nofltData = false;
-          this.$emit('fltData', true);
-
-          let filterproductList = data;
-          this.$emit("filterproductList",filterproductList);
-        }
 
       })
     },
@@ -209,17 +193,13 @@ export default defineComponent({
   },
 
   updated() {
-    console.log("this.isFltData;",this.isFltData);
-    // console.log("from carditem this.isproductfilter", this.isproductfilter);
     this.itemService.getProductList().then((data) => {
       // console.log("ItemList", data);
       if (this.isproductfilter) {
-        // alert("updated filterdata")
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
       } 
       else if(!this.isFltData){
-        !this.isFltData;
         alert("all values");
         this.AllValue();
       }
