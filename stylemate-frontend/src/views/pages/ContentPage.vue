@@ -204,6 +204,7 @@ export default {
   font-size: 24px;
   line-height: 24px;
   margin-bottom: 20px;
+  color: #090909;
 }
 .newimage {
   background-size: cover;
