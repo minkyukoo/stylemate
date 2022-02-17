@@ -363,3 +363,40 @@ img:hover{
     }
   }
 }
+
+.notiWrap{
+  .vue-select {
+    .vue-select-header {
+      .vue-input{
+        padding: 12px 20px;
+      }
+      .icon.arrow-downward{
+        border: none;
+        background: url('../../../src/assets/icons/arrow-down-select.svg') no-repeat center center;
+        background-size: 100%;
+        height: 24px;
+        width: 24px;
+        display: inline-block;
+        margin-right: 18px;
+      }
+    }
+    .vue-dropdown{
+      border-radius: 6px;
+      background: #FFFFFF;
+      border: 1px solid #C4C4C4;
+      // position: absolute;
+      z-index: 9;
+      .vue-dropdown-item{
+        padding: 18px 19px;
+        span{
+          font-size: 14px;
+          line-height: 14px;
+          color: #595959;
+        }
+        &.highlighted{
+          background: rgba(229, 229, 229, 0.5);
+        }
+      }
+    }
+  }
+}
