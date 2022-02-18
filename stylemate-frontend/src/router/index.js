@@ -230,6 +230,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/noticedetails",
+    name: "NoticeDetails",
+    component: () => import("@/views/pages/NoticeDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
