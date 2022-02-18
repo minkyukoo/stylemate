@@ -25,7 +25,7 @@
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
-      <div v-for="notice in noticelist" :key="notice" class="notice-row">
+      <div v-for="notice in noticelist" :key="notice" class="notice-row" @click="$router.push({ name: 'NoticeDetails' })">
         <div class="tag-row">
           <span class="notice-tag red-solid">알림</span>
           <span class="notice-tag red-outline">중요</span>
@@ -80,7 +80,7 @@ export default {
   },
   data() {
     return {
-      layout: "tab3",
+      layout: "tab1",
       noticelist: [
         {
           desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
