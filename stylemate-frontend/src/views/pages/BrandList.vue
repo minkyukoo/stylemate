@@ -56,7 +56,6 @@ import {
   IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
-// import axios from "axios";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
 export default {
@@ -83,15 +82,20 @@ export default {
     this.userInfoService = new UserInfoService();
   },
   mounted() {
-    this.setUser();
+    // this.setUser();
     this.getBrandList();
   },
 
   methods: {
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
-        this.user = res.data;
-        this.setHistoryKeywords(res.data.uid);
+        console.log('errorstate', res.response.status);
+        if(res.response.status == 401) {
+          this.$router.push({ name: 'LoginPage' });
+        } else if(res.response.status == 200) {
+          this.user = res.data;
+          this.setHistoryKeywords(res.data.uid);
+        }
       });
     },
 

@@ -4,25 +4,25 @@
     <TopNav headerTitle="ITEM"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <div class="main-wrap">
+    <ion-content :fullscreen="true">
       <!-- <ExploreContainer name="Item page" /> -->
       <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" />
       
       <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
-    </div>
+    </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage } from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import CardItem from "@/components/CardItem.vue";
 import CategoryList from "@/components/CategoryList.vue";
 
 export default {
   name: "Item",
-  components: { TopNav, IonPage, CardItem, CategoryList },
+  components: { TopNav, IonContent, IonPage, CardItem, CategoryList },
   data() {
     return {
       isBanner: true,

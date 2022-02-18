@@ -235,34 +235,4 @@ http://ionicframework.com/docs/theming/ */
 
 }
 
-/* ion-content {
-  width: calc(100% + 17px);
-}
-ion-content {
-  padding-right: 17px;
-} */
 
-ion-content::part(scroll)::-webkit-scrollbar {
-  display: none !important;
-} 
-
-/* @media(prefers-color-scheme: primary) {
-  ::-webkit-scrollbar {
-    width: 2px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #fff;
-  }
-  ::-webkit-scrollbar-track:hover {
-    background: #f7f7f7;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgb(223, 20, 20);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #888
-  }
-  .inner-scroll {
-    scrollbar-width: thin
-  }
-} */
