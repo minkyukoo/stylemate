@@ -262,6 +262,47 @@ const routes = [
     name: "Slider",
     component: () => import("@/views/pages/Slider.vue"),
   },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: () => import("@/views/pages/Notice.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquirydetails",
+    name: "InquiryDetails",
+    component: () => import("@/views/pages/InquiryDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquiryregisterdetails",
+    name: "InquiryRegisterDetails",
+    component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/noticedetails",
+    name: "NoticeDetails",
+    component: () => import("@/views/pages/NoticeDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  }
+  
+
+
+
+
+
+
+
+
 ];
 
 
