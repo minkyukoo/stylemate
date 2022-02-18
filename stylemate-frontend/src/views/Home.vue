@@ -142,46 +142,42 @@
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
-
+        
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
-            <img src="@/assets/images/book1.png" />
+            <img
+              v-for="book in lookBooks.lineOne.big"
+              :key="book.id"
+              :src="book.brand.imageThumbnailPath"
+            />
           </div>
           <div class="bookLabel1 pattern2">
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
-            </div>
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
+            <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+              <img :src="book.brand.imageThumbnailPath" />
             </div>
           </div>
         </div>
 
         <div class="lookBookMain">
           <div class="bookLabel2">
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
-            </div>
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
-            </div>
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
+            <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
+              <img :src="book.brand.imageThumbnailPath" />
             </div>
           </div>
         </div>
 
         <div class="lookBookMain">
           <div class="bookLabel1 pattern2">
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
-            </div>
-            <div>
-              <img src="@/assets/images/Rectanglec1.png" />
+            <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
+              <img :src="book.brand.imageThumbnailPath" />
             </div>
           </div>
           <div class="bookLabel1 pattern1">
-            <img src="@/assets/images/book1.png" />
+            <img
+              v-for="book in lookBooks.lineThree.big"
+              :key="book.id"
+              :src="book.brand.imageThumbnailPath"
+            />
           </div>
         </div>
 
@@ -258,6 +254,11 @@ export default {
       newStartItems: [],
       newOddItems: [],
       newEvanItems: [],
+      lookBooks: {
+        lineOne: { big: [], normal: [] },
+        lineTwo: { normal: [] },
+        lineThree: { big: [], normal: [] },
+      },
       newProItems: null,
       isActive: false,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
@@ -278,9 +279,9 @@ export default {
       this.bannerList = res;
     });
     this.getProductItemList();
+    this.getLookBook();
     this.brandService.getBrandList().then((res) => {
       this.brandList = res;
-      console.log(res);
     });
 
     window.callJsFunction = this.callJsFunction;
@@ -311,6 +312,34 @@ export default {
         this.newStartItems = startArray;
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
+      });
+    },
+
+    getLookBook() {
+      this.brandService.lookBook().then((res) => {
+        let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
+        res.forEach((value, key) => {
+          switch (true) {
+            case key < 3:
+              if (key === 0) {
+                this.lookBooks.lineOne.big[i.ob++] = value;
+              } else {
+                this.lookBooks.lineOne.normal[i.on++] = value;
+              }
+              break;
+            case key < 6:
+              this.lookBooks.lineTwo.normal[i.tn++] = value;
+              break;
+            default:
+              if (key === res.length - 1) {
+                this.lookBooks.lineThree.big[i.thb++] = value;
+              } else {
+                this.lookBooks.lineThree.normal[i.thn++] = value;
+              }
+              break;
+          }
+        });
+        // console.log(lookBooks);
       });
     },
 
