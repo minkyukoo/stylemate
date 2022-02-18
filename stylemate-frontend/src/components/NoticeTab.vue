@@ -55,7 +55,7 @@
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
-      <div v-for="inquiry in inquirylist" :key="inquiry" class="notice-row">
+      <div v-for="inquiry in inquirylist" :key="inquiry" class="notice-row" @click="$router.push({ name: 'InquiryRegisterDetails' })">
         <div class="tag-row">
           <span class="notice-tag grey-solid">확인중</span>
           <span class="notice-tag dark-outline">답변완료</span>
