@@ -223,6 +223,22 @@ const routes = [
     }
   },
   {
+    path: "/inquiryregisterdetails",
+    name: "InquiryRegisterDetails",
+    component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  // {
+  //   path: "/brands/:id",
+  //   name: "BrandDetails",
+  //   component: () => import("@/views/pages/BrandDetails.vue"),
+  //   meta: {
+  //     innerHeader: true,
+  //   }
+  // },
+  {
     path: "/link-channel",
     name: "LinkChannel",
     component: () => import("@/views/pages/LinkChannel.vue"),
