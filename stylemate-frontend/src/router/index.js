@@ -222,6 +222,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/inquiryregisterdetails",
+    name: "InquiryRegisterDetails",
+    component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
