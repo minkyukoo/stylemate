@@ -37,7 +37,11 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem" v-for="(item, index) in newEvanItems" :key="index">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newEvanItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -52,7 +56,11 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem" v-for="(item, index) in newOddItems" :key="index">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newOddItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -67,7 +75,11 @@
 
           <swiper-slide>
             <div class="multiSlideWrap">
-              <div class="slideItem" v-for="(item, index) in newStartItems" :key="index">
+              <div
+                class="slideItem"
+                v-for="(item, index) in newStartItems"
+                :key="index"
+              >
                 <div class="socialBLock">
                   <img src="@/assets/icons/instagram-small.svg" class="insta" />
                   <img src="@/assets/icons/wish.svg" class="wishList" />
@@ -223,7 +235,7 @@ export default {
     IonPage,
     Swiper,
     SwiperSlide,
-    IonContent
+    IonContent,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -320,7 +332,7 @@ export default {
     pushNotification(res) {
       // const obj = JSON.parse(JSON.stringify(res));
       alert(res);
-      console.log('res', res);
+      console.log("res", res);
       if (res) {
         this.$router.push(res);
         // this.$router.push({name: 'products.index', params: { id: 1 }});
@@ -338,17 +350,20 @@ export default {
     //   }, "*");
     // },
     callJsFunction(res) {
-      alert(res)
-    }
-
+      alert(res);
+    },
   },
 };
 </script>
 
 <style scoped>
-.overlapSlide{
-  background: rgb(222,222,222);
-  background: linear-gradient(180deg, rgba(222,222,222,1) 0%, rgba(255,255,255,1) 2%);
+.overlapSlide {
+  background: rgb(222, 222, 222);
+  background: linear-gradient(
+    180deg,
+    rgba(222, 222, 222, 1) 0%,
+    rgba(255, 255, 255, 1) 2%
+  );
 }
 .inner-scroll {
   margin-right: -20px !important;
