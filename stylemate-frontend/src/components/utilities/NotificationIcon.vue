@@ -14,7 +14,7 @@ export default {
   name: "NotificationIcon",
   // components: { IonPopover },
   props: {
-    notificationCount: String,
+    notificationCount: Number,
   },
 };
 </script>

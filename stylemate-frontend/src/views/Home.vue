@@ -142,7 +142,7 @@
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
-        
+
         <div class="lookBookMain">
           <div class="bookLabel1 pattern1">
             <img
@@ -223,6 +223,7 @@ import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
+import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Home",
@@ -261,6 +262,7 @@ export default {
       },
       newProItems: null,
       isActive: false,
+      notificationLength: 0,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -268,7 +270,7 @@ export default {
     this.bannerService = new BannerService();
     this.brandService = new BrandService();
     this.itemService = new ItemService();
-
+    this.userInfoService = new UserInfoService();
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
