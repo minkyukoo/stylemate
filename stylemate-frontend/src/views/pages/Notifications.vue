@@ -18,14 +18,17 @@
         </div>
         <ul class="loopList">
           <li v-for="item in notifications" :key="item.id">
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
+            <span class="circle">
+              <img src="@/assets/icons/calender.svg" />
+            </span>
             <div class="loopInner">
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
               <b>{{ item.title }}</b>
               <p>{{ item.message }}</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
+              <a href="#">
+                바로가기
+                <img src="@/assets/icons/smallarw.png" />
+              </a>
             </div>
           </li>
         </ul>

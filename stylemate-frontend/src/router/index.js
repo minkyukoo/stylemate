@@ -154,7 +154,7 @@ const routes = [
         }
       },
       {
-        path: "sponsorships",
+        path: "/sponsorships",
         name: "Sponsorships",
         beforeEnter: guard,
         component: Sponsorships,
@@ -163,7 +163,7 @@ const routes = [
         }
       },
       {
-        path: "post-activity",
+        path: "/post-activity",
         name: "Post Activity",
         beforeEnter: guard,
         component: PostActivity,
@@ -172,7 +172,7 @@ const routes = [
         }
       },
       {
-        path: "mypage-liked",
+        path: "/mypage-liked",
         name: "MyPage Liked",
         // beforeEnter: guard,
         component: MyPageLiked,
