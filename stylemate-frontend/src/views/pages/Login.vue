@@ -8,6 +8,7 @@
       <div class="inner-container listmain">
         <div class="login-wrap">
           <h1 class="page-title pad-t-40">스타일메이트에 로그인 해주세요</h1>
+          <button class="login-btn" @click="loginHandaler">login</button>
           <ion-button router-link="/home">Go to detail</ion-button>
           <ion-button router-link="/mypage">Go to detail</ion-button>
         </div>
