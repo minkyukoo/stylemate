@@ -206,6 +206,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/changeuserinfo",
+    name: "ChangeUserinfo",
+    component: () => import("@/views/pages/ChangeUserinfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
