@@ -214,6 +214,30 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/addaddress",
+    name: "AddAddress",
+    component: () => import("@/views/pages/AddAddress.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/shippingInfo",
+    name: "ShippingInfo",
+    component: () => import("@/views/pages/ShippingInfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/deliveryaddress",
+    name: "DeliveryAddress",
+    component: () => import("@/views/pages/DeliveryAddress.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
