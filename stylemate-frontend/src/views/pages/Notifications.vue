@@ -5,11 +5,16 @@
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
-      <div class="main-wrap">
+    <div class="main-wrap">
       <div class="inner-container">
         <!-- <DropDown class="pad-t-32" /> -->
         <div class="notiWrap">
-          <vue-select placeholder="전체알림" :options="options"> </vue-select>
+          <vue-select
+            placeholder="전체알림"
+            :options="options"
+            v-model="noticeOption"
+          >
+          </vue-select>
         </div>
         <ul class="loopList">
           <li v-for="item in notifications" :key="item.id">
@@ -23,86 +28,9 @@
               <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
             </div>
           </li>
-          <!-- <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li> -->
-          <!-- <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li>
-          <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li>
-          <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li>
-          <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li>
-          <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li>
-          <li>
-            <span class="circle"
-              ><img src="@/assets/icons/calender.svg"
-            /></span>
-            <div class="loopInner">
-              <span>2021년 01월 26일</span>
-              <b>포스트 등록 요청</b>
-              <p>협찬요청이 승인되었습니다. 포스트 등록을 진행해주세요</p>
-              <a href="#">바로가기 <img src="@/assets/icons/smallarw.png" /></a>
-            </div>
-          </li> -->
         </ul>
       </div>
-      </div>
+    </div>
     <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
@@ -111,7 +39,6 @@
 <script>
 import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-// import DropDown from "@/components/utilities/DropDown.vue";
 
 import VueNextSelect from "vue-next-select";
 import UserInfoService from "@/services/UserInfoService";
@@ -122,6 +49,8 @@ export default {
   data() {
     return {
       notifications: [],
+      // options: [],
+      noticeOption: null,
     };
   },
   created() {
@@ -131,8 +60,20 @@ export default {
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
+        this.options = notice.data.data.map((option) => option.type);
       });
     });
+  },
+  watch: {
+    noticeOption: function (type) {
+      this.userInfoService.getUserInfo().then((userInfo) => {
+        this.userInfoService
+          .getFilterNotice(userInfo.data.uid, type)
+          .then((notice) => {
+            this.notifications = notice.data.data;
+          });
+      });
+    },
   },
   methods: {
     humanReadableFormat(date) {
@@ -156,8 +97,6 @@ export default {
     },
   },
   setup() {
-    // const selectedItem = ref("Black");
-
     const options = [
       "all",
       "Campaign",
