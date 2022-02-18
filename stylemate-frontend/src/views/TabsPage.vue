@@ -1,5 +1,6 @@
 <template>
-  <ion-page class="main-container relative">
+  <!-- <ion-page class="main-container relative"> -->
+    <div class="main-container relative">
     <ion-tabs>
       <!-- <TopNav></TopNav> -->
       <ion-router-outlet></ion-router-outlet>
@@ -50,7 +51,8 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-  </ion-page>
+    </div>
+  <!-- </ion-page> -->
 </template>
 
 <script>
@@ -60,7 +62,7 @@ import {
   IonTabs,
   IonLabel,
   // IonIcon,
-  IonPage,
+  // IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
 // import { ellipse, square, triangle, heart } from "ionicons/icons";
@@ -74,7 +76,7 @@ export default {
     IonTabBar,
     IonTabButton,
     // IonIcon,
-    IonPage,
+    // IonPage,
     IonRouterOutlet,
   },
   data() {
