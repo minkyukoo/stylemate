@@ -153,8 +153,6 @@ export default defineComponent({
     this.itemService = new ItemService();
 
      this.itemService.getProductList().then((data) => {
-      // console.log("ItemList", data);
-      // alert("updated filterdata")
       this.item_list = data;
     })
   },

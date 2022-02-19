@@ -89,7 +89,7 @@ export default {
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
 
-      this.activeId = "All";
+      this.activeId = "All"; //To highlight the button default
 
     });
   },
@@ -102,8 +102,8 @@ export default {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("filterproductList", data);
-        this.childactiveId = ids; //To activate the All button
-
+          this.childactiveId = ids; //To activate the All button
+       
         if (data.length == 0) {
           // alert('nodata')
           this.nofltData = true;
@@ -142,6 +142,8 @@ export default {
         this.childCategory = true;
         this.onClickButton(false);
         console.log("this",this);
+
+        this.childactiveId = "Allchild"; //To highlight the child button default
         
       } else {
         alert(ids);
