@@ -108,6 +108,7 @@ export default defineComponent({
     isBanner: Boolean,
     isFltData: Boolean,
     isproductfilter: null,
+    isallData: null,
   },
   components: {
     IonItem,
@@ -154,13 +155,15 @@ export default defineComponent({
 
      this.itemService.getProductList().then((data) => {
       this.item_list = data;
+      console.log("this.item_list",this.item_list);
     })
   },
 
   mounted() {
     // Slide title
+    console.log("this.allData", this.allData);
     this.itemService.getProductCategories().then((data) => {
-      // console.log("categories_info", data);
+      console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -176,8 +179,7 @@ export default defineComponent({
         console.log("ItemList", data);
         this.item_list = data;
         console.log("myvalues", this.item_list);
-        alert("values")
-
+        alert("values");
       })
     },
 
@@ -191,15 +193,20 @@ export default defineComponent({
   },
 
   updated() {
+    console.log("this.allData", this.allData);
+
     this.itemService.getProductList().then((data) => {
-      // console.log("ItemList", data);
+      console.log("ItemList", data);
       if (this.isproductfilter) {
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
       } 
-      else if(!this.isFltData){
+      else if(this.isFltData){
+        this.item_list = "";
         alert("all values");
-        this.AllValue();
+        // this.AllValue();
+        this.item_list = this.isallData;
+        console.log("this.isallData",this.isallData);
       }
       else {
         alert("updated all filterdata")

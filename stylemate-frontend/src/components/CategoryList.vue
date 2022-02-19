@@ -101,20 +101,25 @@ export default {
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
-        // console.log("filterproductList", data);
+        console.log("filterproductList", data);
           this.childactiveId = ids; //To activate the All button
        
         if (data.length == 0) {
           // alert('nodata')
           this.nofltData = true;
           this.$emit("fltData", false);
-        } else {
+        } else if(data.length !=0){
           this.nofltData = false;
           this.$emit("fltData", true);
 
           let filterproductList = data;
           this.$emit("filterproductList", filterproductList);
-        }
+        } 
+        // else{
+        //   let allData = data;
+        //   console.log("allData",allData);
+        //   this.$emit("allData",allData);
+        // }
       });
     },
 
@@ -150,10 +155,17 @@ export default {
         this.childCategory = false;
         this.onClickButton(true);
       }
+      // else{
+      //     let allData = data;
+      //     console.log("allData",allData);
+      //     this.$emit("allData",allData);
+      //   }
     },
 
     onClickButton(ve) {
       this.$emit("clicked", ve);
+      // let allData = data;
+      // this.$emit("allData",allData);
     },
   },
 };
