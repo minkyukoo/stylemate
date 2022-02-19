@@ -77,7 +77,7 @@ export default {
       ],
     };
   },
-  created(){
+  created() {
 
     this.postService = new PostService();
 
