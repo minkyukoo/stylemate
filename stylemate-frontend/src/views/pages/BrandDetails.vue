@@ -1,12 +1,11 @@
 <template>
-  <ion-page class="relative">
+  <ion-page class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="product-main-banner">
-        <!-- <img src="@/assets/images/product-banner.jpg" /> -->
         <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
       </div>
       <div class="item-wrapper">
@@ -22,7 +21,6 @@
           </ul>
         </div>
         <div class="brandTab">
-          <!-- <TabProductDetails/> -->
           <div class="tab-wrap">
             <div class="tabs">
               <button

@@ -1,12 +1,12 @@
 <template>
   <ion-infinite-scroll threshold="50px" id="infinite-scroll">
     <ion-infinite-scroll-content>
-      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
+      <div class="nodata" v-if="!isFltData && allData">카테고리에 해당하는 제품이 없습니다</div>
       <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
             <ion-item>
-              <ion-select interface="popover" @click = "orderPopularity()" placeholder="인기순">
+              <ion-select interface="popover" @click="orderPopularity()" placeholder="인기순">
                 <ion-select-option value="f">최신순</ion-select-option>
                 <ion-select-option value="m">인기순</ion-select-option>
                 <ion-select-option value="v">마감임박순</ion-select-option>
@@ -31,13 +31,13 @@
             @click="$router.push({ name: 'ItemDetails' })"
           >
             <div class="top-float-div">
-                <div class="social-icon">
-                  <img src="@/assets/icons/instagram.svg" />
-                </div>
-                <div class="favorite">
-                  <img src="@/assets/icons/heart-outline.svg" />
-                </div>
+              <div class="social-icon">
+                <img src="@/assets/icons/instagram.svg" />
               </div>
+              <div class="favorite">
+                <img src="@/assets/icons/heart-outline.svg" />
+              </div>
+            </div>
             <figure @click="$router.push({ name: 'ItemDetails' })">
               <img :src="product.imageThumbnailPath" />
             </figure>
@@ -143,6 +143,7 @@ export default defineComponent({
       layout: "grid",
       categories_info: [],
       item_list: null,
+      allData: false,
       product_details: [],
       banner: [],
       filtervalue: [],
@@ -152,7 +153,7 @@ export default defineComponent({
   created() {
     this.itemService = new ItemService();
 
-     this.itemService.getProductList().then((data) => {
+    this.itemService.getProductList().then((data) => {
       this.item_list = data;
     })
   },
@@ -171,12 +172,13 @@ export default defineComponent({
     // })
   },
   methods: {
-    AllValue(){
-        this.itemService.getProductList().then((data) => {
-        console.log("ItemList", data);
+    AllValue() {
+      this.itemService.getProductList().then((data) => {
+        console.log("ALl ItemList", data);
         this.item_list = data;
+        this.allData = !this.allData;
         console.log("myvalues", this.item_list);
-        alert("values")
+        alert("All values")
 
       })
     },
@@ -196,8 +198,8 @@ export default defineComponent({
       if (this.isproductfilter) {
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
-      } 
-      else if(!this.isFltData){
+      }
+      else if (!this.isFltData) {
         alert("all values");
         this.AllValue();
       }
@@ -208,7 +210,7 @@ export default defineComponent({
     })
   },
 
-  
+
 
 });
 </script>

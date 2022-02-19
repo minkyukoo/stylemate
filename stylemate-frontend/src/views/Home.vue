@@ -4,8 +4,9 @@
     <TopNav></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true" part="scrollbarHide">
-      <!-- <div class="main-wrap"> -->
+    <!-- <ion-content :fullscreen="true" part="scrollbarHide"> -->
+    <div class="main-wrap">
+      <!-- top slider section -->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -22,6 +23,7 @@
           </swiper-slide>
         </swiper>
       </div>
+      <!-- New item sectinon -->
       <div class="overlapSlide">
         <div class="headerLine">
           <h4>NEW ITEM</h4>
@@ -36,63 +38,82 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide>
-            <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newEvanItems"
-                :key="index"
-              >
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+            <div class="multiSlideWrap product-list">
+              <div class="slideItem product-list-item" v-for="(item, index) in newEvanItems" :key="index">
+                <div class="top-float-div">
+                  <div class="social-icon">
+                    <img src="@/assets/icons/instagram.svg" />
+                  </div>
+                  <div class="favorite">
+                    <img src="@/assets/icons/heart-outline.svg" />
+                  </div>
                 </div>
-                <img :src="item.imageThumbnailPath" />
-                <h4>{{ item.brand.engName }}</h4>
-                <p>{{ item.name }}</p>
-                <span>{{ setTags(item.tag) }}</span>
+                <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <img :src="item.imageThumbnailPath" />
+                </figure>
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <h3>{{ item.brand.engName }}</h3>
+                  <p>{{ item.name }}</p>
+                  <div class="hashWrap">
+                    <span>{{ setTags(item.tag) }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </swiper-slide>
 
           <swiper-slide>
-            <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newOddItems"
-                :key="index"
-              >
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+            <div class="multiSlideWrap product-list">
+              <div class="slideItem product-list-item" v-for="(item, index) in newOddItems" :key="index">
+                <div class="top-float-div">
+                  <div class="social-icon">
+                    <img src="@/assets/icons/instagram.svg" />
+                  </div>
+                  <div class="favorite">
+                    <img src="@/assets/icons/heart-outline.svg" />
+                  </div>
                 </div>
-                <img :src="item.imageThumbnailPath" />
-                <h4>{{ item.brand.engName }}</h4>
-                <p>{{ item.name }}</p>
-                <span>{{ setTags(item.tag) }}</span>
+                <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <img :src="item.imageThumbnailPath" />
+                </figure>
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <h3>{{ item.brand.engName }}</h3>
+                  <p>{{ item.name }}</p>
+                  <div class="hashWrap">
+                    <span>{{ setTags(item.tag) }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </swiper-slide>
 
           <swiper-slide>
-            <div class="multiSlideWrap">
-              <div
-                class="slideItem"
-                v-for="(item, index) in newStartItems"
-                :key="index"
-              >
-                <div class="socialBLock">
-                  <img src="@/assets/icons/instagram-small.svg" class="insta" />
-                  <img src="@/assets/icons/wish.svg" class="wishList" />
+            <div class="multiSlideWrap product-list">
+              <div class="slideItem product-list-item" v-for="(item, index) in newStartItems" :key="index">
+                <div class="top-float-div">
+                  <div class="social-icon">
+                    <img src="@/assets/icons/instagram.svg" />
+                  </div>
+                  <div class="favorite">
+                    <img src="@/assets/icons/heart-outline.svg" />
+                  </div>
                 </div>
-                <img :src="item.imageThumbnailPath" />
-                <h4>{{ item.brand.engName }}</h4>
-                <p>{{ item.name }}</p>
-                <span>{{ setTags(item.tag) }}</span>
+                <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <img :src="item.imageThumbnailPath" />
+                </figure>
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <h3>{{ item.brand.engName }}</h3>
+                  <p>{{ item.name }}</p>
+                  <div class="hashWrap">
+                    <span>{{ setTags(item.tag) }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </swiper-slide>
         </swiper>
 
+        <!-- new Brand section -->
         <div class="brandSlider">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
@@ -127,7 +148,9 @@
               <div class="brandDetails">
                 <h3>
                   {{ item.engName }}
-                  <b><img src="@/assets/icons/arrow-right.svg" /></b>
+                  <b>
+                    <img src="@/assets/icons/arrow-right.svg" />
+                  </b>
                 </h3>
                 <p>{{ setTags(item.tag) }}</p>
                 <span>{{ item.description }}</span>
@@ -185,12 +208,12 @@
           <div class="gotofamilyList" :class="{ active: isActive }">
             <ul>
               <li>
-                <a href="#">
+                <a href="https://app.mediance.co.kr/">
                   <img src="@/assets/images/logo-1.png" />
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="http://influencer.mediance.co.kr/">
                   <img src="@/assets/images/logo-2.png" />
                 </a>
               </li>
@@ -204,7 +227,8 @@
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
@@ -218,7 +242,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
@@ -232,7 +256,6 @@ export default {
     IonPage,
     Swiper,
     SwiperSlide,
-    IonContent,
   },
   setup() {
     const onSwiper = (swiper) => {
@@ -388,6 +411,56 @@ export default {
 </script>
 
 <style scoped>
+
+.top-float-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  padding: 7px;
+}
+.top-float-div .favorite {
+  margin-right: 12px;
+  cursor: pointer;
+}
+.product-list .product-list-item figure {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  height: 156px;
+}
+.product-list .product-list-item figure > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-list .product-list-item h3 {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+  color: #25282b;
+  margin-bottom: 4px;
+}
+.product-list .product-list-item p {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 14px;
+  color: #25282b;
+  margin-bottom: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product-list .product-list-item span {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
+}
 .overlapSlide {
   background: rgb(222, 222, 222);
   background: linear-gradient(
