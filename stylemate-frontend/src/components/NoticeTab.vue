@@ -149,7 +149,7 @@ export default {
   methods: {
     dateFormat(date) {
       let dt = new Date(date);
-      return `${dt.getFullYear()}.${dt.getFullMonth()}.${dt.getDate()}`;
+      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
     },
   },
 };
