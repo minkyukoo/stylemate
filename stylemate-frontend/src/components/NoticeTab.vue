@@ -25,17 +25,23 @@
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
-      <div v-for="notice in noticelist" :key="notice" class="notice-row" @click="$router.push({ name: 'NoticeDetails' })">
+      <div
+        v-for="notice in noticelist"
+        :key="notice"
+        class="notice-row"
+        @click="$router.push({ name: 'NoticeDetails' })"
+      >
         <div class="tag-row">
           <span class="notice-tag red-solid">알림</span>
           <span class="notice-tag red-outline">중요</span>
           <span class="notice-tag dark-solid">이벤트</span>
         </div>
         <div class="text-desc">
-          <p>{{ notice.desc }}</p>
+          <p>{{ notice.title }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{notice.type}}</span><span>{{notice.date}}</span>
+          <span>{{ notice.category }}</span
+          ><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -51,20 +57,29 @@
     <div class="tab-content" v-if="layout === 'tab3'">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
-        <button class="black-btn" @click="$router.push({ name: 'InquiryDetails' })">
+        <button
+          class="black-btn"
+          @click="$router.push({ name: 'InquiryDetails' })"
+        >
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
-      <div v-for="inquiry in inquirylist" :key="inquiry" class="notice-row" @click="$router.push({ name: 'InquiryRegisterDetails' })">
+      <div
+        v-for="inquiry in inquirylist"
+        :key="inquiry"
+        class="notice-row"
+        @click="$router.push({ name: 'InquiryRegisterDetails' })"
+      >
         <div class="tag-row">
           <span class="notice-tag grey-solid">확인중</span>
           <span class="notice-tag dark-outline">답변완료</span>
         </div>
         <div class="text-desc">
-          <p>{{inquiry.desc}}</p>
+          <p>{{ inquiry.desc }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{inquiry.type}}</span><span>{{inquiry.date}}</span>
+          <span>{{ inquiry.type }}</span
+          ><span>{{ inquiry.date }}</span>
         </div>
       </div>
     </div>
@@ -73,6 +88,7 @@
 
 <script>
 import NoticeAccordion from "@/components/NoticeAccordion.vue";
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "NoticeTab",
   components: {
@@ -109,18 +125,32 @@ export default {
         },
       ],
       inquirylist: [
-          {
-            desc: '숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이',
-            type: "인스타그램 캠페인 문의",
-            date: "2021.01.03",
-          },
-          {
-            desc: '빠르고 강력한 알레르기 치료제 알지싹 세티!',
-            type: "유튜브 캠페인 문의",
-            date: "2021.01.03",
-          }
-      ]
+        {
+          desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
+          type: "인스타그램 캠페인 문의",
+          date: "2021.01.03",
+        },
+        {
+          desc: "빠르고 강력한 알레르기 치료제 알지싹 세티!",
+          type: "유튜브 캠페인 문의",
+          date: "2021.01.03",
+        },
+      ],
     };
+  },
+  created() {
+    this.service = new UserInfoService();
+  },
+  mounted() {
+    this.service.Notice().then((res) => {
+      this.noticelist = res.data;
+    });
+  },
+  methods: {
+    dateFormat(date) {
+      let dt = new Date(date);
+      return `${dt.getFullYear()}.${dt.getFullMonth()}.${dt.getDate()}`;
+    },
   },
 };
 </script>
@@ -180,15 +210,15 @@ export default {
   background: #52525b;
   color: #ffffff;
 }
-.notice-tag.grey-solid{
-    border: 1px solid #A1A1AA;
-    background: #E4E4E7;
-    color: #212226;
+.notice-tag.grey-solid {
+  border: 1px solid #a1a1aa;
+  background: #e4e4e7;
+  color: #212226;
 }
-.notice-tag.dark-outline{
-    color: #212226;
-    border: 1px solid #A1A1AA;
-    background: #ffffff;
+.notice-tag.dark-outline {
+  color: #212226;
+  border: 1px solid #a1a1aa;
+  background: #ffffff;
 }
 .text-desc {
   margin: 12px 0;
