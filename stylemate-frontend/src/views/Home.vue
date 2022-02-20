@@ -204,7 +204,7 @@
         </div>
 
         <div class="lookBookMain">
-          <div class="bookLabel2">
+          <div class="bookLabel2 pattern3">
             <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
               <img :src="book.brand.imageThumbnailPath" />
             </div>

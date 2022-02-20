@@ -96,11 +96,7 @@ img:hover {
   border-radius: 10px;
   margin-top: 360px;
   background: rgb(222, 222, 222);
-  background: linear-gradient(
-    180deg,
-    rgba(222, 222, 222, 1) 0%,
-    rgba(255, 255, 255, 1) 15%
-  );
+  background: linear-gradient(180deg, rgba(222, 222, 222, 1) 0%, rgba(255, 255, 255, 1) 15%);
   .headerLine {
     margin: 0;
     padding: 60px 20px 20px 20px;
@@ -182,17 +178,45 @@ img:hover {
     width: 49%;
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     div:first-child {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    &.pattern2 {
+      div {
+        height: 100px;
+        width: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+    }
+    &.pattern1 {
+      height: 210px;
+      border-radius: 6px;
+      overflow: hidden;
     }
   }
   .bookLabel2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     div {
       width: 32%;
+    }
+    &.pattern3 {
+      div {
+        height: 100px;
+        border-radius: 6px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
     }
   }
   .pattern1 {
@@ -207,7 +231,7 @@ img:hover {
   height: 100vh;
   overflow: hidden;
   overflow-y: auto;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 .inner-container {
   padding: 0 20px;
@@ -339,8 +363,7 @@ img:hover {
         }
         .icon.arrow-downward {
           border: none;
-          background: url("../../../src/assets/icons/arrow-down-select.svg")
-            no-repeat center center;
+          background: url("../../../src/assets/icons/arrow-down-select.svg") no-repeat center center;
           background-size: 100%;
           height: 24px;
           width: 24px;
@@ -368,15 +391,15 @@ img:hover {
   }
 }
 
-.notiWrap{
+.notiWrap {
   .vue-select {
     .vue-select-header {
-      .vue-input{
+      .vue-input {
         padding: 12px 20px;
       }
-      .icon.arrow-downward{
+      .icon.arrow-downward {
         border: none;
-        background: url('../../../src/assets/icons/arrow-down-select.svg') no-repeat center center;
+        background: url("../../../src/assets/icons/arrow-down-select.svg") no-repeat center center;
         background-size: 100%;
         height: 24px;
         width: 24px;
@@ -384,20 +407,20 @@ img:hover {
         margin-right: 18px;
       }
     }
-    .vue-dropdown{
+    .vue-dropdown {
       border-radius: 6px;
-      background: #FFFFFF;
-      border: 1px solid #C4C4C4;
+      background: #ffffff;
+      border: 1px solid #c4c4c4;
       // position: absolute;
       z-index: 9;
-      .vue-dropdown-item{
+      .vue-dropdown-item {
         padding: 18px 19px;
-        span{
+        span {
           font-size: 14px;
           line-height: 14px;
           color: #595959;
         }
-        &.highlighted{
+        &.highlighted {
           background: rgba(229, 229, 229, 0.5);
         }
       }
