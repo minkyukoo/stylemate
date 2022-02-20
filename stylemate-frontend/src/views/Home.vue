@@ -55,7 +55,10 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -84,7 +87,10 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -113,7 +119,10 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -236,7 +245,7 @@
         </div>
 
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-        <button class="greyBtnFull">
+        <button class="greyBtnFull" @click="getNotice">
           <span>중요</span> [알림] 서비스 점검 안내
         </button>
       </div>
@@ -333,6 +342,15 @@ export default {
       return input;
     },
 
+    getNotice() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.$router.push({ name: "Notice" });
+      } else this.$router.push({ name: "LoginPage" });
+    },
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
