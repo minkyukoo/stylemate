@@ -39,7 +39,11 @@
         >
           <swiper-slide>
             <div class="multiSlideWrap product-list">
-              <div class="slideItem product-list-item" v-for="(item, index) in newEvanItems" :key="index">
+              <div
+                class="slideItem product-list-item"
+                v-for="(item, index) in newEvanItems"
+                :key="index"
+              >
                 <div class="top-float-div">
                   <div class="social-icon">
                     <img src="@/assets/icons/instagram.svg" />
@@ -64,7 +68,11 @@
 
           <swiper-slide>
             <div class="multiSlideWrap product-list">
-              <div class="slideItem product-list-item" v-for="(item, index) in newOddItems" :key="index">
+              <div
+                class="slideItem product-list-item"
+                v-for="(item, index) in newOddItems"
+                :key="index"
+              >
                 <div class="top-float-div">
                   <div class="social-icon">
                     <img src="@/assets/icons/instagram.svg" />
@@ -89,7 +97,11 @@
 
           <swiper-slide>
             <div class="multiSlideWrap product-list">
-              <div class="slideItem product-list-item" v-for="(item, index) in newStartItems" :key="index">
+              <div
+                class="slideItem product-list-item"
+                v-for="(item, index) in newStartItems"
+                :key="index"
+              >
                 <div class="top-float-div">
                   <div class="social-icon">
                     <img src="@/assets/icons/instagram.svg" />
@@ -119,41 +131,42 @@
             <h4>NEW BRAND</h4>
           </div>
           <swiper
-            :effect="'coverflow'"
-            :grabCursor="true"
-            :centeredSlides="true"
-            :slidesPerView="'1.4'"
-            :coverflowEffect="{
-              rotate: 0,
-              stretch: 0,
-              depth: 300,
-              modifier: 1,
-              slideShadows: true,
-            }"
-            :pagination="true"
             :modules="modules"
-            class="mySwiper"
+            :centeredSlides="true"
+            :centeredSlidesBounds="true"
+            :slidesPerGroup="1"
+            :watchSlidesProgress="true"
+            :slidesPerView="1.5"
+            :space-between="20"
+            :pagination="{ clickable: true }"
+            class="newBrandSwiper"
           >
             <swiper-slide
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
             >
-              <div class="nb-img-wrap">
-                <img :src="item.imageThumbnailPath" />
-              </div>
-              <div class="brandDetails">
-                <h3>
-                  {{ item.engName }}
-                  <b>
-                    <img src="@/assets/icons/arrow-right.svg" />
-                  </b>
-                </h3>
-                <p>{{ setTags(item.tag) }}</p>
-                <span>{{ item.description }}</span>
+              <div class="carousel__item">
+                <div class="nb-img-wrap">
+                  <img :src="item.imageThumbnailPath" />
+                </div>
+                <div class="brandDetails">
+                  <h3 v-if="item.engName">
+                    {{ item.engName }}
+                    <b>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </b>
+                  </h3>
+                  <h3 v-else>
+                    {{ item.korName }}
+                    <b>
+                      <img src="@/assets/icons/arrow-right.svg" />
+                    </b>
+                  </h3>
+                  <p>{{ setTags(item.tag) }}</p>
+                  <span>{{ truncate(item.description, 56) }}</span>
+                </div>
               </div>
             </swiper-slide>
           </swiper>
@@ -313,6 +326,13 @@ export default {
     window.pushNotification = this.pushNotification;
   },
   methods: {
+    truncate(input, length) {
+      if (input.length > length) {
+        return input.substring(0, length) + '...';
+      }
+      return input;
+    },
+
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
@@ -411,7 +431,6 @@ export default {
 </script>
 
 <style scoped>
-
 .top-float-div {
   width: 100%;
   display: flex;
@@ -532,10 +551,10 @@ export default {
   font-size: 20px;
 }
 
-.brandSliderimg {
+/* .brandSliderimg {
   border-radius: 6px;
   overflow: hidden;
-}
+} */
 .brandSliderimg img {
   width: 100%;
 }
@@ -609,6 +628,7 @@ export default {
 .brandDetails {
   background: #fff;
   padding: 22px 16px;
+  min-height: 150px;
 }
 .brandDetails h3 {
   display: flex;
@@ -617,6 +637,8 @@ export default {
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 5px;
+  color: #25282b;
+  text-transform: uppercase;
 }
 .brandDetails p {
   font-size: 12px;
@@ -628,5 +650,26 @@ export default {
   font-size: 14px;
   font-weight: 400;
   color: #25282b;
+}
+
+.newBrandSwiper .swiper-slide > .carousel__item {
+  transform: scale(1);
+  opacity: 0.5;
+  transition: 0.5s;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.newBrandSwiper .swiper-slide-active > .carousel__item {
+  opacity: 1;
+  transform: rotateY(0);
+}
+.newBrandSwiper .swiper-slide-next > .carousel__item {
+  transform: scale(0.9) translate(-10px);
+}
+.newBrandSwiper .swiper-slide-prev > .carousel__item {
+  transform: scale(0.9) translate(10px);
+}
+.newBrandSwiper .swiper-slide-active > .carousel__item {
+  transform: scale(1);
 }
 </style>
