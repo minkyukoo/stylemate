@@ -4,71 +4,83 @@
       <ion-title>Content Detaisl</ion-title>
     </ion-toolbar>
   </ion-header> -->
-  <ion-content :fullscreen="true">
-    <div class="ion-page" v-for="data in datas" :key="data">
-      <img :src="data.src" v-bind:alt="img" class="modalimage" />
-      <p class="text">
-        {{data.content}}
-      </p>
-      <ion-button expand="full" color="dark" @click="closeModal()"
-        >to close</ion-button
+  <Modal modalSize="modal-lg" v-show="store.state.contentDetailsModal">
+    <template v-slot:header>
+      <div></div>
+    </template>
+    <template v-slot:body>
+      <div class="details-body">
+        <img
+          :src="[modalImg ? modalImg : '../assets/images/Rectangle 55.png']"
+          :alt="`img-${id}`"
+          class="modalimage"
+        />
+        <p class="text">
+          {{ description }}
+        </p>
+      </div>
+    </template>
+    <template v-slot:footer>
+      <Button
+        :name="'to close'"
+        :style="'btn-dark w-100'"
+        v-on:buttonEvent="() => (store.state.contentDetailsModal = false)"
+      />
+      <!-- <button
+        @click="() => (store.state.contentDetailsModal = false)"
+        class="btn-dark"
       >
-    </div>
-  </ion-content>
+        to close
+      </button> -->
+    </template>
+  </Modal>
 </template>
 
 <script>
-import { IonContent, IonButton, modalController } from "@ionic/vue";
-import { defineComponent } from "vue";
-import axios from "axios";
+import { inject, defineComponent } from "vue";
+import ContentService from "@/services/ContentService";
+import Modal from "./Modal.vue";
+import Button from "./MyPage/MyPageTopButton.vue";
 
 export default defineComponent({
   name: "ContentDetails",
-  props: {
-    title: { type: String, default: "Super Modal", title: String },
-  },
-  data() {
+
+  setup() {
+    const store = inject("store");
     return {
-      datas:[
-       { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "1 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "2 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "3 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "4 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "5 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "6 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "7 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "8 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-        { src: "https://source.unsplash.com/random/800x400?i=1", 
-        content: "9 #streetfashion #swoofa #hoodie #streetfashion #swoofa #hoodie#streetfashion #sufa #hoodie #streetfashion #sufa #hoodie to close" },
-      ]
+      store,
     };
   },
-  components: { IonContent, IonButton },
-     mounted() {
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/contents/6")
+
+  data() {
+    return {
+      new_contents: {},
+      description: "",
+      modalImg: "",
+      contentService: null,
+      id: null,
+    };
+  },
+  components: { Modal, Button },
+  mounted() {
+    this.contentService
+      .getPostDetail(this.store.state.contentDetailsId)
       .then((response) => {
-        this.new_contents = response.data.data;
-        console.log("contentdetaisl", response);
-      })
-      .catch((e) => {
-        this.error.push(e);
+        this.new_contents = response.data;
+        this.description = response.data.instagramPost.description;
+        this.modalImg = response.data.instagramPost.thumbnailOriginalUrl;
+        this.id = response.data.id;
+        console.log(response.data, this.modalImg);
+        // this.description = response.data.description;
       });
   },
-  created: function() {
-		console.log('this.title', this.title);
-	},
+  created: function () {
+    console.log("Page No", this.store.state.contentDetailsId);
+    this.contentService = new ContentService();
+  },
   methods: {
     closeModal() {
-      modalController.dismiss({ closebutton: true });
+      // modalController.dismiss({ closebutton: true });
     },
   },
 });
@@ -87,10 +99,13 @@ export default defineComponent({
   overflow: hidden;
   z-index: 0;
 }
+.details-body {
+  padding: 10px 10px 36px;
+}
 .modalimage {
-  width: 100%;
-  padding: 10px;
-  height: 89%;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 16px;
 }
 .text {
   text-align: center;

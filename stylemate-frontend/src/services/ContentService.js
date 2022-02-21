@@ -1,10 +1,15 @@
-import axios from 'axios';
-
+import axios from "axios";
 
 export default class ContentService {
-  
   async getPost(type, limit) {
-    return await axios.get(`/stylemates/banners?type=${type}?limit=${limit}`).then((res) => res.data).catch((err) => err);
+    return await axios
+      .get(`/stylemates/banners?type=${type}?limit=${limit}`)
+      .then((res) => res.data)
+      .catch((err) => err);
   }
-  
+
+  async getPostDetail(id) {
+    return await axios
+      .get(`/stylemates/contents/${id}`) 
+  }
 }
