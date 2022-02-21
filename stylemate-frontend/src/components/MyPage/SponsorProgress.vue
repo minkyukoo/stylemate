@@ -9,22 +9,25 @@
     </div>
     <div v-else>
       <Error
-        errors="You have not yet been selected for sponsorship. Please apply for sponsorship for products from other brands as well."
+        errors="You have not yet been selected for sponsorship. 
+        Please apply for sponsorship for products from other brands as well."
       />
     </div>
     <RegisterPostModal />
     <CancelSponser />
+    <ReRegisterModal />
   </div>
 </template>
 
 <script>
 import ItemCard from "@/components/MyPage/ItemCard.vue";
 import Error from "../Error.vue";
-import RegisterPostModal from "../MyPage/RegisterPostModal.vue";
-import CancelSponser from "../MyPage/CancelSponser.vue";
+import RegisterPostModal from "./Modals/RegisterPostModal.vue";
+import CancelSponser from "./Modals/CancelSponser.vue";
+import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 export default {
   name: "SponsorProgress",
-  components: { ItemCard, Error, RegisterPostModal, CancelSponser },
+  components: { ItemCard, Error, RegisterPostModal, CancelSponser, ReRegisterModal },
   data() {
     return {
       progress: [

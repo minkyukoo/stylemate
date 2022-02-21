@@ -1,6 +1,6 @@
 <template>
   <Modal
-    v-show="store.state.isPostModalVisible"
+    v-show="store.state.isReRegisterModalVisible"
     @close="closeModal"
     v-bind:showCloseBtn="false"
     modalSize="modal-lg"
@@ -12,7 +12,7 @@
       <div class="modal-content">
         <div class="Post-header">
           <div class="img-con">
-            <img src="../../assets/images/MyPage-item1.png" alt="" />
+            <img src="../../../assets/images/MyPage-item1.png" alt="" />
           </div>
           <div class="item-desc">
             <div class="heading-wrap">
@@ -26,10 +26,10 @@
         </div>
         <div class="post-body">
           <div class="refresh-btn">
-            <img src="../../assets/icons/refresh.svg" alt="refresh" />
+            <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
-            <PostModalCard :cardData="modalData" />
+            
             <div>
               <button class="btn-outline-block">see more</button>
             </div>
@@ -53,34 +53,12 @@
 
 <script>
 import { inject } from "vue";
-import Modal from "../Modal.vue";
-import PostModalCard from "./PostModalCard.vue";
+import Modal from "../../Modal.vue";
 export default {
-  name: "register-post-modal",
+  name: "re-register-modal",
   data() {
     return {
-      modalData: [
-        {
-          img: "Rectangle8.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "Rectangle9.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "Rectanglec2.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "MyPage-item1.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-      ],
+      
     };
   },
 
@@ -92,7 +70,6 @@ export default {
   },
   components: {
     Modal,
-    PostModalCard,
   },
   methods: {
     closeModal() {

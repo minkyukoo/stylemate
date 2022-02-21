@@ -3,7 +3,7 @@
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
-          <img :src="require('../../assets/images/' + i.img)" alt="" />
+          <img :src="require('../../../assets/images/' + i.img)" alt="" />
         </div>
         <div class="item-desc">
           <div>
