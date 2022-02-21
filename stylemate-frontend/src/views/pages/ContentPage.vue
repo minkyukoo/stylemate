@@ -18,19 +18,22 @@
           <img
             :src="image.campaign.imageThumbnailPath"
             v-bind:alt="img"
-            @click="openModal(image.campaign.imageMainPath, image.campaign.brandId)"
+            @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
           />
         </div>
       </div>
     </div>
     <!-- New content ends -->
+    <ContentDetails v-if="store.state.contentDetailsModal" />
   </div>
 </template>
 <script>
-import {
-  modalController,
-} from "@ionic/vue";
-import ContentDetails from "@/components/ContentDetails.vue";
+import { inject } from "vue";
+import ContentDetails from "../../components/ContentDetails.vue";
+// import {
+//   modalController,
+// } from "@ionic/vue";
+// import ContentDetails from "@/components/ContentDetails.vue";
 import axios from "axios";
 import PostService from "@/services/PostService";
 export default {
@@ -77,6 +80,18 @@ export default {
       ],
     };
   },
+
+  components: {
+    ContentDetails,
+  },
+
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
+
   created() {
 
     this.postService = new PostService();
@@ -97,18 +112,17 @@ export default {
       });
   },
   methods: {
-    async openModal() {
-      const modal = await modalController.create({
-        component: ContentDetails,
-        componentProps: {
-          propsData: {
-            title: 'String to pass!',
-          },
-
-        },
-      });
-      return modal.present();
-    },
+    // async openModal() {
+    //   const modal = await modalController.create({
+    //     component: ContentDetails,
+    //     componentProps: {
+    //       propsData: {
+    //         title: 'String to pass!',
+    //       },
+    //     },
+    //   });
+    //   return modal.present();
+    // },
   },
 };
 </script>

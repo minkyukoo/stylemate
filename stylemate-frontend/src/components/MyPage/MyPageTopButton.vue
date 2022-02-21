@@ -29,6 +29,9 @@ export default {
   line-height: 18px;
   padding: 8px 20px;
 }
+.w-100{
+  width: 100%;
+}
 
 .btn-grey-outline {
   border: 1px solid #ffffff;
