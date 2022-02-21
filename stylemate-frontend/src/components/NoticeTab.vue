@@ -269,4 +269,7 @@ export default {
 .top-sec button span {
   margin-right: 8px;
 }
+.faq-wrap{
+  padding: 32px 16px 30px;
+}
 </style>
