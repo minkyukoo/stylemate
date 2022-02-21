@@ -155,7 +155,7 @@ import {
   IonInfiniteScrollContent,
 } from "@ionic/vue";
 // Import Swiper Vue.js components
-// import { Pagination } from "swiper";
+import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
 import "swiper/css";
@@ -199,6 +199,12 @@ export default {
       isModalVisible: false,
       isActive: false,
       productDetails: '',
+    };
+  },
+
+  setup() {
+    return {
+      modules: [Pagination],
     };
   },
 
