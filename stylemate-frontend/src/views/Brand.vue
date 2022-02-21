@@ -4,22 +4,24 @@
     <TopNav headerTitle="Brand"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+      <div class="main-wrap">
       <BrandList />
       <!-- <router-view></router-view> -->
-    </ion-content>
+      </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import BrandList from "./pages/BrandList.vue";
 import TopNav from "@/components/TopNav.vue";
 
 export default {
   name: "Brand",
-  components: { TopNav, BrandList, IonContent, IonPage },
+  components: { TopNav, BrandList, IonPage },
 };
 </script>
