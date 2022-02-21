@@ -290,7 +290,6 @@ export default {
     const onBrandSlideChange = (swiper) => {
       console.log("brand slide change", swiper.slides);
       let slides = swiper.slides;
-      let index = swiper.activeIndex;
       slides.forEach((slide, index) => {
         if(index === swiper.activeIndex) {
           console.log("active index", slide);
