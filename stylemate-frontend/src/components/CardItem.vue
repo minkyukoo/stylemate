@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{store.state.AppData}}
     <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
       <div class="top-section">
@@ -96,7 +97,7 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent, inject, onMounted } from "vue";
 import ItemService from "@/services/ItemService";
 
 export default defineComponent({
@@ -113,7 +114,7 @@ export default defineComponent({
     IonSelectOption,
   },
   setup() {
-    // const store = inject("store");
+    const store = inject("store");
 
     const customPopoverOptions = {
       header: "Hair Color",
@@ -121,12 +122,12 @@ export default defineComponent({
       message: "Only select your dominant hair color",
     };
 
-    // onMounted(() => {
-    //   store.methods.getData();
-    //   console.log('store.state.AppData', store.state.AppData);
-    // });
+    onMounted(() => {
+      store.methods.getData();
+      console.log('store.state.AppData', store.state.AppData);
+    });
 
-    return { customPopoverOptions };
+    return { store, customPopoverOptions };
   },
 
   data() {
@@ -188,24 +189,24 @@ export default defineComponent({
   updated() {
     console.log("this.allData", this.allData);
 
-    this.itemService.getProductList().then((data) => {
-      console.log("ItemList", data);
-      if (this.isproductfilter) {
-        this.item_list = this.isproductfilter;
-        console.log("this.isproductfilter", this.item_list);
-      }
-      else if (this.isFltData) {
-        this.item_list = "";
-        // alert("all values");
-        // this.AllValue();
-        this.item_list = this.isallData;
-        console.log("this.isallData", this.isallData);
-      }
-      else {
-        alert("updated all filterdata")
-        this.item_list = data;
-      }
-    })
+    // this.itemService.getProductList().then((data) => {
+    //   console.log("ItemList", data);
+    //   if (this.isproductfilter) {
+    //     this.item_list = this.isproductfilter;
+    //     console.log("this.isproductfilter", this.item_list);
+    //   }
+    //   else if (this.isFltData) {
+    //     this.item_list = "";
+    //     // alert("all values");
+    //     // this.AllValue();
+    //     this.item_list = this.isallData;
+    //     console.log("this.isallData", this.isallData);
+    //   }
+    //   else {
+    //     alert("updated all filterdata")
+    //     this.item_list = data;
+    //   }
+    // })
   },
 
 

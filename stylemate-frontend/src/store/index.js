@@ -19,10 +19,10 @@ var itemService = new ItemService();
 
 
  const methods = {
-  getData() {
-    itemService.getProductLsit().then((data) => {
-      console.log("ItemList", data);
-      // state.AppData = data;
+  async getData() {
+    return await itemService.getProductList().then((data) => {
+      console.log("ItemList from store", data);
+      state.AppData = data;
     })
   },
   setSponsorTab(tab) {
