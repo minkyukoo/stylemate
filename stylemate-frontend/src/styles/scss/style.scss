@@ -90,6 +90,16 @@ img:hover {
 .swiper-pagination-bullet-active {
   background: $black-1;
 }
+.newBrandSwiper > .swiper-pagination {
+  bottom: -40px;
+  .swiper-pagination-bullet {
+    opacity: 1;
+    background-color: $grey-3;
+  }
+  .swiper-pagination-bullet-active {
+    background: $white-1;
+  }
+}
 .overlapSlide {
   position: relative;
   z-index: 2;

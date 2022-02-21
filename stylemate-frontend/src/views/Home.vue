@@ -135,7 +135,7 @@
         </swiper>
 
         <!-- new Brand section -->
-        <div class="brandSlider">
+        <div class="brandSlider swiper-container">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -146,8 +146,9 @@
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
-            :space-between="20"
-            :pagination="{ clickable: true }"
+            :space-between="12"
+            :pagination="{ clickable: true, dynamicBullets: true, }"
+            @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
             <swiper-slide
@@ -286,9 +287,22 @@ export default {
     const onSlideChange = () => {
       console.log("slide change");
     };
+    const onBrandSlideChange = (swiper) => {
+      console.log("brand slide change", swiper.slides);
+      let slides = swiper.slides;
+      let index = swiper.activeIndex;
+      slides.forEach((slide, index) => {
+        if(index === swiper.activeIndex) {
+          console.log("active index", slide);
+          let src = slide.querySelector(".nb-img-wrap > img").getAttreibute("src");
+          console.log('src', src);
+        }
+      });
+    };
     return {
       onSwiper,
       onSlideChange,
+      onBrandSlideChange,
       modules: [Pagination, EffectCoverflow, Pagination],
       // modules: [EffectCoverflow, Pagination],
     };
@@ -689,5 +703,10 @@ export default {
 }
 .newBrandSwiper .swiper-slide-active > .carousel__item {
   transform: scale(1);
+}
+.swiper-horizontal>.swiper-pagination-bullets, 
+.swiper-pagination-bullets.swiper-pagination-horizontal, 
+.swiper-pagination-custom, .swiper-pagination-fraction {
+  bottom: -100px !important;
 }
 </style>
