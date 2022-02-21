@@ -6,12 +6,15 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
-        <ion-slides pager="true" :options="slideOpts">
-          <ion-slide>
+        <!-- <ion-slides pager="true" :options="slideOpts">
+          <ion-slide v-for="(item, index) in productDetails.productImageFile" :key="index">
             <figure>
               <img src="@/assets/images/product-details-banner.jpg" />
+              <img :src="item.productImagePath" />
               <div class="top-social-icon">
-                <a href="#"><img src="@/assets/icons/instagram.svg" /></a>
+                <a href="#">
+                  <img src="@/assets/icons/instagram.svg" />
+                </a>
               </div>
             </figure>
           </ion-slide>
@@ -19,7 +22,9 @@
             <figure>
               <img src="@/assets/images/product-details-banner.jpg" />
               <div class="top-social-icon">
-                <a href="#"><img src="@/assets/icons/instagram.svg" /></a>
+                <a href="#">
+                  <img src="@/assets/icons/instagram.svg" />
+                </a>
               </div>
             </figure>
           </ion-slide>
@@ -27,11 +32,27 @@
             <figure>
               <img src="@/assets/images/product-details-banner.jpg" />
               <div class="top-social-icon">
-                <a href="#"><img src="@/assets/icons/instagram.svg" /></a>
+                <a href="#">
+                  <img src="@/assets/icons/instagram.svg" />
+                </a>
               </div>
             </figure>
           </ion-slide>
-        </ion-slides>
+        </ion-slides> -->
+        <swiper
+          :modules="modules"
+          :slides-per-view="1"
+          :space-between="50"
+          :pagination="{ clickable: true }"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+        >
+          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
+            <div class="mainslide-banner-wrap">
+              <img :src="slide.productImagePath" alt />
+            </div>
+          </swiper-slide>
+        </swiper>
       </div>
 
       <ion-infinite-scroll threshold="50px" id="infinite-scroll">
@@ -39,8 +60,10 @@
           <div class="item-wrapper">
             <div class="top-section">
               <div class="left-section">
-                <h3>Areuban</h3>
-                <span><img src="@/assets/icons/arrow-left.svg" /></span>
+                <h3>{{ productDetails.name }}</h3>
+                <span>
+                  <img src="@/assets/icons/arrow-left.svg" />
+                </span>
               </div>
               <div class="right-section">
                 <button @click="showModal">
@@ -49,15 +72,22 @@
               </div>
             </div>
             <div class="product-description">
-              <h2>[STRAIGHT.FIT] Powder cream BOOTSCUT.FIT Chana jeans.632</h2>
+              <h2>{{ productDetails.description }}</h2>
 
               <div class="hashwrap">
-                <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span>
+                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+                <span v-for="(hash, index) in productDetails.tag" :key="index">
+                  {{
+                    '#' + hash.tag
+                  }}
+                </span>
                 <!-- <span>hi</span> -->
               </div>
 
               <p>
-                <span><img src="@/assets/icons/calendar.svg" /></span>
+                <span>
+                  <img src="@/assets/icons/calendar.svg" />
+                </span>
                 2021.11.11 ~ 2021.12.25
               </p>
             </div>
@@ -88,12 +118,15 @@
                         <span>URL</span>
                       </a>
                     </li>
-                  </ul> -->
-                  <p>스타일 메이트는 승인된 회원만 <br/>이용할 수 있는 서비스 입니다.</p>
+                  </ul>-->
+                  <p>
+                    스타일 메이트는 승인된 회원만
+                    <br />이용할 수 있는 서비스 입니다.
+                  </p>
                 </div>
               </template>
 
-              <template v-slot:footer> </template>
+              <template v-slot:footer></template>
             </CustomModal>
 
             <TabProductDetails />
@@ -101,15 +134,17 @@
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
       <div class="subscribe-wrap">
-        <figure><img src="@/assets/icons/heart-filled.svg" /></figure>
+        <figure>
+          <img src="@/assets/icons/heart-filled.svg" />
+        </figure>
         <button @click="hideSponserButton" class="black-btn">협찬 신청</button>
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
-      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }"/>
+      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" />
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
-    
+
     <!-- End page content -->
   </ion-page>
 </template>
@@ -119,24 +154,33 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
 } from "@ionic/vue";
-import { IonSlides, IonSlide } from "@ionic/vue";
+// Import Swiper Vue.js components
+// import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+// import { IonSlides, IonSlide } from "@ionic/vue";
 import TabProductDetails from "@/components/Tab.vue";
 import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
+import ItemService from "@/services/ItemService";
 
 export default {
   name: "BrandDetails",
   components: {
     IonPage,
-    IonSlides,
-    IonSlide,
+    // IonSlides,
+    // IonSlide,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
     TabProductDetails,
     CustomModal,
     TopNav,
     DrawerBottom,
+    Swiper,
+    SwiperSlide,
   },
 
   data() {
@@ -154,6 +198,7 @@ export default {
       ],
       isModalVisible: false,
       isActive: false,
+      productDetails: '',
     };
   },
 
@@ -164,15 +209,34 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
-    hideSponserButton(){
+    hideSponserButton() {
       this.isActive = !this.isActive;
     }
+  },
+  created() {
+    this.itemService = new ItemService();
+
+    var proId = this.$route.params.id;
+    this.itemService.getProductDetails(proId).then((res) => {
+      // catch error
+      if (res.response) {
+        if (res.response.status == 404) {
+          alert(res.response.data.error.message);
+          this.$router.push('/item');
+        }
+      }
+      // success
+      else {
+        console.log('producrt res', res);
+        this.productDetails = res;
+      }
+    });
   },
 };
 </script>
 
 <style scoped>
-.overlay{
+.overlay {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -182,10 +246,11 @@ export default {
   z-index: 1;
   display: none;
 }
-.bottomDrawer{
+.bottomDrawer {
   display: none;
 }
-.bottomDrawer.active, .overlay.active{
+.bottomDrawer.active,
+.overlay.active {
   display: block;
 }
 .mainslide figure {
@@ -302,7 +367,7 @@ export default {
   width: 100%;
   max-width: 500px;
   padding: 8px;
-  border: 1px solid #F7F7F7;
+  border: 1px solid #f7f7f7;
   background: #ffffff;
 }
 .subscribe-wrap figure {
