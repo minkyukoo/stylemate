@@ -34,7 +34,7 @@
         </button> -->
         <MyPageTopButton
           :name="'로그아웃'"
-          :style="'btn-grey-solid'"
+          :style="'btn-dark'"
           v-on:buttonEvent="fireButton"
         />
       </div>

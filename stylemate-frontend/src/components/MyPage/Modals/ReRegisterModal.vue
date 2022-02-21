@@ -25,13 +25,48 @@
           </div>
         </div>
         <div class="post-body">
-          <div class="refresh-btn">
-            <img src="../../../assets/icons/refresh.svg" alt="refresh" />
-          </div>
+          <div class="edit-btn">Post edit request</div>
           <div class="post-card-con">
-            
-            <div>
-              <button class="btn-outline-block">see more</button>
+            <div class="hashtagBox">
+              <p>
+                Please change the #sponsorship hashtag to #advertising hashtag.
+              </p>
+            </div>
+            <div class="grey-box"></div>
+            <div class="description-hashtag">
+              #Sponsored #Nyangpummongpoom gave me “liver health powder” as a
+              gift. When the parcel arrived, the box was so cute, so I cooked it
+              right away 💛 A teddy bear in a cute yellow box? It has a puppy?
+              it's so cute 😘❤️ It smells like cheese, so it smells delicious🧀
+              I found out that Danish cheese powder was used for puppies who
+              don't eat nutritional supplements!! It smells so delicious that
+              spring breathes in a storm 🤣 Every time Bom goes out for a walk,
+              he smells garbage and puts it in his mouth, but he said he was
+              worried about it, but the liver health powder has alleviated that
+              worry!! It contains ingredients such as milk thistle, zinc, and B
+              complex vitamin B that help to regenerate and recover damaged
+              liver cells. #dog nutrition #dog liver level #dog liver nutrition
+            </div>
+            <div class="flex">
+              <span class="flex mr-3.5">
+                <img
+                  src="../../../assets/icons/heart-outline-dark.svg"
+                  alt=""
+                  class="mr-1"
+                />
+                10
+              </span>
+              <span class="flex">
+                <img
+                  src="../../../assets/icons/comment-outline.svg"
+                  alt=""
+                  class="mr-1"
+                />
+                10
+              </span>
+            </div>
+            <div class="date-of-collection">
+              Data collected on 08/23/2021 09:33.
             </div>
           </div>
         </div>
@@ -41,7 +76,7 @@
       <div class="post-footer">
         <button
           class="btn-grey"
-          @click="() => (store.state.isPostModalVisible = false)"
+          @click="() => (store.state.isReRegisterModalVisible = false)"
         >
           to close
         </button>
@@ -57,9 +92,7 @@ import Modal from "../../Modal.vue";
 export default {
   name: "re-register-modal",
   data() {
-    return {
-      
-    };
+    return {};
   },
 
   setup() {
@@ -93,6 +126,7 @@ export default {
   display: flex;
   padding-bottom: 24px;
   border-bottom: 1px solid #f7f7f7;
+  /* position: relative; */
 }
 .Post-header .img-con {
   width: 93.75px;
@@ -134,12 +168,13 @@ export default {
   max-height: 250px;
   overflow-y: auto;
 }
-.refresh-btn {
-  text-align: right;
-  padding: 12px 0 4px;
-}
-.refresh-btn img {
-  margin: 0 0 0 auto;
+.edit-btn {
+  text-align: center;
+  padding: 24px 0 16px;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  color: #5700ff;
 }
 .post-footer {
   display: flex;
@@ -167,5 +202,37 @@ export default {
   line-height: 18px;
   color: #797979;
   margin: 4px 0 40px;
+}
+.hashtagBox {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f7f7f7;
+}
+.hashtagBox p {
+  font-size: 14px;
+  line-height: 18px;
+  color: #090909;
+  border: 1px solid #5700ff;
+  border-radius: 6px;
+  padding: 16px 16px 24px;
+}
+.grey-box {
+  width: 300px;
+  height: 300px;
+  background: #c4c4c4;
+}
+.description-hashtag {
+  padding: 4px 10px 12px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #595959;
+  align-items: center;
+  border-bottom: 1px solid #f7f7f7;
+}
+.date-of-collection {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: right;
+  color: #9d6aff;
+  padding-bottom: 40px;
 }
 </style>
