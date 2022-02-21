@@ -11,6 +11,8 @@ const state = reactive({
   isPostModalVisible: false,
   cancelPopup: false,
   isReRegisterModalVisible: false,
+  contentDetailsModal: false,
+  contentDetailsId: null,
 });
 
 var itemService = new ItemService();
@@ -25,6 +27,10 @@ var itemService = new ItemService();
   },
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
+  },
+  setContentsDetailsModal(tab , id) {
+    state.contentDetailsModal = tab;
+    state.contentDetailsId = id;
   }
 };
 

@@ -1,93 +1,92 @@
 <template>
-  <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content> -->
-      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
-      <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
-        <div class="top-section">
-          <div class="left-section">
-            <ion-item>
-              <ion-select interface="popover" @click="orderPopularity()" placeholder="인기순">
-                <ion-select-option value="f">최신순</ion-select-option>
-                <ion-select-option value="m">인기순</ion-select-option>
-                <ion-select-option value="v">마감임박순</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </div>
-          <div class="right-section">
-            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
-              <img src="@/assets/icons/list-view.svg" />
-            </button>
-            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
-              <img src="@/assets/icons/grid-view.svg" />
-            </button>
-          </div>
+  <div>
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
+    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+      <div class="top-section">
+        <div class="left-section">
+          <ion-item>
+            <ion-select interface="popover" @click="orderPopularity()" placeholder="인기순">
+              <ion-select-option value="f">최신순</ion-select-option>
+              <ion-select-option value="m">인기순</ion-select-option>
+              <ion-select-option value="v">마감임박순</ion-select-option>
+            </ion-select>
+          </ion-item>
         </div>
-        <ul v-if="layout === 'grid'" class="product-list grid-view">
-          <!-- {{item_list}} -->
-          <li
-            v-for="(product, index) in item_list"
-            :key="index"
-            class="product-list-item"
-            @click="$router.push({ name: 'ItemDetails' })"
+        <div class="right-section">
+          <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
+            <img src="@/assets/icons/list-view.svg" />
+          </button>
+          <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
+            <img src="@/assets/icons/grid-view.svg" />
+          </button>
+        </div>
+      </div>
+      <ul v-if="layout === 'grid'" class="product-list grid-view">
+        <!-- {{item_list}} -->
+        <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
+          <div class="top-float-div">
+            <div class="social-icon">
+              <img src="@/assets/icons/instagram.svg" />
+            </div>
+            <div class="favorite">
+              <img src="@/assets/icons/heart-outline.svg" />
+            </div>
+          </div>
+          <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
+            <img :src="product.imageThumbnailPath" />
+          </figure>
+          <!-- <h3>{{ product.title }}</h3> -->
+          <div
+            class="details-wrap"
+            @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
           >
+            <p>{{ product.description }}</p>
+            <!-- <span>{{ product.hashtags }}</span> -->
+            <div class="hashWrap">
+              <span v-for="(hash, index) in product.tag" :key="index">
+                {{
+                  hash.tag
+                }}
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <ul v-if="layout === 'list'" class="product-list list-view">
+        <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
+          <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
+            <img :src="product.imageThumbnailPath" />
             <div class="top-float-div">
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
               </div>
-              <div class="favorite">
-                <img src="@/assets/icons/heart-outline.svg" />
-              </div>
             </div>
-            <figure @click="$router.push({ name: 'ItemDetails' })">
-              <img :src="product.imageThumbnailPath" />
-            </figure>
-            <!-- <h3>{{ product.title }}</h3> -->
-            <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
-              <p>{{ product.description }}</p>
-              <!-- <span>{{ product.hashtags }}</span> -->
-              <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{
-                    hash.tag
-                  }}
-                </span>
-              </div>
+          </figure>
+          <div class="favorite">
+            <img src="@/assets/icons/heart-outline.svg" />
+          </div>
+          <div
+            class="desc-box"
+            @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
+          >
+            <div class="text-box">
+              <h3>{{ product.title }}</h3>
             </div>
-          </li>
-        </ul>
-
-        <ul v-if="layout === 'list'" class="product-list list-view">
-          <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
-            <figure @click="$router.push({ name: 'ItemDetails' })">
-              <img :src="product.imageThumbnailPath" />
-              <div class="top-float-div">
-                <div class="social-icon">
-                  <img src="@/assets/icons/instagram.svg" />
-                </div>
-              </div>
-            </figure>
-            <div class="favorite">
-              <img src="@/assets/icons/heart-outline.svg" />
+            <p>{{ product.description }}</p>
+            <span>{{ product.hashtags }}</span>
+            <div class="hashWrap">
+              <span v-for="(hash, index) in product.tag" :key="index">
+                {{
+                  hash.tag
+                }}
+              </span>
             </div>
-            <div class="desc-box" @click="$router.push({ name: 'ItemDetails' })">
-              <div class="text-box">
-                <h3></h3>
-              </div>
-              <p>{{ product.description }}</p>
-              <span>{{ product.hashtags }}</span>
-              <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{
-                    hash.tag
-                  }}
-                </span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    <!-- </ion-infinite-scroll-content>
-  </ion-infinite-scroll> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -96,8 +95,6 @@ import {
   IonItem,
   IonSelect,
   IonSelectOption,
-  // IonInfiniteScroll,
-  // IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import ItemService from "@/services/ItemService";
@@ -108,21 +105,14 @@ export default defineComponent({
     isBanner: Boolean,
     isFltData: Boolean,
     isproductfilter: null,
-    isallbutton: null,
+    isallData: null,
   },
   components: {
     IonItem,
     IonSelect,
     IonSelectOption,
-    // IonInfiniteScroll,
-    // IonInfiniteScrollContent,
   },
   setup() {
-    const slideOpts = {
-      initialSlide: 1,
-      speed: 400,
-      pager: false,
-    };
     // const store = inject("store");
 
     const customPopoverOptions = {
@@ -136,7 +126,7 @@ export default defineComponent({
     //   console.log('store.state.AppData', store.state.AppData);
     // });
 
-    return { slideOpts, customPopoverOptions };
+    return { customPopoverOptions };
   },
 
   data() {
@@ -144,7 +134,7 @@ export default defineComponent({
       layout: "grid",
       categories_info: [],
       item_list: null,
-      // allData: false,
+      allData: false,
       product_details: [],
       banner: [],
       filtervalue: [],
@@ -156,12 +146,13 @@ export default defineComponent({
 
     this.itemService.getProductList().then((data) => {
       this.item_list = data;
-      console.log("this.item_list",this.item_list);
+      console.log("this.item_list", this.item_list);
     })
   },
 
   mounted() {
     // Slide title
+    console.log("this.allData", this.allData);
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
@@ -174,16 +165,16 @@ export default defineComponent({
     // })
   },
   methods: {
-    // AllValue() {
-    //   this.itemService.getProductList().then((data) => {
-    //     console.log("ALl ItemList", data);
-    //     this.item_list = data;
-    //     this.allData = !this.allData;
-    //     console.log("myvalues", this.item_list);
-    //     alert("All values")
+    AllValue() {
+      this.itemService.getProductList().then((data) => {
+        console.log("ALl ItemList", data);
+        this.item_list = data;
+        this.allData = !this.allData;
+        console.log("myvalues", this.item_list);
+        alert("All values")
 
-    //   })
-    // },
+      })
+    },
 
     // orderPopularity(){
     //   this.itemService.getProductLsit().then((data) => {
@@ -191,28 +182,30 @@ export default defineComponent({
     //     this.filtervalue = data;
     //     console.log("filtervalue",this.filtervalue);
     //   })
-    // }, 
+    // },
   },
 
   updated() {
+    console.log("this.allData", this.allData);
 
     this.itemService.getProductList().then((data) => {
       console.log("ItemList", data);
       if (this.isproductfilter) {
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
-      } 
-      else if(this.isallbutton) {
-        alert("final result")
-        this.item_list = data;
-        console.log("this.isallbutton", this.item_list);
+      }
+      else if (this.isFltData) {
+        this.item_list = "";
+        // alert("all values");
+        // this.AllValue();
+        this.item_list = this.isallData;
+        console.log("this.isallData", this.isallData);
       }
       else {
         alert("updated all filterdata")
         this.item_list = data;
       }
     })
-
   },
 
 

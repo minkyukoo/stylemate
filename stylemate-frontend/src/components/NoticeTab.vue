@@ -96,7 +96,7 @@ export default {
   },
   data() {
     return {
-      layout: "tab1",
+      layout: "tab2",
       noticelist: [
         {
           desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
