@@ -10,6 +10,7 @@ const state = reactive({
   sponsorTabState: "progress",
   isPostModalVisible: false,
   cancelPopup: false,
+  isReRegisterModalVisible: false,
 });
 
 var itemService = new ItemService();

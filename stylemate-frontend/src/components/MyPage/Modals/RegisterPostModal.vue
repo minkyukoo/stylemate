@@ -12,7 +12,7 @@
       <div class="modal-content">
         <div class="Post-header">
           <div class="img-con">
-            <img src="../../assets/images/MyPage-item1.png" alt="" />
+            <img src="../../../assets/images/MyPage-item1.png" alt="" />
           </div>
           <div class="item-desc">
             <div class="heading-wrap">
@@ -26,7 +26,7 @@
         </div>
         <div class="post-body">
           <div class="refresh-btn">
-            <img src="../../assets/icons/refresh.svg" alt="refresh" />
+            <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
             <PostModalCard :cardData="modalData" />
@@ -53,7 +53,7 @@
 
 <script>
 import { inject } from "vue";
-import Modal from "../Modal.vue";
+import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
 export default {
   name: "register-post-modal",

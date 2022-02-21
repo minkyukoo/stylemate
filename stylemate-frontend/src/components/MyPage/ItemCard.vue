@@ -32,7 +32,9 @@
             store.state.sponsorTabState !== 'application-details'
           "
         >
-          <button>re-registration</button>
+          <button @click="() => (store.state.isReRegisterModalVisible = true)">
+            re-registration
+          </button>
         </div>
         <div
           class="item-button"
