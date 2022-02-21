@@ -28,7 +28,6 @@
             v-for="(product, index) in item_list"
             :key="index"
             class="product-list-item"
-            @click="$router.push({ name: 'ItemDetails' })"
           >
             <div class="top-float-div">
               <div class="social-icon">
@@ -38,11 +37,11 @@
                 <img src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
-            <figure @click="$router.push({ name: 'ItemDetails' })">
+            <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
               <img :src="product.imageThumbnailPath" />
             </figure>
             <!-- <h3>{{ product.title }}</h3> -->
-            <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+            <div class="details-wrap" @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
               <p>{{ product.description }}</p>
               <!-- <span>{{ product.hashtags }}</span> -->
               <div class="hashWrap">
@@ -58,7 +57,7 @@
 
         <ul v-if="layout === 'list'" class="product-list list-view">
           <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
-            <figure @click="$router.push({ name: 'ItemDetails' })">
+            <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
               <img :src="product.imageThumbnailPath" />
               <div class="top-float-div">
                 <div class="social-icon">
@@ -69,9 +68,9 @@
             <div class="favorite">
               <img src="@/assets/icons/heart-outline.svg" />
             </div>
-            <div class="desc-box" @click="$router.push({ name: 'ItemDetails' })">
+            <div class="desc-box" @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
               <div class="text-box">
-                <h3></h3>
+                <h3>{{ product.title }}</h3>
               </div>
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
