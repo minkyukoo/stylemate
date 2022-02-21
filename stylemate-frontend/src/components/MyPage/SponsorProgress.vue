@@ -8,7 +8,9 @@
       />
     </div>
     <div v-else>
-      <Error errors="You have not yet been selected for sponsorship. Please apply for sponsorship for products from other brands as well." />
+      <Error
+        errors="You have not yet been selected for sponsorship. Please apply for sponsorship for products from other brands as well."
+      />
     </div>
     <RegisterPostModal />
     <CancelSponser />

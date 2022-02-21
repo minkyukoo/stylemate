@@ -29,21 +29,33 @@
         </div>
       </div>
       <div class="btn-con" v-else>
-        <button class="btn-dark" @click="() => (this.viewSocialMedia = true)">
+        <!-- <button class="btn-dark" @click="() => (this.viewSocialMedia = true)">
           로그아웃
-        </button>
+        </button> -->
+        <MyPageTopButton
+          :name="'로그아웃'"
+          :style="'btn-grey-solid'"
+          v-on:buttonEvent="fireButton"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import MyPageTopButton from "@/components/MyPage/MyPageTopButton.vue";
 export default {
   name: "MyPageTop",
+  components: { MyPageTopButton },
   data() {
     return {
       viewSocialMedia: false,
     };
+  },
+  methods: {
+    fireButton() {
+      console.log("fireButton");
+    },
   },
 };
 </script>
@@ -91,7 +103,7 @@ export default {
   position: relative;
   z-index: 9;
 }
-.btn-dark {
+/* .btn-dark {
   background: #090909;
   border: 1px solid #090909;
   border-radius: 6px;
@@ -99,7 +111,7 @@ export default {
   font-size: 14px;
   line-height: 18px;
   padding: 8px 20px;
-}
+} */
 .profile-desc {
   margin-bottom: 20px;
   color: #c4c4c4;
