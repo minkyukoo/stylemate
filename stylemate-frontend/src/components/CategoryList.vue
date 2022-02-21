@@ -88,9 +88,10 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
+      
 
       this.activeId = "All"; //To highlight the button default
-
+      
     });
   },
   mounted() {
@@ -108,7 +109,7 @@ export default {
           // alert('nodata')
           this.nofltData = true;
           this.$emit("fltData", false);
-        } else if(data.length !=0){
+        } else {
           this.nofltData = false;
           this.$emit("fltData", true);
 
@@ -137,6 +138,7 @@ export default {
         
         this.activeId = ids;
         console.log("this.activeId",this.activeId);
+        this.$emit("allbutton",this.activeId);
 
         let arr1 = this.childCategoryArray;
         console.log("arr1", arr1);
