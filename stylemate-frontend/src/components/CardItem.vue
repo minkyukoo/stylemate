@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{store.state.AppData}}
+    {{item_list}}
     <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
       <div class="top-section">
@@ -24,7 +24,7 @@
       </div>
       <ul v-if="layout === 'grid'" class="product-list grid-view">
         <!-- {{item_list}} -->
-        <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
+        <li v-for="(product, index) in store.state.AppData" :key="index" class="product-list-item">
           <div class="top-float-div">
             <div class="social-icon">
               <img src="@/assets/icons/instagram.svg" />
@@ -55,7 +55,7 @@
       </ul>
 
       <ul v-if="layout === 'list'" class="product-list list-view">
-        <li v-for="(product, index) in item_list" :key="index" class="product-list-item">
+        <li v-for="(product, index) in store.state.AppData" :key="index" class="product-list-item">
           <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
             <img :src="product.imageThumbnailPath" />
             <div class="top-float-div">
@@ -145,10 +145,12 @@ export default defineComponent({
   created() {
     this.itemService = new ItemService();
 
-    this.itemService.getProductList().then((data) => {
-      this.item_list = data;
-      console.log("this.item_list", this.item_list);
-    })
+    
+
+    // this.itemService.getProductList().then((data) => {
+    //   this.item_list = data;
+    //   console.log("this.item_list", this.item_list);
+    // })
   },
 
   mounted() {
@@ -166,16 +168,16 @@ export default defineComponent({
     // })
   },
   methods: {
-    AllValue() {
-      this.itemService.getProductList().then((data) => {
-        console.log("ALl ItemList", data);
-        this.item_list = data;
-        this.allData = !this.allData;
-        console.log("myvalues", this.item_list);
-        alert("All values")
+    // AllValue() {
+    //   this.itemService.getProductList().then((data) => {
+    //     console.log("ALl ItemList", data);
+    //     this.item_list = data;
+    //     this.allData = !this.allData;
+    //     console.log("myvalues", this.item_list);
+    //     alert("All values")
 
-      })
-    },
+    //   })
+    // },
 
     // orderPopularity(){
     //   this.itemService.getProductLsit().then((data) => {
@@ -189,24 +191,17 @@ export default defineComponent({
   updated() {
     console.log("this.allData", this.allData);
 
-    // this.itemService.getProductList().then((data) => {
-    //   console.log("ItemList", data);
-    //   if (this.isproductfilter) {
-    //     this.item_list = this.isproductfilter;
-    //     console.log("this.isproductfilter", this.item_list);
-    //   }
-    //   else if (this.isFltData) {
-    //     this.item_list = "";
-    //     // alert("all values");
-    //     // this.AllValue();
-    //     this.item_list = this.isallData;
-    //     console.log("this.isallData", this.isallData);
-    //   }
-    //   else {
-    //     alert("updated all filterdata")
-    //     this.item_list = data;
-    //   }
-    // })
+      if (this.isproductfilter) {
+        this.store.state.AppData = this.isproductfilter;
+        console.log("this.isproductfilter", this.item_list);
+      }
+      // else if (this.isFltData) {
+      //   this.item_list = "";
+      //   // alert("all values");
+      //   // this.AllValue();
+      //   this.item_list = this.isallData;
+      //   console.log("this.isallData", this.isallData);
+      // }
   },
 
 

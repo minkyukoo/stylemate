@@ -9,7 +9,10 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a :class="{'active':category.id===activeId}" @click="handleClick(category.childCategory, category.id)">{{ category.name }}</a>
+        <a
+          :class="{ 'active': category.id === activeId }"
+          @click="handleClick(category.childCategory, category.id)"
+        >{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -22,11 +25,11 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide
-        v-for="childCategory in childCategoryArray"
-        :key="childCategory.name"
-      >
-        <a :class="{'active':childCategory.id===childactiveId}" @click="handleClick2(childCategory.id)">{{ childCategory.name }}</a>
+      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+        <a
+          :class="{ 'active': childCategory.id === childactiveId }"
+          @click="handleClick2(childCategory.id)"
+        >{{ childCategory.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -38,7 +41,7 @@
 
   <!-- <div class="product-main-banner" v-if="!childCategory" v-show="!listproduct">
     <img src="@/assets/images/product-banner.jpg" />
-  </div> -->
+  </div>-->
 </template>
 
 <script>
@@ -76,9 +79,9 @@ export default {
       nofltData: false,
       filterproductList: null,
 
-      childCategories2:null,
-      activeId:-1,
-      childactiveId:-1,
+      childCategories2: null,
+      activeId: -1,
+      childactiveId: -1,
     };
   },
 
@@ -88,23 +91,24 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
-      
+
 
       this.activeId = "All"; //To highlight the button default
-      
+
     });
   },
   mounted() {
-     
+
   },
   methods: {
-  
+
+    // Child category click
     handleClick2(ids) {
       alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         console.log("filterproductList", data);
-          this.childactiveId = ids; //To activate the All button
-       
+        this.childactiveId = ids; //To activate the All button
+
         if (data.length == 0) {
           // alert('nodata')
           this.nofltData = true;
@@ -115,7 +119,7 @@ export default {
 
           let filterproductList = data;
           this.$emit("filterproductList", filterproductList);
-        } 
+        }
         // else{
         //   let allData = data;
         //   console.log("allData",allData);
@@ -124,10 +128,27 @@ export default {
       });
     },
 
+    // Category click
     handleClick(childCategory, ids) {
       alert(ids);
-      if(ids === "All") {
-         this.activeId = ids;
+       this.itemServices.getFilterProduct(ids).then((data) => {
+        console.log("category-filterproductList", data);
+        this.childactiveId = ids; //To activate the All button
+        if (data.length == 0) {
+          // alert('nodata')
+          this.nofltData = true;
+          this.$emit("fltData", false);
+        } else {
+          this.nofltData = false;
+          this.$emit("fltData", true);
+
+          let filterproductList = data;
+          this.$emit("filterproductList", filterproductList);
+        }
+      });
+
+      if (ids === "All") {
+        this.activeId = ids;
       }
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
@@ -135,10 +156,10 @@ export default {
         childCategory.forEach((element) => {
           this.childCategoryArray.push(element);
         });
-        
+
         this.activeId = ids;
-        console.log("this.activeId",this.activeId);
-        this.$emit("allbutton",this.activeId);
+        console.log("this.activeId", this.activeId);
+        this.$emit("allbutton", this.activeId);
 
         let arr1 = this.childCategoryArray;
         console.log("arr1", arr1);
@@ -148,10 +169,10 @@ export default {
         alert(ids);
         this.childCategory = true;
         this.onClickButton(false);
-        console.log("this",this);
+        console.log("this", this);
 
         this.childactiveId = "Allchild"; //To highlight the child button default
-        
+
       } else {
         alert(ids);
         this.childCategory = false;

@@ -4,6 +4,7 @@ import ItemService from "@/services/ItemService";
 
 const state = reactive({
   AppData: undefined,
+  AppFltData: undefined,
   number: 13,
   status: "NotEmpty",
   likedTabState: "item",
