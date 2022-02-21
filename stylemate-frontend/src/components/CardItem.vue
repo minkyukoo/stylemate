@@ -1,7 +1,7 @@
 <template>
-  <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-    <ion-infinite-scroll-content>
-      <div class="nodata" v-if="!isFltData && allData">카테고리에 해당하는 제품이 없습니다</div>
+  <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
+    <ion-infinite-scroll-content> -->
+      <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
       <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
         <div class="top-section">
           <div class="left-section">
@@ -86,8 +86,8 @@
           </li>
         </ul>
       </div>
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <!-- </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
 </template>
 
 <script>
@@ -96,8 +96,8 @@ import {
   IonItem,
   IonSelect,
   IonSelectOption,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
+  // IonInfiniteScroll,
+  // IonInfiniteScrollContent,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import ItemService from "@/services/ItemService";
@@ -108,14 +108,14 @@ export default defineComponent({
     isBanner: Boolean,
     isFltData: Boolean,
     isproductfilter: null,
-    isallData: null,
+    isallbutton: null,
   },
   components: {
     IonItem,
     IonSelect,
     IonSelectOption,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
+    // IonInfiniteScroll,
+    // IonInfiniteScrollContent,
   },
   setup() {
     const slideOpts = {
@@ -144,7 +144,7 @@ export default defineComponent({
       layout: "grid",
       categories_info: [],
       item_list: null,
-      allData: false,
+      // allData: false,
       product_details: [],
       banner: [],
       filtervalue: [],
@@ -162,7 +162,6 @@ export default defineComponent({
 
   mounted() {
     // Slide title
-    console.log("this.allData", this.allData);
     this.itemService.getProductCategories().then((data) => {
       console.log("categories_info", data);
       this.categories_info = data;
@@ -175,16 +174,16 @@ export default defineComponent({
     // })
   },
   methods: {
-    AllValue() {
-      this.itemService.getProductList().then((data) => {
-        console.log("ALl ItemList", data);
-        this.item_list = data;
-        this.allData = !this.allData;
-        console.log("myvalues", this.item_list);
-        alert("All values")
+    // AllValue() {
+    //   this.itemService.getProductList().then((data) => {
+    //     console.log("ALl ItemList", data);
+    //     this.item_list = data;
+    //     this.allData = !this.allData;
+    //     console.log("myvalues", this.item_list);
+    //     alert("All values")
 
-      })
-    },
+    //   })
+    // },
 
     // orderPopularity(){
     //   this.itemService.getProductLsit().then((data) => {
@@ -192,11 +191,10 @@ export default defineComponent({
     //     this.filtervalue = data;
     //     console.log("filtervalue",this.filtervalue);
     //   })
-    // },
+    // }, 
   },
 
   updated() {
-    console.log("this.allData", this.allData);
 
     this.itemService.getProductList().then((data) => {
       console.log("ItemList", data);
@@ -204,18 +202,17 @@ export default defineComponent({
         this.item_list = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
       } 
-      else if(this.isFltData){
-        this.item_list = "";
-        alert("all values");
-        // this.AllValue();
-        this.item_list = this.isallData;
-        console.log("this.isallData",this.isallData);
+      else if(this.isallbutton) {
+        alert("final result")
+        this.item_list = data;
+        console.log("this.isallbutton", this.item_list);
       }
       else {
         alert("updated all filterdata")
         this.item_list = data;
       }
     })
+
   },
 
 
