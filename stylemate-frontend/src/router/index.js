@@ -154,7 +154,7 @@ const routes = [
         }
       },
       {
-        path: "sponsorships",
+        path: "/sponsorships",
         name: "Sponsorships",
         beforeEnter: guard,
         component: Sponsorships,
@@ -163,7 +163,7 @@ const routes = [
         }
       },
       {
-        path: "post-activity",
+        path: "/post-activity",
         name: "Post Activity",
         beforeEnter: guard,
         component: PostActivity,
@@ -172,7 +172,7 @@ const routes = [
         }
       },
       {
-        path: "mypage-liked",
+        path: "/mypage-liked",
         name: "MyPage Liked",
         // beforeEnter: guard,
         component: MyPageLiked,
@@ -182,6 +182,7 @@ const routes = [
       },
     ],
   },
+  
   {
     path: "/product-details",
     name: "ItemDetails",
@@ -207,9 +208,33 @@ const routes = [
     }
   },
   {
-    path: "/notice",
-    name: "Notice",
-    component: () => import("@/views/pages/Notice.vue"),
+    path: "/changeuserinfo",
+    name: "ChangeUserinfo",
+    component: () => import("@/views/pages/ChangeUserinfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/addaddress",
+    name: "AddAddress",
+    component: () => import("@/views/pages/AddAddress.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/shippingInfo",
+    name: "ShippingInfo",
+    component: () => import("@/views/pages/ShippingInfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/deliveryaddress",
+    name: "DeliveryAddress",
+    component: () => import("@/views/pages/DeliveryAddress.vue"),
     meta: {
       innerHeader: true,
     }
@@ -238,6 +263,47 @@ const routes = [
     name: "Slider",
     component: () => import("@/views/pages/Slider.vue"),
   },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: () => import("@/views/pages/Notice.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquirydetails",
+    name: "InquiryDetails",
+    component: () => import("@/views/pages/InquiryDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquiryregisterdetails",
+    name: "InquiryRegisterDetails",
+    component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/noticedetails",
+    name: "NoticeDetails",
+    component: () => import("@/views/pages/NoticeDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  }
+  
+
+
+
+
+
+
+
+
 ];
 
 

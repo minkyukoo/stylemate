@@ -8,7 +8,7 @@
       <!-- <ExploreContainer name="Item page" /> -->
       <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" />
       
-      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
+      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter" />
     </ion-content>
     <!-- End page content -->
   </ion-page>
@@ -28,7 +28,7 @@ export default {
       isBanner: true,
       isFltData: true,
       isproductfilter: null,
-      // finalresult: true,
+      // isallData: null,
     }
   },
   methods: {
@@ -38,6 +38,7 @@ export default {
     },
     fltData2(event) {
       this.isFltData = event;
+      console.log("this.isFltData",this.isFltData);
       alert(event);
     },
    
@@ -45,6 +46,12 @@ export default {
       this.isproductfilter = event;
       console.log("this.isproductfilter",this.isproductfilter);
     },
+
+    // isallData2(event){
+    //   this.isallData = event;
+    //   console.log("this.isallData",this.isallData);
+    // },
+
   },
 };
 </script>

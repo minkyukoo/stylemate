@@ -8,7 +8,7 @@
             class="siteLogo"
             alt="Logo"
           />
-          <NotificationIcon notificationCount="24" />
+          <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -27,7 +27,7 @@
             {{ headerTitle }}
           </h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
-          <NotificationIcon notificationCount="24" />
+          <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -38,6 +38,7 @@
 // import { IonHeader,IonIcon, IonToolbar, IonTitle,IonButtons } from '@ionic/vue';
 import { IonButtons, IonHeader, IonToolbar } from "@ionic/vue";
 import NotificationIcon from "./utilities/NotificationIcon.vue";
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "TopNav",
   // components: { IonHeader, IonToolbar, IonTitle, NotificationIcon, IonButtons, IonIcon },
@@ -50,7 +51,29 @@ export default {
       mainHeader: false,
       innerHeader: true,
       siteLogo: "@/assets/images/logo-black.svg",
+      notificationLength: 0,
     };
+  },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
+  mounted() {
+    this.getNotificationLength();
+  },
+  methods: {
+    getNotificationLength() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.userInfoService.getUserInfo().then((userInfo) => {
+          this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
+            this.notificationLength = notice.data.data.length;
+          });
+        });
+      } else this.notificationLength = 0;
+    },
   },
 };
 </script>

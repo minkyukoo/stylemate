@@ -1,0 +1,166 @@
+<template>
+  <ion-page class="main-container relative">
+    <!-- header -->
+    <TopNav headerTitle="배송지 정보" />
+    <!-- End header -->
+    <!-- page content -->
+    <ion-content :fullscreen="true">
+       <div class="contWrap">
+          <ul>
+            <li>
+              <div>
+                <label>배송지</label></div>
+            </li>
+            <li>
+              <div>서울특별시 강남구 삼성로 95길 6</div>
+              <div class="pointer"><img src="@/assets/icons/arrow-right.svg" /></div>
+            </li>
+            <li>
+              <div>서울특별시 서초구 반포대로125</div>
+              <div class="pointer" @click="showModal"><img src="@/assets/icons/arrow-right.svg" /></div>
+            </li>
+          </ul>
+          <ul class="secList">
+            <li>
+                <button type="button">등록</button>
+            </li>
+          </ul>
+        </div>
+        <div class="button-group">
+            <button class="black-btn">확인</button>
+        </div>
+
+
+        <CustomModal v-show="isModalVisible" @close="closeModal">
+              <template v-slot:header>
+                <h2>In progress</h2>
+              </template>
+              <template v-slot:body>
+                <div class="modal-content">
+                  <p>Loremipsum Text</p>
+                </div>
+              </template>
+
+              <template v-slot:footer> </template>
+            </CustomModal>
+    </ion-content>
+    <!-- End page content -->
+
+    
+  </ion-page>
+</template>
+
+<script>
+import { IonPage,  IonContent, } from '@ionic/vue';
+// import ExploreContainer from '@/components/ExploreContainer.vue';
+import TopNav from '@/components/TopNav.vue';
+// import MyTop from '@/components/MyPageTop.vue';
+// import MyPageDetails from '@/components/MyPageDetails.vue';
+// import Login from '@/views/pages/Login.vue'
+// Import Swiper styles
+// import "swiper/css";
+
+// import "swiper/css/free-mode";
+// import "swiper/css/scrollbar";
+// import { FreeMode, Scrollbar, Mousewheel } from "swiper";
+
+import CustomModal from "@/components/Modal.vue";
+
+export default {
+  name: 'DeliveryAddress',
+  components: { TopNav,  IonContent, IonPage, CustomModal },
+  // mounted() {
+  //   var queryString = window.location.search;
+  //   const urlParams = new URLSearchParams(queryString);
+  //   var token = urlParams.get('token')
+  //   localStorage.setItem('token', token);
+  //   console.log(urlParams);
+  //   console.log(token);
+  // }
+  data() {
+    return {
+      isModalVisible: false,
+      // isActive: false,
+    };
+  },
+  methods: {
+    openlink() {
+      console.log("clivk");
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.contWrap{
+  padding: 20px;
+}
+.contWrap ul li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #F6F6F6;
+  padding: 10px 0;
+}
+.contWrap li label{
+  color: #C4C4C4;
+  font-size: 12px;
+  font-weight: 700;
+}
+.contWrap ul li lspanabel{
+  color: #25282B;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.secList,.thirdList,.forthList{
+  margin-top: 40px;
+}
+.secList button{
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #595959;
+  color: #595959;
+  padding: 14px 0;
+}
+
+.thirdList li{
+  justify-content: flex-start !important;
+}
+.thirdList li ion-checkbox{
+  margin-right: 10px;
+}
+.button-group{
+  bottom: 0;
+  width: 500px;
+  position: fixed;
+  
+}
+.button-group button{
+    width: 100%;
+    display: block;
+    align-items: center;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 21px;
+}
+.button-group button.grey-btn{
+    color: #797979;
+    background: #E5E5E5;
+}
+.button-group button.black-btn{
+    color: #FFFFFF;
+    background: #090909;
+}
+.pointer{
+  cursor: pointer;
+}
+</style>

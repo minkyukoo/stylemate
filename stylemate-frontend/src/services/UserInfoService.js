@@ -19,4 +19,18 @@ export default class UserInfoService {
       }
     }).then((res) => res).catch((err) => err);
   }
+
+  async getFilterNotice(uid, filter) {
+    return await axios.get(`/stylemates/users/${uid}/alarms?filters={"type":"${filter}"}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res).catch((err) => err);
+  }
+
+  async Notice() {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
+  }
+
+
 }
