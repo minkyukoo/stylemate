@@ -32,5 +32,11 @@ export default class UserInfoService {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }
 
+  async FAQs() {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq`).then((res) => res.data).catch((err) => err);
+  }
 
+  async NoticeById(id) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/${id}`).then((res) => res.data).catch((err) => err);
+  }
 }

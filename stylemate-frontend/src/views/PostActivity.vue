@@ -5,7 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <MyTop />
+      <MyTop :userDetails="userDetail" :status="status" :image="profileImg" />
       <PostActivityDetails />
     </ion-content>
   </ion-page>

@@ -8,8 +8,15 @@ export default class ContentService {
       .catch((err) => err);
   }
 
+  async getNewContent() {
+    return await axios.get("/stylemates/contents");
+  }
+
   async getPostDetail(id) {
-    return await axios
-      .get(`/stylemates/contents/${id}`) 
+    return await axios.get(`/stylemates/contents/${id}`);
+  }
+
+  async getBestContent() {
+    return await axios.get("/stylemates/front-manages?type=post");
   }
 }

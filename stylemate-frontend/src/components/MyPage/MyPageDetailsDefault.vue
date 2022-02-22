@@ -1,7 +1,7 @@
 <template>
   <div class="details-container">
     <RatingBox />
-    <SponsorshipBox v-on:setPage="setPageType($event)" />
+    <SponsorshipBox  />
     <div class="link-wrap">
       <MyInformation />
       <CustomerService />
@@ -27,9 +27,7 @@ export default defineComponent({
     CustomerService,
   },
   methods: {
-    setPageType(page) {
-      this.$emit("setPage", page);
-    },
+    
   },
 });
 </script>
