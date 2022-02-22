@@ -3,8 +3,16 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div v-for="(image, i) of img" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
-        <img :src="image.src" v-bind:alt="img" @click="openModal" />
+      <div
+        v-for="(image, i) of best_contents"
+        :key="i + 1"
+        :class="'g-img-wrap a' + (i + 1)"
+      >
+        <img
+          :src="image.post.product.imageThumbnailPath"
+          v-bind:alt="img"
+          @click="store.methods.setContentsDetailsModal(true, image.post.id)"
+        />
       </div>
     </div>
     <br />
@@ -18,7 +26,9 @@
           <img
             :src="image.campaign.imageThumbnailPath"
             v-bind:alt="img"
-            @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
+            @click="
+              store.methods.setContentsDetailsModal(true, image.campaign.id)
+            "
           />
         </div>
       </div>
@@ -30,17 +40,15 @@
 <script>
 import { inject } from "vue";
 import ContentDetails from "../../components/ContentDetails.vue";
-// import {
-//   modalController,
-// } from "@ionic/vue";
-// import ContentDetails from "@/components/ContentDetails.vue";
-import axios from "axios";
+import ContentService from "@/services/ContentService";
+// import axios from "axios";
 import PostService from "@/services/PostService";
 export default {
   name: "ContentPage",
   data() {
     return {
       new_contents: [],
+      best_contents: [],
       img: [
         { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
         { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
@@ -51,6 +59,7 @@ export default {
         { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
         { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
         { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
+        
       ],
       img_new: [
         {
@@ -78,6 +87,7 @@ export default {
           srci: "https://source.unsplash.com/random/800x400?i=1",
         },
       ],
+      contentService: null,
     };
   },
 
@@ -93,37 +103,42 @@ export default {
   },
 
   created() {
-
     this.postService = new PostService();
-
+    this.contentService = new ContentService();
   },
   mounted() {
-    this.postService.getPost('post', 2).then((res) => {
-      console.log('res', res);
-    });
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
+    // this.postService.getPost('post', 2).then((res) => {
+    //   console.log('res', res);
+    // });
+    // axios
+    //   .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
+    //   .then((response) => {
+    //     this.new_contents = response.data.data;
+    //     console.log("content", response);
+    //   })
+    //   .catch((e) => {
+    //     this.error.push(e);
+    //   });
+    this.contentService
+      .getNewContent()
       .then((response) => {
         this.new_contents = response.data.data;
         console.log("content", response);
       })
       .catch((e) => {
-        this.error.push(e);
+        console.log(e);
+      });
+    this.contentService
+      .getBestContent()
+      .then((res) => {
+        this.best_contents = res.data;
+        console.log("best_contents", res);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   },
-  methods: {
-    // async openModal() {
-    //   const modal = await modalController.create({
-    //     component: ContentDetails,
-    //     componentProps: {
-    //       propsData: {
-    //         title: 'String to pass!',
-    //       },
-    //     },
-    //   });
-    //   return modal.present();
-    // },
-  },
+  methods: {},
 };
 </script>
 <style scoped>
