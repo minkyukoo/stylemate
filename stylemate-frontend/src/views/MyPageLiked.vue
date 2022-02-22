@@ -6,7 +6,7 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <h1>My page</h1> -->
-      <MyTop />
+      <MyTop :userDetails="userDetail" :status="status" :image="profileImg" />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
       <LikedTab  />

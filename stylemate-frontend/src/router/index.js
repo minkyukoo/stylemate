@@ -8,9 +8,9 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
-import Sponsorships from "../views/Sponsorship.vue";
-import PostActivity from "../views/PostActivity.vue";
-import MyPageLiked from "../views/MyPageLiked.vue";
+import Sponsorships from "@/views/Sponsorship.vue";
+import PostActivity from "@/views/PostActivity.vue";
+import MyPageLiked from "@/views/MyPageLiked.vue";
 import TokenService from "@/services/TokenService";
 
 

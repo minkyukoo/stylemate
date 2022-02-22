@@ -107,18 +107,6 @@ export default {
     this.contentService = new ContentService();
   },
   mounted() {
-    // this.postService.getPost('post', 2).then((res) => {
-    //   console.log('res', res);
-    // });
-    // axios
-    //   .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
-    //   .then((response) => {
-    //     this.new_contents = response.data.data;
-    //     console.log("content", response);
-    //   })
-    //   .catch((e) => {
-    //     this.error.push(e);
-    //   });
     this.contentService
       .getNewContent()
       .then((response) => {
