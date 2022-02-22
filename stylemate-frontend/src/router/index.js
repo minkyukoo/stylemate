@@ -288,13 +288,21 @@ const routes = [
     }
   },
   {
-    path: "/noticedetails",
+    path: "/noticedetails/:id",
     name: "NoticeDetails",
     component: () => import("@/views/pages/NoticeDetails.vue"),
     meta: {
       innerHeader: true,
     }
-  }
+  },
+  {
+    path: "/customerservicecenter",
+    name: "CustomerServiceCenter",
+    component: () => import("@/views/pages/CustomerServiceCenter.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   
 
 
