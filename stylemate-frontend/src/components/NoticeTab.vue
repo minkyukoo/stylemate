@@ -49,7 +49,79 @@
     <!-- tab content 2 -->
     <div class="tab-content" v-if="layout === 'tab2'">
       <div class="faq-wrap">
-        <NoticeAccordion />
+        <div class="faq-wrapper">
+          <h2>채널 연결</h2>
+          <NoticeAccordion title="인스타그램 연결 방법">
+            오른쪽 위의 [로그인] > 화면 아래 [아이디 찾기], [비밀번호 찾기] 를
+            통해 확인이 가능하며, 임시 비밀번호의 경우 회원가입 시 등록하시
+            메일로 발송됩니다. 가입 시 기재한 메일주소가 기억나지 않으시거나
+            오류가 발생하는 경우, 1644-0000 또는 카카오톡으로 문의주시면
+            신속하게 도움 드리겠습니다.
+          </NoticeAccordion>
+          <NoticeAccordion title="유튜브 연결 방법">
+            accordion 2 content
+          </NoticeAccordion>
+        </div>
+        <div class="faq-wrapper">
+          <h2>회원 정보</h2>
+          <NoticeAccordion title="회원 탈퇴하고 싶어요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="비밀번호를 변경하고 싶어요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="계정이 휴면 전환되었어요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="사이트 이용에 제한이 있나요?">
+            lorem ipsum
+          </NoticeAccordion>
+        </div>
+        <div class="faq-wrapper">
+          <h2>캠페인 신청</h2>
+          <NoticeAccordion title="신청할 수 있는 캠페인은 어떤 것들이 있나요?">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="신청한 제공 내역은 변경할 수 있나요?">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="캠페인 신청기간을 알려주세요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="신청 취소가 가능할까요?">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="캠페인 재참여가 가능할까요?">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="신청한 캠페인은 어디서 확인할 수 있나요?">
+            lorem ipsum
+          </NoticeAccordion>
+        </div>
+        <div class="faq-wrapper">
+          <h2>캠페인 선정</h2>
+          <NoticeAccordion title="캠페인에 공지된 선정 인원이 달라요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="선정되면 어떻게 확인할 수 있나요?">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="인플루언서 선정 기준이 무엇인가요?">
+            lorem ipsum
+          </NoticeAccordion>
+        </div>
+        <div class="faq-wrapper">
+          <h2>포인트</h2>
+          <NoticeAccordion title="미디언스 포인트를 입금받고 싶어요.">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="계좌 변경">
+            lorem ipsum
+          </NoticeAccordion>
+          <NoticeAccordion title="포인트가 소멸된 것 같아요.">
+            lorem ipsum
+          </NoticeAccordion>
+        </div>
       </div>
     </div>
 
@@ -269,7 +341,18 @@ export default {
 .top-sec button span {
   margin-right: 8px;
 }
-.faq-wrap{
-  padding: 32px 16px 30px;
+.faq-wrap {
+  padding: 0 16px 100px;
+}
+.faq-wrapper {
+  border-bottom: solid 1px #f4f4f5;
+  padding: 32px 0 30px;
+}
+.faq-wrapper h2 {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  color: #25282b;
+  margin-bottom: 12px;
 }
 </style>
