@@ -24,6 +24,7 @@ var itemService = new ItemService();
     return await itemService.getProductList().then((data) => {
       console.log("ItemList from store", data);
       state.AppData = data;
+      return state.AppData;
     })
   },
   setSponsorTab(tab) {

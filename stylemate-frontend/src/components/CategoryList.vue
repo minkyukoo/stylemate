@@ -91,17 +91,10 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
-
-
       this.activeId = "All"; //To highlight the button default
-
     });
   },
-  mounted() {
-
-  },
   methods: {
-
     // Child category click
     handleClick2(ids) {
       alert(ids);
@@ -135,21 +128,16 @@ export default {
         console.log("category-filterproductList", data);
         this.childactiveId = ids; //To activate the All button
         if (data.length == 0) {
-          // alert('nodata')
           this.nofltData = true;
           this.$emit("fltData", false);
         } else {
           this.nofltData = false;
-          this.$emit("fltData", true);
-
           let filterproductList = data;
+          this.$emit("fltData", true);
           this.$emit("filterproductList", filterproductList);
         }
       });
 
-      if (ids === "All") {
-        this.activeId = ids;
-      }
       if (typeof childCategory !== "undefined") {
         this.childCategoryArray = [];
 
@@ -166,7 +154,7 @@ export default {
         this.childCategories2 = arr1.unshift({ name: "All", id: "Allchild" });
         console.log("this.childCategories2", this.childCategories2);
 
-        alert(ids);
+        alert("child cat id", ids);
         this.childCategory = true;
         this.onClickButton(false);
         console.log("this", this);
@@ -178,17 +166,10 @@ export default {
         this.childCategory = false;
         this.onClickButton(true);
       }
-      // else{
-      //     let allData = data;
-      //     console.log("allData",allData);
-      //     this.$emit("allData",allData);
-      //   }
     },
 
     onClickButton(ve) {
       this.$emit("clicked", ve);
-      // let allData = data;
-      // this.$emit("allData",allData);
     },
   },
 };

@@ -7,9 +7,9 @@
     <!-- <ion-content :fullscreen="true"> -->
       <div class="main-wrap">
       <!-- <ExploreContainer name="Item page" /> -->
-      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" v-on:allbutton="allbutton2($event)"/>
+      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)"/>
       
-      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter" :isallbutton="isallbutton"/>
+      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
       </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -47,11 +47,6 @@ export default {
     filterproductList2(event){
       this.isproductfilter = event;
       console.log("this.isproductfilter",this.isproductfilter);
-    },
-
-    allbutton2(event){
-      this.isallbutton = event;
-      console.log("this.isallbutton",this.isallbutton);
     },
 
   },
