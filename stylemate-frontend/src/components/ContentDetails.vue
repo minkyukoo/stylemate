@@ -11,7 +11,7 @@
     <template v-slot:body>
       <div class="details-body">
         <img
-          :src="[modalImg ? modalImg : '../assets/images/Rectangle 55.png']"
+          :src="[modalImg ? modalImg : '']"
           :alt="`img-${id}`"
           class="modalimage"
         />
