@@ -411,7 +411,7 @@ export default {
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
-        console.log(res);
+        // console.log(res);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
