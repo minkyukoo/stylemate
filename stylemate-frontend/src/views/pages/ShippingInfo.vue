@@ -13,7 +13,7 @@
             </li>
             <li>
               <div>
-                <span>
+                <span  @click="showModal">
                   <input type="text" placeholder="서울특별시 강남구 삼성로 95길 6">
                 </span>
               </div>
@@ -37,6 +37,32 @@
             <button class="grey-btn">취소</button>
             <button class="black-btn">신청하기</button>
         </div>
+
+        <FullCustomModal v-show="isModalVisible" @close="closeModal" class="overLapmodal">
+          <template v-slot:header>
+            <div class="overHeader">
+              <h2>Modal heading</h2>
+              <!-- <span @click="close">Close</span> -->
+              <button type="button" @click="closeModal" aria-label="Close modal">Close</button>
+            </div>
+          </template>
+          <template v-slot:body>
+            <div class="modal-content">
+              <div class="modalBody">
+                <div class="overSearch">
+                  <input type="text" placeholder="서울특별시 강남구 삼성로 95길 6">
+                  <h3>Tip</h3>
+                  <ul>
+                    <li>
+                      Loremipsum
+                      <span>Loremipsum 2</span>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+            </div>
+          </template>
+        </FullCustomModal>
     </ion-content>
     <!-- End page content -->
 
@@ -58,10 +84,12 @@ import TopNav from '@/components/TopNav.vue';
 // import "swiper/css/scrollbar";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
+import FullCustomModal from "@/components/FullModal.vue";
+
 
 export default {
   name: 'ShippingInfo',
-  components: { TopNav,  IonContent, IonPage },
+  components: { TopNav,  IonContent, IonPage, FullCustomModal },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -70,15 +98,84 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  data() {
+    return {
+      isModalVisible: false,
+      // isActive: false,
+    };
+  },
   methods: {
     openlink() {
       console.log("clivk");
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
     },
   },
 };
 </script>
 
 <style scoped>
+
+
+.overLapmodal{
+  z-index: 9;
+  width: 500px;
+  left: 50%;
+  margin-left: -250px;
+}
+.overLapmodal .modal{
+  width: 100% !important;
+}
+
+.overLapmodal .overHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.modal-content{
+  padding: 0;
+}
+.overLapmodal .overHeader h2{
+  margin: 0;
+  text-align: justify;
+}
+.overLapmodal .overSearch{
+  display: flex;
+  flex-direction: column;
+}
+.overLapmodal .overSearch input{
+  border-top: 1px solid#E5E5E5;
+  border-bottom: 1px solid#000;
+  background: none;
+  width: 100%;
+  height: 46px;
+  font-size: 14px;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+.overLapmodal .overSearch h3,.overLapmodal .overSearch ul{
+  padding: 0 20px 30px;
+}
+.overLapmodal .overSearch h3{
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.overLapmodal .overSearch ul li{
+  display: flex;
+  flex-direction: column;
+}
+.overLapmodal .overSearch ul li span{
+  display: block;
+  margin-top: 10px;
+  color: #00c3ff;
+}
 .contWrap{
   padding: 20px;
 }
