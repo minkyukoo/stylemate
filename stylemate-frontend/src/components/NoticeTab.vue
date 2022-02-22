@@ -57,8 +57,8 @@
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
             :title="faq.title"
+            v-html="faq.body"
           >
-            {{ faq.body }}
           </NoticeAccordion>
         </div>
       </div>

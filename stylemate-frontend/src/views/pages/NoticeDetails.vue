@@ -9,33 +9,17 @@
         <div class="tag-row">
           <span class="notice-tag red-solid">알림</span>
         </div>
-        <h2>숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이</h2>
+        <h2>{{ notice.title }}</h2>
         <div class="bottom-row">
-          <span>미디언스</span><span>{{ dateFormat(notice.createdAt) }} 2021. 01. 03</span>
+          <span>{{ notice.category }}</span><span>{{ notice.createdAt }}</span>
         </div>
       </div>
-      <div class="content-details">
-        <p>고객님, 안녕하세요.</p>
-        <br />
-        <p>올해부터 캠페인 비용을 조정하게 되어 안내드립니다.</p>
-        <br />
-        <p>
-          - 가격인상 요인 <br />
-          - 원재료값 상승
-        </p>
-        <br />
-        <p>
-          위의 사유로 공급가가 상승됨에 따라, 미디언스에서도 부득이하게 일정부분
-          가격조정을 하게 된 점 양해 부탁드립니다.<br />
-          앞으로도 더욱 발전하는 미디언스가 되겠습니다.<br /><br />
-          감사합니다.
-        </p>
-        <br />
-        <p>미디언스 드림</p>
-      </div>
+      <div class="content-details" v-html="notice.body"></div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button class="main-btn">목록으로</button>
+          <button class="main-btn" @click="$router.push({ name: 'Notice' })">
+            목록으로
+          </button>
         </div>
         <div class="pagination-wrap">
           <a href="#">
@@ -61,13 +45,25 @@ import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "NoticeDetails",
   components: { TopNav, IonContent, IonPage },
-
+  data() {
+    return {
+      notice: {
+        title: null,
+        body: null,
+        createdAt: null,
+        category: null,
+      },
+    };
+  },
   created() {
     this.service = new UserInfoService();
   },
   mounted() {
     this.service.NoticeById(this.$route.params.id).then((res) => {
-      this.notice = res;
+      this.notice.title = res.title;
+      this.notice.body = res.title;
+      this.notice.createdAt = this.dateFormat(res.createdAt);
+      this.notice.category = res.category;
     });
   },
   methods: {
