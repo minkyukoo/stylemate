@@ -194,12 +194,12 @@
             <img
               v-for="book in lookBooks.lineOne.big"
               :key="book.id"
-              :src="book.brand.imageThumbnailPath"
+              :src="book.post.product.imageThumbnailPath"
             />
           </div>
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
-              <img :src="book.brand.imageThumbnailPath" />
+              <img :src="book.post.product.imageThumbnailPath" />
             </div>
           </div>
         </div>
@@ -207,7 +207,7 @@
         <div class="lookBookMain">
           <div class="bookLabel2 pattern3">
             <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
-              <img :src="book.brand.imageThumbnailPath" />
+              <img :src="book.post.product.imageThumbnailPath" />
             </div>
           </div>
         </div>
@@ -215,14 +215,14 @@
         <div class="lookBookMain">
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
-              <img :src="book.brand.imageThumbnailPath" />
+              <img :src="book.post.product.imageThumbnailPath" />
             </div>
           </div>
           <div class="bookLabel1 pattern1">
             <img
               v-for="book in lookBooks.lineThree.big"
               :key="book.id"
-              :src="book.brand.imageThumbnailPath"
+              :src="book.post.product.imageThumbnailPath"
             />
           </div>
         </div>
@@ -393,6 +393,7 @@ export default {
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
+        console.log(res);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
