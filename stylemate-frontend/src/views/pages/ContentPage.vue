@@ -3,11 +3,7 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div
-        v-for="(image, i) of best_contents"
-        :key="i + 1"
-        :class="'g-img-wrap a' + (i + 1)"
-      >
+      <div v-for="(image, i) of best_contents" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
         <img
           :src="image.post.product.imageThumbnailPath"
           v-bind:alt="img"
@@ -49,44 +45,44 @@ export default {
     return {
       new_contents: [],
       best_contents: [],
-      img: [
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/3" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/4" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/5" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/6" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
-        
-      ],
-      img_new: [
-        {
-          src: "@/assets/images/Rectanglen1.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen2.png",
-          srci: "https://source.unsplash.com/random/800x400?i=2",
-        },
-        {
-          src: "@/assets/images/Rectanglen3.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen4.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen5.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen6.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-      ],
+      // img: [
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/3" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/4" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/5" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/6" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
+
+      // ],
+      // img_new: [
+      //   {
+      //     src: "@/assets/images/Rectanglen1.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen2.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=2",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen3.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen4.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen5.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen6.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      // ],
       contentService: null,
     };
   },
@@ -107,18 +103,7 @@ export default {
     this.contentService = new ContentService();
   },
   mounted() {
-    // this.postService.getPost('post', 2).then((res) => {
-    //   console.log('res', res);
-    // });
-    // axios
-    //   .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
-    //   .then((response) => {
-    //     this.new_contents = response.data.data;
-    //     console.log("content", response);
-    //   })
-    //   .catch((e) => {
-    //     this.error.push(e);
-    //   });
+    // new_contents
     this.contentService
       .getNewContent()
       .then((response) => {
@@ -128,6 +113,8 @@ export default {
       .catch((e) => {
         console.log(e);
       });
+    
+    // best_contents
     this.contentService
       .getBestContent()
       .then((res) => {

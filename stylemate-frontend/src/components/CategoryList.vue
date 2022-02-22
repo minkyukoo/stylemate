@@ -151,7 +151,7 @@ export default {
 
         let arr1 = this.childCategoryArray;
         console.log("arr1", arr1);
-        this.childCategories2 = arr1.unshift({ name: "All", id: "Allchild" });
+        this.childCategories2 = arr1.unshift({ name: "All", id: ids });
         console.log("this.childCategories2", this.childCategories2);
 
         alert("child cat id", ids);

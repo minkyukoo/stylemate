@@ -12,8 +12,6 @@ export default class ItemService {
   async getFilterProduct(ids) {
     if (ids === "All") {
       return await this.getProductList();
-    } else if(ids === "Allchild") {
-      return await axios.get(`/stylemates/products?categoryId=${ids}`,{categoryId: ids}).then((res) => res.data.data);
     }
     return await axios.get(`/stylemates/products?categoryId=${ids}`,{categoryId: ids}).then((res) => res.data.data);
     
