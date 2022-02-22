@@ -147,7 +147,7 @@
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :pagination="{ clickable: true, dynamicBullets: true, }"
+            :pagination="{ clickable: true, dynamicBullets: true }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
@@ -155,7 +155,9 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -247,7 +249,7 @@
 
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull" @click="getNotice">
-          <span>중요</span> [알림] 서비스 점검 안내
+          <span>중요</span> {{ notice }}
         </button>
       </div>
     </div>
@@ -291,10 +293,12 @@ export default {
       console.log("brand slide change", swiper.slides);
       let slides = swiper.slides;
       slides.forEach((slide, index) => {
-        if(index === swiper.activeIndex) {
+        if (index === swiper.activeIndex) {
           console.log("active index", slide);
-          let src = slide.querySelector(".nb-img-wrap > img").getAttreibute("src");
-          console.log('src', src);
+          let src = slide
+            .querySelector(".nb-img-wrap > img")
+            .getAttreibute("src");
+          console.log("src", src);
         }
       });
     };
@@ -308,6 +312,7 @@ export default {
   },
   data() {
     return {
+      notice: null,
       bannerList: null,
       brandList: [],
       newStartItems: [],
@@ -346,11 +351,24 @@ export default {
 
     window.callJsFunction = this.callJsFunction;
     window.pushNotification = this.pushNotification;
+
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("token") !== undefined &&
+      localStorage.getItem("token") !== ""
+    ) {
+      this.userInfoService.Notice().then((res) => {
+        this.notice = res.data[0].title;
+        console.log(res.data);
+      });
+    } else {
+      this.notice = "[알림] 서비스 점검 안내";
+    }
   },
   methods: {
     truncate(input, length) {
       if (input.length > length) {
-        return input.substring(0, length) + '...';
+        return input.substring(0, length) + "...";
       }
       return input;
     },
@@ -704,9 +722,10 @@ export default {
 .newBrandSwiper .swiper-slide-active > .carousel__item {
   transform: scale(1);
 }
-.swiper-horizontal>.swiper-pagination-bullets, 
-.swiper-pagination-bullets.swiper-pagination-horizontal, 
-.swiper-pagination-custom, .swiper-pagination-fraction {
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
   bottom: -100px !important;
 }
 </style>
