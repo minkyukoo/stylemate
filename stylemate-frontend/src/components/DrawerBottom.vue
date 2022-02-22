@@ -1,17 +1,14 @@
 <template>
     <div class="drawer-wrap">
         <div class="drawer-top">
-            <div class="selectWrap">
+
+            <div class="selectWrap" v-for="item in productColor" :key="item.optionName">
                 <vue-select
-                 placeholder="COLOR"
-                 :options="options"> </vue-select>
+                :placeholder="item.optionName"
+                :options="item.optionValues"
+                ></vue-select>
             </div>
 
-            <div class="selectWrap">
-                <vue-select
-                 placeholder="SIZE"
-                 :options="options"> </vue-select>
-            </div>
         </div>
         <div class="button-group">
             <button class="grey-btn">취소</button>
@@ -24,6 +21,7 @@
 // import Vue from 'vue';
 import { defineComponent } from "vue";
 import VueNextSelect from 'vue-next-select';
+import ItemService from "@/services/ItemService";
 
 export default defineComponent({
     name: 'DrawerBottom',
@@ -32,7 +30,7 @@ export default defineComponent({
     },
     data() {
         return {
-            //
+            productColor: '',
         }
     },
     setup() {
@@ -42,6 +40,17 @@ export default defineComponent({
            'Black', 'White', 'Green', 'Yellow', 'Bright blue','Black', 'White', 'Green', 'Yellow', 'Bright blue'
         ];
         return { options };
+    },
+
+    mounted(){
+        this.itemService = new ItemService();
+
+        var proId = this.$route.params.id;
+        this.itemService.getProductDetails(proId).then((data) => {
+        // catch error
+        this.productColor = data.productOption;
+        console.log("this.productColor",this.productColor);
+        });
     },
 })
 </script>
