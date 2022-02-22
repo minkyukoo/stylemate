@@ -19,19 +19,19 @@ export default {
         },
         {
           name: "FAQ",
-          Pagelink: "Home",
+          Pagelink: "Notice",
         },
         {
           name: "1:1 문의",
-          Pagelink: "Home",
+          Pagelink: "Notice",
         },
         {
           name: "이용약관",
-          Pagelink: "Home",
+          Pagelink: "CustomerServiceCenter",
         },
         {
           name: "개인정보처리방침",
-          Pagelink: "Home",
+          Pagelink: "CustomerServiceCenter",
         },
         {
           name: "앱 버전정보",

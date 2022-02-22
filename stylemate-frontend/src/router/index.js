@@ -294,7 +294,15 @@ const routes = [
     meta: {
       innerHeader: true,
     }
-  }
+  },
+  {
+    path: "/customerservicecenter",
+    name: "CustomerServiceCenter",
+    component: () => import("@/views/pages/CustomerServiceCenter.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   
 
 
