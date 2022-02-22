@@ -238,6 +238,22 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/newmember",
+    name: "NewMemberJoining",
+    component: () => import("@/views/pages/NewMemberJoining.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/newmemberchannel",
+    name: "NewMemberChannel",
+    component: () => import("@/views/pages/NewMemberChannel.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
