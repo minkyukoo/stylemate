@@ -348,6 +348,9 @@ export default {
   border-bottom: solid 1px #f4f4f5;
   padding: 32px 0 30px;
 }
+.faq-wrapper:last-child{
+  border-bottom: none;
+}
 .faq-wrapper h2 {
   font-weight: bold;
   font-size: 16px;
