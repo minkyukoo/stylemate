@@ -11,7 +11,7 @@
         </div>
         <h2>숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이</h2>
         <div class="bottom-row">
-          <span>미디언스</span><span>2021. 01. 03</span>
+          <span>미디언스</span><span>{{ dateFormat(notice.createdAt) }} 2021. 01. 03</span>
         </div>
       </div>
       <div class="content-details">
@@ -56,10 +56,26 @@
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
+import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "NoticeDetails",
   components: { TopNav, IonContent, IonPage },
+
+  created() {
+    this.service = new UserInfoService();
+  },
+  mounted() {
+    this.service.NoticeById(this.$route.params.id).then((res) => {
+      this.notice = res;
+    });
+  },
+  methods: {
+    dateFormat(date) {
+      let dt = new Date(date);
+      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+  },
 };
 </script>
 

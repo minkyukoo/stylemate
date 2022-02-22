@@ -29,7 +29,9 @@
         v-for="notice in noticelist"
         :key="notice"
         class="notice-row"
-        @click="$router.push({ name: 'NoticeDetails' })"
+        @click="
+          $router.push({ name: 'NoticeDetails', params: { id: notice.id } })
+        "
       >
         <div class="tag-row">
           <span class="notice-tag red-solid">알림</span>
@@ -49,77 +51,14 @@
     <!-- tab content 2 -->
     <div class="tab-content" v-if="layout === 'tab2'">
       <div class="faq-wrap">
-        <div class="faq-wrapper">
-          <h2>채널 연결</h2>
-          <NoticeAccordion title="인스타그램 연결 방법">
-            오른쪽 위의 [로그인] > 화면 아래 [아이디 찾기], [비밀번호 찾기] 를
-            통해 확인이 가능하며, 임시 비밀번호의 경우 회원가입 시 등록하시
-            메일로 발송됩니다. 가입 시 기재한 메일주소가 기억나지 않으시거나
-            오류가 발생하는 경우, 1644-0000 또는 카카오톡으로 문의주시면
-            신속하게 도움 드리겠습니다.
-          </NoticeAccordion>
-          <NoticeAccordion title="유튜브 연결 방법">
-            accordion 2 content
-          </NoticeAccordion>
-        </div>
-        <div class="faq-wrapper">
-          <h2>회원 정보</h2>
-          <NoticeAccordion title="회원 탈퇴하고 싶어요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="비밀번호를 변경하고 싶어요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="계정이 휴면 전환되었어요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="사이트 이용에 제한이 있나요?">
-            lorem ipsum
-          </NoticeAccordion>
-        </div>
-        <div class="faq-wrapper">
-          <h2>캠페인 신청</h2>
-          <NoticeAccordion title="신청할 수 있는 캠페인은 어떤 것들이 있나요?">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="신청한 제공 내역은 변경할 수 있나요?">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="캠페인 신청기간을 알려주세요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="신청 취소가 가능할까요?">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="캠페인 재참여가 가능할까요?">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="신청한 캠페인은 어디서 확인할 수 있나요?">
-            lorem ipsum
-          </NoticeAccordion>
-        </div>
-        <div class="faq-wrapper">
-          <h2>캠페인 선정</h2>
-          <NoticeAccordion title="캠페인에 공지된 선정 인원이 달라요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="선정되면 어떻게 확인할 수 있나요?">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="인플루언서 선정 기준이 무엇인가요?">
-            lorem ipsum
-          </NoticeAccordion>
-        </div>
-        <div class="faq-wrapper">
-          <h2>포인트</h2>
-          <NoticeAccordion title="미디언스 포인트를 입금받고 싶어요.">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="계좌 변경">
-            lorem ipsum
-          </NoticeAccordion>
-          <NoticeAccordion title="포인트가 소멸된 것 같아요.">
-            lorem ipsum
+        <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
+          <h2>{{ item }}</h2>
+          <NoticeAccordion
+            v-for="faq in faqs.filter((v) => v.category === item)"
+            :key="faq.id"
+            :title="faq.title"
+          >
+            {{ faq.body }}
           </NoticeAccordion>
         </div>
       </div>
@@ -169,33 +108,8 @@ export default {
   data() {
     return {
       layout: "tab2",
-      noticelist: [
-        {
-          desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
-          type: "미디언스",
-          date: "2021.01.03",
-        },
-        {
-          desc: "빠르고 강력한 알레르기 치료제, 알티싹 세티! 제목은 최대 2줄까지 지원",
-          type: "미디언스",
-          date: "2021.01.03",
-        },
-        {
-          desc: "연말 가요대상은 누구일까요? 가요톱텐에서 확인해보세요.",
-          type: "미디언스",
-          date: "2021.01.03",
-        },
-        {
-          desc: "여러분들의 친구 뽀로로와 함께 어덜트 카페로",
-          type: "미디언스",
-          date: "2021.01.03",
-        },
-        {
-          desc: "팔딱팔딱 뛰는 가슴 구해줘 오 내 마음 십년이 지나도",
-          type: "미디언스",
-          date: "2021.01.03",
-        },
-      ],
+      faqs: [],
+      faqCategory: [],
       inquirylist: [
         {
           desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
@@ -216,6 +130,15 @@ export default {
   mounted() {
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
+    });
+
+    this.service.FAQs().then((res) => {
+      this.faqCategory = res.data
+        .map((option) => option.category)
+        .filter((v, i, a) => a.indexOf(v) === i);
+      this.service.FAQs().then((res) => {
+        this.faqs = res.data;
+      });
     });
   },
   methods: {
@@ -348,7 +271,7 @@ export default {
   border-bottom: solid 1px #f4f4f5;
   padding: 32px 0 30px;
 }
-.faq-wrapper:last-child{
+.faq-wrapper:last-child {
   border-bottom: none;
 }
 .faq-wrapper h2 {
