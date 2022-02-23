@@ -92,7 +92,7 @@
               {{ productCampaign.campaignMission.essentialGuide }}
               <!-- {{
                 productData.campaign.map(item => item.campaignMission.essentialGuide)
-              }}-->
+              }} -->
             </li>
           </ul>
         </div>
