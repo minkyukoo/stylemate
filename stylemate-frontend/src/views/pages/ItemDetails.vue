@@ -133,7 +133,7 @@
               <template v-slot:footer></template>
             </CustomModal>
 
-            <TabProductDetails :productData="productDetails" />
+            <ProductDetailsTab :productData="productDetails" />
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
@@ -166,7 +166,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 // import { IonSlides, IonSlide } from "@ionic/vue";
-import TabProductDetails from "@/components/ProductDetailsTab.vue";
+import ProductDetailsTab from "@/components/ProductDetailsTab.vue";
 import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
@@ -181,7 +181,7 @@ export default {
     // IonSlide,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    TabProductDetails,
+    ProductDetailsTab,
     CustomModal,
     TopNav,
     DrawerBottom,
@@ -213,15 +213,15 @@ export default {
 
     onMounted(() => {
       var currentTime = new Date().getTime();
-      if(localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+      if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
         userData.methods.getUserData();
       }
     });
 
-    return { 
+    return {
       userData,
       modules: [Pagination],
-     };
+    };
   },
 
   methods: {
@@ -291,6 +291,19 @@ export default {
   top: 13px;
   left: 13px;
 }
+.mainslide-banner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 380px;
+  background: rgb(101, 101, 101);
+}
+.mainslide-banner-wrap img {
+  height: auto;
+  width: 380px;
+  max-height: 380px;
+  object-fit: contain;
+}
 .item-wrapper {
   padding: 40px 20px 60px;
   border-top-left-radius: 20px;
@@ -307,6 +320,7 @@ export default {
   transition: all 0.5s ease-in-out;
   /* backdrop-filter: blur(30px); */
 }
+
 .top-section {
   display: flex;
   align-items: center;

@@ -1,40 +1,28 @@
 <template>
   <div class="tab-wrap">
     <div class="tabs">
-      <button
-        class="tab"
-        @click="layout = 'tab1'"
-        :class="{ active: layout === 'tab1' }"
-      >
-        캠페인
-      </button>
-      <button
-        class="tab"
-        @click="layout = 'tab2'"
-        :class="{ active: layout === 'tab2' }"
-      >
-        가이드
-      </button>
+      <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">캠페인</button>
+      <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">가이드</button>
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
       <figure class="product-banner">
-        <img src="@/assets/images/product-details.jpg" />
-        <img src="@/assets/images/product-details.jpg" />
+        <img
+          v-for="(item, i) of productData.productImageFile"
+          :key="i"
+          :src="item.productImagePath"
+        />
+        <!-- <img src="@/assets/images/product-details.jpg" />
+        <img src="@/assets/images/product-details.jpg" />-->
       </figure>
       <div class="product-desc">
-        <ul>
-          <li>전면부 시그니처 스몰 로고 자수 처리</li>
-          <li>남녀공용 오버핏 사이즈로 제작</li>
-          <li>국내생산 7게이지 2합원사 편직가공</li>
-          <li>밀도 높고 짜임새 좋게 제작</li>
-          <li>여유로운 실루엣의 오버핏</li>
-          <li>투톤 컬러의 단추로 포인트 있게 제작</li>
-        </ul>
+        <p>{{ productData.description }}</p>
       </div>
       <div class="pre-div">
         <h3>
-          <span><img src="@/assets/icons/warning.svg" /></span>
+          <span>
+            <img src="@/assets/icons/warning.svg" />
+          </span>
           주의사항
         </h3>
         <div class="text-box">
@@ -64,16 +52,29 @@
 
     <!-- tab content 2 -->
     <div class="tab-content" v-if="layout === 'tab2'">
-      <div class="tag-info">
-        <div v-for="tagcell in tagrow" :key="tagcell" class="tag-info-row">
+      <div class="tag-info" v-for="(item, i) of productData.campaign" :key="i">
+        <div class="tag-info-row">
           <div class="top">
-            <h3>{{ tagcell.name }}</h3>
-            <span>복사</span>
+            <h3>해시태그</h3>
+            <span @click="copyHastags">복사</span>
           </div>
-          <div class="tag-content">
-            <span v-for="hash in tagcell.hashtag" :key="hash">{{
-              hash.name
-            }}</span>
+          <div class="tag-content hastags">
+            <span
+              v-for="(hastag, i) of item.campaignMission.requiredHashtag"
+              :key="i"
+            >{{ '#' + hastag }}</span>
+          </div>
+        </div>
+        <div class="tag-info-row">
+          <div class="top">
+            <h3>계정태그</h3>
+            <span @click="copyAccounttags">복사</span>
+          </div>
+          <div class="tag-content accounttags">
+            <span
+              v-for="(account, i) of item.campaignMission.requiredAccount"
+              :key="i"
+            >{{ '@' + account }}</span>
           </div>
         </div>
       </div>
@@ -81,37 +82,33 @@
       <div class="terms-wrap">
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-check.svg" /></span>
+            <span>
+              <img src="@/assets/icons/icon-check.svg" />
+            </span>
             <h3>꼭 읽어주세요</h3>
           </div>
           <ul class="guide-body">
             <li>
-              ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
-              연락처를 최신화 해주세요.
-            </li>
-            <li>
-              ※ 제품은 1번 제품을 포함하여 최대 3개까지 선택 가능하며 제품
-              선택에 따라 포스팅 해주셔야 합니다. (ex_2개 선택 시 포스팅 2개)
-            </li>
-            <li>
-              ※ 선택 제품 리스트는 제품 상세 페이지(클릭) 에서 확인
-              부탁드립니다. 포스트 업로드 시 댓글 숨김(막기) / 좋아요 숨김 되지
-              않도록 유의부탁드립니다.
-            </li>
-            <li>
-              ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
-              수 있습니다.
+              {{ productCampaign.campaignMission.essentialGuide }}
+              <!-- {{
+                productData.campaign.map(item => item.campaignMission.essentialGuide)
+              }}-->
             </li>
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-image.svg" /></span>
+            <span>
+              <img src="@/assets/icons/icon-image.svg" />
+            </span>
             <h3>이미지 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
+              {{ productCampaign.campaignMission.imageGuide }}
+            </li>
+            <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
             </li>
@@ -127,17 +124,22 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li>
+            </li> -->
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-text.svg" /></span>
+            <span>
+              <img src="@/assets/icons/icon-text.svg" />
+            </span>
             <h3>텍스트 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
+              {{ productCampaign.campaignMission.textGuide }}
+            </li>
+            <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
             </li>
@@ -153,17 +155,22 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li>
+            </li> -->
           </ul>
         </div>
 
         <div class="guide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-calendar.svg" /></span>
+            <span>
+              <img src="@/assets/icons/icon-calendar.svg" />
+            </span>
             <h3>일정 가이드</h3>
           </div>
           <ul class="guide-body">
             <li>
+              {{ productCampaign.campaignMission.scheduleGuide }}
+            </li>
+            <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
             </li>
@@ -179,18 +186,20 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li>
+            </li> -->
           </ul>
         </div>
 
-        <div class="guide">
+        <div class="guide" v-if="productCampaign.campaignMission.isBrandedGuide">
           <div class="heading">
-            <span><img src="@/assets/icons/icon-check-2.svg" /></span>
+            <span>
+              <img src="@/assets/icons/icon-check-2.svg" />
+            </span>
             <h3>브랜디드 콘텐츠 광고 레이블 가이드</h3>
           </div>
           <div class="desc">
             <p>브랜디드 콘텐츠 광고 레이블 추가는 필수사항이며 미추가 시, 레이블 추가 요청을 드릴 수 있습니다.</p>
-            <a class="see-more" href="#">추가방법 보러가기</a>
+            <a class="see-more" href="https://www.instagram.com/stories/highlights/18258294373070596/">추가방법 보러가기</a>
           </div>
         </div>
       </div>
@@ -199,41 +208,83 @@
 </template>
 
 <script>
+import Toast from "@/alert/alert.js";
 export default {
-  name: "TabProductDetails",
+  name: "ProductDetailsTab",
   props: {
-    tab: {
-      type: String,
-      default: "guide"
-    }
+    productData: null
   },
   data() {
     return {
-      tagrow: [
-        {
-          name: "해시태그",
-          hashtag: [
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-            { name: "#스트릿패션" },
-            { name: "#스우파" },
-            { name: "#후디" },
-          ],
-        },
-        {
-          name: "계정태그",
-          hashtag: [
-            { name: "@stylemate_official" },
-            { name: "@oef__official" },
-          ],
-        },
-      ],
+      // tagrow: [
+      //   {
+      //     name: "해시태그",
+      //     hashtag: [
+      //       { name: "#스트릿패션" },
+      //       { name: "#스우파" },
+      //       { name: "#후디" },
+      //       { name: "#스트릿패션" },
+      //       { name: "#스우파" },
+      //       { name: "#후디" },
+      //       { name: "#스트릿패션" },
+      //       { name: "#스우파" },
+      //       { name: "#후디" },
+      //     ],
+      //   },
+      //   {
+      //     name: "계정태그",
+      //     hashtag: [
+      //       { name: "@stylemate_official" },
+      //       { name: "@oef__official" },
+      //     ],
+      //   },
+      // ],
       layout: "tab1",
+      productCampaign: null,
     };
+  },
+  mounted() {
+    console.log('ProductDetailsTab mounted', this.$props.productData);
+
+  },
+  updated() {
+    if (this.$props.productData.campaign) {
+      // this.productCampaign = this.$props.productData.campaign;
+      this.$props.productData.campaign.map(item => this.productCampaign=item);
+      console.log('productCampaign', this.productCampaign);
+    }
+  },
+  methods: {
+    copyHastags() {
+      var copiedtext = document.querySelector(".hastags span").innerHTML;
+      if (copiedtext) {
+        console.log('copiedtext', copiedtext);
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+          const copyTxtValue = navigator.clipboard.writeText(copiedtext);
+          copyTxtValue.then(
+            function () {
+              Toast.fire({ title: "Copied to clipboard" });
+              return copyTxtValue;
+            }
+          );
+        }
+      }
+    },
+    copyAccounttags() {
+      var copiedtext = document.querySelector(".accounttags span").innerHTML;
+      if (copiedtext) {
+        console.log('copiedtext', copiedtext);
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+          const copyTxtValue = navigator.clipboard.writeText(copiedtext);
+          copyTxtValue.then(
+            function () {
+              Toast.fire({ title: "Copied to clipboard" });
+              return copyTxtValue;
+            }
+          );
+        }
+      }
+    },
   },
 };
 </script>
@@ -270,12 +321,20 @@ export default {
 .product-banner img:first-child {
   margin-top: 0;
 }
-.product-desc{
+.product-desc {
   margin-top: 20px;
+}
+.product-desc ul {
   padding-left: 20px;
 }
-.product-desc ul li{
+.product-desc ul li {
   list-style-type: disc;
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-align: left;
+}
+.product-desc p {
   font-size: 12px;
   line-height: 16px;
   color: #797979;
@@ -381,22 +440,22 @@ export default {
   line-height: 18px;
   color: #797979;
 }
-.terms-wrap .guide .desc{
+.terms-wrap .guide .desc {
   margin-top: 26px;
 }
-.terms-wrap .guide .desc p{
+.terms-wrap .guide .desc p {
   font-size: 12px;
   line-height: 16px;
   color: #797979;
   text-align: left;
 }
-.terms-wrap .guide .desc .see-more{
+.terms-wrap .guide .desc .see-more {
   font-size: 12px;
   line-height: 16px;
   color: #090909;
   border: 1px solid #595959;
   border-radius: 6px;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 10px;
   display: flex;
   align-items: center;
