@@ -88,7 +88,10 @@
                 <span>
                   <img src="@/assets/icons/calendar.svg" />
                 </span>
-                2021.11.11 ~ 2021.12.25
+                <!-- 2021.11.11 ~ 2021.12.25 -->
+                <span v-for="(item,i) of productDetails.campaign" :key="i">
+                  {{ item.campaignSchedule ? moment(item.campaignSchedule.startedAt).format('YYYY.MM.DD') : null }} ~ {{ item.campaignSchedule ? moment(item.campaignSchedule.finishedAt).format('YYYY.MM.DD') : null }}
+                </span>
               </p>
             </div>
 
@@ -166,6 +169,7 @@ import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
 import ItemService from "@/services/ItemService";
+import moment from 'moment';
 
 export default {
   name: "BrandDetails",
@@ -198,7 +202,7 @@ export default {
       ],
       isModalVisible: false,
       isActive: false,
-      productDetails: '',
+      productDetails: [],
     };
   },
 
@@ -220,6 +224,7 @@ export default {
     }
   },
   created() {
+    this.moment = moment;
     this.itemService = new ItemService();
 
     var proId = this.$route.params.id;
@@ -235,6 +240,7 @@ export default {
       else {
         console.log('producrt res', res);
         this.productDetails = res;
+        console.log('productDetails campaign:', this.productDetails.campaign[0].campaignSchedule);
       }
     });
   },
