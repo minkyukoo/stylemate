@@ -2,7 +2,7 @@
   <div class="item-card">
     <div class="img-con">
       <img
-        :src="`${require('../../assets/images/' + progressDetails.img)}`"
+        :src="progressDetails.product.imageThumbnailPath"
         alt=""
       />
       <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
@@ -11,7 +11,7 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.title }}</h2>
+        <h2>{{ progressDetails.product.name }}</h2>
         <span
           class="cancel-tag"
           v-if="
@@ -23,7 +23,7 @@
         >
       </div>
       <div>
-        <h4>{{ progressDetails.desc }}</h4>
+        <h4>{{ progressDetails.product.description }}</h4>
         <h6>End date {{ progressDetails.endDate }}</h6>
         <div
           class="item-button"

@@ -38,7 +38,7 @@
               </div>
             </figure>
           </ion-slide>
-        </ion-slides> -->
+        </ion-slides>-->
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -49,57 +49,69 @@
         >
           <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
             <div class="mainslide-banner-wrap">
-              <img :src="slide.productImagePath" alt />
+              <figure>
+                <img :src="slide.productImagePath" alt />
+                <div class="top-social-icon">
+                  <a href="#">
+                    <img src="@/assets/icons/instagram.svg" />
+                  </a>
+                </div>
+              </figure>
             </div>
           </swiper-slide>
         </swiper>
       </div>
 
-      <ion-infinite-scroll threshold="50px" id="infinite-scroll">
-        <ion-infinite-scroll-content loading-spinner="bubbles">
-          <div class="item-wrapper">
-            <div class="top-section">
-              <div class="left-section">
-                <h3>{{ productDetails.name }}</h3>
-                <span>
-                  <img src="@/assets/icons/arrow-left.svg" />
-                </span>
+      <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
+        <ion-infinite-scroll-content loading-spinner="bubbles"> -->
+          <div class="main-wrap">
+            <div class="item-wrapper">
+              <div class="top-section">
+                <div class="left-section">
+                  <h3>{{ productDetails.name }}</h3>
+                  <span>
+                    <img src="@/assets/icons/arrow-left.svg" />
+                  </span>
+                </div>
+                <div class="right-section">
+                  <button @click="showModal">
+                    <img src="@/assets/icons/share.svg" />
+                  </button>
+                </div>
               </div>
-              <div class="right-section">
-                <button @click="showModal">
-                  <img src="@/assets/icons/share.svg" />
-                </button>
+              <div class="product-description">
+                <h2>{{ productDetails.description }}</h2>
+
+                <div class="hashwrap">
+                  <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+                  <span v-for="(hash, index) in productDetails.tag" :key="index">
+                    {{
+                      '#' + hash.tag
+                    }}
+                  </span>
+                  <!-- <span>hi</span> -->
+                </div>
+
+                <p>
+                  <span>
+                    <img src="@/assets/icons/calendar.svg" />
+                  </span>
+                  <!-- 2021.11.11 ~ 2021.12.25 -->
+                  <span
+                    v-for="(item, i) of productDetails.campaign"
+                    :key="i"
+                  >{{ item.campaignSchedule ? moment(item.campaignSchedule.startedAt).format('YYYY.MM.DD') : null }} ~ {{ item.campaignSchedule ? moment(item.campaignSchedule.finishedAt).format('YYYY.MM.DD') : null }}</span>
+                </p>
               </div>
-            </div>
-            <div class="product-description">
-              <h2>{{ productDetails.description }}</h2>
 
-              <div class="hashwrap">
-                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <span v-for="(hash, index) in productDetails.tag" :key="index">
-                  {{
-                    '#' + hash.tag
-                  }}
-                </span>
-                <!-- <span>hi</span> -->
-              </div>
+              <CustomModal v-show="isModalVisible" @close="closeModal">
+                <template v-slot:header>
+                  <h2>회원님은 미승인 회원입니다.</h2>
+                </template>
 
-              <p>
-                <span>
-                  <img src="@/assets/icons/calendar.svg" />
-                </span>
-                2021.11.11 ~ 2021.12.25
-              </p>
-            </div>
-
-            <CustomModal v-show="isModalVisible" @close="closeModal">
-              <template v-slot:header>
-                <h2>회원님은 미승인 회원입니다.</h2>
-              </template>
-
-              <template v-slot:body>
-                <div class="modal-content">
-                  <!-- <ul class="shareList">
+                <template v-slot:body>
+                  <div class="modal-content">
+                    <!-- <ul class="shareList">
                     <li>
                       <a href="#">
                         <img src="@/assets/icons/icon-fb.svg" />
@@ -118,26 +130,28 @@
                         <span>URL</span>
                       </a>
                     </li>
-                  </ul>-->
-                  <p>
-                    스타일 메이트는 승인된 회원만
-                    <br />이용할 수 있는 서비스 입니다.
-                  </p>
-                </div>
-              </template>
+                    </ul>-->
+                    <p>
+                      스타일 메이트는 승인된 회원만
+                      <br />이용할 수 있는 서비스 입니다.
+                    </p>
+                  </div>
+                </template>
 
-              <template v-slot:footer></template>
-            </CustomModal>
+                <template v-slot:footer></template>
+              </CustomModal>
 
-            <TabProductDetails />
+              <ProductDetailsTab :productData="productDetails" />
+            </div>
           </div>
-        </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+        <!-- </ion-infinite-scroll-content>
+      </ion-infinite-scroll> -->
+
       <div class="subscribe-wrap">
         <figure>
           <img src="@/assets/icons/heart-filled.svg" />
         </figure>
-        <button @click="hideSponserButton" class="black-btn">협찬 신청</button>
+        <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
@@ -149,10 +163,11 @@
   </ion-page>
 </template>
 <script>
+import { inject, onMounted } from "vue";
 import {
   IonPage,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
+  // IonInfiniteScroll,
+  // IonInfiniteScrollContent,
 } from "@ionic/vue";
 // Import Swiper Vue.js components
 import { Pagination } from "swiper";
@@ -161,11 +176,13 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 // import { IonSlides, IonSlide } from "@ionic/vue";
-import TabProductDetails from "@/components/Tab.vue";
+import Toast from "@/alert/alert.js";
+import ProductDetailsTab from "@/components/ProductDetailsTab.vue";
 import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
 import ItemService from "@/services/ItemService";
+import moment from 'moment';
 
 export default {
   name: "BrandDetails",
@@ -173,9 +190,9 @@ export default {
     IonPage,
     // IonSlides,
     // IonSlide,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
-    TabProductDetails,
+    // IonInfiniteScroll,
+    // IonInfiniteScrollContent,
+    ProductDetailsTab,
     CustomModal,
     TopNav,
     DrawerBottom,
@@ -198,12 +215,22 @@ export default {
       ],
       isModalVisible: false,
       isActive: false,
-      productDetails: '',
+      productDetails: [],
     };
   },
 
   setup() {
+    const userData = inject("userData");
+
+    onMounted(() => {
+      var currentTime = new Date().getTime();
+      if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+        userData.methods.getUserData();
+      }
+    });
+
     return {
+      userData,
       modules: [Pagination],
     };
   },
@@ -217,9 +244,14 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
-    }
+    },
+    sponsorshipApplication() {
+      Toast.fire({ title: "sponsorshipApplication" });
+      
+    },
   },
   created() {
+    this.moment = moment;
     this.itemService = new ItemService();
 
     var proId = this.$route.params.id;
@@ -235,6 +267,7 @@ export default {
       else {
         console.log('producrt res', res);
         this.productDetails = res;
+        // console.log('productDetails campaign:', this.productDetails);
       }
     });
   },
@@ -260,7 +293,9 @@ export default {
   display: block;
 }
 .mainslide figure {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 }
 .mainslide figure .top-social-icon {
@@ -268,13 +303,31 @@ export default {
   top: 13px;
   left: 13px;
 }
+.mainslide figure .top-social-icon img {
+  width: 24px;
+  height: 24px;
+}
+.mainslide-banner-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 380px;
+  /* background: rgb(101, 101, 101); */
+}
+.mainslide-banner-wrap img {
+  height: auto;
+  width: 380px;
+  max-height: 380px;
+  object-fit: contain;
+}
 .item-wrapper {
   padding: 40px 20px 60px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 490px;
+  top: 350px;
   /* background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
@@ -284,6 +337,7 @@ export default {
   transition: all 0.5s ease-in-out;
   /* backdrop-filter: blur(30px); */
 }
+
 .top-section {
   display: flex;
   align-items: center;

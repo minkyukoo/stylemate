@@ -2,32 +2,20 @@
   <div class="item-card">
     <div class="img-con">
       <img
-        :src="`${require('../../../assets/images/' + progressDetails.img)}`"
-        alt=""
+        :src="progressDetails.imageThumbnailPath"
+        :alt="progressDetails.name"
       />
       <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" />
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.title }}</h2>
+        <h2>{{ progressDetails.name }}</h2>
         <img src="../../../assets/icons/heart-filled.svg" alt="" />
       </div>
       <div>
-        <h4>{{ progressDetails.desc }}</h4>
-        <h6>End date {{ progressDetails.endDate }}</h6>
-        <!-- <div
-          class="item-button"
-          v-if="progressDetails.status === 're-registration'"
-        >
-          <button>re-registration</button>
-        </div>
-        <div
-          class="item-button"
-          v-else-if="progressDetails.status === 'post-registration'"
-        >
-          <button>Register a post</button>
-        </div>
-        <div v-else></div> -->
+        <h4>{{ progressDetails.description }}</h4>
+        <h6>End date {{ dateFormat(progressDetails.createdAt) }}</h6>
+       
       </div>
     </div>
   </div>
@@ -40,6 +28,10 @@ export default {
     progressDetails: Object,
   },
   methods: {
+    dateFormat(date) {
+      let dt = new Date(date);
+      return `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}`;
+    },
     getColor() {
       if (this.progressDetails.status === "re-registration") {
         return "#addad9bf";

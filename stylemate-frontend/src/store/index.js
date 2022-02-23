@@ -6,6 +6,7 @@ const state = reactive({
   AppData: undefined,
   AppFltData: undefined,
   number: 13,
+  UserId: "",
   status: "NotEmpty",
   likedTabState: "item",
   sponsorTabState: "progress",
@@ -40,6 +41,7 @@ var itemService = new ItemService();
     return await itemService.getProductList().then((data) => {
       console.log("ItemList from store", data);
       state.AppData = data;
+      return state.AppData;
     })
   },
   setSponsorTab(tab) {
