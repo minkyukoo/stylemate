@@ -3,7 +3,7 @@
     <div class="img-con">
       <img
         :src="progressDetails.imageThumbnailPath"
-        alt=""
+        :alt="progressDetails.name"
       />
       <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" />
     </div>
