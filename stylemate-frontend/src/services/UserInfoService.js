@@ -39,4 +39,8 @@ export default class UserInfoService {
   async NoticeById(id) {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/${id}`).then((res) => res.data).catch((err) => err);
   }
+
+  async userDetails() {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
+  }
 }
