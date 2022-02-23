@@ -9,23 +9,64 @@
           <ul class="connectionList">
             <li>
               <div>
-                <label>채널연결</label></div>
-                <div><img src="@/assets/icons/refresh.svg" /></div>
+                <label>스타일메이트와 연결할 인스타그램 비즈니스 계정을 선택하세요.</label></div>
             </li>
           </ul>
           <ul class="newChannel">
+            <li class="active">
+              <div class="channelLeft">
+                <div class="channelImg">
+                  <img src="@/assets/icons/refresh.svg" />
+                </div>
+                <div class="channelDec">
+                  <h4>일이삼사오육칠팔...</h4>
+                  <p>일이삼사오육칠팔구십...</p>
+                </div>
+              </div>
+              <div>
+                <button class="channelBtn" type="button">선택</button>
+              </div>
+            </li>
             <li>
-              <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
+              <div class="channelLeft">
+                <div class="channelImg">
+                  <img src="@/assets/icons/refresh.svg" />
+                </div>
+                <div class="channelDec">
+                  <h4>일이삼사오육칠팔...</h4>
+                  <p>일이삼사오육칠팔구십...</p>
+                </div>
               </div>
               <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
-              </div>
-              <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
+                <button class="channelBtn" type="button">선택</button>
               </div>
             </li>
           </ul>
+          <ul class="connectionList">
+            <li>
+              <div>
+                <label>스타일메이트와 연결할 인스타그램 비즈니스 계정을 선택하세요.</label></div>
+            </li>
+          </ul>
+          <ul class="newChannel">
+            <li class="disable">
+              <div class="channelLeft">
+                <div class="channelImg">
+                  <img src="@/assets/icons/refresh.svg" />
+                </div>
+                <div class="channelDec">
+                  <h4>일이삼사오육칠팔...</h4>
+                  <p>일이삼사오육칠팔구십...</p>
+                </div>
+              </div>
+              <div>
+                <button class="channelBtn" type="button">선택</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="subscribe-wrap">
+          <button class="black-btn">활동 신청하기</button>
         </div>
     </ion-content>
     <!-- End page content -->
@@ -57,7 +98,7 @@ export default {
   padding: 20px;
 }
 .connectionList{
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 .connectionList li{
   display: flex;
@@ -108,11 +149,77 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: inherit !important;
+  margin-bottom: 40px;
+}
+.channelLeft{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .newChannel li{
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   justify-content: space-between;
   display: flex;
   align-items: center;
+  border: 1px solid #E5E5E5;
+  padding: 12px;
+  border-radius: 6px;
+}
+.newChannel li:hover,.newChannel li.active{
+  border-color: #5700FF;
+}
+.newChannel li.disable{
+  opacity: 0.4;
+}
+.newChannel li .channelImg{
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #797979;
+  margin-right: 12px;
+}
+.newChannel li .channelLeft .channelDec h4{
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 150%;
+  margin-bottom: 10px;
+}
+.newChannel li .channelLeft .channelDec p{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+}
+.newChannel li .channelBtn{
+  border: 1px solid #797979;
+  color: #797979;
+  padding: 5px 30px;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.subscribe-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.subscribe-wrap .black-btn {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  padding: 24px;
+  width: 100%;
 }
 </style>
