@@ -201,6 +201,12 @@
 <script>
 export default {
   name: "TabProductDetails",
+  props: {
+    tab: {
+      type: String,
+      default: "guide"
+    }
+  },
   data() {
     return {
       tagrow: [

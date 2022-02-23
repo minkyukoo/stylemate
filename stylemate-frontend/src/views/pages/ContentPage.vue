@@ -148,6 +148,8 @@ export default {
 
 .a1 {
   grid-area: a;
+  height: 210px;
+  
 }
 
 .a2 {
@@ -181,7 +183,10 @@ export default {
 .a9 {
   grid-area: i;
 }
-
+.g-img-wrap {
+border-radius: 6px;
+  overflow: hidden;
+}
 .g-img-wrap img {
   width: 100%;
   height: 100%;

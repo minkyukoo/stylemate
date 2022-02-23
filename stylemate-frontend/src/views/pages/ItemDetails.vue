@@ -38,7 +38,7 @@
               </div>
             </figure>
           </ion-slide>
-        </ion-slides> -->
+        </ion-slides>-->
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -89,9 +89,10 @@
                   <img src="@/assets/icons/calendar.svg" />
                 </span>
                 <!-- 2021.11.11 ~ 2021.12.25 -->
-                <span v-for="(item,i) of productDetails.campaign" :key="i">
-                  {{ item.campaignSchedule ? moment(item.campaignSchedule.startedAt).format('YYYY.MM.DD') : null }} ~ {{ item.campaignSchedule ? moment(item.campaignSchedule.finishedAt).format('YYYY.MM.DD') : null }}
-                </span>
+                <span
+                  v-for="(item, i) of productDetails.campaign"
+                  :key="i"
+                >{{ item.campaignSchedule ? moment(item.campaignSchedule.startedAt).format('YYYY.MM.DD') : null }} ~ {{ item.campaignSchedule ? moment(item.campaignSchedule.finishedAt).format('YYYY.MM.DD') : null }}</span>
               </p>
             </div>
 
@@ -132,7 +133,7 @@
               <template v-slot:footer></template>
             </CustomModal>
 
-            <TabProductDetails />
+            <TabProductDetails :productData="productDetails" />
           </div>
         </ion-infinite-scroll-content>
       </ion-infinite-scroll>
@@ -140,7 +141,7 @@
         <figure>
           <img src="@/assets/icons/heart-filled.svg" />
         </figure>
-        <button @click="hideSponserButton" class="black-btn">협찬 신청</button>
+        <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
@@ -152,6 +153,7 @@
   </ion-page>
 </template>
 <script>
+import { inject, onMounted } from "vue";
 import {
   IonPage,
   IonInfiniteScroll,
@@ -164,7 +166,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 // import { IonSlides, IonSlide } from "@ionic/vue";
-import TabProductDetails from "@/components/Tab.vue";
+import TabProductDetails from "@/components/ProductDetailsTab.vue";
 import CustomModal from "@/components/Modal.vue";
 import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
@@ -207,9 +209,19 @@ export default {
   },
 
   setup() {
-    return {
+    const userData = inject("userData");
+
+    onMounted(() => {
+      var currentTime = new Date().getTime();
+      if(localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+        userData.methods.getUserData();
+      }
+    });
+
+    return { 
+      userData,
       modules: [Pagination],
-    };
+     };
   },
 
   methods: {
@@ -221,7 +233,12 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
-    }
+    },
+    sponsorshipApplication() {
+      // if(!localStorage.token && !localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
+      //   alert('Members-only service. Please log in.');
+      // }
+    },
   },
   created() {
     this.moment = moment;
@@ -240,7 +257,7 @@ export default {
       else {
         console.log('producrt res', res);
         this.productDetails = res;
-        console.log('productDetails campaign:', this.productDetails.campaign[0].campaignSchedule);
+        // console.log('productDetails campaign:', this.productDetails);
       }
     });
   },
