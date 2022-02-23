@@ -1,9 +1,9 @@
 <template>
   <div class="sponsers-wrap">
-    <div v-if="progress.length > 0">
+    <div v-if="progressList.length > 0">
       <ItemCard
         :progressDetails="item"
-        v-for="(item, index) in progress"
+        v-for="(item, index) in progressList"
         :key="index"
       />
     </div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import MyPageService from "@/services/MyPageService";
 import ItemCard from "@/components/MyPage/ItemCard.vue";
 import Error from "../Error.vue";
 import RegisterPostModal from "./Modals/RegisterPostModal.vue";
@@ -27,7 +29,13 @@ import CancelSponser from "./Modals/CancelSponser.vue";
 import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 export default {
   name: "SponsorProgress",
-  components: { ItemCard, Error, RegisterPostModal, CancelSponser, ReRegisterModal },
+  components: {
+    ItemCard,
+    Error,
+    RegisterPostModal,
+    CancelSponser,
+    ReRegisterModal,
+  },
   data() {
     return {
       progress: [
@@ -64,8 +72,25 @@ export default {
           status: "checking",
         },
       ],
+      progressList: [],
       errorMsg: "",
+      myPageService: null,
     };
+  },
+  created() {
+    this.myPageService = new MyPageService();
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
+  mounted() {
+    this.myPageService.getCampaignData(this.store.state.UserId).then((res) => {
+      console.log("data list", res);
+      this.progressList = res.data.data;
+    });
   },
 };
 </script>

@@ -6,6 +6,7 @@ const state = reactive({
   AppData: undefined,
   AppFltData: undefined,
   number: 13,
+  UserId: "",
   status: "NotEmpty",
   likedTabState: "item",
   sponsorTabState: "progress",
