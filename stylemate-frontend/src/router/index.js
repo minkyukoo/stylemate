@@ -254,6 +254,38 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/newmemberafterjoining",
+    name: "NewMemberAfterJoining",
+    component: () => import("@/views/pages/NewMemberAfterJoining.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/newmemberafterpending",
+    name: "NewMemberAfterPending",
+    component: () => import("@/views/pages/NewMemberAfterPending.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/newmemberafterhold",
+    name: "NewMemberAfterHold",
+    component: () => import("@/views/pages/NewMemberAfterHold.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/newmemberconnection",
+    name: "NewMemberChannelConnection",
+    component: () => import("@/views/pages/NewMemberChannelConnection.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",
