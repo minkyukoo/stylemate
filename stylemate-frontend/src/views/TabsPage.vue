@@ -1,6 +1,6 @@
 <template>
   <!-- <ion-page class="main-container relative"> -->
-    <div class="main-container relative">
+  <div class="main-container relative">
     <ion-tabs>
       <!-- <TopNav></TopNav> -->
       <ion-router-outlet></ion-router-outlet>
@@ -76,7 +76,7 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    </div>
+  </div>
   <!-- </ion-page> -->
 </template>
 
@@ -92,7 +92,7 @@ import {
 } from "@ionic/vue";
 // import { ellipse, square, triangle, heart } from "ionicons/icons";
 // import TopNav from '@/components/TopNav.vue';
-
+// import { inject, onMounted } from "vue";
 export default {
   name: "TabPage",
   components: {
@@ -110,6 +110,18 @@ export default {
       activeId: "tab1",
     };
   },
+  // setup() {
+  //   const userData = inject("userData");
+
+  //   onMounted(() => {
+  //     var currentTime = new Date().getTime();
+  //     if(localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+  //       userData.methods.getUserData();
+  //     }
+  //   });
+
+  //   return { userData };
+  // },
   methods: {
     // onHoverState(ev) {
     //   var target = ev.target;

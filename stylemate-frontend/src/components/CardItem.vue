@@ -188,13 +188,14 @@ export default defineComponent({
     // },
   },
 
-  updated() {
+  async updated() {
     console.log("this.allData", this.allData);
 
       if (this.isproductfilter) {
         this.store.state.AppData = this.isproductfilter;
         console.log("this.isproductfilter", this.item_list);
       }
+      
       // else if (this.isFltData) {
       //   this.item_list = "";
       //   // alert("all values");

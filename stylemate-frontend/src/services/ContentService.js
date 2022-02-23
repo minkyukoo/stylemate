@@ -17,6 +17,6 @@ export default class ContentService {
   }
 
   async getBestContent() {
-    return await axios.get("/stylemates/front-manages?type=post");
+    return await axios.get("/stylemates/front-manages?type=post&limit=9");
   }
 }

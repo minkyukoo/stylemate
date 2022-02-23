@@ -1,9 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 import { IonicVue } from '@ionic/vue';
 
 // import Vue from 'vue';
@@ -42,11 +41,11 @@ axios.defaults.baseURL = 'https://elsa.beta.mediance.co.kr';
 
 const app = createApp(App)
   .use(IonicVue)
-  .use(router) 
+  .use(router)
   .use(VueAxios, axios)
   .use(VueSweetalert2)
   .component('vue-select', VueNextSelect);
-  
+
 router.isReady().then(() => {
   app.mount('#app');
 });
