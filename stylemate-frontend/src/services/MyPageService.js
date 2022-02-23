@@ -8,4 +8,7 @@ export default class MyPageService {
       },
     });
   }
+  async getCampaignData() {
+    return await axios.get("/stylemates/users/7OPwPmd9oS/campaigns");
+  }
 }

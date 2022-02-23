@@ -35,11 +35,10 @@ export default defineComponent({
     },
     setup() {
         // const selectedItem = ref("Black");
-
-        const options = [
-           'Black', 'White', 'Green', 'Yellow', 'Bright blue','Black', 'White', 'Green', 'Yellow', 'Bright blue'
-        ];
-        return { options };
+        // const options = [
+        //    'Black', 'White', 'Green', 'Yellow', 'Bright blue','Black', 'White', 'Green', 'Yellow', 'Bright blue'
+        // ];
+        // return { options };
     },
 
     mounted(){

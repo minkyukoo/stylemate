@@ -39,10 +39,27 @@
           <span>150k</span>
         </div> -->
       </div>
+      <div class="btn-con" v-else-if="store.state.MyPageTopState === 'request'">
+        <MyPageTopButton
+          :name="'Checking channel'"
+          :style="'btn-grey-outline'"
+          v-on:buttonEvent="fireButton"
+        />
+      </div>
+      <div
+        class="btn-con"
+        v-else-if="
+          store.state.MyPageTopState === 'hold' ||
+          store.state.MyPageTopState === 'cancel'
+        "
+      >
+        <MyPageTopButton
+          :name="'hold'"
+          :style="'btn-grey-solid'"
+          v-on:buttonEvent="fireButton"
+        />
+      </div>
       <div class="btn-con" v-else>
-        <!-- <button class="btn-dark" @click="() => (this.viewSocialMedia = true)">
-          로그아웃
-        </button> -->
         <MyPageTopButton
           :name="'Connecting Channels'"
           :style="'btn-dark'"
@@ -62,7 +79,7 @@ export default {
 
   data() {
     return {
-      viewSocialMedia: false,
+      viewSocialMedia: 'request',
     };
   },
   setup() {
