@@ -14,6 +14,22 @@ const state = reactive({
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
   contentDetailsId: null,
+  MyPageTopState: "",
+  MyPageTopDetails: {
+    name: "",
+    email: "",
+    profile_img: "",
+  },
+  MyPageRateBox: {
+    Avg_like: 0,
+    Avg_comment: 0,
+    EGR_activity: 0,
+  },
+  MyPageSponsorBox: {
+    sponsorship: 0,
+    Post_activity: 0,
+    like: 0,
+  },
 });
 
 var itemService = new ItemService();

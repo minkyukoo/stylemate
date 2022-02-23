@@ -121,8 +121,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 // If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
-import "vue3-carousel/dist/carousel.css";
-import { Carousel, Slide } from "vue3-carousel";
+// import "vue3-carousel/dist/carousel.css";
+// import { Carousel, Slide } from "vue3-carousel";
 
 export default {
   name: "Slider",
@@ -130,7 +130,9 @@ export default {
     Swiper,
     SwiperSlide,
 
+    // eslint-disable-next-line no-undef
     Carousel,
+    // eslint-disable-next-line no-undef
     Slide,
     // Pagination,
     // Navigation,

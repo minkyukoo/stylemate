@@ -1,39 +1,48 @@
 <template>
   <div class="rating-box">
-    <div class="rating-item" v-for="(i, e) in ratingArr" :key="e">
+    <div class="rating-item">
       <div class="img-con">
-        <img :src="`${require('@/assets/images/' + i.img)}`" />
+        <img src="@/assets/images/like.png" />
       </div>
       <div class="text-con">
-        <h3>{{ i.count }}</h3>
-        <p>{{ i.name }}</p>
+        <h3>{{ store.state.MyPageRateBox.Avg_like }}</h3>
+        <p>평균 좋아요</p>
+      </div>
+    </div>
+    <div class="rating-item">
+      <div class="img-con">
+        <img src="@/assets/images/comments.png" />
+      </div>
+      <div class="text-con">
+        <h3>{{ store.state.MyPageRateBox.Avg_comment }}</h3>
+        <p>평균댓글</p>
+      </div>
+    </div>
+    <div class="rating-item">
+      <div class="img-con">
+        <img src="@/assets/images/egr.png" />
+      </div>
+      <div class="text-con">
+        <h3>{{ store.state.MyPageRateBox.EGR_activity }}</h3>
+        <p>EGR</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   name: "RatingBox",
   data() {
     return {
-      ratingArr: [
-        {
-          name: "평균 좋아요",
-          img: "like.png",
-          count: 0,
-        },
-        {
-          name: "평균댓글",
-          img: "comments.png",
-          count: 0,
-        },
-        {
-          name: "EGR",
-          img: "egr.png",
-          count: 0,
-        },
-      ],
+      
+    };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
     };
   },
 };
