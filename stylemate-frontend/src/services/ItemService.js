@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+var token = localStorage.getItem('token');
 export default class ItemService {
   async getProductCategories() {
     return await axios.get(`/stylemates/categories`).then((res) => res.data.data);
@@ -19,6 +19,14 @@ export default class ItemService {
 
   async getProductDetails(ids) {
     return await axios.get(`/stylemates/products/${ids}`).then((res) => res.data).catch((err) => err);
+  }
+
+  async getUserdeliveries(uid) {
+    return await axios.get(`/stylemates/users/${uid}/deliveries`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 
 
