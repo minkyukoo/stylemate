@@ -49,7 +49,14 @@
         >
           <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
             <div class="mainslide-banner-wrap">
-              <img :src="slide.productImagePath" alt />
+              <figure>
+                <img :src="slide.productImagePath" alt />
+                <div class="top-social-icon">
+                  <a href="#">
+                    <img src="@/assets/icons/instagram.svg" />
+                  </a>
+                </div>
+              </figure>
             </div>
           </swiper-slide>
         </swiper>
@@ -283,7 +290,7 @@ export default {
   display: block;
 }
 .mainslide figure {
-  position: relative;
+  /* position: relative; */
   width: 100%;
 }
 .mainslide figure .top-social-icon {
@@ -291,12 +298,17 @@ export default {
   top: 13px;
   left: 13px;
 }
+.mainslide figure .top-social-icon img {
+  width: 24px;
+  height: 24px;
+}
 .mainslide-banner-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 380px;
-  background: rgb(101, 101, 101);
+  /* background: rgb(101, 101, 101); */
 }
 .mainslide-banner-wrap img {
   height: auto;
@@ -310,7 +322,7 @@ export default {
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 490px;
+  top: 350px;
   /* background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
