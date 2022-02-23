@@ -13,6 +13,7 @@
 import { IonApp, IonRouterOutlet } from "@ionic/vue";
 import { defineComponent, provide } from "vue";
 import store from "./store/index";
+import userData from "./store/userDetails";
 
 export default defineComponent({
   name: "App",
@@ -22,6 +23,7 @@ export default defineComponent({
   },
   setup() {
     provide("store", store);
+    provide("userData", userData);
   },
 });
 </script>

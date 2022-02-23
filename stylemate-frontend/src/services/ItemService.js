@@ -10,7 +10,11 @@ export default class ItemService {
   }
 
   async getFilterProduct(ids) {
+    if (ids === "All") {
+      return await this.getProductList();
+    }
     return await axios.get(`/stylemates/products?categoryId=${ids}`,{categoryId: ids}).then((res) => res.data.data);
+    
   }
 
   async getProductDetails(ids) {
