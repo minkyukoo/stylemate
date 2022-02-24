@@ -5,17 +5,20 @@
       v-for="(item, index) in progress"
       :key="index"
     />
+    <ReRegisterModal />
   </div>
 </template>
 
 <script>
 // import SponsorProgress from "@/components/MyPage/SponsorProgress.vue";
 import ItemCardPost from "./ItemCardPost.vue";
+import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 import MyPageService from "@/services/MyPageService";
 export default {
   name: "PostActivityDetails",
   components: {
     ItemCardPost,
+    ReRegisterModal,
   },
   data() {
     return {

@@ -20,23 +20,78 @@
             <li>
               <h4><img src="@/assets/icons/instagram-list.svg" /> Instagram</h4>
               <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
+                <button class="connectBtn" type="button" @click="showModal">+ 연결방법 보기</button>
               </div>
             </li>
             <li>
               <h4><img src="@/assets/icons/instagram-list.svg" /> Instagram</h4>
               <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
+                <button class="connectBtn" type="button" @click="showModal">+ 연결방법 보기</button>
               </div>
             </li>
             <li>
               <h4><img src="@/assets/icons/instagram-list.svg" /> Instagram</h4>
               <div>
-                <button class="connectBtn" type="button">+ 연결방법 보기</button>
+                <button class="connectBtn" type="button" @click="showModal">+ 연결방법 보기</button>
               </div>
             </li>
           </ul>
         </div>
+        <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="overLapmodal">
+          <template v-slot:header>
+            <div class="overHeader">
+              <h2>확인해주세요!</h2>
+            </div>
+          </template>
+          <template v-slot:body>
+            <div class="modal-content">
+              <div class="modalBody">
+                <div class="overSearch">
+                  <ul>
+                    <li>
+                      <div>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                      </div>
+                      <div>
+                        인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      </div>
+                    </li>
+                     <li>
+                      <div>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                      </div>
+                      <div>
+                        인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      </div>
+                    </li>
+                     <li>
+                      <div>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                      </div>
+                      <div>
+                        인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      </div>
+                    </li>
+                     <li>
+                      <div>
+                        <ion-checkbox color="primary"></ion-checkbox>
+                      </div>
+                      <div>
+                        인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      </div>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+            </div>
+          </template>
+          <template v-slot:footer>
+            <div class="footBtn">
+              <button type="button" class="footBtnbutton" @click="closeModal" aria-label="Close modal">닫기</button>
+              <button type="button" class="footBtnbutton footBtnBlack">다음</button>
+            </div>
+          </template>
+        </ConfirmationModal>
     </ion-content>
     <!-- End page content -->
 
@@ -47,15 +102,25 @@
 <script>
 import { IonPage,  IonContent, } from '@ionic/vue';
 import TopNav from '@/components/TopNav.vue';
-
+import ConfirmationModal from "@/components/ConfirmationModal.vue";
 
 export default {
   name: 'NewMember',
-  components: { TopNav,  IonContent, IonPage },
-
+  components: { TopNav,  IonContent, IonPage, ConfirmationModal },
+  data(){
+    return{
+      isModalVisible: false,
+    }
+  },
   methods: {
     openlink() {
       console.log("clivk");
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
     },
   },
 };
@@ -156,5 +221,38 @@ export default {
   background: #fff;
   font-size: 12px;
   color: #25282B;
+}
+.overHeader{
+  display: block;
+  width: 100%;
+}
+.overHeader h2{
+  text-align: center;
+}
+.overSearch li{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.overSearch li ion-checkbox{
+  margin: 0 10px 0 0;
+}
+.footBtn{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.footBtnbutton{
+  width: 50%;
+  height: 60px;
+  background: #E5E5E5;
+  color: #797979;
+}
+.footBtnBlack{
+  background: #090909;
+
 }
 </style>

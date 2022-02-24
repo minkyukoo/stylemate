@@ -21,6 +21,9 @@ export default defineComponent({
     IonApp,
     IonRouterOutlet,
   },
+  mounted() {
+    console.log("App mounted");
+  },
   setup() {
     provide("store", store);
     provide("userData", userData);
