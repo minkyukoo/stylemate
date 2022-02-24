@@ -10,9 +10,6 @@ import MyPageLinks from "./MyPageLinks.vue";
 export default {
   name: "CustomerService",
   components: { MyPageLinks },
-  props: {
-    linkDisabled: String,
-  },
   data() {
     return {
       customerArr: [
