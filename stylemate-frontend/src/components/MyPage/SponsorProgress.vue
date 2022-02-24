@@ -1,18 +1,18 @@
 <template>
   <div class="sponsers-wrap">
-    <div v-if="store.state.FltCampaignData.length > 0">
+    <!-- <div v-if="store.state.FltCampaignData.length > 0"> -->
       <ItemCard
         :progressDetails="item"
         v-for="(item, index) in store.state.FltCampaignData"
         :key="index"
       />
-    </div>
-    <div v-else>
+    <!-- </div> -->
+    <!-- <div v-else>
       <Error
         errors="You have not yet been selected for sponsorship. 
         Please apply for sponsorship for products from other brands as well."
       />
-    </div>
+    </div> -->
     <RegisterPostModal />
     <CancelSponser />
   </div>
@@ -22,14 +22,14 @@
 import { inject, onMounted } from "vue";
 import MyPageService from "@/services/MyPageService";
 import ItemCard from "@/components/MyPage/ItemCard.vue";
-import Error from "../Error.vue";
+// import Error from "../Error.vue";
 import RegisterPostModal from "./Modals/RegisterPostModal.vue";
 import CancelSponser from "./Modals/CancelSponser.vue";
 export default {
   name: "SponsorProgress",
   components: {
     ItemCard,
-    Error,
+    // Error,
     RegisterPostModal,
     CancelSponser,
   },

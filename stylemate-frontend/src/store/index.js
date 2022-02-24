@@ -64,7 +64,7 @@ const methods = {
         state.sponcerChannelType
       )
       .then((data) => {
-        // console.log("CampaignList from store", data);
+        console.log("CampaignList from store", data);
         state.FltCampaignData = data.data.data;
         // console.log("CampaignList from store", state.FltCampaignData);
         return state.FltCampaignData;
@@ -72,10 +72,6 @@ const methods = {
   },
   setSponsorFilter(id) {
     state.sponcerFilterId = id;
-    if (state.sponcerFilterId === "") {
-      state.sponsorTabState = "";
-      state.sponcerChannelType = "";
-    }
     methods.getcampList();
     console.log("setSponsorFilter", state.sponcerFilterId);
   },
