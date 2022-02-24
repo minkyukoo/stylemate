@@ -75,6 +75,9 @@
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
+      <div v-if="!inquiryLength">
+        <p class="no-notice-data">등록된 내용이 없습니다</p>
+      </div>
       <div
         v-for="inquiry in inquirylist"
         :key="inquiry.id"
@@ -112,6 +115,7 @@ export default {
       faqCategory: [],
       noticelist: [],
       inquirylist: [],
+      inquiryLength: 0,
     };
   },
   created() {
@@ -134,7 +138,7 @@ export default {
 
     this.service.QNAs().then((res) => {
       this.inquirylist = res.data;
-      console.log(res.data);
+      this.inquiryLength = res.data.length;
     });
   },
   methods: {
@@ -147,6 +151,12 @@ export default {
 </script>
 
 <style scoped>
+p.no-notice-data {
+  text-align: center;
+  padding-top: 50px;
+  color: #c4c4c4;
+}
+
 .tabs {
   border: 1px solid #f7f7f7;
   display: flex;
