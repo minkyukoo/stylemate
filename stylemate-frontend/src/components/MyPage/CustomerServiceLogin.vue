@@ -8,7 +8,7 @@
 <script>
 import MyPageLinks from "./MyPageLinks.vue";
 export default {
-  name: "CustomerService",
+  name: "CustomerServiceLogin",
   components: { MyPageLinks },
   props: {
     linkDisabled: String,
@@ -22,10 +22,6 @@ export default {
         },
         {
           name: "FAQ",
-          Pagelink: "Notice",
-        },
-        {
-          name: "1:1 문의",
           Pagelink: "Notice",
         },
         {
