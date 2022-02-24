@@ -1,9 +1,9 @@
 <template>
   <div class="sponsor-tab">
-    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('progress')">
+    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('progressHistory')">
       <button
         :class="[
-          store.state.sponsorTabState === 'progress'
+          store.state.sponsorTabState === 'progressHistory'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"
@@ -11,10 +11,10 @@
         진행내역
       </button>
     </div>
-    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('application-details')">
+    <div class="sponsor-tab-item" @click="store.methods.setSponsorTab('bookingHistory')">
       <button
         :class="[
-          store.state.sponsorTabState === 'application-details'
+          store.state.sponsorTabState === 'bookingHistory'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"

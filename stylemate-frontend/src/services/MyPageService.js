@@ -8,8 +8,9 @@ export default class MyPageService {
       },
     });
   }
-  async getCampaignData(uid) {
-    return await axios.get(`/stylemates/users/${uid}/campaigns`, {
+  async getCampaignData(uid, sponsorTabState, sponcerFilterId, sponcerChannelType ) {
+    let encodedUrl = encodeURI({"channelType" : `${sponcerChannelType}` ,"menuType" : `${sponsorTabState}`, "type": `${sponcerFilterId}`});
+    return await axios.get(`/stylemates/users/${uid}/campaigns?${encodedUrl}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

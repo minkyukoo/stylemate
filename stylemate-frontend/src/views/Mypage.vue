@@ -41,6 +41,7 @@ export default {
     this.myPageServices.getMyPageData().then((res) => {
       console.log("res", res);
       let globalState = this.store.state;
+      // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
       globalState.MyPageTopDetails.name = res.data.name;
       globalState.MyPageTopDetails.email = res.data.email;

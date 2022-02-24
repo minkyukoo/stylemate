@@ -53,10 +53,12 @@ export default {
   mounted() {
     this.user.getUserInfo().then((userInfo) => {
       this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+        console.log("product",res);
         this.product = res.data.data;
         this.proLen = res.data.data.length > 0 ? true : false;
       });
       this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+        console.log("brand",res);
         this.brand = res.data.data;
         this.braLen = res.data.data.length > 0 ? true : false;
       });

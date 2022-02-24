@@ -1,9 +1,9 @@
 <template>
   <div class="sponsers-wrap">
-    <div v-if="progressList.length > 0">
+    <div v-if="store.state.FltCampaignData.length > 0">
       <ItemCard
         :progressDetails="item"
-        v-for="(item, index) in progressList"
+        v-for="(item, index) in store.state.FltCampaignData"
         :key="index"
       />
     </div>
@@ -15,18 +15,16 @@
     </div>
     <RegisterPostModal />
     <CancelSponser />
-    <ReRegisterModal />
   </div>
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, onMounted } from "vue";
 import MyPageService from "@/services/MyPageService";
 import ItemCard from "@/components/MyPage/ItemCard.vue";
 import Error from "../Error.vue";
 import RegisterPostModal from "./Modals/RegisterPostModal.vue";
 import CancelSponser from "./Modals/CancelSponser.vue";
-import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 export default {
   name: "SponsorProgress",
   components: {
@@ -34,44 +32,43 @@ export default {
     Error,
     RegisterPostModal,
     CancelSponser,
-    ReRegisterModal,
   },
   data() {
     return {
-      progress: [
-        {
-          imgTag: "re-registration",
-          img: "MyPage-item1.png",
-          title: "NCOVER",
-          desc: "CHECKER BOARD  URTLEN...",
-          endDate: "2012-02-13 15:30",
-          status: "re-registration",
-        },
-        {
-          imgTag: "Sponsor Selection",
-          img: "MyPage-item1.png",
-          title: "ROLAROLA",
-          desc: "leopard fleece jumper black",
-          endDate: "2012-02-13 15:30",
-          status: "sponsor-selection",
-        },
-        {
-          imgTag: "Post registration",
-          img: "MyPage-item1.png",
-          title: "NCOVER",
-          desc: "CHECKER BOARD  URTLEN...",
-          endDate: "2012-02-13 15:30",
-          status: "post-registration",
-        },
-        {
-          imgTag: "Checking",
-          img: "MyPage-item1.png",
-          title: "NCOVER",
-          desc: "CHECKER BOARD  URTLEN...",
-          endDate: "2012-02-13 15:30",
-          status: "checking",
-        },
-      ],
+      // progress: [
+      //   {
+      //     imgTag: "re-registration",
+      //     img: "MyPage-item1.png",
+      //     title: "NCOVER",
+      //     desc: "CHECKER BOARD  URTLEN...",
+      //     endDate: "2012-02-13 15:30",
+      //     status: "re-registration",
+      //   },
+      //   {
+      //     imgTag: "Sponsor Selection",
+      //     img: "MyPage-item1.png",
+      //     title: "ROLAROLA",
+      //     desc: "leopard fleece jumper black",
+      //     endDate: "2012-02-13 15:30",
+      //     status: "sponsor-selection",
+      //   },
+      //   {
+      //     imgTag: "Post registration",
+      //     img: "MyPage-item1.png",
+      //     title: "NCOVER",
+      //     desc: "CHECKER BOARD  URTLEN...",
+      //     endDate: "2012-02-13 15:30",
+      //     status: "post-registration",
+      //   },
+      //   {
+      //     imgTag: "Checking",
+      //     img: "MyPage-item1.png",
+      //     title: "NCOVER",
+      //     desc: "CHECKER BOARD  URTLEN...",
+      //     endDate: "2012-02-13 15:30",
+      //     status: "checking",
+      //   },
+      // ],
       progressList: [],
       errorMsg: "",
       myPageService: null,
@@ -82,16 +79,29 @@ export default {
   },
   setup() {
     const store = inject("store");
+
+    onMounted(() => {
+      store.methods.getcampList();
+      console.log("onPage",store.state.FltCampaignData);
+    });
+
     return {
       store,
     };
   },
-  mounted() {
-    this.myPageService.getCampaignData(this.store.state.UserId).then((res) => {
-      console.log("data list", res);
-      this.progressList = res.data.data;
-    });
-  },
+  // mounted() {
+  //   this.myPageService
+  //     .getCampaignData(
+  //       this.store.state.UserId,
+  //       this.store.state.sponsorTabState,
+  //       this.store.state.sponcerFilterId,
+  //       this.store.state.sponcerChannelType
+  //     )
+  //     .then((res) => {
+  //       console.log("data list", res);
+  //       this.progressList = res.data.data;
+  //     });
+  // },
 };
 </script>
 
