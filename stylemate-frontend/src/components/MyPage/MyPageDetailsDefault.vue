@@ -27,7 +27,10 @@ export default defineComponent({
     CustomerService,
   },
   methods: {
-    
+    logout() {
+      localStorage.clear();
+      this.$router.push({ name: "Home" });
+    }
   },
 });
 </script>
