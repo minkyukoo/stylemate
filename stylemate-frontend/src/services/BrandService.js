@@ -22,6 +22,6 @@ export default class BrandService {
   }
 
   async lookBook() {
-    return await axios.get(`/stylemates/front-manages?type=post`).then((res) => res.data).catch((err) => err);
+    return await axios.get(`/stylemates/front-manages?type=post&limit=9`).then((res) => res.data).catch((err) => err);
   }
 }
