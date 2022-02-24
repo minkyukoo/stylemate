@@ -4,9 +4,7 @@
       <h4>▪︎ {{ title }}</h4>
     </div>
     <div class="faq-answer" :class="isOpen ? 'show' : 'hide'">
-      <p>
-        <slot></slot>
-      </p>
+      <p v-html="body"></p>
     </div>
   </div>
 </template>
@@ -14,8 +12,9 @@
 <script>
 export default {
   name: "NoticeAccordion",
-  props:{
-    title: String
+  props: {
+    title: String,
+    body: String,
   },
   components: {},
   data() {

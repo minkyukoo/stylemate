@@ -57,7 +57,7 @@
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
             :title="faq.title"
-            v-html="faq.body"
+            :body="faq.body"
           >
           </NoticeAccordion>
         </div>
@@ -138,6 +138,7 @@ export default {
         .filter((v, i, a) => a.indexOf(v) === i);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
+        console.log(res.data);
       });
     });
   },
