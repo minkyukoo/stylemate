@@ -11,7 +11,8 @@
         </div>
         <h2>{{ notice.title }}</h2>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span><span>{{ notice.createdAt }}</span>
+          <span>{{ notice.category }}</span
+          ><span>{{ notice.createdAt }}</span>
         </div>
       </div>
       <div class="content-details" v-html="notice.body"></div>
@@ -64,6 +65,10 @@ export default {
       this.notice.body = res.title;
       this.notice.createdAt = this.dateFormat(res.createdAt);
       this.notice.category = res.category;
+    });
+
+    this.service.Notice().then((res) => {
+      this.noticelist = res.data;
     });
   },
   methods: {
