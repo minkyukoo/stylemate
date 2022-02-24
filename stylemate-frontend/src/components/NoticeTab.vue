@@ -57,7 +57,7 @@
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
             :title="faq.title"
-            v-html="faq.body"
+            :body="faq.body"
           >
           </NoticeAccordion>
         </div>
@@ -77,20 +77,20 @@
       </div>
       <div
         v-for="inquiry in inquirylist"
-        :key="inquiry"
+        :key="inquiry.id"
         class="notice-row"
         @click="$router.push({ name: 'InquiryRegisterDetails' })"
       >
         <div class="tag-row">
-          <span class="notice-tag grey-solid">확인중</span>
-          <span class="notice-tag dark-outline">답변완료</span>
+          <span class="notice-tag grey-solid">{{ inquiry.answerStatus }}</span>
+          <!-- <span class="notice-tag dark-outline">답변완료</span> -->
         </div>
         <div class="text-desc">
-          <p>{{ inquiry.desc }}</p>
+          <p>{{ inquiry.inquiry }}</p>
         </div>
         <div class="bottom-row">
           <span>{{ inquiry.type }}</span
-          ><span>{{ inquiry.date }}</span>
+          ><span>{{ dateFormat(inquiry.date) }}</span>
         </div>
       </div>
     </div>
@@ -110,18 +110,8 @@ export default {
       layout: "tab2",
       faqs: [],
       faqCategory: [],
-      inquirylist: [
-        {
-          desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
-          type: "인스타그램 캠페인 문의",
-          date: "2021.01.03",
-        },
-        {
-          desc: "빠르고 강력한 알레르기 치료제 알지싹 세티!",
-          type: "유튜브 캠페인 문의",
-          date: "2021.01.03",
-        },
-      ],
+      noticelist: [],
+      inquirylist: [],
     };
   },
   created() {
@@ -138,7 +128,13 @@ export default {
         .filter((v, i, a) => a.indexOf(v) === i);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
+        console.log(res.data);
       });
+    });
+
+    this.service.QNAs().then((res) => {
+      this.inquirylist = res.data;
+      console.log(res.data);
     });
   },
   methods: {

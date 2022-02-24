@@ -19,7 +19,7 @@
                 <span>이메일</span>
               </div>
               <div>
-                <span>mediance@mediance.co.kr</span>
+                <span>{{userDetails.email}}</span>
               </div>
             </li>
             <li>
@@ -27,7 +27,7 @@
                 <span>휴대폰 번호</span>
               </div>
               <div>
-                <span>010-1234-1234</span>
+                <span>{{userDetails.tel}}</span>
               </div>
             </li>
           </ul>
@@ -126,6 +126,7 @@ export default {
   data() {
     return{
       deleteAccount: false,
+      userDetails:{}
     }
   },
   methods: {
@@ -150,8 +151,8 @@ export default {
   },
   mounted(){
      this.userInfoService.getUserInfo().then((res) => {
-        console.log('userdetails', res);
-        
+        // console.log('userdetails', res);
+        this.userDetails=res.data;
       });
   },
 };

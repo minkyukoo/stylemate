@@ -52,6 +52,14 @@ export default class UserInfoService {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq`).then((res) => res.data).catch((err) => err);
   }
 
+  async QNAs() {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+
   async NoticeById(id) {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/${id}`).then((res) => res.data).catch((err) => err);
   }
