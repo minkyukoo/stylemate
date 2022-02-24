@@ -17,7 +17,7 @@
             </li>
             <li>
               <div>서울특별시 서초구 반포대로125</div>
-              <div class="pointer" @click="showModal"><img src="@/assets/icons/arrow-right.svg" /></div>
+              <div class="pointer"><img src="@/assets/icons/arrow-right.svg" /></div>
             </li>
           </ul>
           <ul class="secList">
@@ -29,20 +29,6 @@
         <div class="button-group">
             <button class="black-btn">확인</button>
         </div>
-
-
-        <CustomModal v-show="isModalVisible" @close="closeModal">
-              <template v-slot:header>
-                <h2>In progress</h2>
-              </template>
-              <template v-slot:body>
-                <div class="modal-content">
-                  <p>Loremipsum Text</p>
-                </div>
-              </template>
-
-              <template v-slot:footer> </template>
-            </CustomModal>
     </ion-content>
     <!-- End page content -->
 
@@ -64,11 +50,10 @@ import TopNav from '@/components/TopNav.vue';
 // import "swiper/css/scrollbar";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
-import CustomModal from "@/components/Modal.vue";
 
 export default {
   name: 'DeliveryAddress',
-  components: { TopNav,  IonContent, IonPage, CustomModal },
+  components: { TopNav,  IonContent, IonPage },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -79,19 +64,13 @@ export default {
   // }
   data() {
     return {
-      isModalVisible: false,
+      // isModalVisible: false,
       // isActive: false,
     };
   },
   methods: {
     openlink() {
       console.log("clivk");
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
     },
   },
 };

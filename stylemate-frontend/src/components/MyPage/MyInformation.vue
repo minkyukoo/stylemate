@@ -19,7 +19,7 @@ export default {
         },
         {
           name: "채널연결",
-          Pagelink: "LinkChannel",
+          Pagelink: "NewMemberChannel",
         },
       ],
     };
