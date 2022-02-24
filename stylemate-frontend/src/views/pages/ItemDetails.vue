@@ -360,10 +360,11 @@ export default {
   display: block;
 }
 .mainslide figure {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
+  height: 100%;
 }
 .mainslide figure .top-social-icon {
   position: absolute;
@@ -383,10 +384,10 @@ export default {
   /* background: rgb(101, 101, 101); */
 }
 .mainslide-banner-wrap img {
-  height: auto;
-  width: 380px;
+  height: 380px;
+  width: 100%;
   max-height: 380px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .item-wrapper {
   padding: 40px 20px 60px;
