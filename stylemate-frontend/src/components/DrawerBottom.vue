@@ -1,14 +1,9 @@
 <template>
     <div class="drawer-wrap">
         <div class="drawer-top">
-
             <div class="selectWrap" v-for="item in productColor" :key="item.optionName">
-                <vue-select
-                :placeholder="item.optionName"
-                :options="item.optionValues"
-                ></vue-select>
+                <vue-select :placeholder="item.optionName" :options="item.optionValues"></vue-select>
             </div>
-
         </div>
         <div class="button-group">
             <button class="grey-btn">취소</button>
@@ -41,21 +36,21 @@ export default defineComponent({
         // return { options };
     },
 
-    mounted(){
+    mounted() {
         this.itemService = new ItemService();
 
         var proId = this.$route.params.id;
         this.itemService.getProductDetails(proId).then((data) => {
-        // catch error
-        this.productColor = data.productOption;
-        console.log("this.productColor",this.productColor);
+            // catch error
+            this.productColor = data.productOption;
+            console.log("this.productColor", this.productColor);
         });
     },
 })
 </script>
 
 <style scoped>
-.drawer-wrap{
+.drawer-wrap {
     position: fixed;
     bottom: 0;
     z-index: 2;
@@ -64,25 +59,25 @@ export default defineComponent({
     background: #ffffff;
     border-radius: 20px 20px 0px 0px;
 }
-.drawer-top{
+.drawer-top {
     padding: 24px 20px;
 }
-.drawer-top .selectWrap{
+.drawer-top .selectWrap {
     margin-top: 4px;
 }
-.drawer-top .selectWrap:first-child{
+.drawer-top .selectWrap:first-child {
     margin-top: 0;
 }
-.drawer-top .selectWrap .vue-select{
+.drawer-top .selectWrap .vue-select {
     width: 100%;
-    border: 1px solid #C4C4C4;
+    border: 1px solid #c4c4c4;
     border-radius: 6px;
 }
 
-.button-group{
+.button-group {
     display: flex;
 }
-.button-group button{
+.button-group button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,12 +87,12 @@ export default defineComponent({
     line-height: 18px;
     padding: 21px;
 }
-.button-group button.grey-btn{
+.button-group button.grey-btn {
     color: #797979;
-    background: #E5E5E5;
+    background: #e5e5e5;
 }
-.button-group button.black-btn{
-    color: #FFFFFF;
+.button-group button.black-btn {
+    color: #ffffff;
     background: #090909;
 }
 </style>
