@@ -34,16 +34,25 @@
         "
       >
         <div class="tag-row">
-          <span class="notice-tag red-solid">알림</span>
-          <span class="notice-tag red-outline">중요</span>
-          <span class="notice-tag dark-solid">이벤트</span>
+          <span
+            v-if="notice.category !== null"
+            class="notice-tag"
+            :class="{
+              'red-solid': notice.category === 'notification',
+              'dark-solid': notice.category !== 'notification',
+            }"
+            >{{
+              notice.category === "notification" ? "notice" : notice.category
+            }}</span
+          >
+          <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
+          <!-- <span class="notice-tag dark-solid">이벤트</span> -->
         </div>
         <div class="text-desc">
           <p>{{ notice.title }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span
-          ><span>{{ dateFormat(notice.createdAt) }}</span>
+          <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -124,6 +133,7 @@ export default {
   mounted() {
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
+      console.log(res.data);
     });
 
     this.service.FAQs().then((res) => {
