@@ -10,19 +10,21 @@
 </template>
 
 <script>
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent, provide } from 'vue';
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { defineComponent, provide } from "vue";
 import store from "./store/index";
+import userData from "./store/userDetails";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     IonApp,
-    IonRouterOutlet
+    IonRouterOutlet,
   },
   setup() {
-    provide('store', store)
-  }
+    provide("store", store);
+    provide("userData", userData);
+  },
 });
 </script>
 
@@ -44,17 +46,9 @@ export default defineComponent({
 .route-leave-active {
   transition: all 0.3s ease-in;
 }
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
-  /* background-color: #dd0000 !important; */
-}
 
 ::-webkit-scrollbar {
   width: 0px !important;
-  /* background-color: #ba1414 !important; */
 }
 
-::-webkit-scrollbar-thumb {
-  /* background-color: #6d02f0 !important; */
-}
 </style>

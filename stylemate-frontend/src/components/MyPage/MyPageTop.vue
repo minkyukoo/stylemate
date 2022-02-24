@@ -1,21 +1,32 @@
 <template>
   <div class="">
-    <div class="top-container">
+    <div
+      class="top-container"
+      :style="{
+        backgroundImage: `url(${store.state.MyPageTopDetails.profile_img})`,
+      }"
+    >
       <div class="img-con">
-        <img src="@/assets/images/profile-img.png" />
+        <img
+          :src="[
+            store.state.MyPageTopDetails.profile_img
+              ? store.state.MyPageTopDetails.profile_img
+              : '../../assets/images/profile-img.png',
+          ]"
+        />
       </div>
       <div class="profile-desc">
-        <h3>안녕하세요, 옹한아님</h3>
-        <p>hana.oh@mediance.co.kr</p>
+        <h3>안녕하세요, {{ store.state.MyPageTopDetails.name }}</h3>
+        <p>{{ store.state.MyPageTopDetails.email }}</p>
       </div>
-      <div class="social-media" v-if="viewSocialMedia">
+      <div class="social-media" v-if="store.state.MyPageTopState === 'approve'">
         <div class="media-item">
           <a href="#" class="btn-instagram media-icons">
             <img src="@/assets/icons/instagram.svg" />
           </a>
           <span>150k</span>
         </div>
-        <div class="media-item">
+        <!-- <div class="media-item">
           <a href="#" class="btn-facebook media-icons">
             <img src="@/assets/icons/tiktok.svg" />
           </a>
@@ -26,24 +37,61 @@
             <img src="@/assets/icons/youtube.svg" />
           </a>
           <span>150k</span>
-        </div>
+        </div> -->
+      </div>
+      <div class="btn-con" v-else-if="store.state.MyPageTopState === 'request'">
+        <MyPageTopButton
+          :name="'Checking channel'"
+          :style="'btn-grey-outline'"
+          v-on:buttonEvent="fireButton"
+        />
+      </div>
+      <div
+        class="btn-con"
+        v-else-if="
+          store.state.MyPageTopState === 'hold' ||
+          store.state.MyPageTopState === 'cancel'
+        "
+      >
+        <MyPageTopButton
+          :name="'hold'"
+          :style="'btn-grey-solid'"
+          v-on:buttonEvent="fireButton"
+        />
       </div>
       <div class="btn-con" v-else>
-        <button class="btn-dark" @click="() => (this.viewSocialMedia = true)">
-          로그아웃
-        </button>
+        <MyPageTopButton
+          :name="'Connecting Channels'"
+          :style="'btn-dark'"
+          v-on:buttonEvent="fireButton"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { inject } from "vue";
+import MyPageTopButton from "@/components/MyPage/MyPageTopButton.vue";
 export default {
   name: "MyPageTop",
+  components: { MyPageTopButton },
+
   data() {
     return {
-      viewSocialMedia: false,
+      viewSocialMedia: 'request',
     };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
+  methods: {
+    fireButton() {
+      console.log("fireButton");
+    },
   },
 };
 </script>
@@ -57,6 +105,9 @@ export default {
 }
 .top-container {
   padding-top: 32px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -86,12 +137,13 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 .btn-con {
   position: relative;
   z-index: 9;
 }
-.btn-dark {
+/* .btn-dark {
   background: #090909;
   border: 1px solid #090909;
   border-radius: 6px;
@@ -99,7 +151,7 @@ export default {
   font-size: 14px;
   line-height: 18px;
   padding: 8px 20px;
-}
+} */
 .profile-desc {
   margin-bottom: 20px;
   color: #c4c4c4;

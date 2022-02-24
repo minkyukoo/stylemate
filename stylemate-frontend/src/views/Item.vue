@@ -4,31 +4,33 @@
     <TopNav headerTitle="ITEM"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+      <div class="main-wrap">
       <!-- <ExploreContainer name="Item page" /> -->
-      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)" />
+      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)"/>
       
       <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
-    </ion-content>
+      </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import CardItem from "@/components/CardItem.vue";
 import CategoryList from "@/components/CategoryList.vue";
 
 export default {
   name: "Item",
-  components: { TopNav, IonContent, IonPage, CardItem, CategoryList },
+  components: { TopNav, IonPage, CardItem, CategoryList },
   data() {
     return {
       isBanner: true,
       isFltData: true,
       isproductfilter: null,
-      // finalresult: true,
+      isallbutton:null,
     }
   },
   methods: {
@@ -38,6 +40,7 @@ export default {
     },
     fltData2(event) {
       this.isFltData = event;
+      console.log("this.isFltData",this.isFltData);
       alert(event);
     },
    
@@ -45,6 +48,7 @@ export default {
       this.isproductfilter = event;
       console.log("this.isproductfilter",this.isproductfilter);
     },
+
   },
 };
 </script>

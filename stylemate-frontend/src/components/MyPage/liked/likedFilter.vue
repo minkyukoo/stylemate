@@ -1,5 +1,5 @@
 <template>
-  <div class="item-scroller-nav">
+  <div v-if="product || brand" class="item-scroller-nav">
     <swiper
       class="main-menu"
       :slides-per-view="'auto'"
@@ -8,7 +8,7 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a @click="handleClick( category.id)">{{ category.name }}</a>
+        <a @click="handleClick(category.id)">{{ category.name }}</a>
       </swiper-slide>
     </swiper>
   </div>
@@ -19,6 +19,8 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 // import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
 import "swiper/css/scrollbar";
+import UserInfoService from "@/services/UserInfoService";
+
 export default {
   name: "likedTab",
   components: {
@@ -32,14 +34,17 @@ export default {
     const onSlideChange = () => {
       console.log("slide change");
     };
+
     return {
       onSwiper,
       onSlideChange,
-    //   modules: [Navigation, Pagination, Scrollbar, A11y],
+      //   modules: [Navigation, Pagination, Scrollbar, A11y],
     };
   },
   data() {
     return {
+      product: false,
+      brand: false,
       allCategories: [
         {
           id: "all",
@@ -55,6 +60,19 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    this.user = new UserInfoService();
+  },
+  mounted() {
+    this.user.getUserInfo().then((userInfo) => {
+      this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+        this.product = res.data.data.length > 0 ? true : false;
+      });
+      this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+        this.brand = res.data.data.length > 0 ? true : false;
+      });
+    });
   },
 };
 </script>
@@ -76,13 +94,13 @@ export default {
 
 .item-scroller-nav .main-menu .swiper-slide a {
   padding: 8px 16px;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 100px;
   display: block;
   font-weight: normal;
   font-size: 12px;
-line-height: 16px;
-  color: #C4C4C4;
+  line-height: 16px;
+  color: #c4c4c4;
   cursor: pointer;
   background: #ffffff;
   white-space: nowrap;
@@ -94,7 +112,7 @@ line-height: 16px;
   color: #090909;
 }
 
-.swiper-slide{
+.swiper-slide {
   width: auto;
 }
 </style>

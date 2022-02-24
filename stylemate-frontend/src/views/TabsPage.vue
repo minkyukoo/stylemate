@@ -1,14 +1,17 @@
 <template>
-  <ion-page class="main-container relative">
+  <!-- <ion-page class="main-container relative"> -->
+  <div class="main-container relative">
     <ion-tabs>
       <!-- <TopNav></TopNav> -->
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar>
         <ion-tab-button
           class="tab-button"
+          :class="{ 'myactive': activeId === 'tab1' }"
           tab="tab1"
           href="/home"
-          @mouseover="onHoverState"
+          key="tab1"
+          @click="onClickState('tab1')"
         >
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
@@ -18,9 +21,11 @@
 
         <ion-tab-button
           class="tab-button"
+          :class="{ 'myactive': activeId === 'tab2' }"
           tab="tab2"
           href="/item"
-          @mouseover="onHoverState"
+          key="tab2"
+          @click="onClickState('tab2')"
         >
           <!-- <ion-icon :src="require(`@/assets/icons/item.svg`)" /> -->
           <i class="icon icon-dft icon-item" />
@@ -28,29 +33,51 @@
           <ion-label>ITEM</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab3" href="/brands">
+        <ion-tab-button
+          class="tab-button"
+          :class="{ 'myactive': activeId === 'tab3' }"
+          tab="tab3"
+          href="/brands"
+          key="tab3"
+          @click="onClickState('tab3')"
+        >
           <!-- <ion-icon :src="require(`@/assets/icons/brand.svg`)" /> -->
           <i class="icon icon-dft icon-brand" />
           <i class="icon icon-hvr icon-brand-white" />
           <ion-label>BRAND</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab4" href="/contents">
+        <ion-tab-button
+          class="tab-button"
+          :class="{ 'myactive': activeId === 'tab4' }"
+          tab="tab4"
+          href="/contents"
+          key="tab4"
+          @click="onClickState('tab4')"
+        >
           <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
-           <i class="icon icon-dft icon-contents" />
+          <i class="icon icon-dft icon-contents" />
           <i class="icon icon-hvr icon-contents-white" />
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab5" href="/mypage">
+        <ion-tab-button
+          class="tab-button"
+          :class="{ 'myactive': activeId === 'tab5' }"
+          tab="tab5"
+          href="/mypage"
+          key="tab5"
+          @click="onClickState('tab5')"
+        >
           <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
-           <i class="icon icon-dft icon-mypage" />
+          <i class="icon icon-dft icon-mypage" />
           <i class="icon icon-hvr icon-mypage-white" />
           <ion-label>MY PAGE</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-  </ion-page>
+  </div>
+  <!-- </ion-page> -->
 </template>
 
 <script>
@@ -60,12 +87,12 @@ import {
   IonTabs,
   IonLabel,
   // IonIcon,
-  IonPage,
+  // IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { ellipse, square, triangle, heart } from "ionicons/icons";
+// import { ellipse, square, triangle, heart } from "ionicons/icons";
 // import TopNav from '@/components/TopNav.vue';
-
+// import { inject, onMounted } from "vue";
 export default {
   name: "TabPage",
   components: {
@@ -74,22 +101,27 @@ export default {
     IonTabBar,
     IonTabButton,
     // IonIcon,
-    IonPage,
+    // IonPage,
     IonRouterOutlet,
-  },
-  setup() {
-    return {
-      ellipse,
-      square,
-      triangle,
-      heart,
-    };
   },
   data() {
     return {
       hover: true,
+      activeId: "tab1",
     };
   },
+  // setup() {
+  //   const userData = inject("userData");
+
+  //   onMounted(() => {
+  //     var currentTime = new Date().getTime();
+  //     if(localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
+  //       userData.methods.getUserData();
+  //     }
+  //   });
+
+  //   return { userData };
+  // },
   methods: {
     // onHoverState(ev) {
     //   var target = ev.target;
@@ -100,6 +132,10 @@ export default {
     //     }
     //   }
     // },
+    onClickState(id) {
+      this.activeId = id;
+      console.log("this.activeId", this.activeId);
+    },
   },
 };
 </script>
@@ -126,6 +162,9 @@ ion-tab-button {
   background: black;
   overflow: hidden;
 }
+ion-tab-button.myactive ion-label {
+  color: #ffffff;
+}
 ion-tab-button .icon.icon-hvr {
   display: none;
 }
@@ -146,6 +185,9 @@ ion-label {
   margin-top: 6px;
 }
 ion-tab-button:hover ion-label {
+  color: #ffffff;
+}
+ion-tab-button.myactive ion-label {
   color: #ffffff;
 }
 .page-tabs .tabs .tabbar {

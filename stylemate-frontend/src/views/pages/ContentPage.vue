@@ -3,8 +3,12 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div v-for="(image, i) of img" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
-        <img :src="image.src" v-bind:alt="img" @click="openModal" />
+      <div v-for="(image, i) of best_contents" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
+        <img
+          :src="image.post.product.imageThumbnailPath"
+          v-bind:alt="img"
+          @click="store.methods.setContentsDetailsModal(true, image.post.id)"
+        />
       </div>
     </div>
     <br />
@@ -18,98 +22,110 @@
           <img
             :src="image.campaign.imageThumbnailPath"
             v-bind:alt="img"
-            @click="openModal(image.campaign.imageMainPath, image.campaign.brandId)"
+            @click="
+              store.methods.setContentsDetailsModal(true, image.campaign.id)
+            "
           />
         </div>
       </div>
     </div>
     <!-- New content ends -->
+    <ContentDetails v-if="store.state.contentDetailsModal" />
   </div>
 </template>
 <script>
-import {
-  modalController,
-} from "@ionic/vue";
-import ContentDetails from "@/components/ContentDetails.vue";
-import axios from "axios";
+import { inject } from "vue";
+import ContentDetails from "../../components/ContentDetails.vue";
+import ContentService from "@/services/ContentService";
+// import axios from "axios";
 import PostService from "@/services/PostService";
 export default {
   name: "ContentPage",
   data() {
     return {
       new_contents: [],
-      img: [
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/3" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/4" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/5" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/6" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
-        { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
-      ],
-      img_new: [
-        {
-          src: "@/assets/images/Rectanglen1.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen2.png",
-          srci: "https://source.unsplash.com/random/800x400?i=2",
-        },
-        {
-          src: "@/assets/images/Rectanglen3.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen4.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen5.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-        {
-          src: "@/assets/images/Rectanglen6.png",
-          srci: "https://source.unsplash.com/random/800x400?i=1",
-        },
-      ],
+      best_contents: [],
+      // img: [
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/1" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/2" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/3" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/4" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/5" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/6" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/7" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/8" },
+      //   { src: "https://source.unsplash.com/random/800x400?fashion-model/9" },
+
+      // ],
+      // img_new: [
+      //   {
+      //     src: "@/assets/images/Rectanglen1.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen2.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=2",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen3.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen4.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen5.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      //   {
+      //     src: "@/assets/images/Rectanglen6.png",
+      //     srci: "https://source.unsplash.com/random/800x400?i=1",
+      //   },
+      // ],
+      contentService: null,
     };
   },
-  created(){
 
+  components: {
+    ContentDetails,
+  },
+
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
+
+  created() {
     this.postService = new PostService();
-
+    this.contentService = new ContentService();
   },
   mounted() {
-    this.postService.getPost('post', 2).then((res) => {
-      console.log('res', res);
-    });
-    axios
-      .get("https://elsa.beta.mediance.co.kr/stylemates/contents")
+    // new_contents
+    this.contentService
+      .getNewContent()
       .then((response) => {
         this.new_contents = response.data.data;
         console.log("content", response);
       })
       .catch((e) => {
-        this.error.push(e);
+        console.log(e);
+      });
+    
+    // best_contents
+    this.contentService
+      .getBestContent()
+      .then((res) => {
+        this.best_contents = res.data;
+        console.log("best_contents", res);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   },
-  methods: {
-    async openModal() {
-      const modal = await modalController.create({
-        component: ContentDetails,
-        componentProps: {
-          propsData: {
-            title: 'String to pass!',
-          },
-
-        },
-      });
-      return modal.present();
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>
@@ -132,6 +148,8 @@ export default {
 
 .a1 {
   grid-area: a;
+  height: 210px;
+  
 }
 
 .a2 {
@@ -165,7 +183,10 @@ export default {
 .a9 {
   grid-area: i;
 }
-
+.g-img-wrap {
+border-radius: 6px;
+  overflow: hidden;
+}
 .g-img-wrap img {
   width: 100%;
   height: 100%;
@@ -204,6 +225,7 @@ export default {
   font-size: 24px;
   line-height: 24px;
   margin-bottom: 20px;
+  color: #090909;
 }
 .newimage {
   background-size: cover;

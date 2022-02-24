@@ -3,8 +3,12 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
-          <NotificationIcon notificationCount="24" />
+          <img
+            src="@/assets/images/logo-black.svg"
+            class="siteLogo"
+            alt="Logo"
+          />
+          <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -15,13 +19,15 @@
       <div class="container">
         <div class="flex items-center justify-center relative">
           <ion-buttons slot="start" class="back-btn-wrap">
-            <Button class="back-btn" @click="$router.go(-1)">
+            <button class="back-btn" @click="$router.go(-1)">
               <i class="icon-left-arrow"></i>
-            </Button>
+            </button>
           </ion-buttons>
-          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
+          <h1 v-if="headerTitle" class="header-title text-center">
+            {{ headerTitle }}
+          </h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
-          <NotificationIcon notificationCount="24" />
+          <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -30,10 +36,11 @@
 
 <script>
 // import { IonHeader,IonIcon, IonToolbar, IonTitle,IonButtons } from '@ionic/vue';
-import { IonButtons, IonHeader, IonToolbar } from '@ionic/vue';
+import { IonButtons, IonHeader, IonToolbar } from "@ionic/vue";
 import NotificationIcon from "./utilities/NotificationIcon.vue";
+import UserInfoService from "@/services/UserInfoService";
 export default {
-  name: 'TopNav',
+  name: "TopNav",
   // components: { IonHeader, IonToolbar, IonTitle, NotificationIcon, IonButtons, IonIcon },
   components: { IonButtons, IonHeader, IonToolbar, NotificationIcon },
   props: {
@@ -43,10 +50,32 @@ export default {
     return {
       mainHeader: false,
       innerHeader: true,
-      siteLogo: '@/assets/images/logo-black.svg',
-    }
-  }
-}
+      siteLogo: "@/assets/images/logo-black.svg",
+      notificationLength: 0,
+    };
+  },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
+  mounted() {
+    this.getNotificationLength();
+  },
+  methods: {
+    getNotificationLength() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.userInfoService.getUserInfo().then((userInfo) => {
+          this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
+            this.notificationLength = notice.data.data.length;
+          });
+        });
+      } else this.notificationLength = 0;
+    },
+  },
+};
 </script>
 
 <style scoped>

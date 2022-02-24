@@ -8,9 +8,9 @@ import Contents from "@/views/Contents.vue";
 import Mypage from "@/views/Mypage.vue";
 import LoginPage from "../views/pages/Login.vue";
 import BrandDetails from "@/views/pages/BrandDetails.vue";
-import Sponsorships from "../views/Sponsorship.vue";
-import PostActivity from "../views/PostActivity.vue";
-import MyPageLiked from "../views/MyPageLiked.vue";
+import Sponsorships from "@/views/Sponsorship.vue";
+import PostActivity from "@/views/PostActivity.vue";
+import MyPageLiked from "@/views/MyPageLiked.vue";
 import TokenService from "@/services/TokenService";
 
 
@@ -154,7 +154,7 @@ const routes = [
         }
       },
       {
-        path: "sponsorships",
+        path: "/sponsorships",
         name: "Sponsorships",
         beforeEnter: guard,
         component: Sponsorships,
@@ -163,7 +163,7 @@ const routes = [
         }
       },
       {
-        path: "post-activity",
+        path: "/post-activity",
         name: "Post Activity",
         beforeEnter: guard,
         component: PostActivity,
@@ -172,7 +172,7 @@ const routes = [
         }
       },
       {
-        path: "mypage-liked",
+        path: "/mypage-liked",
         name: "MyPage Liked",
         // beforeEnter: guard,
         component: MyPageLiked,
@@ -182,8 +182,9 @@ const routes = [
       },
     ],
   },
+  
   {
-    path: "/product-details",
+    path: "/product/:id",
     name: "ItemDetails",
     component: () => import("@/views/pages/ItemDetails.vue"),
     meta: {
@@ -327,6 +328,55 @@ const routes = [
     name: "Slider",
     component: () => import("@/views/pages/Slider.vue"),
   },
+  {
+    path: "/notice",
+    name: "Notice",
+    component: () => import("@/views/pages/Notice.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquirydetails",
+    name: "InquiryDetails",
+    component: () => import("@/views/pages/InquiryDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/inquiryregisterdetails",
+    name: "InquiryRegisterDetails",
+    component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/noticedetails/:id",
+    name: "NoticeDetails",
+    component: () => import("@/views/pages/NoticeDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/customerservicecenter",
+    name: "CustomerServiceCenter",
+    component: () => import("@/views/pages/CustomerServiceCenter.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  
+
+
+
+
+
+
+
+
 ];
 
 

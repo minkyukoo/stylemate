@@ -1,0 +1,49 @@
+.swal2-popup {
+  font-size: 12px !important;
+  background-color: #25282B !important;
+  opacity: 0.9;
+  border-radius: 6px;
+  padding: 8px 40px !important;
+}
+.swal2-container >.swal2-popup {
+  background-color: #25282B;
+  opacity: 0.9;
+  border-radius: 6px;
+  padding: 8px 40px !important;
+}
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+  margin: 0 !important;
+  color: #F7F7F7;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: normal;
+  text-align: center !important;
+}
+
+.colored-toast .swal2-close {
+  color: #F7F7F7;
+}
+
+.colored-toast .swal2-html-container {
+  color: #F7F7F7;
+}

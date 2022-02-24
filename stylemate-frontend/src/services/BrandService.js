@@ -20,4 +20,8 @@ export default class BrandService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
+
+  async lookBook() {
+    return await axios.get(`/stylemates/front-manages?type=post&limit=9`).then((res) => res.data).catch((err) => err);
+  }
 }

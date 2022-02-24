@@ -6,10 +6,10 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <!-- <h1>My page</h1> -->
-      <MyTop />
+      <MyTop :userDetails="userDetail" :status="status" :image="profileImg" />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
-      <LikedTab />
+      <LikedTab  />
       <LikedFilter />
       <LikedItems />
     </ion-content>
@@ -44,18 +44,17 @@ export default {
     LikedTab,
     LikedFilter,
   },
-  // mounted() {
-  //   var queryString = window.location.search;
-  //   const urlParams = new URLSearchParams(queryString);
-  //   var token = urlParams.get('token')
-  //   localStorage.setItem('token', token);
-  //   console.log(urlParams);
-  //   console.log(token);
-  // }
+  data() {
+    return {
+      tabstate: "item",
+    };
+  },
+
   methods: {
-    openlink() {
-      console.log("clivk");
-    },
+    // setLikeTab(tab) {
+    //   this.tabState = tab;
+    //   console.log(this.tabState);
+    // },
   },
 };
 </script>

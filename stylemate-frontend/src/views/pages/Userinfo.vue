@@ -10,7 +10,9 @@
             <li>
               <div>
                 <label>계정정보</label></div>
-              <div><img src="@/assets/icons/arrow-right.svg" /></div>
+              <div>
+                <img src="@/assets/icons/arrow-right.svg" @click="$router.push({ name: 'ChangeUserinfo' })"/>
+              </div>
             </li>
             <li>
               <div>
@@ -35,7 +37,7 @@
                 <label>계정정보</label></div>
             </li>
             <li>
-                <button type="button">등록</button>
+                <button type="button" @click="enrollment()">등록</button>
             </li>
           </ul>
           <ul class="thirdList">
@@ -81,7 +83,10 @@
                </div>
             </li>
             <li>
-               <div>회원탈퇴</div>
+               <div @click="deleteAccount = true" @mouseleave="deleteAccount = false">
+                 <span v-if="deleteAccount" v-show="deleteAccount">"Are you sure, you want to delete your account permantly"</span>
+                 <span v-else> 회원탈퇴 </span>
+                 </div>
             </li>
           </ul>
         </div>
@@ -96,6 +101,7 @@
 import { IonPage,  IonContent, } from '@ionic/vue';
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from '@/components/TopNav.vue';
+import UserInfoService from "@/services/UserInfoService";
 // import MyTop from '@/components/MyPageTop.vue';
 // import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
@@ -117,10 +123,36 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  data() {
+    return{
+      deleteAccount: false,
+    }
+  },
   methods: {
     openlink() {
       console.log("clivk");
     },
+    enrollment(){
+      this.$router.push({ name: 'ShippingInfo' });
+
+      // if (condition) {
+        
+      // } else{
+      //   this.userInfoService.getUserInfo().then((res) => {
+      //   console.log('userdetails', res);
+        
+      // });
+      // }
+    },
+  },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
+  mounted(){
+     this.userInfoService.getUserInfo().then((res) => {
+        console.log('userdetails', res);
+        
+      });
   },
 };
 </script>

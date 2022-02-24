@@ -1,0 +1,107 @@
+<template>
+  <transition name="modal-fade">
+    <div class="popup-backdrop" v-show="store.state.cancelPopup">
+      <div class="popup-container">
+        <div class="popup-body">
+          <h3>
+            Are you sure you want to cancel the sponsorship you have applied
+            for?
+          </h3>
+          <p>Click OK to cancel the sponsorship.</p>
+        </div>
+        <div class="popup-footer">
+          <button
+            class="btn-grey"
+            @click="() => (store.state.cancelPopup = false)"
+          >
+            cancellation
+          </button>
+          <button type="button" class="btn-black">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+import { inject } from "vue";
+export default {
+  name: "cancelPopUp",
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.popup-backdrop {
+  background: rgba(9, 9, 9, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  display: flex;
+  align-items: flex-end;
+}
+.popup-container {
+  background: linear-gradient(
+    150.57deg,
+    rgba(255, 255, 255, 0.5) -60.05%,
+    #ffffff 71.1%
+  );
+  backdrop-filter: blur(30px);
+  border-radius: 20px 20px 0px 0px;
+}
+.popup-body {
+  padding: 30px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.popup-body h3 {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #25282b;
+  margin-bottom: 13px;
+}
+.popup-body p {
+  font-size: 14px;
+  line-height: 18px;
+  color: #595959;
+}
+.popup-footer {
+  display: flex;
+}
+.popup-footer button {
+  width: 50%;
+  height: 60px;
+  font-size: 14px;
+  line-height: 18px;
+}
+.popup-footer .btn-grey {
+  background: #e5e5e5;
+  color: #797979;
+}
+.popup-footer .btn-black {
+  background: #090909;
+  color: #ffffff;
+}
+
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+</style>

@@ -11,6 +11,7 @@
 <script>
 // import SponsorProgress from "@/components/MyPage/SponsorProgress.vue";
 import ItemCardPost from "./ItemCardPost.vue";
+import MyPageService from "@/services/MyPageService";
 export default {
   name: "PostActivityDetails",
   components: {
@@ -52,7 +53,16 @@ export default {
           status: "checking",
         },
       ],
+      myPageService: null,
     };
+  },
+  created() {
+    this.myPageService = new MyPageService();
+  },
+  mounted() {
+    this.myPageService.getPostingList().then((res) => {
+      console.log(res);
+    });
   },
 };
 </script>

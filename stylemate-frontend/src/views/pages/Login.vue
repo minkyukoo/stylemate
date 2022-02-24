@@ -8,27 +8,7 @@
       <div class="inner-container listmain">
         <div class="login-wrap">
           <h1 class="page-title pad-t-40">스타일메이트에 로그인 해주세요</h1>
-          <button class="login-btn" @click="loginHandaler">로그인</button>
-          <ion-card>
-            <ion-item>
-              <h2>Customer service center</h2>
-            </ion-item>
-            <ion-item>
-              <h1>Notice</h1>
-            </ion-item>
-            <ion-item>
-              <h1>FAQ</h1>
-            </ion-item>
-            <ion-item>
-              <h1>1:1 inquiry</h1>
-            </ion-item>
-            <ion-item>
-              <h1>Terms of Use</h1>
-            </ion-item>
-            <ion-item>
-              <h1>Privacy Policy</h1>
-            </ion-item>
-          </ion-card>
+          <button class="login-btn" @click="loginHandaler">login</button>
           <ion-button router-link="/home">Go to detail</ion-button>
           <ion-button router-link="/mypage">Go to detail</ion-button>
         </div>
@@ -42,16 +22,12 @@
 import TopNav from "@/components/TopNav.vue";
 import {
   IonContent,
-  IonCard,
-  IonItem,
   IonButton,
 } from "@ionic/vue";
 export default {
   name: 'LoginPage',
   components: {
     IonContent,
-    IonCard,
-    IonItem,
     IonButton,
     TopNav
   },
