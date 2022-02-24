@@ -59,6 +59,7 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
           this.progressDetails.booking[0].bookingStatus === 'join' &&
@@ -71,6 +72,7 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
           this.progressDetails.booking[0].bookingStatus === 'join' &&
@@ -83,6 +85,7 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
           this.progressDetails.booking[0].bookingStatus === 'join' &&
