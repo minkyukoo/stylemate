@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      serverUrl: 'http://stylemate.dvconsulting.org/stylemate/home',
+      // serverUrl: 'http://stylemate.dvconsulting.org/login',
+      // redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
       localUrl: 'http://localhost:8100/login',
       redirectlocalUrl: 'http://localhost:8100/home',
     }
