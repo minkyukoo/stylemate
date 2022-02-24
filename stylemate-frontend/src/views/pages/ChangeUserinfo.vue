@@ -17,7 +17,7 @@
               </div>
               <div>
                 <span>
-                  <input type="text" readonly placeholder="mediance@mediance.co.kr">
+                  <input type="text" value="hvdjfhbdf@gfcsdgh.com" readonly placeholder="mediance@mediance.co.kr">
                 </span>
               </div>
             </li>
@@ -110,6 +110,9 @@ export default {
           'SKT', 'SKT 1', 'SKT 2', 'SKT 3'
       ];
       return { options };
+  },
+  mounted:{
+    
   },
   methods: {
     openlink() {
