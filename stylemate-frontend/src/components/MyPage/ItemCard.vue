@@ -19,10 +19,11 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
-          this.progressDetails.processStatus === 'progress' &&
-          this.progressDetails.processDetailStatus === 'announce' || 'booking' &&
-          this.progressDetails.booking[0].bookingStatus === 'join' &&
-          this.progressDetails.booking[0].postStatus === 'ready'
+          (this.progressDetails.processStatus === 'progress' &&
+            this.progressDetails.processDetailStatus === 'announce') ||
+          (this.progressDetails.processDetailStatus === 'booking' &&
+            this.progressDetails.booking[0].bookingStatus === 'join' &&
+            this.progressDetails.booking[0].postStatus === 'ready')
         "
         >Sponsor Selection</span
       >
@@ -31,12 +32,12 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
-          (this.progressDetails.processStatus === 'progress' ||
-          this.progressDetails.processStatus === 'finish' &&
-          this.progressDetails.processDetailStatus ===
-            'announce,posting,finish' &&
-          this.progressDetails.booking[0].bookingStatus === 'booking' &&
-          this.progressDetails.booking[0].postStatus === 'ready')
+          this.progressDetails.processStatus === 'progress' ||
+          (this.progressDetails.processStatus === 'finish' &&
+            this.progressDetails.processDetailStatus ===
+              'announce,posting,finish' &&
+            this.progressDetails.booking[0].bookingStatus === 'booking' &&
+            this.progressDetails.booking[0].postStatus === 'ready')
         "
         >unselected</span
       >
@@ -45,8 +46,8 @@
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
         v-else-if="
-          (this.progressDetails.processStatus === 'progress' ||
-          this.progressDetails.processStatus === 'finish' &&
+          this.progressDetails.processStatus === 'progress' ||
+          (this.progressDetails.processStatus === 'finish' &&
             this.progressDetails.processDetailStatus === 'posting' &&
             this.progressDetails.booking[0].bookingStatus === 'join' &&
             this.progressDetails.booking[0].postStatus === 'finish')
