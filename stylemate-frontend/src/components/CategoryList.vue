@@ -97,7 +97,7 @@ export default {
   methods: {
     // Child category click
     handleClick2(ids) {
-      alert(ids);
+      // alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
         console.log("filterproductList", data);
         this.childactiveId = ids; //To activate the All button
@@ -123,7 +123,7 @@ export default {
 
     // Category click
     handleClick(childCategory, ids) {
-      alert(ids);
+      // alert(ids);
        this.itemServices.getFilterProduct(ids).then((data) => {
         console.log("category-filterproductList", data);
         this.childactiveId = ids; //To activate the All button
@@ -154,7 +154,7 @@ export default {
         this.childCategories2 = arr1.unshift({ name: "All", id: ids });
         console.log("this.childCategories2", this.childCategories2);
 
-        alert("child cat id", ids);
+        // alert("child cat id", ids);
         this.childCategory = true;
         this.onClickButton(false);
         console.log("this", this);
@@ -162,7 +162,7 @@ export default {
         this.childactiveId = "Allchild"; //To highlight the child button default
 
       } else {
-        alert(ids);
+        // alert(ids);
         this.childCategory = false;
         this.onClickButton(true);
       }

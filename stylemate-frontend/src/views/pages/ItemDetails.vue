@@ -151,11 +151,15 @@
         <figure>
           <img src="@/assets/icons/heart-filled.svg" />
         </figure>
+
+        <!-- sponsership button -->
         <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
+      <!-- product option -->
       <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" />
+
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
 
@@ -163,7 +167,7 @@
   </ion-page>
 </template>
 <script>
-import { inject, onMounted } from "vue";
+// import { inject, onMounted } from "vue";
 import {
   IonPage,
   // IonInfiniteScroll,
@@ -183,6 +187,7 @@ import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 import moment from 'moment';
 
 export default {
@@ -222,17 +227,17 @@ export default {
     };
   },
   setup() {
-    const userData = inject("userData");
+    // const userData = inject("userData");
 
-    onMounted(() => {
-      var currentTime = new Date().getTime();
-      if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-        userData.methods.getUserData();
-      }
-    });
+    //  onMounted( async () => {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if(isLogedIn) {
+    //     userData.methods.getUserData();
+    //   }
+    // });
 
     return {
-      userData,
+      // userData,
       modules: [Pagination],
     };
   },
@@ -240,6 +245,7 @@ export default {
     this.moment = moment;
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
 
     console.log('localStorage.token', localStorage.token);
 
@@ -275,26 +281,29 @@ export default {
     },
 
     // isAuthorized
-    isAuthorized() {
-      var currentTime = new Date().getTime();
-      if (!localStorage.token || !localStorage.tokenexpiresAt) {
-        return false;
-      }
-      else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
-        return false;
-      }
-      else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-        return true;
-      }
-      else {
-        return false;
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+
+    async isAuthorized() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (!isLogedIn) {
+        return null;
+      } else {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.influence.stylemateApprovedAt;
+        });
       }
     },
+
     //isUserid
     async isUserid() {
-      return await this.userInfoService.getUserInfo().then((res) => {
-        return res.data.uid;
-      });
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
     },
     //isDeliveries
     async isDeliveries() {
@@ -313,29 +322,31 @@ export default {
     },
 
     async sponsorshipApplication() {
-      let isDeliveries = await this.isDeliveries().then(res => res);
-      let processDetailStatus = this.productCampaign.processDetailStatus;
       // condition 1 login check
-      if (!this.isAuthorized()) {
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
         Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
-        setTimeout(() => {
-          this.$router.push("/login");
-        }, 2600);
+        return false;
       }
-      // condition 2 already sponsorship
-      else if (!isDeliveries) {
+      // condition 1 authorised check
+      let isAuthorized = await this.isAuthorized();
+      if (!isAuthorized) {
+        this.showModal();
+        return false;
+      }
+      // condition 2 deliveries address check
+      let isDeliveries = await this.isDeliveries().then(res => res);
+      if (!isDeliveries) {
         Toast.fire({ title: "배송지가 등록되지 않았습니다." });
-        // setTimeout(() => {
-        //   this.$router.push("/login");
-        // }, 2600);
+        return false;
       }
-      //sopnsership 
-      else if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
+      // condition 3 Sponsership check
+      let processDetailStatus = this.productCampaign.processDetailStatus;
+      if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
         Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
-        // setTimeout(() => {
-        //   this.$router.push("/login");
-        // }, 2600);
+        return false;
       }
+      this.hideSponserButton();
     },
   },
 };
@@ -360,10 +371,11 @@ export default {
   display: block;
 }
 .mainslide figure {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
+  height: 100%;
 }
 .mainslide figure .top-social-icon {
   position: absolute;
@@ -383,10 +395,10 @@ export default {
   /* background: rgb(101, 101, 101); */
 }
 .mainslide-banner-wrap img {
-  height: auto;
-  width: 380px;
+  height: 380px;
+  width: 100%;
   max-height: 380px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .item-wrapper {
   padding: 40px 20px 60px;

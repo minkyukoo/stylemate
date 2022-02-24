@@ -287,6 +287,23 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/mediamenberunselected",
+    name: "MediamenberUnselected",
+    component: () => import("@/views/pages/MediamenberUnselected.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/mediamemberselectchannel",
+    name: "MediaMemberSelectChannel",
+    component: () => import("@/views/pages/MediaMemberSelectChannel.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  
   // {
   //   path: "/brands/:id",
   //   name: "BrandDetails",

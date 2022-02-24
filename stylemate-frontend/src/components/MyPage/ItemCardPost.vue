@@ -1,6 +1,6 @@
 <template>
   <div class="item-card">
-    <div class="img-con">
+    <div class="img-con" @click="() => store.state.isReRegisterModalVisible = true">
       <img
         :src="`${require('../../assets/images/' + progressDetails.img)}`"
         alt=""
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 export default {
   name: "ItemCard",
   props: {
@@ -52,6 +53,12 @@ export default {
         return "rgba(121, 121, 121, 0.75)";
       }
     },
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
   },
 };
 </script>
