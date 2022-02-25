@@ -59,6 +59,7 @@
           <li>
             <div>
               <ion-checkbox color="primary" :checked="marketing"></ion-checkbox>
+              <!-- <input type="checkbox" @change="hello" v-bind:value="marketing" v-model="marketing"/> -->
             </div>
             <div>마케팅 광고 활용 동의 (선택)</div>
           </li>
@@ -150,6 +151,9 @@ export default {
   methods: {
     openlink() {
       console.log("clivk");
+    },
+    hello(){
+      console.log(this.marketing)
     },
     enrollment() {
       this.$router.push({ name: "ShippingInfo" });

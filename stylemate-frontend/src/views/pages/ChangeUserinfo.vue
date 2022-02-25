@@ -111,9 +111,6 @@ export default {
       ];
       return { options };
   },
-  mounted:{
-    
-  },
   methods: {
     openlink() {
       console.log("clivk");
