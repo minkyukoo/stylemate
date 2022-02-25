@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <div class="contents-page">
     <!-- header -->
     <TopNav headerTitle="Contents"></TopNav>
     <!-- End header -->
@@ -13,18 +13,18 @@
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
-import { IonPage } from "@ionic/vue";
+// import { IonPage } from "@ionic/vue";
 //import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import ContentPage from "./pages/ContentPage.vue";
 
 export default {
   name: "Contents",
-  components: { TopNav, IonPage, ContentPage },
+  components: { TopNav, ContentPage },
 };
 </script>
 

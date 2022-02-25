@@ -70,7 +70,7 @@ export default {
   name: "InquiryDetails",
   components: { TopNav, IonContent, IonPage },
   data() {
-    return { option: null };
+    return { option: 1 };
   },
   methods: {
     clickOption(vl) {

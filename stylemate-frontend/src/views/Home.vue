@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <div class="home-page">
     <!-- header -->
     <TopNav></TopNav>
     <!-- End header -->
@@ -52,10 +52,20 @@
                     <img src="@/assets/icons/heart-outline.svg" />
                   </div>
                 </div>
-                <figure @click="$router.push({ name: 'ItemDetails', params: { id: item.id }})">
+                <figure
+                  @click="
+                    $router.push({
+                      name: 'ItemDetails',
+                      params: { id: item.id },
+                    })
+                  "
+                >
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -84,7 +94,10 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -113,7 +126,10 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                <div
+                  class="details-wrap"
+                  @click="$router.push({ name: 'ItemDetails' })"
+                >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -146,7 +162,9 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -186,11 +204,19 @@
               v-for="book in lookBooks.lineOne.big"
               :key="book.id"
               :src="book.post.product.imageThumbnailPath"
+              @click="
+                store.methods.setContentsDetailsModal(true, image.campaign.id)
+              "
             />
           </div>
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+              <img
+                :src="book.post.product.imageThumbnailPath"
+                @click="
+                  store.methods.setContentsDetailsModal(true, image.campaign.id)
+                "
+              />
             </div>
           </div>
         </div>
@@ -198,15 +224,28 @@
         <div class="lookBookMain">
           <div class="bookLabel2 pattern3">
             <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+              <img
+                :src="book.post.product.imageThumbnailPath"
+                @click="
+                  store.methods.setContentsDetailsModal(true, image.campaign.id)
+                "
+              />
             </div>
           </div>
         </div>
 
-        <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+        <div
+          v-if="lookBooks.lineThree.normal.length !== 0"
+          class="lookBookMain"
+        >
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+              <img
+                :src="book.post.product.imageThumbnailPath"
+                @click="
+                  store.methods.setContentsDetailsModal(true, image.campaign.id)
+                "
+              />
             </div>
           </div>
           <div class="bookLabel1 pattern1">
@@ -214,9 +253,13 @@
               v-for="book in lookBooks.lineThree.big"
               :key="book.id"
               :src="book.post.product.imageThumbnailPath"
+              @click="
+                store.methods.setContentsDetailsModal(true, image.campaign.id)
+              "
             />
           </div>
         </div>
+        <ContentDetails v-if="store.state.contentDetailsModal" />
 
         <div class="gotoFamily">
           <div class="gotofamilyList" :class="{ active: isActive }">
@@ -245,7 +288,7 @@
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
@@ -257,22 +300,25 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage } from "@ionic/vue";
+// import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
-
+import ContentDetails from "@/components/ContentDetails.vue";
+import { inject } from "vue";
 export default {
   name: "Home",
   components: {
     TopNav,
-    IonPage,
+    // IonPage,
     Swiper,
     SwiperSlide,
+    ContentDetails,
   },
   setup() {
+    const store = inject("store");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
@@ -285,7 +331,9 @@ export default {
       slides.forEach((slide, index) => {
         if (index === swiper.activeIndex) {
           console.log("active index", slide);
-          let src = slide.querySelector(".nb-img-wrap > img").getAttreibute("src");
+          let src = slide
+            .querySelector(".nb-img-wrap > img")
+            .getAttreibute("src");
           console.log("src", src);
         }
       });
@@ -296,6 +344,7 @@ export default {
       onBrandSlideChange,
       modules: [Pagination, EffectCoverflow, Pagination],
       // modules: [EffectCoverflow, Pagination],
+      store,
     };
   },
   data() {
