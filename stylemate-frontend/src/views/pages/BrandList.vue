@@ -229,4 +229,16 @@ ion-card-title{
   /* left: 67px; */
   /* top: 160px; */
 }
+.searchbar-search-icon.sc-ion-searchbar-md{
+  right: 16px;
+  left: auto;
+}
+.listmain ion-searchbar{
+  padding: 0;
+  border: 1px solid #C4C4C4;
+  border-radius: 6px;
+}
+.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
+  display: none !important;
+}
 </style>
