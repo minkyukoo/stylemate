@@ -254,17 +254,18 @@ export default {
       // catch error
       if (res.response) {
         if (res.response.status == 404) {
-          alert(res.response.data.error.message);
+          // alert(res.response.data.error.message);
           this.$router.push('/item');
         }
       }
       // success
       else {
-        console.log('producrt res', res);
+        // console.log('producrt res', res);
         this.productDetails = res;
         // console.log('productDetails campaign:', this.productDetails);
         this.productDetails.campaign.map((item) => {
           this.productCampaign = item
+          // console.log("this.productCampaign",this.productCampaign);
         });
       }
     });

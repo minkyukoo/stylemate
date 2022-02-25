@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="button-group">
-            <button class="grey-btn">취소</button>
+            <button @click="$router.push({ path: 'ItemDetails' })" class="grey-btn">취소</button>
             <button class="black-btn">신청하기</button>
         </div>
     </div>
@@ -41,9 +41,8 @@ export default defineComponent({
 
         var proId = this.$route.params.id;
         this.itemService.getProductDetails(proId).then((data) => {
-            // catch error
             this.productColor = data.productOption;
-            console.log("this.productColor", this.productColor);
+            // console.log("this.productColor", this.productColor);
         });
     },
 })
