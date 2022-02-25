@@ -52,12 +52,12 @@
                     <img src="@/assets/icons/heart-outline.svg" />
                   </div>
                 </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
+                <figure @click="$router.push({ name: 'ItemDetails', params: { id: item.id }})">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
                 <div
                   class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
+                  @click="$router.push({ name: 'ItemDetails', params: { id: item.id }})"
                 >
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
@@ -186,7 +186,7 @@
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
-          <span>
+          <span @click="$router.push({ name: 'Contents' })">
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
@@ -359,7 +359,7 @@ export default {
     ) {
       this.userInfoService.Notice().then((res) => {
         this.notice = res.data[0].title;
-        console.log(res.data);
+        // console.log(res.data);
       });
     } else {
       this.notice = "[알림] 서비스 점검 안내";
@@ -385,6 +385,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
+        // console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];

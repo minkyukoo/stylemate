@@ -27,7 +27,7 @@ export default {
   color: #ffffff;
   font-size: 14px;
   line-height: 18px;
-  padding: 8px 20px;
+  padding: 20px;
 }
 .w-100{
   width: 100%;

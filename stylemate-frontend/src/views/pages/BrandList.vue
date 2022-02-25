@@ -194,12 +194,20 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
-
+ion-card-title{
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  color: #25282B;
+}
 .text-box {
   /* display: flex;
   text-align: right; */
-  height: 16px;
+  height: 24px;
   float: right;
+}
+.text-box > img{
+  width: 24px;
 }
 .right-section {
   text-align: right;
