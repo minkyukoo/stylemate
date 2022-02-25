@@ -154,12 +154,13 @@ ion-icon {
   margin: 0 auto;
 }
 ion-tab-bar {
-  background: black;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
   border-radius: 8px;
   height: 70px;
 }
 ion-tab-button {
-  background: black;
+  background: rgba(0, 0, 0, 0.75);
   overflow: hidden;
 }
 ion-tab-button.myactive ion-label {
