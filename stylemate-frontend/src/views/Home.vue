@@ -593,6 +593,7 @@ export default {
   width: 100%;
   height: 260px;
   overflow: hidden;
+  cursor: pointer;
 }
 .nb-img-wrap img {
   width: 100%;
@@ -660,6 +661,7 @@ export default {
   background: #fff;
   padding: 22px 16px;
   min-height: 150px;
+  cursor: pointer;
 }
 .brandDetails h3 {
   display: flex;
