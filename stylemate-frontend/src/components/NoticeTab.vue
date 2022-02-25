@@ -34,16 +34,25 @@
         "
       >
         <div class="tag-row">
-          <span class="notice-tag red-solid">알림</span>
-          <span class="notice-tag red-outline">중요</span>
-          <span class="notice-tag dark-solid">이벤트</span>
+          <span
+            v-if="notice.category !== null"
+            class="notice-tag"
+            :class="{
+              'red-solid': notice.category === 'notification',
+              'dark-solid': notice.category !== 'notification',
+            }"
+            >{{
+              notice.category === "notification" ? "notice" : notice.category
+            }}</span
+          >
+          <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
+          <!-- <span class="notice-tag dark-solid">이벤트</span> -->
         </div>
         <div class="text-desc">
           <p>{{ notice.title }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span
-          ><span>{{ dateFormat(notice.createdAt) }}</span>
+          <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -74,6 +83,9 @@
         >
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
+      </div>
+      <div v-if="!inquiryLength">
+        <p class="no-notice-data">등록된 내용이 없습니다</p>
       </div>
       <div
         v-for="inquiry in inquirylist"
@@ -112,6 +124,7 @@ export default {
       faqCategory: [],
       noticelist: [],
       inquirylist: [],
+      inquiryLength: 0,
     };
   },
   created() {
@@ -120,6 +133,7 @@ export default {
   mounted() {
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
+      console.log(res.data);
     });
 
     this.service.FAQs().then((res) => {
@@ -134,7 +148,7 @@ export default {
 
     this.service.QNAs().then((res) => {
       this.inquirylist = res.data;
-      console.log(res.data);
+      this.inquiryLength = res.data.length;
     });
   },
   methods: {
@@ -147,6 +161,12 @@ export default {
 </script>
 
 <style scoped>
+p.no-notice-data {
+  text-align: center;
+  padding-top: 50px;
+  color: #c4c4c4;
+}
+
 .tabs {
   border: 1px solid #f7f7f7;
   display: flex;
