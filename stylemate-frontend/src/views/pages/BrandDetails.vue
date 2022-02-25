@@ -134,12 +134,14 @@ export default {
   justify-content: flex-start;
   align-items: center;
   margin-top: 14px;
+  margin-bottom: 30px;
 }
 .hastags li p{
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+  margin-bottom: 0;
 }
 .main-container {
   max-width: 500px;
