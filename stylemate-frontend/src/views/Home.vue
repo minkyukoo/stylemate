@@ -385,7 +385,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        console.log(res);
+        // console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
