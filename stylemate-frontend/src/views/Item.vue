@@ -1,18 +1,24 @@
 <template>
   <!-- <ion-page> -->
+  <div class="Item-page">
     <!-- header -->
     <TopNav headerTitle="ITEM"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
-      <div class="main-wrap">
+    <div class="main-wrap">
       <!-- <ExploreContainer name="Item page" /> -->
-      <CategoryList @clicked="onClickChild" v-on:fltData="fltData2($event)" v-on:filterproductList="filterproductList2($event)"/>
-      
-      <CardItem :isBanner=isBanner :isFltData ="isFltData"  :isproductfilter ="isproductfilter"/>
-      </div>
+      <CategoryList
+        @clicked="onClickChild"
+        v-on:fltData="fltData2($event)"
+        v-on:filterproductList="filterproductList2($event)"
+      />
+
+      <CardItem :isBanner="isBanner" :isFltData="isFltData" :isproductfilter="isproductfilter" />
+    </div>
     <!-- </ion-content> -->
     <!-- End page content -->
+  </div>
   <!-- </ion-page> -->
 </template>
 
@@ -30,7 +36,7 @@ export default {
       isBanner: true,
       isFltData: true,
       isproductfilter: null,
-      isallbutton:null,
+      isallbutton: null,
     }
   },
   methods: {
@@ -40,13 +46,13 @@ export default {
     },
     fltData2(event) {
       this.isFltData = event;
-      console.log("this.isFltData",this.isFltData);
+      console.log("this.isFltData", this.isFltData);
       // alert(event);
     },
-   
-    filterproductList2(event){
+
+    filterproductList2(event) {
       this.isproductfilter = event;
-      console.log("this.isproductfilter",this.isproductfilter);
+      console.log("this.isproductfilter", this.isproductfilter);
     },
 
   },
