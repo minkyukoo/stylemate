@@ -183,7 +183,7 @@
           </swiper>
         </div>
 
-        <div class="fixed-container">
+        <div class="fixed-container lookbook">
         
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
@@ -645,9 +645,9 @@ export default {
 }
 .gotoFamily {
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   margin-top: 60px;
-  margin: 60px 20px 0;
+  margin: 60px 0 0;
 }
 .gotoFamily button {
   padding: 21px 0;
@@ -745,4 +745,10 @@ export default {
 .swiper-pagination-fraction {
   bottom: -100px !important;
 }
+
+.lookbook .headerLine, .lookbook .lookBookMain{
+  padding-left: 0;
+  padding-right: 0;
+}
+
 </style>
