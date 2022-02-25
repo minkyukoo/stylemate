@@ -52,9 +52,9 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <a href="#">
+                  <router-link to="">
                     <img src="@/assets/icons/instagram.svg" />
-                  </a>
+                  </router-link>
                 </div>
               </figure>
             </div>
@@ -154,6 +154,8 @@
 
         <!-- sponsership button -->
         <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
@@ -254,18 +256,24 @@ export default {
       // catch error
       if (res.response) {
         if (res.response.status == 404) {
-          alert(res.response.data.error.message);
+          // alert(res.response.data.error.message);
           this.$router.push('/item');
         }
       }
       // success
       else {
-        console.log('producrt res', res);
+        // console.log('producrt res', res);
         this.productDetails = res;
         // console.log('productDetails campaign:', this.productDetails);
         this.productDetails.campaign.map((item) => {
           this.productCampaign = item
+          // console.log("this.productCampaign",this.productCampaign);
         });
+
+        //Cancellation of sponsorship application
+
+
+
       }
     });
   },

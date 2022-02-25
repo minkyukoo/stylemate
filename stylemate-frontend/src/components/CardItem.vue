@@ -36,17 +36,16 @@
           <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
             <img :src="product.imageThumbnailPath" />
           </figure>
-          <!-- <h3>{{ product.title }}</h3> -->
           <div
             class="details-wrap"
             @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
           >
+            <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
-            <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
               <span v-for="(hash, index) in product.tag" :key="index">
                 {{
-                  hash.tag
+                  '#'+hash.tag
                 }}
               </span>
             </div>
@@ -72,14 +71,14 @@
             @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
           >
             <div class="text-box">
-              <h3>{{ product.title }}</h3>
+              <h3>{{ product.name }}</h3>
             </div>
             <p>{{ product.description }}</p>
             <span>{{ product.hashtags }}</span>
             <div class="hashWrap">
               <span v-for="(hash, index) in product.tag" :key="index">
                 {{
-                  hash.tag
+                  '#'+hash.tag
                 }}
               </span>
             </div>
@@ -124,7 +123,7 @@ export default defineComponent({
 
     onMounted(() => {
       store.methods.getData();
-      console.log('store.state.AppData', store.state.AppData);
+      // console.log('store.state.AppData', store.state.AppData);
     });
 
     return { store, customPopoverOptions };
@@ -149,15 +148,14 @@ export default defineComponent({
 
     // this.itemService.getProductList().then((data) => {
     //   this.item_list = data;
-    //   console.log("this.item_list", this.item_list);
     // })
   },
 
   mounted() {
     // Slide title
-    console.log("this.allData", this.allData);
+  
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -189,11 +187,11 @@ export default defineComponent({
   },
 
   async updated() {
-    console.log("this.allData", this.allData);
+    // console.log("this.allData", this.allData);
 
       if (this.isproductfilter) {
         this.store.state.AppData = this.isproductfilter;
-        console.log("this.isproductfilter", this.item_list);
+        // console.log("this.isproductfilter", this.item_list);
       }
       
       // else if (this.isFltData) {

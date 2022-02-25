@@ -6,23 +6,90 @@
         class="img-tag"
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
-        v-if='this.progressDetails.processStatus === "progress" &&
-          this.progressDetails.processDetailStatus === "booking" &&
-          this.progressDetails.booking[0].bookingStatus === "booking" &&
-          this.progressDetails.booking[0].postStatus === "ready"'
+        v-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'booking' &&
+          this.progressDetails.booking[0].bookingStatus === 'booking' &&
+          this.progressDetails.booking[0].postStatus === 'ready'
+        "
         >Application completed</span
       >
       <span
         class="img-tag"
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
-        v-else-if='this.progressDetails.processStatus === "progress" &&
-          this.progressDetails.processDetailStatus === "announce/booking" &&
-          this.progressDetails.booking[0].bookingStatus === "join" &&
-          this.progressDetails.booking[0].postStatus === "ready"'
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'ready'
+        "
+        >Post registration</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'postProgress'
+        "
+        >Checking</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'post_modify_request'
+        "
+        >re-registration</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
+          this.progressDetails.processStatus === 'progress' &&
+          (this.progressDetails.processDetailStatus === 'announce' ||
+            this.progressDetails.processDetailStatus === 'booking') &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'ready'
+        "
         >Sponsor Selection</span
       >
-      
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'postProgress'
+        "
+        >unselected</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[0].bookingStatus === 'join' &&
+          this.progressDetails.booking[0].postStatus === 'postModifyRequest'
+        "
+        >Sponsorship completed</span
+      >
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
@@ -39,7 +106,7 @@
       </div>
       <div>
         <h4>{{ progressDetails.product.name }}</h4>
-        <h6>End date {{ progressDetails.endDate }}</h6>
+        <h6>End date {{ progressDetails.campaignSchedule.finishedAt }}</h6>
         <div
           class="item-button"
           v-if="
@@ -147,7 +214,7 @@ export default {
           this.progressDetails.processStatus === "progress" &&
           this.progressDetails.processDetailStatus === "posting" &&
           this.progressDetails.booking[0].bookingStatus === "join" &&
-          this.progressDetails.booking[0].postStatus === "postModifyRequest"
+          this.progressDetails.booking[0].postStatus === "post_modify_request"
         ) {
           return (tag.innerHTML = "re-registration");
         }

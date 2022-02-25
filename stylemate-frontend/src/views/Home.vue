@@ -52,13 +52,10 @@
                     <img src="@/assets/icons/heart-outline.svg" />
                   </div>
                 </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
+                <figure @click="$router.push({ name: 'ItemDetails', params: { id: item.id }})">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -87,10 +84,7 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -119,10 +113,7 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -142,7 +133,7 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :centeredSlidesBounds="true"
+            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
@@ -155,9 +146,7 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -186,7 +175,7 @@
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
-          <span>
+          <span @click="$router.push({ name: 'Contents' })">
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
@@ -249,7 +238,8 @@
 
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull" @click="getNotice">
-          <span>중요</span> {{ notice }}
+          <span>중요</span>
+          {{ notice }}
         </button>
       </div>
     </div>
@@ -295,9 +285,7 @@ export default {
       slides.forEach((slide, index) => {
         if (index === swiper.activeIndex) {
           console.log("active index", slide);
-          let src = slide
-            .querySelector(".nb-img-wrap > img")
-            .getAttreibute("src");
+          let src = slide.querySelector(".nb-img-wrap > img").getAttreibute("src");
           console.log("src", src);
         }
       });
@@ -359,7 +347,7 @@ export default {
     ) {
       this.userInfoService.Notice().then((res) => {
         this.notice = res.data[0].title;
-        console.log(res.data);
+        // console.log(res.data);
       });
     } else {
       this.notice = "[알림] 서비스 점검 안내";
@@ -385,6 +373,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
+        // console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -529,14 +518,6 @@ export default {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
-}
-.overlapSlide {
-  background: rgb(222, 222, 222);
-  background: linear-gradient(
-    180deg,
-    rgba(222, 222, 222, 1) 0%,
-    rgba(255, 255, 255, 1) 2%
-  );
 }
 .inner-scroll {
   margin-right: -20px !important;

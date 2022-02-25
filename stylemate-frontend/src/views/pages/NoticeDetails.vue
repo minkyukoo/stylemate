@@ -7,11 +7,23 @@
     <ion-content :fullscreen="true">
       <div class="notice-details-wrap">
         <div class="tag-row">
-          <span class="notice-tag red-solid">알림</span>
+          <span
+            v-if="notice.category !== null"
+            class="notice-tag"
+            :class="{
+              'red-solid': notice.category === 'notification',
+              'dark-solid': notice.category !== 'notification',
+            }"
+            >{{
+              notice.category === "notification" ? "notice" : notice.category
+            }}</span
+          >
+          <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
         </div>
         <h2>{{ notice.title }}</h2>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span><span>{{ notice.createdAt }}</span>
+          <span>{{ notice.category }}</span
+          ><span>{{ notice.createdAt }}</span>
         </div>
       </div>
       <div class="content-details" v-html="notice.body"></div>
@@ -22,11 +34,11 @@
           </button>
         </div>
         <div class="pagination-wrap">
-          <a href="#">
+          <a href="#" @click.prevent="prev()">
             <img src="@/assets/icons/arrow-left-thin.svg" />
             이전글
           </a>
-          <a href="#">
+          <a href="#" @click.prevent="next()">
             다음글
             <img src="@/assets/icons/arrow-right-thin.svg" />
           </a>
@@ -52,6 +64,9 @@ export default {
         body: null,
         createdAt: null,
         category: null,
+        fixed: null,
+        prev: null,
+        next: null,
       },
     };
   },
@@ -64,9 +79,32 @@ export default {
       this.notice.body = res.title;
       this.notice.createdAt = this.dateFormat(res.createdAt);
       this.notice.category = res.category;
+      this.notice.prev = res.previousId;
+      this.notice.next = res.nextId;
+      this.notice.fixed = res.fixed;
+    });
+
+    this.service.Notice().then((res) => {
+      this.noticelist = res.data;
     });
   },
   methods: {
+    prev() {
+      if (this.notice.prev !== null) {
+        this.$router.push({
+          name: "NoticeDetails",
+          params: { id: this.notice.prev },
+        });
+      }
+    },
+    next() {
+      if (this.notice.next !== null) {
+        this.$router.push({
+          name: "NoticeDetails",
+          params: { id: this.notice.next },
+        });
+      }
+    },
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;

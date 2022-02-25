@@ -39,7 +39,7 @@ export default {
 
   mounted() {
     this.myPageServices.getMyPageData().then((res) => {
-      console.log("res", res);
+      // console.log("res", res);
       let globalState = this.store.state;
       // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
@@ -63,14 +63,14 @@ export default {
           channelStats.stylemateBookingCount;
         globalState.MyPageSponsorBox.Post_activity =
           channelStats.stylematePostCount;
-        console.log("asdf", channelStats.stylemateBookingCount);
+        // console.log("asdf", channelStats.stylemateBookingCount);
       } else {
         globalState.MyPageSponsorBox.sponsorship = 0;
         globalState.MyPageSponsorBox.Post_activity = 0;
       }
       globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       // this.store.state.MyPageSponsorBox.sponsorship =
-      console.log("just", this.profileImg);
+      // console.log("just", this.profileImg);
     });
   },
 
