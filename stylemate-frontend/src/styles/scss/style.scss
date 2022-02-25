@@ -132,7 +132,7 @@ img:hover {
   align-items: flex-start;
   flex-wrap: wrap;
   border-radius: 15px;
-  padding: 0 20px 45px;
+  padding: 0 0 45px;
   .slideItem {
     position: relative;
     width: 49%;
@@ -260,6 +260,11 @@ img:hover {
 .inner-container {
   padding: 0 20px;
 }
+.fixed-container {
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+}
 // .inner-scroll {
 //   margin-right: -20px !important;
 // }
@@ -355,7 +360,7 @@ img:hover {
   text-align: center;
   border-radius: 5px;
   margin: 0 20px;
-  width: calc(100% - 40px);
+  width: calc(100% - 20px);
   margin-top: 8px;
   span {
     color: $purple-1;

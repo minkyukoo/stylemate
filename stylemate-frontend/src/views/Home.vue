@@ -25,121 +25,113 @@
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
-        <div class="headerLine">
-          <h4>NEW ITEM</h4>
+        <div class="fixed-container">
+          <div class="headerLine">
+            <h4>NEW ITEM</h4>
+          </div>
+          <swiper
+            :modules="modules"
+            :slides-per-view="1"
+            :space-between="50"
+            :pagination="{ clickable: true }"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newEvanItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite">
+                      <img src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newOddItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite">
+                      <img src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newStartItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite">
+                      <img src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
         </div>
-
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newEvanItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure
-                  @click="
-                    $router.push({
-                      name: 'ItemDetails',
-                      params: { id: item.id },
-                    })
-                  "
-                >
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newOddItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newStartItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-        </swiper>
 
         <!-- new Brand section -->
         <div class="brandSlider swiper-container">
@@ -191,6 +183,8 @@
           </swiper>
         </div>
 
+        <div class="fixed-container lookbook">
+        
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
           <span @click="$router.push({ name: 'Contents' })">
@@ -204,18 +198,14 @@
               v-for="book in lookBooks.lineOne.big"
               :key="book.id"
               :src="book.post.product.imageThumbnailPath"
-              @click="
-                store.methods.setContentsDetailsModal(true, image.campaign.id)
-              "
+              @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
             />
           </div>
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
               <img
                 :src="book.post.product.imageThumbnailPath"
-                @click="
-                  store.methods.setContentsDetailsModal(true, image.campaign.id)
-                "
+                @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
               />
             </div>
           </div>
@@ -226,25 +216,19 @@
             <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
               <img
                 :src="book.post.product.imageThumbnailPath"
-                @click="
-                  store.methods.setContentsDetailsModal(true, image.campaign.id)
-                "
+                @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
               />
             </div>
           </div>
         </div>
+        
 
-        <div
-          v-if="lookBooks.lineThree.normal.length !== 0"
-          class="lookBookMain"
-        >
+        <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
           <div class="bookLabel1 pattern2">
             <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
               <img
                 :src="book.post.product.imageThumbnailPath"
-                @click="
-                  store.methods.setContentsDetailsModal(true, image.campaign.id)
-                "
+                @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
               />
             </div>
           </div>
@@ -253,12 +237,12 @@
               v-for="book in lookBooks.lineThree.big"
               :key="book.id"
               :src="book.post.product.imageThumbnailPath"
-              @click="
-                store.methods.setContentsDetailsModal(true, image.campaign.id)
-              "
+              @click="store.methods.setContentsDetailsModal(true, image.campaign.id)"
             />
           </div>
         </div>
+        
+
         <ContentDetails v-if="store.state.contentDetailsModal" />
 
         <div class="gotoFamily">
@@ -284,6 +268,7 @@
           <span>중요</span>
           {{ notice }}
         </button>
+        </div>
       </div>
     </div>
     <!-- </ion-content> -->
@@ -660,9 +645,9 @@ export default {
 }
 .gotoFamily {
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   margin-top: 60px;
-  margin: 60px 20px 0;
+  margin: 60px 0 0;
 }
 .gotoFamily button {
   padding: 21px 0;
@@ -760,4 +745,10 @@ export default {
 .swiper-pagination-fraction {
   bottom: -100px !important;
 }
+
+.lookbook .headerLine, .lookbook .lookBookMain{
+  padding-left: 0;
+  padding-right: 0;
+}
+
 </style>

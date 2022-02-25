@@ -136,6 +136,12 @@ export default {
   margin-top: 14px;
   margin-bottom: 30px;
 }
+.hastags li{
+  margin-left: 3px;
+}
+.hastags li:first-child{
+  margin-left: 0;
+}
 .hastags li p{
   font-weight: normal;
   font-size: 10px;
