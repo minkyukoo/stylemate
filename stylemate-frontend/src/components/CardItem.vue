@@ -3,6 +3,7 @@
     {{item_list}}
     <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+      <div class="fixed-container">
       <div class="top-section">
         <div class="left-section">
           <ion-item>
@@ -85,6 +86,7 @@
           </div>
         </li>
       </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -233,7 +235,7 @@ export default defineComponent({
 }
 
 .item-wrapper {
-  padding: 20px 20px 60px;
+  padding: 20px 20px 130px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;

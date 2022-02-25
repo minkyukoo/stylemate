@@ -183,6 +183,8 @@
           </swiper>
         </div>
 
+        <div class="fixed-container lookbook">
+        
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
           <span @click="$router.push({ name: 'Contents' })">
@@ -219,6 +221,7 @@
             </div>
           </div>
         </div>
+        
 
         <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
           <div class="bookLabel1 pattern2">
@@ -238,7 +241,7 @@
             />
           </div>
         </div>
-
+        
 
         <ContentDetails v-if="store.state.contentDetailsModal" />
 
@@ -265,6 +268,7 @@
           <span>중요</span>
           {{ notice }}
         </button>
+        </div>
       </div>
     </div>
     <!-- </ion-content> -->
@@ -641,9 +645,9 @@ export default {
 }
 .gotoFamily {
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   margin-top: 60px;
-  margin: 60px 20px 0;
+  margin: 60px 0 0;
 }
 .gotoFamily button {
   padding: 21px 0;
@@ -741,4 +745,10 @@ export default {
 .swiper-pagination-fraction {
   bottom: -100px !important;
 }
+
+.lookbook .headerLine, .lookbook .lookBookMain{
+  padding-left: 0;
+  padding-right: 0;
+}
+
 </style>
