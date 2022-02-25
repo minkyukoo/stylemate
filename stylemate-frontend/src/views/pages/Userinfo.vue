@@ -42,9 +42,11 @@
             </div>
           </li>
           <li v-show="addr">
+            <router-link to="/deliveryaddress">
             <div>
               {{addres}}
             </div>
+            </router-link>
           </li>
           <li v-show="enroll">
             <button type="button" @click="enrollment()">등록</button>
@@ -182,8 +184,9 @@ export default {
       this.pushNotification = res.data.influence.agreeStylematePush;
       self.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
         console.log(res);
+        localStorage.setItem('del_list',JSON.stringify(res));
         if (res.length >= 0) {
-          this.addres=`${res[0].address1},${res[0].address2}`
+          this.addres=`${res[0].address1} , ${res[0].address2}`
           this.enroll = false;
           this.addr = true;
         } else {
