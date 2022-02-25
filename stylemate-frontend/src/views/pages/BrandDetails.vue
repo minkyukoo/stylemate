@@ -9,6 +9,8 @@
       <div class="product-main-banner">
         <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
       </div>
+
+      <div class="main-wrap">
       <div class="item-wrapper">
         <div class="itemMain">
           <div class="itemHeader">
@@ -113,6 +115,14 @@ export default {
 };
 </script>
 <style scoped>
+.main-wrap {
+  height: 100vh;
+  overflow: hidden;
+    overflow-y: hidden;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding-bottom: 60px;
+}
 .hastags {
   display: flex;
   flex-wrap: wrap;
@@ -151,22 +161,29 @@ img {
 
 .product-main-banner {
   position: fixed;
-  top: 55px;
-  width: 100%;
+  z-index: 1;
   max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
+  top: 60px;
 }
 .product-main-banner img {
   width: 100%;
 }
 .item-wrapper {
-  padding: 40px 20px 0;
+  padding: 40px 20px 60px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top: 280px;
+  z-index: 1;
+  top: 350px;
+  /* background-image: linear-gradient(
+    148.66deg,
+    rgba(241, 241, 241, 0.5) 18.92%,
+    rgba(255, 255, 255, 0.1) 80.41%
+  ); */
   background: #ffffff;
-  min-height: 600px;
+  transition: all 0.5s ease-in-out;
+  /* backdrop-filter: blur(30px); */
 }
 .item-wrapper .product-list {
   display: flex;

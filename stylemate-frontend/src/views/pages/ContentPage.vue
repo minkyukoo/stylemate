@@ -3,9 +3,17 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div v-for="(image, i) of best_contents" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
+      <div
+        v-for="(image, i) of best_contents"
+        :key="i + 1"
+        :class="'g-img-wrap a' + (i + 1)"
+      >
         <img
-          :src="image.post.product.imageThumbnailPath"
+          :src="[
+            image.post.instagramPost.thumbnailUrl
+              ? image.post.instagramPost.thumbnailUrl
+              : image.post.instagramPost.thumbnailOriginalUrl,
+          ]"
           v-bind:alt="img"
           @click="store.methods.setContentsDetailsModal(true, image.post.id)"
         />
@@ -20,7 +28,11 @@
       <div class="new-row">
         <div class="new-grid" v-for="image in new_contents" :key="image">
           <img
-            :src="image.campaign.imageThumbnailPath"
+            :src="[
+              image.instagramPost.thumbnailUrl
+                ? image.instagramPost.thumbnailUrl
+                : image.instagramPost.thumbnailOriginalUrl,
+            ]"
             v-bind:alt="img"
             @click="
               store.methods.setContentsDetailsModal(true, image.campaign.id)
@@ -113,7 +125,7 @@ export default {
       .catch((e) => {
         console.log(e);
       });
-    
+
     // best_contents
     this.contentService
       .getBestContent()
@@ -190,7 +202,7 @@ export default {
   height: 100px;
 }
 .g-img-wrap {
-border-radius: 6px;
+  border-radius: 6px;
   overflow: hidden;
 }
 .g-img-wrap img {
