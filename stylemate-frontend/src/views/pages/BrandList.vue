@@ -198,8 +198,11 @@ img:hover {
 .text-box {
   /* display: flex;
   text-align: right; */
-  height: 16px;
+  height: 24px;
   float: right;
+}
+.text-box > img{
+  width: 24px;
 }
 .right-section {
   text-align: right;
