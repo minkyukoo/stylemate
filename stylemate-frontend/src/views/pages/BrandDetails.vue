@@ -5,6 +5,7 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
+      <div class="main-wrap">
       <div class="product-main-banner">
         <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
       </div>
@@ -46,6 +47,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </ion-content>
     <!-- End page content -->
