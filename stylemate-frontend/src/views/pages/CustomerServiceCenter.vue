@@ -9,18 +9,14 @@
         <div class="tabs">
           <a
             class="tab"
-            @click="
-              $router.push({ name: 'CustomerServiceCenter', hash: '#term' })
-            "
+            @click="layout = '#term'"
             :class="{ active: layout === '#term' }"
           >
             이용약관
           </a>
           <a
             class="tab"
-            @click="
-              $router.push({ name: 'CustomerServiceCenter', hash: '#policy' })
-            "
+            @click="layout = '#policy'"
             :class="{ active: layout === '#policy' }"
           >
             개인정보처리방침

@@ -3,21 +3,21 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="$router.push({ name: 'Notice', hash: '#notice' })"
+        @click="layout = '#notice'"
         :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="$router.push({ name: 'Notice', hash: '#faq' })"
+        @click="layout = '#faq'"
         :class="{ active: layout === '#faq' }"
       >
         FAQ
       </a>
       <a
         class="tab"
-        @click="$router.push({ name: 'Notice', hash: '#inquiry' })"
+        @click="layout = '#inquiry'"
         :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
