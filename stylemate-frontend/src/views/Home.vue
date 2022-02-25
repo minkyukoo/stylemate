@@ -133,7 +133,6 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :centeredSlidesBounds="true"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
@@ -518,16 +517,6 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
 }
-/* .overlapSlide {
-  background: linear-gradient(
-    93.21deg,
-    rgba(241, 241, 241, 0.5) 0.78%,
-    rgba(241, 241, 241, 0.1) 100.78%
-  );
-  backdrop-filter: blur(30px);
-  
-} */
-
 .inner-scroll {
   margin-right: -20px !important;
 }

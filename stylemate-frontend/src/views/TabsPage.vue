@@ -4,60 +4,35 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar>
-        <ion-tab-button
-          class="tab-button"
-          tab="tab1"
-          href="/home"
-          key="tab1"
-        >
+        <ion-tab-button class="tab-button" tab="tab1" href="/home" key="tab1">
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
           <i class="icon icon-hvr icon-home-white" />
           <ion-label>Home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          class="tab-button"
-          tab="tab2"
-          href="/item"
-          key="tab2"
-        >
+        <ion-tab-button class="tab-button" tab="tab2" href="/item" key="tab2">
           <!-- <ion-icon :src="require(`@/assets/icons/item.svg`)" /> -->
           <i class="icon icon-dft icon-item" />
           <i class="icon icon-hvr icon-item-white" />
           <ion-label>ITEM</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          class="tab-button"
-          tab="tab3"
-          href="/brands"
-          key="tab3"
-        >
+        <ion-tab-button class="tab-button" tab="tab3" href="/brands" key="tab3">
           <!-- <ion-icon :src="require(`@/assets/icons/brand.svg`)" /> -->
           <i class="icon icon-dft icon-brand" />
           <i class="icon icon-hvr icon-brand-white" />
           <ion-label>BRAND</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          class="tab-button"
-          tab="tab4"
-          href="/contents"
-          key="tab4"
-        >
+        <ion-tab-button class="tab-button" tab="tab4" href="/contents" key="tab4">
           <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
           <i class="icon icon-dft icon-contents" />
           <i class="icon icon-hvr icon-contents-white" />
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          class="tab-button"
-          tab="tab5"
-          href="/mypage"
-          key="tab5"
-        >
+        <ion-tab-button class="tab-button" tab="tab5" href="/mypage" key="tab5">
           <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
           <i class="icon icon-dft icon-mypage" />
           <i class="icon icon-hvr icon-mypage-white" />
@@ -70,13 +45,7 @@
 </template>
 
 <script>
-import {
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  IonLabel,
-  IonRouterOutlet,
-} from "@ionic/vue";
+import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonRouterOutlet } from "@ionic/vue";
 export default {
   name: "TabPage",
   components: {
@@ -106,16 +75,19 @@ export default {
   margin: 0 auto;
 }
 ion-tab-bar {
-  background: black;
-  border-radius: 8px;
   height: 70px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
 }
 ion-tab-button {
-  background: black;
+  /* background: black; */
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
   overflow: hidden;
 }
 ion-tab-button.tab-selected ion-label {
- color: #ffffff;
+  color: #ffffff;
 }
 ion-tab-button .icon.icon-hvr {
   display: none;
