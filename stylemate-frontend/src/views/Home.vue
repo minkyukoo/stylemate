@@ -183,6 +183,8 @@
           </swiper>
         </div>
 
+        <div class="fixed-container">
+        
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
           <span @click="$router.push({ name: 'Contents' })">
@@ -219,6 +221,7 @@
             </div>
           </div>
         </div>
+        
 
         <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
           <div class="bookLabel1 pattern2">
@@ -238,7 +241,7 @@
             />
           </div>
         </div>
-
+        
 
         <ContentDetails v-if="store.state.contentDetailsModal" />
 
@@ -265,6 +268,7 @@
           <span>중요</span>
           {{ notice }}
         </button>
+        </div>
       </div>
     </div>
     <!-- </ion-content> -->
