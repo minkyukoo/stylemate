@@ -29,7 +29,6 @@
           <div class="headerLine">
             <h4>NEW ITEM</h4>
           </div>
-
           <swiper
             :modules="modules"
             :slides-per-view="1"
@@ -240,7 +239,7 @@
           </div>
         </div>
 
-        
+
         <ContentDetails v-if="store.state.contentDetailsModal" />
 
         <div class="gotoFamily">
