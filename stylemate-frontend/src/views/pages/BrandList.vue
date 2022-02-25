@@ -19,7 +19,7 @@
     </div>
 
     <div v-if="notFound" class="content-not-found">
-      <p>
+      <p class="notfound-text">
         해당하는 브랜드를 찾지 못했어요.
         <br />아래 브랜드는 어떠세요?
       </p>
@@ -208,7 +208,7 @@ ion-card-title h3{
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
-  color: #25282B;
+  color: #25282b;
 }
 .text-box {
   /* display: flex;
@@ -219,7 +219,7 @@ ion-card-title h3{
   top: 0;
   z-index: 2;
 }
-.text-box > img{
+.text-box > img {
   width: 24px;
 }
 .right-section {
@@ -237,15 +237,13 @@ ion-card-title h3{
   /* left: 67px; */
   /* top: 160px; */
 }
-.searchbar-search-icon.sc-ion-searchbar-md{
-  right: 16px !important;
-  left: auto !important;
-}
-.listmain ion-searchbar{
-  border: 1px solid #C4C4C4;
-  border-radius: 6px;
-}
-.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
-  display: none !important;
+.notfound-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #c4c4c4;
+  padding: 30px 0 20px 0;
 }
 </style>

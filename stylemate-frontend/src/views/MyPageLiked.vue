@@ -1,24 +1,26 @@
 <template>
-  <ion-page>
+  <div class="mypage-liked">
     <!-- header -->
     <TopNav headerTitle="like" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <!-- <h1>My page</h1> -->
       <MyTop :userDetails="userDetail" :status="status" :image="profileImg" />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
-      <LikedTab  />
+      <LikedTab />
       <LikedFilter />
       <LikedItems />
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+// import { IonPage, IonContent } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import MyTop from "@/components/MyPage/MyPageTop.vue";
@@ -37,8 +39,8 @@ export default {
   name: "MypageLiked",
   components: {
     TopNav,
-    IonContent,
-    IonPage,
+    // IonContent,
+    // IonPage,
     MyTop,
     LikedItems,
     LikedTab,

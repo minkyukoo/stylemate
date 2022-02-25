@@ -109,6 +109,7 @@ img:hover {
   background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
   backdrop-filter: blur(30px);
   position: relative;
+  padding-bottom: 40px;
   .headerLine {
     margin: 0;
     padding: 60px 20px 20px 20px;
@@ -254,7 +255,7 @@ img:hover {
   overflow: hidden;
   overflow-y: auto;
   background-color: #ffffff;
-  padding-bottom: 60px;
+  padding-bottom: 130px;
 }
 .inner-container {
   padding: 0 20px;
