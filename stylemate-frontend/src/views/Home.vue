@@ -757,6 +757,9 @@ export default {
   padding-right: 0;
   margin: 0;
   position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .newBrandSec::after{
   content: "";
@@ -767,5 +770,13 @@ export default {
   left: 0;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(10px);
+  z-index: 1;
+}
+.newBrandSec .headerLine{
+  position: relative;
+  z-index: 2;
+}
+.newBrandSec .swiper{
+  z-index: 2;
 }
 </style>
