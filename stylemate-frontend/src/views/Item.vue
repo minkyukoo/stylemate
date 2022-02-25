@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <!-- <ion-page> -->
     <!-- header -->
     <TopNav headerTitle="ITEM"></TopNav>
     <!-- End header -->
@@ -13,18 +13,18 @@
       </div>
     <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  <!-- </ion-page> -->
 </template>
 
 <script>
-import { IonPage } from "@ionic/vue";
+// import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import CardItem from "@/components/CardItem.vue";
 import CategoryList from "@/components/CategoryList.vue";
 
 export default {
   name: "Item",
-  components: { TopNav, IonPage, CardItem, CategoryList },
+  components: { TopNav, CardItem, CategoryList },
   data() {
     return {
       isBanner: true,
