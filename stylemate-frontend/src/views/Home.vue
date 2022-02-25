@@ -186,7 +186,7 @@
 
         <div class="headerLine">
           <h4>LOOKBOOK</h4>
-          <span>
+          <span @click="$router.push({ name: 'Contents' })">
             <img src="@/assets/icons/arrow-right.svg" />
           </span>
         </div>
