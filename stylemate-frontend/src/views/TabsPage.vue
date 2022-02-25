@@ -126,6 +126,12 @@ ion-tab-button:hover .icon.icon-hvr {
 ion-tab-button:hover .icon.icon-dft {
   display: none;
 }
+ion-tab-button.tab-selected .icon.icon-hvr {
+  display: block;
+}
+ion-tab-button.tab-selected .icon.icon-dft {
+  display: none;
+}
 ion-label {
   /* font-family: Europa-Bold; */
   font-style: normal;
