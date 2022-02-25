@@ -157,15 +157,7 @@ export default {
     },
     enrollment() {
       this.$router.push({ name: "ShippingInfo" });
-
-      // if (condition) {
-
-      // } else{
-      //   this.userInfoService.getUserInfo().then((res) => {
-      //   console.log('userdetails', res);
-
-      // });
-      // }
+      
     },
   },
   created() {
