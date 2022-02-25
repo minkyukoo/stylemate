@@ -36,17 +36,16 @@
           <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
             <img :src="product.imageThumbnailPath" />
           </figure>
-          <!-- <h3>{{ product.title }}</h3> -->
           <div
             class="details-wrap"
             @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
           >
+            <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
-            <!-- <span>{{ product.hashtags }}</span> -->
             <div class="hashWrap">
               <span v-for="(hash, index) in product.tag" :key="index">
                 {{
-                  hash.tag
+                  '#'+hash.tag
                 }}
               </span>
             </div>
@@ -72,14 +71,14 @@
             @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
           >
             <div class="text-box">
-              <h3>{{ product.title }}</h3>
+              <h3>{{ product.name }}</h3>
             </div>
             <p>{{ product.description }}</p>
             <span>{{ product.hashtags }}</span>
             <div class="hashWrap">
               <span v-for="(hash, index) in product.tag" :key="index">
                 {{
-                  hash.tag
+                  '#'+hash.tag
                 }}
               </span>
             </div>
