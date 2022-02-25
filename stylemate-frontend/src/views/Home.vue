@@ -55,10 +55,7 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -87,10 +84,7 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -119,10 +113,7 @@
                 <figure @click="$router.push({ name: 'ItemDetails' })">
                   <img :src="item.imageThumbnailPath" />
                 </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
+                <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
                   <h3>{{ item.brand.engName }}</h3>
                   <p>{{ item.name }}</p>
                   <div class="hashWrap">
@@ -155,9 +146,7 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -249,7 +238,8 @@
 
         <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
         <button class="greyBtnFull" @click="getNotice">
-          <span>중요</span> {{ notice }}
+          <span>중요</span>
+          {{ notice }}
         </button>
       </div>
     </div>
@@ -295,9 +285,7 @@ export default {
       slides.forEach((slide, index) => {
         if (index === swiper.activeIndex) {
           console.log("active index", slide);
-          let src = slide
-            .querySelector(".nb-img-wrap > img")
-            .getAttreibute("src");
+          let src = slide.querySelector(".nb-img-wrap > img").getAttreibute("src");
           console.log("src", src);
         }
       });
@@ -530,14 +518,16 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
 }
-.overlapSlide {
-  background: rgb(222, 222, 222);
+/* .overlapSlide {
   background: linear-gradient(
-    180deg,
-    rgba(222, 222, 222, 1) 0%,
-    rgba(255, 255, 255, 1) 2%
+    93.21deg,
+    rgba(241, 241, 241, 0.5) 0.78%,
+    rgba(241, 241, 241, 0.1) 100.78%
   );
-}
+  backdrop-filter: blur(30px);
+  
+} */
+
 .inner-scroll {
   margin-right: -20px !important;
 }

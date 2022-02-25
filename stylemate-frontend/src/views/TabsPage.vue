@@ -2,16 +2,13 @@
   <!-- <ion-page class="main-container relative"> -->
   <div class="main-container relative">
     <ion-tabs>
-      <!-- <TopNav></TopNav> -->
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar>
         <ion-tab-button
           class="tab-button"
-          :class="{ 'myactive': activeId === 'tab1' }"
           tab="tab1"
           href="/home"
           key="tab1"
-          @click="onClickState('tab1')"
         >
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
@@ -21,11 +18,9 @@
 
         <ion-tab-button
           class="tab-button"
-          :class="{ 'myactive': activeId === 'tab2' }"
           tab="tab2"
           href="/item"
           key="tab2"
-          @click="onClickState('tab2')"
         >
           <!-- <ion-icon :src="require(`@/assets/icons/item.svg`)" /> -->
           <i class="icon icon-dft icon-item" />
@@ -35,11 +30,9 @@
 
         <ion-tab-button
           class="tab-button"
-          :class="{ 'myactive': activeId === 'tab3' }"
           tab="tab3"
           href="/brands"
           key="tab3"
-          @click="onClickState('tab3')"
         >
           <!-- <ion-icon :src="require(`@/assets/icons/brand.svg`)" /> -->
           <i class="icon icon-dft icon-brand" />
@@ -49,11 +42,9 @@
 
         <ion-tab-button
           class="tab-button"
-          :class="{ 'myactive': activeId === 'tab4' }"
           tab="tab4"
           href="/contents"
           key="tab4"
-          @click="onClickState('tab4')"
         >
           <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
           <i class="icon icon-dft icon-contents" />
@@ -63,11 +54,9 @@
 
         <ion-tab-button
           class="tab-button"
-          :class="{ 'myactive': activeId === 'tab5' }"
           tab="tab5"
           href="/mypage"
           key="tab5"
-          @click="onClickState('tab5')"
         >
           <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
           <i class="icon icon-dft icon-mypage" />
@@ -86,13 +75,8 @@ import {
   IonTabButton,
   IonTabs,
   IonLabel,
-  // IonIcon,
-  // IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-// import { ellipse, square, triangle, heart } from "ionicons/icons";
-// import TopNav from '@/components/TopNav.vue';
-// import { inject, onMounted } from "vue";
 export default {
   name: "TabPage",
   components: {
@@ -110,42 +94,10 @@ export default {
       activeId: "tab1",
     };
   },
-  // setup() {
-  //   const userData = inject("userData");
-
-  //   onMounted(() => {
-  //     var currentTime = new Date().getTime();
-  //     if(localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-  //       userData.methods.getUserData();
-  //     }
-  //   });
-
-  //   return { userData };
-  // },
-  methods: {
-    // onHoverState(ev) {
-    //   var target = ev.target;
-    //   console.log('target', target);
-    //   if (target) {
-    //     for (let i = 0; i < target.children.length; i++) {
-    //       console.log(target.children[0].tagName);
-    //     }
-    //   }
-    // },
-    onClickState(id) {
-      this.activeId = id;
-      console.log("this.activeId", this.activeId);
-    },
-  },
 };
 </script>
 
 <style scoped>
-ion-icon {
-  color: blue;
-  --ionicon-stroke-width: 16px;
-}
-
 .main-container {
   max-width: 500px;
   min-width: 360px;
@@ -162,8 +114,8 @@ ion-tab-button {
   background: black;
   overflow: hidden;
 }
-ion-tab-button.myactive ion-label {
-  color: #ffffff;
+ion-tab-button.tab-selected ion-label {
+ color: #ffffff;
 }
 ion-tab-button .icon.icon-hvr {
   display: none;
