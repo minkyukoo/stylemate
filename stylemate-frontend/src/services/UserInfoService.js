@@ -41,7 +41,7 @@ export default class UserInfoService {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
-    }).then((res) => res.data).catch((err) => err);
+    }).then((res) => res.data.data).catch((err) => err);
   }
 
   async Notice() {

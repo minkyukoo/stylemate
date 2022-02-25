@@ -461,3 +461,19 @@ img:hover {
 //   -ms-overflow-style: none;  /* IE and Edge */
 //   scrollbar-width: none;  /* Firefox */
 // }
+.searchbar-search-icon.sc-ion-searchbar-md{
+  right: 5px !important;
+  left: auto !important;
+  top: 5px;
+}
+.listmain ion-searchbar{
+  border: 1px solid #C4C4C4;
+  border-radius: 6px;
+  height: 40px;
+}
+.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
+  display: none !important;
+}
+.listmain ion-searchbar .searchbar-input{
+  padding: 0 10px;
+}
