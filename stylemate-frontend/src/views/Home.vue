@@ -134,7 +134,7 @@
         </div>
 
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container">
+        <div class="brandSlider swiper-container newBrandSec" style="background: url">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -750,5 +750,9 @@ export default {
   padding-left: 0;
   padding-right: 0;
 }
-
+.newBrandSec{
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+}
 </style>
