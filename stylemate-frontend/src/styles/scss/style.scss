@@ -482,3 +482,30 @@ img:hover {
 .listmain ion-searchbar .searchbar-input{
   padding: 0 10px;
 }
+
+.top-section{
+  .left-section{
+    .selectWrap{
+      .vue-select{
+        border: none;
+        .vue-dropdown{
+          .vue-dropdown-item{
+            padding: 12px;
+            &.highlighted{
+              background: #F7F7F7;
+              span{
+                color: #5700FF;
+              }
+            }
+            span{
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 14px;
+              color: #090909;
+            }
+          }
+        }
+      }
+    }
+  }
+}
