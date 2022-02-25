@@ -133,6 +133,7 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
+            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
@@ -592,6 +593,7 @@ export default {
   width: 100%;
   height: 260px;
   overflow: hidden;
+  cursor: pointer;
 }
 .nb-img-wrap img {
   width: 100%;
@@ -659,6 +661,7 @@ export default {
   background: #fff;
   padding: 22px 16px;
   min-height: 150px;
+  cursor: pointer;
 }
 .brandDetails h3 {
   display: flex;

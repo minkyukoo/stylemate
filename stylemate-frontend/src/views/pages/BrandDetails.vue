@@ -6,60 +6,67 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="main-wrap">
-      <div class="product-main-banner">
-        <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
-      </div>
-
-      <div class="main-wrap">
-      <div class="item-wrapper">
-        <div class="itemMain">
-          <div class="itemHeader">
-            <h2>{{ brandDetails.korName }}</h2>
-            <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
-          </div>
-          <ul class="hastags">
-            <li>
-              <p v-for="(item, i) of brandDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
-            </li>
-          </ul>
+        <div class="product-main-banner">
+          <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
         </div>
-        <div class="brandTab">
-          <div class="tab-wrap">
-            <div class="tabs">
-              <button
-                class="tab"
-                @click="layout = 'tab1'"
-                :class="{ active: layout === 'tab1' }"
-              >캠페인</button>
-              <button
-                class="tab"
-                @click="layout = 'tab2'"
-                :class="{ active: layout === 'tab2' }"
-              >가이드</button>
-            </div>
 
-            <!-- tab content 1 -->
-            <div class="tab-content" v-if="layout === 'tab1'">
-              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />1
+        
+          <div class="item-wrapper">
+            <div class="itemMain">
+              <div class="itemHeader">
+                <h2>{{ brandDetails.korName }}</h2>
+                <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
+              </div>
+              <ul class="hastags">
+                <li v-for="(item, i) of brandDetails.tag" :key="i + 1">
+                  <p>
+                    {{ "#" + item.tag }}
+                  </p>
+                </li>
+              </ul>
             </div>
+            <div class="brandTab">
+              <div class="tab-wrap">
+                <div class="tabs">
+                  <button
+                    class="tab"
+                    @click="layout = 'tab1'"
+                    :class="{ active: layout === 'tab1' }"
+                  >
+                    캠페인
+                  </button>
+                  <button
+                    class="tab"
+                    @click="layout = 'tab2'"
+                    :class="{ active: layout === 'tab2' }"
+                  >
+                    가이드
+                  </button>
+                </div>
 
-            <!-- tab content 2 -->
-            <div class="tab-content" v-if="layout === 'tab2'">
-              <BrandItem :brandItem="brandDetails.product" />
+                <!-- tab content 1 -->
+                <div class="tab-content" v-if="layout === 'tab1'">
+                  <BrandIntroduction
+                    :brandIntro="brandDetails.description"
+                    :brandThumb="brandDetails.imageThumbnailPath"
+                  />
+                </div>
+
+                <!-- tab content 2 -->
+                <div class="tab-content" v-if="layout === 'tab2'">
+                  <BrandItem :brandItem="brandDetails.product" />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        
       </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
 </template>
 <script>
-import {
-  IonPage,
-  IonContent,
-} from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
@@ -91,19 +98,17 @@ export default {
       if (res.response) {
         if (res.response.status == 404) {
           alert(res.response.data.error.message);
-          this.$router.push('/brands');
+          this.$router.push("/brands");
         }
       }
       // success
       else {
-        console.log('res', res);
+        console.log("res", res);
         this.brandDetails = res;
       }
     });
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     show() {
       this.display = true;
@@ -118,9 +123,9 @@ export default {
 .main-wrap {
   height: 100vh;
   overflow: hidden;
-    overflow-y: hidden;
+  overflow-y: hidden;
   overflow-y: auto;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding-bottom: 60px;
 }
 .hastags {
@@ -129,6 +134,14 @@ export default {
   justify-content: flex-start;
   align-items: center;
   margin-top: 14px;
+  margin-bottom: 30px;
+}
+.hastags li p{
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
+  margin-bottom: 0;
 }
 .main-container {
   max-width: 500px;
@@ -175,7 +188,7 @@ img {
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 350px;
+  top: 270px;
   /* background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,

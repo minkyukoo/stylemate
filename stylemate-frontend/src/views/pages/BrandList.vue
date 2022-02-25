@@ -30,25 +30,28 @@
         class="maincard"
         v-for="info in brands"
         :key="info.id"
-        @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
       >
-        <figure class="img-wrap">
+        <figure class="img-wrap" @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
         </figure>
-        <ion-card-header>
+        
+        <div class="text-wrap">
+          <ion-card-header>
           <ion-card-title>
-            {{ info.korName }}
+            <h3 @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">{{ info.korName }}</h3>
             <div class="text-box">
               <img src="@/assets/icons/heart-outline.svg" />
             </div>
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
-        <ion-card-content class="subcontent">
+        <ion-card-content @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })" class="maincontent">{{ info.description }}</ion-card-content>
+        <ion-card-content @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })" class="subcontent">
           {{
             setTags(info.tag)
           }}
         </ion-card-content>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -166,16 +169,11 @@ export default {
   font-size: 14px;
   color: #25282b;
 }
-.miancard {
+.maincard {
   width: 100%;
   min-height: 150px;
-  background-color: #eee;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  align-self: center;
-  cursor: pointer;
+  flex-direction: column;
 }
 .main {
   width: 100%;
@@ -189,6 +187,7 @@ export default {
   border-radius: 6px;
   overflow: hidden;
   background-color: #c4c4c4;
+  cursor: pointer;
 }
 .imgsec {
   width: 100%;
@@ -199,7 +198,13 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
+.text-wrap{
+  cursor: pointer;
+}
 ion-card-title{
+  position: relative;
+}
+ion-card-title h3{
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
@@ -209,7 +214,10 @@ ion-card-title{
   /* display: flex;
   text-align: right; */
   height: 24px;
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
 }
 .text-box > img{
   width: 24px;
@@ -228,5 +236,16 @@ ion-card-title{
   padding-top: 10px;
   /* left: 67px; */
   /* top: 160px; */
+}
+.searchbar-search-icon.sc-ion-searchbar-md{
+  right: 16px !important;
+  left: auto !important;
+}
+.listmain ion-searchbar{
+  border: 1px solid #C4C4C4;
+  border-radius: 6px;
+}
+.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
+  display: none !important;
 }
 </style>
