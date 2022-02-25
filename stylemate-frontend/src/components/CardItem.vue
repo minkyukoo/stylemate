@@ -124,7 +124,7 @@ export default defineComponent({
 
     onMounted(() => {
       store.methods.getData();
-      console.log('store.state.AppData', store.state.AppData);
+      // console.log('store.state.AppData', store.state.AppData);
     });
 
     return { store, customPopoverOptions };
@@ -149,15 +149,14 @@ export default defineComponent({
 
     // this.itemService.getProductList().then((data) => {
     //   this.item_list = data;
-    //   console.log("this.item_list", this.item_list);
     // })
   },
 
   mounted() {
     // Slide title
-    console.log("this.allData", this.allData);
+  
     this.itemService.getProductCategories().then((data) => {
-      console.log("categories_info", data);
+      // console.log("categories_info", data);
       this.categories_info = data;
     });
     // Product list
@@ -189,11 +188,11 @@ export default defineComponent({
   },
 
   async updated() {
-    console.log("this.allData", this.allData);
+    // console.log("this.allData", this.allData);
 
       if (this.isproductfilter) {
         this.store.state.AppData = this.isproductfilter;
-        console.log("this.isproductfilter", this.item_list);
+        // console.log("this.isproductfilter", this.item_list);
       }
       
       // else if (this.isFltData) {
