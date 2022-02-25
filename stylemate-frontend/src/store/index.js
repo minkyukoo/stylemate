@@ -38,6 +38,10 @@ const state = reactive({
   },
 });
 
+const EditPostModal = reactive({
+
+})
+
 var itemService = new ItemService();
 var myPageService = new MyPageService();
 
@@ -75,6 +79,7 @@ const methods = {
   setSponsorFilter(id,index) {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
+    console.log(index);
     methods.getcampList();
     console.log("setSponsorFilter", state.sponcerFilterId , state.sponcerFilterNo);
   },
@@ -88,5 +93,7 @@ const methods = {
 
 export default {
   state,
+  EditPostModal,
   methods,
+
 };

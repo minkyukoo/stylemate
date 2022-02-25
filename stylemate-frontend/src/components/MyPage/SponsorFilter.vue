@@ -13,7 +13,7 @@
         :key="index || category.name"
       >
         <a
-          :class="[index === store.state.sponcerFilterNo ? 'active' : '']"
+          :class="category.no === store.state.sponcerFilterNo ? 'active' : ''"
           @click="store.methods.setSponsorFilter(category.id , index)"
           >{{ category.name }}</a
         >
@@ -32,7 +32,7 @@
         :key="index || category.name"
       >
         <a
-          :class="[index === store.state.sponcerFilterNo ? 'active' : '']"
+          :class="[category.no === store.state.sponcerFilterNo ? 'active' : '']"
           @click="store.methods.setSponsorFilter(category.id, index)"
           >{{ category.name }}</a
         >
@@ -92,54 +92,54 @@ export default {
     return {
       CategoriesProgress: [
         {
-          no: 1,
+          no: 0,
           id: "",
           name: "all",
         },
         {
-          no: 2,
+          no: 1,
           id: "postRequest",
           name: "post registration",
         },
         {
-          no: 3,
+          no: 2,
           id: "postProgress",
           name: "checking",
         },
         {
-          no: 4,
+          no: 3,
           id: "postModifyRequest",
           name: "re-registration",
         },
         {
-          no: 5,
+          no: 4,
           id: "selected",
           name: "sponcer selection",
         },
       ],
       CategoriesApplication: [
         {
-          no: 1,
+          no: 0,
           id: "",
           name: "전체",
         },
         {
-          no: 2,
+          no: 1,
           id: "finish",
           name: "Application completed",
         },
         {
-          no: 3,
+          no: 2,
           id: "selected",
           name: "sponcer selection",
         },
         {
-          no: 4,
+          no: 3,
           id: "unselected",
           name: "unselected",
         },
         {
-          no: 5,
+          no: 4,
           id: "finish",
           name: "sponcership completed",
         },
