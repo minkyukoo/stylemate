@@ -133,6 +133,7 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
+            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
