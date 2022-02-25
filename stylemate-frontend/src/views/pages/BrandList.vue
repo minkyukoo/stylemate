@@ -198,9 +198,6 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
-<<<<<<< HEAD
-ion-card-title {
-=======
 .text-wrap{
   cursor: pointer;
 }
@@ -208,7 +205,6 @@ ion-card-title{
   position: relative;
 }
 ion-card-title h3{
->>>>>>> development-one
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
@@ -241,7 +237,6 @@ ion-card-title h3{
   /* left: 67px; */
   /* top: 160px; */
 }
-<<<<<<< HEAD
 .notfound-text {
   font-style: normal;
   font-weight: normal;
@@ -250,17 +245,5 @@ ion-card-title h3{
   text-align: center;
   color: #c4c4c4;
   padding: 30px 0 20px 0;
-=======
-.searchbar-search-icon.sc-ion-searchbar-md{
-  right: 16px !important;
-  left: auto !important;
-}
-.listmain ion-searchbar{
-  border: 1px solid #C4C4C4;
-  border-radius: 6px;
-}
-.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
-  display: none !important;
->>>>>>> development-one
 }
 </style>
