@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <div class="home-page">
     <!-- header -->
     <TopNav></TopNav>
     <!-- End header -->
@@ -245,7 +245,7 @@
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
@@ -257,7 +257,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage } from "@ionic/vue";
+// import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
@@ -268,7 +268,7 @@ export default {
   name: "Home",
   components: {
     TopNav,
-    IonPage,
+    // IonPage,
     Swiper,
     SwiperSlide,
   },

@@ -1,38 +1,40 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="로그인" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <div class="inner-container listmain">
         <div class="login-wrap">
           <h1 class="page-title pad-t-40">스타일메이트에 로그인 해주세요</h1>
           <button class="login-btn" @click="loginHandaler">login</button>
 
-          <CustomerServiceLogin/>
+          <CustomerServiceLogin />
           <!-- <ion-button router-link="/home">Go to detail</ion-button>
-          <ion-button router-link="/mypage">Go to detail</ion-button> -->
+          <ion-button router-link="/mypage">Go to detail</ion-button>-->
         </div>
       </div>
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
 import TopNav from "@/components/TopNav.vue";
 import {
-  IonContent,
+  // IonContent,
 } from "@ionic/vue";
 import CustomerServiceLogin from "@/components/MyPage/CustomerServiceLogin.vue";
 export default {
   name: 'LoginPage',
   components: {
-    IonContent,
+    // IonContent,
     TopNav,
     CustomerServiceLogin
-},
+  },
   data() {
     return {
       serverUrl: 'http://stylemate.dvconsulting.org/login',
@@ -68,13 +70,13 @@ export default {
       localStorage.setItem('tokenexpiresAt', token_expiresAt);
       // localStorage.setItem('cuttentTime', cuttentTime);
       // localStorage.setItem('refreshExpiresAt', refreshExpiresAt);
-      window.location.href = this.redirectServerUrl;
+      window.location.href = this.redirectlocalUrl;
     }
   },
   methods: {
     loginHandaler() {
       // alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
     }
   },
 }

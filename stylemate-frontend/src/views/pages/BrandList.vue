@@ -19,7 +19,7 @@
     </div>
 
     <div v-if="notFound" class="content-not-found">
-      <p>
+      <p class="notfound-text">
         해당하는 브랜드를 찾지 못했어요.
         <br />아래 브랜드는 어떠세요?
       </p>
@@ -199,11 +199,11 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
-ion-card-title{
+ion-card-title {
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
-  color: #25282B;
+  color: #25282b;
 }
 .text-box {
   /* display: flex;
@@ -211,7 +211,7 @@ ion-card-title{
   height: 24px;
   float: right;
 }
-.text-box > img{
+.text-box > img {
   width: 24px;
 }
 .right-section {
@@ -228,5 +228,14 @@ ion-card-title{
   padding-top: 10px;
   /* left: 67px; */
   /* top: 160px; */
+}
+.notfound-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #c4c4c4;
+  padding: 30px 0 20px 0;
 }
 </style>
