@@ -27,3 +27,9 @@ export default {
   components: { TopNav, IonPage, ContentPage },
 };
 </script>
+
+<style scoped>
+.inner-container{
+  padding-bottom: 20px;
+}
+</style>

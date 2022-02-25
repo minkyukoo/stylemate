@@ -8,10 +8,15 @@
       @slideChange="onSlideChange"
       v-if="store.state.sponsorTabState === 'progressHistory'"
     >
-      <swiper-slide v-for="category in CategoriesProgress" :key="category.name">
-        <a @click="store.methods.setSponsorFilter(category.id)">{{
-          category.name
-        }}</a>
+      <swiper-slide
+        v-for="(category, index) in CategoriesProgress"
+        :key="index || category.name"
+      >
+        <a
+          :class="[index === store.state.sponcerFilterNo ? 'active' : '']"
+          @click="store.methods.setSponsorFilter(category.id , index)"
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <swiper
@@ -22,10 +27,15 @@
       @slideChange="onSlideChange"
       v-if="store.state.sponsorTabState === 'bookingHistory'"
     >
-      <swiper-slide v-for="category in CategoriesApplication" :key="category.name">
-        <a @click="store.methods.setSponsorFilter(category.id)">{{
-          category.name
-        }}</a>
+      <swiper-slide
+        v-for="(category, index) in CategoriesApplication"
+        :key="index || category.name"
+      >
+        <a
+          :class="[index === store.state.sponcerFilterNo ? 'active' : '']"
+          @click="store.methods.setSponsorFilter(category.id, index)"
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
   </div>
@@ -46,12 +56,12 @@ export default {
   },
   setup() {
     const store = inject("store");
-    
+
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log("slide change");
+      // console.log("slide change");
     };
 
     // watch(
@@ -75,7 +85,6 @@ export default {
     };
   },
 
-
   created() {
     this.myPageService = new MyPageService();
   },
@@ -83,44 +92,54 @@ export default {
     return {
       CategoriesProgress: [
         {
-          id: "all",
-          name: "전체",
+          no: 1,
+          id: "",
+          name: "all",
         },
         {
-          id: "post_request",
-          name: "포스트 등록",
+          no: 2,
+          id: "postRequest",
+          name: "post registration",
         },
         {
-          id: "post_progress",
-          name: "확인중",
+          no: 3,
+          id: "postProgress",
+          name: "checking",
         },
         {
-          id: "post_modify_request",
-          name: "재등록",
+          no: 4,
+          id: "postModifyRequest",
+          name: "re-registration",
         },
         {
+          no: 5,
           id: "selected",
-          name: "협찬선정",
+          name: "sponcer selection",
         },
       ],
       CategoriesApplication: [
         {
-          id: "all",
+          no: 1,
+          id: "",
           name: "전체",
         },
         {
+          no: 2,
           id: "finish",
           name: "Application completed",
         },
         {
+          no: 3,
           id: "selected",
           name: "sponcer selection",
         },
         {
+          no: 4,
           id: "unselected",
           name: "unselected",
         },
         {
+          no: 5,
           id: "finish",
           name: "sponcership completed",
         },
@@ -129,7 +148,6 @@ export default {
     };
   },
   methods: {},
-  
 };
 </script>
 
@@ -160,12 +178,14 @@ export default {
   cursor: pointer;
   background: #ffffff;
   white-space: nowrap;
+  transition: all 0.3s;
 }
 .item-scroller-nav .main-menu .swiper-slide a.active {
   border: 1px solid #090909;
   background: #090909;
   font-weight: bold;
-  color: #090909;
+  color: white;
+  transition: all 0.3s;
 }
 
 .swiper-slide {
