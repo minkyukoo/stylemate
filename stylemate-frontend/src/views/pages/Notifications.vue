@@ -13,6 +13,7 @@
             placeholder="전체알림"
             :options="options"
             v-model="noticeOption"
+            :close-on-select = "true"
           >
           </vue-select>
         </div>
