@@ -35,8 +35,8 @@ export default {
 },
   data() {
     return {
-      // serverUrl: 'http://stylemate.dvconsulting.org/login',
-      // redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
+      serverUrl: 'http://stylemate.dvconsulting.org/login',
+      redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
       localUrl: 'http://localhost:8100/login',
       redirectlocalUrl: 'http://localhost:8100/home',
     }
@@ -68,13 +68,13 @@ export default {
       localStorage.setItem('tokenexpiresAt', token_expiresAt);
       // localStorage.setItem('cuttentTime', cuttentTime);
       // localStorage.setItem('refreshExpiresAt', refreshExpiresAt);
-      window.location.href = this.redirectlocalUrl;
+      window.location.href = this.redirectServerUrl;
     }
   },
   methods: {
     loginHandaler() {
       // alert('Login');
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
     }
   },
 }

@@ -41,7 +41,7 @@ export default {
     fltData2(event) {
       this.isFltData = event;
       console.log("this.isFltData",this.isFltData);
-      alert(event);
+      // alert(event);
     },
    
     filterproductList2(event){
