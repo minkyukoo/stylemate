@@ -1,23 +1,25 @@
 <template>
-  <ion-page>
+  <div class="mypage-page">
     <!-- header -->
     <TopNav headerTitle="My page" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <!-- <h1>My page</h1> -->
       <MyTop />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
       <MyPageDetailsDefault />
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
 import { inject } from "vue";
-import { IonPage, IonContent } from "@ionic/vue";
+// import { IonPage, IonContent } from "@ionic/vue";
 import MyPageServices from "../services/MyPageService";
 import TopNav from "@/components/TopNav.vue";
 import MyTop from "@/components/MyPage/MyPageTop.vue";
@@ -25,7 +27,7 @@ import MyPageDetailsDefault from "@/components/MyPage/MyPageDetailsDefault.vue";
 
 export default {
   name: "Mypage",
-  components: { TopNav, IonContent, IonPage, MyTop, MyPageDetailsDefault },
+  components: { TopNav, MyTop, MyPageDetailsDefault },
 
   data() {
     return {

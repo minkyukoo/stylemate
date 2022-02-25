@@ -10,7 +10,7 @@
           <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
         </div>
 
-        <div class="main-wrap">
+        
           <div class="item-wrapper">
             <div class="itemMain">
               <div class="itemHeader">
@@ -59,7 +59,7 @@
               </div>
             </div>
           </div>
-        </div>
+        
       </div>
     </ion-content>
     <!-- End page content -->
@@ -125,7 +125,7 @@ export default {
   overflow: hidden;
   overflow-y: hidden;
   overflow-y: auto;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   padding-bottom: 60px;
 }
 .hastags {
@@ -134,6 +134,14 @@ export default {
   justify-content: flex-start;
   align-items: center;
   margin-top: 14px;
+  margin-bottom: 30px;
+}
+.hastags li p{
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
+  margin-bottom: 0;
 }
 .main-container {
   max-width: 500px;
@@ -180,7 +188,7 @@ img {
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 350px;
+  top: 270px;
   /* background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,

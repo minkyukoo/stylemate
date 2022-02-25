@@ -22,7 +22,9 @@ export default class MyPageService {
     });
   }
   async getPostingList() {
-    return await axios.get(`/stylemates/posts?filters={"influenceId":1}`, {
+    let encodedUrl = encodeURIComponent('{"campaignId": 0,"influenceId":0,"channelId":0}')
+    console.log(encodedUrl)
+    return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
