@@ -119,7 +119,7 @@ export default {
   },
   data() {
     return {
-      layout: "tab2",
+      layout: "tab1",
       faqs: [],
       faqCategory: [],
       noticelist: [],
