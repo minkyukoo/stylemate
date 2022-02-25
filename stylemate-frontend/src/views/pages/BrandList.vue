@@ -230,11 +230,10 @@ ion-card-title{
   /* top: 160px; */
 }
 .searchbar-search-icon.sc-ion-searchbar-md{
-  right: 16px;
-  left: auto;
+  right: 16px !important;
+  left: auto !important;
 }
 .listmain ion-searchbar{
-  padding: 0;
   border: 1px solid #C4C4C4;
   border-radius: 6px;
 }
