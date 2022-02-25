@@ -135,14 +135,14 @@
         </swiper>
 
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container">
+        <div class="brandSlider swiper-container" style="background: red;">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :centeredSlidesBounds="true"
+            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
