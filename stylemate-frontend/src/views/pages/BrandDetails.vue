@@ -40,7 +40,7 @@
 
             <!-- tab content 1 -->
             <div class="tab-content" v-if="layout === 'tab1'">
-              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />1
+              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />
             </div>
 
             <!-- tab content 2 -->
