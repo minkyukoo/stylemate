@@ -13,6 +13,7 @@ const state = reactive({
   likedTabState: "item",
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
+  sponcerFilterNo: 0,
   sponcerChannelType: "instagram",
   isPostModalVisible: false,
   cancelPopup: false,
@@ -50,6 +51,7 @@ const methods = {
   },
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
+    state.sponcerFilterNo = 0;
   },
   setContentsDetailsModal(tab, id) {
     state.contentDetailsModal = tab;
@@ -70,10 +72,11 @@ const methods = {
         return state.FltCampaignData;
       });
   },
-  setSponsorFilter(id) {
+  setSponsorFilter(id,index) {
     state.sponcerFilterId = id;
+    state.sponcerFilterNo = index;
     methods.getcampList();
-    console.log("setSponsorFilter", state.sponcerFilterId);
+    console.log("setSponsorFilter", state.sponcerFilterId , state.sponcerFilterNo);
   },
   // setCampaignEncodeUrl() {
   //   if(state.sponcerFilterId === "") {

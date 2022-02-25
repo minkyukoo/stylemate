@@ -9,15 +9,20 @@
     <div class="history-keywords" v-if="history">
       <ul>
         <li v-for="(item, i) in searchKeywords" :key="i">
-          <span @click="sreachWithHistory(item.searchKeyword)">{{
-            item.searchKeyword
-          }}</span>
+          <span @click="sreachWithHistory(item.searchKeyword)">
+            {{
+              item.searchKeyword
+            }}
+          </span>
         </li>
       </ul>
     </div>
 
     <div v-if="notFound" class="content-not-found">
-      <p>We couldn't find any suitable brands. How about the brands below?</p>
+      <p>
+        해당하는 브랜드를 찾지 못했어요.
+        <br />아래 브랜드는 어떠세요?
+      </p>
     </div>
 
     <div class="main pad-b-40">
@@ -38,12 +43,12 @@
             </div>
           </ion-card-title>
         </ion-card-header>
-        <ion-card-content class="maincontent">
-          {{ info.description }}
+        <ion-card-content class="maincontent">{{ info.description }}</ion-card-content>
+        <ion-card-content class="subcontent">
+          {{
+            setTags(info.tag)
+          }}
         </ion-card-content>
-        <ion-card-content class="subcontent">{{
-          setTags(info.tag)
-        }}</ion-card-content>
       </div>
     </div>
   </div>
@@ -90,9 +95,9 @@ export default {
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
         console.log('errorstate', res.response.status);
-        if(res.response.status == 401) {
+        if (res.response.status == 401) {
           this.$router.push({ name: 'LoginPage' });
-        } else if(res.response.status == 200) {
+        } else if (res.response.status == 200) {
           this.user = res.data;
           this.setHistoryKeywords(res.data.uid);
         }

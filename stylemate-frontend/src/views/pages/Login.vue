@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     loginHandaler() {
-      alert('Login');
+      // alert('Login');
       window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
     }
   },
