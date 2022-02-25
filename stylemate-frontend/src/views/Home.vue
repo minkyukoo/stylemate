@@ -134,7 +134,8 @@
         </div>
 
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container">
+        <div class="brandSlider swiper-container newBrandSec" 
+        v-bind:style="{ 'background-image': 'url(' + image + ')' }">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -348,6 +349,7 @@ export default {
       newProItems: null,
       isActive: false,
       notificationLength: 0,
+      image: "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/f/15/1645748657916_20220225092418.jpg",
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -750,5 +752,31 @@ export default {
   padding-left: 0;
   padding-right: 0;
 }
-
+.newBrandSec{
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.newBrandSec::after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+.newBrandSec .headerLine{
+  position: relative;
+  z-index: 2;
+}
+.newBrandSec .swiper{
+  z-index: 2;
+}
 </style>

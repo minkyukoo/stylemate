@@ -359,9 +359,8 @@ img:hover {
   display: block;
   text-align: center;
   border-radius: 5px;
-  margin: 0 20px;
-  width: calc(100% - 20px);
-  margin-top: 8px;
+  margin: 8px 0 0;
+  width: 100%;
   span {
     color: $purple-1;
   }
