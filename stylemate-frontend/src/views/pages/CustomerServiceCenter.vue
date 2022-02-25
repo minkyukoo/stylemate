@@ -24,12 +24,12 @@
         </div>
         <!-- tab content 1 -->
         <div class="tab-content" v-if="layout === 'tab1'">
-          <TermsUse/>
+          <TermsUse />
         </div>
 
         <!-- tab content 2 -->
         <div class="tab-content" v-if="layout === 'tab2'">
-          <PrivacyPolicy/>
+          <PrivacyPolicy />
         </div>
       </div>
     </ion-content>
@@ -41,14 +41,14 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import TermsUse from "@/components/TermsUse.vue";
-import PrivacyPolicy from "@/components/PrivacyPolicy.vue"
+import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 export default {
   name: "CustomerServiceCenter",
   components: { TopNav, IonContent, IonPage, TermsUse, PrivacyPolicy },
-  data(){
-      return{
-          layout: "tab2",
-      }
+  data() {
+    return {
+      layout: "tab1",
+    };
   },
   methods: {
     openlink() {
