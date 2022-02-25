@@ -6,8 +6,8 @@
             </div>
         </div>
         <div class="button-group">
-            <button class="grey-btn">취소</button>
-            <button class="black-btn">신청하기</button>
+            <button class="grey-btn" @click="cancel">취소</button>
+            <button class="black-btn" @click="apply">신청하기</button>
         </div>
     </div>
 </template>
@@ -46,6 +46,14 @@ export default defineComponent({
             console.log("this.productColor", this.productColor);
         });
     },
+    methods: {
+        cancel() {
+            this.$router.go(-1);
+        },
+        apply() {
+            alert('apply');
+        },
+    }
 })
 </script>
 
