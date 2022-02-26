@@ -1,7 +1,7 @@
 <template>
   <div class="details-container">
     <RatingBox />
-    <SponsorshipBox  />
+    <SponsorshipBox />
     <div class="link-wrap">
       <MyInformation />
       <CustomerService />

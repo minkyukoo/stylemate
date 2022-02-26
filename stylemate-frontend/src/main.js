@@ -49,5 +49,3 @@ const app = createApp(App)
 router.isReady().then(() => {
   app.mount('#app');
 });
-
-// Vue.use(VueSweetalert2);
