@@ -60,7 +60,26 @@ export default class UserInfoService {
       })
       .then((res) => res)
   }
+  async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
+    return await axios.put(`/stylemates/users/${uid}`, {
+      id: ids,
+      name: nm,
+      tel: tel,
+      telAgency: agency,
+      isTelCertified: certi,
+      agreeMarketing: markt,
+      agreeCampaign: cmpgn,
+      agreeNewsletter: newsl,
+      isInformationPoint: info,
+      agreeStylematePush: push
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
+    })
+      .then((res) => res)
+  }
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }

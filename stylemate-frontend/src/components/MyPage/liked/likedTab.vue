@@ -1,32 +1,22 @@
 <template>
   <div class="sponsor-tab">
-    <div
-      class="sponsor-tab-item"
-      @click="() => (store.state.likedTabState = 'item')"
-    >
+    <div class="sponsor-tab-item" @click="() => (store.state.likedTabState = 'item')">
       <button
         :class="[
           store.state.likedTabState === 'item'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"
-      >
-        item
-      </button>
+      >item</button>
     </div>
-    <div
-      class="sponsor-tab-item"
-      @click="() => (store.state.likedTabState = 'brand')"
-    >
+    <div class="sponsor-tab-item" @click="() => (store.state.likedTabState = 'brand')">
       <button
         :class="[
           store.state.likedTabState === 'brand'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"
-      >
-        brand
-      </button>
+      >brand</button>
     </div>
   </div>
 </template>
