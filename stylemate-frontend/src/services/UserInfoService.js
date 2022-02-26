@@ -45,19 +45,19 @@ export default class UserInfoService {
   }
   async addaddress(uid, nm, rec, loc, zip, adr1, adr2, def) {
     return await axios.post(`/stylemates/users/${uid}/deliveries`, {
-      name: nm,
-      recipient: rec,
-      addressLocale: loc,
-      addressZipcode: zip,
-      address1: adr1,
-      address2: adr2,
-      isDefault: def,
-    }, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+        name: nm,
+        recipient: rec,
+        addressLocale: loc,
+        addressZipcode: zip,
+        address1: adr1,
+        address2: adr2,
+        isDefault: def,
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
 
-    })
+      })
       .then((res) => res)
   }
 
@@ -83,5 +83,17 @@ export default class UserInfoService {
 
   async userDetails() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
+  }
+
+
+  async inquiryPost(data) {
+    return await axios.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
+        data
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((res) => res)
   }
 }
