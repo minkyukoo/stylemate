@@ -134,8 +134,7 @@
         </div>
 
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container newBrandSec" 
-        v-bind:style="{ 'background-image': 'url(' + image + ')' }">
+        <div class="brandSlider swiper-container newBrandSec" :style="{ 'background-image': 'url(' + image + ')' }">
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -155,9 +154,7 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -311,18 +308,8 @@ export default {
     const onSlideChange = () => {
       console.log("slide change");
     };
-    const onBrandSlideChange = (swiper) => {
-      console.log("brand slide change", swiper.slides);
-      let slides = swiper.slides;
-      slides.forEach((slide, index) => {
-        if (index === swiper.activeIndex) {
-          console.log("active index", slide);
-          let src = slide
-            .querySelector(".nb-img-wrap > img")
-            .getAttreibute("src");
-          console.log("src", src);
-        }
-      });
+    const onBrandSlideChange = () => {
+       console.log("slide change");
     };
     return {
       onSwiper,
