@@ -83,7 +83,7 @@
         class="img-tag"
         id="imgTag"
         :style="{ backgroundColor: `${getColor()}` }"
-        v-else-if="
+        v-if="
           (this.progressDetails.processStatus === 'progress' ||
           this.progressDetails.processStatus === 'finish') &&
             this.progressDetails.processDetailStatus === 'posting' &&
