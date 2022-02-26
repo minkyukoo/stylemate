@@ -489,6 +489,7 @@ img:hover {
       .vue-select{
         border: none;
         .vue-dropdown{
+          border: 1px solid #F7F7F7;
           .vue-dropdown-item{
             padding: 12px;
             &.highlighted{
