@@ -1,6 +1,6 @@
 <template>
   <div v-for="(items, index) in links" :key="index">
-    <div class="link-box" @click="reDirectPage(items.Pagelink)">
+    <div class="link-box" @click="reDirectPage(items)">
       <h3>{{ items.name }}</h3>
       <div v-if="items.arrow != false">
         <img src="../../assets/icons/arrow-right.svg" alt="" />
@@ -22,9 +22,9 @@ export default {
     },
   },
   methods: {
-    reDirectPage(link) {
-      console.log(link);
-      this.$router.push({ name: `${link}` });
+    reDirectPage(item) {
+      console.log(item);
+      this.$router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
     },
   },
 };

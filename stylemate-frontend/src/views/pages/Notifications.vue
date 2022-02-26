@@ -13,6 +13,7 @@
             placeholder="전체알림"
             :options="options"
             v-model="noticeOption"
+            :close-on-select="true"
           >
           </vue-select>
         </div>
@@ -52,7 +53,6 @@ export default {
   data() {
     return {
       notifications: [],
-      // options: [],
       noticeOption: null,
     };
   },
@@ -60,6 +60,7 @@ export default {
     this.userInfoService = new UserInfoService();
   },
   mounted() {
+    
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;

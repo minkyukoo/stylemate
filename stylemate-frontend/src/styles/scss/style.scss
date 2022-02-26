@@ -132,7 +132,7 @@ img:hover {
   align-items: flex-start;
   flex-wrap: wrap;
   border-radius: 15px;
-  padding: 0 20px 45px;
+  padding: 0 0 45px;
   .slideItem {
     position: relative;
     width: 49%;
@@ -260,6 +260,11 @@ img:hover {
 .inner-container {
   padding: 0 20px;
 }
+.fixed-container {
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+}
 // .inner-scroll {
 //   margin-right: -20px !important;
 // }
@@ -354,9 +359,8 @@ img:hover {
   display: block;
   text-align: center;
   border-radius: 5px;
-  margin: 0 20px;
-  width: calc(100% - 40px);
-  margin-top: 8px;
+  margin: 8px 0 0;
+  width: 100%;
   span {
     color: $purple-1;
   }
@@ -477,4 +481,32 @@ img:hover {
 }
 .listmain ion-searchbar .searchbar-input{
   padding: 0 10px;
+}
+
+.top-section{
+  .left-section{
+    .selectWrap{
+      .vue-select{
+        border: none;
+        .vue-dropdown{
+          border: 1px solid #F7F7F7;
+          .vue-dropdown-item{
+            padding: 12px;
+            &.highlighted{
+              background: #F7F7F7;
+              span{
+                color: #5700FF;
+              }
+            }
+            span{
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 14px;
+              color: #090909;
+            }
+          }
+        }
+      }
+    }
+  }
 }

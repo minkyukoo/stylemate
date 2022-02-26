@@ -9,27 +9,27 @@
         <div class="tabs">
           <a
             class="tab"
-            @click="layout = 'tab1'"
-            :class="{ active: layout === 'tab1' }"
+            @click="layout = '#term'"
+            :class="{ active: layout === '#term' }"
           >
             이용약관
           </a>
           <a
             class="tab"
-            @click="layout = 'tab2'"
-            :class="{ active: layout === 'tab2' }"
+            @click="layout = '#policy'"
+            :class="{ active: layout === '#policy' }"
           >
             개인정보처리방침
           </a>
         </div>
         <!-- tab content 1 -->
-        <div class="tab-content" v-if="layout === 'tab1'">
-          <TermsUse/>
+        <div class="tab-content" v-if="layout === '#term'">
+          <TermsUse />
         </div>
 
         <!-- tab content 2 -->
-        <div class="tab-content" v-if="layout === 'tab2'">
-          <PrivacyPolicy/>
+        <div class="tab-content" v-if="layout === '#policy'">
+          <PrivacyPolicy />
         </div>
       </div>
     </ion-content>
@@ -41,14 +41,17 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import TermsUse from "@/components/TermsUse.vue";
-import PrivacyPolicy from "@/components/PrivacyPolicy.vue"
+import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 export default {
   name: "CustomerServiceCenter",
   components: { TopNav, IonContent, IonPage, TermsUse, PrivacyPolicy },
-  data(){
-      return{
-          layout: "tab2",
-      }
+  data() {
+    return {
+      layout: "#term",
+    };
+  },
+  mounted() {
+    this.layout = this.$route.hash;
   },
   methods: {
     openlink() {
