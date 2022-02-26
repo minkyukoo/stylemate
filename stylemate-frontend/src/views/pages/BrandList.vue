@@ -110,6 +110,7 @@ export default {
     getBrandList() {
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
+        console.log('object', data);
       });
     },
 
