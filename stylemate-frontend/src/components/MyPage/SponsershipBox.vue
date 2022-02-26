@@ -1,13 +1,10 @@
 <template>
-  <div class="sponsor-box">
+  <div class="sponsor-box-cont">
     <div class="sponsor-item" @click="() => this.$router.push('/sponsorships')">
       <h3>{{ store.state.MyPageSponsorBox.sponsorship }}</h3>
       <p>Sponsorship</p>
     </div>
-    <div
-      class="sponsor-item"
-      @click="() => this.$router.push('/post-activity')"
-    >
+    <div class="sponsor-item" @click="() => this.$router.push('/post-activity')">
       <h3>{{ store.state.MyPageSponsorBox.Post_activity }}</h3>
       <p>post activity</p>
     </div>
@@ -37,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-.sponsor-box {
+.sponsor-box-cont {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   padding: 20px 0px;
@@ -52,8 +49,30 @@ export default {
   flex-direction: column;
   width: 33.33%;
   border-right: 1px solid #f7f7f7;
+  cursor: pointer;
+}
+.sponsor-item h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+  color: #090909;
+}
+.sponsor-item p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #c4c4c4;
 }
 .sponsor-item:last-child {
   border-right: none;
+}
+.sponsor-item p {
+  color: #c4c4c4;
+  font-size: 12px;
+  line-height: 16px;
 }
 </style>

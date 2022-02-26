@@ -28,31 +28,13 @@ export default class ItemService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
+  // influencelikes
+  async influencelikes(uid) {
+    return await axios.get(`/stylemates/users/${uid}/influence-likes`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
 
-
-  //error
-  //    async getProductDetails(){
-  //     return await axios.get(`/stylemates/products/id`, { id:70 }).then((res) => res.data.data);
-  //    }
-
-
-  //error
-  //    async getbanner(){
-  //     return await axios.get(`/stylemates/banners`).then((res) => res.data.data);
-  //    }
-
-
-
-
-
-
-
-
-  // async getItemsDetails() {
-  //   return await axios.get(`/stylemates/brands/id`, { id: 9 }).then((res) => res.data.data);
-  // }
-
-  // async viewUser(ids) {
-  //     return await axios.post(`/user/view/id`, { id: ids }).then((res) => res);
-  // }
 }

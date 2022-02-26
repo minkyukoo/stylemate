@@ -87,6 +87,7 @@ export default {
 
   created() {
     this.myPageServices = new MyPageServices();
+    this.checkState();
   },
 
   setup() {
@@ -95,22 +96,33 @@ export default {
       store,
     };
   },
-  mounted() {
-    // this.getMyPageTopDetails();
-    this.myPageServices.getMyPageData().then((res) => {
-      let globalState = this.store.state;
-      globalState.UserId = res.data.uid;
-      globalState.MyPageTopDetails.name = res.data.name;
-      globalState.MyPageTopDetails.email = res.data.email;
-      globalState.MyPageTopState =
-        res.data.influence.channel[0].stylemateStatus;
-      globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0]
-        .instagramChannel.thumbnailUrl
-        ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
-        : res.data.influence.channel[0].instagramChannel.thumbnailOriginalUrl;
-    });
-  },
+  // mounted() {
+  //   // this.getMyPageTopDetails();
+  //   this.checkState();
+  // },
   methods: {
+    checkState() {
+      if (
+        this.store.state.UserId === "" ||
+        this.store.state.MyPageTopDetails.name === "" ||
+        this.store.state.MyPageTopDetails.email === "" ||
+        this.store.state.MyPageTopDetails.profile_img === ""
+      ) {
+        this.myPageServices.getMyPageData().then((res) => {
+          let globalState = this.store.state;
+          globalState.UserId = res.data.uid;
+          globalState.MyPageTopDetails.name = res.data.name;
+          globalState.MyPageTopDetails.email = res.data.email;
+          globalState.MyPageTopState =
+            res.data.influence.channel[0].stylemateStatus;
+          globalState.MyPageTopDetails.profile_img = res.data.influence
+            .channel[0].instagramChannel.thumbnailUrl
+            ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
+            : res.data.influence.channel[0].instagramChannel
+                .thumbnailOriginalUrl;
+        });
+      }
+    },
     fireButton() {
       console.log("fireButton");
     },

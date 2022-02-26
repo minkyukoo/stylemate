@@ -52,7 +52,7 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <router-link to="">
+                  <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
                   </router-link>
                 </div>
@@ -66,7 +66,6 @@
       <ion-infinite-scroll-content loading-spinner="bubbles">-->
       <div class="main-wrap">
         <div class="item-wrapper">
-          
           <div class="top-section">
             <div class="left-section">
               <h3>{{ productDetails.name }}</h3>
@@ -143,7 +142,6 @@
           </CustomModal>
 
           <ProductDetailsTab :productData="productDetails" />
-          
         </div>
       </div>
       <!-- </ion-infinite-scroll-content>
