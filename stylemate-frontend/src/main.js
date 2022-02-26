@@ -4,7 +4,7 @@ import router from './router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { IonicVue } from '@ionic/vue';
-
+import VueDaumPostcode from 'vue-daum-postcode'
 // import Vue from 'vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueNextSelect from 'vue-next-select';
@@ -43,9 +43,9 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(VueAxios, axios)
+  .use(VueDaumPostcode)
   .use(VueSweetalert2)
   .component('vue-select', VueNextSelect);
-
 router.isReady().then(() => {
   app.mount('#app');
 });
