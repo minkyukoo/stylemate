@@ -87,6 +87,7 @@ export default {
 
   created() {
     this.myPageServices = new MyPageServices();
+    this.checkState();
   },
 
   setup() {
@@ -95,10 +96,10 @@ export default {
       store,
     };
   },
-  mounted() {
-    // this.getMyPageTopDetails();
-    this.checkState();
-  },
+  // mounted() {
+  //   // this.getMyPageTopDetails();
+  //   this.checkState();
+  // },
   methods: {
     checkState() {
       if (

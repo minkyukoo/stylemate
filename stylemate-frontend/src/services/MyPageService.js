@@ -22,7 +22,7 @@ export default class MyPageService {
     });
   }
   async getPostingList() {
-    let encodedUrl = encodeURIComponent('{"campaignId": 0,"influenceId":0,"channelId":0}')
+    let encodedUrl = encodeURIComponent('{"influenceId":2}')
     console.log(encodedUrl)
     return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
       headers: {

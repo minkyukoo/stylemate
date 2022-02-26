@@ -1,5 +1,5 @@
 <template>
-  <div class="sponsor-box">
+  <div class="sponsor-box-cont">
     <div class="sponsor-item" @click="() => this.$router.push('/sponsorships')">
       <h3>{{ store.state.MyPageSponsorBox.sponsorship }}</h3>
       <p>Sponsorship</p>
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style scoped>
-.sponsor-box {
+.sponsor-box-cont {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   padding: 20px 0px;
@@ -69,5 +69,10 @@ export default {
 }
 .sponsor-item:last-child {
   border-right: none;
+}
+.sponsor-item p {
+  color: #c4c4c4;
+  font-size: 12px;
+  line-height: 16px;
 }
 </style>

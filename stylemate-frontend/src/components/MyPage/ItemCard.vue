@@ -108,7 +108,7 @@
       </div>
       <div>
         <h4>{{ progressDetails.product.name }}</h4>
-        <h6>End date {{ progressDetails.campaignSchedule.finishedAt }}</h6>
+        <h6>End date {{ moment(progressDetails.campaignSchedule.finishedAt).format('YYYY.MM.DD  h:mm') }}</h6>
         <div
           class="item-button"
           v-if="
@@ -139,6 +139,7 @@
 
 <script>
 import { inject } from "vue";
+import moment from 'moment';
 export default {
   name: "ItemCard",
   props: {
@@ -155,6 +156,9 @@ export default {
       store,
       // setTab,
     };
+  },
+  created() {
+    this.moment = moment;
   },
   mounted() {
     this.getImgTag();
