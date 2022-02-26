@@ -15,9 +15,12 @@
         </ul>
         <ul>
           <li v-for="item in addressList" :key="item.id">
-            <div>{{ item.address1 }} , {{item.address2}}</div>
+            <div>{{ item.address1 }} , {{ item.address2 }}</div>
             <div class="pointer">
-              <img src="@/assets/icons/arrow-right.svg" />
+              <img
+                src="@/assets/icons/arrow-right.svg"
+                @click="showId(item.id)"
+              />
             </div>
           </li>
           <!-- <li>
@@ -86,13 +89,16 @@ export default {
     this.userInfoService = new UserInfoService();
   },
   methods: {
+    showId(ids) {
+      alert(ids);
+    },
     openlink() {
       console.log("clivk");
     },
   },
-  mounted(){
+  mounted() {
     console.log();
-  }
+  },
 };
 </script>
 

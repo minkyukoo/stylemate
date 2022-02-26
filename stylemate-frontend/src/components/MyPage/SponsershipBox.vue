@@ -73,9 +73,5 @@ export default {
 .sponsor-item:last-child {
   border-right: none;
 }
-.sponsor-item p {
-  color: #c4c4c4;
-  font-size: 12px;
-  line-height: 16px;
-}
+
 </style>
