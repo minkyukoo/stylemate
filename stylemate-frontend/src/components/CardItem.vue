@@ -1,9 +1,7 @@
 <template>
   <div>
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">
-      카테고리에 해당하는 제품이 없습니다
-    </div>
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
       <div class="fixed-container">
         <div class="top-section">
@@ -14,22 +12,16 @@
               <ion-select-option value="m">인기순</ion-select-option>
               <ion-select-option value="v">마감임박순</ion-select-option>
             </ion-select>
-          </ion-item> -->
+            </ion-item>-->
             <div class="selectWrap">
               <vue-select :placeholder="인기순" :options="books" label="title"></vue-select>
             </div>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -45,7 +37,7 @@
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
               </div>
-              <div class="favorite">
+              <div class="favorite" @click="likeProduct">
                 <img src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -71,9 +63,7 @@
               <h3>{{ product.name }}</h3>
               <p>{{ product.description }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -118,9 +108,7 @@
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -131,11 +119,6 @@
 </template>
 
 <script>
-// import {
-//   IonItem,
-//   IonSelect,
-//   IonSelectOption,
-// } from "@ionic/vue";
 import { defineComponent, inject, onMounted } from "vue";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
@@ -149,9 +132,6 @@ export default defineComponent({
     isallData: null,
   },
   components: {
-    // IonItem,
-    // IonSelect,
-    // IonSelectOption,
     "vue-select": VueNextSelect,
   },
   setup() {
@@ -165,12 +145,10 @@ export default defineComponent({
 
     onMounted(() => {
       store.methods.getData();
-      // console.log('store.state.AppData', store.state.AppData);
     });
 
     return { store, customPopoverOptions };
   },
-
   data() {
     return {
       layout: "grid",
@@ -187,63 +165,24 @@ export default defineComponent({
       ]
     };
   },
-
   created() {
     this.itemService = new ItemService();
-
-    // this.itemService.getProductList().then((data) => {
-    //   this.item_list = data;
-    // })
   },
 
   mounted() {
-    // Slide title
-
     this.itemService.getProductCategories().then((data) => {
-      // console.log("categories_info", data);
       this.categories_info = data;
     });
-    // Product list
-    // this.itemService.getProductLsit().then((data) => {
-    //   console.log("ItemList", data);
-    //   alert("updated filterdata")
-    //   this.item_list = data;
-    // })
   },
   methods: {
-    // AllValue() {
-    //   this.itemService.getProductList().then((data) => {
-    //     console.log("ALl ItemList", data);
-    //     this.item_list = data;
-    //     this.allData = !this.allData;
-    //     console.log("myvalues", this.item_list);
-    //     alert("All values")
-    //   })
-    // },
-    // orderPopularity(){
-    //   this.itemService.getProductLsit().then((data) => {
-    //     console.log("filtervalue", data);
-    //     this.filtervalue = data;
-    //     console.log("filtervalue",this.filtervalue);
-    //   })
-    // },
+    likeProduct() {
+      console.log('likeProduct');
+    }
   },
-
   async updated() {
-    // console.log("this.allData", this.allData);
-
     if (this.isproductfilter) {
       this.store.state.AppData = this.isproductfilter;
-      // console.log("this.isproductfilter", this.item_list);
     }
-
-    // else if (this.isFltData) {
-    //   this.item_list = "";
-    //   // alert("all values");
-    //   // this.AllValue();
-    //   this.item_list = this.isallData;
-    //   console.log("this.isallData", this.isallData);
-    // }
   },
 });
 </script>

@@ -52,6 +52,23 @@ export default {
   flex-direction: column;
   width: 33.33%;
   border-right: 1px solid #f7f7f7;
+  cursor: pointer;
+}
+.sponsor-item h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+  color: #090909;
+}
+.sponsor-item p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #c4c4c4;
 }
 .sponsor-item:last-child {
   border-right: none;

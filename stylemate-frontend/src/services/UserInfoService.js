@@ -43,6 +43,23 @@ export default class UserInfoService {
       }
     }).then((res) => res.data.data).catch((err) => err);
   }
+  async addaddress(uid, nm, rec, loc, zip, adr1, adr2, def) {
+    return await axios.post(`/stylemates/users/${uid}/deliveries`, {
+      name: nm,
+      recipient: rec,
+      addressLocale: loc,
+      addressZipcode: zip,
+      address1: adr1,
+      address2: adr2,
+      isDefault: def,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+
+    })
+      .then((res) => res)
+  }
 
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);

@@ -5,51 +5,67 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-       <div class="contWrap">
-          <ul>
-            <li>
-              <div>
-                <label>배송지 등록/수정</label></div>
-            </li>
-            <li>
-              <div>
-                <span  @click="showModal">
-                  <input type="text" placeholder="서울특별시 강남구 삼성로 95길 6">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <span>
-                  <input type="text" placeholder="상세 주소를 입력해 주세요.">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div class="checkLabel">
-                <ion-checkbox color="primary"></ion-checkbox>
-                <label>기본 배송지</label>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="button-group">
-            <button class="grey-btn">취소</button>
-            <button class="black-btn">신청하기</button>
-        </div>
-
-        <FullCustomModal v-show="isModalVisible" @close="closeModal" class="overLapmodal">
-          <template v-slot:header>
-            <div class="overHeader">
-              <h2>Modal heading</h2>
-              <!-- <span @click="close">Close</span> -->
-              <button type="button" @click="closeModal" aria-label="Close modal">Close</button>
+      <div class="contWrap">
+        <ul>
+          <li>
+            <div>
+              <label>배송지 등록/수정</label>
             </div>
-          </template>
-          <template v-slot:body>
-            <div class="modal-content">
-              <div class="modalBody">
-                <div class="overSearch">
+          </li>
+          <li>
+            <div>
+              <span @click="showModal">
+                <input
+                  type="text"
+                  placeholder="서울특별시 강남구 삼성로 95길 6"
+                  v-model="addnew"
+                />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span>
+                <input
+                  type="text"
+                  placeholder="상세 주소를 입력해 주세요."
+                  v-model="address2"
+                />
+                <small v-show="render" style="color:red;">don't keep it blank</small>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="checkLabel">
+              <ion-checkbox color="primary" checked disabled></ion-checkbox>
+              <label style="color: #000">기본 배송지</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="button-group">
+        <button class="grey-btn">취소</button>
+        <button class="black-btn" @click="submitAddress">신청하기</button>
+      </div>
+
+      <FullCustomModal
+        v-show="isModalVisible"
+        @close="closeModal"
+        class="overLapmodal"
+      >
+        <template v-slot:header>
+          <div class="overHeader">
+            <h2>Modal heading</h2>
+            <!-- <span @click="close">Close</span> -->
+            <button type="button" @click="closeModal" aria-label="Close modal">
+              Close
+            </button>
+          </div>
+        </template>
+        <template v-slot:body>
+          <div class="modal-content">
+            <div class="modalBody" style="max-height: 400px">
+              <!-- <div class="overSearch">
                   <input type="text" placeholder="서울특별시 강남구 삼성로 95길 6">
                   <h3>Tip</h3>
                   <ul>
@@ -58,22 +74,24 @@
                       <span>Loremipsum 2</span>
                     </li>
                   </ul>
-              </div>
+                  
+              </div> -->
+              <VueDaumPostcode @complete="handleAddress" />
             </div>
-            </div>
-          </template>
-        </FullCustomModal>
+          </div>
+        </template>
+      </FullCustomModal>
     </ion-content>
     <!-- End page content -->
-
-    
   </ion-page>
 </template>
 
 <script>
-import { IonPage,  IonContent, } from '@ionic/vue';
+import { IonPage, IonContent } from "@ionic/vue";
+import { VueDaumPostcode } from "vue-daum-postcode";
+import UserInfoService from "@/services/UserInfoService";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
-import TopNav from '@/components/TopNav.vue';
+import TopNav from "@/components/TopNav.vue";
 // import MyTop from '@/components/MyPageTop.vue';
 // import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
@@ -86,10 +104,9 @@ import TopNav from '@/components/TopNav.vue';
 
 import FullCustomModal from "@/components/FullModal.vue";
 
-
 export default {
-  name: 'ShippingInfo',
-  components: { TopNav,  IonContent, IonPage, FullCustomModal },
+  name: "ShippingInfo",
+  components: { TopNav, IonContent, IonPage, FullCustomModal, VueDaumPostcode },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -100,13 +117,46 @@ export default {
   // }
   data() {
     return {
+      uid:localStorage.getItem("userId"),
+      render:false,
       isModalVisible: false,
       // isActive: false,
+      addnew: "",
+      name: "divii",
+      recipient: "school",
+      addressLocale:'domestic',
+      addressZipcode: "",
+      address1: "",
+      address2: "",
+      isDefault: true,
     };
   },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
   methods: {
+    handleAddress(data) {
+      this.addnew = data.address;
+      (this.addressZipcode = data.zonecode),
+        (this.address1 = data.jibunAddress),
+        //  alert('xcx')
+        console.log(data);
+      this.closeModal();
+    },
+
     openlink() {
       console.log("clivk");
+    },
+    //rec, loc, zip, adr1, adr2, def
+    submitAddress(){
+      if(this.addressLocale==''){
+        this.render=true;
+      }else{
+        this.userInfoService.addaddress(this.uid,this.name,this.recipient,this.addressLocale,this.addressZipcode,this.address1,this.address2,this.isDefault).then(() => {
+      
+    });
+        this.render=false;
+      }
     },
     showModal() {
       this.isModalVisible = true;
@@ -116,22 +166,21 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
-
-
-.overLapmodal{
+.overLapmodal {
   z-index: 9;
   width: 500px;
   left: 50%;
   margin-left: -250px;
 }
-.overLapmodal .modal{
+.overLapmodal .modal {
   width: 100% !important;
 }
 
-.overLapmodal .overHeader{
+.overLapmodal .overHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -139,18 +188,18 @@ export default {
   padding: 20px;
 }
 
-.modal-content{
+.modal-content {
   padding: 0;
 }
-.overLapmodal .overHeader h2{
+.overLapmodal .overHeader h2 {
   margin: 0;
   text-align: justify;
 }
-.overLapmodal .overSearch{
+.overLapmodal .overSearch {
   display: flex;
   flex-direction: column;
 }
-.overLapmodal .overSearch input{
+.overLapmodal .overSearch input {
   border-top: 1px solid#E5E5E5;
   border-bottom: 1px solid#000;
   background: none;
@@ -160,40 +209,41 @@ export default {
   padding: 15px;
   margin-bottom: 30px;
 }
-.overLapmodal .overSearch h3,.overLapmodal .overSearch ul{
+.overLapmodal .overSearch h3,
+.overLapmodal .overSearch ul {
   padding: 0 20px 30px;
 }
-.overLapmodal .overSearch h3{
+.overLapmodal .overSearch h3 {
   margin-bottom: 10px;
   font-weight: bold;
 }
-.overLapmodal .overSearch ul li{
+.overLapmodal .overSearch ul li {
   display: flex;
   flex-direction: column;
 }
-.overLapmodal .overSearch ul li span{
+.overLapmodal .overSearch ul li span {
   display: block;
   margin-top: 10px;
   color: #00c3ff;
 }
-.contWrap{
+.contWrap {
   padding: 20px;
 }
-.codeWrap{
+.codeWrap {
   position: relative;
 }
-.codeWrap span{
+.codeWrap span {
   position: absolute;
   left: 15px;
   top: 15px;
-  color: #C4C4C4;
+  color: #c4c4c4;
   font-size: 14px;
 }
-.codeWrap input[type="text"]{
+.codeWrap input[type="text"] {
   padding-left: 50px !important;
 }
 .contWrap input[type="text"],
-.contWrapbtn [type="button"]{
+.contWrapbtn [type="button"] {
   border: 1px solid#E5E5E5;
   background: none;
   width: 100%;
@@ -203,59 +253,61 @@ export default {
   box-sizing: border-box;
   padding: 15px;
 }
-.labelGap{
+.labelGap {
   margin-bottom: 8px;
   display: flex;
 }
-.inlineForm{
+.inlineForm {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 -4px;
 }
-.inlineForm div{
+.inlineForm div {
   margin: 0 2px;
 }
 
-.inlineTime{
+.inlineTime {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.inlineTime span:first-child{
-  color: #C4C4C4;
+.inlineTime span:first-child {
+  color: #c4c4c4;
 }
 
-.inlineTime span{
-  color: #9D6AFF;
+.inlineTime span {
+  color: #9d6aff;
   font-size: 14px;
   font-weight: 400;
 }
 
-.contWrap ul li{
+.contWrap ul li {
   display: flex;
   /* justify-content: space-between; */
   /* align-items: center; */
   flex-direction: column;
-  border-bottom: 1px solid #F6F6F6;
+  border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
 }
-.contWrap li label{
-  color: #C4C4C4;
+.contWrap li label {
+  color: #c4c4c4;
   font-size: 12px;
   font-weight: 700;
 }
-.contWrap ul li lspanabel{
-  color: #25282B;
+.contWrap ul li lspanabel {
+  color: #25282b;
   font-size: 14px;
   font-weight: 400;
 }
 
-.secList,.thirdList,.forthList{
+.secList,
+.thirdList,
+.forthList {
   margin-top: 40px;
 }
-.secList button{
+.secList button {
   display: block;
   width: 100%;
   border-radius: 10px;
@@ -264,45 +316,45 @@ export default {
   padding: 14px 0;
 }
 
-.thirdList li{
+.thirdList li {
   justify-content: flex-start !important;
 }
-.thirdList li ion-checkbox{
+.thirdList li ion-checkbox {
   margin-right: 10px;
 }
 
-.checkLabel{
+.checkLabel {
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.checkLabel label{
+.checkLabel label {
   margin: 0 0 0 10px;
 }
 
-.button-group{
-    display: flex;
-    position: fixed;
-    width: 500px;
-    bottom: 0;
+.button-group {
+  display: flex;
+  position: fixed;
+  width: 500px;
+  bottom: 0;
 }
-.button-group button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 21px;
+.button-group button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
 }
-.button-group button.grey-btn{
-    color: #797979;
-    background: #E5E5E5;
+.button-group button.grey-btn {
+  color: #797979;
+  background: #e5e5e5;
 }
-.button-group button.black-btn{
-    color: #FFFFFF;
-    background: #090909;
+.button-group button.black-btn {
+  color: #ffffff;
+  background: #090909;
 }
 </style>

@@ -182,9 +182,12 @@ export default {
       this.compain = res.data.influence.agreeCampaign;
       this.newsletter = res.data.influence.agreeNewsletter;
       this.pushNotification = res.data.influence.agreeStylematePush;
+      localStorage.setItem('userId',res.data.uid);
       self.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
         console.log(res);
+        
         localStorage.setItem('del_list',JSON.stringify(res));
+        
         if (res.length >= 0) {
           this.addres=`${res[0].address1} , ${res[0].address2}`
           this.enroll = false;
