@@ -154,26 +154,26 @@ const routes = [
         }
       },
       {
-        path: "/sponsorships",
+        path: "mypage/sponsorships",
         name: "Sponsorships",
-        beforeEnter: guard,
+        // beforeEnter: guard,
         component: Sponsorships,
         meta: {
           innerHeader: true,
         }
       },
       {
-        path: "/post-activity",
-        name: "Post Activity",
-        beforeEnter: guard,
+        path: "mypage/post-activity",
+        name: "PostActivity",
+        // beforeEnter: guard,
         component: PostActivity,
         meta: {
           innerHeader: true,
         }
       },
       {
-        path: "/mypage-liked",
-        name: "MyPage Liked",
+        path: "mypage/mypage-liked",
+        name: "MyPageLiked",
         // beforeEnter: guard,
         component: MyPageLiked,
         meta: {

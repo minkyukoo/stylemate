@@ -1,14 +1,17 @@
 <template>
   <div class="sponsor-box-cont">
-    <div class="sponsor-item" @click="() => this.$router.push('/sponsorships')">
+    <div class="sponsor-item" @click="() => this.$router.push({name: 'Sponsorships'})">
       <h3>{{ store.state.MyPageSponsorBox.sponsorship }}</h3>
       <p>Sponsorship</p>
     </div>
-    <div class="sponsor-item" @click="() => this.$router.push('/post-activity')">
+    <div
+      class="sponsor-item"
+      @click="() => this.$router.push({name: 'PostActivity'})"
+    >
       <h3>{{ store.state.MyPageSponsorBox.Post_activity }}</h3>
       <p>post activity</p>
     </div>
-    <div class="sponsor-item" @click="() => this.$router.push('/mypage-liked')">
+    <div class="sponsor-item" @click="() => this.$router.push({name: 'MyPageLiked'})">
       <h3>{{ store.state.MyPageSponsorBox.like }}</h3>
       <p>like</p>
     </div>
@@ -70,9 +73,5 @@ export default {
 .sponsor-item:last-child {
   border-right: none;
 }
-.sponsor-item p {
-  color: #c4c4c4;
-  font-size: 12px;
-  line-height: 16px;
-}
+
 </style>
