@@ -119,11 +119,6 @@
 </template>
 
 <script>
-// import {
-//   IonItem,
-//   IonSelect,
-//   IonSelectOption,
-// } from "@ionic/vue";
 import { defineComponent, inject, onMounted } from "vue";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
@@ -137,9 +132,6 @@ export default defineComponent({
     isallData: null,
   },
   components: {
-    // IonItem,
-    // IonSelect,
-    // IonSelectOption,
     "vue-select": VueNextSelect,
   },
   setup() {
@@ -153,12 +145,10 @@ export default defineComponent({
 
     onMounted(() => {
       store.methods.getData();
-      // console.log('store.state.AppData', store.state.AppData);
     });
 
     return { store, customPopoverOptions };
   },
-
   data() {
     return {
       layout: "grid",
@@ -175,66 +165,24 @@ export default defineComponent({
       ]
     };
   },
-
   created() {
     this.itemService = new ItemService();
-
-    // this.itemService.getProductList().then((data) => {
-    //   this.item_list = data;
-    // })
   },
 
   mounted() {
-    // Slide title
-
     this.itemService.getProductCategories().then((data) => {
-      // console.log("categories_info", data);
       this.categories_info = data;
     });
-    // Product list
-    // this.itemService.getProductLsit().then((data) => {
-    //   console.log("ItemList", data);
-    //   alert("updated filterdata")
-    //   this.item_list = data;
-    // })
   },
   methods: {
-    // AllValue() {
-    //   this.itemService.getProductList().then((data) => {
-    //     console.log("ALl ItemList", data);
-    //     this.item_list = data;
-    //     this.allData = !this.allData;
-    //     console.log("myvalues", this.item_list);
-    //     alert("All values")
-    //   })
-    // },
-    // orderPopularity(){
-    //   this.itemService.getProductLsit().then((data) => {
-    //     console.log("filtervalue", data);
-    //     this.filtervalue = data;
-    //     console.log("filtervalue",this.filtervalue);
-    //   })
-    // },
     likeProduct() {
       console.log('likeProduct');
     }
   },
-
   async updated() {
-    // console.log("this.allData", this.allData);
-
     if (this.isproductfilter) {
       this.store.state.AppData = this.isproductfilter;
-      // console.log("this.isproductfilter", this.item_list);
     }
-
-    // else if (this.isFltData) {
-    //   this.item_list = "";
-    //   // alert("all values");
-    //   // this.AllValue();
-    //   this.item_list = this.isallData;
-    //   console.log("this.isallData", this.isallData);
-    // }
   },
 });
 </script>
