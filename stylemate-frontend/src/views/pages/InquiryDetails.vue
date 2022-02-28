@@ -119,16 +119,24 @@ export default {
         if (!this.details) this.detailsError = true;
         return false;
       }
-      this.service
-        .inquiryPost({
-          type: this.option,
-          title: this.subject,
-          inquiry: this.details,
-          isAnswerReceiving: true,
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      let formData = {
+        type: this.option,
+        title: this.subject,
+        inquiry: this.details,
+        isAnswerReceiving: true,
+      };
+
+      console.log(formData);
+      // this.service
+      //   .inquiryPost({
+      //     type: this.option,
+      //     title: this.subject,
+      //     inquiry: this.details,
+      //     isAnswerReceiving: true,
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
     },
   },
 };
