@@ -68,15 +68,19 @@ export default defineComponent({
     this.contentService
       .getPostDetail(this.store.state.contentDetailsId)
       .then((response) => {
+        console.log(response);
         this.new_contents = response.data;
         this.description = response.data.instagramPost.hashTag;
         this.modalImg = response.data.instagramPost.thumbnailUrl
           ? response.data.instagramPost.thumbnailUrl
           : response.data.instagramPost.thumbnailOriginalUrl;
         this.id = response.data.id;
-        console.log(response.data, this.modalImg);
+        // console.log(response.data, this.modalImg);
         // this.description = response.data.description;
       });
+  },
+  unmounted() {
+    this.store.state.contentDetailsId = "";
   },
   created: function () {
     console.log("Page No", this.store.state.contentDetailsId);
