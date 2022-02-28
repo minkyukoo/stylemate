@@ -2,7 +2,12 @@
   <div class="liked-wrap">
     <div v-if="proLen || braLen">
       <div v-if="store.state.likedTabState === 'item'">
-        <LikedItem v-for="(item, index) in product" :progressDetails="item" :key="index"  v-on:productDislike="dislike($event)" />
+        <LikedItem
+          v-for="(item, index) in product"
+          :progressDetails="item"
+          :key="index"
+          v-on:productDislike="dislike($event)"
+        />
       </div>
       <div v-if="store.state.likedTabState === 'brand'">
         <BrandItems
@@ -46,20 +51,7 @@ export default {
   },
   created() {
     this.user = new UserInfoService();
-  },
-  mounted() {
-    this.user.getUserInfo().then((userInfo) => {
-      this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-        console.log("product", res);
-        this.product = res.data.data;
-        this.proLen = res.data.data.length > 0 ? true : false;
-      });
-      this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-        console.log("brand", res);
-        this.brand = res.data.data;
-        this.braLen = res.data.data.length > 0 ? true : false;
-      });
-    });
+    this.getInfluenceList();
   },
   methods: {
     setTags(items) {
@@ -71,8 +63,25 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
-    dislike(event){
+    getInfluenceList() {
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+          console.log("product", res);
+          this.product = res.data.data;
+          this.proLen = res.data.data.length > 0 ? true : false;
+        });
+        this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+          console.log("brand", res);
+          this.brand = res.data.data;
+          this.braLen = res.data.data.length > 0 ? true : false;
+        });
+      });
+    },
+    dislike(event) {
       console.log('event', event);
+      if (event) {
+        this.getInfluenceList();
+      }
     }
   },
 };
