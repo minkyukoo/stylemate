@@ -206,8 +206,8 @@ export default defineComponent({
         await this.isUserid().then((res) => {
           uid = res;
           this.itemService .influencelikes(uid,'product',productId).then((res) => {
-            console.log(res.response.data.error);
-            console.log(res);
+            // console.log(res.response.data.error);
+            // console.log(res.response);
             if(res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }

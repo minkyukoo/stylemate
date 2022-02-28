@@ -9,57 +9,52 @@
         <div class="product-main-banner">
           <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
         </div>
-
-        
-          <div class="item-wrapper">
-            <div class="itemMain">
-              <div class="itemHeader">
-                <h2>{{ brandDetails.korName }}</h2>
-                <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
+        <div class="item-wrapper">
+          <div class="itemMain">
+            <div class="itemHeader">
+              <h2>{{ brandDetails.korName }}</h2>
+              <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
+              <div @click="likeBrand(brandDetails.id)">
+                <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
-              <ul class="hastags">
-                <li v-for="(item, i) of brandDetails.tag" :key="i + 1">
-                  <p>
-                    {{ "#" + item.tag }}
-                  </p>
-                </li>
-              </ul>
             </div>
-            <div class="brandTab">
-              <div class="tab-wrap">
-                <div class="tabs">
-                  <button
-                    class="tab"
-                    @click="layout = 'tab1'"
-                    :class="{ active: layout === 'tab1' }"
-                  >
-                    캠페인
-                  </button>
-                  <button
-                    class="tab"
-                    @click="layout = 'tab2'"
-                    :class="{ active: layout === 'tab2' }"
-                  >
-                    가이드
-                  </button>
-                </div>
+            <ul class="hastags">
+              <li v-for="(item, i) of brandDetails.tag" :key="i + 1">
+                <p>{{ "#" + item.tag }}</p>
+              </li>
+            </ul>
+          </div>
+          <div class="brandTab">
+            <div class="tab-wrap">
+              <div class="tabs">
+                <button
+                  class="tab"
+                  @click="layout = 'tab1'"
+                  :class="{ active: layout === 'tab1' }"
+                >캠페인</button>
+                <button
+                  class="tab"
+                  @click="layout = 'tab2'"
+                  :class="{ active: layout === 'tab2' }"
+                >가이드</button>
+              </div>
 
-                <!-- tab content 1 -->
-                <div class="tab-content" v-if="layout === 'tab1'">
-                  <BrandIntroduction
-                    :brandIntro="brandDetails.description"
-                    :brandThumb="brandDetails.imageThumbnailPath"
-                  />
-                </div>
+              <!-- tab content 1 -->
+              <div class="tab-content" v-if="layout === 'tab1'">
+                <BrandIntroduction
+                  :brandIntro="brandDetails.description"
+                  :brandThumb="brandDetails.imageThumbnailPath"
+                />
+              </div>
 
-                <!-- tab content 2 -->
-                <div class="tab-content" v-if="layout === 'tab2'">
-                  <BrandItem :brandItem="brandDetails.product" />
-                </div>
+              <!-- tab content 2 -->
+              <div class="tab-content" v-if="layout === 'tab2'">
+                <BrandItem :brandItem="brandDetails.product" />
               </div>
             </div>
           </div>
-        
+        </div>
       </div>
     </ion-content>
     <!-- End page content -->
@@ -70,7 +65,10 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
+import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
+import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "BrandDetails",
   components: {
@@ -91,6 +89,8 @@ export default {
   },
   created() {
     this.brandService = new BrandService();
+    this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
 
     var proId = this.$route.params.id;
     this.brandService.getBrandDetails(proId).then((res) => {
@@ -108,7 +108,7 @@ export default {
       }
     });
   },
-  mounted() {},
+  mounted() { },
   methods: {
     show() {
       this.display = true;
@@ -116,6 +116,40 @@ export default {
     showItems() {
       this.visible = !this.visible;
     },
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeBrand(brandId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          console.log('brand uid', uid);
+          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
+            console.log(res.response.data.error);
+            console.log(res);
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
 };
 </script>
@@ -136,13 +170,13 @@ export default {
   margin-top: 14px;
   margin-bottom: 30px;
 }
-.hastags li{
+.hastags li {
   margin-left: 3px;
 }
-.hastags li:first-child{
+.hastags li:first-child {
   margin-left: 0;
 }
-.hastags li p{
+.hastags li p {
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
@@ -245,6 +279,11 @@ img {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+}
+
+.itemMain .itemHeader img {
+  width: 24px;
+  height: 24px;
 }
 
 /* tab styling */
