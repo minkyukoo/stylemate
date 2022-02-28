@@ -103,8 +103,6 @@ export default class UserInfoService {
   async userDetails() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
   }
-
-
   async inquiryPost(data) {
     return await axios.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
         data
@@ -114,5 +112,6 @@ export default class UserInfoService {
         },
       })
       .then((res) => res)
-  }
+  }  
 }
+
