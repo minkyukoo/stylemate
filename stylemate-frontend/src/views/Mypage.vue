@@ -41,7 +41,7 @@ export default {
 
   mounted() {
     this.myPageServices.getMyPageData().then((res) => {
-      // console.log("res", res);
+      console.log("res", res);
       let globalState = this.store.state;
       // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
@@ -58,7 +58,7 @@ export default {
       globalState.MyPageRateBox.Avg_comment =
         res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity =
-        res.data.influence.channel[0].instagramChannel.engagementRate;
+        `${res.data.influence.channel[0].instagramChannel.engagementRate/100}%`;
       let channelStats = res.data.influence.channel[0].channelStat;
       if (Object.keys(channelStats).length > 0) {
         globalState.MyPageSponsorBox.sponsorship =

@@ -5,41 +5,58 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-       <div class="contWrap">
-          <ul>
+      <div class="contWrap">
+        <ul>
+          <li>
+            <div>
+              <label>배송지</label>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li v-for="item in addressList" :key="item.id">
+            <div>{{ item.address1 }} , {{ item.address2 }}</div>
+            <div class="pointer">
+              <img
+                src="@/assets/icons/arrow-right.svg"
+                @click="showId(item.id)"
+              />
+            </div>
+          </li>
+          <!-- <li>
+            <div>서울특별시 강남구 삼성로 95길 6</div>
+            <div class="pointer">
+              <img src="@/assets/icons/arrow-right.svg" />
+            </div>
+          </li>
+          <li>
+            <div>서울특별시 서초구 반포대로125</div>
+            <div class="pointer">
+              <img src="@/assets/icons/arrow-right.svg" />
+            </div>
+          </li> -->
+        </ul>
+        <ul class="secList">
+          <router-link to="/shippingInfo">
             <li>
-              <div>
-                <label>배송지</label></div>
+              <button type="button">배송지 추가</button>
             </li>
-            <li>
-              <div>서울특별시 강남구 삼성로 95길 6</div>
-              <div class="pointer"><img src="@/assets/icons/arrow-right.svg" /></div>
-            </li>
-            <li>
-              <div>서울특별시 서초구 반포대로125</div>
-              <div class="pointer"><img src="@/assets/icons/arrow-right.svg" /></div>
-            </li>
-          </ul>
-          <ul class="secList">
-            <li>
-                <button type="button">등록</button>
-            </li>
-          </ul>
-        </div>
-        <div class="button-group">
-            <button class="black-btn">확인</button>
-        </div>
+          </router-link>
+        </ul>
+      </div>
+      <div class="button-group">
+        <button class="black-btn">확인</button>
+      </div>
     </ion-content>
     <!-- End page content -->
-
-    
   </ion-page>
 </template>
 
 <script>
-import { IonPage,  IonContent, } from '@ionic/vue';
+import { IonPage, IonContent } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
-import TopNav from '@/components/TopNav.vue';
+import TopNav from "@/components/TopNav.vue";
+import UserInfoService from "@/services/UserInfoService";
 // import MyTop from '@/components/MyPageTop.vue';
 // import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
@@ -50,10 +67,9 @@ import TopNav from '@/components/TopNav.vue';
 // import "swiper/css/scrollbar";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
-
 export default {
-  name: 'DeliveryAddress',
-  components: { TopNav,  IonContent, IonPage },
+  name: "DeliveryAddress",
+  components: { TopNav, IonContent, IonPage },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -64,44 +80,56 @@ export default {
   // }
   data() {
     return {
+      addressList: JSON.parse(localStorage.getItem("del_list")),
       // isModalVisible: false,
       // isActive: false,
     };
   },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
   methods: {
+    showId(ids) {
+      alert(ids);
+    },
     openlink() {
       console.log("clivk");
     },
+  },
+  mounted() {
+    console.log();
   },
 };
 </script>
 
 <style scoped>
-.contWrap{
+.contWrap {
   padding: 20px;
 }
-.contWrap ul li{
+.contWrap ul li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #F6F6F6;
+  border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
 }
-.contWrap li label{
-  color: #C4C4C4;
+.contWrap li label {
+  color: #c4c4c4;
   font-size: 12px;
   font-weight: 700;
 }
-.contWrap ul li lspanabel{
-  color: #25282B;
+.contWrap ul li lspanabel {
+  color: #25282b;
   font-size: 14px;
   font-weight: 400;
 }
 
-.secList,.thirdList,.forthList{
+.secList,
+.thirdList,
+.forthList {
   margin-top: 40px;
 }
-.secList button{
+.secList button {
   display: block;
   width: 100%;
   border-radius: 10px;
@@ -110,36 +138,35 @@ export default {
   padding: 14px 0;
 }
 
-.thirdList li{
+.thirdList li {
   justify-content: flex-start !important;
 }
-.thirdList li ion-checkbox{
+.thirdList li ion-checkbox {
   margin-right: 10px;
 }
-.button-group{
+.button-group {
   bottom: 0;
   width: 500px;
   position: fixed;
-  
 }
-.button-group button{
-    width: 100%;
-    display: block;
-    align-items: center;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 21px;
+.button-group button {
+  width: 100%;
+  display: block;
+  align-items: center;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
 }
-.button-group button.grey-btn{
-    color: #797979;
-    background: #E5E5E5;
+.button-group button.grey-btn {
+  color: #797979;
+  background: #e5e5e5;
 }
-.button-group button.black-btn{
-    color: #FFFFFF;
-    background: #090909;
+.button-group button.black-btn {
+  color: #ffffff;
+  background: #090909;
 }
-.pointer{
+.pointer {
   cursor: pointer;
 }
 </style>

@@ -14,7 +14,7 @@
       </div>
       <div>
         <!-- <h4>{{ progressDetails.desc }}</h4> -->
-        <h6>#street fashion #sufa #hoodie</h6>
+        <h6>{{ tag }}</h6>
         <!-- <div
           class="item-button"
           v-if="progressDetails.status === 're-registration'"
@@ -38,6 +38,7 @@ export default {
   name: "BrandItems",
   props: {
     progressDetails: Object,
+    tag: String,
   },
   methods: {
     getColor() {
@@ -107,7 +108,7 @@ export default {
 .item-desc h6 {
   font-size: 12px;
   line-height: 16px;
-  color: #C4C4C4;
+  color: #c4c4c4;
   margin-top: 5px;
 }
 .item-desc .heading-wrap {
@@ -116,8 +117,8 @@ export default {
   align-items: center;
 }
 .heading-wrap img {
-    width: 16px;
-    height: 15px;
-    margin-right: 5px;
+  width: 16px;
+  height: 15px;
+  margin-right: 5px;
 }
 </style>

@@ -13,8 +13,8 @@ export default class ItemService {
     if (ids === "All") {
       return await this.getProductList();
     }
-    return await axios.get(`/stylemates/products?categoryId=${ids}`,{categoryId: ids}).then((res) => res.data.data);
-    
+    return await axios.get(`/stylemates/products?categoryId=${ids}`, { categoryId: ids }).then((res) => res.data.data);
+
   }
 
   async getProductDetails(ids) {
@@ -28,31 +28,21 @@ export default class ItemService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
+  // post influencelikes
+  async influencelikes(uid, type, taggableId) {
+    return await axios.post(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+  // delete influencelikes
+  async influencedislikes(uid, type, taggableId) {
+    return await axios.delete(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
 
-
-  //error
-  //    async getProductDetails(){
-  //     return await axios.get(`/stylemates/products/id`, { id:70 }).then((res) => res.data.data);
-  //    }
-
-
-  //error
-  //    async getbanner(){
-  //     return await axios.get(`/stylemates/banners`).then((res) => res.data.data);
-  //    }
-
-
-
-
-
-
-
-
-  // async getItemsDetails() {
-  //   return await axios.get(`/stylemates/brands/id`, { id: 9 }).then((res) => res.data.data);
-  // }
-
-  // async viewUser(ids) {
-  //     return await axios.post(`/user/view/id`, { id: ids }).then((res) => res);
-  // }
 }

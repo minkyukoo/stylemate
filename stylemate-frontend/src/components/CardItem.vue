@@ -1,103 +1,130 @@
 <template>
   <div>
-    {{item_list}}
+    {{ item_list }}
     <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
-      <div class="top-section">
-        <div class="left-section">
-          <ion-item>
+      <div class="fixed-container">
+        <div class="top-section">
+          <div class="left-section">
+            <!-- <ion-item>
             <ion-select interface="popover" @click="orderPopularity()" placeholder="인기순">
               <ion-select-option value="f">최신순</ion-select-option>
               <ion-select-option value="m">인기순</ion-select-option>
               <ion-select-option value="v">마감임박순</ion-select-option>
             </ion-select>
-          </ion-item>
-        </div>
-        <div class="right-section">
-          <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
-            <img src="@/assets/icons/list-view.svg" />
-          </button>
-          <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
-            <img src="@/assets/icons/grid-view.svg" />
-          </button>
-        </div>
-      </div>
-      <ul v-if="layout === 'grid'" class="product-list grid-view">
-        <!-- {{item_list}} -->
-        <li v-for="(product, index) in store.state.AppData" :key="index" class="product-list-item">
-          <div class="top-float-div">
-            <div class="social-icon">
-              <img src="@/assets/icons/instagram.svg" />
-            </div>
-            <div class="favorite">
-              <img src="@/assets/icons/heart-outline.svg" />
+            </ion-item>-->
+            <div class="selectWrap">
+              <vue-select :placeholder="인기순" :options="books" label="title"></vue-select>
             </div>
           </div>
-          <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
-            <img :src="product.imageThumbnailPath" />
-          </figure>
-          <div
-            class="details-wrap"
-            @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
+          <div class="right-section">
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
+              <img src="@/assets/icons/list-view.svg" />
+            </button>
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
+              <img src="@/assets/icons/grid-view.svg" />
+            </button>
+          </div>
+        </div>
+        <ul v-if="layout === 'grid'" class="product-list grid-view">
+          <!-- {{item_list}} -->
+          <li
+            v-for="(product, index) in store.state.AppData"
+            :key="index"
+            class="product-list-item"
           >
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.description }}</p>
-            <div class="hashWrap">
-              <span v-for="(hash, index) in product.tag" :key="index">
-                {{
-                  '#'+hash.tag
-                }}
-              </span>
-            </div>
-          </div>
-        </li>
-      </ul>
-
-      <ul v-if="layout === 'list'" class="product-list list-view">
-        <li v-for="(product, index) in store.state.AppData" :key="index" class="product-list-item">
-          <figure @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
-            <img :src="product.imageThumbnailPath" />
             <div class="top-float-div">
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
               </div>
+              <div class="favorite" @click="likeProduct(product.id)">
+                <img src="@/assets/icons/heart-outline.svg" />
+              </div>
             </div>
-          </figure>
-          <div class="favorite">
-            <img src="@/assets/icons/heart-outline.svg" />
-          </div>
-          <div
-            class="desc-box"
-            @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"
-          >
-            <div class="text-box">
+            <figure
+              @click="
+                $router.push({
+                  name: 'ItemDetails',
+                  params: { id: product.id },
+                })
+              "
+            >
+              <img :src="product.imageThumbnailPath" />
+            </figure>
+            <div
+              class="details-wrap"
+              @click="
+                $router.push({
+                  name: 'ItemDetails',
+                  params: { id: product.id },
+                })
+              "
+            >
               <h3>{{ product.name }}</h3>
+              <p>{{ product.description }}</p>
+              <div class="hashWrap">
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
+              </div>
             </div>
-            <p>{{ product.description }}</p>
-            <span>{{ product.hashtags }}</span>
-            <div class="hashWrap">
-              <span v-for="(hash, index) in product.tag" :key="index">
-                {{
-                  '#'+hash.tag
-                }}
-              </span>
+          </li>
+        </ul>
+
+        <ul v-if="layout === 'list'" class="product-list list-view">
+          <li
+            v-for="(product, index) in store.state.AppData"
+            :key="index"
+            class="product-list-item"
+          >
+            <figure
+              @click="
+                $router.push({
+                  name: 'ItemDetails',
+                  params: { id: product.id },
+                })
+              "
+            >
+              <img :src="product.imageThumbnailPath" />
+              <div class="top-float-div">
+                <div class="social-icon">
+                  <img src="@/assets/icons/instagram.svg" />
+                </div>
+              </div>
+            </figure>
+            <div class="favorite">
+              <img src="@/assets/icons/heart-outline.svg" />
             </div>
-          </div>
-        </li>
-      </ul>
+            <div
+              class="desc-box"
+              @click="
+                $router.push({
+                  name: 'ItemDetails',
+                  params: { id: product.id },
+                })
+              "
+            >
+              <div class="text-box">
+                <h3>{{ product.name }}</h3>
+              </div>
+              <p>{{ product.description }}</p>
+              <span>{{ product.hashtags }}</span>
+              <div class="hashWrap">
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import {
-  IonItem,
-  IonSelect,
-  IonSelectOption,
-} from "@ionic/vue";
 import { defineComponent, inject, onMounted } from "vue";
+import Toast from "@/alert/alert";
+import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
+import TokenService from "@/services/TokenService";
+import UserInfoService from "@/services/UserInfoService";
 
 export default defineComponent({
   name: "CardItem",
@@ -108,9 +135,7 @@ export default defineComponent({
     isallData: null,
   },
   components: {
-    IonItem,
-    IonSelect,
-    IonSelectOption,
+    "vue-select": VueNextSelect,
   },
   setup() {
     const store = inject("store");
@@ -123,12 +148,10 @@ export default defineComponent({
 
     onMounted(() => {
       store.methods.getData();
-      // console.log('store.state.AppData', store.state.AppData);
     });
 
     return { store, customPopoverOptions };
   },
-
   data() {
     return {
       layout: "grid",
@@ -138,73 +161,64 @@ export default defineComponent({
       product_details: [],
       banner: [],
       filtervalue: [],
+      books: [
+        { title: "최신순" },
+        { title: "인기순" },
+        { title: "마감임박순" }
+      ]
     };
   },
-
   created() {
     this.itemService = new ItemService();
-
-    
-
-    // this.itemService.getProductList().then((data) => {
-    //   this.item_list = data;
-    // })
+    this.tokenService = new TokenService();
+    this.userInfoService = new UserInfoService();
   },
 
   mounted() {
-    // Slide title
-  
     this.itemService.getProductCategories().then((data) => {
-      // console.log("categories_info", data);
       this.categories_info = data;
     });
-    // Product list
-    // this.itemService.getProductLsit().then((data) => {
-    //   console.log("ItemList", data);
-    //   alert("updated filterdata")
-    //   this.item_list = data;
-    // })
   },
   methods: {
-    // AllValue() {
-    //   this.itemService.getProductList().then((data) => {
-    //     console.log("ALl ItemList", data);
-    //     this.item_list = data;
-    //     this.allData = !this.allData;
-    //     console.log("myvalues", this.item_list);
-    //     alert("All values")
-
-    //   })
-    // },
-
-    // orderPopularity(){
-    //   this.itemService.getProductLsit().then((data) => {
-    //     console.log("filtervalue", data);
-    //     this.filtervalue = data;
-    //     console.log("filtervalue",this.filtervalue);
-    //   })
-    // },
-  },
-
-  async updated() {
-    // console.log("this.allData", this.allData);
-
-      if (this.isproductfilter) {
-        this.store.state.AppData = this.isproductfilter;
-        // console.log("this.isproductfilter", this.item_list);
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
       }
-      
-      // else if (this.isFltData) {
-      //   this.item_list = "";
-      //   // alert("all values");
-      //   // this.AllValue();
-      //   this.item_list = this.isallData;
-      //   console.log("this.isallData", this.isallData);
-      // }
+    },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService.influencelikes(uid,'product',productId).then((res) => {
+            console.log(res.response.data.error);
+            console.log(res);
+            if(res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
-
-
-
+  async updated() {
+    if (this.isproductfilter) {
+      this.store.state.AppData = this.isproductfilter;
+    }
+  },
 });
 </script>
 
@@ -213,6 +227,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 .item-native {
   padding-inline-start: 0 !important;
@@ -233,7 +248,7 @@ export default defineComponent({
 }
 
 .item-wrapper {
-  padding: 20px 20px 60px;
+  padding: 20px 20px 130px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;

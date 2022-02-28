@@ -402,6 +402,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .tag-content {
   margin-top: 8px;

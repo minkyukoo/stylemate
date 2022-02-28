@@ -52,7 +52,7 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <router-link to="">
+                  <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
                   </router-link>
                 </div>

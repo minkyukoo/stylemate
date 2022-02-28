@@ -3,28 +3,28 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="layout = 'tab1'"
-        :class="{ active: layout === 'tab1' }"
+        @click="layout = '#notice'"
+        :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="layout = 'tab2'"
-        :class="{ active: layout === 'tab2' }"
+        @click="layout = '#faq'"
+        :class="{ active: layout === '#faq' }"
       >
         FAQ
       </a>
       <a
         class="tab"
-        @click="layout = 'tab3'"
-        :class="{ active: layout === 'tab3' }"
+        @click="layout = '#inquiry'"
+        :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
       </a>
     </div>
     <!-- tab content 1 -->
-    <div class="tab-content" v-if="layout === 'tab1'">
+    <div class="tab-content" v-if="layout === '#notice'">
       <div
         v-for="notice in noticelist"
         :key="notice"
@@ -58,7 +58,7 @@
     </div>
 
     <!-- tab content 2 -->
-    <div class="tab-content" v-if="layout === 'tab2'">
+    <div class="tab-content" v-if="layout === '#faq'">
       <div class="faq-wrap">
         <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
           <h2>{{ item }}</h2>
@@ -74,13 +74,10 @@
     </div>
 
     <!-- tab content 3 -->
-    <div class="tab-content" v-if="layout === 'tab3'">
+    <div class="tab-content" v-if="layout === '#inquiry'">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
-        <button
-          class="black-btn"
-          @click="$router.push({ name: 'InquiryDetails' })"
-        >
+        <button class="black-btn" @click="sendInquiryDetails()">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
@@ -119,7 +116,7 @@ export default {
   },
   data() {
     return {
-      layout: "tab1",
+      layout: "#notice",
       faqs: [],
       faqCategory: [],
       noticelist: [],
@@ -131,6 +128,7 @@ export default {
     this.service = new UserInfoService();
   },
   mounted() {
+    this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
       console.log(res.data);
@@ -155,6 +153,16 @@ export default {
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+
+    sendInquiryDetails() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.$router.push({ name: "InquiryDetails" });
+      } else this.$router.push({ name: "LoginPage" });
     },
   },
 };
