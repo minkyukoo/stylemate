@@ -345,7 +345,7 @@ const routes = [
     }
   },
   {
-    path: "/inquiryregisterdetails",
+    path: "/inquiryregisterdetails/:id",
     name: "InquiryRegisterDetails",
     component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
     meta: {
