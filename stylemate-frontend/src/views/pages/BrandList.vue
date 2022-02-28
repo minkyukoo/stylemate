@@ -40,7 +40,9 @@
           <ion-card-title>
             <h3 @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">{{ info.korName }}</h3>
             <div class="text-box" @click="likeBrand(info.id)">
-              <img src="@/assets/icons/heart-outline.svg" />
+              <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
+              <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+              <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
           </ion-card-title>
         </ion-card-header>

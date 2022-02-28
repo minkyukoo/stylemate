@@ -38,7 +38,9 @@
                 <img src="@/assets/icons/instagram.svg" />
               </div>
               <div class="favorite" @click="likeProduct(product.id)">
-                <img src="@/assets/icons/heart-outline.svg" />
+                <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                <img v-if="!product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
             <figure
@@ -90,8 +92,9 @@
                 </div>
               </div>
             </figure>
-            <div class="favorite">
-              <img src="@/assets/icons/heart-outline.svg" />
+            <div class="favorite" @click="likeProduct(product.id)">
+              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+              <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
               class="desc-box"
@@ -162,8 +165,8 @@ export default defineComponent({
       banner: [],
       filtervalue: [],
       books: [
-         "최신순",
-         "인기순",
+        "최신순",
+                       
          "마감임박순"
       ]
     };
@@ -202,7 +205,7 @@ export default defineComponent({
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService.influencelikes(uid,'product',productId).then((res) => {
+          this.itemService .influencelikes(uid,'product',productId).then((res) => {
             console.log(res.response.data.error);
             console.log(res);
             if(res.response.data.error) {
@@ -363,6 +366,10 @@ export default defineComponent({
   top: 22px;
   margin-right: 0;
   cursor: pointer;
+}
+.list-view .product-list-item .favorite img {
+  width: 20px;
+  height: 20px;
 }
 .desc-box {
   padding-left: 12px;
