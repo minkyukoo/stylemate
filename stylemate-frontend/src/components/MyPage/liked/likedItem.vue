@@ -64,12 +64,13 @@ export default {
     async dislikeProduct(productId) {
       console.log('productId',productId);
       let uid;
+
       await this.isUserid().then((res) => {
         uid = res;
+        console.log('uid',uid);
+
         this.itemservice.influencedislikes(uid, 'product', productId).then((res) => {
-          console.log(res.response.data.error);
-          console.log(res);
-          if (res.response.data.error) {
+          if (res.response.status && res.response.status !== 204) {
             Toast.fire({ title: res.response.data.error.message });
           }
         });

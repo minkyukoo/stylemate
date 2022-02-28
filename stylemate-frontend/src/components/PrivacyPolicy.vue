@@ -1,10 +1,10 @@
 <template>
   <div class="termsWrap">
-    <h3>개인정보처리방침</h3>
+    <!-- <h3>개인정보처리방침</h3> -->
 
     <div class="box">
-      <p>
-        주식회사 미디언스에서 제공하는 미디언스 서비스(이하 “회사”)는 이용자의
+      <p> {{privacyPolicy}}</p>
+        <!-- 주식회사 미디언스에서 제공하는 미디언스 서비스(이하 “회사”)는 이용자의
         개인정보를 중요시하며, ‘정보통신망 이용촉진 및 정보보호 등에 관한 법률’,
         ‘통신비밀보호법’, ‘전기통신사업법’, ‘개인정보보호법’ 등 개인정보에 관한
         법률 및 행정기관의 행정지침을 준수하고, 관련 법령에 의거한
@@ -67,15 +67,27 @@
         형태의 사례금을 말합니다.<br /><br />
 
         10. '캐시인포인트출금'은 사이트내에 적립된 포인트를 현금으로 전환하여
-        회원의 개인 계좌에 입금처리하는 것을 말합니다.
-      </p>
+        회원의 개인 계좌에 입금처리하는 것을 말합니다. -->
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "PrivacyPolicy",
+  data(){
+    return{
+      privacyPolicy:'',
+    }
+  },
+  mounted() {
+    axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/recently?type=policy`)
+      .then((res) => {
+        // console.log("this.privacyPolicy",res.data.body);
+        this.privacyPolicy = res.data.body;
+    });
+  },
 };
 </script>
 

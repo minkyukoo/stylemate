@@ -1,8 +1,14 @@
 <template>
   <div class="termsWrap">
-    <h3>스타일메이트 이용약관</h3>
+    <!-- <h3>스타일메이트 이용약관</h3> -->
 
     <div class="box">
+      <p>
+        {{termsUSe}}
+      </p>
+    </div>
+
+    <!-- <div class="box">
       <h4>제 1조 목적</h4>
       <p>
         본 약관은 (주)미디언스(MEDIANCE)(이하 ‘회사’라 함)에서 제공하는 미디언스
@@ -10,8 +16,8 @@
         간의 권리 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
         책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
       </p>
-    </div>
-    <div class="box">
+    </div> -->
+    <!-- <div class="box">
       <h4>제 2조 목적</h4>
       <p>
         1. '회사'란 (주)미디언스를 말합니다. <br />
@@ -51,13 +57,26 @@
         10. '캐시인포인트출금'은 사이트내에 적립된 포인트를 현금으로 전환하여
         회원의 개인 계좌에 입금처리하는 것을 말합니다.
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "TermsUse",
+  data(){
+    return{
+      termsUSe:'',
+    }
+  },
+  mounted() {
+    axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/recently?type=terms`)
+      .then((res) => {
+        console.log("this.termsUSe",res.data.body);
+        this.termsUSe = res.data.body;
+    });
+  },
 };
 </script>
 

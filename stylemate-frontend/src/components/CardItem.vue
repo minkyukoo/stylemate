@@ -162,9 +162,9 @@ export default defineComponent({
       banner: [],
       filtervalue: [],
       books: [
-        { title: "최신순" },
-        { title: "인기순" },
-        { title: "마감임박순" }
+         "최신순",
+         "인기순",
+         "마감임박순"
       ]
     };
   },

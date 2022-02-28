@@ -7,6 +7,7 @@ const state = reactive({
   AppData: undefined,
   AppFltData: undefined,
   FltCampaignData: undefined,
+  campaignEmpty: false,
   number: 13,
   UserId: "",
   status: "NotEmpty",
@@ -38,9 +39,7 @@ const state = reactive({
   },
 });
 
-const EditPostModal = reactive({
-
-})
+const EditPostModal = reactive({});
 
 var itemService = new ItemService();
 var myPageService = new MyPageService();
@@ -56,12 +55,13 @@ const methods = {
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
     state.sponcerFilterNo = 0;
+    methods.getcampList();
   },
   setContentsDetailsModal(tab, id) {
     state.contentDetailsModal = tab;
     state.contentDetailsId = id;
   },
-  async  getcampList() {
+  async getcampList() {
     return await myPageService
       .getCampaignData(
         state.UserId,
@@ -73,15 +73,20 @@ const methods = {
         console.log("CampaignList from store", data);
         state.FltCampaignData = data.data.data;
         // console.log("CampaignList from store", state.FltCampaignData);
+        state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
         return state.FltCampaignData;
       });
   },
-  setSponsorFilter(id,index) {
+  setSponsorFilter(id, index) {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
     console.log(index);
     methods.getcampList();
-    console.log("setSponsorFilter", state.sponcerFilterId , state.sponcerFilterNo);
+    console.log(
+      "setSponsorFilter",
+      state.sponcerFilterId,
+      state.sponcerFilterNo
+    );
   },
   // setCampaignEncodeUrl() {
   //   if(state.sponcerFilterId === "") {
@@ -95,5 +100,4 @@ export default {
   state,
   EditPostModal,
   methods,
-
 };

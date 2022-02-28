@@ -2,7 +2,7 @@
   <div class="item-card">
     <div class="img-con" @click="() => store.state.isReRegisterModalVisible = true">
       <img
-        :src="`${require('../../assets/images/' + progressDetails.img)}`"
+        :src="`${progressDetails.product.imageThumbnailPath}`"
         alt=""
       />
       <!-- <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
@@ -10,9 +10,9 @@
       }}</span> -->
     </div>
     <div class="item-desc">
-      <h2>{{ progressDetails.title }}</h2>
+      <h2>{{ progressDetails.product.brand.korName }}</h2>
       <div>
-        <h4>{{ progressDetails.desc }}</h4>
+        <h4>{{ progressDetails.product.name }}</h4>
         <h6>End date {{ progressDetails.endDate }}</h6>
         <!-- <div
           class="item-button"

@@ -38,11 +38,17 @@ export default class ItemService {
   }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
-    return await axios.delete(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
-      headers: {
-        Authorization: 'Bearer ' + token //the token is a variable which holds the token
-      }
-    }).then((res) => res.data).catch((err) => err);
+    alert(token);
+    return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
+      {
+        params: {
+          type: type,
+          taggableId: taggableId
+        },
+        headers: {
+          Authorization: 'Bearer ' + token //the token is a variable which holds the token
+        }
+      }).then((res) => res.data).catch((err) => err);
   }
 
 }

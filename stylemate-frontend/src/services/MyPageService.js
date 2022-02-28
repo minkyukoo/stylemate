@@ -21,10 +21,10 @@ export default class MyPageService {
       },
     });
   }
-  async getPostingList() {
-    let encodedUrl = encodeURIComponent('{"influenceId":2}')
-    console.log(encodedUrl)
-    return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
+  async getPostingList(uid) {
+    // let encodedUrl = encodeURIComponent('{"influenceId":2}')
+    // console.log(encodedUrl)
+    return await axios.get(`/stylemates/users/${uid}/posts`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
