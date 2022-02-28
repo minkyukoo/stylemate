@@ -15,6 +15,7 @@
           :progressDetails="item"
           :tag="setTags(item.tag)"
           :key="index"
+          v-on:brandDislike="dislike($event)"
         />
       </div>
     </div>

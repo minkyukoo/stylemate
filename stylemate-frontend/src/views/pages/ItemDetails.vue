@@ -73,11 +73,11 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="right-section">
+            <!-- <div class="right-section">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
@@ -148,8 +148,9 @@
       </ion-infinite-scroll>-->
 
       <div class="subscribe-wrap">
-        <figure>
-          <img src="@/assets/icons/heart-filled.svg" />
+        <figure class="favorite" @click="likeProduct(productDetails.id)">
+          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+          <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
         <!-- sponsership button -->
@@ -356,6 +357,26 @@ export default {
       }
       this.hideSponserButton();
     },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService .influencelikes(uid,'product',productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            if(res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
 };
 </script>
@@ -519,6 +540,10 @@ export default {
 }
 .subscribe-wrap figure {
   margin-right: 10px;
+}
+.subscribe-wrap figure img {
+  width: 36px;
+  height: 36px;
 }
 .subscribe-wrap .black-btn {
   font-size: 14px;

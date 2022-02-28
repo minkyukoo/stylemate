@@ -71,7 +71,7 @@ export default class UserInfoService {
         agreeCampaign: cmpgn,
         agreeNewsletter: newsl,
         isInformationPoint: info,
-        agreeStylematePush: push
+        agreeStylematePush: push,
       }, {
         headers: {
           Authorization: 'Bearer ' + token,
