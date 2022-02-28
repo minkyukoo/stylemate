@@ -71,7 +71,11 @@
           </li>
           <li>
             <div>
-              <ion-checkbox color="primary" :checked="compain" @click="promotion($event)"></ion-checkbox>
+              <ion-checkbox
+                color="primary"
+                :checked="compain"
+                @click="promotion($event)"
+              ></ion-checkbox>
             </div>
             <div>캠페인 제안 받기 (선택)</div>
           </li>
@@ -95,7 +99,11 @@
           <li>
             <div>협찬활동, 서비스 이용, 신규 협찬안내 등</div>
             <div>
-              <ion-toggle color="dark" :checked="pushNotification" @click="push($event)"></ion-toggle>
+              <ion-toggle
+                color="dark"
+                :checked="pushNotification"
+                @click="push($event)"
+              ></ion-toggle>
             </div>
           </li>
           <li>
@@ -158,26 +166,100 @@ export default {
 
   methods: {
     market(e) {
-      console.log(e.target.checked);
-      console.log('clicked Marketing')
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          e.target.checked == false ? true : false,
+          this.compain,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreeMarketing updated");
+        });
     },
     news(e) {
-      console.log(e.target.checked);
-      console.log('clicked news')
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          e.target.checked == false ? true : false,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreeNews updated");
+        });
     },
     promotion(e) {
-      console.log(e.target.checked);
-      console.log('clicked promotion')
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          e.target.checked == false ? true : false,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreepromotions updated");
+        });
     },
     push(e) {
-      console.log(e.target.checked);
-      console.log('clicked push Notification')
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          this.newsletter,
+          e.target.checked == false ? true : false,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreepushNotification updated");
+        });
+    },
+    updateInfo() {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {});
     },
     openlink() {
       console.log("clivk");
-    },
-    hello() {
-      alert(this.marketing);
     },
     enrollment() {
       this.$router.push({ name: "ShippingInfo" });
