@@ -12,6 +12,7 @@
 
             <div class="buttonGrp">
               <button
+                type="button"
                 @click="clickOption(`협찬문의`)"
                 :class="{ active: option === `협찬문의` }"
                 class="inq-btn"
@@ -19,6 +20,7 @@
                 협찬문의
               </button>
               <button
+                type="button"
                 @click="clickOption(`서비스 이용문의`)"
                 :class="{ active: option === `서비스 이용문의` }"
                 class="inq-btn"
@@ -26,6 +28,7 @@
                 서비스 이용문의
               </button>
               <button
+                type="button"
                 @click="clickOption(`기타문의`)"
                 :class="{ active: option === `기타문의` }"
                 class="inq-btn"
