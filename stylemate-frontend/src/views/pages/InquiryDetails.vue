@@ -125,18 +125,11 @@ export default {
         inquiry: this.details,
         isAnswerReceiving: true,
       };
-
-      console.log(formData);
-      // this.service
-      //   .inquiryPost({
-      //     type: this.option,
-      //     title: this.subject,
-      //     inquiry: this.details,
-      //     isAnswerReceiving: true,
-      //   })
-      //   .then((res) => {
-      //     console.log(res);
-      //   });
+      this.service
+        .inquiryPost(formData)
+        .then((res) => {
+          console.log(res);
+        });
     },
   },
 };
