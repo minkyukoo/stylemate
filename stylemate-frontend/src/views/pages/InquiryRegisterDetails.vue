@@ -58,24 +58,28 @@
         </div>
         <div class="pagination-wrap">
           <a
-            href="#"
+            :class="{ 'cursor-pointer': previousId !== null }"
             @click="
-              $router.push({
-                name: 'InquiryRegisterDetails',
-                params: { id: previousId },
-              })
+              previousId !== null
+                ? $router.push({
+                    name: 'InquiryRegisterDetails',
+                    params: { id: previousId },
+                  })
+                : false
             "
           >
             <img src="@/assets/icons/arrow-left-thin.svg" />
             이전글
           </a>
           <a
-            href="#"
+            :class="{ 'cursor-pointer': nextId !== null }"
             @click="
-              $router.push({
-                name: 'InquiryRegisterDetails',
-                params: { id: nextId },
-              })
+              nextId !== null
+                ? $router.push({
+                    name: 'InquiryRegisterDetails',
+                    params: { id: nextId },
+                  })
+                : false
             "
           >
             다음글
@@ -151,6 +155,9 @@ export default {
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .inner-wrapper {
   padding: 40px 16px 0;
 }
