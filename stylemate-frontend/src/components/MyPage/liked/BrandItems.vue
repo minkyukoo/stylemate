@@ -1,44 +1,40 @@
 <template>
   <div class="item-card">
     <div class="img-con">
-      <img
-        :src="`${require('../../../assets/images/' + progressDetails.img)}`"
-        alt=""
-      />
+      <img :src="progressDetails.imageThumbnailPath" alt />
       <!-- <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" /> -->
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.title }}</h2>
-        <img src="../../../assets/icons/heart-filled.svg" alt="" />
+        <h2>{{ progressDetails.engName }}</h2>
+        <button class="like" @click="dislikeBrand(progressDetails.id)">
+          <img src="../../../assets/icons/heart-filled.svg" alt />
+        </button>
       </div>
       <div>
         <!-- <h4>{{ progressDetails.desc }}</h4> -->
         <h6>{{ tag }}</h6>
-        <!-- <div
-          class="item-button"
-          v-if="progressDetails.status === 're-registration'"
-        >
-          <button>re-registration</button>
-        </div>
-        <div
-          class="item-button"
-          v-else-if="progressDetails.status === 'post-registration'"
-        >
-          <button>Register a post</button>
-        </div>
-        <div v-else></div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Toast from "@/alert/alert";
+import BrandService from "@/services/BrandService";
+import TokenService from "@/services/TokenService";
+import UserInfoService from "@/services/UserInfoService";
+
 export default {
   name: "BrandItems",
   props: {
     progressDetails: Object,
     tag: String,
+  },
+  created() {
+    this.brandService = new BrandService();
+    this.tokenService = new TokenService();
+    this.userInfoService = new UserInfoService();
   },
   methods: {
     getColor() {
@@ -54,6 +50,36 @@ export default {
         return "rgba(121, 121, 121, 0.75)";
       }
     },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async dislikeBrand(brandId) {
+      console.log('brandId', brandId);
+      let uid;
+
+      await this.isUserid().then((res) => {
+        uid = res;
+        console.log('uid', uid);
+
+        this.brandService.influencedislikes(uid, 'brand', brandId).then((res) => {
+          console.log('dres', res);
+          if (res) {
+            if (res.response.status && res.response.status !== 204) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          } else {
+            this.$emit("brandDislike", true);
+          }
+        });
+      });
+      console.log('brand dislike');
+    }
   },
 };
 </script>

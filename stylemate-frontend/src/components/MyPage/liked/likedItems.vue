@@ -6,6 +6,7 @@
           v-for="(item, index) in product"
           :progressDetails="item"
           :key="index"
+          v-on:productDislike="dislike($event)"
         />
       </div>
       <div v-if="store.state.likedTabState === 'brand'">
@@ -14,6 +15,7 @@
           :progressDetails="item"
           :tag="setTags(item.tag)"
           :key="index"
+          v-on:brandDislike="dislike($event)"
         />
       </div>
     </div>
@@ -30,7 +32,7 @@ import BrandItems from "./BrandItems.vue";
 import Error from "../../Error.vue";
 import UserInfoService from "@/services/UserInfoService";
 export default {
-  name: "likedItems",
+  name: 'likedItems',
   components: { LikedItem, BrandItems, Error },
 
   setup() {
@@ -50,20 +52,7 @@ export default {
   },
   created() {
     this.user = new UserInfoService();
-  },
-  mounted() {
-    this.user.getUserInfo().then((userInfo) => {
-      this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-        console.log("product", res);
-        this.product = res.data.data;
-        this.proLen = res.data.data.length > 0 ? true : false;
-      });
-      this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-        console.log("brand", res);
-        this.brand = res.data.data;
-        this.braLen = res.data.data.length > 0 ? true : false;
-      });
-    });
+    this.getInfluenceList();
   },
   methods: {
     setTags(items) {
@@ -75,6 +64,26 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
+    getInfluenceList() {
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+          console.log("product", res);
+          this.product = res.data.data;
+          this.proLen = res.data.data.length > 0 ? true : false;
+        });
+        this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+          console.log("brand", res);
+          this.brand = res.data.data;
+          this.braLen = res.data.data.length > 0 ? true : false;
+        });
+      });
+    },
+    dislike(event) {
+      console.log('event', event);
+      if (event) {
+        this.getInfluenceList();
+      }
+    }
   },
 };
 </script>

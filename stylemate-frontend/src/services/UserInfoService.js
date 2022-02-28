@@ -62,22 +62,22 @@ export default class UserInfoService {
   }
   async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
     return await axios.put(`/stylemates/users/${uid}`, {
-      id: ids,
-      name: nm,
-      tel: tel,
-      telAgency: agency,
-      isTelCertified: certi,
-      agreeMarketing: markt,
-      agreeCampaign: cmpgn,
-      agreeNewsletter: newsl,
-      isInformationPoint: info,
-      agreeStylematePush: push
-    }, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
+        id: ids,
+        name: nm,
+        tel: tel,
+        telAgency: agency,
+        isTelCertified: certi,
+        agreeMarketing: markt,
+        agreeCampaign: cmpgn,
+        agreeNewsletter: newsl,
+        isInformationPoint: info,
+        agreeStylematePush: push,
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
 
-    })
+      })
       .then((res) => res)
   }
   async Notice() {
@@ -104,15 +104,11 @@ export default class UserInfoService {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
   }
 
-
-  async inquiryPost(data) {
-    return await axios.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
-        data
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-      .then((res) => res)
+  async QNAsById(id) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 }
