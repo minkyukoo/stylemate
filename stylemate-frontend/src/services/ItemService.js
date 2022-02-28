@@ -38,7 +38,6 @@ export default class ItemService {
   }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
-    alert(token);
     return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
       {
         params: {
