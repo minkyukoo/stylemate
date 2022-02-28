@@ -157,7 +157,6 @@ export default {
 
     this.service.QNAs().then((res) => {
       this.inquirylist = res.data;
-      console.log(res);
       this.inquiryLength = res.data.length;
     });
   },
