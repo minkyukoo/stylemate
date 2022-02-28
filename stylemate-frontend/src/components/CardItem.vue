@@ -39,7 +39,7 @@
               </div>
               <div class="favorite" @click="likeProduct(product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img v-if="!product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -367,7 +367,7 @@ export default defineComponent({
   margin-right: 0;
   cursor: pointer;
 }
-.list-view .product-list-item .favorite img {
+.product-list-item .favorite img {
   width: 20px;
   height: 20px;
 }
