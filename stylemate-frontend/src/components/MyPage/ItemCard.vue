@@ -9,8 +9,8 @@
         v-if="
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'booking' &&
-          this.progressDetails.booking[0].bookingStatus === 'booking' &&
-          this.progressDetails.booking[0].postStatus === 'ready'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'booking' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
         "
         >Application completed</span
       >
@@ -21,8 +21,8 @@
         v-else-if="
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
-          this.progressDetails.booking[0].bookingStatus === 'join' &&
-          this.progressDetails.booking[0].postStatus === 'ready'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
         "
         >Post registration</span
       >
@@ -33,8 +33,8 @@
         v-else-if="
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
-          this.progressDetails.booking[0].bookingStatus === 'join' &&
-          this.progressDetails.booking[0].postStatus === 'postProgress'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'postProgress'
         "
         >Checking</span
       >
@@ -45,8 +45,8 @@
         v-else-if="
           this.progressDetails.processStatus === 'progress' &&
           this.progressDetails.processDetailStatus === 'posting' &&
-          this.progressDetails.booking[0].bookingStatus === 'join' &&
-          this.progressDetails.booking[0].postStatus === 'post_modify_request'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'post_modify_request'
         "
         >re-registration</span
       >
@@ -59,8 +59,8 @@
           this.progressDetails.processStatus === 'progress' &&
           (this.progressDetails.processDetailStatus === 'announce' ||
             this.progressDetails.processDetailStatus === 'booking') &&
-          this.progressDetails.booking[0].bookingStatus === 'join' &&
-          this.progressDetails.booking[0].postStatus === 'ready'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
         "
         >Sponsor Selection</span
       >
@@ -74,8 +74,8 @@
           (this.progressDetails.processDetailStatus === 'announce' ||
             this.progressDetails.processDetailStatus === 'posting' ||
             this.progressDetails.processDetailStatus === 'finish') &&
-          this.progressDetails.booking[0].bookingStatus === 'booking' &&
-          this.progressDetails.booking[0].postStatus === 'ready'
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'booking' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
         "
         >unselected</span
       >
@@ -87,8 +87,8 @@
           (this.progressDetails.processStatus === 'progress' ||
           this.progressDetails.processStatus === 'finish') &&
             this.progressDetails.processDetailStatus === 'posting' &&
-            this.progressDetails.booking[0].bookingStatus === 'join' &&
-            this.progressDetails.booking[0].postStatus === 'finish'
+            this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+            this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'finish'
         "
         >Sponsorship completed</span
       >
@@ -168,7 +168,7 @@ export default {
       if (
         this.progressDetails.processStatus ||
         this.progressDetails.processDetailStatus ||
-        this.progressDetails.booking[0].bookingStatus ||
+        this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus ||
         this.progressDetails.booking[0].postStatus
       ) {
         let tag = document.getElementById("imgTag");
