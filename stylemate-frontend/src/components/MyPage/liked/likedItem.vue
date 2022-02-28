@@ -62,16 +62,21 @@ export default {
       }
     },
     async dislikeProduct(productId) {
-      console.log('productId',productId);
+      console.log('productId', productId);
       let uid;
 
       await this.isUserid().then((res) => {
         uid = res;
-        console.log('uid',uid);
+        console.log('uid', uid);
 
         this.itemservice.influencedislikes(uid, 'product', productId).then((res) => {
-          if (res.response.status && res.response.status !== 204) {
-            Toast.fire({ title: res.response.data.error.message });
+          console.log('dres', res);
+          if (res) {
+            if (res.response.status && res.response.status !== 204) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          } else {
+            this.$emit("productDislike", true);
           }
         });
       });

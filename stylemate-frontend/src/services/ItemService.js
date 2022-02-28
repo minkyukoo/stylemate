@@ -48,7 +48,8 @@ export default class ItemService {
         headers: {
           Authorization: 'Bearer ' + token //the token is a variable which holds the token
         }
-      }).then((res) => res.data).catch((err) => err);
+      }
+    ).then((res) => res.data).catch((err) => err);
   }
 
 }
