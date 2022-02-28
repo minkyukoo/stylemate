@@ -197,7 +197,6 @@ export default {
   },
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
-      var self = this;
       // console.log('userdetails', res);
       this.userDetails = res.data;
       this.marketing = res.data.influence.agreeMarketing;
@@ -205,7 +204,7 @@ export default {
       this.newsletter = res.data.influence.agreeNewsletter;
       this.pushNotification = res.data.influence.agreeStylematePush;
       localStorage.setItem("userId", res.data.uid);
-      self.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
+      this.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
         console.log(res);
 
         localStorage.setItem("del_list", JSON.stringify(res));
