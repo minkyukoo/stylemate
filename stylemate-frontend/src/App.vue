@@ -3,8 +3,8 @@
     <!-- <ion-router-outlet /> -->
     <router-view :key="$route.path" v-slot="{ Component }">
       <transition name="route" mode="out-in">
-        <!-- <component :is="Component" /> -->
-        <ion-router-outlet :is="Component"></ion-router-outlet>
+        <component :is="Component" />
+        <!-- <ion-router-outlet :is="Component"></ion-router-outlet> -->
       </transition>
     </router-view>
   </ion-app>

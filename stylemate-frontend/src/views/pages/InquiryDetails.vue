@@ -46,7 +46,7 @@
                   v-model="subject"
                 />
                 <div v-if="subjectError" class="invalid-feedback-danger">
-                  This Field is required
+                  문의 제목을 입력해 주세요.
                 </div>
               </div>
               <div class="input-row">
@@ -56,13 +56,11 @@
                   v-model="details"
                 ></textarea>
                 <div v-if="detailsError" class="invalid-feedback-danger">
-                  This Field is required
+                  문의 내용을 입력해 주세요.
                 </div>
               </div>
               <div class="button-row">
-                <button @click="resetForm()" type="reset" class="grey-btn">
-                  취소
-                </button>
+                <button @click="resetForm()" class="grey-btn">취소</button>
                 <button type="submit" class="black-btn">문의 등록</button>
               </div>
             </div>
@@ -77,6 +75,7 @@
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
+import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "InquiryDetails",
@@ -92,31 +91,41 @@ export default {
   },
   watch: {
     subject: function (vl) {
-      vl === null || vl === ""
-        ? (this.subjectError = true)
-        : (this.subjectError = false);
+      vl === null ? (this.subjectError = true) : (this.subjectError = false);
     },
     details: function (vl) {
-      vl === null || vl === ""
-        ? (this.detailsError = true)
-        : (this.detailsError = false);
+      vl === null ? (this.detailsError = true) : (this.detailsError = false);
     },
+  },
+  created() {
+    this.service = new UserInfoService();
   },
   methods: {
     clickOption(vl) {
       this.option = vl;
     },
     resetForm() {
-      this.subject = null;
-      this.details = null;
+      this.subject = "";
+      this.details = "";
       this.subjectError = false;
       this.detailsError = false;
     },
     submitHendler() {
-      if (this.subject === null) this.subjectError = true;
-      if (this.details === null) this.detailsError = true;
-      
-      // alert(this.option + "  " + this.subject + "  " + this.details);
+      if (!this.subject || !this.details) {
+        if (!this.subject) this.subjectError = true;
+        if (!this.details) this.detailsError = true;
+        return false;
+      }
+      this.service
+        .inquiryPost({
+          type: this.option,
+          title: this.subject,
+          inquiry: this.details,
+          isAnswerReceiving: true,
+        })
+        .then((res) => {
+          console.log(res);
+        });
     },
   },
 };

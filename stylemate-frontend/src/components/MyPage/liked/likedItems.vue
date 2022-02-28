@@ -12,6 +12,7 @@
         <BrandItems
           v-for="(item, index) in brand"
           :progressDetails="item"
+          :tag="setTags(item.tag)"
           :key="index"
         />
       </div>
@@ -53,16 +54,27 @@ export default {
   mounted() {
     this.user.getUserInfo().then((userInfo) => {
       this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-        console.log("product",res);
+        console.log("product", res);
         this.product = res.data.data;
         this.proLen = res.data.data.length > 0 ? true : false;
       });
       this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-        console.log("brand",res);
+        console.log("brand", res);
         this.brand = res.data.data;
         this.braLen = res.data.data.length > 0 ? true : false;
       });
     });
+  },
+  methods: {
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
+    },
   },
 };
 </script>
