@@ -24,4 +24,13 @@ export default class BrandService {
   async lookBook() {
     return await axios.get(`/stylemates/front-manages?type=post&limit=9`).then((res) => res.data).catch((err) => err);
   }
+
+  // post influencelikes
+  async influencelikes(uid, type, taggableId) {
+    return await axios.post(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
 }

@@ -15,6 +15,7 @@
       />
 
       <CardItem :isBanner="isBanner" :isFltData="isFltData" :isproductfilter="isproductfilter" />
+      
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -40,6 +41,7 @@ export default {
     }
   },
   methods: {
+    
     onClickChild(value) {
       console.log(value); // someValue
       this.isBanner = value;

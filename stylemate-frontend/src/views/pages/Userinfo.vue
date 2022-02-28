@@ -43,9 +43,9 @@
           </li>
           <li v-show="addr">
             <router-link to="/deliveryaddress">
-            <div>
-              {{addres}}
-            </div>
+              <div>
+                {{ addres }}
+              </div>
             </router-link>
           </li>
           <li v-show="enroll">
@@ -60,14 +60,22 @@
           </li>
           <li>
             <div>
-              <ion-checkbox color="primary" :checked="marketing"></ion-checkbox>
+              <ion-checkbox
+                color="primary"
+                :checked="marketing"
+                @click="market($event)"
+              ></ion-checkbox>
               <!-- <input type="checkbox" @change="hello" v-bind:value="marketing" v-model="marketing"/> -->
             </div>
             <div>마케팅 광고 활용 동의 (선택)</div>
           </li>
           <li>
             <div>
-              <ion-checkbox color="primary" :checked="compain"></ion-checkbox>
+              <ion-checkbox
+                color="primary"
+                :checked="compain"
+                @click="promotion($event)"
+              ></ion-checkbox>
             </div>
             <div>캠페인 제안 받기 (선택)</div>
           </li>
@@ -76,6 +84,7 @@
               <ion-checkbox
                 color="primary"
                 :checked="newsletter"
+                @click="news($event)"
               ></ion-checkbox>
             </div>
             <div>뉴스레터 구독 (선택)</div>
@@ -90,7 +99,11 @@
           <li>
             <div>협찬활동, 서비스 이용, 신규 협찬안내 등</div>
             <div>
-              <ion-toggle color="dark" :checked="pushNotification"></ion-toggle>
+              <ion-toggle
+                color="dark"
+                :checked="pushNotification"
+                @click="push($event)"
+              ></ion-toggle>
             </div>
           </li>
           <li>
@@ -147,27 +160,110 @@ export default {
       pushNotification: false,
       enroll: false,
       addr: false,
-      addres:''
+      addres: "",
     };
   },
+
   methods: {
+    market(e) {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          e.target.checked == false ? true : false,
+          this.compain,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreeMarketing updated");
+        });
+    },
+    news(e) {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          e.target.checked == false ? true : false,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreeNews updated");
+        });
+    },
+    promotion(e) {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          e.target.checked == false ? true : false,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreepromotions updated");
+        });
+    },
+    push(e) {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          this.newsletter,
+          e.target.checked == false ? true : false,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {
+          console.log("agreepushNotification updated");
+        });
+    },
+    updateInfo() {
+      this.userInfoService
+        .updatemyInfo(
+          this.userDetails.uid,
+          this.userDetails.id,
+          this.userDetails.name,
+          this.userDetails.tel,
+          this.userDetails.telAgency,
+          this.userDetails.isTelCertified,
+          this.marketing,
+          this.compain,
+          this.newsletter,
+          this.pushNotification,
+          this.userDetails.influence.agreeStylematePush
+        )
+        .then(() => {});
+    },
     openlink() {
       console.log("clivk");
     },
-    hello(){
-      console.log(this.marketing)
-    },
     enrollment() {
       this.$router.push({ name: "ShippingInfo" });
-
-      // if (condition) {
-
-      // } else{
-      //   this.userInfoService.getUserInfo().then((res) => {
-      //   console.log('userdetails', res);
-
-      // });
-      // }
+      
     },
   },
   created() {
@@ -182,14 +278,14 @@ export default {
       this.compain = res.data.influence.agreeCampaign;
       this.newsletter = res.data.influence.agreeNewsletter;
       this.pushNotification = res.data.influence.agreeStylematePush;
-      localStorage.setItem('userId',res.data.uid);
+      localStorage.setItem("userId", res.data.uid);
       self.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
         console.log(res);
-        
-        localStorage.setItem('del_list',JSON.stringify(res));
-        
+
+        localStorage.setItem("del_list", JSON.stringify(res));
+
         if (res.length >= 0) {
-          this.addres=`${res[0].address1} , ${res[0].address2}`
+          this.addres = `${res[0].address1} , ${res[0].address2}`;
           this.enroll = false;
           this.addr = true;
         } else {

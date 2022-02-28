@@ -64,7 +64,7 @@
         </template>
         <template v-slot:body>
           <div class="modal-content">
-            <div class="modalBody" style="max-height: 400px">
+            <div class="modalBody" style="max-height: 450px">
               <!-- <div class="overSearch">
                   <input type="text" placeholder="서울특별시 강남구 삼성로 95길 6">
                   <h3>Tip</h3>
@@ -149,7 +149,7 @@ export default {
     },
     //rec, loc, zip, adr1, adr2, def
     submitAddress(){
-      if(this.addressLocale==''){
+      if(this.address2==''){
         this.render=true;
       }else{
         this.userInfoService.addaddress(this.uid,this.name,this.recipient,this.addressLocale,this.addressZipcode,this.address1,this.address2,this.isDefault).then(() => {

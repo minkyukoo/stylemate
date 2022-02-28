@@ -77,10 +77,7 @@
     <div class="tab-content" v-if="layout === '#inquiry'">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
-        <button
-          class="black-btn"
-          @click="$router.push({ name: 'InquiryDetails' })"
-        >
+        <button class="black-btn" @click="sendInquiryDetails()">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
@@ -156,6 +153,16 @@ export default {
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+
+    sendInquiryDetails() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.$router.push({ name: "InquiryDetails" });
+      } else this.$router.push({ name: "LoginPage" });
     },
   },
 };

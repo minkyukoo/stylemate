@@ -37,7 +37,7 @@
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
               </div>
-              <div class="favorite" @click="likeProduct">
+              <div class="favorite" @click="likeProduct(product.id)">
                 <img src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -120,8 +120,11 @@
 
 <script>
 import { defineComponent, inject, onMounted } from "vue";
+import Toast from "@/alert/alert";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
+import TokenService from "@/services/TokenService";
+import UserInfoService from "@/services/UserInfoService";
 
 export default defineComponent({
   name: "CardItem",
@@ -167,6 +170,8 @@ export default defineComponent({
   },
   created() {
     this.itemService = new ItemService();
+    this.tokenService = new TokenService();
+    this.userInfoService = new UserInfoService();
   },
 
   mounted() {
@@ -175,7 +180,37 @@ export default defineComponent({
     });
   },
   methods: {
-    likeProduct() {
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService.influencelikes(uid,'product',productId).then((res) => {
+            console.log(res.response.data.error);
+            console.log(res);
+            if(res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
       console.log('likeProduct');
     }
   },

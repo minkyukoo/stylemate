@@ -39,7 +39,7 @@
           <ion-card-header>
           <ion-card-title>
             <h3 @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">{{ info.korName }}</h3>
-            <div class="text-box">
+            <div class="text-box" @click="likeBrand(info.id)">
               <img src="@/assets/icons/heart-outline.svg" />
             </div>
           </ion-card-title>
@@ -64,8 +64,10 @@ import {
   IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
+import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
@@ -88,6 +90,7 @@ export default {
   created() {
     this.brandService = new BrandService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
   },
   mounted() {
     // this.setUser();
@@ -157,6 +160,41 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
+
+     // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeBrand(brandId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          console.log('brand uid', uid);
+          this.brandService.influencelikes(uid,'brand',brandId).then((res) => {
+            console.log(res.response.data.error);
+            console.log(res);
+            if(res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
 };
 </script>
