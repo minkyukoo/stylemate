@@ -1,33 +1,17 @@
 <template>
   <div class="item-card">
     <div class="img-con">
-      <img
-        :src="`${require('../../../assets/images/' + progressDetails.img)}`"
-        alt=""
-      />
+      <img :src="progressDetails.imageThumbnailPath" alt="" />
       <!-- <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" /> -->
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.title }}</h2>
+        <h2>{{ progressDetails.engName }}</h2>
         <img src="../../../assets/icons/heart-filled.svg" alt="" />
       </div>
       <div>
         <!-- <h4>{{ progressDetails.desc }}</h4> -->
         <h6>{{ tag }}</h6>
-        <!-- <div
-          class="item-button"
-          v-if="progressDetails.status === 're-registration'"
-        >
-          <button>re-registration</button>
-        </div>
-        <div
-          class="item-button"
-          v-else-if="progressDetails.status === 'post-registration'"
-        >
-          <button>Register a post</button>
-        </div>
-        <div v-else></div> -->
       </div>
     </div>
   </div>
