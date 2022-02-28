@@ -17,10 +17,11 @@
           <li v-for="item in addressList" :key="item.id">
             <div>{{ item.address1 }} , {{ item.address2 }}</div>
             <div class="pointer">
+              <router-link :to="'/update-address/'+ item.id">
               <img
                 src="@/assets/icons/arrow-right.svg"
-                @click="showId(item.id)"
               />
+              </router-link>
             </div>
           </li>
           <!-- <li>

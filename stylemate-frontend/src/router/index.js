@@ -224,6 +224,14 @@ const routes = [
     }
   },
   {
+    path: "/update-address/:id",
+    name: "updateAddress",
+    component: () => import("@/views/pages/UpdateAddress.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
     path: "/shippingInfo",
     name: "ShippingInfo",
     component: () => import("@/views/pages/ShippingInfo.vue"),
@@ -345,7 +353,7 @@ const routes = [
     }
   },
   {
-    path: "/inquiryregisterdetails",
+    path: "/inquiryregisterdetails/:id",
     name: "InquiryRegisterDetails",
     component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
     meta: {

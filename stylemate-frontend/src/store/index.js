@@ -55,11 +55,13 @@ const methods = {
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
     state.sponcerFilterNo = 0;
+    state.sponcerFilterId = "";
     methods.getcampList();
   },
-  setContentsDetailsModal(tab, id) {
-    state.contentDetailsModal = tab;
+  setContentsDetailsModal(id,tab) {
     state.contentDetailsId = id;
+    state.contentDetailsModal = tab;
+    console.log(state.contentDetailsId);
   },
   async getcampList() {
     return await myPageService

@@ -13,24 +13,24 @@
             <div class="buttonGrp">
               <button
                 type="button"
-                @click="clickOption(`협찬문의`)"
-                :class="{ active: option === `협찬문의` }"
+                @click="clickOption(`stylemateCampaign`)"
+                :class="{ active: option === `stylemateCampaign` }"
                 class="inq-btn"
               >
                 협찬문의
               </button>
               <button
                 type="button"
-                @click="clickOption(`서비스 이용문의`)"
-                :class="{ active: option === `서비스 이용문의` }"
+                @click="clickOption(`stylemateService`)"
+                :class="{ active: option === `stylemateService` }"
                 class="inq-btn"
               >
                 서비스 이용문의
               </button>
               <button
                 type="button"
-                @click="clickOption(`기타문의`)"
-                :class="{ active: option === `기타문의` }"
+                @click="clickOption(`stylemateEtc`)"
+                :class="{ active: option === `stylemateEtc` }"
                 class="inq-btn"
               >
                 기타문의
@@ -78,14 +78,14 @@
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-import UserInfoService from "@/services/UserInfoService";
+import { API } from "@/services/AxiosInstance";
 
 export default {
   name: "InquiryDetails",
   components: { TopNav, IonContent, IonPage },
   data() {
     return {
-      option: "협찬문의",
+      option: "stylemateCampaign",
       subject: null,
       details: null,
       subjectError: false,
@@ -99,9 +99,6 @@ export default {
     details: function (vl) {
       vl === null ? (this.detailsError = true) : (this.detailsError = false);
     },
-  },
-  created() {
-    this.service = new UserInfoService();
   },
   methods: {
     clickOption(vl) {
@@ -125,11 +122,16 @@ export default {
         inquiry: this.details,
         isAnswerReceiving: true,
       };
-      this.service
-        .inquiryPost(formData)
+      API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
         .then((res) => {
-          console.log(res);
-        });
+          if (res.status === 201) {
+            this.$router.push({
+              name: "InquiryRegisterDetails",
+              params: { id: res.data.id },
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

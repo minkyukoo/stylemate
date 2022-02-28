@@ -1,8 +1,8 @@
 <template>
   <div class="item-card">
-    <div class="img-con" @click="() => store.state.isReRegisterModalVisible = true">
+    <div class="img-con">
       <img
-        :src="`${progressDetails.product.imageThumbnailPath}`"
+        :src="`${progressDetails.campaign.product.imageThumbnailPath}`"
         alt=""
       />
       <!-- <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
@@ -10,10 +10,17 @@
       }}</span> -->
     </div>
     <div class="item-desc">
-      <h2>{{ progressDetails.product.brand.korName }}</h2>
+      <h2>{{ progressDetails.campaign.product.brand.korName }}</h2>
       <div>
-        <h4>{{ progressDetails.product.name }}</h4>
-        <h6>End date {{ progressDetails.endDate }}</h6>
+        <h4>{{ progressDetails.campaign.product.name }}</h4>
+        <h6>
+          End date
+          {{
+            moment(progressDetails.campaign.campaignSchedule.finishedAt).format(
+              "YYYY.MM.DD  h:mm"
+            )
+          }}
+        </h6>
         <!-- <div
           class="item-button"
           v-if="progressDetails.status === 're-registration'"
@@ -34,6 +41,7 @@
 
 <script>
 import { inject } from "vue";
+import moment from "moment";
 export default {
   name: "ItemCard",
   props: {
@@ -53,6 +61,9 @@ export default {
         return "rgba(121, 121, 121, 0.75)";
       }
     },
+  },
+  created() {
+    this.moment = moment;
   },
   setup() {
     const store = inject("store");

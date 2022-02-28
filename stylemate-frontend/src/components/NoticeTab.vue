@@ -88,18 +88,29 @@
         v-for="inquiry in inquirylist"
         :key="inquiry.id"
         class="notice-row"
-        @click="$router.push({ name: 'InquiryRegisterDetails' })"
+        @click="
+          $router.push({
+            name: 'InquiryRegisterDetails',
+            params: { id: inquiry.id },
+          })
+        "
       >
         <div class="tag-row">
-          <span class="notice-tag grey-solid">{{ inquiry.answerStatus }}</span>
-          <!-- <span class="notice-tag dark-outline">답변완료</span> -->
+          <span
+            class="notice-tag text-capitalize"
+            :class="{
+              'grey-solid': inquiry.answerStatus !== 'ready',
+              'dark-outline': inquiry.answerStatus === 'ready',
+            }"
+            >{{ inquiry.answerStatus }}</span
+          >
         </div>
         <div class="text-desc">
           <p>{{ inquiry.inquiry }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{ inquiry.type }}</span
-          ><span>{{ dateFormat(inquiry.date) }}</span>
+          <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
+          ><span>{{ dateFormat(inquiry.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -150,6 +161,23 @@ export default {
     });
   },
   methods: {
+    camelToSpace(str) {
+      switch (str) {
+        case "stylemateCampaign":
+          return "협찬문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "stylemateService":
+          return "서비스 이용문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        default:
+          return "기타문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+      }
+    },
+
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
@@ -169,6 +197,9 @@ export default {
 </script>
 
 <style scoped>
+.text-capitalize {
+  text-transform: capitalize;
+}
 p.no-notice-data {
   text-align: center;
   padding-top: 50px;

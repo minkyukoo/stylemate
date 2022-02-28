@@ -71,7 +71,7 @@ export default class UserInfoService {
         agreeCampaign: cmpgn,
         agreeNewsletter: newsl,
         isInformationPoint: info,
-        agreeStylematePush: push
+        agreeStylematePush: push,
       }, {
         headers: {
           Authorization: 'Bearer ' + token,
@@ -103,14 +103,12 @@ export default class UserInfoService {
   async userDetails() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
   }
-  async inquiryPost(data) {
-    return await axios.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      }, {
-        data
-      })
-      .then((res) => res)
+
+  async QNAsById(id) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 }

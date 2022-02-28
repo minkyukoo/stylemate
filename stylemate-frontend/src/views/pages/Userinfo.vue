@@ -174,11 +174,11 @@ export default {
           this.userDetails.tel,
           this.userDetails.telAgency,
           this.userDetails.isTelCertified,
-          e.target.checked == false ? true : false,
+          e.target.checked == false ? 'true' : 'false',
           this.compain,
           this.newsletter,
+          this.userDetails.influence.isInformationPoint,
           this.pushNotification,
-          this.userDetails.influence.agreeStylematePush
         )
         .then(() => {
           console.log("agreeMarketing updated");
@@ -195,9 +195,9 @@ export default {
           this.userDetails.isTelCertified,
           this.marketing,
           this.compain,
-          e.target.checked == false ? true : false,
+          e.target.checked == false ? 'true' : 'false',
+          this.userDetails.influence.isInformationPoint,
           this.pushNotification,
-          this.userDetails.influence.agreeStylematePush
         )
         .then(() => {
           console.log("agreeNews updated");
@@ -213,10 +213,10 @@ export default {
           this.userDetails.telAgency,
           this.userDetails.isTelCertified,
           this.marketing,
-          e.target.checked == false ? true : false,
+          e.target.checked == false ? 'true' : 'false',
           this.newsletter,
+          this.userDetails.influence.isInformationPoint,
           this.pushNotification,
-          this.userDetails.influence.agreeStylematePush
         )
         .then(() => {
           console.log("agreepromotions updated");
@@ -234,30 +234,30 @@ export default {
           this.marketing,
           this.compain,
           this.newsletter,
-          e.target.checked == false ? true : false,
-          this.userDetails.influence.agreeStylematePush
+          this.userDetails.influence.isInformationPoint,
+          e.target.checked == false ? 'true' : 'false'
         )
         .then(() => {
           console.log("agreepushNotification updated");
         });
     },
-    updateInfo() {
-      this.userInfoService
-        .updatemyInfo(
-          this.userDetails.uid,
-          this.userDetails.id,
-          this.userDetails.name,
-          this.userDetails.tel,
-          this.userDetails.telAgency,
-          this.userDetails.isTelCertified,
-          this.marketing,
-          this.compain,
-          this.newsletter,
-          this.pushNotification,
-          this.userDetails.influence.agreeStylematePush
-        )
-        .then(() => {});
-    },
+    // updateInfo() {
+    //   this.userInfoService
+    //     .updatemyInfo(
+    //       this.userDetails.uid,
+    //       this.userDetails.id,
+    //       this.userDetails.name,
+    //       this.userDetails.tel,
+    //       this.userDetails.telAgency,
+    //       this.userDetails.isTelCertified,
+    //       this.marketing,
+    //       this.compain,
+    //       this.newsletter,
+    //       this.pushNotification,
+    //       this.userDetails.influence.agreeStylematePush
+    //     )
+    //     .then(() => {});
+    // },
     openlink() {
       console.log("clivk");
     },

@@ -15,7 +15,7 @@
               : image.post.instagramPost.thumbnailOriginalUrl,
           ]"
           v-bind:alt="img"
-          @click="store.methods.setContentsDetailsModal(true, image.post.id)"
+          @click="store.methods.setContentsDetailsModal(image.post.id,true)"
         />
       </div>
     </div>
@@ -35,7 +35,7 @@
             ]"
             v-bind:alt="img"
             @click="
-              store.methods.setContentsDetailsModal(true, image.campaign.id)
+              store.methods.setContentsDetailsModal(image.campaign.id,true)
             "
           />
         </div>
