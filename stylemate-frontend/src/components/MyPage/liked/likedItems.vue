@@ -2,11 +2,7 @@
   <div class="liked-wrap">
     <div v-if="proLen || braLen">
       <div v-if="store.state.likedTabState === 'item'">
-        <LikedItem
-          v-for="(item, index) in product"
-          :progressDetails="item"
-          :key="index"
-        />
+        <LikedItem v-for="(item, index) in product" :progressDetails="item" :key="index"  v-on:productDislike="dislike($event)" />
       </div>
       <div v-if="store.state.likedTabState === 'brand'">
         <BrandItems
@@ -30,7 +26,7 @@ import BrandItems from "./BrandItems.vue";
 import Error from "../../Error.vue";
 import UserInfoService from "@/services/UserInfoService";
 export default {
-  name: "likedItems",
+  name: 'likedItems',
   components: { LikedItem, BrandItems, Error },
 
   setup() {
@@ -75,6 +71,9 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
+    dislike(event){
+      console.log('event', event);
+    }
   },
 };
 </script>
