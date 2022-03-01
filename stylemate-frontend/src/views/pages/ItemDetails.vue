@@ -6,39 +6,6 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
-        <!-- <ion-slides pager="true" :options="slideOpts">
-          <ion-slide v-for="(item, index) in productDetails.productImageFile" :key="index">
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <img :src="item.productImagePath" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-        </ion-slides>-->
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -194,7 +161,7 @@ import TokenService from "@/services/TokenService";
 import moment from 'moment';
 
 export default {
-  name: "BrandDetails",
+  name: "ItemDetails",
   components: {
     IonPage,
     // IonSlides,
@@ -437,14 +404,14 @@ export default {
   position: relative;
   z-index: 1;
   top: 350px;
-  /* background-image: linear-gradient(
+  background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
     rgba(255, 255, 255, 0.1) 80.41%
-  ); */
-  background: #ffffff;
+  );
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px); */
+  backdrop-filter: blur(30px);
 }
 
 .top-section {
