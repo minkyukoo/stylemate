@@ -93,6 +93,7 @@ img:hover {
 }
 .newBrandSwiper > .swiper-pagination {
   bottom: -40px;
+  // width: 50px !important;
   .swiper-pagination-bullet {
     opacity: 1;
     background-color: $grey-3;
@@ -113,6 +114,7 @@ img:hover {
   .swiper-pagination-bullets-dynamic
     .swiper-pagination-bullet-active-prev-prev {
     // opacity: 0 !important;
+    // transition: 0.3s;
     // display: none !important;
   }
 }

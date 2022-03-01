@@ -144,9 +144,10 @@
             :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
+            :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :pagination="{ clickable: true }"
+            :pagination="{ clickable: true, dynamicBullets: true, dynamicMainBullets: 1 }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
