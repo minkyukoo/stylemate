@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="button-row">
-                <button @click="resetForm()" class="grey-btn">취소</button>
+                <button @click="resetForm()" type="button" class="grey-btn">취소</button>
                 <button type="submit" class="black-btn">문의 등록</button>
               </div>
             </div>
