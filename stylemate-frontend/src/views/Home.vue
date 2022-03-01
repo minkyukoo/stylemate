@@ -48,8 +48,10 @@
                     <div class="social-icon">
                       <img src="@/assets/icons/instagram.svg" />
                     </div>
-                    <div class="favorite">
-                      <img src="@/assets/icons/heart-outline.svg" />
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
                   <figure
@@ -84,8 +86,10 @@
                     <div class="social-icon">
                       <img src="@/assets/icons/instagram.svg" />
                     </div>
-                    <div class="favorite">
-                      <img src="@/assets/icons/heart-outline.svg" />
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
                   <figure @click="$router.push({ name: 'ItemDetails' })">
@@ -113,8 +117,10 @@
                     <div class="social-icon">
                       <img src="@/assets/icons/instagram.svg" />
                     </div>
-                    <div class="favorite">
-                      <img src="@/assets/icons/heart-outline.svg" />
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
                   <figure @click="$router.push({ name: 'ItemDetails' })">
@@ -132,9 +138,11 @@
             </swiper-slide>
           </swiper>
         </div>
-
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container newBrandSec" :style="{ 'background-image': 'url(' + image + ')' }">
+        <div
+          class="brandSlider swiper-container newBrandSec"
+          :style="{ 'background-image': 'url(' + image + ')' }"
+        >
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -180,92 +188,87 @@
             </swiper-slide>
           </swiper>
         </div>
-
+        <!-- lookbook -->
         <div class="fixed-container lookbook">
-        
-        <div class="headerLine">
-          <h4>LOOKBOOK</h4>
-          <span @click="$router.push({ name: 'Contents' })">
-            <img src="@/assets/icons/arrow-right.svg" />
-          </span>
-        </div>
-
-        <div class="lookBookMain">
-          <div class="bookLabel1 pattern1">
-            <img
-              v-for="book in lookBooks.lineOne.big"
-              :key="book.id"
-              :src="book.post.product.imageThumbnailPath"
-              @click="store.methods.setContentsDetailsModal(book.post.id,true)"
-            />
+          <div class="headerLine">
+            <h4>LOOKBOOK</h4>
+            <span @click="$router.push({ name: 'Contents' })">
+              <img src="@/assets/icons/arrow-right.svg" />
+            </span>
           </div>
-          <div class="bookLabel1 pattern2">
-            <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+
+          <div class="lookBookMain">
+            <div class="bookLabel1 pattern1">
               <img
+                v-for="book in lookBooks.lineOne.big"
+                :key="book.id"
                 :src="book.post.product.imageThumbnailPath"
-                @click="store.methods.setContentsDetailsModal(book.post.id,true)"
+                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+              />
+            </div>
+            <div class="bookLabel1 pattern2">
+              <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="lookBookMain">
+            <div class="bookLabel2 pattern3">
+              <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+            <div class="bookLabel1 pattern2">
+              <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
+            </div>
+            <div class="bookLabel1 pattern1">
+              <img
+                v-for="book in lookBooks.lineThree.big"
+                :key="book.id"
+                :src="book.post.product.imageThumbnailPath"
+                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
               />
             </div>
           </div>
-        </div>
 
-        <div class="lookBookMain">
-          <div class="bookLabel2 pattern3">
-            <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
-              <img
-                :src="book.post.product.imageThumbnailPath"
-                @click="store.methods.setContentsDetailsModal(book.post.id,true)"
-              />
+          <div class="gotoFamily">
+            <div class="gotofamilyList" :class="{ active: isActive }">
+              <ul>
+                <li>
+                  <a href="https://app.mediance.co.kr/">
+                    <img src="@/assets/images/logo-1.png" />
+                  </a>
+                </li>
+                <li>
+                  <a href="http://influencer.mediance.co.kr/">
+                    <img src="@/assets/images/logo-2.png" />
+                  </a>
+                </li>
+              </ul>
             </div>
+            <button @click="myFilter">패밀리 사이트 바로가기</button>
           </div>
-        </div>
-        
 
-        <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
-          <div class="bookLabel1 pattern2">
-            <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
-              <img
-                :src="book.post.product.imageThumbnailPath"
-                @click="store.methods.setContentsDetailsModal(book.post.id,true)"
-              />
-            </div>
-          </div>
-          <div class="bookLabel1 pattern1">
-            <img
-              v-for="book in lookBooks.lineThree.big"
-              :key="book.id"
-              :src="book.post.product.imageThumbnailPath"
-              @click="store.methods.setContentsDetailsModal(book.post.id,true)"
-            />
-          </div>
-        </div>
-        
-
-        
-
-        <div class="gotoFamily">
-          <div class="gotofamilyList" :class="{ active: isActive }">
-            <ul>
-              <li>
-                <a href="https://app.mediance.co.kr/">
-                  <img src="@/assets/images/logo-1.png" />
-                </a>
-              </li>
-              <li>
-                <a href="http://influencer.mediance.co.kr/">
-                  <img src="@/assets/images/logo-2.png" />
-                </a>
-              </li>
-            </ul>
-          </div>
-          <button @click="myFilter">패밀리 사이트 바로가기</button>
-        </div>
-
-        <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-        <button class="greyBtnFull" @click="getNotice">
-          <span>중요</span>
-          {{ notice }}
-        </button>
+          <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
+          <button class="greyBtnFull" @click="getNotice">
+            <span>중요</span>
+            {{ notice }}
+          </button>
         </div>
       </div>
     </div>
@@ -285,12 +288,14 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 // import { IonPage } from "@ionic/vue";
+import Toast from "@/alert/alert";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
 import ContentDetails from "@/components/ContentDetails.vue";
+import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
 import { inject } from "vue";
 export default {
@@ -311,7 +316,7 @@ export default {
       console.log("slide change");
     };
     const onBrandSlideChange = () => {
-       console.log("slide change");
+      console.log("slide change");
     };
     return {
       onSwiper,
@@ -347,6 +352,7 @@ export default {
     this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
@@ -425,7 +431,7 @@ export default {
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
-        console.log("lookbook",res);
+        console.log("lookbook", res);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
@@ -464,6 +470,40 @@ export default {
     myFilter: function () {
       this.isActive = !this.isActive;
       // some code to filter users
+    },
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            this.getProductItemList();
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
     },
 
     // for pushnotification
@@ -507,6 +547,10 @@ export default {
 .top-float-div .favorite {
   margin-right: 12px;
   cursor: pointer;
+}
+.top-float-div .favorite img {
+  width: 20px;
+  height: 20px;
 }
 .product-list .product-list-item figure {
   margin-bottom: 12px;
@@ -740,11 +784,12 @@ export default {
   bottom: -100px !important;
 }
 
-.lookbook .headerLine, .lookbook .lookBookMain{
+.lookbook .headerLine,
+.lookbook .lookBookMain {
   padding-left: 0;
   padding-right: 0;
 }
-.newBrandSec{
+.newBrandSec {
   padding-left: 0;
   padding-right: 0;
   margin: 0;
@@ -753,7 +798,7 @@ export default {
   background-position: center;
   background-size: cover;
 }
-.newBrandSec::after{
+.newBrandSec::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -764,11 +809,11 @@ export default {
   backdrop-filter: blur(10px);
   z-index: 1;
 }
-.newBrandSec .headerLine{
+.newBrandSec .headerLine {
   position: relative;
   z-index: 2;
 }
-.newBrandSec .swiper{
+.newBrandSec .swiper {
   z-index: 2;
 }
 </style>

@@ -6,7 +6,15 @@ export default class ItemService {
   }
 
   async getProductList() {
-    return await axios.get(`/stylemates/products`).then((res) => res.data.data);
+    if(!token) {
+      return await axios.get(`/stylemates/products`).then((res) => res.data.data);
+    } else {
+      return await axios.get(`/stylemates/products`, {
+        headers: {
+          Authorization: 'Bearer ' + token //the token is a variable which holds the token
+        }
+      }).then((res) => res.data.data);
+    }
   }
 
   async getFilterProduct(ids) {
