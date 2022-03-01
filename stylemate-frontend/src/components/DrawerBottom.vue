@@ -16,7 +16,7 @@
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancel">취소</button>
-      <button class="black-btn" @click="apply" :disabled='dis'>신청하기</button>
+      <button class="black-btn" @click="apply" :disabled='disable'>신청하기</button>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ export default defineComponent({
     return {
       productColor: "",
       selected: "",
-      dis: true,
+      disable: true,
     };
   },
   setup() {
@@ -60,7 +60,9 @@ export default defineComponent({
     control() {
       console.log("clicked");
       if (this.selected != "") {
-        this.dis = false;
+        this.disable = false;
+      }else{
+         this.disable = true; 
       }
     },
     cancel() {
