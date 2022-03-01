@@ -16,10 +16,12 @@ export default {
         {
           name: "회원정보",
           Pagelink: "Userinfo",
+          hash: "",
         },
         {
           name: "채널연결",
           Pagelink: "NewMemberChannel",
+          hash: "",
         },
       ],
     };
