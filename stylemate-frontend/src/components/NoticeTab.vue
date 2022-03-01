@@ -3,21 +3,21 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="layout = '#notice'"
+        @click="(layout = '#notice'), stateUp('NOTICE')"
         :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="layout = '#faq'"
+        @click="(layout = '#faq'), stateUp('FAQ')"
         :class="{ active: layout === '#faq' }"
       >
         FAQ
       </a>
       <a
         class="tab"
-        @click="layout = '#inquiry'"
+        @click="(layout = '#inquiry'), stateUp('INQUIRY')"
         :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
@@ -127,6 +127,8 @@
 import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { inject, onMounted } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "NoticeTab",
   components: {
@@ -140,6 +142,22 @@ export default {
       noticelist: [],
       inquirylist: [],
       inquiryLength: 0,
+    };
+  },
+  setup() {
+    const store = inject("store");
+    const route = useRoute();
+
+    const stateUp = (item) => {
+      store.state.noticeTabPageName = capitalize(item);
+    };
+
+    const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+    onMounted(() => {
+      stateUp(route.hash.replace("#", ""));
+    });
+    return {
+      stateUp,
     };
   },
   created() {

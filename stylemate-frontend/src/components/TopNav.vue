@@ -39,6 +39,7 @@
 import { IonButtons, IonHeader, IonToolbar } from "@ionic/vue";
 import NotificationIcon from "./utilities/NotificationIcon.vue";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "TopNav",
   // components: { IonHeader, IonToolbar, IonTitle, NotificationIcon, IonButtons, IonIcon },
@@ -56,17 +57,20 @@ export default {
   },
   created() {
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
   },
   mounted() {
     this.getNotificationLength();
   },
   methods: {
-    getNotificationLength() {
-      if (
-        localStorage.getItem("token") &&
-        localStorage.getItem("token") !== undefined &&
-        localStorage.getItem("token") !== ""
-      ) {
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+
+    async getNotificationLength() {
+      let isLogedIn = await this.isLogedIn();
+      if (isLogedIn) {
         this.userInfoService.getUserInfo().then((userInfo) => {
           this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
             this.notificationLength = notice.data.data.length;
