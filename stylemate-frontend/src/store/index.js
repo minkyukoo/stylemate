@@ -1,4 +1,6 @@
-import { reactive } from "vue";
+import {
+  reactive
+} from "vue";
 // import axios from "axios";
 import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
@@ -11,6 +13,7 @@ const state = reactive({
   number: 13,
   UserId: "",
   status: "NotEmpty",
+  noticeTabPageName: "Notice",
   likedTabState: "item",
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
@@ -58,7 +61,7 @@ const methods = {
     state.sponcerFilterId = "";
     methods.getcampList();
   },
-  setContentsDetailsModal(id,tab) {
+  setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
     state.contentDetailsModal = tab;
     console.log(state.contentDetailsId);

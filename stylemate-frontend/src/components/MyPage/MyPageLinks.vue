@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import { useRouter } from "vue-router";
+
 export default {
   name: "MyPageLinks",
   props: {
@@ -21,11 +24,21 @@ export default {
       default: () => [],
     },
   },
-  methods: {
-    reDirectPage(item) {
-      console.log(item);
-      this.$router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
-    },
+  setup() {
+    const store = inject("store");
+    const router = useRouter();
+
+    const reDirectPage = (item) => {
+      store.state.noticeTabPageName = capitalize(item.hash);
+      router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
+    };
+
+    const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+
+    return {
+      store,
+      reDirectPage,
+    };
   },
 };
 </script>

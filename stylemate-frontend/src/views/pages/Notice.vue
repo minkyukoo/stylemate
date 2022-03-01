@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav :headerTitle="store.state.noticeTabPageName"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -16,7 +16,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import NoticeTab from "@/components/NoticeTab.vue";
-
+import { inject } from "vue";
 export default {
   name: "Notice",
   components: { TopNav, IonContent, IonPage, NoticeTab },
@@ -28,6 +28,12 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
   methods: {
     openlink() {
       console.log("clivk");
