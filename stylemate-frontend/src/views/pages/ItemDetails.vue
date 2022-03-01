@@ -6,39 +6,6 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
-        <!-- <ion-slides pager="true" :options="slideOpts">
-          <ion-slide v-for="(item, index) in productDetails.productImageFile" :key="index">
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <img :src="item.productImagePath" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-        </ion-slides>-->
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -77,7 +44,7 @@
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div> -->
+            </div>-->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
@@ -194,7 +161,7 @@ import TokenService from "@/services/TokenService";
 import moment from 'moment';
 
 export default {
-  name: "BrandDetails",
+  name: "ItemDetails",
   components: {
     IonPage,
     // IonSlides,
@@ -249,34 +216,7 @@ export default {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
-
-    console.log('localStorage.token', localStorage.token);
-
-    var proId = this.$route.params.id;
-    this.itemService.getProductDetails(proId).then((res) => {
-      // catch error
-      if (res.response) {
-        if (res.response.status == 404) {
-          // alert(res.response.data.error.message);
-          this.$router.push('/item');
-        }
-      }
-      // success
-      else {
-        // console.log('producrt res', res);
-        this.productDetails = res;
-        // console.log('productDetails campaign:', this.productDetails);
-        this.productDetails.campaign.map((item) => {
-          this.productCampaign = item
-          // console.log("this.productCampaign",this.productCampaign);
-        });
-
-        //Cancellation of sponsorship application
-
-
-
-      }
-    });
+    this.getProductDetails();
   },
   methods: {
     showModal() {
@@ -288,7 +228,25 @@ export default {
     hideSponserButton() {
       this.isActive = !this.isActive;
     },
-
+    getProductDetails() {
+      var proId = this.$route.params.id;
+      this.itemService.getProductDetails(proId).then((res) => {
+        // catch error
+        if (res.response) {
+          if (res.response.status == 404) {
+            this.$router.push('/item');
+          }
+        }
+        // success
+        else {
+          this.productDetails = res;
+          console.log('productDetails:', this.productDetails);
+          this.productDetails.campaign.map((item) => {
+            this.productCampaign = item
+          });
+        }
+      });
+    },
     // isAuthorized
     async isLogedIn() {
       return await this.tokenService.isAuth();
@@ -350,11 +308,11 @@ export default {
         return false;
       }
       // condition 3 Sponsership check
-      let processDetailStatus = this.productCampaign.processDetailStatus;
-      if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
-        Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
-        return false;
-      }
+      // let processDetailStatus = this.productCampaign.processDetailStatus;
+      // if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
+      //   Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
+      //   return false;
+      // }
       this.hideSponserButton();
     },
     async likeProduct(productId) {
@@ -366,10 +324,11 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService .influencelikes(uid,'product',productId).then((res) => {
+          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
             // console.log(res.response.data.error);
             // console.log(res.response);
-            if(res.response.data.error) {
+            this.getProductDetails();
+            if (res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }
           });
@@ -436,14 +395,14 @@ export default {
   position: relative;
   z-index: 1;
   top: 350px;
-  /* background-image: linear-gradient(
+  background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
     rgba(255, 255, 255, 0.1) 80.41%
-  ); */
-  background: #ffffff;
+  );
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px); */
+  backdrop-filter: blur(30px);
 }
 
 .top-section {

@@ -5,14 +5,19 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <div class="main-wrap">
-        <div class="product-main-banner">
+      <div class="product-main-banner">
           <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
         </div>
+      <div class="main-wrap">
+        
         <div class="item-wrapper">
           <div class="itemMain">
             <div class="itemHeader">
-              <h2>{{ brandDetails.korName }}</h2>
+              <h2>{{ brandDetails.korName }}<span>
+                <img src="@/assets/icons/arrow-left.svg" />
+              </span>
+              </h2>
+              
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
               <div @click="likeBrand(brandDetails.id)">
                 <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
@@ -32,12 +37,12 @@
                   class="tab"
                   @click="layout = 'tab1'"
                   :class="{ active: layout === 'tab1' }"
-                >캠페인</button>
+                >브랜드 소개</button>
                 <button
                   class="tab"
                   @click="layout = 'tab2'"
                   :class="{ active: layout === 'tab2' }"
-                >가이드</button>
+                >아이템 보기</button>
               </div>
 
               <!-- tab content 1 -->
@@ -154,13 +159,17 @@ export default {
 };
 </script>
 <style scoped>
-.main-wrap {
+/* .main-wrap {
   height: 100vh;
   overflow: hidden;
   overflow-y: hidden;
   overflow-y: auto;
-  /* background-color: #ffffff; */
+  /* background-color: #ffffff;
   padding-bottom: 60px;
+} */
+.itemMain .itemHeader h2{
+  display: flex;
+  align-items: center;
 }
 .hastags {
   display: flex;
@@ -229,12 +238,9 @@ img {
   position: relative;
   z-index: 1;
   top: 270px;
-  /* background-image: linear-gradient(
-    148.66deg,
-    rgba(241, 241, 241, 0.5) 18.92%,
-    rgba(255, 255, 255, 0.1) 80.41%
-  ); */
-  background: #ffffff;
+  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
+  backdrop-filter: blur(30px);
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
   /* backdrop-filter: blur(30px); */
 }
@@ -311,6 +317,7 @@ img {
   justify-content: center;
   padding: 20px;
   width: 50%;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;

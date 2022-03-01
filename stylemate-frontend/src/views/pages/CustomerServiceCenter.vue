@@ -75,6 +75,7 @@ export default {
   color: #797979;
   padding: 13px 0 9px;
   cursor: pointer;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #090909;

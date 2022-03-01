@@ -40,12 +40,27 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
+    <StickyBtn/>
   </div>
   <!-- </ion-page> -->
 </template>
 
 <script>
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonRouterOutlet } from "@ionic/vue";
+
+import StickyBtn from '@/components/StickyBtn.vue';
+import {
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  IonLabel,
+  // IonIcon,
+  // IonPage,
+  IonRouterOutlet,
+} from "@ionic/vue";
+// import { ellipse, square, triangle, heart } from "ionicons/icons";
+// import TopNav from '@/components/TopNav.vue';
+// import { inject, onMounted } from "vue";
+// import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonRouterOutlet } from "@ionic/vue";
 export default {
   name: "TabPage",
   components: {
@@ -56,6 +71,7 @@ export default {
     // IonIcon,
     // IonPage,
     IonRouterOutlet,
+    StickyBtn
   },
   data() {
     return {
@@ -67,6 +83,14 @@ export default {
 </script>
 
 <style scoped>
+ion-tabs{
+  background: #fff;
+}
+ion-icon {
+  color: blue;
+  --ionicon-stroke-width: 16px;
+}
+
 .main-container {
   max-width: 500px;
   min-width: 360px;
@@ -76,6 +100,7 @@ export default {
 }
 ion-tab-bar {
   height: 70px;
+  margin: 0 10px 10px;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(10px);
   border-radius: 10px;

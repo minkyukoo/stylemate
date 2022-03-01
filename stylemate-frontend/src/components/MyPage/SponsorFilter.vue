@@ -87,6 +87,7 @@ export default {
 
   created() {
     this.myPageService = new MyPageService();
+    this.store.state.sponcerFilterNo = 0;
   },
   data() {
     return {

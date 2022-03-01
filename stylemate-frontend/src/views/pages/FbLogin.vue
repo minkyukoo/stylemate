@@ -1,32 +1,84 @@
 <template>
   <div>
-    <button class="button" @click="logInWithFacebook"> Login with Facebook</button>
+    <button class="button" @click="logInWithFacebook">Login with Facebook</button>
+    <div id="status">hi {{ loginstatus }}</div>
+    <div id="status2">User details: {{ userDetails }}</div>
   </div>
 </template>
 <script>
 export default {
-  name:"facebookLogin",
+  name: "facebookLogin",
+  data() {
+    return {
+      loginstatus: false,
+      userDetails:null
+    };
+  },
+  async created() {
+    await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+    await this.initFacebook();
+  },
+  updated() {
+    // this.logInWithFacebook();
+    // this.checkLoginState();
+  },
   methods: {
+    testData() {
+      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log("Welcome!  Fetching your information.... ");
+      window.FB.api("/me", (response) => {
+        console.log('Successful login for: ', response);
+        this.userDetails = response;
+        console.log("Successful login for: " + response.name);
+        document.getElementById("status").innerHTML =
+          "Thanks for logging in, " + response.name + "!";
+      });
+    },
+
+    statusChangeCallback(response) {
+      // Called with the results from FB.getLoginStatus().
+      console.log("statusChangeCallback");
+      console.log(response); // The current login status of the person.
+      if (response.status === "connected") {
+        // Logged into your webpage and Facebook.
+        this.testData();
+      } else {
+        // Not logged into your webpage or we are unable to tell.
+        document.getElementById("status").innerHTML =
+          "Please log " + "into this webpage.";
+      }
+    },
+
+    checkLoginState() {
+      // Called when a person is finished with the Login Button.
+      window.FB.getLoginStatus((response) => {
+        // See the onlogin handler
+        this.statusChangeCallback(response);
+      });
+    },
+
     async logInWithFacebook() {
-      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-      await this.initFacebook();
-      window.FB.login(function(response) {
+      window.FB.login((response) => {
         if (response.authResponse) {
-          alert("You are logged in &amp; cookie set!");
+          // alert("You are logged in &amp; cookie set!");
+          this.loginstatus = true;
+          this.checkLoginState();
+          return true;
           // Now you can redirect the user or do an AJAX request to
           // a PHP script that grabs the signed request from the cookie.
         } else {
-          alert("User cancelled login or did not fully authorize.");
+          // alert("User cancelled login or did not fully authorize.");
+          return false;
         }
-      });
+      },{scope: 'public_profile,instagram_basic,pages_show_list'});
       return false;
     },
     async initFacebook() {
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = () => {
         window.FB.init({
-          appId: "367100995242523", //You will need to change this
+          appId: "662067494654261", //You will need to change this
           cookie: true, // This is important, it's not enabled by default
-          version: "v13.0"
+          version: "v13.0",
         });
       };
     },
@@ -40,18 +92,21 @@ export default {
       js.id = id;
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
-    }
-  }
+    },
+  },
 };
 </script>
-<style>
-.button{
-  color:white;
+<style scoped>
+.button {
+  color: white;
   min-width: 150px;
-  background-color: #000000a1;
+  background-color: #3f62d6;
   height: 2.5rem;
   border-radius: 2rem;
   font-weight: 400;
   font-size: 0.8rem;
+}
+div {
+  color: black;
 }
 </style>

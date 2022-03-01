@@ -33,6 +33,7 @@
             :key="index"
             class="product-list-item"
           >
+          <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
@@ -208,6 +209,7 @@ export default defineComponent({
           this.itemService .influencelikes(uid,'product',productId).then((res) => {
             // console.log(res.response.data.error);
             // console.log(res.response);
+            this.store.methods.getData();
             if(res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }
@@ -256,14 +258,10 @@ export default defineComponent({
   border-top-right-radius: 20px;
   position: relative;
   top: 180px;
-  /* background-image: linear-gradient(
-    148.66deg,
-    rgba(241, 241, 241, 0.5) 18.92%,
-    rgba(255, 255, 255, 0.1) 80.41%
-  ); */
-  background: #ffffff;
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px);  */
+  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
+  backdrop-filter: blur(30px);
 }
 .item-wrapper.withoutbanner {
   top: 90px;
