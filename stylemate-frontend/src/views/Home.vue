@@ -153,6 +153,7 @@
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
+            :loop="true"
             :space-between="12"
             :pagination="{ clickable: true }"
             @slideChange="onBrandSlideChange"
