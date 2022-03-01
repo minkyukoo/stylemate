@@ -105,7 +105,7 @@ export default {
 
 <style scoped>
 .contWrap {
-  padding: 20px;
+  padding: 20px 20px 150px;
 }
 .contWrap ul li {
   display: flex;

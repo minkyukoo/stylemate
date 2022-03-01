@@ -227,7 +227,7 @@ export default {
   color: #00c3ff;
 }
 .contWrap {
-  padding: 20px;
+  padding: 20px 20px 150px;
 }
 .codeWrap {
   position: relative;

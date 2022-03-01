@@ -69,7 +69,7 @@
           </ul>
         </div>
         <div class="button-group">
-            <button class="black-btn">신청하기</button>
+            <button class="black-btn">확인</button>
         </div>
     </ion-content>
     <!-- End page content -->

@@ -59,7 +59,7 @@
             </div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="marketing"
@@ -70,7 +70,7 @@
             <div>마케팅 광고 활용 동의 (선택)</div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="compain"
@@ -80,7 +80,7 @@
             <div>캠페인 제안 받기 (선택)</div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="newsletter"
@@ -299,7 +299,7 @@ export default {
 
 <style scoped>
 .contWrap {
-  padding: 20px;
+  padding: 20px 20px 150px;
 }
 .contWrap ul li {
   display: flex;
@@ -338,5 +338,8 @@ export default {
 }
 .thirdList li ion-checkbox {
   margin-right: 10px;
+}
+.checkBox{
+  display: flex;
 }
 </style>
