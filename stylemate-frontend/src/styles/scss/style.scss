@@ -521,3 +521,9 @@ img:hover {
     }
   }
 }
+
+.form-control{
+  &:focus-visible{
+    outline: none;
+  }
+}

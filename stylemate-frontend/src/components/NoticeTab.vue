@@ -25,6 +25,7 @@
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === '#notice'">
+      <div class="noticeWrap">
       <div
         v-for="notice in noticelist"
         :key="notice"
@@ -55,6 +56,7 @@
           <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- tab content 2 -->
@@ -75,6 +77,7 @@
 
     <!-- tab content 3 -->
     <div class="tab-content" v-if="layout === '#inquiry'">
+      <div class="noticeWrap">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
@@ -112,6 +115,7 @@
           <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
           ><span>{{ dateFormat(inquiry.createdAt) }}</span>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -358,5 +362,8 @@ p.no-notice-data {
   line-height: 20px;
   color: #25282b;
   margin-bottom: 12px;
+}
+.noticeWrap{
+  padding-bottom: 100px;
 }
 </style>
