@@ -47,6 +47,7 @@ export default {
   justify-content: space-between;
   padding: 15px 0px;
   border-bottom: 1px solid #f7f7f7;
+  cursor: pointer;
 }
 .link-box h3 {
   font-size: 14px;

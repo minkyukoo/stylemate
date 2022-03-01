@@ -77,20 +77,22 @@
 
     <!-- tab content 3 -->
     <div class="tab-content" v-if="layout === '#inquiry'">
-      <div class="noticeWrap">
+      
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
-      <div v-if="!inquiryLength">
+      <!-- v-if="!inquiryLength" -->
+      <div class="noticeWrap">
+      <div class="no-data">
         <p class="no-notice-data">등록된 내용이 없습니다</p>
       </div>
       <div
         v-for="inquiry in inquirylist"
         :key="inquiry.id"
-        class="notice-row"
+        class="notice-row" style="display:none;"
         @click="
           $router.push({
             name: 'InquiryRegisterDetails',
@@ -252,6 +254,9 @@ p.no-notice-data {
   font-weight: bold;
   border-bottom: solid 2px #090909;
 }
+.tab-content{
+  height: calc(100% - 60px);
+}
 .notice-row {
   border-bottom: solid 1px #f4f4f5;
   padding: 20px 16px 22px;
@@ -364,6 +369,13 @@ p.no-notice-data {
   margin-bottom: 12px;
 }
 .noticeWrap{
-  padding-bottom: 100px;
+  padding-bottom: 0;
+  height: 100%;
+}
+.no-data{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
 }
 </style>

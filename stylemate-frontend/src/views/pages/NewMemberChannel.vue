@@ -209,14 +209,36 @@ export default {
   align-items: center;
   border: 1px solid #e5e5e5;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .newChannel li:hover,
 .newChannel li.active {
   border-color: #5700ff;
 }
 .newChannel li.disable {
-  opacity: 0.4;
+  background: #F7F7F7;
+  border: 1px solid #E5E5E5;
+}
+.newChannel li.disable .channelImg{
+  position: relative;
+}
+.newChannel li.disable .channelImg::after{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: linear-gradient(0deg, rgba(121, 121, 121, 0.8), rgba(121, 121, 121, 0.8));
+}
+.newChannel li.disable .channelDec h4, .newChannel li.disable .channelDec p {
+  color: #797979;
+}
+.newChannel li.disable .channelBtn{
+  border: 1px solid #E5E5E5;
+  background: #F7F7F7;
+  color: #797979;
 }
 .newChannel li .channelImg {
   width: 56px;
@@ -231,7 +253,7 @@ export default {
   font-size: 14px;
   font-weight: 700;
   line-height: 150%;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
 }
 .newChannel li .channelLeft .channelDec p {
   font-size: 12px;
