@@ -20,6 +20,7 @@
                 :placeholder="인기순"
                 :options="books"
                 label="title"
+                :close-on-select="true"
               ></vue-select>
             </div>
           </div>
