@@ -6,43 +6,57 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="product-main-banner">
-        <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
-      </div>
-      <div class="item-wrapper">
-        <div class="itemMain">
-          <div class="itemHeader">
-            <h2>{{ brandDetails.korName }}</h2>
-            <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" />
-          </div>
-          <ul class="hastags">
-            <li>
-              <p v-for="(item, i) of brandDetails.tag" :key="i + 1">{{ '#' + item.tag }}</p>
-            </li>
-          </ul>
+          <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
         </div>
-        <div class="brandTab">
-          <div class="tab-wrap">
-            <div class="tabs">
-              <button
-                class="tab"
-                @click="layout = 'tab1'"
-                :class="{ active: layout === 'tab1' }"
-              >캠페인</button>
-              <button
-                class="tab"
-                @click="layout = 'tab2'"
-                :class="{ active: layout === 'tab2' }"
-              >가이드</button>
+      <div class="main-wrap">
+        
+        <div class="item-wrapper">
+          <div class="itemMain">
+            <div class="itemHeader">
+              <h2>{{ brandDetails.korName }}<span>
+                <img src="@/assets/icons/arrow-left.svg" />
+              </span>
+              </h2>
+              
+              <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
+              <div @click="likeBrand(brandDetails.id)">
+                <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-else src="@/assets/icons/heart-outline.svg" />
+              </div>
             </div>
+            <ul class="hastags">
+              <li v-for="(item, i) of brandDetails.tag" :key="i + 1">
+                <p>{{ "#" + item.tag }}</p>
+              </li>
+            </ul>
+          </div>
+          <div class="brandTab">
+            <div class="tab-wrap">
+              <div class="tabs">
+                <button
+                  class="tab"
+                  @click="layout = 'tab1'"
+                  :class="{ active: layout === 'tab1' }"
+                >브랜드 소개</button>
+                <button
+                  class="tab"
+                  @click="layout = 'tab2'"
+                  :class="{ active: layout === 'tab2' }"
+                >아이템 보기</button>
+              </div>
 
-            <!-- tab content 1 -->
-            <div class="tab-content" v-if="layout === 'tab1'">
-              <BrandIntroduction :brandIntro="brandDetails.description" :brandThumb="brandDetails.imageThumbnailPath" />1
-            </div>
+              <!-- tab content 1 -->
+              <div class="tab-content" v-if="layout === 'tab1'">
+                <BrandIntroduction
+                  :brandIntro="brandDetails.description"
+                  :brandThumb="brandDetails.imageThumbnailPath"
+                />
+              </div>
 
-            <!-- tab content 2 -->
-            <div class="tab-content" v-if="layout === 'tab2'">
-              <BrandItem :brandItem="brandDetails.product" />
+              <!-- tab content 2 -->
+              <div class="tab-content" v-if="layout === 'tab2'">
+                <BrandItem :brandItem="brandDetails.product" />
+              </div>
             </div>
           </div>
         </div>
@@ -52,14 +66,14 @@
   </ion-page>
 </template>
 <script>
-import {
-  IonPage,
-  IonContent,
-} from "@ionic/vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
+import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
+import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "BrandDetails",
   components: {
@@ -80,6 +94,8 @@ export default {
   },
   created() {
     this.brandService = new BrandService();
+    this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
 
     var proId = this.$route.params.id;
     this.brandService.getBrandDetails(proId).then((res) => {
@@ -87,19 +103,17 @@ export default {
       if (res.response) {
         if (res.response.status == 404) {
           alert(res.response.data.error.message);
-          this.$router.push('/brands');
+          this.$router.push("/brands");
         }
       }
       // success
       else {
-        console.log('res', res);
+        console.log("res", res);
         this.brandDetails = res;
       }
     });
   },
-  mounted() {
-
-  },
+  mounted() { },
   methods: {
     show() {
       this.display = true;
@@ -107,16 +121,76 @@ export default {
     showItems() {
       this.visible = !this.visible;
     },
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeBrand(brandId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          console.log('brand uid', uid);
+          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
+            console.log(res.response.data.error);
+            console.log(res);
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
 };
 </script>
 <style scoped>
+/* .main-wrap {
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: hidden;
+  overflow-y: auto;
+  /* background-color: #ffffff;
+  padding-bottom: 60px;
+} */
+.itemMain .itemHeader h2{
+  display: flex;
+  align-items: center;
+}
 .hastags {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   margin-top: 14px;
+  margin-bottom: 30px;
+}
+.hastags li {
+  margin-left: 3px;
+}
+.hastags li:first-child {
+  margin-left: 0;
+}
+.hastags li p {
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #c4c4c4;
+  margin-bottom: 0;
 }
 .main-container {
   max-width: 500px;
@@ -149,22 +223,26 @@ img {
 
 .product-main-banner {
   position: fixed;
-  top: 55px;
-  width: 100%;
+  z-index: 1;
   max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
+  top: 60px;
 }
 .product-main-banner img {
   width: 100%;
 }
 .item-wrapper {
-  padding: 40px 20px 0;
+  padding: 40px 20px 60px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top: 280px;
-  background: #ffffff;
-  min-height: 600px;
+  z-index: 1;
+  top: 270px;
+  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
+  backdrop-filter: blur(30px);
+  /* background: #ffffff; */
+  transition: all 0.5s ease-in-out;
+  /* backdrop-filter: blur(30px); */
 }
 .item-wrapper .product-list {
   display: flex;
@@ -209,6 +287,11 @@ img {
   color: #c4c4c4;
 }
 
+.itemMain .itemHeader img {
+  width: 24px;
+  height: 24px;
+}
+
 /* tab styling */
 
 .tab-wrap {
@@ -234,6 +317,7 @@ img {
   justify-content: center;
   padding: 20px;
   width: 50%;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;
@@ -301,6 +385,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .tag-content {
   margin-top: 8px;

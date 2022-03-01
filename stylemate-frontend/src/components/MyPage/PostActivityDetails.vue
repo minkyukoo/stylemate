@@ -2,20 +2,24 @@
   <div class="PostDetails-wrap">
     <ItemCardPost
       :progressDetails="item"
-      v-for="(item, index) in progress"
+      v-for="(item, index) in progressdata"
       :key="index"
     />
+    <!-- <ReRegisterModal /> -->
   </div>
 </template>
 
 <script>
+import { inject } from "vue";
 // import SponsorProgress from "@/components/MyPage/SponsorProgress.vue";
 import ItemCardPost from "./ItemCardPost.vue";
+// import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 import MyPageService from "@/services/MyPageService";
 export default {
   name: "PostActivityDetails",
   components: {
     ItemCardPost,
+    // ReRegisterModal,
   },
   data() {
     return {
@@ -54,6 +58,13 @@ export default {
         },
       ],
       myPageService: null,
+      progressdata: [],
+    };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
     };
   },
   created() {
@@ -62,6 +73,7 @@ export default {
   mounted() {
     this.myPageService.getPostingList().then((res) => {
       console.log(res);
+      this.progressdata = res.data.data;
     });
   },
 };

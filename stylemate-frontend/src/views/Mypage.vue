@@ -1,23 +1,25 @@
 <template>
-  <ion-page>
+  <div class="mypage-page">
     <!-- header -->
     <TopNav headerTitle="My page" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <!-- <h1>My page</h1> -->
       <MyTop />
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
       <MyPageDetailsDefault />
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
 import { inject } from "vue";
-import { IonPage, IonContent } from "@ionic/vue";
+// import { IonPage, IonContent } from "@ionic/vue";
 import MyPageServices from "../services/MyPageService";
 import TopNav from "@/components/TopNav.vue";
 import MyTop from "@/components/MyPage/MyPageTop.vue";
@@ -25,7 +27,7 @@ import MyPageDetailsDefault from "@/components/MyPage/MyPageDetailsDefault.vue";
 
 export default {
   name: "Mypage",
-  components: { TopNav, IonContent, IonPage, MyTop, MyPageDetailsDefault },
+  components: { TopNav, MyTop, MyPageDetailsDefault },
 
   data() {
     return {
@@ -41,6 +43,7 @@ export default {
     this.myPageServices.getMyPageData().then((res) => {
       console.log("res", res);
       let globalState = this.store.state;
+      // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
       globalState.MyPageTopDetails.name = res.data.name;
       globalState.MyPageTopDetails.email = res.data.email;
@@ -55,21 +58,21 @@ export default {
       globalState.MyPageRateBox.Avg_comment =
         res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity =
-        res.data.influence.channel[0].instagramChannel.engagementRate;
+        `${res.data.influence.channel[0].instagramChannel.engagementRate/100}%`;
       let channelStats = res.data.influence.channel[0].channelStat;
       if (Object.keys(channelStats).length > 0) {
         globalState.MyPageSponsorBox.sponsorship =
           channelStats.stylemateBookingCount;
         globalState.MyPageSponsorBox.Post_activity =
           channelStats.stylematePostCount;
-        console.log("asdf", channelStats.stylemateBookingCount);
+        // console.log("asdf", channelStats.stylemateBookingCount);
       } else {
         globalState.MyPageSponsorBox.sponsorship = 0;
         globalState.MyPageSponsorBox.Post_activity = 0;
       }
       globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       // this.store.state.MyPageSponsorBox.sponsorship =
-      console.log("just", this.profileImg);
+      // console.log("just", this.profileImg);
     });
   },
 

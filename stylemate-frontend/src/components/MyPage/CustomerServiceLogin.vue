@@ -8,8 +8,11 @@
 <script>
 import MyPageLinks from "./MyPageLinks.vue";
 export default {
-  name: "CustomerService",
+  name: "CustomerServiceLogin",
   components: { MyPageLinks },
+  props: {
+    linkDisabled: String,
+  },
   data() {
     return {
       customerArr: [
@@ -22,11 +25,6 @@ export default {
           name: "FAQ",
           Pagelink: "Notice",
           hash: "faq",
-        },
-        {
-          name: "1:1 문의",
-          Pagelink: "Notice",
-          hash: "inquiry",
         },
         {
           name: "이용약관",

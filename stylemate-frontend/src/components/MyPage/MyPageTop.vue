@@ -73,22 +73,56 @@
 <script>
 import { inject } from "vue";
 import MyPageTopButton from "@/components/MyPage/MyPageTopButton.vue";
+import MyPageServices from "@/services/MyPageService";
 export default {
   name: "MyPageTop",
   components: { MyPageTopButton },
 
   data() {
     return {
-      viewSocialMedia: 'request',
+      viewSocialMedia: "request",
+      myPageServices: null,
     };
   },
+
+  created() {
+    this.myPageServices = new MyPageServices();
+    this.checkState();
+  },
+
   setup() {
     const store = inject("store");
     return {
       store,
     };
   },
+  // mounted() {
+  //   // this.getMyPageTopDetails();
+  //   this.checkState();
+  // },
   methods: {
+    checkState() {
+      if (
+        this.store.state.UserId === "" ||
+        this.store.state.MyPageTopDetails.name === "" ||
+        this.store.state.MyPageTopDetails.email === "" ||
+        this.store.state.MyPageTopDetails.profile_img === ""
+      ) {
+        this.myPageServices.getMyPageData().then((res) => {
+          let globalState = this.store.state;
+          globalState.UserId = res.data.uid;
+          globalState.MyPageTopDetails.name = res.data.name;
+          globalState.MyPageTopDetails.email = res.data.email;
+          globalState.MyPageTopState =
+            res.data.influence.channel[0].stylemateStatus;
+          globalState.MyPageTopDetails.profile_img = res.data.influence
+            .channel[0].instagramChannel.thumbnailUrl
+            ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
+            : res.data.influence.channel[0].instagramChannel
+                .thumbnailOriginalUrl;
+        });
+      }
+    },
     fireButton() {
       console.log("fireButton");
     },

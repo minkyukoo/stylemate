@@ -154,7 +154,7 @@ const routes = [
         }
       },
       {
-        path: "/sponsorships",
+        path: "/mypage/sponsorships",
         name: "Sponsorships",
         beforeEnter: guard,
         component: Sponsorships,
@@ -163,8 +163,8 @@ const routes = [
         }
       },
       {
-        path: "/post-activity",
-        name: "Post Activity",
+        path: "/mypage/post-activity",
+        name: "PostActivity",
         beforeEnter: guard,
         component: PostActivity,
         meta: {
@@ -172,9 +172,9 @@ const routes = [
         }
       },
       {
-        path: "/mypage-liked",
-        name: "MyPage Liked",
-        // beforeEnter: guard,
+        path: "/mypage/mypage-liked",
+        name: "MyPageLiked",
+        beforeEnter: guard,
         component: MyPageLiked,
         meta: {
           innerHeader: true,
@@ -219,6 +219,14 @@ const routes = [
     path: "/addaddress",
     name: "AddAddress",
     component: () => import("@/views/pages/AddAddress.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/update-address/:id",
+    name: "updateAddress",
+    component: () => import("@/views/pages/UpdateAddress.vue"),
     meta: {
       innerHeader: true,
     }
@@ -345,7 +353,7 @@ const routes = [
     }
   },
   {
-    path: "/inquiryregisterdetails",
+    path: "/inquiryregisterdetails/:id",
     name: "InquiryRegisterDetails",
     component: () => import("@/views/pages/InquiryRegisterDetails.vue"),
     meta: {

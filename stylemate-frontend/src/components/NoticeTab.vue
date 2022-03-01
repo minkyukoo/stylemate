@@ -3,28 +3,28 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="layout = 'tab1'"
-        :class="{ active: layout === 'tab1' }"
+        @click="layout = '#notice'"
+        :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="layout = 'tab2'"
-        :class="{ active: layout === 'tab2' }"
+        @click="layout = '#faq'"
+        :class="{ active: layout === '#faq' }"
       >
         FAQ
       </a>
       <a
         class="tab"
-        @click="layout = 'tab3'"
-        :class="{ active: layout === 'tab3' }"
+        @click="layout = '#inquiry'"
+        :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
       </a>
     </div>
     <!-- tab content 1 -->
-    <div class="tab-content" v-if="layout === 'tab1'">
+    <div class="tab-content" v-if="layout === '#notice'">
       <div
         v-for="notice in noticelist"
         :key="notice"
@@ -34,22 +34,31 @@
         "
       >
         <div class="tag-row">
-          <span class="notice-tag red-solid">알림</span>
-          <span class="notice-tag red-outline">중요</span>
-          <span class="notice-tag dark-solid">이벤트</span>
+          <span
+            v-if="notice.category !== null"
+            class="notice-tag"
+            :class="{
+              'red-solid': notice.category === 'notification',
+              'dark-solid': notice.category !== 'notification',
+            }"
+            >{{
+              notice.category === "notification" ? "notice" : notice.category
+            }}</span
+          >
+          <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
+          <!-- <span class="notice-tag dark-solid">이벤트</span> -->
         </div>
         <div class="text-desc">
           <p>{{ notice.title }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span
-          ><span>{{ dateFormat(notice.createdAt) }}</span>
+          <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
     </div>
 
     <!-- tab content 2 -->
-    <div class="tab-content" v-if="layout === 'tab2'">
+    <div class="tab-content" v-if="layout === '#faq'">
       <div class="faq-wrap">
         <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
           <h2>{{ item }}</h2>
@@ -57,7 +66,7 @@
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
             :title="faq.title"
-            v-html="faq.body"
+            :body="faq.body"
           >
           </NoticeAccordion>
         </div>
@@ -65,32 +74,43 @@
     </div>
 
     <!-- tab content 3 -->
-    <div class="tab-content" v-if="layout === 'tab3'">
+    <div class="tab-content" v-if="layout === '#inquiry'">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
-        <button
-          class="black-btn"
-          @click="$router.push({ name: 'InquiryDetails' })"
-        >
+        <button class="black-btn" @click="sendInquiryDetails()">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
+      <div v-if="!inquiryLength">
+        <p class="no-notice-data">등록된 내용이 없습니다</p>
+      </div>
       <div
         v-for="inquiry in inquirylist"
-        :key="inquiry"
+        :key="inquiry.id"
         class="notice-row"
-        @click="$router.push({ name: 'InquiryRegisterDetails' })"
+        @click="
+          $router.push({
+            name: 'InquiryRegisterDetails',
+            params: { id: inquiry.id },
+          })
+        "
       >
         <div class="tag-row">
-          <span class="notice-tag grey-solid">확인중</span>
-          <span class="notice-tag dark-outline">답변완료</span>
+          <span
+            class="notice-tag text-capitalize"
+            :class="{
+              'grey-solid': inquiry.answerStatus !== 'ready',
+              'dark-outline': inquiry.answerStatus === 'ready',
+            }"
+            >{{ inquiry.answerStatus }}</span
+          >
         </div>
         <div class="text-desc">
-          <p>{{ inquiry.desc }}</p>
+          <p>{{ inquiry.inquiry }}</p>
         </div>
         <div class="bottom-row">
-          <span>{{ inquiry.type }}</span
-          ><span>{{ inquiry.date }}</span>
+          <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
+          ><span>{{ dateFormat(inquiry.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -107,29 +127,22 @@ export default {
   },
   data() {
     return {
-      layout: "tab2",
+      layout: "#notice",
       faqs: [],
       faqCategory: [],
-      inquirylist: [
-        {
-          desc: "숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이",
-          type: "인스타그램 캠페인 문의",
-          date: "2021.01.03",
-        },
-        {
-          desc: "빠르고 강력한 알레르기 치료제 알지싹 세티!",
-          type: "유튜브 캠페인 문의",
-          date: "2021.01.03",
-        },
-      ],
+      noticelist: [],
+      inquirylist: [],
+      inquiryLength: 0,
     };
   },
   created() {
     this.service = new UserInfoService();
   },
   mounted() {
+    this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
+      console.log(res.data);
     });
 
     this.service.FAQs().then((res) => {
@@ -138,19 +151,61 @@ export default {
         .filter((v, i, a) => a.indexOf(v) === i);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
+        console.log(res.data);
       });
+    });
+
+    this.service.QNAs().then((res) => {
+      this.inquirylist = res.data;
+      this.inquiryLength = res.data.length;
     });
   },
   methods: {
+    camelToSpace(str) {
+      switch (str) {
+        case "stylemateCampaign":
+          return "협찬문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "stylemateService":
+          return "서비스 이용문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        default:
+          return "기타문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+      }
+    },
+
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+
+    sendInquiryDetails() {
+      if (
+        localStorage.getItem("token") &&
+        localStorage.getItem("token") !== undefined &&
+        localStorage.getItem("token") !== ""
+      ) {
+        this.$router.push({ name: "InquiryDetails" });
+      } else this.$router.push({ name: "LoginPage" });
     },
   },
 };
 </script>
 
 <style scoped>
+.text-capitalize {
+  text-transform: capitalize;
+}
+p.no-notice-data {
+  text-align: center;
+  padding-top: 50px;
+  color: #c4c4c4;
+}
+
 .tabs {
   border: 1px solid #f7f7f7;
   display: flex;
@@ -164,6 +219,7 @@ export default {
   color: #797979;
   padding: 13px 0 9px;
   cursor: pointer;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #090909;

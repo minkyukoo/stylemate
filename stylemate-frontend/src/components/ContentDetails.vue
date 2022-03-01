@@ -15,14 +15,16 @@
           :alt="`img-${id}`"
           class="modalimage"
         />
-        <p class="text">
-          {{ description }}
-        </p>
+        <ul class="text">
+          <li v-for="(item,index) in description" :key="index">
+            {{ item }}
+          </li>
+        </ul>
       </div>
     </template>
     <template v-slot:footer>
       <Button
-        :name="'to close'"
+        :name="'닫기'"
         :style="'btn-dark w-100'"
         v-on:buttonEvent="() => (store.state.contentDetailsModal = false)"
       />
@@ -55,7 +57,7 @@ export default defineComponent({
   data() {
     return {
       new_contents: {},
-      description: "",
+      description: [],
       modalImg: "",
       contentService: null,
       id: null,
@@ -66,13 +68,19 @@ export default defineComponent({
     this.contentService
       .getPostDetail(this.store.state.contentDetailsId)
       .then((response) => {
+        console.log(response);
         this.new_contents = response.data;
-        this.description = response.data.instagramPost.description;
-        this.modalImg = response.data.instagramPost.thumbnailOriginalUrl;
+        this.description = response.data.instagramPost.hashTag;
+        this.modalImg = response.data.instagramPost.thumbnailUrl
+          ? response.data.instagramPost.thumbnailUrl
+          : response.data.instagramPost.thumbnailOriginalUrl;
         this.id = response.data.id;
-        console.log(response.data, this.modalImg);
+        // console.log(response.data, this.modalImg);
         // this.description = response.data.description;
       });
+  },
+  unmounted() {
+    this.store.state.contentDetailsId = "";
   },
   created: function () {
     console.log("Page No", this.store.state.contentDetailsId);
@@ -106,10 +114,16 @@ export default defineComponent({
   width: 300px;
   height: 300px;
   margin-bottom: 16px;
+  border-radius: 6px;
 }
 .text {
   text-align: center;
   color: #c4c4c4;
   font-size: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.text li {
+  padding: 0px 3px;
 }
 </style>

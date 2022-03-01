@@ -6,9 +6,36 @@
       :space-between="4"
       @swiper="onSwiper"
       @slideChange="onSlideChange"
+      v-if="store.state.sponsorTabState === 'progressHistory'"
     >
-      <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a @click="handleClick( category.id)">{{ category.name }}</a>
+      <swiper-slide
+        v-for="(category, index) in CategoriesProgress"
+        :key="index || category.name"
+      >
+        <a
+          :class="category.no === store.state.sponcerFilterNo ? 'active' : ''"
+          @click="store.methods.setSponsorFilter(category.id , index)"
+          >{{ category.name }}</a
+        >
+      </swiper-slide>
+    </swiper>
+    <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="4"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+      v-if="store.state.sponsorTabState === 'bookingHistory'"
+    >
+      <swiper-slide
+        v-for="(category, index) in CategoriesApplication"
+        :key="index || category.name"
+      >
+        <a
+          :class="[category.no === store.state.sponcerFilterNo ? 'active' : '']"
+          @click="store.methods.setSponsorFilter(category.id, index)"
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
   </div>
@@ -16,7 +43,9 @@
 
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
+import MyPageService from "@/services/MyPageService";
 // import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { inject, onMounted } from "vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
 export default {
@@ -26,44 +55,100 @@ export default {
     SwiperSlide,
   },
   setup() {
+    const store = inject("store");
+
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log("slide change");
+      // console.log("slide change");
     };
+
+    // watch(
+    //    store.state.sponcerFilterId,
+    //   (val) => {
+    //     if (val === "progressHistory") {
+    //       store.methods.setSponsorFilter(store.state.sponsorFilter);
+    //     }
+    //   }
+    // );
+
+    onMounted(() => {
+      // store.methods.setCampaignEncodeUrl();
+      store.methods.setSponsorFilter("");
+    });
     return {
       onSwiper,
       onSlideChange,
-    //   modules: [Navigation, Pagination, Scrollbar, A11y],
+      store,
+      //   modules: [Navigation, Pagination, Scrollbar, A11y],
     };
+  },
+
+  created() {
+    this.myPageService = new MyPageService();
+    this.store.state.sponcerFilterNo = 0;
   },
   data() {
     return {
-      allCategories: [
+      CategoriesProgress: [
         {
-          id: "all",
+          no: 0,
+          id: "",
+          name: "all",
+        },
+        {
+          no: 1,
+          id: "postRequest",
+          name: "post registration",
+        },
+        {
+          no: 2,
+          id: "postProgress",
+          name: "checking",
+        },
+        {
+          no: 3,
+          id: "postModifyRequest",
+          name: "re-registration",
+        },
+        {
+          no: 4,
+          id: "selected",
+          name: "sponcer selection",
+        },
+      ],
+      CategoriesApplication: [
+        {
+          no: 0,
+          id: "",
           name: "전체",
         },
         {
-          id: "post-registration",
-          name: "포스트 등록",
+          no: 1,
+          id: "finish",
+          name: "Application completed",
         },
         {
-          id: "checking",
-          name: "확인중",
+          no: 2,
+          id: "selected",
+          name: "sponcer selection",
         },
         {
-          id: "re-registration",
-          name: "재등록",
+          no: 3,
+          id: "unselected",
+          name: "unselected",
         },
         {
-          id: "sponsor-selection",
-          name: "협찬선정",
-        },  
+          no: 4,
+          id: "finish",
+          name: "sponcership completed",
+        },
       ],
+      myPageService: null,
     };
   },
+  methods: {},
 };
 </script>
 
@@ -84,25 +169,27 @@ export default {
 
 .item-scroller-nav .main-menu .swiper-slide a {
   padding: 8px 16px;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 100px;
   display: block;
   font-weight: normal;
   font-size: 12px;
-line-height: 16px;
-  color: #C4C4C4;
+  line-height: 16px;
+  color: #c4c4c4;
   cursor: pointer;
   background: #ffffff;
   white-space: nowrap;
+  transition: all 0.3s;
 }
 .item-scroller-nav .main-menu .swiper-slide a.active {
   border: 1px solid #090909;
   background: #090909;
   font-weight: bold;
-  color: #090909;
+  color: white;
+  transition: all 0.3s;
 }
 
-.swiper-slide{
+.swiper-slide {
   width: auto;
 }
 </style>

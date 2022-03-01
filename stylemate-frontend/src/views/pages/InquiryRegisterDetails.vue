@@ -9,56 +9,79 @@
         <div class="topGreyBox">
           <div class="top-row">
             <label>처리 상태</label>
-            <span class="notice-tag grey-solid">확인중</span>
+            <span class="notice-tag grey-solid">{{ answerStatus }}</span>
           </div>
           <div class="top-row">
             <label>등록일</label>
-            <span>2021. 02. 03</span>
+            <span>{{ dateFormat(createdAt) }}</span>
           </div>
-          <div class="top-row">
+          <div v-if="answeredAt !== null" class="top-row">
             <label>답변일</label>
-            <span>2021. 02. 04</span>
+            <span>{{ dateFormat(answeredAt) }}</span>
           </div>
           <div class="top-row">
             <label>문의 유형</label>
-            <span>협찬문의</span>
+            <span>{{ camelToSpace(type) }}</span>
           </div>
         </div>
       </div>
       <div class="detailsInq">
         <div class="inqList">
           <h4>제목</h4>
-          <p>숨가쁘게 살아가는 순간 속에도 잃지 않는 회색의 그레이</p>
+          <p>{{ title }}</p>
         </div>
         <div class="inqList">
           <h4>내용</h4>
           <p>
-            유튜브 캠페인에 참여했는데 신청 누락된 것이 아닌지 확인
-            부탁드립니다.
+            {{ inquiry }}
           </p>
         </div>
-        <div class="answer-cont">
+        <div v-if="answer !== null" class="answer-cont">
           <h4>답변내용</h4>
-            <p>
-              나는 로봇이 아닙니다. reCAPTCHA 신호등이 있는 이미지를 모두
-              선택하세요.
-            </p>
+          <p>
+            {{ answer }}
+          </p>
         </div>
-        <div class="buttongrp">
+        <div v-if="answer !== null" class="buttongrp">
           <button class="inqList-btn">수정</button>
           <button class="inqList-btn">삭제</button>
         </div>
       </div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button class="main-btn">목록으로</button>
+          <button
+            class="main-btn"
+            @click="$router.push({ path: '/notice', hash: '#inquiry' })"
+          >
+            목록으로
+          </button>
         </div>
         <div class="pagination-wrap">
-          <a href="#">
+          <a
+            :class="{ 'cursor-pointer': previousId !== null }"
+            @click="
+              previousId !== null
+                ? $router.push({
+                    name: 'InquiryRegisterDetails',
+                    params: { id: previousId },
+                  })
+                : false
+            "
+          >
             <img src="@/assets/icons/arrow-left-thin.svg" />
             이전글
           </a>
-          <a href="#">
+          <a
+            :class="{ 'cursor-pointer': nextId !== null }"
+            @click="
+              nextId !== null
+                ? $router.push({
+                    name: 'InquiryRegisterDetails',
+                    params: { id: nextId },
+                  })
+                : false
+            "
+          >
             다음글
             <img src="@/assets/icons/arrow-right-thin.svg" />
           </a>
@@ -72,14 +95,69 @@
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
-
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "InquiryRegisterDetails",
   components: { TopNav, IonContent, IonPage },
+  data() {
+    return {
+      answerStatus: null,
+      answeredAt: null,
+      createdAt: null,
+      type: null,
+      title: null,
+      inquiry: null,
+      answer: null,
+      previousId: null,
+      nextId: null,
+    };
+  },
+  created() {
+    this.service = new UserInfoService();
+  },
+  mounted() {
+    this.service.QNAsById(this.$route.params.id).then((res) => {
+      this.answerStatus = res.answerStatus;
+      this.answeredAt = res.answeredAt;
+      this.createdAt = res.createdAt;
+      this.type = res.type;
+      this.title = res.title;
+      this.inquiry = res.inquiry;
+      this.answer = res.answer;
+      this.nextId = res.nextId;
+      this.previousId = res.previousId;
+    });
+  },
+  methods: {
+    dateFormat(date) {
+      let dt = new Date(date);
+      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+
+    camelToSpace(str) {
+      switch (str) {
+        case "stylemateCampaign":
+          return "협찬문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "stylemateService":
+          return "서비스 이용문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+        default:
+          return "기타문의";
+          // eslint-disable-next-line no-unreachable
+          break;
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .inner-wrapper {
   padding: 40px 16px 0;
 }
@@ -116,18 +194,20 @@ export default {
 .inqList:first-child {
   padding-top: 0;
 }
-.answer-cont{
-    background: #FAFAFA;
-    padding: 24px;
+.answer-cont {
+  background: #fafafa;
+  padding: 24px;
 }
-.inqList h4, .answer-cont h4 {
+.inqList h4,
+.answer-cont h4 {
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
   color: #212226;
   margin-bottom: 12px;
 }
-.inqList p, .answer-cont p {
+.inqList p,
+.answer-cont p {
   font-size: 14px;
   line-height: 18px;
   color: #212226;

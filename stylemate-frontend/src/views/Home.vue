@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <div class="home-page">
     <!-- header -->
     <TopNav></TopNav>
     <!-- End header -->
@@ -25,117 +25,124 @@
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
-        <div class="headerLine">
-          <h4>NEW ITEM</h4>
+        <div class="fixed-container">
+          <div class="headerLine">
+            <h4>NEW ITEM</h4>
+          </div>
+          <swiper
+            :modules="modules"
+            :slides-per-view="1"
+            :space-between="50"
+            :pagination="{ clickable: true }"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newEvanItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newOddItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+
+            <swiper-slide>
+              <div class="multiSlideWrap product-list">
+                <div
+                  class="slideItem product-list-item"
+                  v-for="(item, index) in newStartItems"
+                  :key="index"
+                >
+                  <div class="top-float-div">
+                    <div class="social-icon">
+                      <img src="@/assets/icons/instagram.svg" />
+                    </div>
+                    <div class="favorite" @click="likeProduct(item.id)">
+                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img v-else src="@/assets/icons/heart-outline.svg" />
+                    </div>
+                  </div>
+                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                    <img :src="item.imageThumbnailPath" />
+                  </figure>
+                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                    <h3>{{ item.brand.engName }}</h3>
+                    <p>{{ item.name }}</p>
+                    <div class="hashWrap">
+                      <span>{{ setTags(item.tag) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </swiper-slide>
+          </swiper>
         </div>
-
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newEvanItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newOddItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <swiper-slide>
-            <div class="multiSlideWrap product-list">
-              <div
-                class="slideItem product-list-item"
-                v-for="(item, index) in newStartItems"
-                :key="index"
-              >
-                <div class="top-float-div">
-                  <div class="social-icon">
-                    <img src="@/assets/icons/instagram.svg" />
-                  </div>
-                  <div class="favorite">
-                    <img src="@/assets/icons/heart-outline.svg" />
-                  </div>
-                </div>
-                <figure @click="$router.push({ name: 'ItemDetails' })">
-                  <img :src="item.imageThumbnailPath" />
-                </figure>
-                <div
-                  class="details-wrap"
-                  @click="$router.push({ name: 'ItemDetails' })"
-                >
-                  <h3>{{ item.brand.engName }}</h3>
-                  <p>{{ item.name }}</p>
-                  <div class="hashWrap">
-                    <span>{{ setTags(item.tag) }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </swiper-slide>
-        </swiper>
-
         <!-- new Brand section -->
-        <div class="brandSlider swiper-container" style="background: red;">
+        <div
+          class="brandSlider swiper-container newBrandSec"
+          :style="{ 'background-image': 'url(' + image + ')' }"
+        >
           <div class="headerLine">
             <h4>NEW BRAND</h4>
           </div>
@@ -147,7 +154,7 @@
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :pagination="{ clickable: true, dynamicBullets: true }"
+            :pagination="{ clickable: true }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
@@ -155,9 +162,7 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -183,80 +188,94 @@
             </swiper-slide>
           </swiper>
         </div>
-
-        <div class="headerLine">
-          <h4>LOOKBOOK</h4>
-          <span>
-            <img src="@/assets/icons/arrow-right.svg" />
-          </span>
-        </div>
-
-        <div class="lookBookMain">
-          <div class="bookLabel1 pattern1">
-            <img
-              v-for="book in lookBooks.lineOne.big"
-              :key="book.id"
-              :src="book.post.product.imageThumbnailPath"
-            />
+        <!-- lookbook -->
+        <div class="fixed-container lookbook">
+          <div class="headerLine">
+            <h4>LOOKBOOK</h4>
+            <span @click="$router.push({ name: 'Contents' })">
+              <img src="@/assets/icons/arrow-right.svg" />
+            </span>
           </div>
-          <div class="bookLabel1 pattern2">
-            <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+
+          <div class="lookBookMain">
+            <div class="bookLabel1 pattern1">
+              <img
+                v-for="book in lookBooks.lineOne.big"
+                :key="book.id"
+                :src="book.post.product.imageThumbnailPath"
+                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+              />
+            </div>
+            <div class="bookLabel1 pattern2">
+              <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="lookBookMain">
-          <div class="bookLabel2 pattern3">
-            <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+          <div class="lookBookMain">
+            <div class="bookLabel2 pattern3">
+              <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
-          <div class="bookLabel1 pattern2">
-            <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
-              <img :src="book.post.product.imageThumbnailPath" />
+          <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+            <div class="bookLabel1 pattern2">
+              <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
+                <img
+                  :src="book.post.product.imageThumbnailPath"
+                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                />
+              </div>
+            </div>
+            <div class="bookLabel1 pattern1">
+              <img
+                v-for="book in lookBooks.lineThree.big"
+                :key="book.id"
+                :src="book.post.product.imageThumbnailPath"
+                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+              />
             </div>
           </div>
-          <div class="bookLabel1 pattern1">
-            <img
-              v-for="book in lookBooks.lineThree.big"
-              :key="book.id"
-              :src="book.post.product.imageThumbnailPath"
-            />
-          </div>
-        </div>
 
-        <div class="gotoFamily">
-          <div class="gotofamilyList" :class="{ active: isActive }">
-            <ul>
-              <li>
-                <a href="https://app.mediance.co.kr/">
-                  <img src="@/assets/images/logo-1.png" />
-                </a>
-              </li>
-              <li>
-                <a href="http://influencer.mediance.co.kr/">
-                  <img src="@/assets/images/logo-2.png" />
-                </a>
-              </li>
-            </ul>
+          <div class="gotoFamily">
+            <div class="gotofamilyList" :class="{ active: isActive }">
+              <ul>
+                <li>
+                  <a href="https://app.mediance.co.kr/">
+                    <img src="@/assets/images/logo-1.png" />
+                  </a>
+                </li>
+                <li>
+                  <a href="http://influencer.mediance.co.kr/">
+                    <img src="@/assets/images/logo-2.png" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <button @click="myFilter">패밀리 사이트 바로가기</button>
           </div>
-          <button @click="myFilter">패밀리 사이트 바로가기</button>
-        </div>
 
-        <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-        <button class="greyBtnFull" @click="getNotice">
-          <span>중요</span> {{ notice }}
-        </button>
+          <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
+          <button class="greyBtnFull" @click="getNotice">
+            <span>중요</span>
+            {{ notice }}
+          </button>
+        </div>
       </div>
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
-    <StickyBtn/>
-  </ion-page>
+    <ContentDetails v-if="store.state.contentDetailsModal" />
+  </div>
 </template>
 
 <script>
@@ -268,42 +287,36 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { IonPage } from "@ionic/vue";
+// import { IonPage } from "@ionic/vue";
+import Toast from "@/alert/alert";
 import TopNav from "@/components/TopNav.vue";
 import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
-import StickyBtn from '@/components/StickyBtn.vue';
-
+import ContentDetails from "@/components/ContentDetails.vue";
+import TokenService from "@/services/TokenService";
+// import ContentDetails from "@/components/ContentDetails.vue";
+import { inject } from "vue";
 export default {
   name: "Home",
   components: {
     TopNav,
-    IonPage,
+    // IonPage,
     Swiper,
     SwiperSlide,
-    StickyBtn,
+    ContentDetails,
   },
   setup() {
+    const store = inject("store");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
     const onSlideChange = () => {
       console.log("slide change");
     };
-    const onBrandSlideChange = (swiper) => {
-      console.log("brand slide change", swiper.slides);
-      let slides = swiper.slides;
-      slides.forEach((slide, index) => {
-        if (index === swiper.activeIndex) {
-          console.log("active index", slide);
-          let src = slide
-            .querySelector(".nb-img-wrap > img")
-            .getAttreibute("src");
-          console.log("src", src);
-        }
-      });
+    const onBrandSlideChange = () => {
+      console.log("slide change");
     };
     return {
       onSwiper,
@@ -311,6 +324,7 @@ export default {
       onBrandSlideChange,
       modules: [Pagination, EffectCoverflow, Pagination],
       // modules: [EffectCoverflow, Pagination],
+      store,
     };
   },
   data() {
@@ -329,6 +343,7 @@ export default {
       newProItems: null,
       isActive: false,
       notificationLength: 0,
+      image: "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/f/15/1645748657916_20220225092418.jpg",
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -337,6 +352,7 @@ export default {
     this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
@@ -362,7 +378,7 @@ export default {
     ) {
       this.userInfoService.Notice().then((res) => {
         this.notice = res.data[0].title;
-        console.log(res.data);
+        // console.log(res.data);
       });
     } else {
       this.notice = "[알림] 서비스 점검 안내";
@@ -388,6 +404,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
+        // console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -414,7 +431,7 @@ export default {
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
-        // console.log(res);
+        console.log("lookbook", res);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
@@ -453,6 +470,40 @@ export default {
     myFilter: function () {
       this.isActive = !this.isActive;
       // some code to filter users
+    },
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            this.getProductItemList();
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
     },
 
     // for pushnotification
@@ -497,6 +548,10 @@ export default {
   margin-right: 12px;
   cursor: pointer;
 }
+.top-float-div .favorite img {
+  width: 20px;
+  height: 20px;
+}
 .product-list .product-list-item figure {
   margin-bottom: 12px;
   border-radius: 6px;
@@ -533,14 +588,6 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
 }
-.overlapSlide {
-  background: rgb(222, 222, 222);
-  background: linear-gradient(
-    180deg,
-    rgba(222, 222, 222, 1) 0%,
-    rgba(255, 255, 255, 1) 2%
-  );
-}
 .inner-scroll {
   margin-right: -20px !important;
 }
@@ -575,6 +622,9 @@ export default {
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
   bottom: -100px !important;
+}
+.brandSlider .swiper .swiper-pagination-bullets {
+  transform: scale(1);
 }
 .brandSlider .headerLine {
   padding: 0 20px 20px;
@@ -615,6 +665,7 @@ export default {
   width: 100%;
   height: 260px;
   overflow: hidden;
+  cursor: pointer;
 }
 .nb-img-wrap img {
   width: 100%;
@@ -632,9 +683,9 @@ export default {
 }
 .gotoFamily {
   position: relative;
-  width: calc(100% - 40px);
+  width: 100%;
   margin-top: 60px;
-  margin: 60px 20px 0;
+  margin: 60px 0 0;
 }
 .gotoFamily button {
   padding: 21px 0;
@@ -682,6 +733,7 @@ export default {
   background: #fff;
   padding: 22px 16px;
   min-height: 150px;
+  cursor: pointer;
 }
 .brandDetails h3 {
   display: flex;
@@ -730,5 +782,38 @@ export default {
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
   bottom: -100px !important;
+}
+
+.lookbook .headerLine,
+.lookbook .lookBookMain {
+  padding-left: 0;
+  padding-right: 0;
+}
+.newBrandSec {
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.newBrandSec::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+.newBrandSec .headerLine {
+  position: relative;
+  z-index: 2;
+}
+.newBrandSec .swiper {
+  z-index: 2;
 }
 </style>

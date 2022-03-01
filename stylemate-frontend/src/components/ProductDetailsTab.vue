@@ -197,7 +197,7 @@
             </span>
             <h3>브랜디드 콘텐츠 광고 레이블 가이드</h3>
           </div>
-          <div class="desc">
+          <div class="desc guide-body">
             <p>브랜디드 콘텐츠 광고 레이블 추가는 필수사항이며 미추가 시, 레이블 추가 요청을 드릴 수 있습니다.</p>
             <a class="see-more" href="https://www.instagram.com/stories/highlights/18258294373070596/">추가방법 보러가기</a>
           </div>
@@ -310,6 +310,7 @@ export default {
   justify-content: center;
   padding: 20px;
   width: 50%;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;
@@ -402,6 +403,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .tag-content {
   margin-top: 8px;
@@ -441,7 +443,8 @@ export default {
   color: #797979;
 }
 .terms-wrap .guide .desc {
-  margin-top: 26px;
+  /* margin-top: 26px; */
+  border-top: solid 1px #f7f7f7;
 }
 .terms-wrap .guide .desc p {
   font-size: 12px;

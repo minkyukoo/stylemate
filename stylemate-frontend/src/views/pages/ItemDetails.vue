@@ -6,39 +6,6 @@
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div class="mainslide">
-        <!-- <ion-slides pager="true" :options="slideOpts">
-          <ion-slide v-for="(item, index) in productDetails.productImageFile" :key="index">
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <img :src="item.productImagePath" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-          <ion-slide>
-            <figure>
-              <img src="@/assets/images/product-details-banner.jpg" />
-              <div class="top-social-icon">
-                <a href="#">
-                  <img src="@/assets/icons/instagram.svg" />
-                </a>
-              </div>
-            </figure>
-          </ion-slide>
-        </ion-slides>-->
         <swiper
           :modules="modules"
           :slides-per-view="1"
@@ -52,9 +19,9 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <a href="#">
+                  <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
-                  </a>
+                  </router-link>
                 </div>
               </figure>
             </div>
@@ -73,11 +40,11 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="right-section">
+            <!-- <div class="right-section">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
@@ -148,14 +115,21 @@
       </ion-infinite-scroll>-->
 
       <div class="subscribe-wrap">
-        <figure>
-          <img src="@/assets/icons/heart-filled.svg" />
+        <figure class="favorite" @click="likeProduct(productDetails.id)">
+          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+          <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
+
+        <!-- sponsership button -->
         <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
+      <!-- product option -->
       <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" />
+
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
 
@@ -163,7 +137,7 @@
   </ion-page>
 </template>
 <script>
-import { inject, onMounted } from "vue";
+// import { inject, onMounted } from "vue";
 import {
   IonPage,
   // IonInfiniteScroll,
@@ -183,10 +157,11 @@ import TopNav from "@/components/TopNav.vue";
 import DrawerBottom from "@/components/DrawerBottom.vue";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 import moment from 'moment';
 
 export default {
-  name: "BrandDetails",
+  name: "ItemDetails",
   components: {
     IonPage,
     // IonSlides,
@@ -222,17 +197,17 @@ export default {
     };
   },
   setup() {
-    const userData = inject("userData");
+    // const userData = inject("userData");
 
-    onMounted(() => {
-      var currentTime = new Date().getTime();
-      if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-        userData.methods.getUserData();
-      }
-    });
+    //  onMounted( async () => {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if(isLogedIn) {
+    //     userData.methods.getUserData();
+    //   }
+    // });
 
     return {
-      userData,
+      // userData,
       modules: [Pagination],
     };
   },
@@ -240,6 +215,7 @@ export default {
     this.moment = moment;
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
 
     console.log('localStorage.token', localStorage.token);
 
@@ -248,18 +224,24 @@ export default {
       // catch error
       if (res.response) {
         if (res.response.status == 404) {
-          alert(res.response.data.error.message);
+          // alert(res.response.data.error.message);
           this.$router.push('/item');
         }
       }
       // success
       else {
-        console.log('producrt res', res);
+        // console.log('producrt res', res);
         this.productDetails = res;
         // console.log('productDetails campaign:', this.productDetails);
         this.productDetails.campaign.map((item) => {
           this.productCampaign = item
+          // console.log("this.productCampaign",this.productCampaign);
         });
+
+        //Cancellation of sponsorship application
+
+
+
       }
     });
   },
@@ -275,26 +257,29 @@ export default {
     },
 
     // isAuthorized
-    isAuthorized() {
-      var currentTime = new Date().getTime();
-      if (!localStorage.token || !localStorage.tokenexpiresAt) {
-        return false;
-      }
-      else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
-        return false;
-      }
-      else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt > currentTime) {
-        return true;
-      }
-      else {
-        return false;
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+
+    async isAuthorized() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (!isLogedIn) {
+        return null;
+      } else {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.influence.stylemateApprovedAt;
+        });
       }
     },
+
     //isUserid
     async isUserid() {
-      return await this.userInfoService.getUserInfo().then((res) => {
-        return res.data.uid;
-      });
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
     },
     //isDeliveries
     async isDeliveries() {
@@ -302,6 +287,7 @@ export default {
       return await this.isUserid().then((res) => {
         uid = res;
         return this.userInfoService.getUserdeliveries(uid).then((res) => {
+          console.log('res address', res);
           if (res.data.length > 0) {
             return true;
           }
@@ -313,30 +299,52 @@ export default {
     },
 
     async sponsorshipApplication() {
-      let isDeliveries = await this.isDeliveries().then(res => res);
-      let processDetailStatus = this.productCampaign.processDetailStatus;
       // condition 1 login check
-      if (!this.isAuthorized()) {
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
         Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
-        setTimeout(() => {
-          this.$router.push("/login");
-        }, 2600);
+        return false;
       }
-      // condition 2 already sponsorship
-      else if (!isDeliveries) {
+      // condition 1 authorised check
+      let isAuthorized = await this.isAuthorized();
+      if (!isAuthorized) {
+        this.showModal();
+        return false;
+      }
+      // condition 2 deliveries address check
+      let isDeliveries = await this.isDeliveries().then(res => res);
+      if (!isDeliveries) {
         Toast.fire({ title: "배송지가 등록되지 않았습니다." });
-        // setTimeout(() => {
-        //   this.$router.push("/login");
-        // }, 2600);
+        return false;
       }
-      //sopnsership 
-      else if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
-        Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
-        // setTimeout(() => {
-        //   this.$router.push("/login");
-        // }, 2600);
-      }
+      // condition 3 Sponsership check
+      // let processDetailStatus = this.productCampaign.processDetailStatus;
+      // if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
+      //   Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
+      //   return false;
+      // }
+      this.hideSponserButton();
     },
+    async likeProduct(productId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.itemService .influencelikes(uid,'product',productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            if(res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+      console.log('likeProduct');
+    }
   },
 };
 </script>
@@ -360,10 +368,11 @@ export default {
   display: block;
 }
 .mainslide figure {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   width: 100%;
+  height: 100%;
 }
 .mainslide figure .top-social-icon {
   position: absolute;
@@ -383,10 +392,10 @@ export default {
   /* background: rgb(101, 101, 101); */
 }
 .mainslide-banner-wrap img {
-  height: auto;
-  width: 380px;
+  height: 380px;
+  width: 100%;
   max-height: 380px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .item-wrapper {
   padding: 40px 20px 60px;
@@ -395,14 +404,14 @@ export default {
   position: relative;
   z-index: 1;
   top: 350px;
-  /* background-image: linear-gradient(
+  background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
     rgba(255, 255, 255, 0.1) 80.41%
-  ); */
-  background: #ffffff;
+  );
+  /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
-  /* backdrop-filter: blur(30px); */
+  backdrop-filter: blur(30px);
 }
 
 .top-section {
@@ -499,6 +508,10 @@ export default {
 }
 .subscribe-wrap figure {
   margin-right: 10px;
+}
+.subscribe-wrap figure img {
+  width: 36px;
+  height: 36px;
 }
 .subscribe-wrap .black-btn {
   font-size: 14px;

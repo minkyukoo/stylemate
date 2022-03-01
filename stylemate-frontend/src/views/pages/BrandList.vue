@@ -9,41 +9,57 @@
     <div class="history-keywords" v-if="history">
       <ul>
         <li v-for="(item, i) in searchKeywords" :key="i">
-          <span @click="sreachWithHistory(item.searchKeyword)">{{
-            item.searchKeyword
-          }}</span>
+          <span @click="sreachWithHistory(item.searchKeyword)">
+            {{
+              item.searchKeyword
+            }}
+          </span>
         </li>
       </ul>
     </div>
 
     <div v-if="notFound" class="content-not-found">
-      <p>We couldn't find any suitable brands. How about the brands below?</p>
+      <p class="notfound-text">
+        해당하는 브랜드를 찾지 못했어요.
+        <br />아래 브랜드는 어떠세요?
+      </p>
     </div>
 
     <div class="main pad-b-40">
-      <div
-        class="maincard"
-        v-for="info in brands"
-        :key="info.id"
-        @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
-      >
-        <figure class="img-wrap">
+      <div class="maincard" v-for="info in brands" :key="info.id">
+        <figure
+          class="img-wrap"
+          @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+        >
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
         </figure>
-        <ion-card-header>
-          <ion-card-title>
-            {{ info.korName }}
-            <div class="text-box">
-              <img src="@/assets/icons/heart-outline.svg" />
-            </div>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content class="maincontent">
-          {{ info.description }}
-        </ion-card-content>
-        <ion-card-content class="subcontent">{{
-          setTags(info.tag)
-        }}</ion-card-content>
+
+        <div class="text-wrap">
+          <ion-card-header>
+            <ion-card-title>
+              <h3
+                @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+              >{{ info.korName }}</h3>
+              <div class="text-box" @click="likeBrand(info.id)">
+                <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
+                <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-else src="@/assets/icons/heart-outline.svg" />
+              </div>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content
+            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            class="maincontent"
+          >{{ info.description }}</ion-card-content>
+          <ion-card-content
+            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            class="subcontent"
+          >
+            {{
+              setTags(info.tag)
+            }}
+          </ion-card-content>
+        </div>
       </div>
     </div>
   </div>
@@ -56,8 +72,10 @@ import {
   IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
+import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "BrandList",
   components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
@@ -80,6 +98,7 @@ export default {
   created() {
     this.brandService = new BrandService();
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
   },
   mounted() {
     // this.setUser();
@@ -90,9 +109,9 @@ export default {
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
         console.log('errorstate', res.response.status);
-        if(res.response.status == 401) {
+        if (res.response.status == 401) {
           this.$router.push({ name: 'LoginPage' });
-        } else if(res.response.status == 200) {
+        } else if (res.response.status == 200) {
           this.user = res.data;
           this.setHistoryKeywords(res.data.uid);
         }
@@ -100,8 +119,10 @@ export default {
     },
 
     getBrandList() {
+      console.log('call from likeBrand');
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
+        console.log('this.brands list', data);
       });
     },
 
@@ -148,6 +169,39 @@ export default {
       });
       return filterItems.join(" ").toString();
     },
+
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+    async likeBrand(brandId) {
+      // condition 1 login check
+      let isLogedIn = await this.isLogedIn();
+      if (!isLogedIn) {
+        Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
+      } else {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          console.log('brand uid', uid);
+          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
+            this.getBrandList();
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
+        });
+      }
+    }
   },
 };
 </script>
@@ -161,16 +215,11 @@ export default {
   font-size: 14px;
   color: #25282b;
 }
-.miancard {
+.maincard {
   width: 100%;
   min-height: 150px;
-  background-color: #eee;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  align-self: center;
-  cursor: pointer;
+  flex-direction: column;
 }
 .main {
   width: 100%;
@@ -184,6 +233,7 @@ export default {
   border-radius: 6px;
   overflow: hidden;
   background-color: #c4c4c4;
+  cursor: pointer;
 }
 .imgsec {
   width: 100%;
@@ -194,12 +244,29 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
-
+.text-wrap {
+  cursor: pointer;
+}
+ion-card-title {
+  position: relative;
+}
+ion-card-title h3 {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  color: #25282b;
+}
 .text-box {
   /* display: flex;
   text-align: right; */
-  height: 16px;
-  float: right;
+  height: 24px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+.text-box > img {
+  width: 24px;
 }
 .right-section {
   text-align: right;
@@ -215,5 +282,14 @@ img:hover {
   padding-top: 10px;
   /* left: 67px; */
   /* top: 160px; */
+}
+.notfound-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #c4c4c4;
+  padding: 30px 0 20px 0;
 }
 </style>

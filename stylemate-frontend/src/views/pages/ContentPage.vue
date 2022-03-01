@@ -3,11 +3,19 @@
     <h1 class="title">BEST CONTENTS</h1>
     <!-- Content row start -->
     <div class="gridcontainer">
-      <div v-for="(image, i) of best_contents" :key="i + 1" :class="'g-img-wrap a' + (i + 1)">
+      <div
+        v-for="(image, i) of best_contents"
+        :key="i + 1"
+        :class="'g-img-wrap a' + (i + 1)"
+      >
         <img
-          :src="image.post.product.imageThumbnailPath"
+          :src="[
+            image.post.instagramPost.thumbnailUrl
+              ? image.post.instagramPost.thumbnailUrl
+              : image.post.instagramPost.thumbnailOriginalUrl,
+          ]"
           v-bind:alt="img"
-          @click="store.methods.setContentsDetailsModal(true, image.post.id)"
+          @click="store.methods.setContentsDetailsModal(image.post.id,true)"
         />
       </div>
     </div>
@@ -20,10 +28,14 @@
       <div class="new-row">
         <div class="new-grid" v-for="image in new_contents" :key="image">
           <img
-            :src="image.campaign.imageThumbnailPath"
+            :src="[
+              image.instagramPost.thumbnailUrl
+                ? image.instagramPost.thumbnailUrl
+                : image.instagramPost.thumbnailOriginalUrl,
+            ]"
             v-bind:alt="img"
             @click="
-              store.methods.setContentsDetailsModal(true, image.campaign.id)
+              store.methods.setContentsDetailsModal(image.campaign.id,true)
             "
           />
         </div>
@@ -113,7 +125,7 @@ export default {
       .catch((e) => {
         console.log(e);
       });
-    
+
     // best_contents
     this.contentService
       .getBestContent()
@@ -149,42 +161,48 @@ export default {
 .a1 {
   grid-area: a;
   height: 210px;
-  
 }
 
 .a2 {
   grid-area: b;
+  height: 100px;
 }
-
 .a3 {
   grid-area: c;
+  height: 100px;
 }
 
 .a4 {
   grid-area: d;
+  height: 100px;
 }
 
 .a5 {
   grid-area: e;
+  height: 100px;
 }
 
 .a6 {
   grid-area: f;
+  height: 100px;
 }
 
 .a7 {
   grid-area: g;
+  height: 210px;
 }
 
 .a8 {
   grid-area: h;
+  height: 100px;
 }
 
 .a9 {
   grid-area: i;
+  height: 100px;
 }
 .g-img-wrap {
-border-radius: 6px;
+  border-radius: 6px;
   overflow: hidden;
 }
 .g-img-wrap img {

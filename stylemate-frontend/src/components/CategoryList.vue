@@ -97,9 +97,9 @@ export default {
   methods: {
     // Child category click
     handleClick2(ids) {
-      alert(ids);
+      // alert(ids);
       this.itemServices.getFilterProduct(ids).then((data) => {
-        console.log("filterproductList", data);
+        // console.log("filterproductList", data);
         this.childactiveId = ids; //To activate the All button
 
         if (data.length == 0) {
@@ -123,9 +123,9 @@ export default {
 
     // Category click
     handleClick(childCategory, ids) {
-      alert(ids);
+      // alert(ids);
        this.itemServices.getFilterProduct(ids).then((data) => {
-        console.log("category-filterproductList", data);
+        // console.log("category-filterproductList", data);
         this.childactiveId = ids; //To activate the All button
         if (data.length == 0) {
           this.nofltData = true;
@@ -146,23 +146,23 @@ export default {
         });
 
         this.activeId = ids;
-        console.log("this.activeId", this.activeId);
+        // console.log("this.activeId", this.activeId);
         this.$emit("allbutton", this.activeId);
 
         let arr1 = this.childCategoryArray;
-        console.log("arr1", arr1);
+        // console.log("arr1", arr1);
         this.childCategories2 = arr1.unshift({ name: "All", id: ids });
-        console.log("this.childCategories2", this.childCategories2);
+        // console.log("this.childCategories2", this.childCategories2);
 
-        alert("child cat id", ids);
+        // alert("child cat id", ids);
         this.childCategory = true;
         this.onClickButton(false);
-        console.log("this", this);
+        // console.log("this", this);
 
         this.childactiveId = "Allchild"; //To highlight the child button default
 
       } else {
-        alert(ids);
+        // alert(ids);
         this.childCategory = false;
         this.onClickButton(true);
       }

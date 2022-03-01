@@ -1,17 +1,101 @@
 <template>
   <div class="item-card">
     <div class="img-con">
-      <img
-        :src="progressDetails.product.imageThumbnailPath"
-        alt=""
-      />
-      <span class="img-tag" :style="{ backgroundColor: `${getColor()}` }">{{
-        progressDetails.imgTag
-      }}</span>
+      <img :src="progressDetails.product.imageThumbnailPath" alt="" />
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'booking' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'booking' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
+        "
+        >Application completed</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
+        "
+        >Post registration</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'postProgress'
+        "
+        >Checking</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          this.progressDetails.processStatus === 'progress' &&
+          this.progressDetails.processDetailStatus === 'posting' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'post_modify_request'
+        "
+        >re-registration</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          // eslint-disable-next-line vue/no-dupe-v-else-if
+          this.progressDetails.processStatus === 'progress' &&
+          (this.progressDetails.processDetailStatus === 'announce' ||
+            this.progressDetails.processDetailStatus === 'booking') &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
+        "
+        >Sponsor Selection</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-else-if="
+          (this.progressDetails.processStatus === 'progress' ||
+            this.progressDetails.processStatus === 'finish') &&
+          (this.progressDetails.processDetailStatus === 'announce' ||
+            this.progressDetails.processDetailStatus === 'posting' ||
+            this.progressDetails.processDetailStatus === 'finish') &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'booking' &&
+          this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'ready'
+        "
+        >unselected</span
+      >
+      <span
+        class="img-tag"
+        id="imgTag"
+        :style="{ backgroundColor: `${getColor()}` }"
+        v-if="
+          (this.progressDetails.processStatus === 'progress' ||
+          this.progressDetails.processStatus === 'finish') &&
+            this.progressDetails.processDetailStatus === 'posting' &&
+            this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus === 'join' &&
+            this.progressDetails.booking[this.progressDetails.booking.length - 1].postStatus === 'finish'
+        "
+        >Sponsorship completed</span
+      >
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.product.name }}</h2>
+        <h2>{{ progressDetails.product.brand.engName }}</h2>
         <span
           class="cancel-tag"
           v-if="
@@ -23,8 +107,8 @@
         >
       </div>
       <div>
-        <h4>{{ progressDetails.product.description }}</h4>
-        <h6>End date {{ progressDetails.endDate }}</h6>
+        <h4>{{ progressDetails.product.name }}</h4>
+        <h6>End date {{ moment(progressDetails.campaignSchedule.finishedAt).format('YYYY.MM.DD  h:mm') }}</h6>
         <div
           class="item-button"
           v-if="
@@ -55,6 +139,7 @@
 
 <script>
 import { inject } from "vue";
+import moment from 'moment';
 export default {
   name: "ItemCard",
   props: {
@@ -72,7 +157,75 @@ export default {
       // setTab,
     };
   },
+  created() {
+    this.moment = moment;
+  },
+  mounted() {
+    this.getImgTag();
+  },
   methods: {
+    getImgTag() {
+      if (
+        this.progressDetails.processStatus ||
+        this.progressDetails.processDetailStatus ||
+        this.progressDetails.booking[this.progressDetails.booking.length - 1].bookingStatus ||
+        this.progressDetails.booking[0].postStatus
+      ) {
+        let tag = document.getElementById("imgTag");
+        // console.log(tag);
+        if (
+          this.progressDetails.processStatus === "progress" &&
+          this.progressDetails.processDetailStatus === "booking" &&
+          this.progressDetails.booking[0].bookingStatus === "booking" &&
+          this.progressDetails.booking[0].postStatus === "ready"
+        ) {
+          return (tag.innerHTML = "Application completed");
+        } else if (
+          this.progressDetails.processStatus === "progress" &&
+          this.progressDetails.processDetailStatus === "announce/booking" &&
+          this.progressDetails.booking[0].bookingStatus === "join" &&
+          this.progressDetails.booking[0].postStatus === "ready"
+        ) {
+          return (tag.innerHTML = "Sponsor Selection");
+        } else if (
+          this.progressDetails.processStatus === "progress/finish" &&
+          this.progressDetails.processDetailStatus ===
+            "announce,posting,finish" &&
+          this.progressDetails.booking[0].bookingStatus === "booking" &&
+          this.progressDetails.booking[0].postStatus === "ready"
+        ) {
+          return (tag.innerHTML = "unselected");
+        } else if (
+          this.progressDetails.processStatus === "progress/finish" &&
+          this.progressDetails.processDetailStatus === "posting" &&
+          this.progressDetails.booking[0].bookingStatus === "join" &&
+          this.progressDetails.booking[0].postStatus === "finish"
+        ) {
+          return (tag.innerHTML = "Sponsorship completed");
+        } else if (
+          this.progressDetails.processStatus === "progress" &&
+          this.progressDetails.processDetailStatus === "posting" &&
+          this.progressDetails.booking[0].bookingStatus === "join" &&
+          this.progressDetails.booking[0].postStatus === "ready"
+        ) {
+          return (tag.innerHTML = "Post registration");
+        } else if (
+          this.progressDetails.processStatus === "progress" &&
+          this.progressDetails.processDetailStatus === "posting" &&
+          this.progressDetails.booking[0].bookingStatus === "join" &&
+          this.progressDetails.booking[0].postStatus === "postProgress"
+        ) {
+          return (tag.innerHTML = "Checking");
+        } else if (
+          this.progressDetails.processStatus === "progress" &&
+          this.progressDetails.processDetailStatus === "posting" &&
+          this.progressDetails.booking[0].bookingStatus === "join" &&
+          this.progressDetails.booking[0].postStatus === "post_modify_request"
+        ) {
+          return (tag.innerHTML = "re-registration");
+        }
+      }
+    },
     getColor() {
       if (this.progressDetails.status === "re-registration") {
         return "#addad9bf";
