@@ -2,6 +2,7 @@
   <div>
     <button class="button" @click="logInWithFacebook">Login with Facebook</button>
     <div id="status">hi {{ loginstatus }}</div>
+    <div id="status2">User details: {{ userDetails }}</div>
   </div>
 </template>
 <script>
@@ -10,12 +11,16 @@ export default {
   data() {
     return {
       loginstatus: false,
+      userDetails:null
     };
   },
-  created() {},
+  async created() {
+    await this.loadFacebookSDK(document, "script", "facebook-jssdk");
+    await this.initFacebook();
+  },
   updated() {
     // this.logInWithFacebook();
-    this.checkLoginState();
+    // this.checkLoginState();
   },
   methods: {
     testData() {
@@ -23,6 +28,7 @@ export default {
       console.log("Welcome!  Fetching your information.... ");
       window.FB.api("/me", (response) => {
         console.log('Successful login for: ', response);
+        this.userDetails = response;
         console.log("Successful login for: " + response.name);
         document.getElementById("status").innerHTML =
           "Thanks for logging in, " + response.name + "!";
@@ -52,20 +58,19 @@ export default {
     },
 
     async logInWithFacebook() {
-      await this.loadFacebookSDK(document, "script", "facebook-jssdk");
-      await this.initFacebook();
       window.FB.login((response) => {
         if (response.authResponse) {
-          alert("You are logged in &amp; cookie set!");
+          // alert("You are logged in &amp; cookie set!");
           this.loginstatus = true;
+          this.checkLoginState();
           return true;
           // Now you can redirect the user or do an AJAX request to
           // a PHP script that grabs the signed request from the cookie.
         } else {
-          alert("User cancelled login or did not fully authorize.");
+          // alert("User cancelled login or did not fully authorize.");
           return false;
         }
-      });
+      },{scope: 'public_profile,instagram_basic,pages_show_list'});
       return false;
     },
     async initFacebook() {
