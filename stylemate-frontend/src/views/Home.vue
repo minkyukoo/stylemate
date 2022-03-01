@@ -653,11 +653,6 @@ export default {
   color: #25282b;
   font-size: 20px;
 }
-
-/* .brandSliderimg {
-  border-radius: 6px;
-  overflow: hidden;
-} */
 .brandSliderimg img {
   width: 100%;
 }
@@ -815,5 +810,8 @@ export default {
 }
 .newBrandSec .swiper {
   z-index: 2;
+}
+.greyBtnFull{
+  padding: 12px 0;
 }
 </style>
