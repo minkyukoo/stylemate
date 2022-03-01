@@ -29,11 +29,9 @@ export default {
     const router = useRouter();
 
     const reDirectPage = (item) => {
-      store.state.noticeTabPageName = capitalize(item.hash);
+      store.state.noticeTabPageName = item.hash;
       router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
     };
-
-    const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 
     return {
       store,
