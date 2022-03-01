@@ -26,34 +26,40 @@
     </div>
 
     <div class="main pad-b-40">
-      <div
-        class="maincard"
-        v-for="info in brands"
-        :key="info.id"
-      >
-        <figure class="img-wrap" @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">
+      <div class="maincard" v-for="info in brands" :key="info.id">
+        <figure
+          class="img-wrap"
+          @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+        >
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
         </figure>
-        
+
         <div class="text-wrap">
           <ion-card-header>
-          <ion-card-title>
-            <h3 @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })">{{ info.korName }}</h3>
-            <div class="text-box" @click="likeBrand(info.id)">
-              <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
-              <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
-              <img v-else src="@/assets/icons/heart-outline.svg" />
-            </div>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })" class="maincontent">{{ info.description }}</ion-card-content>
-        <ion-card-content @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })" class="subcontent">
-          {{
-            setTags(info.tag)
-          }}
-        </ion-card-content>
+            <ion-card-title>
+              <h3
+                @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+              >{{ info.korName }}</h3>
+              <div class="text-box" @click="likeBrand(info.id)">
+                <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
+                <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img v-else src="@/assets/icons/heart-outline.svg" />
+              </div>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content
+            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            class="maincontent"
+          >{{ info.description }}</ion-card-content>
+          <ion-card-content
+            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            class="subcontent"
+          >
+            {{
+              setTags(info.tag)
+            }}
+          </ion-card-content>
         </div>
-        
       </div>
     </div>
   </div>
@@ -113,6 +119,7 @@ export default {
     },
 
     getBrandList() {
+      console.log('call from likeBrand');
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
         console.log('this.brands list', data);
@@ -163,7 +170,7 @@ export default {
       return filterItems.join(" ").toString();
     },
 
-     // isLogedIn
+    // isLogedIn
     async isLogedIn() {
       return await this.tokenService.isAuth();
     },
@@ -186,16 +193,14 @@ export default {
         await this.isUserid().then((res) => {
           uid = res;
           console.log('brand uid', uid);
-          this.brandService.influencelikes(uid,'brand',brandId).then((res) => {
-            console.log(res.response.data.error);
-            console.log(res);
-            if(res.response.data.error) {
+          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
+            this.getBrandList();
+            if (res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }
           });
         });
       }
-      console.log('likeProduct');
     }
   },
 };
@@ -239,13 +244,13 @@ img:hover {
   border-color: rgb(63, 13, 110);
   border: #25282b;
 }
-.text-wrap{
+.text-wrap {
   cursor: pointer;
 }
-ion-card-title{
+ion-card-title {
   position: relative;
 }
-ion-card-title h3{
+ion-card-title h3 {
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;

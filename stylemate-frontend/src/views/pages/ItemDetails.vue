@@ -287,6 +287,7 @@ export default {
       return await this.isUserid().then((res) => {
         uid = res;
         return this.userInfoService.getUserdeliveries(uid).then((res) => {
+          console.log('res address', res);
           if (res.data.length > 0) {
             return true;
           }
@@ -317,11 +318,11 @@ export default {
         return false;
       }
       // condition 3 Sponsership check
-      let processDetailStatus = this.productCampaign.processDetailStatus;
-      if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
-        Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
-        return false;
-      }
+      // let processDetailStatus = this.productCampaign.processDetailStatus;
+      // if (processDetailStatus === 'announce' || processDetailStatus === 'posting') {
+      //   Toast.fire({ title: "브랜드의 사정으로 협찬이 불가능합니다." });
+      //   return false;
+      // }
       this.hideSponserButton();
     },
     async likeProduct(productId) {

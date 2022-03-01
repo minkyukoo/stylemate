@@ -33,6 +33,7 @@
             :key="index"
             class="product-list-item"
           >
+          {{product.campaign.map(item => item.channelType)}}
             <div class="top-float-div">
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
@@ -208,6 +209,7 @@ export default defineComponent({
           this.itemService .influencelikes(uid,'product',productId).then((res) => {
             // console.log(res.response.data.error);
             // console.log(res.response);
+            this.store.methods.getData();
             if(res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }
