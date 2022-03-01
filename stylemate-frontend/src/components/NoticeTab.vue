@@ -25,6 +25,7 @@
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === '#notice'">
+      <div class="noticeWrap">
       <div
         v-for="notice in noticelist"
         :key="notice"
@@ -55,6 +56,7 @@
           <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- tab content 2 -->
@@ -75,6 +77,7 @@
 
     <!-- tab content 3 -->
     <div class="tab-content" v-if="layout === '#inquiry'">
+      <div class="noticeWrap">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
@@ -113,6 +116,7 @@
           ><span>{{ dateFormat(inquiry.createdAt) }}</span>
         </div>
       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -120,6 +124,7 @@
 <script>
 import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "NoticeTab",
   components: {
@@ -137,6 +142,7 @@ export default {
   },
   created() {
     this.service = new UserInfoService();
+    this.tokenService = new TokenService();
   },
   mounted() {
     this.layout = this.$route.hash;
@@ -183,12 +189,14 @@ export default {
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
     },
 
-    sendInquiryDetails() {
-      if (
-        localStorage.getItem("token") &&
-        localStorage.getItem("token") !== undefined &&
-        localStorage.getItem("token") !== ""
-      ) {
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+
+    async sendInquiryDetails() {
+      let isLogedIn = await this.isLogedIn();
+      if (isLogedIn) {
         this.$router.push({ name: "InquiryDetails" });
       } else this.$router.push({ name: "LoginPage" });
     },
@@ -219,6 +227,7 @@ p.no-notice-data {
   color: #797979;
   padding: 13px 0 9px;
   cursor: pointer;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #090909;
@@ -335,5 +344,8 @@ p.no-notice-data {
   line-height: 20px;
   color: #25282b;
   margin-bottom: 12px;
+}
+.noticeWrap{
+  padding-bottom: 100px;
 }
 </style>

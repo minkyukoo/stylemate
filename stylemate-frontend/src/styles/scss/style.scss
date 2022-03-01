@@ -430,6 +430,20 @@ img:hover {
     .vue-select-header {
       .vue-input {
         padding: 12px 20px;
+        input{
+          &::placeholder {
+            color: #25282B;
+            opacity: 1; 
+          }
+          
+          &:-ms-input-placeholder { 
+            color: #25282B;
+          }
+          
+          &::-ms-input-placeholder {
+            color: #25282B;
+          }
+        }
       }
       .icon.arrow-downward {
         border: none;
@@ -442,6 +456,7 @@ img:hover {
         margin-right: 18px;
       }
     }
+
     .vue-dropdown {
       border-radius: 6px;
       background: #ffffff;
@@ -449,14 +464,14 @@ img:hover {
       // position: absolute;
       z-index: 9;
       .vue-dropdown-item {
-        padding: 18px 19px;
+        padding: 11px;
         span {
           font-size: 14px;
-          line-height: 14px;
+          line-height: 18px;
           color: #595959;
         }
         &.highlighted {
-          background: rgba(229, 229, 229, 0.5);
+          background: #E5E5E5;
         }
       }
     }
@@ -489,7 +504,7 @@ img:hover {
         .vue-dropdown {
           border: 1px solid #f7f7f7;
           .vue-dropdown-item {
-            padding: 12px;
+            padding: 7px 12px;
             &.highlighted {
               background: #f7f7f7;
               span {
@@ -506,5 +521,11 @@ img:hover {
         }
       }
     }
+  }
+}
+
+.form-control{
+  &:focus-visible{
+    outline: none;
   }
 }

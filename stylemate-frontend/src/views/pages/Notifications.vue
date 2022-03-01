@@ -201,7 +201,7 @@ export default {
   align-items: center;
 }
 .loopList li .loopInner a img {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5px;
   width: 5px;
   height: 9px;
 }

@@ -114,6 +114,7 @@ export default defineComponent({
   width: 300px;
   height: 300px;
   margin-bottom: 16px;
+  border-radius: 6px;
 }
 .text {
   text-align: center;
