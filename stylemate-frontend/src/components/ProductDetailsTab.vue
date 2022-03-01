@@ -310,6 +310,7 @@ export default {
   justify-content: center;
   padding: 20px;
   width: 50%;
+  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;
