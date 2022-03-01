@@ -147,8 +147,9 @@ export default {
 }
 .button-group {
   bottom: 0;
-  width: 500px;
+  max-width: 500px;
   position: fixed;
+  width: 100%;
 }
 .button-group button {
   width: 100%;

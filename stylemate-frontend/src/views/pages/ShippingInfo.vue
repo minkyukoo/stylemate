@@ -336,8 +336,9 @@ export default {
 .button-group {
   display: flex;
   position: fixed;
-  width: 500px;
+  max-width: 500px;
   bottom: 0;
+  width: 100%;
 }
 .button-group button {
   display: flex;
