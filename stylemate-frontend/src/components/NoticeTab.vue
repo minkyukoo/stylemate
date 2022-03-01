@@ -124,6 +124,7 @@
 <script>
 import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 export default {
   name: "NoticeTab",
   components: {
@@ -141,6 +142,7 @@ export default {
   },
   created() {
     this.service = new UserInfoService();
+    this.tokenService = new TokenService();
   },
   mounted() {
     this.layout = this.$route.hash;
@@ -187,12 +189,14 @@ export default {
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
     },
 
-    sendInquiryDetails() {
-      if (
-        localStorage.getItem("token") &&
-        localStorage.getItem("token") !== undefined &&
-        localStorage.getItem("token") !== ""
-      ) {
+    // isLogedIn
+    async isLogedIn() {
+      return await this.tokenService.isAuth();
+    },
+
+    async sendInquiryDetails() {
+      let isLogedIn = await this.isLogedIn();
+      if (isLogedIn) {
         this.$router.push({ name: "InquiryDetails" });
       } else this.$router.push({ name: "LoginPage" });
     },
