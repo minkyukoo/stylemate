@@ -33,7 +33,7 @@
             :key="index"
             class="product-list-item"
           >
-          {{product.campaign.map(item => item.channelType)}}
+          <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
                 <img src="@/assets/icons/instagram.svg" />
