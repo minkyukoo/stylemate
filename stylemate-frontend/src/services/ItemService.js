@@ -6,7 +6,7 @@ export default class ItemService {
   }
 
   async getProductList() {
-    if(!token) {
+    if (!token) {
       return await axios.get(`/stylemates/products`).then((res) => res.data.data);
     } else {
       return await axios.get(`/stylemates/products`, {
@@ -26,7 +26,15 @@ export default class ItemService {
   }
 
   async getProductDetails(ids) {
-    return await axios.get(`/stylemates/products/${ids}`).then((res) => res.data).catch((err) => err);
+    if (!token) {
+      return await axios.get(`/stylemates/products/${ids}`).then((res) => res.data).catch((err) => err);
+    } else {
+      return await axios.get(`/stylemates/products/${ids}`, {
+        headers: {
+          Authorization: 'Bearer ' + token //the token is a variable which holds the token
+        }
+      }).then((res) => res.data).catch((err) => err);
+    }
   }
 
   async getUserdeliveries(uid) {

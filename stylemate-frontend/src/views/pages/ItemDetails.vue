@@ -44,7 +44,7 @@
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div> -->
+            </div>-->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
@@ -216,34 +216,7 @@ export default {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
-
-    console.log('localStorage.token', localStorage.token);
-
-    var proId = this.$route.params.id;
-    this.itemService.getProductDetails(proId).then((res) => {
-      // catch error
-      if (res.response) {
-        if (res.response.status == 404) {
-          // alert(res.response.data.error.message);
-          this.$router.push('/item');
-        }
-      }
-      // success
-      else {
-        // console.log('producrt res', res);
-        this.productDetails = res;
-        // console.log('productDetails campaign:', this.productDetails);
-        this.productDetails.campaign.map((item) => {
-          this.productCampaign = item
-          // console.log("this.productCampaign",this.productCampaign);
-        });
-
-        //Cancellation of sponsorship application
-
-
-
-      }
-    });
+    this.getProductDetails();
   },
   methods: {
     showModal() {
@@ -255,7 +228,25 @@ export default {
     hideSponserButton() {
       this.isActive = !this.isActive;
     },
-
+    getProductDetails() {
+      var proId = this.$route.params.id;
+      this.itemService.getProductDetails(proId).then((res) => {
+        // catch error
+        if (res.response) {
+          if (res.response.status == 404) {
+            this.$router.push('/item');
+          }
+        }
+        // success
+        else {
+          this.productDetails = res;
+          console.log('productDetails:', this.productDetails);
+          this.productDetails.campaign.map((item) => {
+            this.productCampaign = item
+          });
+        }
+      });
+    },
     // isAuthorized
     async isLogedIn() {
       return await this.tokenService.isAuth();
@@ -334,10 +325,11 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService .influencelikes(uid,'product',productId).then((res) => {
+          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
             // console.log(res.response.data.error);
             // console.log(res.response);
-            if(res.response.data.error) {
+            this.getProductDetails();
+            if (res.response.data.error) {
               Toast.fire({ title: res.response.data.error.message });
             }
           });
