@@ -76,11 +76,14 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
+    <StickyBtn/>
   </div>
   <!-- </ion-page> -->
 </template>
 
 <script>
+
+import StickyBtn from '@/components/StickyBtn.vue';
 import {
   IonTabBar,
   IonTabButton,
@@ -103,6 +106,7 @@ export default {
     // IonIcon,
     // IonPage,
     IonRouterOutlet,
+    StickyBtn
   },
   data() {
     return {
@@ -141,6 +145,9 @@ export default {
 </script>
 
 <style scoped>
+ion-tabs{
+  background: #fff;
+}
 ion-icon {
   color: blue;
   --ionicon-stroke-width: 16px;
@@ -157,6 +164,7 @@ ion-tab-bar {
   background: black;
   border-radius: 8px;
   height: 70px;
+  margin: 0 10px 10px;
 }
 ion-tab-button {
   background: black;

@@ -255,6 +255,7 @@
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
+    <StickyBtn/>
   </ion-page>
 </template>
 
@@ -273,6 +274,7 @@ import BannerService from "@/services/BannerService";
 import BrandService from "@/services/BrandService";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
+import StickyBtn from '@/components/StickyBtn.vue';
 
 export default {
   name: "Home",
@@ -281,6 +283,7 @@ export default {
     IonPage,
     Swiper,
     SwiperSlide,
+    StickyBtn,
   },
   setup() {
     const onSwiper = (swiper) => {
