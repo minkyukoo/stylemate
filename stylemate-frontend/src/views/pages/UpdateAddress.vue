@@ -35,7 +35,7 @@
               </span>
             </div>
           </li>
-          <li>
+          <li class="checkBoxWrap">
             <div class="checkLabel">
               <ion-checkbox color="primary" checked disabled></ion-checkbox>
               <label style="color: #000">기본 배송지</label>
@@ -44,8 +44,8 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="grey-btn">취소</button>
-        <button class="black-btn" @click="submitAddress">신청하기</button>
+        <button class="grey-btn">삭제</button>
+        <button class="black-btn" @click="submitAddress">확인</button>
       </div>
 
       <FullCustomModal
@@ -288,8 +288,10 @@ export default {
   /* justify-content: space-between; */
   /* align-items: center; */
   flex-direction: column;
-  border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
+}
+.contWrap ul li:first-child{
+  border-bottom: 1px solid #f6f6f6;
 }
 .contWrap li label {
   color: #c4c4c4;
@@ -336,8 +338,9 @@ export default {
 .button-group {
   display: flex;
   position: fixed;
-  width: 500px;
+  max-width: 500px;
   bottom: 0;
+  width: 100%;
 }
 .button-group button {
   display: flex;
@@ -356,5 +359,8 @@ export default {
 .button-group button.black-btn {
   color: #ffffff;
   background: #090909;
+}
+.checkBoxWrap{
+  border: none !important;
 }
 </style>

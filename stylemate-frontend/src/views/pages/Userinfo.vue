@@ -53,9 +53,14 @@
           </li>
         </ul>
         <ul class="thirdList">
-          <li>
+          <li class="head">
             <div>
               <label>수신동의</label>
+            </div>
+            <div>
+              <img
+                src="@/assets/icons/arrow-right.svg"
+              />
             </div>
           </li>
           <li>
@@ -114,7 +119,7 @@
               <span v-if="deleteAccount" v-show="deleteAccount"
                 >"Are you sure, you want to delete your account permantly"</span
               >
-              <span v-else> 회원탈퇴 </span>
+              <span class="withdrawTxt" v-else> 회원탈퇴 </span>
             </div>
           </li>
         </ul>
@@ -339,7 +344,16 @@ export default {
 .thirdList li ion-checkbox {
   margin-right: 10px;
 }
+.thirdList li.head{
+  justify-content: space-between !important;
+}
 .checkBox{
   display: flex;
+}
+.withdrawTxt{
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-decoration: underline;
 }
 </style>
