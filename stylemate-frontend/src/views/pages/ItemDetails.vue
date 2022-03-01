@@ -320,7 +320,7 @@ export default {
       return await this.isUserid().then((res) => {
         uid = res;
         return this.userInfoService.getUserdeliveries(uid).then((res) => {
-          if (res.data.length > 0) {
+          if (res.length > 0) {
             return true;
           }
           else {
