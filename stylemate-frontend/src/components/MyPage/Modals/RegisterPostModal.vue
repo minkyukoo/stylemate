@@ -29,7 +29,7 @@
             <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
-            <PostModalCard :cardData="modalData" />
+            <PostModalCard :cardData="postList" />
             <div>
               <button class="btn-outline-block">see more</button>
             </div>
@@ -55,6 +55,7 @@
 import { inject } from "vue";
 import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
+import MyPageService from "@/services/MyPageService";
 export default {
   name: "register-post-modal",
   data() {
@@ -81,6 +82,8 @@ export default {
           desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
         },
       ],
+      myPageService: null,
+      postList: [],
     };
   },
 
@@ -89,6 +92,15 @@ export default {
     return {
       store,
     };
+  },
+  created() {
+    this.myPageService = new MyPageService();
+  },
+  mounted() {
+    this.myPageService.getPostingList().then((res) => {
+      console.log(res);
+      this.postList = res.data.data;
+    });
   },
   components: {
     Modal,
