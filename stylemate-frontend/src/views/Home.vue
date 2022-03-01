@@ -154,7 +154,7 @@
             :watchSlidesProgress="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :pagination="{ clickable: true, dynamicBullets: true }"
+            :pagination="{ clickable: true }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
