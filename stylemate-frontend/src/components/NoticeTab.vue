@@ -3,21 +3,21 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="layout = '#notice'"
+        @click="(layout = '#notice'), stateUp('NOTICE')"
         :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="layout = '#faq'"
+        @click="(layout = '#faq'), stateUp('FAQ')"
         :class="{ active: layout === '#faq' }"
       >
         FAQ
       </a>
       <a
         class="tab"
-        @click="layout = '#inquiry'"
+        @click="(layout = '#inquiry'), stateUp('INQUIRY')"
         :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
@@ -25,6 +25,7 @@
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === '#notice'">
+      <div class="noticeWrap">
       <div
         v-for="notice in noticelist"
         :key="notice"
@@ -55,6 +56,7 @@
           <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- tab content 2 -->
@@ -75,19 +77,22 @@
 
     <!-- tab content 3 -->
     <div class="tab-content" v-if="layout === '#inquiry'">
+      
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
           <span><img src="@/assets/icons/icon-pencil.svg" /></span>문의하기
         </button>
       </div>
-      <div v-if="!inquiryLength">
+      <!-- v-if="!inquiryLength" -->
+      <div class="noticeWrap">
+      <div class="no-data">
         <p class="no-notice-data">등록된 내용이 없습니다</p>
       </div>
       <div
         v-for="inquiry in inquirylist"
         :key="inquiry.id"
-        class="notice-row"
+        class="notice-row" style="display:none;"
         @click="
           $router.push({
             name: 'InquiryRegisterDetails',
@@ -113,6 +118,7 @@
           ><span>{{ dateFormat(inquiry.createdAt) }}</span>
         </div>
       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -121,6 +127,8 @@
 import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { inject, onMounted } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "NoticeTab",
   components: {
@@ -134,6 +142,22 @@ export default {
       noticelist: [],
       inquirylist: [],
       inquiryLength: 0,
+    };
+  },
+  setup() {
+    const store = inject("store");
+    const route = useRoute();
+
+    const stateUp = (item) => {
+      store.state.noticeTabPageName = capitalize(item);
+    };
+
+    const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+    onMounted(() => {
+      stateUp(route.hash.replace("#", ""));
+    });
+    return {
+      stateUp,
     };
   },
   created() {
@@ -229,6 +253,9 @@ p.no-notice-data {
   color: #090909;
   font-weight: bold;
   border-bottom: solid 2px #090909;
+}
+.tab-content{
+  height: calc(100% - 60px);
 }
 .notice-row {
   border-bottom: solid 1px #f4f4f5;
@@ -340,5 +367,15 @@ p.no-notice-data {
   line-height: 20px;
   color: #25282b;
   margin-bottom: 12px;
+}
+.noticeWrap{
+  padding-bottom: 0;
+  height: 100%;
+}
+.no-data{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
 }
 </style>

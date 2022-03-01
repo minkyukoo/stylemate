@@ -13,6 +13,9 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import { useRouter } from "vue-router";
+
 export default {
   name: "MyPageLinks",
   props: {
@@ -21,11 +24,19 @@ export default {
       default: () => [],
     },
   },
-  methods: {
-    reDirectPage(item) {
-      console.log(item);
-      this.$router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
-    },
+  setup() {
+    const store = inject("store");
+    const router = useRouter();
+
+    const reDirectPage = (item) => {
+      store.state.noticeTabPageName = item.hash;
+      router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
+    };
+
+    return {
+      store,
+      reDirectPage,
+    };
   },
 };
 </script>
@@ -36,6 +47,7 @@ export default {
   justify-content: space-between;
   padding: 15px 0px;
   border-bottom: 1px solid #f7f7f7;
+  cursor: pointer;
 }
 .link-box h3 {
   font-size: 14px;

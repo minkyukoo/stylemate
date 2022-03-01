@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="button-row">
-                <button @click="resetForm()" class="grey-btn">취소</button>
+                <button @click="resetForm()" type="button" class="grey-btn">취소</button>
                 <button type="submit" class="black-btn">문의 등록</button>
               </div>
             </div>
@@ -164,6 +164,8 @@ export default {
   border-radius: 8px;
   padding: 12px 16px;
   width: 100%;
+  font-size: 14px;
+  line-height: 18px;
 }
 textarea {
   resize: none;
