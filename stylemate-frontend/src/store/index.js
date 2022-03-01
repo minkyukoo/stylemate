@@ -19,7 +19,7 @@ const state = reactive({
   sponcerFilterId: "",
   sponcerFilterNo: 0,
   sponcerChannelType: "instagram",
-  isPostModalVisible: false,
+  isPostModalVisible: true,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
@@ -75,11 +75,12 @@ const methods = {
         state.sponcerChannelType
       )
       .then((data) => {
-        console.log("CampaignList from store", data);
+        // console.log("CampaignList from store", data);
         state.FltCampaignData = data.data.data;
-        // console.log("CampaignList from store", state.FltCampaignData);
+        console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        return state.FltCampaignData;
+        console.log("0th",state.campaignEmpty);
+        // return state.FltCampaignData;
       });
   },
   setSponsorFilter(id, index) {
