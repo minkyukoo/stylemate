@@ -111,7 +111,7 @@ export default {
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
       // console.log(res.data.email);
-      this.email=res.data.email;
+      this.email = res.data.email;
     });
   },
   // mounted() {

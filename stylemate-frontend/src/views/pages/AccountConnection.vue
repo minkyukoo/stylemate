@@ -10,9 +10,7 @@
               :modules="modules"
               :slides-per-view="1"
               :space-between="50"
-              :pagination="{
-                type: 'progressbar',
-              }"
+              :pagination="{ clickable: false }"
               :navigation="true"
             >
               <swiper-slide>
@@ -136,7 +134,7 @@ export default {
   line-height: 18px;
   color: #212226;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 70px;
 }
 .sliderBox {
   margin-top: 40px;
@@ -170,4 +168,5 @@ export default {
 .sliderBox .swiper {
   min-height: 500px;
 }
+
 </style>
