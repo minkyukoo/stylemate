@@ -255,11 +255,14 @@ const routes = [
       innerHeader: true,
     }
   },
-  {
-    path: "/link-channel",
-    name: "LinkChannel",
-    component: () => import("@/views/pages/LinkChannel.vue"),
-  },
+  // {
+  //   path: "/link-channel",
+  //   name: "LinkChannel",
+  //   component: () => import("@/views/pages/LinkChannel.vue"),
+  //   meta: {
+  //     innerHeader: true,
+  //   }
+  // },
   {
     path: "/newmemberchannel",
     name: "NewMemberChannel",
