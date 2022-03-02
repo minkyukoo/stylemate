@@ -37,8 +37,13 @@
           </li>
           <li>
             <div class="checkLabel">
-              <ion-checkbox color="primary" checked disabled></ion-checkbox>
-              <label style="color: #000">기본배송지</label>
+              <input
+                  type="checkbox"
+                 checked
+                 disabled
+                />
+              <!-- <ion-checkbox color="primary" checked disabled></ion-checkbox> -->
+              <label style="color: #000">기본 배송지</label>
             </div>
           </li>
         </ul>
