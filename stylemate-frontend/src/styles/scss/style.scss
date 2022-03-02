@@ -529,3 +529,21 @@ img:hover {
     outline: none;
   }
 }
+
+.sliderBox {
+  .swiper-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .swiper-pagination-bullet{
+      background: #E4E4E7;
+      width: 4px;
+      height: 4px;
+    }
+    .swiper-pagination-bullet-active{
+      background: #0CBFCA;
+      width: 8px;
+      height: 8px;
+    }
+  }
+}

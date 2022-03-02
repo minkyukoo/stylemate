@@ -366,6 +366,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/account-connection",
+    name: "AccountConnection",
+    component: () => import("@/views/pages/AccountConnection.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   
 
 
