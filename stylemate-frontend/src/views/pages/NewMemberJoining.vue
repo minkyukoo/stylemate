@@ -114,6 +114,8 @@ export default {
   data() {
     return {
       isModalVisible: false,
+      // igResData: null,
+      // fbResData: null,
     }
   },
   created() {
@@ -136,25 +138,23 @@ export default {
       this.logInWithFacebook();
     },
 
-    fbData() {
-      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-      console.log("Welcome!  Fetching your information.... ");
-      window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
-        console.log('facebook: ', response);
-        const fbDetails = response;
-        return fbDetails;
-      });
-    },
+    // fbData() {
+    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //   console.log("Welcome!  Fetching your information.... ");
+    //   window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
+    //     console.log('facebook: ', response);
+    //     this.fbResData = response;
+    //   });
+    // },
 
-    igData() {
-      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-      console.log("Welcome!  Fetching your information.... ");
-      return window.FB.api("/107832208496167/accounts", (response) => {
-        console.log('Instagram Channel: ', response.data);
-        const igDetails = response.data;
-        return igDetails;
-      });
-    },
+    // igData() {
+    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //   console.log("Welcome!  Fetching your information.... ");
+    //   return window.FB.api("/107832208496167/accounts", (response) => {
+    //     console.log('Instagram Channel: ', response.data);
+    //     this.igResData = response.data;
+    //   });
+    // },
 
     statusChangeCallback(response) {
       // Called with the results from FB.getLoginStatus().
@@ -163,8 +163,9 @@ export default {
       if (response.status === "connected") {
         // Logged into your webpage and Facebook.
         console.log("loged into this webpage syccessfully.");
-        this.fbData();
-        this.igData();
+        // this.fbData();
+        // this.igData();
+        this.$router.push({name: 'NewMemberChannel'});
       } else {
         // Not logged into your webpage or we are unable to tell.
         console.log("Please log into this webpage.");

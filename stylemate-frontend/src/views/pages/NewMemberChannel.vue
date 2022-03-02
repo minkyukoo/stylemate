@@ -72,6 +72,8 @@
             </div>
           </li>
         </ul>
+        {{igResData}}
+        {{fbResData}}
       </div>
       <div class="subscribe-wrap">
         <button class="black-btn">활동 신청하기</button>
@@ -106,9 +108,14 @@ export default {
   data() {
     return {
       isActive: false,
+      igResData: null,
+      fbResData: null,
     };
   },
-
+  created() {
+    this.fbData();
+    this.igData();
+  },
   methods: {
     openlink() {
       console.log("clivk");
@@ -116,6 +123,25 @@ export default {
     hideSponserButton() {
       this.isActive = !this.isActive;
     },
+
+    fbData() {
+      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log("Welcome!  Fetching your information.... ");
+      window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
+        console.log('facebook: ', response);
+        this.fbResData = response;
+      });
+    },
+
+    igData() {
+      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log("Welcome!  Fetching your information.... ");
+      return window.FB.api("/107832208496167/accounts", (response) => {
+        console.log('Instagram Channel: ', response.data);
+        this.igResData = response.data;
+      });
+    },
+
   },
 };
 </script>
