@@ -256,6 +256,11 @@ const routes = [
     }
   },
   {
+    path: "/link-channel",
+    name: "LinkChannel",
+    component: () => import("@/views/pages/LinkChannel.vue"),
+  },
+  {
     path: "/newmemberchannel",
     name: "NewMemberChannel",
     component: () => import("@/views/pages/NewMemberChannel.vue"),
@@ -311,21 +316,6 @@ const routes = [
       innerHeader: true,
     }
   },
-  
-  // {
-  //   path: "/brands/:id",
-  //   name: "BrandDetails",
-  //   component: () => import("@/views/pages/BrandDetails.vue"),
-  //   meta: {
-  //     innerHeader: true,
-  //   }
-  // },
-  {
-    path: "/link-channel",
-    name: "LinkChannel",
-    component: () => import("@/views/pages/LinkChannel.vue"),
-  },
-
   {
     path: "/fb-login",
     name: "facebookLogin",
@@ -372,6 +362,14 @@ const routes = [
     path: "/customerservicecenter",
     name: "CustomerServiceCenter",
     component: () => import("@/views/pages/CustomerServiceCenter.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
+    path: "/account-connection",
+    name: "AccountConnection",
+    component: () => import("@/views/pages/AccountConnection.vue"),
     meta: {
       innerHeader: true,
     }

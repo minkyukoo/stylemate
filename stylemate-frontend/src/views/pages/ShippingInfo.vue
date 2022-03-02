@@ -17,7 +17,7 @@
               <span @click="showModal">
                 <input
                   type="text"
-                  placeholder="서울특별시 강남구 삼성로 95길 6"
+                  placeholder="배송지를 등록해 주세요"
                   v-model="addnew"
                 />
               </span>
@@ -341,8 +341,9 @@ export default {
 .button-group {
   display: flex;
   position: fixed;
-  width: 500px;
+  max-width: 500px;
   bottom: 0;
+  width: 100%;
 }
 .button-group button {
   display: flex;

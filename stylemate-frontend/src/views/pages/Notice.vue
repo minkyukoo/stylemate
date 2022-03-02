@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav headerTitle="고객센터"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -16,7 +16,6 @@ import { IonPage, IonContent } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import NoticeTab from "@/components/NoticeTab.vue";
-
 export default {
   name: "Notice",
   components: { TopNav, IonContent, IonPage, NoticeTab },
@@ -28,6 +27,7 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  
   methods: {
     openlink() {
       console.log("clivk");

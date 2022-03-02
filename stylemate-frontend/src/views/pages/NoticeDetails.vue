@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav :headerTitle="store.state.noticeTabPageName"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -53,6 +53,7 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import UserInfoService from "@/services/UserInfoService";
+import { inject } from "vue";
 
 export default {
   name: "NoticeDetails",
@@ -68,6 +69,12 @@ export default {
         prev: null,
         next: null,
       },
+    };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
     };
   },
   created() {

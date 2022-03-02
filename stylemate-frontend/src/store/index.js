@@ -1,4 +1,6 @@
-import { reactive } from "vue";
+import {
+  reactive
+} from "vue";
 // import axios from "axios";
 import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
@@ -11,12 +13,13 @@ const state = reactive({
   number: 13,
   UserId: "",
   status: "NotEmpty",
+  noticeTabPageName: "Notice",
   likedTabState: "item",
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
   sponcerFilterNo: 0,
   sponcerChannelType: "instagram",
-  isPostModalVisible: false,
+  isPostModalVisible: true,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
@@ -58,7 +61,7 @@ const methods = {
     state.sponcerFilterId = "";
     methods.getcampList();
   },
-  setContentsDetailsModal(id,tab) {
+  setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
     state.contentDetailsModal = tab;
     console.log(state.contentDetailsId);
@@ -72,11 +75,12 @@ const methods = {
         state.sponcerChannelType
       )
       .then((data) => {
-        console.log("CampaignList from store", data);
+        // console.log("CampaignList from store", data);
         state.FltCampaignData = data.data.data;
-        // console.log("CampaignList from store", state.FltCampaignData);
+        console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        return state.FltCampaignData;
+        console.log("0th",state.campaignEmpty);
+        // return state.FltCampaignData;
       });
   },
   setSponsorFilter(id, index) {

@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav :headerTitle="store.state.noticeTabPageName"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -63,7 +63,7 @@
                 </div>
               </div>
               <div class="button-row">
-                <button @click="resetForm()" class="grey-btn">취소</button>
+                <button @click="resetForm()" type="button" class="grey-btn">취소</button>
                 <button type="submit" class="black-btn">문의 등록</button>
               </div>
             </div>
@@ -79,6 +79,7 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { API } from "@/services/AxiosInstance";
+import { inject } from "vue";
 
 export default {
   name: "InquiryDetails",
@@ -90,6 +91,12 @@ export default {
       details: null,
       subjectError: false,
       detailsError: false,
+    };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
     };
   },
   watch: {
@@ -164,6 +171,8 @@ export default {
   border-radius: 8px;
   padding: 12px 16px;
   width: 100%;
+  font-size: 14px;
+  line-height: 18px;
 }
 textarea {
   resize: none;
