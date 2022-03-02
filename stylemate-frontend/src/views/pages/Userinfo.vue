@@ -53,13 +53,18 @@
           </li>
         </ul>
         <ul class="thirdList">
-          <li>
+          <li class="head">
             <div>
               <label>수신동의</label>
             </div>
+            <div>
+              <img
+                src="@/assets/icons/arrow-right.svg"
+              />
+            </div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="marketing"
@@ -70,7 +75,7 @@
             <div>마케팅 광고 활용 동의 (선택)</div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="compain"
@@ -80,7 +85,7 @@
             <div>캠페인 제안 받기 (선택)</div>
           </li>
           <li>
-            <div>
+            <div class="checkBox">
               <ion-checkbox
                 color="primary"
                 :checked="newsletter"
@@ -114,7 +119,7 @@
               <span v-if="deleteAccount" v-show="deleteAccount"
                 >"Are you sure, you want to delete your account permantly"</span
               >
-              <span v-else> 회원탈퇴 </span>
+              <span class="withdrawTxt" v-else> 회원탈퇴 </span>
             </div>
           </li>
         </ul>
@@ -299,7 +304,7 @@ export default {
 
 <style scoped>
 .contWrap {
-  padding: 20px;
+  padding: 20px 20px 150px;
 }
 .contWrap ul li {
   display: flex;
@@ -338,5 +343,17 @@ export default {
 }
 .thirdList li ion-checkbox {
   margin-right: 10px;
+}
+.thirdList li.head{
+  justify-content: space-between !important;
+}
+.checkBox{
+  display: flex;
+}
+.withdrawTxt{
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-decoration: underline;
 }
 </style>

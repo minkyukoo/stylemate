@@ -1,8 +1,17 @@
 <template>
   <div>
     <button class="button" @click="logInWithFacebook">Login with Facebook</button>
-    <div id="status">hi {{ loginstatus }}</div>
-    <div id="status2">User details: {{ userDetails }}</div>
+    <div v-if="loginstatus">
+      <ul>
+        <li v-for="(account, i) of igDetails" :key="i + 1">
+          <img :src="fbDetails.picture.data.url" alt="profilePic" />
+          <div>
+            <h1>Channel Name: {{ account.name }}</h1>
+            <h1>Facebook name: {{ fbDetails.name }}</h1>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -11,7 +20,8 @@ export default {
   data() {
     return {
       loginstatus: false,
-      userDetails:null
+      fbDetails: null,
+      igDetails: null
     };
   },
   async created() {
@@ -26,12 +36,13 @@ export default {
     testData() {
       // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
       console.log("Welcome!  Fetching your information.... ");
-      window.FB.api("/me", (response) => {
-        console.log('Successful login for: ', response);
-        this.userDetails = response;
-        console.log("Successful login for: " + response.name);
-        document.getElementById("status").innerHTML =
-          "Thanks for logging in, " + response.name + "!";
+      window.FB.api("/me/accounts", (response) => {
+        console.log('Instagram Channel: ', response.data);
+        this.igDetails = response.data;
+      });
+      window.FB.api("/me?fields=name%2Cpicture", (response) => {
+        console.log('facebook: ', response);
+        this.fbDetails = response;
       });
     },
 
@@ -70,7 +81,7 @@ export default {
           // alert("User cancelled login or did not fully authorize.");
           return false;
         }
-      },{scope: 'public_profile,instagram_basic,pages_show_list'});
+      }, { scope: 'public_profile,instagram_basic,pages_show_list' });
       return false;
     },
     async initFacebook() {
@@ -108,5 +119,21 @@ export default {
 }
 div {
   color: black;
+}
+h1{
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+li {
+  background: #9d7cee;
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }
 </style>

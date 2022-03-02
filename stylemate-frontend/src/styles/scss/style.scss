@@ -524,7 +524,7 @@ img:hover {
   }
 }
 
-.form-control{
+.form-control, input{
   &:focus-visible{
     outline: none;
   }

@@ -1,5 +1,10 @@
 <template>
-  <div class="Post-card-wrap" v-for="(i, e) in cardData" :key="e" @click="choosePost(i)" >
+  <div
+    :class="`Post-card-wrap ${choosed === e? 'active': ''}`"
+    v-for="(i, e) in cardData"
+    :key="e"
+    @click="choosePost(i)"
+  >
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
@@ -16,14 +21,20 @@
             </h4>
             <ul>
               <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
-                {{tags}}
+                {{ tags }}
               </li>
             </ul>
             <h6>{{ i.desc }}</h6>
           </div>
         </div>
       </div>
-      <input type="radio" name="radio" :id="`radio-${e}`" @change="setActive(event)" />
+      <input
+        type="radio"
+        name="radio"
+        :id="`radio-${e}`"
+        @change="setActive(e)"
+        :value="i"
+      />
       <span class="checkmark"></span>
     </label>
     <!-- <div class="pad-x-10">
@@ -41,18 +52,19 @@ export default {
   },
   data() {
     return {
-      choosed: false,
+      choosed: null,
     };
   },
   created() {
     this.moment = moment;
   },
   methods: {
-    choosePost() {
-      this.$emit("choosePost");
+    choosePost(event) {
+      this.$emit("choosePost", event);
     },
     setActive(e) {
       console.log(e);
+      this.choosed = e;
     },
   },
 };
@@ -102,7 +114,7 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.Post-header .item-desc ul{
+.Post-header .item-desc ul {
   display: flex;
   flex-wrap: wrap;
 }
