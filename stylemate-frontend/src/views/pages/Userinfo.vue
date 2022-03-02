@@ -161,7 +161,6 @@
 
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
-import Toggle from "@vueform/toggle";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import UserInfoService from "@/services/UserInfoService";
@@ -177,7 +176,7 @@ import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "Userinfo",
-  components: { TopNav, IonContent, IonPage, Toggle },
+  components: { TopNav, IonContent, IonPage },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
