@@ -1,7 +1,7 @@
 <template>
-  <ion-page>
+   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="채널연결" />
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
