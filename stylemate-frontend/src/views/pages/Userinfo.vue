@@ -373,7 +373,7 @@ export default {
 .thirdList li ion-checkbox {
   margin-right: 10px;
 }
-/* --------------------------- */
+/* ---------switch------------------ */
 .switch {
   position: relative;
   display: inline-block;
