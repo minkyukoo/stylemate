@@ -149,7 +149,6 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"

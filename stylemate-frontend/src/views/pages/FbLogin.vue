@@ -1,9 +1,17 @@
 <template>
   <div>
     <button class="button" @click="logInWithFacebook">Login with Facebook</button>
-    <img src="{{fbDetails.picture.data.url}}" alt="profilePic">
-    <h1>Channel Name: {{igDetails.name}}</h1>
-    <h1>Facebook name: {{fbDetails.name}}</h1>
+    <div v-if="loginstatus">
+      <ul>
+        <li v-for="(account, i) of igDetails" :key="i + 1">
+          <img :src="fbDetails.picture.data.url" alt="profilePic" />
+          <div>
+            <h1>Channel Name: {{ account.name }}</h1>
+            <h1>Facebook name: {{ fbDetails.name }}</h1>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -12,8 +20,8 @@ export default {
   data() {
     return {
       loginstatus: false,
-      fbDetails:null,
-      igDetails:null
+      fbDetails: null,
+      igDetails: null
     };
   },
   async created() {
@@ -32,7 +40,7 @@ export default {
         console.log('Instagram Channel: ', response.data);
         this.igDetails = response.data;
       });
-       window.FB.api("/me?fields=name%2Cpicture", (response) => {
+      window.FB.api("/me?fields=name%2Cpicture", (response) => {
         console.log('facebook: ', response);
         this.fbDetails = response;
       });
@@ -73,7 +81,7 @@ export default {
           // alert("User cancelled login or did not fully authorize.");
           return false;
         }
-      },{scope: 'public_profile,instagram_basic,pages_show_list'});
+      }, { scope: 'public_profile,instagram_basic,pages_show_list' });
       return false;
     },
     async initFacebook() {
@@ -111,5 +119,21 @@ export default {
 }
 div {
   color: black;
+}
+h1{
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+li {
+  background: #9d7cee;
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }
 </style>

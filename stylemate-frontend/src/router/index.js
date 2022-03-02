@@ -154,7 +154,7 @@ const routes = [
         }
       },
       {
-        path: "mypage/sponsorships",
+        path: "/mypage/sponsorships",
         name: "Sponsorships",
         beforeEnter: guard,
         component: Sponsorships,
@@ -163,7 +163,7 @@ const routes = [
         }
       },
       {
-        path: "mypage/post-activity",
+        path: "/mypage/post-activity",
         name: "PostActivity",
         beforeEnter: guard,
         component: PostActivity,
@@ -172,7 +172,7 @@ const routes = [
         }
       },
       {
-        path: "mypage/mypage-liked",
+        path: "/mypage/mypage-liked",
         name: "MyPageLiked",
         beforeEnter: guard,
         component: MyPageLiked,
@@ -256,6 +256,11 @@ const routes = [
     }
   },
   {
+    path: "/link-channel",
+    name: "LinkChannel",
+    component: () => import("@/views/pages/LinkChannel.vue"),
+  },
+  {
     path: "/newmemberchannel",
     name: "NewMemberChannel",
     component: () => import("@/views/pages/NewMemberChannel.vue"),
@@ -311,21 +316,6 @@ const routes = [
       innerHeader: true,
     }
   },
-  
-  // {
-  //   path: "/brands/:id",
-  //   name: "BrandDetails",
-  //   component: () => import("@/views/pages/BrandDetails.vue"),
-  //   meta: {
-  //     innerHeader: true,
-  //   }
-  // },
-  {
-    path: "/link-channel",
-    name: "LinkChannel",
-    component: () => import("@/views/pages/LinkChannel.vue"),
-  },
-
   {
     path: "/fb-login",
     name: "facebookLogin",
