@@ -62,7 +62,6 @@
               <div class="contWrapbtn">
                 <button type="button" style="white-space: nowrap;">인증번호</button>
               </div>
-              <div>
                 <span>
                   <input type="text">
                 </span>
@@ -144,7 +143,7 @@ export default {
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
       // console.log(res.data.email);
-      this.email=res.data.email;
+      this.email = res.data.email;
     });
   },
   // mounted() {
