@@ -62,52 +62,19 @@
               <div class="contWrapbtn">
                 <button type="button" style="white-space: nowrap;">인증번호</button>
               </div>
-              <div>
-                <span>
-                  <input type="text">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">비밀번호 확인</span>
-              </div>
-              <div>
-                <span>
-                  <input type="text">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">휴대폰 번호</span>
-              </div>
-              <div class="inlineForm">
-                <div class="notiWrap">
-                  <vue-select
-                  placeholder="SKT"
-                  :options="options"> </vue-select>
-                </div>
-                <div class="codeWrap">
-                  <span>010-</span>
-                  <input type="text">
-                </div>
-                <div class="contWrapbtn">
-                  <button type="button">인증번호</button>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="inlineTime">
-                <span class="labelGap">인증번호 입력</span>
-                <span class="labelGap">01:53</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="button-group">
-            <button class="black-btn">확인</button>
-        </div>
+            </div>
+          </li>
+          <li>
+            <div class="inlineTime">
+              <span class="labelGap">인증번호 입력</span>
+              <span class="labelGap">01:53</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="button-group">
+        <button class="black-btn">신청하기</button>
+      </div>
     </ion-content>
     <!-- End page content -->
   </ion-page>
