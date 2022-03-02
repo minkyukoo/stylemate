@@ -25,12 +25,12 @@
               <img src="@/assets/icons/instagram-list.svg" /> Instagram
             </h4>
             <div>
-              <button class="connectBtn" type="button">+ 연결방법 보기</button>
+              <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>
           <li>
             <h4>
-              <img src="@/assets/icons/instagram-list.svg" /> Instagram
+              <img src="@/assets/icons/youtube.svg" /> Youtube
             </h4>
             <div>
               <button class="connectBtn" type="button">+ 연결방법 보기</button>
@@ -38,7 +38,7 @@
           </li>
           <li>
             <h4>
-              <img src="@/assets/icons/instagram-list.svg" /> Instagram
+              <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div>
               <button class="connectBtn" type="button">+ 연결방법 보기</button>
@@ -106,6 +106,7 @@
 <script>
 import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
+import ChannelService from "@/services/ChannelService";
 
 export default {
   name: 'NewMember',
@@ -114,6 +115,11 @@ export default {
     return {
       isModalVisible: false,
     }
+  },
+  created() {
+    this.channelService = new ChannelService();
+    this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
+    this.channelService.initFacebook();
   },
   methods: {
     openlink() {
@@ -125,6 +131,69 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     },
+
+    addIgChannel() {
+      this.logInWithFacebook();
+    },
+
+    fbData() {
+      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log("Welcome!  Fetching your information.... ");
+      window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
+        console.log('facebook: ', response);
+        const fbDetails = response;
+        return fbDetails;
+      });
+    },
+
+    igData() {
+      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+      console.log("Welcome!  Fetching your information.... ");
+      return window.FB.api("/107832208496167/accounts", (response) => {
+        console.log('Instagram Channel: ', response.data);
+        const igDetails = response.data;
+        return igDetails;
+      });
+    },
+
+    statusChangeCallback(response) {
+      // Called with the results from FB.getLoginStatus().
+      console.log("statusChangeCallback");
+      console.log(response); // The current login status of the person.
+      if (response.status === "connected") {
+        // Logged into your webpage and Facebook.
+        console.log("loged into this webpage syccessfully.");
+        this.fbData();
+        this.igData();
+      } else {
+        // Not logged into your webpage or we are unable to tell.
+        console.log("Please log into this webpage.");
+      }
+    },
+
+    checkLoginState() {
+      // Called when a person is finished with the Login Button.
+      window.FB.getLoginStatus((response) => {
+        this.statusChangeCallback(response);
+      });
+    },
+
+    async logInWithFacebook() {
+      window.FB.login((response) => {
+        if (response.authResponse) {
+          this.checkLoginState();
+          return true;
+        } else {
+          return false;
+        }
+      }, { scope: 'public_profile,instagram_basic,pages_show_list' });
+      return false;
+    },
+
+
+
+
+
   },
 };
 </script>
@@ -204,6 +273,7 @@ export default {
   font-size: 16px;
   display: flex;
   align-items: center;
+  color: #090909;
   justify-content: flex-start;
 }
 
@@ -240,7 +310,7 @@ export default {
   align-items: center;
   margin-bottom: 15px;
   font-size: 14px;
-  color: #52525B;
+  color: #52525b;
 }
 .overSearch li ion-checkbox {
   margin: 0 10px 0 0;

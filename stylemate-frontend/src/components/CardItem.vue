@@ -196,8 +196,6 @@ export default defineComponent({
         if (item.processStatus === 'progress' && item.channelType === 'instagram') {
           isProductCamp = true;
           return isProductCamp;
-        } else {
-          isProductCamp = false;
         }
       });
       return isProductCamp;
