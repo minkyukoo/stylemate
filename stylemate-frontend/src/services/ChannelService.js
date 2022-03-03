@@ -49,12 +49,23 @@ export default class ChannelService {
   async getIgUser(iguserid) {
     return await axios.get(this.channelBaseUrl() + '/'+iguserid+'?fields='+encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
+
+  async getIgUsermedia(iguserid) {
+    return await axios.get(this.channelBaseUrl() + '/'+iguserid+'?fields='+encodeURI('ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+  }
   
   async getIguserinfo() {
     let ig_userId='17841452123566228';
-    return await this.getIgUser(ig_userId)
+    return await this.getIgUser(ig_userId);
     // console.log(await this.getIgUser(ig_userId));
   }
+
+  async getIgusermediainfo() {
+    let ig_userId='17988602920443231';
+    return await this.getIgUsermedia(ig_userId);
+    // console.log(await this.getIgUser(ig_userId));
+  }
+
 
 
 
