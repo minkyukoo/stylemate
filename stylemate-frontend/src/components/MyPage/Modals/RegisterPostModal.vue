@@ -120,7 +120,7 @@ export default {
         console.log(res);
         this.postList = res.data.data;
       });
-    this.linkedChannel.methods.logInWithFacebook();
+    // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
   //  updated() {
