@@ -97,7 +97,7 @@ export default {
     this.myPageService = new MyPageService();
   },
   mounted() {
-    this.myPageService.getPostingList().then((res) => {
+    this.myPageService.getPostingList(this.store.state.influenceId).then((res) => {
       console.log(res);
       this.postList = res.data.data;
     });
