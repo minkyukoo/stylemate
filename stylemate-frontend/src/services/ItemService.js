@@ -52,6 +52,14 @@ export default class ItemService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
+  // post apply sponsership
+  async applySponsership(uid, compnId, channelId, deliveryId, bookoptn) {
+    return await axios.post(`/stylemates/campaigns/${uid}/bookings`, { campaignId: compnId, channelId: channelId, influenceDeliveryId: deliveryId, bookingOption: bookoptn }, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res).catch((err) => err);
+  }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
     return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
