@@ -814,5 +814,6 @@ export default {
 }
 .greyBtnFull{
   padding: 12px 0;
+  font-size: 12px;
 }
 </style>

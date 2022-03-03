@@ -136,7 +136,7 @@ export default {
 
 <style scoped>
 .contWrap {
-  padding: 20px;
+  padding: 20px 20px 160px;
 }
 .codeWrap {
   position: relative;
@@ -232,10 +232,11 @@ export default {
   margin-right: 10px;
 }
 
-.button-group {
+.button-group{
   bottom: 0;
-  width: 500px;
+  max-width: 500px;
   position: fixed;
+  width: 100%;
 }
 .button-group button {
   width: 100%;

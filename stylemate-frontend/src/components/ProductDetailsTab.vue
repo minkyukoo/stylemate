@@ -380,7 +380,7 @@ export default {
   border-top: solid 1px #f6f6f6;
   padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child {
+.tag-info .tag-info-row:first-child {
   border-top: 0;
 }
 .tag-info .tag-info-row .top {
