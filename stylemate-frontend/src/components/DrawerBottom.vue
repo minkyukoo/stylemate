@@ -9,8 +9,10 @@
         <vue-select
           :placeholder="item.optionName"
           :options="item.optionValues"
+          group-by
+          multiple
           v-model="selected"
-          @click="control"
+          @selected="control"
         ></vue-select>
       </div>
     </div>
@@ -58,7 +60,7 @@ export default defineComponent({
   },
   methods: {
     control() {
-      console.log("clicked");
+      console.log(this.selected);
       if (this.selected != "") {
         this.disable = false;
       }else{
@@ -66,9 +68,9 @@ export default defineComponent({
       }
     },
     cancel() {
-      // console.log(this.selected);
+      console.log(this.selected);
       //   alert(this.selected);
-      this.$router.go(-1);
+      // this.$router.go(-1);
     },
     apply() {
       alert("apply");
