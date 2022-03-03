@@ -31,20 +31,24 @@
                   placeholder="상세 주소를 입력해 주세요."
                   v-model="address2"
                 />
-                <small v-show="render" style="color:red;">don't keep it blank</small>
+                <small v-show="render" style="color: red"
+                  >don't keep it blank</small
+                >
               </span>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <div class="checkLabel">
-              <input
-                  type="checkbox"
-                 checked
-                 disabled
-                />
-              <!-- <ion-checkbox color="primary" checked disabled></ion-checkbox> -->
+              <input type="checkbox" checked disabled />
+              <ion-checkbox color="primary" checked disabled></ion-checkbox> 
               <label style="color: #000">기본 배송지</label>
             </div>
+          </li> -->
+          <li class="checkboxWrap">
+            <label class="check-container">
+              <input type="checkbox" checked disabled />
+              <span class="checkmark"></span>기본 배송지
+            </label>
           </li>
         </ul>
       </div>
@@ -122,14 +126,14 @@ export default {
   // }
   data() {
     return {
-      uid:localStorage.getItem("userId"),
-      render:false,
+      uid: localStorage.getItem("userId"),
+      render: false,
       isModalVisible: false,
       // isActive: false,
       addnew: "",
       name: "divii",
       recipient: "school",
-      addressLocale:'domestic',
+      addressLocale: "domestic",
       addressZipcode: "",
       address1: "",
       address2: "",
@@ -153,14 +157,23 @@ export default {
       console.log("clivk");
     },
     //rec, loc, zip, adr1, adr2, def
-    submitAddress(){
-      if(this.address2==''){
-        this.render=true;
-      }else{
-        this.userInfoService.addaddress(this.uid,this.name,this.recipient,this.addressLocale,this.addressZipcode,this.address1,this.address2,this.isDefault).then(() => {
-      
-    });
-        this.render=false;
+    submitAddress() {
+      if (this.address2 == "") {
+        this.render = true;
+      } else {
+        this.userInfoService
+          .addaddress(
+            this.uid,
+            this.name,
+            this.recipient,
+            this.addressLocale,
+            this.addressZipcode,
+            this.address1,
+            this.address2,
+            this.isDefault
+          )
+          .then(() => {});
+        this.render = false;
       }
     },
     showModal() {
@@ -171,7 +184,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style scoped>
