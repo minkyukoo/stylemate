@@ -39,14 +39,22 @@
             this.progressDetails.processDetailStatus === 'posting' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].bookingStatus === 'join' &&
+            ].bookingStatus === 'booking' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
             ].postStatus === 'post_modify_request' &&
             store.state.sponsorTabState !== 'application-details'
           "
         >
-          <button @click="() => (store.state.isReRegisterModalVisible = true)">
+          <button
+            @click="
+              () => {
+                store.state.isReRegisterModalVisible = true;
+                store.MyPageModals.reRegistrationNo = this.progressDetails.id;
+                store.MyPageModals.reRegistration = true;
+              }
+            "
+          >
             re-registration
           </button>
         </div>
@@ -64,14 +72,7 @@
             store.state.sponsorTabState !== 'application-details'
           "
         >
-          <button
-            @click="
-              () => {
-                store.state.isPostModalVisible = true;
-                store.state.reRegistrationNo = this.progressDetails.id;
-              }
-            "
-          >
+          <button @click="() => (store.state.isPostModalVisible = true)">
             Register a post
           </button>
         </div>

@@ -29,7 +29,7 @@
             <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
-            <PostModalCard :cardData="postList" />
+            <PostModalCard :cardData="postList" @choosePost="setDetails($event)" />
             <div>
               <button class="btn-outline-block">see more</button>
             </div>
@@ -52,63 +52,79 @@
 </template>
 
 <script>
-import { inject } from "vue";
+import { inject, onMounted } from "vue";
 import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
 import MyPageService from "@/services/MyPageService";
+import ChannelService from "@/services/ChannelService";
 export default {
   name: "register-post-modal",
+  components: {
+    Modal,
+    PostModalCard,
+  },
   data() {
     return {
-      modalData: [
-        {
-          img: "Rectangle8.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "Rectangle9.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "Rectanglec2.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-        {
-          img: "MyPage-item1.png",
-          date: "2021.11.23 12:30",
-          desc: "#supa #streetfashion #nike #ncover #fashion people #fashionstagram...",
-        },
-      ],
       myPageService: null,
       postList: [],
+      campaignId: 0,
+      bookingId: 0,
+      channelId: 0,
+      caption: "",
+      comments_count: 0,
+      id: 0,
+      ig_id: "",
+      like_count: 0,
+      media_product_type: "",
+      media_type: "",
+      media_url: "",
+      permalink: "",
+      shortcode: "",
+      username: "",
+      timestamp: "",
+      userProfile: {},
     };
   },
 
   setup() {
     const store = inject("store");
+    const linkedChannel = inject("linkedChannel");
+
+    onMounted(() => {
+      linkedChannel.methods.logInWithFacebook();
+    });
+
     return {
       store,
+      linkedChannel,
     };
   },
   created() {
     this.myPageService = new MyPageService();
+    this.channelService = new ChannelService();
   },
   mounted() {
-    this.myPageService.getPostingList(this.store.state.influenceId).then((res) => {
-      console.log(res);
-      this.postList = res.data.data;
-    });
+    this.myPageService
+      .getPostingList(this.store.state.influenceId)
+      .then((res) => {
+        console.log(res);
+        this.postList = res.data.data;
+      });
+      // this.linkedChannel.methods.logInWithFacebook();
+      // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
-  components: {
-    Modal,
-    PostModalCard,
-  },
+  
   methods: {
     closeModal() {
       this.isPostModalVisible = false;
+    },
+    setDetails(event) {
+        console.log("test",event);
+        this.campaignId = event.campaignId;
+        this.bookingId = event.bookingId;
+        this.channelId = event.channelId;
+        this.comments_count = event.instagramPost.commentCount;
+        this.like_count = event.instagramPost.likeCount;
     },
   },
 };

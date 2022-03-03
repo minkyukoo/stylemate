@@ -13,8 +13,8 @@
         Please apply for sponsorship for products from other brands as well."
       />
     </div>
-    <RegisterPostModal />
-    <ReRegisterModal />
+    <RegisterPostModal v-if="store.state.isPostModalVisible" />
+    <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
     <CancelSponser />
   </div>
 </template>
