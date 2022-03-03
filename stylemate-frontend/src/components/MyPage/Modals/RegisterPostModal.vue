@@ -144,7 +144,10 @@ export default {
       let res = await this.channelService.getIguserinfo();
       // console.log("unique", res);
       this.userProfile = res;
-      console.log("unique state",this.userProfile);
+      // console.log("unique state",this.userProfile);
+      if(this.store.reRegistration || this.store.reRegistrationNo){
+        console.log("unique state",this.userProfile);
+      }
     },
   },
 };
