@@ -138,7 +138,7 @@ export default {
   updated() {
     if (this.linkedChannel.state.isConnected === 'connected') {
       console.log('connected:', this.linkedChannel.state.isConnected);
-      this.$router.push({ name: 'NewMemberChannel' });
+      // this.$router.push({ name: 'NewMemberChannel' });
     }
   },
   methods: {
@@ -163,7 +163,7 @@ export default {
         console.log('getIgchannels res:', res);
       });
 
-      this.channelService.getIguserId().then(res => {
+      this.channelService.getIguserinfo().then(res => {
         console.log('getIguserId res:', res);
       });
     },
@@ -186,40 +186,40 @@ export default {
     //   });
     // },
 
-    statusChangeCallback(response) {
-      // Called with the results from FB.getLoginStatus().
-      console.log("statusChangeCallback");
-      console.log(response); // The current login status of the person.
-      if (response.status === "connected") {
-        // Logged into your webpage and Facebook.
-        console.log("loged into this webpage syccessfully.");
-        // this.fbData();
-        // this.igData();
-        // this.$router.push({ name: 'NewMemberChannel' });
-      } else {
-        // Not logged into your webpage or we are unable to tell.
-        console.log("Please log into this webpage.");
-      }
-    },
+    // statusChangeCallback(response) {
+    //   // Called with the results from FB.getLoginStatus().
+    //   console.log("statusChangeCallback");
+    //   console.log(response); // The current login status of the person.
+    //   if (response.status === "connected") {
+    //     // Logged into your webpage and Facebook.
+    //     console.log("loged into this webpage syccessfully.");
+    //     // this.fbData();
+    //     // this.igData();
+    //     // this.$router.push({ name: 'NewMemberChannel' });
+    //   } else {
+    //     // Not logged into your webpage or we are unable to tell.
+    //     console.log("Please log into this webpage.");
+    //   }
+    // },
 
-    checkLoginState() {
-      // Called when a person is finished with the Login Button.
-      window.FB.getLoginStatus((response) => {
-        this.statusChangeCallback(response);
-      });
-    },
+    // checkLoginState() {
+    //   // Called when a person is finished with the Login Button.
+    //   window.FB.getLoginStatus((response) => {
+    //     this.statusChangeCallback(response);
+    //   });
+    // },
 
-    async logInWithFacebook() {
-      window.FB.login((response) => {
-        if (response.authResponse) {
-          this.checkLoginState();
-          return true;
-        } else {
-          return false;
-        }
-      }, { scope: 'public_profile,instagram_basic,pages_show_list' });
-      return false;
-    },
+    // async logInWithFacebook() {
+    //   window.FB.login((response) => {
+    //     if (response.authResponse) {
+    //       this.checkLoginState();
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   }, { scope: 'public_profile,instagram_basic,pages_show_list' });
+    //   return false;
+    // },
 
 
 

@@ -50,7 +50,7 @@ export default class ChannelService {
     return await axios.get(this.channelBaseUrl() + '/'+iguserid+'?fields='+encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
   
-  async getIguserId() {
+  async getIguserinfo() {
     let ig_userId='17841452123566228';
     return await this.getIgUser(ig_userId)
     // console.log(await this.getIgUser(ig_userId));
