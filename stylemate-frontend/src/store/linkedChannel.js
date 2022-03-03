@@ -1,7 +1,10 @@
 import { reactive } from "vue";
 
 const state = reactive({
-  AppData: undefined,
+  loginRes: undefined,
+  isConnected: 'notconnected',
+  fbDetails: undefined,
+  igDetails: undefined,
 });
 
 
@@ -13,12 +16,13 @@ const methods = {
     console.log("Welcome!  Fetching your information.... ");
     window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
       console.log('facebook: ', response);
-      this.fbDetails = response;
+      state.fbDetails = response;
     });
     window.FB.api("/107832208496167/accounts?fields=instagram_business_account{id,name,username,profile_picture_url}", (response) => {
       console.log('Instagram Channel: ', response.data);
-      this.igDetails = response.data;
+      state.igDetails = response.data;
     });
+    
     window.FB.api("17841452123566228?fields=biography,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username", (response) => {
       console.log('Instagram Channel 2: ', response);
     });
@@ -54,7 +58,11 @@ const methods = {
     window.FB.login((response) => {
       if (response.authResponse) {
         // alert("You are logged in &amp; cookie set!");
-        this.loginstatus = true;
+        console.log('fblogin res:', response);
+        state.loginRes = response;
+        state.isConnected = response.status;
+        localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
+        localStorage.setItem('userID', response.authResponse.userID);
         this.checkLoginState();
         return true;
         // Now you can redirect the user or do an AJAX request to
@@ -66,38 +74,6 @@ const methods = {
     }, { scope: 'public_profile,instagram_basic,pages_show_list' });
     return false;
   },
-  async initFacebook() {
-    window.fbAsyncInit = () => {
-      window.FB.init({
-        appId: "662067494654261", //You will need to change this
-        cookie: true, // This is important, it's not enabled by default
-        version: "v13.0",
-      });
-    };
-  },
-  async loadFacebookSDK(d, s, id) {
-    var js,
-      fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-      return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  },
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
 

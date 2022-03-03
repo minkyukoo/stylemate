@@ -43,9 +43,7 @@
           </li>
           <li v-show="addr">
             <router-link to="/deliveryaddress">
-              <div>
-                {{ addres }}
-              </div>
+              <div>{{ addres }}</div>
             </router-link>
           </li>
           <li v-show="enroll">
@@ -61,7 +59,7 @@
               <img
                 src="@/assets/icons/arrow-right.svg"
               />
-            </div> -->
+            </div>-->
           </li>
           <!-- <li>
             <div>
@@ -110,29 +108,39 @@
               />
             </div>
             <div>뉴스레터 구독 (선택)</div>
-          </li> -->
+          </li>-->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox" checked="checked" @change="updateInfo"
+              <input
+                type="checkbox"
+                checked="checked"
+                @change="updateInfo"
                 v-bind:value="marketing"
-                v-model="marketing">
+                v-model="marketing"
+              />
               <span class="checkmark"></span>마케팅 광고 활용 동의 (선택)
             </label>
           </li>
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox" checked="checked" @change="updateInfo"
+              <input
+                type="checkbox"
+                checked="checked"
+                @change="updateInfo"
                 v-bind:value="compain"
-                v-model="compain">
+                v-model="compain"
+              />
               <span class="checkmark"></span>캠페인 제안 받기 (선택)
             </label>
           </li>
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox"
-              @change="updateInfo"
+              <input
+                type="checkbox"
+                @change="updateInfo"
                 v-bind:value="newsletter"
-                v-model="newsletter">
+                v-model="newsletter"
+              />
               <span class="checkmark"></span>뉴스레터 구독 (선택)
             </label>
           </li>
@@ -161,18 +169,16 @@
                 color="dark"
                 :checked="pushNotification"
                 @click="push($event)"
-              ></ion-toggle> -->
+              ></ion-toggle>-->
             </div>
           </li>
           <li>
-            <div
-              @click="deleteAccount = true"
-              @mouseleave="deleteAccount = false"
-            >
-              <span v-if="deleteAccount" v-show="deleteAccount"
-                >"Are you sure, you want to delete your account permantly"</span
-              >
-              <span class="withdrawTxt" v-else> 회원탈퇴 </span>
+            <div @click="deleteAccount = true" @mouseleave="deleteAccount = false">
+              <span
+                v-if="deleteAccount"
+                v-show="deleteAccount"
+              >"Are you sure, you want to delete your account permantly"</span>
+              <span class="withdrawTxt" v-else>회원탈퇴</span>
             </div>
           </li>
         </ul>
@@ -180,9 +186,7 @@
     </ion-content>
     <!-- End page content -->
   </ion-page>
-</template><v-btn class="filter-button" :class="{toggled: isToggled}" @click="isToggled = !isToggled">
-  <slot></slot>
-</v-btn>
+</template>
 
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
@@ -317,7 +321,7 @@ export default {
           this.userDetails.influence.isInformationPoint,
           String(this.pushNotification),
         )
-        .then(() => {});
+        .then(() => { });
     },
     openlink() {
       console.log("clivk");
@@ -397,7 +401,7 @@ export default {
 .thirdList li ion-checkbox {
   margin-right: 10px;
 }
-.withdrawTxt{
+.withdrawTxt {
   font-size: 12px;
   line-height: 16px;
   color: #797979;

@@ -6,6 +6,8 @@
     <!-- page content -->
     <div class="main-wrap">
       <div class="contWrap">
+        {{ linkedChannel.state.fbDetails }}
+        {{ linkedChannel.state.isConnected }}
         <ul class="connectionList">
           <li>
             <div>
@@ -107,6 +109,7 @@
 import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
+import { inject, onMounted } from 'vue';
 
 export default {
   name: 'NewMember',
@@ -118,10 +121,25 @@ export default {
       // fbResData: null,
     }
   },
+  setup() {
+    const linkedChannel = inject("linkedChannel");
+
+    onMounted(() => {
+      linkedChannel.methods.logInWithFacebook();
+    });
+
+    return { linkedChannel };
+  },
   created() {
     this.channelService = new ChannelService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
+  },
+  updated() {
+    if (this.linkedChannel.state.isConnected === 'connected') {
+      console.log('connected:', this.linkedChannel.state.isConnected);
+      this.$router.push({ name: 'NewMemberChannel' });
+    }
   },
   methods: {
     openlink() {
@@ -135,7 +153,19 @@ export default {
     },
 
     addIgChannel() {
-      this.logInWithFacebook();
+      // this.logInWithFacebook();
+      // this.linkedChannel.methods.logInWithFacebook();
+      this.channelService.getfbUser().then(res => {
+        console.log('getfbUser res:', res);
+      });
+
+      this.channelService.getIgchannels().then(res => {
+        console.log('getIgchannels res:', res);
+      });
+
+      this.channelService.getIguserId().then(res => {
+        console.log('getIguserId res:', res);
+      });
     },
 
     // fbData() {
@@ -165,7 +195,7 @@ export default {
         console.log("loged into this webpage syccessfully.");
         // this.fbData();
         // this.igData();
-        this.$router.push({name: 'NewMemberChannel'});
+        // this.$router.push({ name: 'NewMemberChannel' });
       } else {
         // Not logged into your webpage or we are unable to tell.
         console.log("Please log into this webpage.");

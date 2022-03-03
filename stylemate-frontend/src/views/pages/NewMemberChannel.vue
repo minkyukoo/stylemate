@@ -9,10 +9,10 @@
         <ul class="connectionList">
           <li>
             <div>
-              <label
-                >스타일메이트와 연결할 인스타그램 비즈니스 계정을
-                선택하세요.</label
-              >
+              <label>
+                스타일메이트와 연결할 인스타그램 비즈니스 계정을
+                선택하세요.
+              </label>
             </div>
           </li>
         </ul>
@@ -49,10 +49,10 @@
         <ul class="connectionList">
           <li>
             <div>
-              <label
-                >스타일메이트와 연결할 인스타그램 비즈니스 계정을
-                선택하세요.</label
-              >
+              <label>
+                스타일메이트와 연결할 인스타그램 비즈니스 계정을
+                선택하세요.
+              </label>
             </div>
           </li>
         </ul>
@@ -72,25 +72,26 @@
             </div>
           </li>
         </ul>
-        {{igResData}}
-        {{fbResData}}
+        <!-- {{igResData}}
+        {{fbResData}}-->
+        {{linkedChannel.state.isConnected}}
+        {{ linkedChannel.state.fbDetails }}
       </div>
       <div class="subscribe-wrap">
         <button class="black-btn">활동 신청하기</button>
       </div>
 
-      
       <div class="bottomDrawer" :class="{ active: isActive }">
-      <div class="drawer-wrap">
-        <div class="drawer-top">
-          <h4>연결된 채널을 해제하시겠습니까?</h4>
-          <p>연결을 해제한 채널은 재연결이 가능합니다.</p>
+        <div class="drawer-wrap">
+          <div class="drawer-top">
+            <h4>연결된 채널을 해제하시겠습니까?</h4>
+            <p>연결을 해제한 채널은 재연결이 가능합니다.</p>
+          </div>
+          <div class="button-group">
+            <button class="grey-btn">취소</button>
+            <button class="black-btn">확인</button>
+          </div>
         </div>
-        <div class="button-group">
-          <button class="grey-btn">취소</button>
-          <button class="black-btn">확인</button>
-        </div>
-      </div>
       </div>
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
@@ -101,6 +102,8 @@
 <script>
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
+import { inject, onMounted } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default {
   name: "NewMemberChannel",
@@ -112,9 +115,26 @@ export default {
       fbResData: null,
     };
   },
+  setup() {
+    const linkedChannel = inject("linkedChannel");
+    const router = useRouter()
+
+    onMounted(() => {
+      if (linkedChannel.state.isConnected === 'connected') {
+        console.log('connected:', linkedChannel.state.isConnected);
+        linkedChannel.methods.checkLoginState();
+      } else {
+        console.log('connected:', linkedChannel.state.isConnected);
+        router.push({ name: 'NewMemberJoining' });
+      }
+
+    });
+
+    return { linkedChannel };
+  },
   created() {
-    this.fbData();
-    this.igData();
+    // this.fbData();
+    // this.igData();
   },
   methods: {
     openlink() {
@@ -124,23 +144,23 @@ export default {
       this.isActive = !this.isActive;
     },
 
-    fbData() {
-      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-      console.log("Welcome!  Fetching your information.... ");
-      window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
-        console.log('facebook: ', response);
-        this.fbResData = response;
-      });
-    },
+    // fbData() {
+    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //   console.log("Welcome!  Fetching your information.... ");
+    //   window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
+    //     console.log('facebook: ', response);
+    //     this.fbResData = response;
+    //   });
+    // },
 
-    igData() {
-      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-      console.log("Welcome!  Fetching your information.... ");
-      return window.FB.api("/107832208496167/accounts", (response) => {
-        console.log('Instagram Channel: ', response.data);
-        this.igResData = response.data;
-      });
-    },
+    // igData() {
+    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //   console.log("Welcome!  Fetching your information.... ");
+    //   return window.FB.api("/107832208496167/accounts?fields=instagram_business_account{id,name,username,profile_picture_url}", (response) => {
+    //     console.log('Instagram Channel: ', response.data);
+    //     this.igResData = response.data;
+    //   });
+    // },
 
   },
 };
@@ -242,13 +262,13 @@ export default {
   border-color: #5700ff;
 }
 .newChannel li.disable {
-  background: #F7F7F7;
-  border: 1px solid #E5E5E5;
+  background: #f7f7f7;
+  border: 1px solid #e5e5e5;
 }
-.newChannel li.disable .channelImg{
+.newChannel li.disable .channelImg {
   position: relative;
 }
-.newChannel li.disable .channelImg::after{
+.newChannel li.disable .channelImg::after {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -256,14 +276,19 @@ export default {
   top: 0;
   left: 0;
   border-radius: 50%;
-  background: linear-gradient(0deg, rgba(121, 121, 121, 0.8), rgba(121, 121, 121, 0.8));
+  background: linear-gradient(
+    0deg,
+    rgba(121, 121, 121, 0.8),
+    rgba(121, 121, 121, 0.8)
+  );
 }
-.newChannel li.disable .channelDec h4, .newChannel li.disable .channelDec p {
+.newChannel li.disable .channelDec h4,
+.newChannel li.disable .channelDec p {
   color: #797979;
 }
-.newChannel li.disable .channelBtn{
-  border: 1px solid #E5E5E5;
-  background: #F7F7F7;
+.newChannel li.disable .channelBtn {
+  border: 1px solid #e5e5e5;
+  background: #f7f7f7;
   color: #797979;
 }
 .newChannel li .channelImg {
@@ -318,52 +343,56 @@ export default {
   width: 100%;
 }
 
-.drawer-wrap{
-    position: fixed;
-    bottom: 0;
-    z-index: 2;
-    width: 100%;
-    max-width: 500px;
-    background: linear-gradient(150.57deg, rgba(255, 255, 255, 0.5) -60.05%, #FFFFFF 71.1%);
-    backdrop-filter: blur(30px);
-    border-radius: 20px 20px 0px 0px;
+.drawer-wrap {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(
+    150.57deg,
+    rgba(255, 255, 255, 0.5) -60.05%,
+    #ffffff 71.1%
+  );
+  backdrop-filter: blur(30px);
+  border-radius: 20px 20px 0px 0px;
 }
-.drawer-top{
-    padding: 40px 20px;
-    text-align: center;
+.drawer-top {
+  padding: 40px 20px;
+  text-align: center;
 }
-.drawer-top h4{
+.drawer-top h4 {
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
-  color: #25282B;
+  color: #25282b;
 }
-.drawer-top p{
+.drawer-top p {
   font-weight: normal;
   font-size: 14px;
   line-height: 18px;
   color: #595959;
   margin-top: 24px;
 }
-.button-group{
-    display: flex;
+.button-group {
+  display: flex;
 }
-.button-group button{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 21px;
+.button-group button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
 }
-.button-group button.grey-btn{
-    color: #797979;
-    background: #E5E5E5;
+.button-group button.grey-btn {
+  color: #797979;
+  background: #e5e5e5;
 }
-.button-group button.black-btn{
-    color: #FFFFFF;
-    background: #090909;
+.button-group button.black-btn {
+  color: #ffffff;
+  background: #090909;
 }
 </style>
