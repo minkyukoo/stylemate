@@ -29,7 +29,10 @@
             <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
-            <PostModalCard :cardData="postList" @choosePost="setDetails($event)" />
+            <PostModalCard
+              :cardData="postList"
+              @choosePost="setDetails($event)"
+            />
             <div>
               <button class="btn-outline-block">see more</button>
             </div>
@@ -45,7 +48,9 @@
         >
           to close
         </button>
-        <button type="button" class="btn-black">포스트 등록하기</button>
+        <button type="button" class="btn-black" @click="isSubmit">
+          포스트 등록하기
+        </button>
       </div>
     </template>
   </Modal>
@@ -66,6 +71,7 @@ export default {
   data() {
     return {
       myPageService: null,
+      channelService: null,
       postList: [],
       campaignId: 0,
       bookingId: 0,
@@ -86,22 +92,26 @@ export default {
     };
   },
 
+  created() {
+    this.myPageService = new MyPageService();
+    this.channelService = new ChannelService();
+    this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
+    this.channelService.initFacebook();
+  },
+
   setup() {
     const store = inject("store");
     const linkedChannel = inject("linkedChannel");
 
     onMounted(() => {
-      linkedChannel.methods.logInWithFacebook();
+      // linkedChannel.methods.logInWithFacebook();
+      console.log("isssadas");
     });
 
     return {
       store,
       linkedChannel,
     };
-  },
-  created() {
-    this.myPageService = new MyPageService();
-    this.channelService = new ChannelService();
   },
   mounted() {
     this.myPageService
@@ -110,21 +120,31 @@ export default {
         console.log(res);
         this.postList = res.data.data;
       });
-      // this.linkedChannel.methods.logInWithFacebook();
-      // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
+    this.linkedChannel.methods.logInWithFacebook();
+    // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
-  
+  //  updated() {
+  //   let res = this.channelService.getIguserinfo()
+  //   // console.log("unique",res);
+  // },
+
   methods: {
     closeModal() {
       this.isPostModalVisible = false;
     },
     setDetails(event) {
-        console.log("test",event);
-        this.campaignId = event.campaignId;
-        this.bookingId = event.bookingId;
-        this.channelId = event.channelId;
-        this.comments_count = event.instagramPost.commentCount;
-        this.like_count = event.instagramPost.likeCount;
+      console.log("test", event);
+      this.campaignId = event.campaignId;
+      this.bookingId = event.bookingId;
+      this.channelId = event.channelId;
+      this.comments_count = event.instagramPost.commentCount;
+      this.like_count = event.instagramPost.likeCount;
+    },
+    async isSubmit() {
+      let res = await this.channelService.getIguserinfo();
+      // console.log("unique", res);
+      this.userProfile = res;
+      console.log("unique state",this.userProfile);
     },
   },
 };
