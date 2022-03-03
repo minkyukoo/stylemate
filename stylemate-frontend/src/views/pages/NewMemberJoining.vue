@@ -109,7 +109,7 @@
 import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
-import { inject } from 'vue';
+import { inject, onMounted } from 'vue';
 
 export default {
   name: 'NewMember',
@@ -124,9 +124,9 @@ export default {
   setup() {
     const linkedChannel = inject("linkedChannel");
 
-    // onMounted(() => {
-    //   linkedChannel.methods.logInWithFacebook();
-    // });
+    onMounted(() => {
+      linkedChannel.methods.logInWithFacebook();
+    });
 
     return { linkedChannel };
   },
@@ -161,6 +161,10 @@ export default {
 
       this.channelService.getIgchannels().then(res => {
         console.log('getIgchannels res:', res);
+      });
+
+      this.channelService.getIguserId().then(res => {
+        console.log('getIguserId res:', res);
       });
     },
 

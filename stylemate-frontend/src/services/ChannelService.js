@@ -37,6 +37,7 @@ export default class ChannelService {
     return fbBaseUrl + '/' + version;
   }
 
+
   async getfbUser() {
     return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '?access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
@@ -45,10 +46,16 @@ export default class ChannelService {
     return await axios.get(this.channelBaseUrl() + '/'+this.getfbuserId()+'/accounts?fields='+encodeURI('instagram_business_account{id,name,username,profile_picture_url}')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
 
-  async getIgUser() {
-    
-    return await axios.get(this.channelBaseUrl() + '/'+this.getfbuserId()+'?fields='+encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+  async getIgUser(iguserid) {
+    return await axios.get(this.channelBaseUrl() + '/'+iguserid+'?fields='+encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
+  
+  async getIguserId() {
+    let ig_userId='17841452123566228';
+    return await this.getIgUser(ig_userId)
+    // console.log(await this.getIgUser(ig_userId));
+  }
+
 
 
 }
