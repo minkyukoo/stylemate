@@ -15,6 +15,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
 import { defineComponent, provide } from "vue";
 import store from "./store/index";
 import userData from "./store/userDetails";
+import linkedChannel from "./store/linkedChannel";
 
 export default defineComponent({
   name: "App",
@@ -28,6 +29,7 @@ export default defineComponent({
   setup() {
     provide("store", store);
     provide("userData", userData);
+    provide("linkedChannel", linkedChannel);
   },
 });
 </script>
