@@ -145,8 +145,8 @@ export default {
       // console.log("unique", res);
       this.userProfile = res;
       // console.log("unique state",this.userProfile);
-      if(this.store.reRegistration || this.store.reRegistrationNo){
-        console.log("unique state",this.userProfile);
+      if(this.store.MyPageModals.reRegistration || this.store.MyPageModals.reRegistrationNo){
+        console.log("if true unique state",this.userProfile);
       }
     },
   },
