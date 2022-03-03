@@ -37,6 +37,7 @@ export default class ItemService {
     }
   }
 
+  
   async getUserdeliveries(uid) {
     return await axios.get(`/stylemates/users/${uid}/deliveries`, {
       headers: {
