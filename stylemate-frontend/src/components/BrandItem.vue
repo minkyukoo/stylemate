@@ -98,6 +98,10 @@ export default {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+  margin-left: 4px;
+}
+.brand-product .product-list .product-list-item span:first-child{
+  margin-left: 0;
 }
 .brand-product .product-list .product-list-item figure{
   height: 256px;
