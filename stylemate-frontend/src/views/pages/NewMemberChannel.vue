@@ -17,7 +17,7 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active">
+          <!-- <li class="active">
             <div class="channelLeft">
               <div class="channelImg">
                 <img src="@/assets/icons/refresh.svg" />
@@ -30,15 +30,16 @@
             <div>
               <button @click="hideSponserButton" class="channelBtn" type="button">선택</button>
             </div>
-          </li>
-          <li>
+          </li> -->
+          <li class="active" v-for="(account, i) of igResData" :key="i+1">
             <div class="channelLeft">
               <div class="channelImg">
-                <img src="@/assets/icons/refresh.svg" />
+                <!-- <img src="@/assets/icons/refresh.svg" /> -->
+                <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
-                <h4>일이삼사오육칠팔...</h4>
-                <p>일이삼사오육칠팔구십...</p>
+                <h4>{{account.instagram_business_account.name}}</h4>
+                <p>{{fbResData.name}}</p>
               </div>
             </div>
             <div>
@@ -74,8 +75,8 @@
         </ul>
         <!-- {{igResData}}
         {{fbResData}}-->
-        {{linkedChannel.state.isConnected}}
-        {{ linkedChannel.state.fbDetails }}
+        <!-- {{ linkedChannel.state.isConnected }}
+        {{ linkedChannel.state.fbDetails }} -->
       </div>
       <div class="subscribe-wrap">
         <button class="black-btn">활동 신청하기</button>
@@ -103,7 +104,8 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { inject, onMounted } from 'vue';
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router';
+import ChannelService from "@/services/ChannelService";
 
 export default {
   name: "NewMemberChannel",
@@ -117,24 +119,38 @@ export default {
   },
   setup() {
     const linkedChannel = inject("linkedChannel");
-    const router = useRouter()
+    // const router = useRouter()
 
     onMounted(() => {
-      if (linkedChannel.state.isConnected === 'connected') {
-        console.log('connected:', linkedChannel.state.isConnected);
-        linkedChannel.methods.checkLoginState();
-      } else {
-        console.log('connected:', linkedChannel.state.isConnected);
-        router.push({ name: 'NewMemberJoining' });
-      }
+      // if (linkedChannel.state.isConnected === 'connected') {
+      //   console.log('connected:', linkedChannel.state.isConnected);
+      //   linkedChannel.methods.checkLoginState();
+      // } else {
+      //   console.log('connected:', linkedChannel.state.isConnected);
+      //   router.push({ name: 'NewMemberJoining' });
+      // }
 
     });
 
     return { linkedChannel };
   },
   created() {
+    this.channelService = new ChannelService();
     // this.fbData();
     // this.igData();
+    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
+  },
+  updated() {
+    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
+  },
+  mounted(){
+
+    this.channelData();
+
   },
   methods: {
     openlink() {
@@ -143,6 +159,22 @@ export default {
     hideSponserButton() {
       this.isActive = !this.isActive;
     },
+
+    channelData() {
+      this.channelService.getfbUser().then(res => {
+        console.log('getfbUser res:', res);
+        this.fbResData = res;
+      });
+
+      this.channelService.getIgchannels().then(res => {
+        console.log('getIgchannels res:', res);
+        this.igResData = res.data;
+      });
+
+      // this.channelService.getIguserinfo().then(res => {
+      //   console.log('getIguserId res:', res);
+      // });
+    }
 
     // fbData() {
     //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
