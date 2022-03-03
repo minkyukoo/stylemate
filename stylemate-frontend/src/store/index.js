@@ -12,14 +12,15 @@ const state = reactive({
   campaignEmpty: false,
   number: 13,
   UserId: "",
+  influenceId: null,
   status: "NotEmpty",
   noticeTabPageName: "Notice",
   likedTabState: "item",
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
-  sponcerFilterNo: 0,
+  sponcerFilterNo: 1,
   sponcerChannelType: "instagram",
-  isPostModalVisible: true,
+  isPostModalVisible: false,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
@@ -42,7 +43,10 @@ const state = reactive({
   },
 });
 
-const EditPostModal = reactive({});
+const MyPageModals = reactive({
+  reRegistration: false,
+  reRegistrationNo: null,
+});
 
 var itemService = new ItemService();
 var myPageService = new MyPageService();
@@ -86,7 +90,7 @@ const methods = {
   setSponsorFilter(id, index) {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
-    console.log(index);
+    // console.log(index);
     methods.getcampList();
     console.log(
       "setSponsorFilter",
@@ -104,6 +108,6 @@ const methods = {
 
 export default {
   state,
-  EditPostModal,
+  MyPageModals,
   methods,
 };

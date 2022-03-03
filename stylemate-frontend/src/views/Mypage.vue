@@ -45,6 +45,7 @@ export default {
       let globalState = this.store.state;
       // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
+      globalState.influenceId = res.data.influence.influenceStat.influenceId
       globalState.MyPageTopDetails.name = res.data.name;
       globalState.MyPageTopDetails.email = res.data.email;
       globalState.MyPageTopState =
