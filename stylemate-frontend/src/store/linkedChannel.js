@@ -22,6 +22,7 @@ const methods = {
       console.log('Instagram Channel: ', response.data);
       state.igDetails = response.data;
     });
+    
     window.FB.api("17841452123566228?fields=biography,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username", (response) => {
       console.log('Instagram Channel 2: ', response);
     });
@@ -60,6 +61,8 @@ const methods = {
         console.log('fblogin res:', response);
         state.loginRes = response;
         state.isConnected = response.status;
+        localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
+        localStorage.setItem('userID', response.authResponse.userID);
         this.checkLoginState();
         return true;
         // Now you can redirect the user or do an AJAX request to

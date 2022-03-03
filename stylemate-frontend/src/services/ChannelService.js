@@ -1,4 +1,7 @@
+import axios from "axios";
 
+var fbBaseUrl = 'https://graph.facebook.com';
+var version = 'v13.0';
 export default class ChannelService {
 
   async initFacebook() {
@@ -21,6 +24,30 @@ export default class ChannelService {
     js.id = id;
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
+  }
+
+  getfbuserId() {
+    return localStorage.getItem('userID');
+  }
+  getfbaccessToken() {
+    return localStorage.getItem('fbaccessToken');
+  }
+
+  channelBaseUrl() {
+    return fbBaseUrl + '/' + version;
+  }
+
+  async getfbUser() {
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '?access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+  }
+
+  async getIgchannels() {
+    return await axios.get(this.channelBaseUrl() + '/'+this.getfbuserId()+'/accounts?fields='+encodeURI('instagram_business_account{id,name,username,profile_picture_url}')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+  }
+
+  async getIgUser() {
+    
+    return await axios.get(this.channelBaseUrl() + '/'+this.getfbuserId()+'?fields='+encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username')+'&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
   }
 
 

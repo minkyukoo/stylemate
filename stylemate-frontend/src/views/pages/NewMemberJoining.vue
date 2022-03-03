@@ -154,7 +154,14 @@ export default {
 
     addIgChannel() {
       // this.logInWithFacebook();
-      this.linkedChannel.methods.logInWithFacebook();
+      // this.linkedChannel.methods.logInWithFacebook();
+      this.channelService.getfbUser().then(res => {
+        console.log('getfbUser res:', res);
+      });
+
+      this.channelService.getIgchannels().then(res => {
+        console.log('getIgchannels res:', res);
+      });
     },
 
     // fbData() {
