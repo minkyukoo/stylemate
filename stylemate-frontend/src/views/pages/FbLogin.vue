@@ -4,9 +4,9 @@
     <div v-if="loginstatus">
       <ul>
         <li v-for="(account, i) of igDetails" :key="i + 1">
-          <img :src="fbDetails.picture.data.url" alt="profilePic" />
+          <img :src="account.instagram_business_account.profile_picture_url" width="20" alt="profilePic" />
           <div>
-            <h1>Channel Name: {{ account.name }}</h1>
+            <h1>Channel Name: {{ account.instagram_business_account.name }}</h1>
             <h1>Facebook name: {{ fbDetails.name }}</h1>
           </div>
         </li>
@@ -27,6 +27,7 @@ export default {
   async created() {
     await this.loadFacebookSDK(document, "script", "facebook-jssdk");
     await this.initFacebook();
+    this.testData();
   },
   updated() {
     // this.logInWithFacebook();
@@ -36,14 +37,21 @@ export default {
     testData() {
       // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
       console.log("Welcome!  Fetching your information.... ");
-      window.FB.api("/me/accounts", (response) => {
-        console.log('Instagram Channel: ', response.data);
-        this.igDetails = response.data;
-      });
-      window.FB.api("/me?fields=name%2Cpicture", (response) => {
+      window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
         console.log('facebook: ', response);
         this.fbDetails = response;
       });
+      window.FB.api("/107832208496167/accounts?fields=instagram_business_account{id,name,username,profile_picture_url}", (response) => {
+        console.log('Instagram Channel: ', response.data);
+        this.igDetails = response.data;
+      });
+      window.FB.api("17841452123566228?fields=biography,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username", (response) => {
+        console.log('Instagram Channel 2: ', response);
+      });
+      window.FB.api("17988602920443231?fields=ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption", (response) => {
+        console.log('Instagram Channel 3: ', response);
+      });
+      
     },
 
     statusChangeCallback(response) {
