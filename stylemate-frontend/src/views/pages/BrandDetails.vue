@@ -180,7 +180,7 @@ export default {
   margin-bottom: 30px;
 }
 .hastags li {
-  margin-left: 3px;
+  margin-left: 4px;
 }
 .hastags li:first-child {
   margin-left: 0;
