@@ -180,6 +180,12 @@ export default {
       // this.channelService.getIguserinfo().then(res => {
       //   console.log('getIguserId res:', res);
       // });
+
+      // this.channelService.getIgusermediainfo().then(res => {
+      //   console.log('getIguserId res:', res);
+      // });
+
+
     },
 
 
