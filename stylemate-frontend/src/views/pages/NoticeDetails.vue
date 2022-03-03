@@ -29,7 +29,7 @@
       <div class="content-details" v-html="notice.body"></div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button class="main-btn" @click="$router.push({ name: 'Notice' })">
+          <button class="main-btn" @click="$router.push({ name: 'Notice', hash: '#notice' })">
             목록으로
           </button>
         </div>

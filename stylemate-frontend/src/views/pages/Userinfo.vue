@@ -57,19 +57,19 @@
             <div>
               <label>수신동의</label>
             </div>
-            <div>
+            <!-- <div>
               <img
                 src="@/assets/icons/arrow-right.svg"
               />
-            </div>
+            </div> -->
           </li>
-          <li>
+          <!-- <li>
             <div>
-              <!-- <ion-checkbox
+               <ion-checkbox
                 color="primary"
                 :checked="marketing"
                 @click="market($event)"
-              ></ion-checkbox> -->
+              ></ion-checkbox> 
               <input
                 type="checkbox"
                 @change="updateInfo"
@@ -81,11 +81,11 @@
           </li>
           <li>
             <div>
-              <!-- <ion-checkbox
+              <ion-checkbox
                 color="primary"
                 :checked="compain"
                 @click="promotion($event)"
-              ></ion-checkbox> -->
+              ></ion-checkbox> 
               <input
                 type="checkbox"
                 @change="updateInfo"
@@ -97,11 +97,11 @@
           </li>
           <li>
             <div>
-              <!-- <ion-checkbox
+               <ion-checkbox
                 color="primary"
                 :checked="newsletter"
                 @click="news($event)"
-              ></ion-checkbox> -->
+              ></ion-checkbox> 
               <input
                 type="checkbox"
                 @change="updateInfo"
@@ -110,6 +110,31 @@
               />
             </div>
             <div>뉴스레터 구독 (선택)</div>
+          </li> -->
+          <li class="checkboxWrap">
+            <label class="check-container">
+              <input type="checkbox" checked="checked" @change="updateInfo"
+                v-bind:value="marketing"
+                v-model="marketing">
+              <span class="checkmark"></span>마케팅 광고 활용 동의 (선택)
+            </label>
+          </li>
+          <li class="checkboxWrap">
+            <label class="check-container">
+              <input type="checkbox" checked="checked" @change="updateInfo"
+                v-bind:value="compain"
+                v-model="compain">
+              <span class="checkmark"></span>캠페인 제안 받기 (선택)
+            </label>
+          </li>
+          <li class="checkboxWrap">
+            <label class="check-container">
+              <input type="checkbox"
+              @change="updateInfo"
+                v-bind:value="newsletter"
+                v-model="newsletter">
+              <span class="checkmark"></span>뉴스레터 구독 (선택)
+            </label>
           </li>
         </ul>
         <ul class="forthList">
@@ -372,64 +397,10 @@ export default {
 .thirdList li ion-checkbox {
   margin-right: 10px;
 }
-/* ---------switch------------------ */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+.withdrawTxt{
+  font-size: 12px;
+  line-height: 16px;
+  color: #797979;
+  text-decoration: underline;
 }
 </style>
