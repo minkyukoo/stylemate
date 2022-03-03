@@ -35,7 +35,11 @@ export default class MyPageService {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    });
+    },
+    {
+      
+    }
+    );
   }
   
 }

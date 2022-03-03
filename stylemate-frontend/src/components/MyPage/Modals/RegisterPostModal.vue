@@ -142,7 +142,8 @@ export default {
     },
     async isSubmit() {
       let res = await this.channelService.getIguserinfo();
-      // console.log("unique", res);
+      let res2 = await this.channelService.getIgusermediainfo()
+      console.log("unique", res2);
       this.userProfile = res;
       // console.log("unique state",this.userProfile);
       if(this.store.MyPageModals.reRegistration || this.store.MyPageModals.reRegistrationNo){
