@@ -1,9 +1,7 @@
 <template>
   <div>
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">
-      카테고리에 해당하는 제품이 없습니다
-    </div>
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
       <div class="fixed-container">
         <div class="top-section">
@@ -16,25 +14,14 @@
             </ion-select>
             </ion-item>-->
             <div class="selectWrap">
-              <vue-select
-                :placeholder="인기순"
-                :options="books"
-                label="title"
-                :close-on-select="true"
-              ></vue-select>
+              <vue-select :placeholder="인기순" :options="books" label="title" :close-on-select="true"></vue-select>
             </div>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -49,14 +36,11 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img src="@/assets/icons/instagram.svg" />
+                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
               <div class="favorite" @click="likeProduct(product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img
-                  v-if="product.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -82,9 +66,11 @@
               <h3>{{ product.name }}</h3>
               <p>{{ product.description }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  "#" + hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    "#" + hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -112,10 +98,7 @@
               </div>
             </figure>
             <div class="favorite" @click="likeProduct(product.id)">
-              <img
-                v-if="product.isInfluenceLike"
-                src="@/assets/icons/heart-filled.svg"
-              />
+              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -133,9 +116,11 @@
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  "#" + hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    "#" + hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -189,6 +174,7 @@ export default defineComponent({
       banner: [],
       filtervalue: [],
       books: ["최신순", "마감임박순"],
+      camp: [],
     };
   },
   created() {
@@ -203,6 +189,17 @@ export default defineComponent({
     });
   },
   methods: {
+    isChannelIg(pdata) {
+      let isProductCamp = false;
+      if(!pdata) return isProductCamp;
+      pdata.forEach(item => {
+        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+          isProductCamp = true;
+          return isProductCamp;
+        }
+      });
+      return isProductCamp;
+    },
     // isLogedIn
     async isLogedIn() {
       return await this.tokenService.isAuth();
@@ -244,6 +241,7 @@ export default defineComponent({
     if (this.isproductfilter) {
       this.store.state.AppData = this.isproductfilter;
     }
+    // console.log('isChannelIg', this.isChannelIg());
   },
 });
 </script>
@@ -274,7 +272,7 @@ export default defineComponent({
 }
 
 .item-wrapper {
-  padding: 20px 20px 130px;
+  padding: 20px 20px 160px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
@@ -341,6 +339,10 @@ export default defineComponent({
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+  margin-left: 4px;
+}
+.item-wrapper .product-list .product-list-item span:first-child{
+  margin-left: 0;
 }
 .swiper-pagination.swiper-pagination-bullets {
   display: none !important;

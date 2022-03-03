@@ -195,6 +195,7 @@ export default {
 .profile-desc h3 {
   font-size: 16px;
   line-height: 20px;
+  font-weight: bold;
 }
 .profile-desc p {
   font-size: 12px;

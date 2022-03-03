@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav :headerTitle="store.state.noticeTabPageName"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -79,6 +79,7 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { API } from "@/services/AxiosInstance";
+import { inject } from "vue";
 
 export default {
   name: "InquiryDetails",
@@ -90,6 +91,12 @@ export default {
       details: null,
       subjectError: false,
       detailsError: false,
+    };
+  },
+  setup() {
+    const store = inject("store");
+    return {
+      store,
     };
   },
   watch: {

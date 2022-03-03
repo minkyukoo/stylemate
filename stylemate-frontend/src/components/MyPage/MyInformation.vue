@@ -20,7 +20,7 @@ export default {
         },
         {
           name: "채널연결",
-          Pagelink: "NewMemberChannel",
+          Pagelink: "NewMemberJoining",
           hash: "",
         },
       ],

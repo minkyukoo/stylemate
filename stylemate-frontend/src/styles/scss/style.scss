@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  color: #595959;
 }
 
 img:hover {
@@ -501,6 +502,15 @@ img:hover {
     .selectWrap {
       .vue-select {
         border: none;
+        .vue-select-header{
+          .icon.arrow-downward{
+            background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
+            width: 9px;
+            height: 6px;
+            color: transparent;
+            border: 0;
+          }
+        }
         .vue-dropdown {
           border: 1px solid #f7f7f7;
           .vue-dropdown-item {
@@ -528,4 +538,167 @@ img:hover {
   &:focus-visible{
     outline: none;
   }
+}
+
+.sliderBox {
+  .swiper-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 55px;
+    .swiper-pagination-bullet{
+      background: #E4E4E7;
+      width: 4px;
+      height: 4px;
+      position: relative;
+      &::before{
+        background: #E4E4E7;
+        width: 11px;
+        height: 2px;
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 1.5px;
+      }
+      &:last-child{
+        &::before{
+          display: none;
+        }
+      }
+    }
+    .swiper-pagination-bullet-active{
+      background: #0CBFCA;
+      width: 8px;
+      height: 8px;
+      &::before{
+        background: #0CBFCA;
+        width: 12px;
+        height: 2px;
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 3.5px;
+      }
+    }
+  }
+  .swiper-button-next::after{
+    content: "";
+    background: url(../../../src/assets/icons/slider-arrow-right.svg) no-repeat;
+    width: 24px;
+    height: 24px;
+  }
+  .swiper-button-prev::after{
+    content: "";
+    background: url(../../../src/assets/icons/slider-arrow-left.svg) no-repeat;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* ------------check box style------------ */
+.checkboxWrap .check-container {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 18px;
+  color: #25282B !important;
+  font-weight: normal;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(../../../src/assets/icons/check-off.svg) no-repeat;
+  width: 18px;
+  height: 18px;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.check-container input:checked ~ .checkmark:after {
+  display: block;
+}
+.check-container .checkmark:after {
+  background: url(../../../src/assets/icons/check-on.svg) no-repeat;
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------switch------------------ */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #595959;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #0CBFCA;
+}
+
+/* input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+} */
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  left: -3px;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

@@ -66,9 +66,9 @@ export default defineComponent({
       }
     },
     cancel() {
-      console.log(this.selected);
+      // console.log(this.selected);
       //   alert(this.selected);
-      // this.$router.go(-1);
+      this.$router.go(-1);
     },
     apply() {
       alert("apply");
