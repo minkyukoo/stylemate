@@ -3,22 +3,22 @@
     <div class="drawer-top">
       <div
         class="selectWrap"
-        v-for="item in productColor"
+        v-for="(item, i) in productColor"
         :key="item.optionName"
       >
         <vue-select
           :placeholder="item.optionName"
           :options="item.optionValues"
-          group-by
-          multiple
           v-model="selected"
-          @selected="control"
+          @toggle="control(i)"
         ></vue-select>
       </div>
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancel">취소</button>
-      <button class="black-btn" @click="apply" :disabled='disable'>신청하기</button>
+      <button class="black-btn" @click="apply" :disabled="disable">
+        신청하기
+      </button>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@
 import { defineComponent } from "vue";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
-
+import UserInfoService from "@/services/UserInfoService";
 export default defineComponent({
   name: "DrawerBottom",
   components: {
@@ -36,9 +36,16 @@ export default defineComponent({
   },
   data() {
     return {
+      uid: "",
+      compainId: "",
+      channelId: "",
+      deliveryId: "",
       productColor: "",
       selected: "",
       disable: true,
+      option: "",
+      selected1: "",
+      selected2: "",
     };
   },
   setup() {
@@ -48,24 +55,47 @@ export default defineComponent({
     // ];
     // return { options };
   },
-
-  mounted() {
+  created() {
     this.itemService = new ItemService();
-
+    this.userInfoService = new UserInfoService();
+  },
+  mounted() {
     var proId = this.$route.params.id;
     this.itemService.getProductDetails(proId).then((data) => {
       this.productColor = data.productOption;
+      this.compainId = data.campaign[0].id;
       // console.log("this.productColor", this.productColor);
+      // console.log(this.compainId)
+    });
+    this.userInfoService.getUserInfo().then((res) => {
+      this.channelId = res.data.influence.channel[0].id;
+      this.uid = res.data.uid;
+    });
+    this.userInfoService.getUserdeliveries(this.uid).then((res) => {
+      this.deliveryId = res[0].id;
     });
   },
   methods: {
-    control() {
-      console.log(this.selected);
+    control(i) {
       if (this.selected != "") {
         this.disable = false;
-      }else{
-         this.disable = true; 
+      } else {
+        this.disable = true;
       }
+      if (this.selected != "" && i == 0) {
+        this.selected1 = this.selected;
+      }
+      if (this.selected != "" && i == 1) {
+        this.selected2 = this.selected;
+      }
+      
+      this.option =
+        this.selected1 == ""
+          ? this.selected2
+          : this.selected2 == ""
+          ? this.selected1
+          : `${this.selected1}/${this.selected2}`;
+    console.log(this.option);
     },
     cancel() {
       console.log(this.selected);
@@ -73,7 +103,17 @@ export default defineComponent({
       // this.$router.go(-1);
     },
     apply() {
-      alert("apply");
+      this.itemService
+        .applySponsership(
+          this.uid,
+          this.compainId,
+          this.channelId,
+          this.deliveryId,
+          this.option
+        )
+        .then((data) => {
+          console.log(data);
+        });
     },
   },
 });
