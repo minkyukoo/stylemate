@@ -80,7 +80,18 @@
         >
           to close
         </button>
-        <button type="button" class="btn-black">포스트 등록하기</button>
+        <button
+          type="button"
+          class="btn-black"
+          @click="
+            () => {
+              store.state.isReRegisterModalVisible = false;
+              store.state.isPostModalVisible = true;
+            }
+          "
+        >
+          포스트 등록하기
+        </button>
       </div>
     </template>
   </Modal>

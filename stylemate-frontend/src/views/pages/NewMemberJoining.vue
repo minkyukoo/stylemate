@@ -6,6 +6,8 @@
     <!-- page content -->
     <div class="main-wrap">
       <div class="contWrap">
+        {{ linkedChannel.state.fbDetails }}
+        {{ linkedChannel.state.isConnected }}
         <ul class="connectionList">
           <li>
             <div>
@@ -107,6 +109,7 @@
 import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
+import { inject, onMounted } from 'vue';
 
 export default {
   name: 'NewMember',
@@ -118,10 +121,34 @@ export default {
       // fbResData: null,
     }
   },
+  setup() {
+    const linkedChannel = inject("linkedChannel");
+
+    onMounted(() => {
+      // linkedChannel.methods.checkLoginState();
+      // console.log('checkLoginState()',linkedChannel.methods.checkLoginState());
+    });
+
+    return { linkedChannel };
+  },
   created() {
     this.channelService = new ChannelService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
+
+    if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
+      this.$router.push({ name: 'NewMemberChannel' });
+    } else {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
+
+  },
+  updated() {
+    if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
+      this.$router.push({ name: 'NewMemberChannel' });
+    } else {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
   },
   methods: {
     openlink() {
@@ -135,64 +162,25 @@ export default {
     },
 
     addIgChannel() {
-      this.logInWithFacebook();
-    },
-
-    // fbData() {
-    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    //   console.log("Welcome!  Fetching your information.... ");
-    //   window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
-    //     console.log('facebook: ', response);
-    //     this.fbResData = response;
-    //   });
-    // },
-
-    // igData() {
-    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    //   console.log("Welcome!  Fetching your information.... ");
-    //   return window.FB.api("/107832208496167/accounts", (response) => {
-    //     console.log('Instagram Channel: ', response.data);
-    //     this.igResData = response.data;
-    //   });
-    // },
-
-    statusChangeCallback(response) {
-      // Called with the results from FB.getLoginStatus().
-      console.log("statusChangeCallback");
-      console.log(response); // The current login status of the person.
-      if (response.status === "connected") {
-        // Logged into your webpage and Facebook.
-        console.log("loged into this webpage syccessfully.");
-        // this.fbData();
-        // this.igData();
-        this.$router.push({name: 'NewMemberChannel'});
+      // this.logInWithFacebook();
+      // this.linkedChannel.methods.logInWithFacebook();
+      if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
+        this.$router.push({ name: 'NewMemberChannel' });
       } else {
-        // Not logged into your webpage or we are unable to tell.
-        console.log("Please log into this webpage.");
+        this.linkedChannel.methods.logInWithFacebook();
       }
+      // this.channelService.getfbUser().then(res => {
+      //   console.log('getfbUser res:', res);
+      // });
+
+      // this.channelService.getIgchannels().then(res => {
+      //   console.log('getIgchannels res:', res);
+      // });
+
+      // this.channelService.getIguserinfo().then(res => {
+      //   console.log('getIguserId res:', res);
+      // });
     },
-
-    checkLoginState() {
-      // Called when a person is finished with the Login Button.
-      window.FB.getLoginStatus((response) => {
-        this.statusChangeCallback(response);
-      });
-    },
-
-    async logInWithFacebook() {
-      window.FB.login((response) => {
-        if (response.authResponse) {
-          this.checkLoginState();
-          return true;
-        } else {
-          return false;
-        }
-      }, { scope: 'public_profile,instagram_basic,pages_show_list' });
-      return false;
-    },
-
-
-
 
 
   },

@@ -180,7 +180,7 @@ export default {
   margin-bottom: 30px;
 }
 .hastags li {
-  margin-left: 3px;
+  margin-left: 4px;
 }
 .hastags li:first-child {
   margin-left: 0;
@@ -362,7 +362,7 @@ img {
   border-top: solid 1px #f6f6f6;
   padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child {
+.tag-info .tag-info-row:first-child {
   border-top: 0;
 }
 .tag-info .tag-info-row .top {

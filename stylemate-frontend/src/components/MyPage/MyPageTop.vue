@@ -111,6 +111,7 @@ export default {
         this.myPageServices.getMyPageData().then((res) => {
           let globalState = this.store.state;
           globalState.UserId = res.data.uid;
+          globalState.influenceId = res.data.influence.influenceStat.influenceId
           globalState.MyPageTopDetails.name = res.data.name;
           globalState.MyPageTopDetails.email = res.data.email;
           globalState.MyPageTopState =

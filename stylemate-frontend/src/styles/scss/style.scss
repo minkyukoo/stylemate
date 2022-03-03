@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  color: #595959;
 }
 
 img:hover {
@@ -501,6 +502,15 @@ img:hover {
     .selectWrap {
       .vue-select {
         border: none;
+        .vue-select-header{
+          .icon.arrow-downward{
+            background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
+            width: 9px;
+            height: 6px;
+            color: transparent;
+            border: 0;
+          }
+        }
         .vue-dropdown {
           border: 1px solid #f7f7f7;
           .vue-dropdown-item {

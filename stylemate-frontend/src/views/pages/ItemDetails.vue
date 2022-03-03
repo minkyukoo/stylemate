@@ -389,7 +389,7 @@ export default {
   object-fit: cover;
 }
 .item-wrapper {
-  padding: 40px 20px 60px;
+  padding: 40px 20px 160px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
@@ -441,6 +441,10 @@ export default {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+  margin-left: 4px;
+}
+.hashwrap span:first-child{
+  margin-left: 0;
 }
 .product-description {
   margin-top: 12px;

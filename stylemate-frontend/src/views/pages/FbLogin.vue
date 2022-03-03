@@ -45,6 +45,8 @@ export default {
         console.log('Instagram Channel: ', response.data);
         this.igDetails = response.data;
       });
+
+      // for mypage
       window.FB.api("17841452123566228?fields=biography,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username", (response) => {
         console.log('Instagram Channel 2: ', response);
       });

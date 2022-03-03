@@ -272,7 +272,7 @@ export default defineComponent({
 }
 
 .item-wrapper {
-  padding: 20px 20px 130px;
+  padding: 20px 20px 160px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
@@ -339,6 +339,10 @@ export default defineComponent({
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
+  margin-left: 4px;
+}
+.item-wrapper .product-list .product-list-item span:first-child{
+  margin-left: 0;
 }
 .swiper-pagination.swiper-pagination-bullets {
   display: none !important;

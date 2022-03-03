@@ -13,7 +13,8 @@
         Please apply for sponsorship for products from other brands as well."
       />
     </div>
-    <RegisterPostModal />
+    <RegisterPostModal v-if="store.state.isPostModalVisible" />
+    <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
     <CancelSponser />
   </div>
 </template>
@@ -24,6 +25,7 @@ import MyPageService from "@/services/MyPageService";
 import ItemCard from "@/components/MyPage/ItemCard.vue";
 import Error from "../Error.vue";
 import RegisterPostModal from "./Modals/RegisterPostModal.vue";
+import ReRegisterModal from "./Modals/ReRegisterModal.vue";
 import CancelSponser from "./Modals/CancelSponser.vue";
 export default {
   name: "SponsorProgress",
@@ -31,6 +33,7 @@ export default {
     ItemCard,
     Error,
     RegisterPostModal,
+    ReRegisterModal,
     CancelSponser,
   },
   data() {
