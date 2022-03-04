@@ -360,4 +360,16 @@ export default {
   color: #090909;
   margin-top: 10px;
 }
+.item-card .img-con .img-tag.green-bg{
+  background: rgba(173, 218, 217, 0.75);
+}
+.item-card .img-con .img-tag.pink-bg{
+  background: rgba(226, 153, 195, 0.75);
+}
+.item-card .img-con .img-tag.blue-bg{
+  background: rgba(87, 0, 255, 0.75);
+}
+.item-card .img-con .img-tag.yellow-bg{
+  background: rgba(255, 214, 123, 0.75);
+}
 </style>
