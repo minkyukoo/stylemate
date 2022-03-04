@@ -4,6 +4,14 @@
       <img :src="progressDetails.product.imageThumbnailPath" alt="" />
       <span
         class="img-tag"
+        :class="{
+          'green-bg':
+            getImgTag(progressDetails) == 're-registration' ||
+            getImgTag(progressDetails) == 'Application completed',
+          'pink-bg': getImgTag(progressDetails) == 'Sponcer Selection',
+          'blue-bg': getImgTag(progressDetails) == 'Post Registration',
+          'yellow-bg': getImgTag(progressDetails) == 'Checking',
+        }"
         id="imgTag"
         :style="{ backgroundColor: `${getColor(progressDetails)}` }"
         >{{ getImgTag(progressDetails) }}</span
