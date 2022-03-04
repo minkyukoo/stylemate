@@ -20,10 +20,15 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
+          <swiper-slide
+          >
             <div class="mainslide-banner-wrap">
               <figure>
-                <img :src="slide.productImagePath" alt />
+                <img
+                  v-if="this.brandDetails.imageMainPath"
+                  :src="brandDetails.imageMainPath"
+                  alt
+                />
                 <div class="top-social-icon">
                   <!-- <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
@@ -142,7 +147,7 @@ export default {
     //     userData.methods.getUserData();
     //   }
     // });
- 
+
     return {
       // userData,
       modules: [Pagination],
@@ -343,6 +348,15 @@ img {
 }
 
 .itemMain .itemHeader img {
+  width: 24px;
+  height: 24px;
+}
+.mainslide figure .top-social-icon {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+}
+.mainslide figure .top-social-icon img {
   width: 24px;
   height: 24px;
 }
