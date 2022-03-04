@@ -342,10 +342,6 @@ export default {
 </script>
 
 <style scoped>
-ion-content{
-  position: relative;
-  z-index: 2;
-}
 .overlay {
   position: fixed;
   width: 100%;
