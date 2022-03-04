@@ -7,7 +7,7 @@
       @ionClear="sreachWordClear"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
-      <ul>
+      <!-- <ul>
         <li v-for="(item, i) in searchKeywords" :key="i">
           <span @click="sreachWithHistory(item.searchKeyword)">
             {{
@@ -15,7 +15,22 @@
             }}
           </span>
         </li>
-      </ul>
+      </ul> -->
+      <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="4"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide
+        v-for="(item, i) in searchKeywords" :key="i">
+        <a
+          @click="sreachWithHistory(item.searchKeyword)"
+          >{{item.searchKeyword}}</a
+        >
+      </swiper-slide>
+    </swiper>
     </div>
 
     <div v-if="notFound" class="content-not-found">
@@ -76,9 +91,14 @@ import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// import { inject, onMounted } from "vue";
+import "swiper/css";
+import "swiper/css/scrollbar";
+
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
+  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, Swiper, SwiperSlide, },
   setup() {
     return { heart };
   },
@@ -300,17 +320,10 @@ ion-card-title h3 {
 .history-keywords{
   margin: 16px 0 20px;
 }
-.history-keywords ul{
-  display: flex;
-  align-items: center;
+.history-keywords .swiper-slide{
+  width: auto;
 }
-.history-keywords ul li{
-  margin-left: 4px;
-}
-.history-keywords ul li:first-child{
-  margin-left: 0;
-}
-.history-keywords ul li span{
+.history-keywords .swiper-slide a{
   background: #F7F7F7;
   border-radius: 100px;
   font-size: 12px;
