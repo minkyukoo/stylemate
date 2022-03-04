@@ -122,9 +122,10 @@
         </figure>
 
         <!-- sponsership button -->
-        <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
-        <!-- <button @click="sponsorshipApplication" class="white-btn">협찬 신청</button> -->
-        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <button @click="sponsorshipApplication" class="black-btn">Sponsorship application</button>
+        <!-- <button class="white-btn">Cancellation of sponsorship application</button>
+        <button class="grey-btn">Sponsorship application completed</button>
+        <button class="grey-btn">Sponsorship has ended.</button> -->
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
