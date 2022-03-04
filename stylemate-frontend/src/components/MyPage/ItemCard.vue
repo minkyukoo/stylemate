@@ -5,19 +5,12 @@
       <span
         class="img-tag"
         :class="{
-<<<<<<< HEAD
          'aqua-bg': getImgTag(progressDetails) === 're-registration' || getImgTag(progressDetails) == 'Application completed',
          'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
          'blue-bg': getImgTag(progressDetails) === 'Post Registration',
          'yellow-bg': getImgTag(progressDetails) === 'Checking',
          'grey-bg': getImgTag(progressDetails) === 'Sponsorship completed',
          'dark-bg': getImgTag(progressDetails) === 'unselected',
-=======
-         'green-bg': getImgTag(progressDetails) == 're-registration' || getImgTag(progressDetails) == 'Application completed',
-         'pink-bg': getImgTag(progressDetails) == 'Sponcer Selection',
-         'blue-bg': getImgTag(progressDetails) == 'Post Registration',
-         'yellow-bg': getImgTag(progressDetails) == 'Checking',
->>>>>>> 92a6562b189c738223f5ac07a6bd1cc381f1039b
         }"
         id="imgTag"
         :style="{ backgroundColor: `${getColor(progressDetails)}` }"
