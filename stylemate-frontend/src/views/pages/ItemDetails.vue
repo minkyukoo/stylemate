@@ -14,7 +14,10 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
+          <swiper-slide
+            v-for="(slide, i) of productDetails.productImageFile"
+            :key="i + 1"
+          >
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
@@ -53,9 +56,7 @@
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
               <span v-for="(hash, index) in productDetails.tag" :key="index">
-                {{
-                  '#' + hash.tag
-                }}
+                {{ "#" + hash.tag }}
               </span>
               <!-- <span>hi</span> -->
             </div>
@@ -65,10 +66,23 @@
                 <img src="@/assets/icons/calendar.svg" />
               </span>
               <!-- 2021.11.11 ~ 2021.12.25 -->
-              <span
-                v-for="(item, i) of productDetails.campaign"
-                :key="i"
-              >{{ item.campaignSchedule ? moment(item.campaignSchedule.startedAt).format('YYYY.MM.DD') : null }} ~ {{ item.campaignSchedule ? moment(item.campaignSchedule.finishedAt).format('YYYY.MM.DD') : null }}</span>
+              <span v-for="(item, i) of productDetails.campaign" :key="i"
+                >{{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.startedAt).format(
+                        "YYYY.MM.DD"
+                      )
+                    : null
+                }}
+                ~
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.finishedAt).format(
+                        "YYYY.MM.DD"
+                      )
+                    : null
+                }}</span
+              >
             </p>
           </div>
 
@@ -117,15 +131,27 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+          <img
+            v-if="productDetails.isInfluenceLike"
+            src="@/assets/icons/heart-filled.svg"
+          />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
         <!-- sponsership button -->
-        <button @click="sponsorshipApplication" class="black-btn">Sponsorship application</button>
-        <!-- <button class="white-btn">Cancellation of sponsorship application</button>
-        <button class="grey-btn">Sponsorship application completed</button>
-        <button class="grey-btn">Sponsorship has ended.</button> -->
+        <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
+        <!-- <button @click="sponsorshipApplication" class="black-btn">
+          협찬 선정(Sponsorship application)2
+        </button> -->
+        <!-- <button class="black-btn">
+          확인 중(Cancellation of sponsorship application)6
+        </button>
+        <button class="black-btn">
+          신청 완료(Sponsorship application completed)1
+        </button>
+        <button class="black-btn">협찬 완료(Sponsorship has ended)4</button> -->
+        <!-- <button @click="sponsorshipApplication" class="white-btn">협찬 신청</button> -->
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
@@ -160,7 +186,7 @@ import DrawerBottom from "@/components/DrawerBottom.vue";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "ItemDetails",
@@ -196,6 +222,10 @@ export default {
       productDetails: [],
       productCampaign: null,
       userToken: "",
+      sponsorship: false,
+      cancel_spon: false,
+      complete_spon: false,
+      end_spon: false,
     };
   },
   setup() {
@@ -207,7 +237,7 @@ export default {
     //     userData.methods.getUserData();
     //   }
     // });
- 
+
     return {
       // userData,
       modules: [Pagination],
@@ -236,15 +266,55 @@ export default {
         // catch error
         if (res.response) {
           if (res.response.status == 404) {
-            this.$router.push('/item');
+            this.$router.push("/item");
           }
         }
         // success
         else {
           this.productDetails = res;
-          console.log('productDetails:', this.productDetails);
+          // console.log("process-status",res.campaign[0].processStatus);
+          //   console.log("processDetailStatus",res.campaign[0].processDetailStatus);
+          //   console.log("bookingStatus",res.campaign[0].booking[0].bookingStatus);
+          //   console.log("postStatus",res.campaign[0].booking[0].postStatus);
+          //apply sponsership button
+          if (
+            res.campaign[0].processStatus == "progress" &&
+            res.campaign[0].processDetailStatus == "booking" &&
+            res.campaign[0].booking[0].bookingStatus == "join" &&
+            res.campaign[0].booking[0].postStatus == "ready"
+          ) {
+            this.sponsorship = true;
+            this.cancel_spon = false;
+            this.complete_spon = false;
+            this.end_spon = false;
+          }
+           //cancel sponsership button
+          if (
+            res.campaign[0].processStatus == "progress" &&
+            res.campaign[0].processDetailStatus == "posting" &&
+            res.campaign[0].booking[0].bookingStatus == "join" &&
+            res.campaign[0].booking[0].postStatus == "postProgress"
+          ) {
+            this.sponsorship = false;
+            this.cancel_spon = true;
+            this.complete_spon = false;
+            this.end_spon = false;
+          }
+          //sponsership complete button
+          if (
+            res.campaign[0].processStatus == "progress" &&
+            res.campaign[0].processDetailStatus == "posting" &&
+            res.campaign[0].booking[0].bookingStatus == "join" &&
+            res.campaign[0].booking[0].postStatus == "postProgress"
+          ) {
+            this.sponsorship = false;
+            this.cancel_spon = false;
+            this.complete_spon = true;
+            this.end_spon = false;
+          }
+          // console.log('productDetails:', this.productDetails.campaign);
           this.productDetails.campaign.map((item) => {
-            this.productCampaign = item
+            this.productCampaign = item;
           });
         }
       });
@@ -282,8 +352,7 @@ export default {
         return this.userInfoService.getUserdeliveries(uid).then((res) => {
           if (res.length > 0) {
             return true;
-          }
-          else {
+          } else {
             return false;
           }
         });
@@ -304,7 +373,7 @@ export default {
         return false;
       }
       // condition 2 deliveries address check
-      let isDeliveries = await this.isDeliveries().then(res => res);
+      let isDeliveries = await this.isDeliveries().then((res) => res);
       if (!isDeliveries) {
         Toast.fire({ title: "배송지가 등록되지 않았습니다." });
         return false;
@@ -326,18 +395,20 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
-            // console.log(res.response.data.error);
-            // console.log(res.response);
-            this.getProductDetails();
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          this.itemService
+            .influencelikes(uid, "product", productId)
+            .then((res) => {
+              // console.log(res.response.data.error);
+              // console.log(res.response);
+              this.getProductDetails();
+              if (res.response.data.error) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            });
         });
       }
-      console.log('likeProduct');
-    }
+      console.log("likeProduct");
+    },
   },
 };
 </script>
@@ -447,7 +518,7 @@ export default {
   color: #c4c4c4;
   margin-left: 4px;
 }
-.hashwrap span:first-child{
+.hashwrap span:first-child {
   margin-left: 0;
 }
 .product-description {

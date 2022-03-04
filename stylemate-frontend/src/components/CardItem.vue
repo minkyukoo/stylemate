@@ -310,6 +310,7 @@ export default defineComponent({
   overflow: hidden;
   width: 100%;
   height: 156px;
+  cursor: pointer;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
@@ -419,5 +420,8 @@ export default defineComponent({
 }
 .right-section button.active {
   display: block;
+}
+.details-wrap{
+  cursor: pointer;
 }
 </style>

@@ -42,7 +42,7 @@
             {{ answer }}
           </p>
         </div>
-        <div v-if="answer !== null" class="buttongrp">
+        <div class="buttongrp">
           <button class="inqList-btn">수정</button>
           <button class="inqList-btn">삭제</button>
         </div>
