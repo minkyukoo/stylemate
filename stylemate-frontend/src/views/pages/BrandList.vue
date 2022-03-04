@@ -101,17 +101,17 @@ export default {
     this.tokenService = new TokenService();
   },
   mounted() {
-    // this.setUser();
+    this.setUser();
     this.getBrandList();
   },
 
   methods: {
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
-        console.log('errorstate', res.response.status);
-        if (res.response.status == 401) {
+        // console.log('errorstate', res.status);
+        if (res.status == 401) {
           this.$router.push({ name: 'LoginPage' });
-        } else if (res.response.status == 200) {
+        } else if (res.status == 200) {
           this.user = res.data;
           this.setHistoryKeywords(res.data.uid);
         }
@@ -122,14 +122,15 @@ export default {
       console.log('call from likeBrand');
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
-        console.log('this.brands list', data);
+        // console.log('this.brands list', data);
       });
     },
 
     setHistoryKeywords(uid) {
       this.brandService.brandSearchHistory(uid).then((res) => {
-        this.history = res.length > 0 ? true : false;
-        this.searchKeywords = res;
+        this.history = res.data.length > 0 ? true : false;
+        this.searchKeywords = res.data;
+        // console.log(this.searchKeywords);
       });
     },
 
