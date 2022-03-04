@@ -215,6 +215,10 @@ export default {
 .maincontent {
   font-size: 14px;
   color: #25282b;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .maincard {
   width: 100%;
@@ -233,7 +237,7 @@ export default {
   object-fit: cover;
   border-radius: 6px;
   overflow: hidden;
-  background-color: #c4c4c4;
+  /* background-color: #c4c4c4; */
   cursor: pointer;
 }
 .imgsec {
@@ -292,5 +296,30 @@ ion-card-title h3 {
   text-align: center;
   color: #c4c4c4;
   padding: 30px 0 20px 0;
+}
+.history-keywords{
+  margin: 16px 0 20px;
+}
+.history-keywords ul{
+  display: flex;
+  align-items: center;
+}
+.history-keywords ul li{
+  margin-left: 4px;
+}
+.history-keywords ul li:first-child{
+  margin-left: 0;
+}
+.history-keywords ul li span{
+  background: #F7F7F7;
+  border-radius: 100px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #25282B;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 </style>
