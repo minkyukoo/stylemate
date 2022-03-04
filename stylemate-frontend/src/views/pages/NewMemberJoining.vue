@@ -59,29 +59,53 @@
             <div class="modalBody">
               <div class="overSearch">
                 <ul>
-                  <li>
-                    <div>
-                      <ion-checkbox color="primary"></ion-checkbox>
-                    </div>
-                    <div>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?</div>
+                  <li class="checkboxWrap">
+                    <label class="check-container">
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        @change="updateInfo"
+                        v-bind:value="marketing"
+                        v-model="marketing"
+                      />
+                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                    </label>
                   </li>
-                  <li>
-                    <div>
-                      <ion-checkbox color="primary"></ion-checkbox>
-                    </div>
-                    <div>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?</div>
+                  <li class="checkboxWrap">
+                    <label class="check-container">
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        @change="updateInfo"
+                        v-bind:value="marketing"
+                        v-model="marketing"
+                      />
+                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                    </label>
                   </li>
-                  <li>
-                    <div>
-                      <ion-checkbox color="primary"></ion-checkbox>
-                    </div>
-                    <div>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?</div>
+                  <li class="checkboxWrap">
+                    <label class="check-container">
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        @change="updateInfo"
+                        v-bind:value="marketing"
+                        v-model="marketing"
+                      />
+                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                    </label>
                   </li>
-                  <li>
-                    <div>
-                      <ion-checkbox color="primary"></ion-checkbox>
-                    </div>
-                    <div>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?</div>
+                  <li class="checkboxWrap">
+                    <label class="check-container">
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        @change="updateInfo"
+                        v-bind:value="marketing"
+                        v-model="marketing"
+                      />
+                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                    </label>
                   </li>
                 </ul>
               </div>
