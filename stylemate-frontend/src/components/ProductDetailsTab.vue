@@ -297,6 +297,7 @@ export default {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   display: flex;
+  background: #ffffff;
 }
 
 .tabs .tab {
@@ -310,7 +311,6 @@ export default {
   justify-content: center;
   padding: 20px;
   width: 50%;
-  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;

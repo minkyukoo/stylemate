@@ -1,26 +1,62 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <div class="product-main-banner">
-          <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
-        </div>
+      <!-- <div class="product-main-banner">
+        <img
+          v-if="this.brandDetails.imageMainPath"
+          :src="brandDetails.imageMainPath"
+        />
+      </div> -->
+      <div class="mainslide">
+        <swiper
+          :modules="modules"
+          :slides-per-view="1"
+          :space-between="50"
+          :pagination="{ clickable: true }"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+        >
+          <swiper-slide
+          >
+            <div class="mainslide-banner-wrap">
+              <figure>
+                <img
+                  v-if="this.brandDetails.imageMainPath"
+                  :src="brandDetails.imageMainPath"
+                  alt
+                />
+                <div class="top-social-icon">
+                  <!-- <router-link to>
+                    <img src="@/assets/icons/instagram.svg" />
+                  </router-link> -->
+                  <img src="@/assets/icons/instagram.svg" />
+                </div>
+              </figure>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
       <div class="main-wrap">
-        
         <div class="item-wrapper">
           <div class="itemMain">
             <div class="itemHeader">
-              <h2>{{ brandDetails.korName }}<span>
-                <img src="@/assets/icons/arrow-left.svg" />
-              </span>
+              <h2>
+                {{ brandDetails.korName
+                }}<span>
+                  <img src="@/assets/icons/arrow-left.svg" />
+                </span>
               </h2>
-              
+
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
               <div @click="likeBrand(brandDetails.id)">
-                <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="brandDetails.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -37,12 +73,16 @@
                   class="tab"
                   @click="layout = 'tab1'"
                   :class="{ active: layout === 'tab1' }"
-                >브랜드 소개</button>
+                >
+                  브랜드 소개
+                </button>
                 <button
                   class="tab"
                   @click="layout = 'tab2'"
                   :class="{ active: layout === 'tab2' }"
-                >아이템 보기</button>
+                >
+                  아이템 보기
+                </button>
               </div>
 
               <!-- tab content 1 -->
@@ -63,10 +103,10 @@
       </div>
     </ion-content>
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
@@ -74,14 +114,20 @@ import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 export default {
   name: "BrandDetails",
   components: {
-    IonPage,
     TopNav,
     IonContent,
     BrandIntroduction,
     BrandItem,
+    Swiper,
+    SwiperSlide,
   },
 
   data() {
@@ -90,6 +136,21 @@ export default {
       visible: false,
       layout: "tab1",
       brandDetails: Object,
+    };
+  },
+  setup() {
+    // const userData = inject("userData");
+
+    //  onMounted( async () => {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if(isLogedIn) {
+    //     userData.methods.getUserData();
+    //   }
+    // });
+
+    return {
+      // userData,
+      modules: [Pagination],
     };
   },
   created() {
@@ -113,7 +174,7 @@ export default {
       }
     });
   },
-  mounted() { },
+  mounted() {},
   methods: {
     show() {
       this.display = true;
@@ -143,18 +204,20 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          console.log('brand uid', uid);
-          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
-            console.log(res.response.data.error);
-            console.log(res);
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          console.log("brand uid", uid);
+          this.brandService
+            .influencelikes(uid, "brand", brandId)
+            .then((res) => {
+              console.log(res.response.data.error);
+              console.log(res);
+              if (res.response.data.error) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            });
         });
       }
-      console.log('likeProduct');
-    }
+      console.log("likeProduct");
+    },
   },
 };
 </script>
@@ -167,7 +230,7 @@ export default {
   /* background-color: #ffffff;
   padding-bottom: 60px;
 } */
-.itemMain .itemHeader h2{
+.itemMain .itemHeader h2 {
   display: flex;
   align-items: center;
 }
@@ -191,13 +254,6 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
   margin-bottom: 0;
-}
-.main-container {
-  max-width: 500px;
-  min-width: 500px;
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
 }
 .scrolldiv {
   height: 1000px;
@@ -238,7 +294,11 @@ img {
   position: relative;
   z-index: 1;
   top: 270px;
-  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
+  background: linear-gradient(
+    93.21deg,
+    rgba(241, 241, 241, 0.5) 0.78%,
+    rgba(241, 241, 241, 0.1) 100.78%
+  );
   backdrop-filter: blur(30px);
   /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
@@ -291,6 +351,15 @@ img {
   width: 24px;
   height: 24px;
 }
+.mainslide figure .top-social-icon {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+}
+.mainslide figure .top-social-icon img {
+  width: 24px;
+  height: 24px;
+}
 
 /* tab styling */
 
@@ -304,6 +373,7 @@ img {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   display: flex;
+  background: #ffffff;
 }
 
 .tabs .tab {
@@ -317,7 +387,6 @@ img {
   justify-content: center;
   padding: 20px;
   width: 50%;
-  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;

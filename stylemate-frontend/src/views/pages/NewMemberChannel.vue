@@ -17,33 +17,30 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <!-- <li class="active">
-            <div class="channelLeft">
-              <div class="channelImg">
-                <img src="@/assets/icons/refresh.svg" />
-              </div>
-              <div class="channelDec">
-                <h4>일이삼사오육칠팔...</h4>
-                <p>일이삼사오육칠팔구십...</p>
-              </div>
-            </div>
-            <div>
-              <button @click="hideSponserButton" class="channelBtn" type="button">선택</button>
-            </div>
-          </li> -->
-          <li class="active" v-for="(account, i) of igResData" :key="i+1">
+          <li class="active" v-for="(account, i) of igResData" :key="i + 1">
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
                 <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
-                <h4>{{account.instagram_business_account.name}}</h4>
-                <p>{{fbResData.name}}</p>
+                <h4>{{ account.instagram_business_account.name }}</h4>
+                <p>{{ fbResData.name }}</p>
               </div>
             </div>
-            <div>
-              <button class="channelBtn" type="button">선택</button>
+            <div class="btn-wrap">
+              <!-- <button class="channelBtn" type="button">선택</button> -->
+              <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
+                <button class="channelBtn" type="button">Linked Account</button>
+                <button class="channelBtn" type="button">disconnect</button>
+              </div>
+              <button
+                v-else-if="stylemateStatus === 'request'"
+                class="channelBtn"
+                type="button"
+              >checking</button>
+              <button v-else-if="stylemateStatus === 'hold' && !isReApplication" class="channelBtn" type="button">hold</button>
+              <button v-else-if="stylemateStatus === 'hold' && isReApplication" class="channelBtn" type="button">reapplication</button>
             </div>
           </li>
         </ul>
@@ -73,10 +70,8 @@
             </div>
           </li>
         </ul>
-        <!-- {{igResData}}
-        {{fbResData}}-->
-        <!-- {{ linkedChannel.state.isConnected }}
-        {{ linkedChannel.state.fbDetails }} -->
+        {{ igResData }}
+        {{ userChanneldata }}
       </div>
       <div class="subscribe-wrap">
         <button class="black-btn">활동 신청하기</button>
@@ -106,6 +101,7 @@ import TopNav from "@/components/TopNav.vue";
 import { inject, onMounted } from 'vue';
 // import { useRouter } from 'vue-router';
 import ChannelService from "@/services/ChannelService";
+import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "NewMemberChannel",
@@ -115,6 +111,9 @@ export default {
       isActive: false,
       igResData: null,
       fbResData: null,
+      stylemateStatus: '',
+      isReApplication: null,
+
     };
   },
   setup() {
@@ -136,21 +135,32 @@ export default {
   },
   created() {
     this.channelService = new ChannelService();
+    this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
     if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
+    this.userInfoservice.getUserInfo().then(res => {
+      console.log('infores data:', res.data);
+      console.log('infores channel:', res.data.influence.channel);
+      this.userChanneldata = res.data.influence.channel;
+      let channelData = res.data.influence.channel;
+      channelData.map(
+        (item) => {
+          this.stylemateStatus = item.stylemateStatus;
+          this.isReApplication = item.isReApplication;
+        }
+      )
+    });
   },
   updated() {
     if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
   },
-  mounted(){
-
+  mounted() {
     this.channelData();
-
   },
   methods: {
     openlink() {
@@ -170,29 +180,7 @@ export default {
         console.log('getIgchannels res:', res);
         this.igResData = res.data;
       });
-
-      // this.channelService.getIguserinfo().then(res => {
-      //   console.log('getIguserId res:', res);
-      // });
     }
-
-    // fbData() {
-    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    //   console.log("Welcome!  Fetching your information.... ");
-    //   window.FB.api("/107832208496167?fields=name%2Cpicture", (response) => {
-    //     console.log('facebook: ', response);
-    //     this.fbResData = response;
-    //   });
-    // },
-
-    // igData() {
-    //   // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    //   console.log("Welcome!  Fetching your information.... ");
-    //   return window.FB.api("/107832208496167/accounts?fields=instagram_business_account{id,name,username,profile_picture_url}", (response) => {
-    //     console.log('Instagram Channel: ', response.data);
-    //     this.igResData = response.data;
-    //   });
-    // },
 
   },
 };
@@ -204,10 +192,12 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 50%;
   background: rgba(9, 9, 9, 0.75);
   z-index: 1;
   display: none;
+  max-width: 500px;
+  transform: translate(-50%);
 }
 .bottomDrawer {
   display: none;

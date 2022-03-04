@@ -234,6 +234,7 @@ p.no-notice-data {
   border: 1px solid #f7f7f7;
   display: flex;
   justify-content: space-around;
+  background: #ffffff;
 }
 
 .tabs .tab {
@@ -243,7 +244,6 @@ p.no-notice-data {
   color: #797979;
   padding: 13px 0 9px;
   cursor: pointer;
-  background: #ffffff;
 }
 .tabs .tab.active {
   color: #090909;
