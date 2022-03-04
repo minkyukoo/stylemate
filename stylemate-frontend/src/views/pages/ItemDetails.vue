@@ -19,9 +19,10 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <router-link to>
+                  <!-- <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
-                  </router-link>
+                  </router-link> -->
+                  <img src="@/assets/icons/instagram.svg" />
                 </div>
               </figure>
             </div>
