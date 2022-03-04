@@ -5,7 +5,8 @@
       <span
         class="img-tag"
         :class="{
-         'aqua-bg': getImgTag(progressDetails) === 're-registration' || getImgTag(progressDetails) == 'Application completed',
+         'aqua-bg': getImgTag(progressDetails) === 're-registration',
+         'green-bg' : getImgTag(progressDetails) == 'Application completed',
          'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
          'blue-bg': getImgTag(progressDetails) === 'Post Registration',
          'yellow-bg': getImgTag(progressDetails) === 'Checking',
