@@ -5,7 +5,7 @@
       <span
         class="img-tag"
         :class="{
-         'green-bg': getImgTag(progressDetails) == 're-registration' || getImgTag(progressDetails) == 'Application completed',
+         'aqua-bg': getImgTag(progressDetails) == 're-registration' || getImgTag(progressDetails) == 'Application completed',
          'pink-bg': getImgTag(progressDetails) == 'Sponcer Selection',
          'blue-bg': getImgTag(progressDetails) == 'Post Registration',
          'yellow-bg': getImgTag(progressDetails) == 'Checking',
@@ -360,7 +360,7 @@ export default {
   color: #090909;
   margin-top: 10px;
 }
-.item-card .img-con .img-tag.green-bg{
+.item-card .img-con .img-tag.aqua-bg{
   background: rgba(173, 218, 217, 0.75);
 }
 .item-card .img-con .img-tag.pink-bg{
@@ -371,5 +371,14 @@ export default {
 }
 .item-card .img-con .img-tag.yellow-bg{
   background: rgba(255, 214, 123, 0.75);
+}
+.item-card .img-con .img-tag.green-bg{
+  background:  rgba(188, 212, 108, 0.75);
+}
+.item-card .img-con .img-tag.dark-bg{
+  background: rgba(121, 121, 121, 0.75);
+}
+.item-card .img-con .img-tag.grey-bg{
+  background: rgba(196, 196, 196, 0.75);
 }
 </style>
