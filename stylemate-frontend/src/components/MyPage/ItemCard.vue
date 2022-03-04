@@ -39,7 +39,7 @@
             this.progressDetails.processDetailStatus === 'posting' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].bookingStatus === 'booking' &&
+            ].bookingStatus === 'join' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
             ].postStatus === 'post_modify_request' &&
