@@ -29,11 +29,10 @@ export default {
 
 <style scoped>
 .mainse {
-  height: 1000px;
   /* max-width: 500px;
   min-width: 500px; */
   width: 100%;
-  padding: 30px 0 0 0;
+  padding: 30px 0 160px 0;
 }
 
 .mainse p{
