@@ -62,6 +62,7 @@ import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
 import MyPageService from "@/services/MyPageService";
 import ChannelService from "@/services/ChannelService";
+import moment from "moment";
 export default {
   name: "register-post-modal",
   components: {
@@ -84,6 +85,7 @@ export default {
       media_product_type: "",
       media_type: "",
       media_url: "",
+      thumbnail_url: "",
       permalink: "",
       shortcode: "",
       username: "",
@@ -97,6 +99,7 @@ export default {
     this.channelService = new ChannelService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
+    this.moment = moment;
   },
 
   setup() {
@@ -123,10 +126,6 @@ export default {
     // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
-  //  updated() {
-  //   let res = this.channelService.getIguserinfo()
-  //   // console.log("unique",res);
-  // },
 
   methods: {
     closeModal() {
@@ -139,15 +138,81 @@ export default {
       this.channelId = event.channelId;
       this.comments_count = event.instagramPost.commentCount;
       this.like_count = event.instagramPost.likeCount;
+      this.media_type = event.instagramPost.postType;
+      this.media_product_type = event.instagramPost.productType;
+      if(event.instagramPost.productType === 'video'){
+        this.thumbnail_url = event.instagramPost.thumbnailUrl
+      }
+      this.media_url = event.instagramPost.thumbnailUrl;
+      this.id = `${event.id}`;
+      // Object.keys(this.userProfile).push(event.instagramPost.description);
+      this.userProfile.description = event.instagramPost.description; 
     },
     async isSubmit() {
       let res = await this.channelService.getIguserinfo();
-      let res2 = await this.channelService.getIgusermediainfo()
-      console.log("unique", res2);
+      let res2 = await this.channelService.getIgusermediainfo();
+      console.log("res2", res2);
       this.userProfile = res;
+      this.ig_id = res2.ig_id;
+      this.shortcode = res2.shortcode;
+      this.permalink = res2.permalink;
+      this.timestamp = moment(res2.timestamp).format("YYYY-MM-DD HH:mm:ss");
+      this.caption = res2.caption;
+      this.username = res2.username;
+      // this.media_url = res2.media_url;
       // console.log("unique state",this.userProfile);
-      if(this.store.MyPageModals.reRegistration || this.store.MyPageModals.reRegistrationNo){
-        console.log("if true unique state",this.userProfile);
+      if (
+        this.store.MyPageModals.reRegistration ||
+        this.store.MyPageModals.reRegistrationNo
+      ) {
+        this.myPageService
+          .putCampaignDetail(
+            this.store.MyPageModals.reRegistrationNo,
+            this.campaignId,
+            this.bookingId,
+            this.channelId,
+            this.caption,
+            this.id,
+            this.ig_id,
+            this.comments_count,
+            this.like_count,
+            this.media_product_type,
+            this.media_type,
+            this.media_url,
+            this.thumbnail_url,
+            this.permalink,
+            this.shortcode,
+            this.username,
+            this.timestamp,
+            this.userProfile
+          )
+          .then((res) => {
+            console.log("if true res", res);
+          });
+        // console.log("if true unique state", this.userProfile);
+      }
+      else {
+        this.myPageService.postCampaign(
+          this.campaignId,
+            this.bookingId,
+            this.channelId,
+            this.caption,
+            this.id,
+            this.ig_id,
+            this.comments_count,
+            this.like_count,
+            this.media_product_type,
+            this.media_type,
+            this.media_url,
+            this.permalink,
+            this.shortcode,
+            this.username,
+            this.timestamp,
+            this.userProfile
+        ).then((res) => {
+            console.log("if false res", res);
+          });
+        // console.log("if false unique state", this.userProfile);
       }
     },
   },
