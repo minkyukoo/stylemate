@@ -120,7 +120,7 @@ export default {
         console.log(res);
         this.postList = res.data.data;
       });
-    this.linkedChannel.methods.logInWithFacebook();
+    // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
   //  updated() {
@@ -142,11 +142,12 @@ export default {
     },
     async isSubmit() {
       let res = await this.channelService.getIguserinfo();
-      // console.log("unique", res);
+      let res2 = await this.channelService.getIgusermediainfo()
+      console.log("unique", res2);
       this.userProfile = res;
       // console.log("unique state",this.userProfile);
-      if(this.store.reRegistration || this.store.reRegistrationNo){
-        console.log("unique state",this.userProfile);
+      if(this.store.MyPageModals.reRegistration || this.store.MyPageModals.reRegistrationNo){
+        console.log("if true unique state",this.userProfile);
       }
     },
   },
