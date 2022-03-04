@@ -192,10 +192,12 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
+  left: 50%;
   background: rgba(9, 9, 9, 0.75);
   z-index: 1;
   display: none;
+  max-width: 500px;
+  transform: translate(-50%);
 }
 .bottomDrawer {
   display: none;
