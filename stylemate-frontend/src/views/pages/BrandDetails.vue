@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
@@ -63,10 +63,10 @@
       </div>
     </ion-content>
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
@@ -77,7 +77,6 @@ import TokenService from "@/services/TokenService";
 export default {
   name: "BrandDetails",
   components: {
-    IonPage,
     TopNav,
     IonContent,
     BrandIntroduction,
@@ -191,13 +190,6 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
   margin-bottom: 0;
-}
-.main-container {
-  max-width: 500px;
-  min-width: 500px;
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
 }
 .scrolldiv {
   height: 1000px;
