@@ -8,13 +8,7 @@
       <div class="fixed-container">
         <div class="top-section">
           <div class="left-section">
-            <!-- <ion-item>
-            <ion-select interface="popover" @click="orderPopularity()" placeholder="인기순">
-              <ion-select-option value="f">최신순</ion-select-option>
-              <ion-select-option value="m">인기순</ion-select-option>
-              <ion-select-option value="v">마감임박순</ion-select-option>
-            </ion-select>
-            </ion-item>-->
+           
             <div class="selectWrap">
               <vue-select
                 :placeholder="'인기순'"
