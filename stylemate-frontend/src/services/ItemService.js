@@ -5,23 +5,38 @@ export default class ItemService {
     return await axios.get(`/stylemates/categories`).then((res) => res.data.data);
   }
 
-  async getProductList() {
-    if (!token) {
-      return await axios.get(`/stylemates/products`).then((res) => res.data.data);
+  async getProductList(order = null) {
+    if (order !== null) {
+      if (!token) {
+        return await axios.get(`/stylemates/products?order=${order}`).then((res) => res.data.data);
+      } else {
+        return await axios.get(`/stylemates/products?order=${order}`, {
+          headers: {
+            Authorization: 'Bearer ' + token //the token is a variable which holds the token
+          }
+        }).then((res) => res.data.data);
+      }
     } else {
-      return await axios.get(`/stylemates/products`, {
-        headers: {
-          Authorization: 'Bearer ' + token //the token is a variable which holds the token
-        }
-      }).then((res) => res.data.data);
+      if (!token) {
+        return await axios.get(`/stylemates/products`).then((res) => res.data.data);
+      } else {
+        return await axios.get(`/stylemates/products`, {
+          headers: {
+            Authorization: 'Bearer ' + token //the token is a variable which holds the token
+          }
+        }).then((res) => res.data.data);
+      }
     }
+
   }
 
   async getFilterProduct(ids) {
     if (ids === "All") {
       return await this.getProductList();
     }
-    return await axios.get(`/stylemates/products?categoryId=${ids}`, { categoryId: ids }).then((res) => res.data.data);
+    return await axios.get(`/stylemates/products?categoryId=${ids}`, {
+      categoryId: ids
+    }).then((res) => res.data.data);
 
   }
 
@@ -37,7 +52,7 @@ export default class ItemService {
     }
   }
 
-  
+
   async getUserdeliveries(uid) {
     return await axios.get(`/stylemates/users/${uid}/deliveries`, {
       headers: {
@@ -47,7 +62,10 @@ export default class ItemService {
   }
   // post influencelikes
   async influencelikes(uid, type, taggableId) {
-    return await axios.post(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+    return await axios.post(`/stylemates/users/${uid}/influence-likes`, {
+      type: type,
+      taggableId: taggableId
+    }, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -55,7 +73,12 @@ export default class ItemService {
   }
   // post apply sponsership
   async applySponsership(uid, compnId, channelId, deliveryId, bookoptn) {
-    return await axios.post(`/stylemates/campaigns/${uid}/bookings`, { campaignId: compnId, channelId: channelId, influenceDeliveryId: deliveryId, bookingOption: bookoptn }, {
+    return await axios.post(`/stylemates/campaigns/${uid}/bookings`, {
+      campaignId: compnId,
+      channelId: channelId,
+      influenceDeliveryId: deliveryId,
+      bookingOption: bookoptn
+    }, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -63,17 +86,15 @@ export default class ItemService {
   }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
-    return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
-      {
-        params: {
-          type: type,
-          taggableId: taggableId
-        },
-        headers: {
-          Authorization: 'Bearer ' + token //the token is a variable which holds the token
-        }
+    return await axios.delete(`/stylemates/users/${uid}/influence-likes`, {
+      params: {
+        type: type,
+        taggableId: taggableId
+      },
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
-    ).then((res) => res.data).catch((err) => err);
+    }).then((res) => res.data).catch((err) => err);
   }
 
 }
