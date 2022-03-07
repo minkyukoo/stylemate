@@ -346,6 +346,14 @@ const routes = [
     }
   },
   {
+    path: "/inquirydetails/:id",
+    name: "InquiryDetailsEdit",
+    component: () => import("@/views/pages/InquiryDetails.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
+  {
     path: "/inquiryregisterdetails/:id",
     name: "InquiryRegisterDetails",
     component: () => import("@/views/pages/InquiryRegisterDetails.vue"),

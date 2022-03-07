@@ -63,7 +63,9 @@
                 </div>
               </div>
               <div class="button-row">
-                <button @click="resetForm()" type="button" class="grey-btn">취소</button>
+                <button @click="resetForm()" type="button" class="grey-btn">
+                  취소
+                </button>
                 <button type="submit" class="black-btn">문의 등록</button>
               </div>
             </div>
@@ -79,6 +81,7 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { API } from "@/services/AxiosInstance";
+import UserInfoService from "@/services/UserInfoService";
 import { inject } from "vue";
 
 export default {
@@ -91,6 +94,7 @@ export default {
       details: null,
       subjectError: false,
       detailsError: false,
+      id: null,
     };
   },
   setup() {
@@ -106,6 +110,19 @@ export default {
     details: function (vl) {
       vl === null ? (this.detailsError = true) : (this.detailsError = false);
     },
+  },
+  created() {
+    this.service = new UserInfoService();
+  },
+  mounted() {
+    if (this.$route.params.id !== undefined) {
+      this.service.QNAsById(this.$route.params.id).then((res) => {
+        this.option = res.type;
+        this.subject = res.title;
+        this.details = res.inquiry;
+        this.id = res.id;
+      });
+    }
   },
   methods: {
     clickOption(vl) {
@@ -129,16 +146,32 @@ export default {
         inquiry: this.details,
         isAnswerReceiving: false,
       };
-      API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
-        .then((res) => {
-          if (res.status === 201) {
-            this.$router.push({
-              name: "InquiryRegisterDetails",
-              params: { id: res.data.id },
-            });
-          }
-        })
-        .catch((err) => console.log(err));
+      if (this.id !== null) {
+        API.put(
+          `https://elsa.beta.mediance.co.kr/stylemates/qnas/${this.id}`,
+          formData
+        )
+          .then((res) => {
+            if (res.status === 201) {
+              this.$router.push({
+                name: "InquiryRegisterDetails",
+                params: { id: res.data.id },
+              });
+            }
+          })
+          .catch((err) => console.log(err));
+      } else {
+        API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
+          .then((res) => {
+            if (res.status === 201) {
+              this.$router.push({
+                name: "InquiryRegisterDetails",
+                params: { id: res.data.id },
+              });
+            }
+          })
+          .catch((err) => console.log(err));
+      }
     },
   },
 };

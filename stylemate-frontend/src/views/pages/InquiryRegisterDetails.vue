@@ -43,7 +43,14 @@
           </p>
         </div>
         <div class="buttongrp">
-          <button class="inqList-btn">수정</button>
+          <button
+            class="inqList-btn"
+            @click="
+              $router.push({ name: 'InquiryDetailsEdit', params: { id: id } })
+            "
+          >
+            수정
+          </button>
           <button class="inqList-btn" @click="deleteInquiry(id)">삭제</button>
         </div>
       </div>
