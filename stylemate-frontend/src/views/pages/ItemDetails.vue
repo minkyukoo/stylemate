@@ -14,18 +14,12 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide
-            v-for="(slide, i) of productDetails.productImageFile"
-            :key="i + 1"
-          >
+          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <!-- <router-link to>
-                    <img src="@/assets/icons/instagram.svg" />
-                  </router-link> -->
-                  <img src="@/assets/icons/instagram.svg" />
+                   <img v-if="isChannelIg(productDetails.campaign)" src="@/assets/icons/instagram.svg" />
                 </div>
               </figure>
             </div>
@@ -55,9 +49,7 @@
 
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">
-                {{ "#" + hash.tag }}
-              </span>
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
               <!-- <span>hi</span> -->
             </div>
 
@@ -66,23 +58,23 @@
                 <img src="@/assets/icons/calendar.svg" />
               </span>
               <!-- 2021.11.11 ~ 2021.12.25 -->
-              <span v-for="(item, i) of productDetails.campaign" :key="i"
-                >{{
+              <span v-for="(item, i) of productDetails.campaign" :key="i">
+                {{
                   item.campaignSchedule
                     ? moment(item.campaignSchedule.startedAt).format(
-                        "YYYY.MM.DD"
-                      )
+                      "YYYY.MM.DD"
+                    )
                     : null
                 }}
                 ~
                 {{
                   item.campaignSchedule
                     ? moment(item.campaignSchedule.finishedAt).format(
-                        "YYYY.MM.DD"
-                      )
+                      "YYYY.MM.DD"
+                    )
                     : null
-                }}</span
-              >
+                }}
+              </span>
             </p>
           </div>
 
@@ -131,27 +123,21 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img
-            v-if="productDetails.isInfluenceLike"
-            src="@/assets/icons/heart-filled.svg"
-          />
+          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
         <!-- sponsership button -->
+        <!-- Sponsorship application -->
         <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
-        <!-- <button @click="sponsorshipApplication" class="black-btn">
-          협찬 선정(Sponsorship application)2
-        </button> -->
-        <!-- <button class="black-btn">
-          확인 중(Cancellation of sponsorship application)6
-        </button>
-        <button class="black-btn">
-          신청 완료(Sponsorship application completed)1
-        </button>
-        <button class="black-btn">협찬 완료(Sponsorship has ended)4</button> -->
-        <!-- <button @click="sponsorshipApplication" class="white-btn">협찬 신청</button> -->
-        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- Cancellation of sponsorship application -->
+        <!-- <button v-else-if="cancel_spon" class="white-btn">협찬 신청 취소</button> -->
+        <!-- Sponsorship application completed -->
+        <!-- <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button> -->
+        <!-- Sponsorship has ended. -->
+        <!-- <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button> -->
+
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
@@ -272,6 +258,7 @@ export default {
         // success
         else {
           this.productDetails = res;
+          console.log('this.productDetails', this.productDetails);
           // console.log("process-status",res.campaign[0].processStatus);
           //   console.log("processDetailStatus",res.campaign[0].processDetailStatus);
           //   console.log("bookingStatus",res.campaign[0].booking[0].bookingStatus);
@@ -279,16 +266,16 @@ export default {
           //apply sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
-            res.campaign[0].processDetailStatus == "booking" &&
-            res.campaign[0].booking[0].bookingStatus == "join" &&
-            res.campaign[0].booking[0].postStatus == "ready"
+            res.campaign[0].processDetailStatus == "booking"
+            // res.campaign[0].booking[0].bookingStatus == "" &&
+            // res.campaign[0].booking[0].postStatus == ""
           ) {
             this.sponsorship = true;
             this.cancel_spon = false;
             this.complete_spon = false;
             this.end_spon = false;
           }
-           //cancel sponsership button
+          //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
             res.campaign[0].processDetailStatus == "posting" &&
@@ -305,12 +292,24 @@ export default {
             res.campaign[0].processStatus == "progress" &&
             res.campaign[0].processDetailStatus == "posting" &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
-            res.campaign[0].booking[0].postStatus == "postProgress"
+            ['ready', 'postRequest', 'postComplete', 'postCancel', 'postModifyRequest', 'postModifyComplete'].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
             this.complete_spon = true;
             this.end_spon = false;
+          }
+          //Sponsorship has ended. button
+          if (
+            res.campaign[0].processStatus == "finish" &&
+            res.campaign[0].processDetailStatus == "finish" &&
+            res.campaign[0].booking[0].bookingStatus == "finish" &&
+            res.campaign[0].booking[0].postStatus == "finish"
+          ) {
+            this.sponsorship = false;
+            this.cancel_spon = false;
+            this.complete_spon = false;
+            this.end_spon = true;
           }
           // console.log('productDetails:', this.productDetails.campaign);
           this.productDetails.campaign.map((item) => {
@@ -318,6 +317,18 @@ export default {
           });
         }
       });
+    },
+    // isChannelIg
+    isChannelIg(pdata) {
+      let isProductCamp = false;
+      if(!pdata) return isProductCamp;
+      pdata.forEach(item => {
+        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+          isProductCamp = true;
+          return isProductCamp;
+        }
+      });
+      return isProductCamp;
     },
     // isAuthorized
     async isLogedIn() {
