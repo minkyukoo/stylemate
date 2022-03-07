@@ -205,11 +205,11 @@ export default defineComponent({
   },
   watch: {
     bookOption: function (type) {
-      if (type === "최신순") {
+      if (type == '최신순') {
         this.itemService.getProductList("latest").then((data) => {
           this.products = data;
         });
-      } else {
+      } else if (type == '마감임박순'){
         this.itemService.getProductList("popular").then((data) => {
           this.products = data;
         });
