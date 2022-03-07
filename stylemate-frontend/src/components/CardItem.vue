@@ -313,7 +313,8 @@ export default defineComponent({
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
-  top: 180px;
+  margin-top: -20px;
+  /* top: 180px; */
   /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
   background: linear-gradient(
@@ -324,8 +325,10 @@ export default defineComponent({
   backdrop-filter: blur(30px);
 }
 .item-wrapper.withoutbanner {
-  top: 90px;
+  top: 93px;
   transition: all 0.5s ease-in-out;
+  margin-top: 0;
+  border-radius: 0;
 }
 .item-wrapper .product-list {
   display: flex;

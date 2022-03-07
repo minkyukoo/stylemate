@@ -335,7 +335,7 @@ ion-card-title h3 {
   justify-content: center;
   cursor: pointer;
 }
-.history-keywords .swiper-slide a.active{
+.history-keywords .swiper-slide.swiper-slide-active a{
   border: 1px solid #090909;
   background: #090909;
   font-weight: bold;

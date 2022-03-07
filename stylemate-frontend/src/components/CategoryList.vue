@@ -177,11 +177,11 @@ export default {
 
 <style scoped>
 .product-main-banner {
-  position: fixed;
-  top: 105px;
+  /* position: fixed;
+  top: 105px; */
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 45px auto 0;
 }
 .product-main-banner img {
   width: 100%;
