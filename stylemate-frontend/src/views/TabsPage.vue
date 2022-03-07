@@ -40,7 +40,7 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    <StickyBtn/>
+    <StickyBtn />
   </div>
   <!-- </ion-page> -->
 </template>
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-ion-tabs{
+ion-tabs {
   background: #fff;
 }
 ion-icon {
@@ -104,12 +104,21 @@ ion-tab-bar {
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(10px);
   border-radius: 10px;
+  position: absolute;
+  left: auto;
+  right: auto;
+  bottom: 0;
+  width: calc(100% - 20px);
 }
 ion-tab-button {
   /* background: black; */
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
+  /* background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px); */
+  background: transparent;
   overflow: hidden;
+}
+.button-native {
+  background: transparent !important;
 }
 ion-tab-button.tab-selected ion-label {
   color: #ffffff;
