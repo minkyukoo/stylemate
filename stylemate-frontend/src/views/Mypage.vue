@@ -60,7 +60,9 @@ export default {
         res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity =
         `${res.data.influence.channel[0].instagramChannel.engagementRate/100}%`;
+        globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       let channelStats = res.data.influence.channel[0].channelStat;
+      
       if (Object.keys(channelStats).length > 0) {
         globalState.MyPageSponsorBox.sponsorship =
           channelStats.stylemateBookingCount;
@@ -71,7 +73,7 @@ export default {
         globalState.MyPageSponsorBox.sponsorship = 0;
         globalState.MyPageSponsorBox.Post_activity = 0;
       }
-      globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
+      
       // this.store.state.MyPageSponsorBox.sponsorship =
       // console.log("just", this.profileImg);
     });
