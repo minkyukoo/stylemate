@@ -152,7 +152,7 @@ export default {
           formData
         )
           .then((res) => {
-            if (res.status === 201) {
+            if (res.status === 200) {
               this.$router.push({
                 name: "InquiryRegisterDetails",
                 params: { id: res.data.id },
