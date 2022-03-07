@@ -63,11 +63,11 @@ img:hover {
 /* home page css */
 
 .mainslide {
-  position: fixed;
-  z-index: 1;
+  // position: fixed;
+  // z-index: 1;
   max-width: 500px;
   width: 100%;
-  top: 60px;
+  // top: 60px;
   ion-slide {
     position: relative;
     .bannerCont {
@@ -111,20 +111,20 @@ img:hover {
     transform: none !important;
   }
 }
-.newBrandSwiper {
-  .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next,
-  .swiper-pagination-bullets-dynamic
-    .swiper-pagination-bullet-active-prev-prev {
-    // opacity: 0 !important;
-    // transition: 0.3s;
-    // display: none !important;
-  }
-}
+// .newBrandSwiper {
+//   .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next,
+//   .swiper-pagination-bullets-dynamic
+//     .swiper-pagination-bullet-active-prev-prev {
+//     // opacity: 0 !important;
+//     // transition: 0.3s;
+//     // display: none !important;
+//   }
+// }
 .overlapSlide {
   position: relative;
   z-index: 2;
   border-radius: 10px;
-  margin-top: 360px;
+  margin-top: -20px;
   background: linear-gradient(
     93.21deg,
     rgba(241, 241, 241, 0.5) 0.78%,
@@ -708,4 +708,7 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+.mainslide .swiper-pagination{
+  bottom: 42px !important;
 }

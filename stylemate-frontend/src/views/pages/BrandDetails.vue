@@ -293,7 +293,7 @@ img {
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 270px;
+  /* top: 270px; */
   background: linear-gradient(
     93.21deg,
     rgba(241, 241, 241, 0.5) 0.78%,
@@ -464,5 +464,18 @@ img {
   font-size: 10px;
   line-height: 12px;
   color: #595959;
+}
+.main-wrap{
+  position: relative;
+  z-index: 2;
+  margin-top: -30px;
+  border-radius: 20px 20px 0 0;
+  overflow: visible;
+}
+.mainslide .swiper-pagination{
+  bottom: 42px !important;
+}
+.tab-wrap .tab-content{
+  padding-bottom: 0;
 }
 </style>
