@@ -310,6 +310,7 @@ export default defineComponent({
   overflow: hidden;
   width: 100%;
   height: 156px;
+  cursor: pointer;
 }
 .item-wrapper .product-list .product-list-item figure > img {
   width: 100%;
@@ -322,6 +323,9 @@ export default defineComponent({
   line-height: 14px;
   color: #25282b;
   margin-bottom: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .item-wrapper .product-list .product-list-item p {
   font-weight: normal;
@@ -333,6 +337,10 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.item-wrapper .product-list .hashWrap {
+  display: flex;
+  flex-wrap: wrap;
 }
 .item-wrapper .product-list .product-list-item span {
   font-weight: normal;
@@ -412,5 +420,8 @@ export default defineComponent({
 }
 .right-section button.active {
   display: block;
+}
+.details-wrap{
+  cursor: pointer;
 }
 </style>

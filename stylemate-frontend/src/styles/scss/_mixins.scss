@@ -31,3 +31,35 @@
   line-height: 59px;
   // color: #ffffff;
 }
+
+// fonts
+@mixin Europa-Bold {
+  font-family: europa, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+@mixin Europa-Regular {
+  font-family: europa, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin Europa-Regular-italic {
+  font-family: europa, sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+@mixin Europa-Bold-italic {
+  font-family: europa, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+@mixin Europa-Light {
+  font-family: europa, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+@mixin Europa-Light-italic {
+  font-family: europa, sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}

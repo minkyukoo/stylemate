@@ -4,6 +4,15 @@
       <img :src="progressDetails.product.imageThumbnailPath" alt="" />
       <span
         class="img-tag"
+        :class="{
+         'aqua-bg': getImgTag(progressDetails) === 're-registration',
+         'green-bg' : getImgTag(progressDetails) == 'Application completed',
+         'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
+         'blue-bg': getImgTag(progressDetails) === 'Post Registration',
+         'yellow-bg': getImgTag(progressDetails) === 'Checking',
+         'grey-bg': getImgTag(progressDetails) === 'Sponsorship completed',
+         'dark-bg': getImgTag(progressDetails) === 'unselected',
+        }"
         id="imgTag"
         :style="{ backgroundColor: `${getColor(progressDetails)}` }"
         >{{ getImgTag(progressDetails) }}</span
@@ -353,5 +362,26 @@ export default {
   line-height: 16px;
   color: #090909;
   margin-top: 10px;
+}
+.item-card .img-con .img-tag.aqua-bg{
+  background: rgba(173, 218, 217, 0.75);
+}
+.item-card .img-con .img-tag.pink-bg{
+  background: rgba(226, 153, 195, 0.75);
+}
+.item-card .img-con .img-tag.blue-bg{
+  background: rgba(87, 0, 255, 0.75);
+}
+.item-card .img-con .img-tag.yellow-bg{
+  background: rgba(255, 214, 123, 0.75);
+}
+.item-card .img-con .img-tag.green-bg{
+  background:  rgba(188, 212, 108, 0.75);
+}
+.item-card .img-con .img-tag.dark-bg{
+  background: rgba(121, 121, 121, 0.75);
+}
+.item-card .img-con .img-tag.grey-bg{
+  background: rgba(196, 196, 196, 0.75);
 }
 </style>

@@ -64,12 +64,13 @@ export default defineComponent({
     this.itemService.getProductDetails(proId).then((data) => {
       this.productColor = data.productOption;
       this.compainId = data.campaign[0].id;
+      this.uid = data.campaign[0].uid;
       // console.log("this.productColor", this.productColor);
       // console.log(this.compainId)
     });
     this.userInfoService.getUserInfo().then((res) => {
       this.channelId = res.data.influence.channel[0].id;
-      this.uid = res.data.uid;
+      // this.uid = res.data.uid;
     });
     this.userInfoService.getUserdeliveries(this.uid).then((res) => {
       this.deliveryId = res[0].id;

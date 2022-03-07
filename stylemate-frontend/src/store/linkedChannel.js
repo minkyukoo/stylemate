@@ -1,4 +1,5 @@
 import { reactive } from "vue";
+import axios from "axios";
 
 const state = reactive({
   loginRes: undefined,
@@ -40,8 +41,9 @@ const methods = {
       // Logged into your webpage and Facebook.
       state.loginRes = response;
       state.isConnected = response.status;
-      localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
+      // localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
       localStorage.setItem('userID', response.authResponse.userID);
+     
     } else {
       // Not logged into your webpage or we are unable to tell.
       document.getElementById("status").innerHTML =
@@ -61,6 +63,11 @@ const methods = {
     window.FB.login((response) => {
       if (response.authResponse) {
         // alert("You are logged in &amp; cookie set!");
+        let ftoken = response.authResponse.accessToken;
+        this.igTokenExtend(ftoken).then((res) => {
+          console.log('igTokenExtend: ', res.data.token);
+          localStorage.setItem('fbaccessToken', res.data.token.access_token);
+        });
         this.statusChangeCallback(response);
         return true;
         // Now you can redirect the user or do an AJAX request to
@@ -76,6 +83,14 @@ const methods = {
     // });
     return false;
   },
+
+  async igTokenExtend(fbToken) {
+    return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {
+      params: {
+        token: fbToken,
+      },
+    });
+  }
 
   // async initFacebook() {
   //   window.fbAsyncInit = () => {
