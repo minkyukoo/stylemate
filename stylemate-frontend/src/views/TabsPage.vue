@@ -116,9 +116,14 @@ ion-tab-button {
   backdrop-filter: blur(10px); */
   background: transparent;
   overflow: hidden;
+  --padding-start: 0;
+  --padding-end: 0;
 }
 .button-native {
   background: transparent !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
 }
 ion-tab-button.tab-selected ion-label {
   color: #ffffff;
@@ -139,9 +144,9 @@ ion-tab-button.tab-selected .icon.icon-dft {
   display: none;
 }
 ion-label {
-  /* font-family: Europa-Bold; */
+  font-family: europa, sans-serif;
+  font-weight: 700;
   font-style: normal;
-  font-weight: bold;
   font-size: 9px;
   line-height: 9px;
   color: #797979;
