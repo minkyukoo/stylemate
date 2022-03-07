@@ -127,7 +127,7 @@ export default {
         type: this.option,
         title: this.subject,
         inquiry: this.details,
-        isAnswerReceiving: true,
+        isAnswerReceiving: false,
       };
       API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
         .then((res) => {
