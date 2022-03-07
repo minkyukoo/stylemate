@@ -46,7 +46,7 @@
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -90,7 +90,7 @@
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -127,7 +127,7 @@
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -289,12 +289,12 @@
               <ul>
                 <li>
                   <a href="https://app.mediance.co.kr/">
-                    <img src="@/assets/images/logo-1.png" />
+                    <img src="@/assets/images/logo-2.png" />
                   </a>
                 </li>
                 <li>
                   <a href="http://influencer.mediance.co.kr/">
-                    <img src="@/assets/images/logo-2.png" />
+                    <img src="@/assets/images/logo-1.png" />
                   </a>
                 </li>
               </ul>
@@ -543,6 +543,18 @@ export default {
         });
       }
       console.log("likeProduct");
+    },
+    // isChannelIg
+    isChannelIg(pdata) {
+      let isProductCamp = false;
+      if(!pdata) return isProductCamp;
+      pdata.forEach(item => {
+        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+          isProductCamp = true;
+          return isProductCamp;
+        }
+      });
+      return isProductCamp;
     },
 
     // for pushnotification

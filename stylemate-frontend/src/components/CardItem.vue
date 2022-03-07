@@ -189,6 +189,7 @@ export default defineComponent({
     });
   },
   methods: {
+    // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
       if(!pdata) return isProductCamp;
