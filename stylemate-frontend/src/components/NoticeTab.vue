@@ -10,7 +10,7 @@
       </a>
       <a
         class="tab"
-        @click="(layout = '#faq')"
+        @click="layout = '#faq'"
         :class="{ active: layout === '#faq' }"
       >
         FAQ
@@ -26,36 +26,36 @@
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === '#notice'">
       <div class="noticeWrap">
-      <div
-        v-for="notice in noticelist"
-        :key="notice"
-        class="notice-row"
-        @click="
-          $router.push({ name: 'NoticeDetails', params: { id: notice.id } })
-        "
-      >
-        <div class="tag-row">
-          <span
-            v-if="notice.category !== null"
-            class="notice-tag"
-            :class="{
-              'red-solid': notice.category === 'notification',
-              'dark-solid': notice.category !== 'notification',
-            }"
-            >{{
-              notice.category === "notification" ? "notice" : notice.category
-            }}</span
-          >
-          <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
-          <!-- <span class="notice-tag dark-solid">이벤트</span> -->
+        <div
+          v-for="notice in noticelist"
+          :key="notice"
+          class="notice-row"
+          @click="
+            $router.push({ name: 'NoticeDetails', params: { id: notice.id } })
+          "
+        >
+          <div class="tag-row">
+            <span
+              v-if="notice.category !== null"
+              class="notice-tag"
+              :class="{
+                'red-solid': notice.category === 'notification',
+                'dark-solid': notice.category !== 'notification',
+              }"
+              >{{
+                notice.category === "notification" ? "notice" : notice.category
+              }}</span
+            >
+            <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
+            <!-- <span class="notice-tag dark-solid">이벤트</span> -->
+          </div>
+          <div class="text-desc">
+            <p>{{ notice.title }}</p>
+          </div>
+          <div class="bottom-row">
+            <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
+          </div>
         </div>
-        <div class="text-desc">
-          <p>{{ notice.title }}</p>
-        </div>
-        <div class="bottom-row">
-          <span>mediance</span><span>{{ dateFormat(notice.createdAt) }}</span>
-        </div>
-      </div>
       </div>
     </div>
 
@@ -77,7 +77,6 @@
 
     <!-- tab content 3 -->
     <div class="tab-content" v-if="layout === '#inquiry'">
-      
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
@@ -85,39 +84,41 @@
         </button>
       </div>
       <!-- v-if="!inquiryLength" -->
-      <div class="noticeWrap">
-      <div class="no-data">
-        <p class="no-notice-data">등록된 내용이 없습니다</p>
-      </div>
-      <div
-        v-for="inquiry in inquirylist"
-        :key="inquiry.id"
-        class="notice-row" style="display:none;"
-        @click="
-          $router.push({
-            name: 'InquiryRegisterDetails',
-            params: { id: inquiry.id },
-          })
-        "
-      >
-        <div class="tag-row">
-          <span
-            class="notice-tag text-capitalize"
-            :class="{
-              'grey-solid': inquiry.answerStatus !== 'ready',
-              'dark-outline': inquiry.answerStatus === 'ready',
-            }"
-            >{{ inquiry.answerStatus }}</span
-          >
-        </div>
-        <div class="text-desc">
-          <p>{{ inquiry.inquiry }}</p>
-        </div>
-        <div class="bottom-row">
-          <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
-          ><span>{{ dateFormat(inquiry.createdAt) }}</span>
+      <div v-if="!inquiryLength" class="noticeWrap">
+        <div class="no-data">
+          <p class="no-notice-data">등록된 내용이 없습니다</p>
         </div>
       </div>
+      <div v-else class="noticeWrap">
+        <div
+          v-for="inquiry in inquirylist"
+          :key="inquiry.id"
+          class="notice-row"
+          @click="
+            $router.push({
+              name: 'InquiryRegisterDetails',
+              params: { id: inquiry.id },
+            })
+          "
+        >
+          <div class="tag-row">
+            <span
+              class="notice-tag text-capitalize"
+              :class="{
+                'grey-solid': inquiry.answerStatus !== 'ready',
+                'dark-outline': inquiry.answerStatus === 'ready',
+              }"
+              >{{ inquiry.answerStatus }}</span
+            >
+          </div>
+          <div class="text-desc">
+            <p>{{ inquiry.inquiry }}</p>
+          </div>
+          <div class="bottom-row">
+            <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
+            ><span>{{ dateFormat(inquiry.createdAt) }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -151,7 +152,7 @@ export default {
     };
 
     const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
-    
+
     return {
       stateUp,
     };
@@ -164,7 +165,6 @@ export default {
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
-      console.log(res.data);
     });
 
     this.service.FAQs().then((res) => {
@@ -173,13 +173,13 @@ export default {
         .filter((v, i, a) => a.indexOf(v) === i);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
-        console.log(res.data);
       });
     });
 
     this.service.QNAs().then((res) => {
-      this.inquirylist = res.data;
       this.inquiryLength = res.data.length;
+      this.inquirylist = res.data;
+      console.log("inquiry", res.data);
     });
   },
   methods: {
@@ -250,7 +250,7 @@ p.no-notice-data {
   font-weight: bold;
   border-bottom: solid 2px #090909;
 }
-.tab-content{
+.tab-content {
   height: calc(100% - 60px);
 }
 .notice-row {
@@ -364,11 +364,11 @@ p.no-notice-data {
   color: #25282b;
   margin-bottom: 12px;
 }
-.noticeWrap{
+.noticeWrap {
   padding-bottom: 0;
   height: 100%;
 }
-.no-data{
+.no-data {
   display: flex;
   align-items: center;
   justify-content: center;
