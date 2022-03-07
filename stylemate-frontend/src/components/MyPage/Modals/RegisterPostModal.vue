@@ -193,7 +193,7 @@ export default {
       }
       else {
         this.myPageService.postCampaign(
-          this.campaignId,
+            this.campaignId,
             this.bookingId,
             this.channelId,
             this.caption,

@@ -12,7 +12,7 @@
       <div class="details-body">
         <img
           :src="[modalImg ? modalImg : '']"
-          :alt="`img-${id}`"
+          alt="img"
           class="modalimage"
         />
         <ul class="text">
@@ -81,10 +81,24 @@ export default defineComponent({
   },
   unmounted() {
     this.store.state.contentDetailsId = "";
+    this.store.state.contentDetailsModal = false;
   },
-  created: function () {
+  created() {
     console.log("Page No", this.store.state.contentDetailsId);
     this.contentService = new ContentService();
+    // this.contentService
+    //   .getPostDetail(this.store.state.contentDetailsId)
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.new_contents = response.data;
+    //     this.description = response.data.instagramPost.hashTag;
+    //     this.modalImg = response.data.instagramPost.thumbnailUrl
+    //       ? response.data.instagramPost.thumbnailUrl
+    //       : response.data.instagramPost.thumbnailOriginalUrl;
+    //     this.id = response.data.id;
+    //     // console.log(response.data, this.modalImg);
+    //     // this.description = response.data.description;
+    //   });
   },
   methods: {
     closeModal() {
