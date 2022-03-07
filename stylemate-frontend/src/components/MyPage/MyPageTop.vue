@@ -8,12 +8,10 @@
     >
       <div class="img-con">
         <img
-          :src="[
-            store.state.MyPageTopDetails.profile_img
-              ? store.state.MyPageTopDetails.profile_img
-              : '../../assets/images/profile-img.png',
-          ]"
+          :src="store.state.MyPageTopDetails.profile_img"
+          v-if="store.state.MyPageTopDetails.profile_img"
         />
+        <img src="@/assets/images/profile-img.png" v-else />
       </div>
       <div class="profile-desc">
         <h3>안녕하세요, {{ store.state.MyPageTopDetails.name }}</h3>
@@ -82,6 +80,7 @@ export default {
     return {
       viewSocialMedia: "request",
       myPageServices: null,
+      defaultImg: "../../assets/images/profile-img.png",
     };
   },
 
@@ -111,7 +110,8 @@ export default {
         this.myPageServices.getMyPageData().then((res) => {
           let globalState = this.store.state;
           globalState.UserId = res.data.uid;
-          globalState.influenceId = res.data.influence.influenceStat.influenceId
+          globalState.influenceId =
+            res.data.influence.influenceStat.influenceId;
           globalState.MyPageTopDetails.name = res.data.name;
           globalState.MyPageTopDetails.email = res.data.email;
           globalState.MyPageTopState =
