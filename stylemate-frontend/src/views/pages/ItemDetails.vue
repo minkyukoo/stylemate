@@ -480,7 +480,7 @@ export default {
   border-top-right-radius: 20px;
   position: relative;
   z-index: 1;
-  top: 350px;
+  /* top: 350px; */
   background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
@@ -631,5 +631,18 @@ export default {
   padding: 24px;
   width: calc(100% - 30px);
   border: 1px solid #c4c4c4;
+}
+.main-wrap{
+  position: relative;
+  z-index: 2;
+  margin-top: -30px;
+  border-radius: 20px 20px 0 0;
+  overflow: visible;
+}
+.mainslide .swiper-pagination{
+  bottom: 42px !important;
+}
+.tab-wrap .tab-content{
+  padding-bottom: 0;
 }
 </style>

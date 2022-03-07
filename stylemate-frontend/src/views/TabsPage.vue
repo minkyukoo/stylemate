@@ -101,7 +101,7 @@ ion-icon {
 ion-tab-bar {
   height: 70px;
   margin: 0 10px 10px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(10px);
   border-radius: 10px;
   position: absolute;
