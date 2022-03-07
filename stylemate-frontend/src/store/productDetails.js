@@ -1,4 +1,6 @@
-import { reactive } from "vue";
+import {
+  reactive
+} from "vue";
 import ItemService from "@/services/ItemService";
 
 const state = reactive({
@@ -8,7 +10,7 @@ const state = reactive({
 var itemService = new ItemService();
 
 
- const methods = {
+const methods = {
   async getData() {
     return await itemService.getProductList().then((data) => {
       console.log("ItemList from store", data);
