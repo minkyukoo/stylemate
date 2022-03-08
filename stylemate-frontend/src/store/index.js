@@ -26,6 +26,7 @@ const state = reactive({
   contentDetailsModal: false,
   contentDetailsId: null,
   MyPageTopState: "",
+  isChannelExists: false,
   MyPageTopDetails: {
     name: "",
     email: "",
@@ -79,9 +80,9 @@ const methods = {
         state.sponcerChannelType
       )
       .then((data) => {
-        // console.log("CampaignList from store", data);
+        console.log("CampaignList from store", data);
         state.FltCampaignData = data.data.data;
-        console.log("CampaignList from store", state.FltCampaignData);
+        // console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
         console.log("0th",state.campaignEmpty);
         // return state.FltCampaignData;

@@ -236,7 +236,7 @@
               <img
                 v-for="book in lookBooks.lineOne.big"
                 :key="book.id"
-                :src="book.post.product.imageThumbnailPath"
+                :src="book.post.instagramPost.thumbnailUrl"
                 @click="
                   store.methods.setContentsDetailsModal(book.post.id, true)
                 "
@@ -245,7 +245,7 @@
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
+                  :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -258,7 +258,7 @@
             <div class="bookLabel2 pattern3">
               <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
+                  :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -274,7 +274,7 @@
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
+                  :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -285,7 +285,7 @@
               <img
                 v-for="book in lookBooks.lineThree.big"
                 :key="book.id"
-                :src="book.post.product.imageThumbnailPath"
+                :src="book.post.instagramPost.thumbnailUrl"
                 @click="
                   store.methods.setContentsDetailsModal(book.post.id, true)
                 "

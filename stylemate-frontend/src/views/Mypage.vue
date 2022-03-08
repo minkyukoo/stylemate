@@ -50,6 +50,7 @@ export default {
       globalState.MyPageTopDetails.email = res.data.email;
       globalState.MyPageTopState =
         res.data.influence.channel[0].stylemateStatus;
+      globalState.isChannelExists = res.data.influence.channel.length > 0;
       globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0]
         .instagramChannel.thumbnailUrl
         ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
