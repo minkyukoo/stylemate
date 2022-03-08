@@ -64,6 +64,7 @@
                 store.state.isReRegisterModalVisible = true;
                 store.MyPageModals.reRegistrationNo = this.progressDetails.id;
                 store.MyPageModals.reRegistration = true;
+                store.MyPageModals.campaignId = this.progressDetails.campaignSchedule.campaignId;
               }
             "
           >
@@ -80,7 +81,7 @@
             ].bookingStatus === 'join' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].postStatus === 'ready' &&
+            ].postStatus === 'post_request' &&
             store.state.sponsorTabState !== 'application-details'
           "
         >

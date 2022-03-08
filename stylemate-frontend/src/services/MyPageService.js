@@ -128,6 +128,7 @@ export default class MyPageService {
         username: username,
         timestamp: timestamp,
         userProfile: userProfile,
+        // hashtags: "HOVEHOVER 호브호버 스타일메이트 패션",
       },
       {
         headers: {
