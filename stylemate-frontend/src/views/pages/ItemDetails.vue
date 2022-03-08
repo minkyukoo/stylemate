@@ -145,7 +145,12 @@
       </div>
 
       <!-- product option -->
-      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" :isCancelspon="isCancelspon"  />
+      <DrawerBottom
+        class="bottomDrawer"
+        :class="{ active: isActive }"
+        :isCancelspon="isCancelspon"
+        v-on:closePopup="closeDrawerBottom($event)"
+      />
 
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
@@ -213,7 +218,7 @@ export default {
       userToken: "",
       isCancelspon: false,
       sponsorship: false,
-      cancel_spon: false,
+      cancel_spon: true,
       complete_spon: false,
       end_spon: false,
     };
@@ -426,10 +431,17 @@ export default {
       }
       console.log("likeProduct");
     },
-    sponsorshipCancellation(){
+    sponsorshipCancellation() {
       this.isCancelspon = true;
-      this.isActive=true;
+      this.isActive = true;
       console.log('sponsorshipCancellation');
+    },
+    closeDrawerBottom(isClose) {
+      console.log('isClose', isClose);
+      if (isClose) {
+        this.isCancelspon = false;
+        this.isActive = false;
+      }
     }
   },
 };
