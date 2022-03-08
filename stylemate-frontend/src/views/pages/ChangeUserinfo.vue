@@ -29,21 +29,31 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">비밀번호</span>
+              <span class="labelGap">old password</span>
             </div>
             <div>
               <span>
-                <input type="text" />
+                <input type="password" v-model="oldPass" />
               </span>
             </div>
           </li>
           <li>
             <div>
-              <span class="labelGap">비밀번호 확인</span>
+              <span class="labelGap">New password</span>
             </div>
             <div>
               <span>
-                <input type="text" />
+                <input type="password" v-model="newPass" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">Confirm password</span>
+            </div>
+            <div>
+              <span>
+                <input type="password" v-model="confirmPass" />
               </span>
             </div>
           </li>
@@ -57,14 +67,16 @@
               </div>
               <div class="codeWrap">
                 <span>010-</span>
-                <input type="text" />
+                <input type="text" maxlength="8" v-model="mobile"/>
               </div>
               <div class="contWrapbtn">
-                <button type="button" style="white-space: nowrap;">인증번호</button>
+                <button type="button" @click="sendOtp" style="white-space: nowrap">
+                  인증번호
+                </button>
               </div>
             </div>
           </li>
-          <li>
+          <li v-show="otp">
             <div class="inlineTime">
               <span class="labelGap">인증번호 입력</span>
               <span class="labelGap">01:53</span>
@@ -73,7 +85,7 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="black-btn">신청하기</button>
+        <button class="black-btn" @click="confirm">신청하기</button>
       </div>
     </ion-content>
     <!-- End page content -->
@@ -102,7 +114,13 @@ export default {
   components: { TopNav, IonContent, IonPage, "vue-select": VueNextSelect },
   data() {
     return {
+      uid: localStorage.getItem("userId"),
+      otp: false,
       email: "",
+      oldPass: "",
+      newPass: "",
+      confirmPass: "",
+      mobile:""
     };
   },
   created() {
@@ -130,6 +148,23 @@ export default {
     openlink() {
       console.log("clivk");
     },
+    changePass() {
+      this.userInfoService
+        .changePassword(this.uid, this.oldPass, this.newPass, this.confirmPass)
+        .then(() => {
+          alert("password changed");
+        });
+    },
+    confirm() {
+      if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
+        alert("please fill the password feilds");
+      } else {
+        this.changePass();
+      }
+    },
+    sendOtp(){
+      
+    }
   },
 };
 </script>
@@ -152,6 +187,7 @@ export default {
   padding-left: 50px !important;
 }
 .contWrap input[type="text"],
+.contWrap input[type="password"],
 .contWrapbtn [type="button"] {
   border: 1px solid#E5E5E5;
   background: none;
@@ -232,7 +268,7 @@ export default {
   margin-right: 10px;
 }
 
-.button-group{
+.button-group {
   bottom: 0;
   max-width: 500px;
   position: fixed;

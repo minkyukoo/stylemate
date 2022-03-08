@@ -80,6 +80,21 @@ export default class UserInfoService {
       })
       .then((res) => res)
   }
+  async changePassword(uid,oldpass,newpass,confpass) {
+    return await axios.patch(`stylemates/users/${uid}/password`, {
+      token:token,
+      oldPassword:oldpass,
+      password:newpass,
+      passwordConfirmation:confpass
+     
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+
+      })
+      .then((res) => res)
+  }
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }
