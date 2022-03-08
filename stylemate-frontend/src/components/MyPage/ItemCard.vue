@@ -5,13 +5,13 @@
       <span
         class="img-tag"
         :class="{
-         'aqua-bg': getImgTag(progressDetails) === 're-registration',
-         'green-bg' : getImgTag(progressDetails) == 'Application completed',
-         'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
-         'blue-bg': getImgTag(progressDetails) === 'Post Registration',
-         'yellow-bg': getImgTag(progressDetails) === 'Checking',
-         'grey-bg': getImgTag(progressDetails) === 'Sponsorship completed',
-         'dark-bg': getImgTag(progressDetails) === 'unselected',
+          'aqua-bg': getImgTag(progressDetails) === 're-registration',
+          'green-bg': getImgTag(progressDetails) == 'Application completed',
+          'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
+          'blue-bg': getImgTag(progressDetails) === 'Post Registration',
+          'yellow-bg': getImgTag(progressDetails) === 'Checking',
+          'grey-bg': getImgTag(progressDetails) === 'Sponsorship completed',
+          'dark-bg': getImgTag(progressDetails) === 'unselected',
         }"
         id="imgTag"
         :style="{ backgroundColor: `${getColor(progressDetails)}` }"
@@ -23,11 +23,14 @@
         <h2>{{ progressDetails.product.brand.engName }}</h2>
         <span
           class="cancel-tag"
-          v-if="
-            store.state.sponsorTabState === 'application-details' &&
-            Modaltype === 'sponsor-selection'
+          v-if="store.state.sponsorTabState === 'bookingHistory'"
+          @click="
+            () => {
+              store.state.cancelPopup = true;
+              store.MyPageModals.campaignUID = progressDetails.uid;
+              store.MyPageModals.bookingID = progressDetails.booking[0].id;
+            }
           "
-          @click="() => (store.state.cancelPopup = true)"
           >Cancellation of sponsorship</span
         >
       </div>
@@ -332,6 +335,7 @@ export default {
   border: 1px solid #c4c4c4;
   border-radius: 6px;
   padding: 2px 8px;
+  cursor: pointer;
 }
 .item-desc h2 {
   font-weight: bold;
@@ -363,25 +367,25 @@ export default {
   color: #090909;
   margin-top: 10px;
 }
-.item-card .img-con .img-tag.aqua-bg{
+.item-card .img-con .img-tag.aqua-bg {
   background: rgba(173, 218, 217, 0.75);
 }
-.item-card .img-con .img-tag.pink-bg{
+.item-card .img-con .img-tag.pink-bg {
   background: rgba(226, 153, 195, 0.75);
 }
-.item-card .img-con .img-tag.blue-bg{
+.item-card .img-con .img-tag.blue-bg {
   background: rgba(87, 0, 255, 0.75);
 }
-.item-card .img-con .img-tag.yellow-bg{
+.item-card .img-con .img-tag.yellow-bg {
   background: rgba(255, 214, 123, 0.75);
 }
-.item-card .img-con .img-tag.green-bg{
-  background:  rgba(188, 212, 108, 0.75);
+.item-card .img-con .img-tag.green-bg {
+  background: rgba(188, 212, 108, 0.75);
 }
-.item-card .img-con .img-tag.dark-bg{
+.item-card .img-con .img-tag.dark-bg {
   background: rgba(121, 121, 121, 0.75);
 }
-.item-card .img-con .img-tag.grey-bg{
+.item-card .img-con .img-tag.grey-bg {
   background: rgba(196, 196, 196, 0.75);
 }
 </style>

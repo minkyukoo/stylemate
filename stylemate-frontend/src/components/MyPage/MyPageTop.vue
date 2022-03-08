@@ -20,8 +20,19 @@
       <div
         class="btn-con"
         v-if="
-          !store.state.isChannelExists ||
           store.state.MyPageTopState === 'cancel'
+        "
+      >
+        <MyPageTopButton
+          :name="'Reapply'"
+          :style="'btn-dark'"
+          v-on:buttonEvent="fireButton"
+        />
+      </div>
+      <div
+        class="btn-con"
+        v-else-if="
+          !store.state.isChannelExists 
         "
       >
         <MyPageTopButton

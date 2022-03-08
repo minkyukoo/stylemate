@@ -16,7 +16,9 @@
           >
             cancellation
           </button>
-          <button type="button" class="btn-black">Confirm</button>
+          <button type="button" class="btn-black" @click="confirmDelete">
+            Confirm
+          </button>
         </div>
       </div>
     </div>
@@ -24,14 +26,36 @@
 </template>
 
 <script>
+import MyPageService from "@/services/MyPageService.js";
 import { inject } from "vue";
 export default {
   name: "cancelPopUp",
+  data() {
+    return {
+      myPageService: null,
+    };
+  },
   setup() {
     const store = inject("store");
     return {
       store,
     };
+  },
+  created() {
+    this.myPageService = new MyPageService();
+  },
+  methods: {
+    confirmDelete() {
+      let res = this.myPageService.deleteSponsor(
+        this.store.MyPageModals.campaignUID,
+        this.store.MyPageModals.bookingID
+      );
+      console.log("delete",res);
+    },
+  },
+  unmounted() {
+    this.store.MyPageModals.campaignUID = null;
+    this.store.MyPageModals.bookingID = null;
   },
 };
 </script>
