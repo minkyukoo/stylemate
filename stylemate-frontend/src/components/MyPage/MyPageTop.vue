@@ -11,7 +11,7 @@
           :src="[
             store.state.MyPageTopDetails.profile_img
               ? store.state.MyPageTopDetails.profile_img
-              : '../../assets/images/profile-img.png',
+              : `@/assets/images/profile-img.png`,
           ]"
         />
       </div>
@@ -46,13 +46,7 @@
           v-on:buttonEvent="fireButton"
         />
       </div>
-      <div
-        class="btn-con"
-        v-else-if="
-          store.state.MyPageTopState === 'hold' ||
-          store.state.MyPageTopState === 'cancel'
-        "
-      >
+      <div class="btn-con" v-else-if=" store.state.MyPageTopState === 'hold' || store.state.MyPageTopState === 'cancel'">
         <MyPageTopButton
           :name="'hold'"
           :style="'btn-grey-solid'"
