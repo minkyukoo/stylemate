@@ -26,7 +26,7 @@
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
               <b>{{ item.title }}</b>
               <p>{{ item.message }}</p>
-              <a href="#">
+              <a href="javascript:void(0)">
                 바로가기
                 <img src="@/assets/icons/smallarw.png" />
               </a>

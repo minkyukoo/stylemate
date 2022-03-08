@@ -5,8 +5,8 @@
       <h2>캠페인 협찬 신청을 취소하시겠어요?</h2>
     </div>
     <div class="button-group">
-      <button class="grey-btn">취소</button>
-      <button class="black-btn" :disabled="disable">신청하기</button>
+      <button class="grey-btn" @click="cancelspon">취소</button>
+      <button class="black-btn" @click="applycancelspon">신청하기</button>
     </div>
   </div>
   <div class="drawer-wrap" v-else>
@@ -123,6 +123,14 @@ export default defineComponent({
           console.log(data);
         });
     },
+    // close cancel sponsership popup
+    cancelspon() {
+      this.$emit("closePopup", true);
+    },
+    // Apply cancel sponsership popup
+    applycancelspon() {
+
+    }
   },
 });
 </script>
@@ -146,6 +154,8 @@ export default defineComponent({
   font-size: 16px;
   line-height: 20px;
   color: #000000;
+  text-align: center;
+  padding: 46px 0px;
 }
 .drawer-top .selectWrap {
   margin-top: 4px;
