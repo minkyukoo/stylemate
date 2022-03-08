@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div :class="`modal-backdrop ${modalSize? 'pad-t-60' : ''}`">
+    <div :class="`modal-backdrop ${modalSize? '' : ''}`">
       <div
         :class="`modal ${modalSize? modalSize : ''}`"
         role="dialog"
