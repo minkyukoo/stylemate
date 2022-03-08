@@ -67,10 +67,14 @@
               </div>
               <div class="codeWrap">
                 <span>010-</span>
-                <input type="text" maxlength="8" v-model="mobile"/>
+                <input type="text" maxlength="8" v-model="mobile" />
               </div>
               <div class="contWrapbtn">
-                <button type="button" @click="sendOtp" style="white-space: nowrap">
+                <button
+                  type="button"
+                  @click="sendOtp"
+                  style="white-space: nowrap"
+                >
                   인증번호
                 </button>
               </div>
@@ -120,7 +124,8 @@ export default {
       oldPass: "",
       newPass: "",
       confirmPass: "",
-      mobile:""
+      mobile: "",
+      ids:""
     };
   },
   created() {
@@ -130,6 +135,7 @@ export default {
     this.userInfoService.getUserInfo().then((res) => {
       // console.log(res.data.email);
       this.email = res.data.email;
+      this.ids = res.data.id;
     });
   },
   // mounted() {
@@ -162,9 +168,43 @@ export default {
         this.changePass();
       }
     },
-    sendOtp(){
+    sendOtp() {
+      if (this.mobile != "" && this.mobile.length == 8) {
+        let minutesToAdd = 3;
+        let currentDate = new Date();
+        let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
+         this.userInfoService
+        .telAuth(`010${this.mobile}`, this.email, this.ids, this.formatDate(futureDate))
+        .then(() => {
+          this.otp=true;
+          alert("Otp sent");
+        });
+        console.log(this.formatDate(futureDate));
+      }
+    },
+    formatDate(value) {
       
-    }
+            const date = new Date(value);
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            var hr = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (sec < 10) {
+                sec = '0' + sec;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            return (value = yyyy + '-' + mm + '-' + dd + ' ' + hr + ':' + min + ':' + sec);
+        },
   },
 };
 </script>
