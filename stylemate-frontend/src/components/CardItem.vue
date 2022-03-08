@@ -90,7 +90,7 @@
 
         <ul v-if="layout === 'list'" class="product-list list-view">
           <li
-            v-for="(product, index) in store.state.AppData"
+            v-for="(product, index) in products"
             :key="index"
             class="product-list-item"
           >
