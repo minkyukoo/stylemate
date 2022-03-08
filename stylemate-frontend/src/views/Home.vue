@@ -40,13 +40,16 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newEvanItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -84,13 +87,16 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newOddItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -121,13 +127,16 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newStartItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                     <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
@@ -547,9 +556,12 @@ export default {
     // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
-      if(!pdata) return isProductCamp;
-      pdata.forEach(item => {
-        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+      if (!pdata) return isProductCamp;
+      pdata.forEach((item) => {
+        if (
+          item.processStatus === "progress" &&
+          item.channelType === "instagram"
+        ) {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -586,6 +598,9 @@ export default {
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .top-float-div {
   width: 100%;
   display: flex;
