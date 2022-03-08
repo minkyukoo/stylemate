@@ -8,18 +8,32 @@
     >
       <div class="img-con">
         <img
-          :src="[
-            store.state.MyPageTopDetails.profile_img
-              ? store.state.MyPageTopDetails.profile_img
-              : '../../assets/images/profile-img.png',
-          ]"
+          :src="store.state.MyPageTopDetails.profile_img"
+          v-if="store.state.MyPageTopDetails.profile_img"
         />
+        <img src="@/assets/images/profile-img.png" v-else />
       </div>
       <div class="profile-desc">
         <h3>안녕하세요, {{ store.state.MyPageTopDetails.name }}</h3>
         <p>{{ store.state.MyPageTopDetails.email }}</p>
       </div>
-      <div class="social-media" v-if="store.state.MyPageTopState === 'approve'">
+      <div
+        class="btn-con"
+        v-if="
+          !store.state.isChannelExists ||
+          store.state.MyPageTopState === 'cancel'
+        "
+      >
+        <MyPageTopButton
+          :name="'Connecting Channels'"
+          :style="'btn-dark'"
+          v-on:buttonEvent="fireButton"
+        />
+      </div>
+      <div
+        class="social-media"
+        v-else-if="store.state.MyPageTopState === 'approve'"
+      >
         <div class="media-item">
           <a href="#" class="btn-instagram media-icons">
             <img src="@/assets/icons/instagram.svg" />
@@ -46,23 +60,10 @@
           v-on:buttonEvent="fireButton"
         />
       </div>
-      <div
-        class="btn-con"
-        v-else-if="
-          store.state.MyPageTopState === 'hold' ||
-          store.state.MyPageTopState === 'cancel'
-        "
-      >
+      <div class="btn-con" v-else-if="store.state.MyPageTopState === 'hold'">
         <MyPageTopButton
           :name="'hold'"
           :style="'btn-grey-solid'"
-          v-on:buttonEvent="fireButton"
-        />
-      </div>
-      <div class="btn-con" v-else>
-        <MyPageTopButton
-          :name="'Connecting Channels'"
-          :style="'btn-dark'"
           v-on:buttonEvent="fireButton"
         />
       </div>
@@ -82,6 +83,7 @@ export default {
     return {
       viewSocialMedia: "request",
       myPageServices: null,
+      defaultImg: "../../assets/images/profile-img.png",
     };
   },
 
@@ -111,9 +113,11 @@ export default {
         this.myPageServices.getMyPageData().then((res) => {
           let globalState = this.store.state;
           globalState.UserId = res.data.uid;
-          globalState.influenceId = res.data.influence.influenceStat.influenceId
+          globalState.influenceId =
+            res.data.influence.influenceStat.influenceId;
           globalState.MyPageTopDetails.name = res.data.name;
           globalState.MyPageTopDetails.email = res.data.email;
+          globalState.isChannelExists = res.data.influence.channel.length > 0;
           globalState.MyPageTopState =
             res.data.influence.channel[0].stylemateStatus;
           globalState.MyPageTopDetails.profile_img = res.data.influence

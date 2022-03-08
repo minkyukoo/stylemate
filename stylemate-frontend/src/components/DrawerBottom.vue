@@ -1,11 +1,17 @@
 <template>
-  <div class="drawer-wrap">
+  <!-- type = cancel -->
+  <div class="drawer-wrap" v-if="isCancelspon">
     <div class="drawer-top">
-      <div
-        class="selectWrap"
-        v-for="(item, i) in productColor"
-        :key="item.optionName"
-      >
+      <h2>캠페인 협찬 신청을 취소하시겠어요?</h2>
+    </div>
+    <div class="button-group">
+      <button class="grey-btn">취소</button>
+      <button class="black-btn" :disabled="disable">신청하기</button>
+    </div>
+  </div>
+  <div class="drawer-wrap" v-else>
+    <div class="drawer-top">
+      <div class="selectWrap" v-for="(item, i) in productColor" :key="item.optionName">
         <vue-select
           :placeholder="item.optionName"
           :options="item.optionValues"
@@ -16,9 +22,7 @@
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancel">취소</button>
-      <button class="black-btn" @click="apply" :disabled="disable">
-        신청하기
-      </button>
+      <button class="black-btn" @click="apply" :disabled="disable">신청하기</button>
     </div>
   </div>
 </template>
@@ -33,6 +37,9 @@ export default defineComponent({
   name: "DrawerBottom",
   components: {
     "vue-select": VueNextSelect,
+  },
+  props: {
+    isCancelspon: Boolean,
   },
   data() {
     return {
@@ -89,14 +96,14 @@ export default defineComponent({
       if (this.selected != "" && i == 1) {
         this.selected2 = this.selected;
       }
-      
+
       this.option =
         this.selected1 == ""
           ? this.selected2
           : this.selected2 == ""
-          ? this.selected1
-          : `${this.selected1}/${this.selected2}`;
-    console.log(this.option);
+            ? this.selected1
+            : `${this.selected1}/${this.selected2}`;
+      console.log(this.option);
     },
     cancel() {
       console.log(this.selected);
@@ -124,7 +131,7 @@ export default defineComponent({
 .drawer-wrap {
   position: fixed;
   bottom: 0;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   max-width: 500px;
   background: #ffffff;
@@ -132,6 +139,13 @@ export default defineComponent({
 }
 .drawer-top {
   padding: 24px 20px;
+}
+.drawer-top h2 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
 }
 .drawer-top .selectWrap {
   margin-top: 4px;
