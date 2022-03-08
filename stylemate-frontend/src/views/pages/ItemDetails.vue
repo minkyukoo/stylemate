@@ -213,7 +213,7 @@ export default {
       userToken: "",
       isCancelspon: false,
       sponsorship: false,
-      cancel_spon: true,
+      cancel_spon: false,
       complete_spon: false,
       end_spon: false,
     };
