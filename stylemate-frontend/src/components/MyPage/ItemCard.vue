@@ -276,7 +276,7 @@ export default {
       ) {
         return "rgba(196, 196, 196, 0.75)";
       } else {
-        // return "rgba(121, 121, 121, 0.75)";
+        return "";
       }
     },
   },

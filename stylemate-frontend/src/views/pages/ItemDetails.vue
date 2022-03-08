@@ -19,7 +19,10 @@
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                   <img v-if="isChannelIg(productDetails.campaign)" src="@/assets/icons/instagram.svg" />
+                  <img
+                    v-if="isChannelIg(productDetails.campaign)"
+                    src="@/assets/icons/instagram.svg"
+                  />
                 </div>
               </figure>
             </div>
@@ -129,20 +132,20 @@
 
         <!-- sponsership button -->
         <!-- Sponsorship application -->
-        <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
-        <!-- <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
         <!-- Cancellation of sponsorship application -->
-        <!-- <button v-else-if="cancel_spon" class="white-btn">협찬 신청 취소</button> -->
+        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">협찬 신청 취소</button>
         <!-- Sponsorship application completed -->
-        <!-- <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button> -->
+        <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
         <!-- Sponsorship has ended. -->
-        <!-- <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button> -->
+        <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button>
 
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
 
       <!-- product option -->
-      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" />
+      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" :isCancelspon="isCancelspon"  />
 
       <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
@@ -208,8 +211,9 @@ export default {
       productDetails: [],
       productCampaign: null,
       userToken: "",
+      isCancelspon: false,
       sponsorship: false,
-      cancel_spon: false,
+      cancel_spon: true,
       complete_spon: false,
       end_spon: false,
     };
@@ -259,16 +263,14 @@ export default {
         else {
           this.productDetails = res;
           console.log('this.productDetails', this.productDetails);
-          // console.log("process-status",res.campaign[0].processStatus);
-          //   console.log("processDetailStatus",res.campaign[0].processDetailStatus);
-          //   console.log("bookingStatus",res.campaign[0].booking[0].bookingStatus);
-          //   console.log("postStatus",res.campaign[0].booking[0].postStatus);
+          console.log("process-status", res.campaign[0].processStatus);
+          console.log("processDetailStatus", res.campaign[0].processDetailStatus);
+          console.log("bookingStatus", res.campaign[0].booking[0].bookingStatus);
+          console.log("postStatus", res.campaign[0].booking[0].postStatus);
           //apply sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
             res.campaign[0].processDetailStatus == "booking"
-            // res.campaign[0].booking[0].bookingStatus == "" &&
-            // res.campaign[0].booking[0].postStatus == ""
           ) {
             this.sponsorship = true;
             this.cancel_spon = false;
@@ -278,9 +280,9 @@ export default {
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
-            res.campaign[0].processDetailStatus == "posting" &&
-            res.campaign[0].booking[0].bookingStatus == "join" &&
-            res.campaign[0].booking[0].postStatus == "postProgress"
+            res.campaign[0].processDetailStatus == "booking " &&
+            res.campaign[0].booking[0].bookingStatus == "booking" &&
+            res.campaign[0].booking[0].postStatus == "ready"
           ) {
             this.sponsorship = false;
             this.cancel_spon = true;
@@ -290,14 +292,18 @@ export default {
           //sponsership complete button
           if (
             res.campaign[0].processStatus == "progress" &&
-            res.campaign[0].processDetailStatus == "posting" &&
+            ['announce', 'posting'].includes(res.campaign[0].processDetailStatus) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
-            ['ready', 'postRequest', 'postComplete', 'postCancel', 'postModifyRequest', 'postModifyComplete'].includes(res.campaign[0].booking[0].postStatus)
+            ['ready', 'post_request', 'postComplete', 'postCancel', 'postModifyRequest', 'postModifyComplete'].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
             this.complete_spon = true;
             this.end_spon = false;
+            // console.log("process-status", res.campaign[0].processStatus);
+            // console.log("processDetailStatus", res.campaign[0].processDetailStatus);
+            // console.log("bookingStatus", res.campaign[0].booking[0].bookingStatus);
+            // console.log("postStatus", res.campaign[0].booking[0].postStatus);
           }
           //Sponsorship has ended. button
           if (
@@ -321,7 +327,7 @@ export default {
     // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
-      if(!pdata) return isProductCamp;
+      if (!pdata) return isProductCamp;
       pdata.forEach(item => {
         if (item.processStatus === 'progress' && item.channelType === 'instagram') {
           isProductCamp = true;
@@ -420,6 +426,11 @@ export default {
       }
       console.log("likeProduct");
     },
+    sponsorshipCancellation(){
+      this.isCancelspon = true;
+      this.isActive=true;
+      console.log('sponsorshipCancellation');
+    }
   },
 };
 </script>
@@ -432,7 +443,7 @@ export default {
   top: 0;
   left: 50%;
   background: rgba(9, 9, 9, 0.75);
-  z-index: 1;
+  z-index: 2;
   display: none;
   max-width: 500px;
   transform: translate(-50%);
@@ -632,17 +643,17 @@ export default {
   width: calc(100% - 30px);
   border: 1px solid #c4c4c4;
 }
-.main-wrap{
+.main-wrap {
   position: relative;
   z-index: 2;
   margin-top: -30px;
   border-radius: 20px 20px 0 0;
   overflow: visible;
 }
-.mainslide .swiper-pagination{
+.mainslide .swiper-pagination {
   bottom: 42px !important;
 }
-.tab-wrap .tab-content{
+.tab-wrap .tab-content {
   padding-bottom: 0;
 }
 </style>
