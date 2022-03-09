@@ -199,19 +199,19 @@ export default defineComponent({
     });
     // this.getData();
   },
-  // watch: {
-  //   bookOption: function (type) {
-  //     if (type == "최신순") {
-  //       this.itemService.getProductList("latest").then((data) => {
-  //         this.products = data;
-  //       });
-  //     } else if (type == "마감임박순") {
-  //       this.itemService.getProductList("popular").then((data) => {
-  //         this.products = data;
-  //       });
-  //     }
-  //   },
-  // },
+  watch: {
+    bookOption: function (type) {
+      if (type == "최신순") {
+        this.itemService.getProductList("latest").then((data) => {
+          this.store.state.AppData = data;
+        });
+      } else if (type == "마감임박순") {
+        this.itemService.getProductList("popular").then((data) => {
+          this.store.state.AppData = data;
+        });
+      }
+    },
+  },
   methods: {
     // getData() {
     //   this.itemService.getProductList().then((data) => {
@@ -258,9 +258,19 @@ export default defineComponent({
           this.itemService
             .influencelikes(uid, "product", productId)
             .then((res) => {
-              // console.log(res.response.data.error);
-              console.log(res.response);
-              this.store.methods.getData();
+              if (this.bookOption == "최신순") {
+                this.itemService.getProductList("latest").then((data) => {
+                  this.store.state.AppData = data;
+                });
+              } else if (this.bookOption == "마감임박순") {
+                this.itemService.getProductList("popular").then((data) => {
+                  this.store.state.AppData = data;
+                });
+              } else {
+                this.store.methods.getData();
+              }
+             
+              // this.store.methods.getData();
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
               }
