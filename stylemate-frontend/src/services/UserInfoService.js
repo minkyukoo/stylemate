@@ -110,6 +110,14 @@ export default class UserInfoService {
     })
       .then((res) => res)
   }
+  
+  async confirmPass(vcode,mailId,telNo) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/tel-auth-confirm?verificationCode=${vcode}&email=${mailId}&tel=${telNo}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data.data).catch((err) => err);
+  }
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }

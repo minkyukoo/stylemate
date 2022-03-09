@@ -129,7 +129,7 @@ export default defineComponent({
     },
     // Apply cancel sponsership popup
     applycancelspon() {
-
+      console.log('applycancelspon');
     }
   },
 });
