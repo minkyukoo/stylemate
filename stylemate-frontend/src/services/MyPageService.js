@@ -112,8 +112,8 @@ export default class MyPageService {
     return await axios.post(
       `/stylemates/posts/instagram`,
       {
-        campaignId: campaignId,
-        bookingId: bookingId,
+        campaignId: 246,
+        bookingId: 5722,
         channelId: channelId,
         caption: caption,
         id: id,
@@ -128,7 +128,19 @@ export default class MyPageService {
         username: username,
         timestamp: timestamp,
         userProfile: userProfile,
+        // hashtags: "HOVEHOVER 호브호버 스타일메이트 패션",
       },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+  }
+
+  async deleteSponsor(campaignUID, bookingId) {
+    return await axios.delete(
+      `https://elsa.beta.mediance.co.kr/stylemates/campaigns/${campaignUID}/bookings/${bookingId}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

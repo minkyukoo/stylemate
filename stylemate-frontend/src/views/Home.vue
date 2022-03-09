@@ -180,12 +180,12 @@
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
-            :loop="true"
+            
             :space-between="12"
             :pagination="{
               clickable: true,
               dynamicBullets: true,
-              dynamicMainBullets: 1,
+              
             }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
@@ -873,6 +873,10 @@ export default {
 .newBrandSec .headerLine {
   position: relative;
   z-index: 2;
+  max-width: 320px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 .newBrandSec .swiper {
   z-index: 2;

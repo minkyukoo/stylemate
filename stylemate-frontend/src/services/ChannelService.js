@@ -2,7 +2,8 @@ import axios from "axios";
 
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v13.0';
-// var token = localStorage.getItem('token');
+// eslint-disable-next-line
+var token = localStorage.getItem('token');
 export default class ChannelService {
 
   async initFacebook() {
@@ -65,7 +66,29 @@ export default class ChannelService {
     return await this.getIgUsermedia(ig_postId);
   }
 
-  
+  async igTokenExtend(fbToken) {
+    return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {
+      params: {
+        token: fbToken,
+      },
+    });
+  }
+
+  async getIgrenewaltoken(uid, channelId, ftoken, userId, ftokenName) {
+    return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/instagram-renewal-token`, {
+      "token": {
+        "accessToken": ftoken,
+        "userID": userId,
+        "name": ftokenName
+      },
+    },
+    {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        "Content-Type": 'application/json',
+      }
+    });
+  }
 
 
 
