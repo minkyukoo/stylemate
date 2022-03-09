@@ -21,7 +21,7 @@ const state = reactive({
   sponcerFilterNo: 1,
   sponcerChannelType: "instagram",
   isPostModalVisible: false,
-  cancelPopup: false,
+  cancelPopup: true,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
   contentDetailsId: null,
@@ -50,6 +50,8 @@ const MyPageModals = reactive({
   campaignUID: null,
   bookingID: null,
   campaignId: null,
+  productID: null,
+  bookingId: null,
 });
 
 var itemService = new ItemService();
