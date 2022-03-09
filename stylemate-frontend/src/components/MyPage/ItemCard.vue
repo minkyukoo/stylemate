@@ -64,7 +64,8 @@
                 store.state.isReRegisterModalVisible = true;
                 store.MyPageModals.reRegistrationNo = this.progressDetails.id;
                 store.MyPageModals.reRegistration = true;
-                store.MyPageModals.campaignId = this.progressDetails.campaignSchedule.campaignId;
+                store.MyPageModals.campaignId =
+                  this.progressDetails.campaignSchedule.campaignId;
               }
             "
           >
@@ -85,7 +86,16 @@
             store.state.sponsorTabState !== 'application-details'
           "
         >
-          <button @click="() => (store.state.isPostModalVisible = true)">
+          <button
+            @click="
+              () => {
+                store.state.isPostModalVisible = true;
+                store.MyPageModals.productID = this.progressDetails.product.id;
+                store.MyPageModals.campaignId = this.progressDetails.campaignSchedule.campaignId;
+                store.MyPageModals.bookingId = this.progressDetails.booking[0].id;
+              }
+            "
+          >
             Register a post
           </button>
         </div>
@@ -154,7 +164,7 @@ export default {
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
           progressDetails.booking[progressDetails.booking.length - 1]
-            .postStatus === "ready"
+            .postStatus === "post_request"
         ) {
           this.tagShow = true;
           this.Modaltype = "post-registration";

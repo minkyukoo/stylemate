@@ -26,7 +26,7 @@ export default class MyPageService {
     let encodedUrl = encodeURIComponent(filterType);
     console.log("console encode", encodedUrl);
     return await axios.get(
-      `/stylemates/users/${uid}/campaigns?filters=${encodedUrl}`,
+      `/stylemates/users/${uid}/campaigns?filters=${encodedUrl}&page=1`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -112,8 +112,8 @@ export default class MyPageService {
     return await axios.post(
       `/stylemates/posts/instagram`,
       {
-        campaignId: 246,
-        bookingId: 5722,
+        campaignId: campaignId,
+        bookingId: bookingId,
         channelId: channelId,
         caption: caption,
         id: id,
@@ -128,7 +128,7 @@ export default class MyPageService {
         username: username,
         timestamp: timestamp,
         userProfile: userProfile,
-        // hashtags: "HOVEHOVER 호브호버 스타일메이트 패션",
+        // hashtags: "",
       },
       {
         headers: {

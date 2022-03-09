@@ -62,6 +62,7 @@ import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
 import MyPageService from "@/services/MyPageService";
 import ChannelService from "@/services/ChannelService";
+import ItemService from "@/services/ItemService";
 import moment from "moment";
 export default {
   name: "register-post-modal",
@@ -73,6 +74,7 @@ export default {
     return {
       myPageService: null,
       channelService: null,
+      itemService: null,
       postList: [],
       campaignId: 0,
       bookingId: 0,
@@ -91,12 +93,15 @@ export default {
       username: "",
       timestamp: "",
       userProfile: {},
+      requiredAccount: "",
+      requiredHashtag: "",
     };
   },
 
   created() {
     this.myPageService = new MyPageService();
     this.channelService = new ChannelService();
+    this.itemService = new ItemService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
     this.moment = moment;
@@ -123,6 +128,24 @@ export default {
         console.log(res);
         this.postList = res.data.data;
       });
+    this.itemService
+      .getProductDetails(this.store.MyPageModals.productID)
+      .then((res) => {
+        console.log(res);
+        if (res.campaign[0].campaignMission.requiredAccount) {
+          this.requiredAccount =
+            res.campaign[0].campaignMission.requiredAccount.join(" #");
+        }
+        if (res.campaign[0].campaignMission.requiredHashtag) {
+          this.requiredHashtag =
+            res.campaign[0].campaignMission.requiredHashtag.join(" #");
+        }
+        console.log(
+          "requiredAccount",
+          this.requiredAccount,
+          this.requiredHashtag
+        );
+      });
     // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
@@ -133,20 +156,22 @@ export default {
     },
     setDetails(event) {
       console.log("test", event);
-      this.campaignId = event.campaignId;
-      this.bookingId = event.bookingId;
+      // this.campaignId = event.campaignId;
+      // this.bookingId = event.bookingId;
       this.channelId = event.channelId;
       this.comments_count = event.instagramPost.commentCount;
       this.like_count = event.instagramPost.likeCount;
       this.media_type = event.instagramPost.postType;
       this.media_product_type = event.instagramPost.productType;
-      if(event.instagramPost.productType === 'video'){
-        this.thumbnail_url = event.instagramPost.thumbnailUrl
+      if (event.instagramPost.productType === "video") {
+        this.thumbnail_url = event.instagramPost.thumbnailUrl;
       }
-      this.media_url = event.instagramPost.thumbnailUrl;
+      this.media_url = event.instagramPost.thumbnailUrl
+        ? event.instagramPost.thumbnailUrl
+        : event.instagramPost.thumbnailOriginalUrl;
       this.id = `${event.id}`;
       // Object.keys(this.userProfile).push(event.instagramPost.description);
-      this.userProfile.description = event.instagramPost.description; 
+      // this.userProfile.description = event.instagramPost.description;
     },
     async isSubmit() {
       let res = await this.channelService.getIguserinfo();
@@ -157,8 +182,12 @@ export default {
       this.shortcode = res2.shortcode;
       this.permalink = res2.permalink;
       this.timestamp = moment(res2.timestamp).format("YYYY-MM-DD HH:mm:ss");
-      this.caption = res2.caption;
+      this.caption = `${res2.caption} ${
+        this.requiredAccount ? `#${this.requiredAccount}` : ""
+      } ${this.requiredHashtag ? `#${this.requiredHashtag}` : ""}`;
       this.username = res2.username;
+      this.campaignId = this.store.MyPageModals.campaignId;
+      this.bookingId = this.store.MyPageModals.bookingId;
       // this.media_url = res2.media_url;
       // console.log("unique state",this.userProfile);
       if (
@@ -190,9 +219,9 @@ export default {
             console.log("if true res", res);
           });
         // console.log("if true unique state", this.userProfile);
-      }
-      else {
-        this.myPageService.postCampaign(
+      } else {
+        this.myPageService
+          .postCampaign(
             this.campaignId,
             this.bookingId,
             this.channelId,
@@ -209,7 +238,8 @@ export default {
             this.username,
             this.timestamp,
             this.userProfile
-        ).then((res) => {
+          )
+          .then((res) => {
             console.log("if false res", res);
           });
         // console.log("if false unique state", this.userProfile);

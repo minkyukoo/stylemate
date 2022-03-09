@@ -5,90 +5,151 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-      <div class="mainslide">
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
-            <div class="mainslide-banner-wrap">
-              <figure>
-                <img :src="slide.productImagePath" alt />
-                <div class="top-social-icon">
-                  <img
-                    v-if="isChannelIg(productDetails.campaign)"
-                    src="@/assets/icons/instagram.svg"
-                  />
-                </div>
-              </figure>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
+      <div>
+        <div class="mainslide">
+          <swiper
+            :modules="modules"
+            :slides-per-view="1"
+            :space-between="50"
+            :pagination="{ clickable: true }"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <swiper-slide
+              v-for="(slide, i) of productDetails.productImageFile"
+              :key="i + 1"
+            >
+              <div class="mainslide-banner-wrap">
+                <figure>
+                  <img :src="slide.productImagePath" alt />
+                  <div class="top-social-icon">
+                    <img
+                      v-if="isChannelIg(productDetails.campaign)"
+                      src="@/assets/icons/instagram.svg"
+                    />
+                  </div>
+                </figure>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
 
-      <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
+        <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
       <ion-infinite-scroll-content loading-spinner="bubbles">-->
-      <div class="main-wrap">
-        <div class="item-wrapper">
-          <div class="top-section">
-            <div class="left-section">
-              <h3>{{ productDetails.name }}</h3>
-              <span>
-                <img src="@/assets/icons/arrow-left.svg" />
-              </span>
+        <div class="main-wrap">
+          <div class="item-wrapper">
+            <div class="top-section">
+              <div class="left-section">
+                <h3>{{ productDetails.name }}</h3>
+                <span>
+                  <img src="@/assets/icons/arrow-left.svg" />
+                </span>
+              </div>
+              <div class="right-section">
+                <button @click="showModal">
+                  <img src="@/assets/icons/share.svg" />
+                </button>
+              </div>
             </div>
-            <!-- <div class="right-section">
-              <button @click="showModal">
-                <img src="@/assets/icons/share.svg" />
-              </button>
-            </div>-->
-          </div>
-          <div class="product-description">
-            <h2>{{ productDetails.description }}</h2>
+            <div class="product-description">
+              <h2>{{ productDetails.description }}</h2>
 
-            <div class="hashwrap">
-              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
-              <!-- <span>hi</span> -->
+              <div class="hashwrap">
+                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+                <span
+                  v-for="(hash, index) in productDetails.tag"
+                  :key="index"
+                  >{{ "#" + hash.tag }}</span
+                >
+                <!-- <span>hi</span> -->
+              </div>
+
+              <p>
+                <span>
+                  <img src="@/assets/icons/calendar.svg" />
+                </span>
+                <!-- 2021.11.11 ~ 2021.12.25 -->
+                <span v-for="(item, i) of productDetails.campaign" :key="i">
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.startedAt).format(
+                          "YYYY.MM.DD"
+                        )
+                      : null
+                  }}
+                  ~
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.finishedAt).format(
+                          "YYYY.MM.DD"
+                        )
+                      : null
+                  }}
+                </span>
+              </p>
             </div>
 
-            <p>
-              <span>
-                <img src="@/assets/icons/calendar.svg" />
-              </span>
-              <!-- 2021.11.11 ~ 2021.12.25 -->
-              <span v-for="(item, i) of productDetails.campaign" :key="i">
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.startedAt).format(
-                      "YYYY.MM.DD"
-                    )
-                    : null
-                }}
-                ~
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.finishedAt).format(
-                      "YYYY.MM.DD"
-                    )
-                    : null
-                }}
-              </span>
-            </p>
+            <ProductDetailsTab :productData="productDetails" />
           </div>
+        </div>
+        <!-- </ion-infinite-scroll-content>
+      </ion-infinite-scroll>-->
 
-          <CustomModal v-show="isModalVisible" @close="closeModal">
-            <template v-slot:header>
-              <h2>회원님은 미승인 회원입니다.</h2>
-            </template>
+        <div class="subscribe-wrap">
+          <figure class="favorite" @click="likeProduct(productDetails.id)">
+            <img
+              v-if="productDetails.isInfluenceLike"
+              src="@/assets/icons/heart-filled.svg"
+            />
+            <img v-else src="@/assets/icons/heart-outline.svg" />
+          </figure>
 
-            <template v-slot:body>
-              <div class="modal-content">
-                <!-- <ul class="shareList">
+          <!-- sponsership button -->
+          <!-- Sponsorship application -->
+          <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+          <button
+            v-if="sponsorship"
+            @click="sponsorshipApplication"
+            class="black-btn"
+          >
+            협찬 신청
+          </button>
+          <!-- Cancellation of sponsorship application -->
+          <button
+            v-else-if="cancel_spon"
+            @click="sponsorshipCancellation"
+            class="white-btn"
+          >
+            협찬 신청 취소
+          </button>
+          <!-- Sponsorship application completed -->
+          <button v-else-if="complete_spon" class="grey-btn">
+            협찬 신청 완료
+          </button>
+          <!-- Sponsorship has ended. -->
+          <button v-else-if="end_spon" class="grey-btn">
+            협찬이 종료되었습니다.
+          </button>
+
+          <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
+        </div>
+
+        <!-- product option -->
+        <DrawerBottom
+          class="bottomDrawer"
+          :class="{ active: isActive }"
+          :isCancelspon="isCancelspon"
+        />
+
+        <div class="overlay" :class="{ active: isActive }"></div>
+        <CustomModal v-show="isModalVisible" @close="closeModal">
+          <template v-slot:header>
+            <h2>회원님은 미승인 회원입니다.</h2>
+          </template>
+
+          <template v-slot:body>
+            <div class="modal-content">
+              <!-- <ul class="shareList">
                     <li>
                       <a href="#">
                         <img src="@/assets/icons/icon-fb.svg" />
@@ -108,46 +169,16 @@
                       </a>
                     </li>
                 </ul>-->
-                <p>
-                  스타일 메이트는 승인된 회원만
-                  <br />이용할 수 있는 서비스 입니다.
-                </p>
-              </div>
-            </template>
+              <p>
+                스타일 메이트는 승인된 회원만
+                <br />이용할 수 있는 서비스 입니다.
+              </p>
+            </div>
+          </template>
 
-            <template v-slot:footer></template>
-          </CustomModal>
-
-          <ProductDetailsTab :productData="productDetails" />
-        </div>
+          <template v-slot:footer></template>
+        </CustomModal>
       </div>
-      <!-- </ion-infinite-scroll-content>
-      </ion-infinite-scroll>-->
-
-      <div class="subscribe-wrap">
-        <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
-          <img v-else src="@/assets/icons/heart-outline.svg" />
-        </figure>
-
-        <!-- sponsership button -->
-        <!-- Sponsorship application -->
-        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
-        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
-        <!-- Cancellation of sponsorship application -->
-        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">협찬 신청 취소</button>
-        <!-- Sponsorship application completed -->
-        <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
-        <!-- Sponsorship has ended. -->
-        <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button>
-
-        <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
-      </div>
-
-      <!-- product option -->
-      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" :isCancelspon="isCancelspon"  />
-
-      <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
 
     <!-- End page content -->
@@ -262,10 +293,16 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log('this.productDetails', this.productDetails);
+          console.log("this.productDetails", this.productDetails);
           console.log("process-status", res.campaign[0].processStatus);
-          console.log("processDetailStatus", res.campaign[0].processDetailStatus);
-          console.log("bookingStatus", res.campaign[0].booking[0].bookingStatus);
+          console.log(
+            "processDetailStatus",
+            res.campaign[0].processDetailStatus
+          );
+          console.log(
+            "bookingStatus",
+            res.campaign[0].booking[0].bookingStatus
+          );
           console.log("postStatus", res.campaign[0].booking[0].postStatus);
           //apply sponsership button
           if (
@@ -292,9 +329,18 @@ export default {
           //sponsership complete button
           if (
             res.campaign[0].processStatus == "progress" &&
-            ['announce', 'posting'].includes(res.campaign[0].processDetailStatus) &&
+            ["announce", "posting"].includes(
+              res.campaign[0].processDetailStatus
+            ) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
-            ['ready', 'post_request', 'postComplete', 'postCancel', 'postModifyRequest', 'postModifyComplete'].includes(res.campaign[0].booking[0].postStatus)
+            [
+              "ready",
+              "post_request",
+              "postComplete",
+              "postCancel",
+              "postModifyRequest",
+              "postModifyComplete",
+            ].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
@@ -328,8 +374,11 @@ export default {
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
-      pdata.forEach(item => {
-        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+      pdata.forEach((item) => {
+        if (
+          item.processStatus === "progress" &&
+          item.channelType === "instagram"
+        ) {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -426,11 +475,11 @@ export default {
       }
       console.log("likeProduct");
     },
-    sponsorshipCancellation(){
+    sponsorshipCancellation() {
       this.isCancelspon = true;
-      this.isActive=true;
-      console.log('sponsorshipCancellation');
-    }
+      this.isActive = true;
+      console.log("sponsorshipCancellation");
+    },
   },
 };
 </script>
