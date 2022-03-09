@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, inject } from "vue";
+import { defineComponent, inject, onMounted } from "vue";
 import Toast from "@/alert/alert";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
@@ -162,15 +162,18 @@ export default defineComponent({
   },
   setup() {
     const store = inject("store");
+    
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
       message: "Only select your dominant hair color",
     };
+
     onMounted(() => {
       store.methods.getData();
     });
-    return { customPopoverOptions, store };
+
+    return { store, customPopoverOptions };
   },
   data() {
     return {
