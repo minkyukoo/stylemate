@@ -291,6 +291,7 @@ img {
   padding: 40px 20px 60px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  margin-top: -30px;
   position: relative;
   z-index: 1;
   /* top: 270px; */
@@ -468,9 +469,8 @@ img {
 .main-wrap{
   position: relative;
   z-index: 2;
-  margin-top: -30px;
-  border-radius: 20px 20px 0 0;
   overflow: visible;
+  background: transparent;
 }
 .mainslide .swiper-pagination{
   bottom: 42px !important;
