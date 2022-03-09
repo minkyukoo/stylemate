@@ -2,7 +2,7 @@ import axios from "axios";
 
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v13.0';
-var token = localStorage.getItem('token');
+// var token = localStorage.getItem('token');
 export default class ChannelService {
 
   async initFacebook() {

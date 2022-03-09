@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 import axios from "axios";
-
+var token = localStorage.getItem('token');
 const state = reactive({
   loginRes: undefined,
   isConnected: 'notconnected',
