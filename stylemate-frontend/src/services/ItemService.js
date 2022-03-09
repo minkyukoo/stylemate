@@ -6,7 +6,7 @@ export default class ItemService {
   }
 
   async getProductList(order = null) {
-    if (order !== null) {
+    if (order != null) {
       if (!token) {
         return await axios.get(`/stylemates/products?order=${order}`).then((res) => res.data.data);
       } else {
