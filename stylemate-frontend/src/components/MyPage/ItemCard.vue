@@ -23,12 +23,24 @@
         <h2>{{ progressDetails.product.brand.engName }}</h2>
         <span
           class="cancel-tag"
-          v-if="store.state.sponsorTabState === 'bookingHistory'"
+          v-if="
+            store.state.sponsorTabState === 'progressHistory' &&
+            this.progressDetails.processStatus === 'progress' &&
+            this.progressDetails.processDetailStatus === 'posting' &&
+            this.progressDetails.booking[
+              this.progressDetails.booking.length - 1
+            ].bookingStatus === 'join' &&
+            this.progressDetails.booking[
+              this.progressDetails.booking.length - 1
+            ].postStatus === 'postProgress'
+          "
           @click="
             () => {
               store.state.cancelPopup = true;
               store.MyPageModals.campaignUID = progressDetails.uid;
               store.MyPageModals.bookingID = progressDetails.booking[0].id;
+              document.querySelector('ion-tab-bar').classList.add =
+                'remove-tabbar';
             }
           "
           >Cancellation of sponsorship</span
@@ -91,8 +103,10 @@
               () => {
                 store.state.isPostModalVisible = true;
                 store.MyPageModals.productID = this.progressDetails.product.id;
-                store.MyPageModals.campaignId = this.progressDetails.campaignSchedule.campaignId;
-                store.MyPageModals.bookingId = this.progressDetails.booking[0].id;
+                store.MyPageModals.campaignId =
+                  this.progressDetails.campaignSchedule.campaignId;
+                store.MyPageModals.bookingId =
+                  this.progressDetails.booking[0].id;
               }
             "
           >
@@ -134,8 +148,10 @@ export default {
   created() {
     this.moment = moment;
   },
-  // mounted() {
-  //   this.getImgTag();
+  // updated() {
+  //   if(this.store.state.cancelPopup) {
+
+  //   }
   // },
   methods: {
     getImgTag(progressDetails) {

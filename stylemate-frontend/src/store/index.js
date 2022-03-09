@@ -21,7 +21,7 @@ const state = reactive({
   sponcerFilterNo: 1,
   sponcerChannelType: "instagram",
   isPostModalVisible: false,
-  cancelPopup: true,
+  cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
   contentDetailsId: null,

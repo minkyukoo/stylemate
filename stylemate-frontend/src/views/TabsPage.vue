@@ -3,7 +3,7 @@
   <div class="main-container relative">
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar>
+      <ion-tab-bar id="ionTabBar">
         <ion-tab-button class="tab-button" tab="tab1" href="/home" key="tab1">
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
@@ -25,7 +25,12 @@
           <ion-label>BRAND</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab4" href="/contents" key="tab4">
+        <ion-tab-button
+          class="tab-button"
+          tab="tab4"
+          href="/contents"
+          key="tab4"
+        >
           <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
           <i class="icon icon-dft icon-contents" />
           <i class="icon icon-hvr icon-contents-white" />
@@ -46,8 +51,9 @@
 </template>
 
 <script>
-
-import StickyBtn from '@/components/StickyBtn.vue';
+import { inject } from "vue";
+import { watch } from "vue";
+import StickyBtn from "@/components/StickyBtn.vue";
 import {
   IonTabBar,
   IonTabButton,
@@ -71,8 +77,21 @@ export default {
     // IonIcon,
     // IonPage,
     IonRouterOutlet,
-    StickyBtn
+    StickyBtn,
   },
+  setup() {
+    const store = inject("store");
+
+    watch(store.state.isPostModalVisible, () => {
+      document.querySelector("ion-tab-bar").classList.add = "remove-tabbar";
+    });
+
+    return {
+      store,
+      // setTab,
+    };
+  },
+
   data() {
     return {
       hover: true,
