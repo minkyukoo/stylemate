@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="`Post-card-wrap ${choosed === e? 'active': ''}`"
+    :class="`Post-card-wrap ${choosed === e ? 'active' : ''}`"
     v-for="(i, e) in cardData"
     :key="e"
     @click="choosePost(i)"
@@ -8,7 +8,14 @@
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
-          <img :src="i.instagramPost.thumbnailUrl" alt="" />
+          <img
+            :src="
+              i.instagramPost.thumbnailUrl
+                ? i.instagramPost.thumbnailUrl
+                : i.instagramPost.thumbnailOriginalUrl
+            "
+            alt=""
+          />
         </div>
         <div class="item-desc">
           <div>

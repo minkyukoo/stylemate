@@ -41,11 +41,11 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <!-- <div class="right-section">
+            <div class="right-section">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div>-->
+            </div>
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
@@ -80,43 +80,6 @@
               </span>
             </p>
           </div>
-
-          <CustomModal v-show="isModalVisible" @close="closeModal">
-            <template v-slot:header>
-              <h2>회원님은 미승인 회원입니다.</h2>
-            </template>
-
-            <template v-slot:body>
-              <div class="modal-content">
-                <!-- <ul class="shareList">
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-fb.svg" />
-                        <span>페이스북</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-kakaotalk.svg" />
-                        <span>카카오톡</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-url.svg" />
-                        <span>URL</span>
-                      </a>
-                    </li>
-                </ul>-->
-                <p>
-                  스타일 메이트는 승인된 회원만
-                  <br />이용할 수 있는 서비스 입니다.
-                </p>
-              </div>
-            </template>
-
-            <template v-slot:footer></template>
-          </CustomModal>
 
           <ProductDetailsTab :productData="productDetails" />
         </div>
@@ -153,6 +116,42 @@
       />
 
       <div class="overlay" :class="{ active: isActive }"></div>
+      <CustomModal v-show="isModalVisible" @close="closeModal">
+        <template v-slot:header>
+          <h2>회원님은 미승인 회원입니다.</h2>
+        </template>
+
+        <template v-slot:body>
+          <div class="modal-content">
+            <!-- <ul class="shareList">
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-fb.svg" />
+                        <span>페이스북</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-kakaotalk.svg" />
+                        <span>카카오톡</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <img src="@/assets/icons/icon-url.svg" />
+                        <span>URL</span>
+                      </a>
+                    </li>
+            </ul>-->
+            <p>
+              스타일 메이트는 승인된 회원만
+              <br />이용할 수 있는 서비스 입니다.
+            </p>
+          </div>
+        </template>
+
+        <template v-slot:footer></template>
+      </CustomModal>
     </div>
 
     <!-- End page content -->
@@ -267,10 +266,16 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log('this.productDetails', this.productDetails);
+          console.log("this.productDetails", this.productDetails);
           console.log("process-status", res.campaign[0].processStatus);
-          console.log("processDetailStatus", res.campaign[0].processDetailStatus);
-          console.log("bookingStatus", res.campaign[0].booking[0].bookingStatus);
+          console.log(
+            "processDetailStatus",
+            res.campaign[0].processDetailStatus
+          );
+          console.log(
+            "bookingStatus",
+            res.campaign[0].booking[0].bookingStatus
+          );
           console.log("postStatus", res.campaign[0].booking[0].postStatus);
           //apply sponsership button
           if (
@@ -297,9 +302,18 @@ export default {
           //sponsership complete button
           if (
             res.campaign[0].processStatus == "progress" &&
-            ['announce', 'posting'].includes(res.campaign[0].processDetailStatus) &&
+            ["announce", "posting"].includes(
+              res.campaign[0].processDetailStatus
+            ) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
-            ['ready', 'post_request', 'postComplete', 'postCancel', 'postModifyRequest', 'postModifyComplete'].includes(res.campaign[0].booking[0].postStatus)
+            [
+              "ready",
+              "post_request",
+              "postComplete",
+              "postCancel",
+              "postModifyRequest",
+              "postModifyComplete",
+            ].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
@@ -333,8 +347,11 @@ export default {
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
-      pdata.forEach(item => {
-        if (item.processStatus === 'progress' && item.channelType === 'instagram') {
+      pdata.forEach((item) => {
+        if (
+          item.processStatus === "progress" &&
+          item.channelType === "instagram"
+        ) {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -656,7 +673,7 @@ export default {
   width: calc(100% - 30px);
   border: 1px solid #c4c4c4;
 }
-.main-wrap{
+.main-wrap {
   position: relative;
   z-index: 2;
   overflow: visible;
