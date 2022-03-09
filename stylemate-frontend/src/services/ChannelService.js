@@ -65,7 +65,29 @@ export default class ChannelService {
     return await this.getIgUsermedia(ig_postId);
   }
 
-  
+  async igTokenExtend(fbToken) {
+    return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {
+      params: {
+        token: fbToken,
+      },
+    });
+  }
+
+  async getIgrenewaltoken(uid, channelId, ftoken, userId, ftokenName) {
+    return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/instagram-renewal-token`, {
+      "token": {
+        "accessToken": ftoken,
+        "userID": userId,
+        "name": ftokenName
+      },
+    },
+    {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        "Content-Type": 'application/json',
+      }
+    });
+  }
 
 
 

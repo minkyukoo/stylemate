@@ -180,12 +180,12 @@
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
-            :loop="true"
+            
             :space-between="12"
             :pagination="{
               clickable: true,
               dynamicBullets: true,
-              dynamicMainBullets: 1,
+              
             }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
