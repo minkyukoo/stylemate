@@ -4,7 +4,7 @@
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <div class="scrollDiv">
       <!-- <div class="product-main-banner">
         <img
           v-if="this.brandDetails.imageMainPath"
@@ -101,12 +101,12 @@
           </div>
         </div>
       </div>
-    </ion-content>
+    </div>
     <!-- End page content -->
   </div>
 </template>
 <script>
-import { IonContent } from "@ionic/vue";
+// import { IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
@@ -123,7 +123,7 @@ export default {
   name: "BrandDetails",
   components: {
     TopNav,
-    IonContent,
+    // IonContent,
     BrandIntroduction,
     BrandItem,
     Swiper,

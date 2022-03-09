@@ -4,7 +4,7 @@
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <div>
+    <div class="scrollDiv">
       <div class="mainslide">
         <swiper
           :modules="modules"
