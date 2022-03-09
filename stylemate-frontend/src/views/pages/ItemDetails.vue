@@ -4,7 +4,7 @@
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <div>
+    <div class="scrollDiv">
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -501,6 +501,7 @@ export default {
   padding: 40px 20px 160px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  margin-top: -30px;
   position: relative;
   z-index: 1;
   /* top: 350px; */
@@ -655,12 +656,11 @@ export default {
   width: calc(100% - 30px);
   border: 1px solid #c4c4c4;
 }
-.main-wrap {
+.main-wrap{
   position: relative;
   z-index: 2;
-  margin-top: -30px;
-  border-radius: 20px 20px 0 0;
   overflow: visible;
+  background: transparent;
 }
 .mainslide .swiper-pagination {
   bottom: 42px !important;

@@ -272,6 +272,16 @@ img:hover {
     width: 31%;
   }
 }
+.scrollDiv{
+  overflow-y: auto;
+  background-color: #ffffff;
+  height: 100vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 .main-wrap {
   height: 100vh;
