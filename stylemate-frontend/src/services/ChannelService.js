@@ -2,6 +2,7 @@ import axios from "axios";
 
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v13.0';
+// eslint-disable-next-line
 var token = localStorage.getItem('token');
 export default class ChannelService {
 
