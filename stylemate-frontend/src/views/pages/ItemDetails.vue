@@ -4,7 +4,7 @@
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <div>
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -145,7 +145,7 @@
       <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" />
 
       <div class="overlay" :class="{ active: isActive }"></div>
-    </ion-content>
+    </div>
 
     <!-- End page content -->
   </ion-page>

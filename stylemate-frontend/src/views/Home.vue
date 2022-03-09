@@ -858,6 +858,10 @@ export default {
 .newBrandSec .headerLine {
   position: relative;
   z-index: 2;
+  max-width: 320px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 .newBrandSec .swiper {
   z-index: 2;
