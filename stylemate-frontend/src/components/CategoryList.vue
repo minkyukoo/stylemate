@@ -10,9 +10,10 @@
     >
       <swiper-slide v-for="category in allCategories" :key="category.name">
         <a
-          :class="{ 'active': category.id === activeId }"
+          :class="{ active: category.id === activeId }"
           @click="handleClick(category.childCategory, category.id)"
-        >{{ category.name }}</a>
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -25,11 +26,15 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+      <swiper-slide
+        v-for="childCategory in childCategoryArray"
+        :key="childCategory.name"
+      >
         <a
-          :class="{ 'active': childCategory.id === childactiveId }"
+          :class="{ active: childCategory.id === childactiveId }"
           @click="handleClick2(childCategory.id)"
-        >{{ childCategory.name }}</a>
+          >{{ childCategory.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -124,7 +129,7 @@ export default {
     // Category click
     handleClick(childCategory, ids) {
       // alert(ids);
-       this.itemServices.getFilterProduct(ids).then((data) => {
+      this.itemServices.getFilterProduct(ids).then((data) => {
         // console.log("category-filterproductList", data);
         this.childactiveId = ids; //To activate the All button
         if (data.length == 0) {
@@ -160,7 +165,6 @@ export default {
         // console.log("this", this);
 
         this.childactiveId = "Allchild"; //To highlight the child button default
-
       } else {
         // alert(ids);
         this.childCategory = false;

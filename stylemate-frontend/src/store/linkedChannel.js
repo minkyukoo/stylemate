@@ -90,6 +90,19 @@ const methods = {
         token: fbToken,
       },
     });
+  },
+
+  async getIgrenewaltoken(uid, channelId ) {
+    return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/instagram-renewal-token`, {
+      data: {
+        "access_token": "string",
+        "token_type": "string",
+        "expires_in": 0
+      },
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    })
   }
 
   // async initFacebook() {
