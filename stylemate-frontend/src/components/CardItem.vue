@@ -257,7 +257,7 @@ export default defineComponent({
             .influencelikes(uid, "product", productId)
             .then((res) => {
               // console.log(res.response.data.error);
-              // console.log(res.response);
+              console.log(res.response);
               this.store.methods.getData();
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
