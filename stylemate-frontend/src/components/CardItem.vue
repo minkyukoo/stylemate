@@ -8,7 +8,6 @@
       <div class="fixed-container">
         <div class="top-section">
           <div class="left-section">
-           
             <div class="selectWrap">
               <vue-select
                 :placeholder="'인기순'"
@@ -37,7 +36,7 @@
         <ul v-if="layout === 'grid'" class="product-list grid-view">
           <!-- {{item_list}} -->
           <li
-            v-for="(product, index) in products"
+            v-for="(product, index) in store.state.AppData"
             :key="index"
             class="product-list-item"
           >
@@ -90,7 +89,7 @@
 
         <ul v-if="layout === 'list'" class="product-list list-view">
           <li
-            v-for="(product, index) in products"
+            v-for="(product, index) in store.state.AppData"
             :key="index"
             class="product-list-item"
           >
@@ -144,7 +143,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, inject } from "vue";
 import Toast from "@/alert/alert";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
@@ -162,13 +161,16 @@ export default defineComponent({
     "vue-select": VueNextSelect,
   },
   setup() {
+    const store = inject("store");
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
       message: "Only select your dominant hair color",
     };
-
-    return { customPopoverOptions };
+    onMounted(() => {
+      store.methods.getData();
+    });
+    return { customPopoverOptions, store };
   },
   data() {
     return {
@@ -195,27 +197,27 @@ export default defineComponent({
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
-    this.getData();
+    // this.getData();
   },
-  watch: {
-    bookOption: function (type) {
-      if (type == '최신순') {
-        this.itemService.getProductList("latest").then((data) => {
-          this.products = data;
-        });
-      } else if (type == '마감임박순'){
-        this.itemService.getProductList("popular").then((data) => {
-          this.products = data;
-        });
-      }
-    },
-  },
+  // watch: {
+  //   bookOption: function (type) {
+  //     if (type == "최신순") {
+  //       this.itemService.getProductList("latest").then((data) => {
+  //         this.products = data;
+  //       });
+  //     } else if (type == "마감임박순") {
+  //       this.itemService.getProductList("popular").then((data) => {
+  //         this.products = data;
+  //       });
+  //     }
+  //   },
+  // },
   methods: {
-    getData() {
-      this.itemService.getProductList().then((data) => {
-        this.products = data;
-      });
-    },
+    // getData() {
+    //   this.itemService.getProductList().then((data) => {
+    //     this.products = data;
+    //   });
+    // },
 
     isChannelIg(pdata) {
       let isProductCamp = false;
