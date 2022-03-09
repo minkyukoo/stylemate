@@ -41,11 +41,11 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="right-section">
+            <!-- <div class="right-section">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
