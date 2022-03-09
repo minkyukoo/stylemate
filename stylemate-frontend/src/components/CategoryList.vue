@@ -138,6 +138,7 @@ export default {
         } else {
           this.nofltData = false;
           let filterproductList = data;
+          console.log('filterproductList',filterproductList);
           this.$emit("fltData", true);
           this.$emit("filterproductList", filterproductList);
         }

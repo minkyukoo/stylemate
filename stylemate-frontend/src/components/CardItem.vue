@@ -275,6 +275,7 @@ export default defineComponent({
   },
   async updated() {
     if (this.isproductfilter) {
+      alert("isproductfilter");
       this.store.state.AppData = this.isproductfilter;
     }
     // console.log('isChannelIg', this.isChannelIg());
