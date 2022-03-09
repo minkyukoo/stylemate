@@ -179,6 +179,16 @@
           <template v-slot:footer></template>
         </CustomModal>
       </div>
+
+      <!-- product option -->
+      <DrawerBottom
+        class="bottomDrawer"
+        :class="{ active: isActive }"
+        :isCancelspon="isCancelspon"
+        v-on:closePopup="closeDrawerBottom($event)"
+      />
+
+      <div class="overlay" :class="{ active: isActive }"></div>
     </ion-content>
 
     <!-- End page content -->
@@ -478,8 +488,15 @@ export default {
     sponsorshipCancellation() {
       this.isCancelspon = true;
       this.isActive = true;
-      console.log("sponsorshipCancellation");
+      console.log('sponsorshipCancellation');
     },
+    closeDrawerBottom(isClose) {
+      console.log('isClose', isClose);
+      if (isClose) {
+        this.isCancelspon = false;
+        this.isActive = false;
+      }
+    }
   },
 };
 </script>

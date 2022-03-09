@@ -43,8 +43,15 @@
           </p>
         </div>
         <div class="buttongrp">
-          <button class="inqList-btn">수정</button>
-          <button class="inqList-btn">삭제</button>
+          <button
+            class="inqList-btn"
+            @click="
+              $router.push({ name: 'InquiryDetailsEdit', params: { id: id } })
+            "
+          >
+            수정
+          </button>
+          <button class="inqList-btn" @click="deleteInquiry(id)">삭제</button>
         </div>
       </div>
       <div class="bottom-sec-scroll">
@@ -96,6 +103,8 @@
 import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import UserInfoService from "@/services/UserInfoService";
+import { API } from "@/services/AxiosInstance";
+
 export default {
   name: "InquiryRegisterDetails",
   components: { TopNav, IonContent, IonPage },
@@ -110,6 +119,7 @@ export default {
       answer: null,
       previousId: null,
       nextId: null,
+      id: null,
     };
   },
   created() {
@@ -126,12 +136,25 @@ export default {
       this.answer = res.answer;
       this.nextId = res.nextId;
       this.previousId = res.previousId;
+      this.id = res.id;
     });
   },
   methods: {
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+    },
+
+    deleteInquiry(id) {
+      API.delete(`/qnas/${id}`)
+        .then((response) => {
+          if (response.status === 204) {
+            this.$router.push({ path: "/notice", hash: "#inquiry" });
+          } else {
+            console.log(`Something's is wrong!`);
+          }
+        })
+        .catch((er) => console.log(er));
     },
 
     camelToSpace(str) {

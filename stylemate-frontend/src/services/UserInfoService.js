@@ -45,39 +45,69 @@ export default class UserInfoService {
   }
   async addaddress(uid, nm, rec, loc, zip, adr1, adr2, def) {
     return await axios.post(`/stylemates/users/${uid}/deliveries`, {
-        name: nm,
-        recipient: rec,
-        addressLocale: loc,
-        addressZipcode: zip,
-        address1: adr1,
-        address2: adr2,
-        isDefault: def,
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      name: nm,
+      recipient: rec,
+      addressLocale: loc,
+      addressZipcode: zip,
+      address1: adr1,
+      address2: adr2,
+      isDefault: def,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
   async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
     return await axios.put(`/stylemates/users/${uid}`, {
-        id: ids,
-        name: nm,
-        tel: tel,
-        telAgency: agency,
-        isTelCertified: certi,
-        agreeMarketing: markt,
-        agreeCampaign: cmpgn,
-        agreeNewsletter: newsl,
-        isInformationPoint: info,
-        agreeStylematePush: push,
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      id: ids,
+      name: nm,
+      tel: tel,
+      telAgency: agency,
+      isTelCertified: certi,
+      agreeMarketing: markt,
+      agreeCampaign: cmpgn,
+      agreeNewsletter: newsl,
+      isInformationPoint: info,
+      agreeStylematePush: push,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
+      .then((res) => res)
+  }
+  async changePassword(uid, oldpass, newpass, confpass) {
+    return await axios.patch(`stylemates/users/${uid}/password`, {
+      token: token,
+      oldPassword: oldpass,
+      password: newpass,
+      passwordConfirmation: confpass
+
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+
+    })
+      .then((res) => res)
+  }
+  async telAuth(telNo, mailId,ids,expiry) {
+    return await axios.post(`/stylemates/tel-auth`, {
+      tel: telNo,
+      email: mailId,
+      expiredAt: expiry,
+      id: ids
+
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+
+    })
       .then((res) => res)
   }
   async Notice() {

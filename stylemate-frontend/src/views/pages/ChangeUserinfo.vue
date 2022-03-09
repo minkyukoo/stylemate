@@ -29,21 +29,31 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">비밀번호</span>
+              <span class="labelGap">old password</span>
             </div>
             <div>
               <span>
-                <input type="text" />
+                <input type="password" v-model="oldPass" />
               </span>
             </div>
           </li>
           <li>
             <div>
-              <span class="labelGap">비밀번호 확인</span>
+              <span class="labelGap">New password</span>
             </div>
             <div>
               <span>
-                <input type="text" />
+                <input type="password" v-model="newPass" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">Confirm password</span>
+            </div>
+            <div>
+              <span>
+                <input type="password" v-model="confirmPass" />
               </span>
             </div>
           </li>
@@ -57,14 +67,20 @@
               </div>
               <div class="codeWrap">
                 <span>010-</span>
-                <input type="text" />
+                <input type="text" maxlength="8" v-model="mobile" />
               </div>
               <div class="contWrapbtn">
-                <button type="button" style="white-space: nowrap;">인증번호</button>
+                <button
+                  type="button"
+                  @click="sendOtp"
+                  style="white-space: nowrap"
+                >
+                  인증번호
+                </button>
               </div>
             </div>
           </li>
-          <li>
+          <li v-show="otp">
             <div class="inlineTime">
               <span class="labelGap">인증번호 입력</span>
               <span class="labelGap">01:53</span>
@@ -73,7 +89,7 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="black-btn">신청하기</button>
+        <button class="black-btn" @click="confirm">신청하기</button>
       </div>
     </ion-content>
     <!-- End page content -->
@@ -102,7 +118,14 @@ export default {
   components: { TopNav, IonContent, IonPage, "vue-select": VueNextSelect },
   data() {
     return {
+      uid: localStorage.getItem("userId"),
+      otp: false,
       email: "",
+      oldPass: "",
+      newPass: "",
+      confirmPass: "",
+      mobile: "",
+      ids:""
     };
   },
   created() {
@@ -112,6 +135,7 @@ export default {
     this.userInfoService.getUserInfo().then((res) => {
       // console.log(res.data.email);
       this.email = res.data.email;
+      this.ids = res.data.id;
     });
   },
   // mounted() {
@@ -130,6 +154,57 @@ export default {
     openlink() {
       console.log("clivk");
     },
+    changePass() {
+      this.userInfoService
+        .changePassword(this.uid, this.oldPass, this.newPass, this.confirmPass)
+        .then(() => {
+          alert("password changed");
+        });
+    },
+    confirm() {
+      if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
+        alert("please fill the password feilds");
+      } else {
+        this.changePass();
+      }
+    },
+    sendOtp() {
+      if (this.mobile != "" && this.mobile.length == 8) {
+        let minutesToAdd = 3;
+        let currentDate = new Date();
+        let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
+         this.userInfoService
+        .telAuth(`010${this.mobile}`, this.email, this.ids, this.formatDate(futureDate))
+        .then(() => {
+          this.otp=true;
+          alert("Otp sent");
+        });
+        console.log(this.formatDate(futureDate));
+      }
+    },
+    formatDate(value) {
+      
+            const date = new Date(value);
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            var hr = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (sec < 10) {
+                sec = '0' + sec;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+            return (value = yyyy + '-' + mm + '-' + dd + ' ' + hr + ':' + min + ':' + sec);
+        },
   },
 };
 </script>
@@ -152,6 +227,7 @@ export default {
   padding-left: 50px !important;
 }
 .contWrap input[type="text"],
+.contWrap input[type="password"],
 .contWrapbtn [type="button"] {
   border: 1px solid#E5E5E5;
   background: none;
@@ -232,7 +308,7 @@ export default {
   margin-right: 10px;
 }
 
-.button-group{
+.button-group {
   bottom: 0;
   max-width: 500px;
   position: fixed;
