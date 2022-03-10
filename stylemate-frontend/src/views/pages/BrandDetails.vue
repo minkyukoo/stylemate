@@ -10,7 +10,7 @@
           v-if="this.brandDetails.imageMainPath"
           :src="brandDetails.imageMainPath"
         />
-      </div> -->
+      </div>-->
       <div class="mainslide">
         <swiper
           :modules="modules"
@@ -20,19 +20,14 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide
-          >
+          <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
-                <img
-                  v-if="this.brandDetails.imageMainPath"
-                  :src="brandDetails.imageMainPath"
-                  alt
-                />
+                <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" alt />
                 <div class="top-social-icon">
                   <!-- <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
-                  </router-link> -->
+                  </router-link>-->
                   <img src="@/assets/icons/instagram.svg" />
                 </div>
               </figure>
@@ -45,18 +40,17 @@
           <div class="itemMain">
             <div class="itemHeader">
               <h2>
-                {{ brandDetails.korName
-                }}<span>
+                {{
+                  brandDetails.korName
+                }}
+                <span>
                   <img src="@/assets/icons/arrow-left.svg" />
                 </span>
               </h2>
 
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
               <div @click="likeBrand(brandDetails.id)">
-                <img
-                  v-if="brandDetails.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -73,16 +67,12 @@
                   class="tab"
                   @click="layout = 'tab1'"
                   :class="{ active: layout === 'tab1' }"
-                >
-                  브랜드 소개
-                </button>
+                >브랜드 소개</button>
                 <button
                   class="tab"
                   @click="layout = 'tab2'"
                   :class="{ active: layout === 'tab2' }"
-                >
-                  아이템 보기
-                </button>
+                >아이템 보기</button>
               </div>
 
               <!-- tab content 1 -->
@@ -159,28 +149,33 @@ export default {
     this.tokenService = new TokenService();
 
     var proId = this.$route.params.id;
-    this.brandService.getBrandDetails(proId).then((res) => {
-      // catch error
-      if (res.response) {
-        if (res.response.status == 404) {
-          alert(res.response.data.error.message);
-          this.$router.push("/brands");
-        }
-      }
-      // success
-      else {
-        console.log("res", res);
-        this.brandDetails = res;
-      }
-    });
+
+    this.getBrandDetails(proId);
+
   },
-  mounted() {},
+  mounted() { },
   methods: {
     show() {
       this.display = true;
     },
     showItems() {
       this.visible = !this.visible;
+    },
+    getBrandDetails(proId) {
+      this.brandService.getBrandDetails(proId).then((res) => {
+        // catch error
+        if (res.response) {
+          if (res.response.status == 404) {
+            alert(res.response.data.error.message);
+            this.$router.push("/brands");
+          }
+        }
+        // success
+        else {
+          console.log("res", res);
+          this.brandDetails = res;
+        }
+      });
     },
     // isLogedIn
     async isLogedIn() {
@@ -208,8 +203,8 @@ export default {
           this.brandService
             .influencelikes(uid, "brand", brandId)
             .then((res) => {
-              console.log(res.response.data.error);
-              console.log(res);
+              let proId = this.$route.params.id;
+              this.getBrandDetails(proId);
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
               }
@@ -466,16 +461,16 @@ img {
   line-height: 12px;
   color: #595959;
 }
-.main-wrap{
+.main-wrap {
   position: relative;
   z-index: 2;
   overflow: visible;
   background: transparent;
 }
-.mainslide .swiper-pagination{
+.mainslide .swiper-pagination {
   bottom: 42px !important;
 }
-.tab-wrap .tab-content{
+.tab-wrap .tab-content {
   padding-bottom: 0;
 }
 </style>

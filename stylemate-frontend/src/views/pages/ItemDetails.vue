@@ -100,7 +100,7 @@
         <!-- sponsership button -->
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
-        {{ sponsorship }}
+        <!-- {{ sponsorship }} -->
         <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">
           협찬 신청
         </button>

@@ -4,7 +4,8 @@
     <TopNav headerTitle="채널연결" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+      <div class="main-wrap">
       <div class="contWrap">
         <ul class="connectionList">
           <li>
@@ -91,13 +92,14 @@
         </div>
       </div>
       <div class="overlay" :class="{ active: isActive }"></div>
-    </ion-content>
+      </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { inject, onMounted } from 'vue';
 // import { useRouter } from 'vue-router';
@@ -106,7 +108,7 @@ import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "NewMemberChannel",
-  components: { TopNav, IonContent, IonPage },
+  components: { TopNav, IonPage },
   data() {
     return {
       isActive: false,

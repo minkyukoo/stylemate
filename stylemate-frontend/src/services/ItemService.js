@@ -142,4 +142,15 @@ export default class ItemService {
       .then((res) => res.data)
       .catch((err) => err);
   }
+
+  async cancelSponsership(campaignUID, bookingId) {
+    return await axios.delete(
+      `https://elsa.beta.mediance.co.kr/stylemates/campaigns/${campaignUID}/bookings/${bookingId}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token, //the token is a variable which holds the token
+        },
+      }
+    );
+  }
 }

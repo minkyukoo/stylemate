@@ -6,7 +6,7 @@
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancelspon">취소</button>
-      <button class="black-btn" @click="applycancelspon">신청하기</button>
+      <button class="black-btn" @click="applycancelspon(uid, bookingId)">신청하기</button>
     </div>
   </div>
   <div class="drawer-wrap" v-else>
@@ -46,6 +46,7 @@ export default defineComponent({
       uid: "",
       compainId: "",
       channelId: "",
+      bookingId: "",
       deliveryId: "",
       productColor: "",
       selected: "",
@@ -72,6 +73,8 @@ export default defineComponent({
       this.productColor = data.productOption;
       this.compainId = data.campaign[0].id;
       this.uid = data.campaign[0].uid;
+      this.bookingId = data.campaign[0].booking[0].id;
+      console.log('bookingID:', this.bookingId);
       // console.log("this.productColor", this.productColor);
       // console.log(this.compainId)
     });
@@ -128,8 +131,11 @@ export default defineComponent({
       this.$emit("closePopup", true);
     },
     // Apply cancel sponsership popup
-    applycancelspon() {
+    applycancelspon(campUid, campbookingId) {
       console.log('applycancelspon');
+      this.itemService.cancelSponsership(campUid, campbookingId).then((res)=>{
+        console.log('rescel:',res);
+      });
     }
   },
 });
