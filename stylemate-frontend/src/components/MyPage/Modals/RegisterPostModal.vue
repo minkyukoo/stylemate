@@ -52,7 +52,7 @@
           class="btn-grey"
           @click="() => (store.state.isPostModalVisible = false)"
         >
-          to close
+          닫기
         </button>
         <button type="button" class="btn-black" @click="isSubmit">
           포스트 등록하기
