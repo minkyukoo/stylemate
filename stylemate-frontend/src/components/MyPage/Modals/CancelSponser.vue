@@ -65,8 +65,10 @@ export default {
   background: rgba(9, 9, 9, 0.75);
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
+  max-width: 500px;
   height: 100%;
   z-index: 9;
   display: flex;

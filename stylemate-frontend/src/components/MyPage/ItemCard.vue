@@ -75,9 +75,12 @@
               () => {
                 store.state.isReRegisterModalVisible = true;
                 store.MyPageModals.reRegistrationNo = this.progressDetails.id;
+                store.MyPageModals.productID = this.progressDetails.product.id;
                 store.MyPageModals.reRegistration = true;
                 store.MyPageModals.campaignId =
                   this.progressDetails.campaignSchedule.campaignId;
+                store.MyPageModals.bookingId =
+                  this.progressDetails.booking[0].id;
               }
             "
           >

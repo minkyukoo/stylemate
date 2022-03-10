@@ -34,12 +34,16 @@ export default class MyPageService {
       }
     );
   }
-  async getPostingList(id) {
+  async getPostingList(id,per_page) {
     let encodedUrl = encodeURIComponent('{"influenceId":' + id + "}");
     console.log(encodedUrl);
     return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      params: {
+        perPage: per_page,
+        page:1,
       },
     });
   }

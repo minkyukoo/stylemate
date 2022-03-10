@@ -48,7 +48,6 @@ const MyPageModals = reactive({
   reRegistration: false,
   reRegistrationNo: null,
   campaignUID: null,
-  bookingID: null,
   campaignId: null,
   productID: null,
   bookingId: null,
