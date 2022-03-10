@@ -5,7 +5,8 @@
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
-      <div class="main-wrap">
+    <div class="main-wrap">
+      {{userUID}}-{{channelId}}
       <div class="contWrap">
         <ul class="connectionList">
           <li>
@@ -25,7 +26,7 @@
                 <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
-                <h4>Acc ID: {{account.instagram_business_account.id}}</h4>
+                <h4>Acc ID: {{ account.instagram_business_account.id }}</h4>
                 <h4>{{ account.instagram_business_account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
@@ -41,8 +42,16 @@
                 class="channelBtn"
                 type="button"
               >checking</button>
-              <button v-else-if="stylemateStatus === 'hold' && !isReApplication" class="channelBtn" type="button">hold</button>
-              <button v-else-if="stylemateStatus === 'hold' && isReApplication" class="channelBtn" type="button">reapplication</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && !isReApplication"
+                class="channelBtn"
+                type="button"
+              >hold</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && isReApplication"
+                class="channelBtn"
+                type="button"
+              >reapplication</button>
             </div>
           </li>
         </ul>
@@ -76,7 +85,7 @@
         <!-- {{ userChanneldata }} -->
       </div>
       <div class="subscribe-wrap">
-        <button class="black-btn">활동 신청하기</button>
+        <button class="black-btn" @click="applyActivity">활동 신청하기</button>
       </div>
 
       <div class="bottomDrawer" :class="{ active: isActive }">
@@ -92,7 +101,7 @@
         </div>
       </div>
       <div class="overlay" :class="{ active: isActive }"></div>
-      </div>
+    </div>
     <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
@@ -116,6 +125,8 @@ export default {
       fbResData: null,
       stylemateStatus: '',
       isReApplication: null,
+      userUID: '',
+      channelId: '',
 
     };
   },
@@ -147,12 +158,14 @@ export default {
     this.userInfoservice.getUserInfo().then(res => {
       console.log('infores data:', res.data);
       console.log('infores channel:', res.data.influence.channel);
+      this.userUID = res.data.uid;
       this.userChanneldata = res.data.influence.channel;
       let channelData = res.data.influence.channel;
       channelData.map(
         (item) => {
           this.stylemateStatus = item.stylemateStatus;
           this.isReApplication = item.isReApplication;
+          this.channelId = item.channelStat.channelId;
         }
       )
     });
@@ -182,6 +195,13 @@ export default {
       this.channelService.getIgchannels().then(res => {
         console.log('Igchannels list:', res);
         this.igResData = res.data;
+      });
+    },
+    // applyActivity
+    applyActivity() {
+      console.log('applyActivity');
+      this.channelService.getIgApproveRequest(30,2).then((res) => {
+        console.log('applyActivity res:', res);
       });
     }
 

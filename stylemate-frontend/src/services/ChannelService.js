@@ -90,9 +90,9 @@ export default class ChannelService {
     });
   }
   // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
-  async getIgApproveRequest(uid, channelId, status) {
+  async getIgApproveRequest(uid, channelId) {
     return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
-      "stylemateStatus": status,
+      "stylemateStatus": 'ready',
     },
     {
       headers: {
