@@ -29,7 +29,7 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">old password</span>
+              <span class="labelGap">기존 비밀번호</span>
             </div>
             <div>
               <span>
@@ -39,7 +39,7 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">New password</span>
+              <span class="labelGap">새 비밀번호</span>
             </div>
             <div>
               <span>
@@ -49,7 +49,7 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">Confirm password</span>
+              <span class="labelGap">새 비밀번호 확인</span>
             </div>
             <div>
               <span>
@@ -59,7 +59,7 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">휴대폰 번호</span>
+              <span class="labelGap">휴대폰 번호 </span>
             </div>
             <div class="inlineForm">
               <div class="notiWrap">
