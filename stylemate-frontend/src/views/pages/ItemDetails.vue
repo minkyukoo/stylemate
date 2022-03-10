@@ -4,152 +4,139 @@
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
-      <div>
-        <div class="mainslide">
-          <swiper
-            :modules="modules"
-            :slides-per-view="1"
-            :space-between="50"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
+    <div class="scrollDiv">
+      <div class="mainslide">
+        <swiper
+          :modules="modules"
+          :slides-per-view="1"
+          :space-between="50"
+          :pagination="{ clickable: true }"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+        >
+          <swiper-slide
+            v-for="(slide, i) of productDetails.productImageFile"
+            :key="i + 1"
           >
-            <swiper-slide
-              v-for="(slide, i) of productDetails.productImageFile"
-              :key="i + 1"
-            >
-              <div class="mainslide-banner-wrap">
-                <figure>
-                  <img :src="slide.productImagePath" alt />
-                  <div class="top-social-icon">
-                    <img
-                      v-if="isChannelIg(productDetails.campaign)"
-                      src="@/assets/icons/instagram.svg"
-                    />
-                  </div>
-                </figure>
-              </div>
-            </swiper-slide>
-          </swiper>
-        </div>
+            <div class="mainslide-banner-wrap">
+              <figure>
+                <img :src="slide.productImagePath" alt />
+                <div class="top-social-icon">
+                  <img
+                    v-if="isChannelIg(productDetails.campaign)"
+                    src="@/assets/icons/instagram.svg"
+                  />
+                </div>
+              </figure>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
 
-        <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
+      <!-- <ion-infinite-scroll threshold="50px" id="infinite-scroll">
       <ion-infinite-scroll-content loading-spinner="bubbles">-->
-        <div class="main-wrap">
-          <div class="item-wrapper">
-            <div class="top-section">
-              <div class="left-section">
-                <h3>{{ productDetails.name }}</h3>
-                <span>
-                  <img src="@/assets/icons/arrow-left.svg" />
-                </span>
-              </div>
-              <div class="right-section">
-                <button @click="showModal">
-                  <img src="@/assets/icons/share.svg" />
-                </button>
-              </div>
+      <div class="main-wrap">
+        <div class="item-wrapper">
+          <div class="top-section">
+            <div class="left-section">
+              <h3>{{ productDetails.name }}</h3>
+              <span>
+                <img src="@/assets/icons/arrow-left.svg" />
+              </span>
             </div>
-            <div class="product-description">
-              <h2>{{ productDetails.description }}</h2>
-
-              <div class="hashwrap">
-                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <span
-                  v-for="(hash, index) in productDetails.tag"
-                  :key="index"
-                  >{{ "#" + hash.tag }}</span
-                >
-                <!-- <span>hi</span> -->
-              </div>
-
-              <p>
-                <span>
-                  <img src="@/assets/icons/calendar.svg" />
-                </span>
-                <!-- 2021.11.11 ~ 2021.12.25 -->
-                <span v-for="(item, i) of productDetails.campaign" :key="i">
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.startedAt).format(
-                          "YYYY.MM.DD"
-                        )
-                      : null
-                  }}
-                  ~
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.finishedAt).format(
-                          "YYYY.MM.DD"
-                        )
-                      : null
-                  }}
-                </span>
-              </p>
-            </div>
-
-            <ProductDetailsTab :productData="productDetails" />
+            <!-- <div class="right-section">
+              <button @click="showModal">
+                <img src="@/assets/icons/share.svg" />
+              </button>
+            </div>-->
           </div>
+          <div class="product-description">
+            <h2>{{ productDetails.description }}</h2>
+
+            <div class="hashwrap">
+              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
+                "#" + hash.tag
+              }}</span>
+              <!-- <span>hi</span> -->
+            </div>
+
+            <p>
+              <span>
+                <img src="@/assets/icons/calendar.svg" />
+              </span>
+              <!-- 2021.11.11 ~ 2021.12.25 -->
+              <span v-for="(item, i) of productDetails.campaign" :key="i">
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+                ~
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+              </span>
+            </p>
+          </div>
+
+          <ProductDetailsTab :productData="productDetails" />
         </div>
-        <!-- </ion-infinite-scroll-content>
+      </div>
+      <!-- </ion-infinite-scroll-content>
       </ion-infinite-scroll>-->
 
-        <div class="subscribe-wrap">
-          <figure class="favorite" @click="likeProduct(productDetails.id)">
-            <img
-              v-if="productDetails.isInfluenceLike"
-              src="@/assets/icons/heart-filled.svg"
-            />
-            <img v-else src="@/assets/icons/heart-outline.svg" />
-          </figure>
+      <div class="subscribe-wrap">
+        <figure class="favorite" @click="likeProduct(productDetails.id)">
+          <img
+            v-if="productDetails.isInfluenceLike"
+            src="@/assets/icons/heart-filled.svg"
+          />
+          <img v-else src="@/assets/icons/heart-outline.svg" />
+        </figure>
 
-          <!-- sponsership button -->
-          <!-- Sponsorship application -->
-          <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
-          <button
-            v-if="sponsorship"
-            @click="sponsorshipApplication"
-            class="black-btn"
-          >
-            협찬 신청
-          </button>
-          <!-- Cancellation of sponsorship application -->
-          <button
-            v-else-if="cancel_spon"
-            @click="sponsorshipCancellation"
-            class="white-btn"
-          >
-            협찬 신청 취소
-          </button>
-          <!-- Sponsorship application completed -->
-          <button v-else-if="complete_spon" class="grey-btn">
-            협찬 신청 완료
-          </button>
-          <!-- Sponsorship has ended. -->
-          <button v-else-if="end_spon" class="grey-btn">
-            협찬이 종료되었습니다.
-          </button>
+        <!-- sponsership button -->
+        <!-- Sponsorship application -->
+        <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
+        <!-- {{ sponsorship }} -->
+        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">
+          협찬 신청
+        </button>
+        <!-- Cancellation of sponsorship application -->
+        <button
+          v-else-if="cancel_spon"
+          @click="sponsorshipCancellation"
+          class="white-btn"
+        >
+          협찬 신청 취소
+        </button>
+        <!-- Sponsorship application completed -->
+        <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
+        <!-- Sponsorship has ended. -->
+        <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button>
 
-          <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
-        </div>
+        <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
+      </div>
 
-        <!-- product option -->
-        <DrawerBottom
-          class="bottomDrawer"
-          :class="{ active: isActive }"
-          :isCancelspon="isCancelspon"
-        />
+      <!-- product option -->
+      <DrawerBottom
+        class="bottomDrawer"
+        :class="{ active: isActive }"
+        :isCancelspon="isCancelspon"
+        v-on:closePopup="closeDrawerBottom($event)"
+      />
 
-        <div class="overlay" :class="{ active: isActive }"></div>
-        <CustomModal v-show="isModalVisible" @close="closeModal">
-          <template v-slot:header>
-            <h2>회원님은 미승인 회원입니다.</h2>
-          </template>
+      <div class="overlay" :class="{ active: isActive }"></div>
+      <CustomModal v-show="isModalVisible" @close="closeModal">
+        <template v-slot:header>
+          <h2>회원님은 미승인 회원입니다.</h2>
+        </template>
 
-          <template v-slot:body>
-            <div class="modal-content">
-              <!-- <ul class="shareList">
+        <template v-slot:body>
+          <div class="modal-content">
+            <!-- <ul class="shareList">
                     <li>
                       <a href="#">
                         <img src="@/assets/icons/icon-fb.svg" />
@@ -168,28 +155,17 @@
                         <span>URL</span>
                       </a>
                     </li>
-                </ul>-->
-              <p>
-                스타일 메이트는 승인된 회원만
-                <br />이용할 수 있는 서비스 입니다.
-              </p>
-            </div>
-          </template>
+            </ul>-->
+            <p>
+              스타일 메이트는 승인된 회원만
+              <br />이용할 수 있는 서비스 입니다.
+            </p>
+          </div>
+        </template>
 
-          <template v-slot:footer></template>
-        </CustomModal>
-      </div>
-
-      <!-- product option -->
-      <DrawerBottom
-        class="bottomDrawer"
-        :class="{ active: isActive }"
-        :isCancelspon="isCancelspon"
-        v-on:closePopup="closeDrawerBottom($event)"
-      />
-
-      <div class="overlay" :class="{ active: isActive }"></div>
-    </ion-content>
+        <template v-slot:footer></template>
+      </CustomModal>
+    </div>
 
     <!-- End page content -->
   </ion-page>
@@ -254,7 +230,7 @@ export default {
       userToken: "",
       isCancelspon: false,
       sponsorship: false,
-      cancel_spon: true,
+      cancel_spon: false,
       complete_spon: false,
       end_spon: false,
     };
@@ -303,17 +279,11 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log("this.productDetails", this.productDetails);
-          console.log("process-status", res.campaign[0].processStatus);
-          console.log(
-            "processDetailStatus",
-            res.campaign[0].processDetailStatus
-          );
-          console.log(
-            "bookingStatus",
-            res.campaign[0].booking[0].bookingStatus
-          );
-          console.log("postStatus", res.campaign[0].booking[0].postStatus);
+          console.log("productDetails:-", this.productDetails);
+          console.log("processStatus:-", res.campaign[0].processStatus);
+          console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
+          console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
+          console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
           //apply sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
@@ -339,17 +309,15 @@ export default {
           //sponsership complete button
           if (
             res.campaign[0].processStatus == "progress" &&
-            ["announce", "posting"].includes(
-              res.campaign[0].processDetailStatus
-            ) &&
+            ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
             [
               "ready",
               "post_request",
-              "postComplete",
-              "postCancel",
-              "postModifyRequest",
-              "postModifyComplete",
+              "post_complete",
+              "post_cancel",
+              "post_modify_request",
+              "post_modify_complete",
             ].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
@@ -385,10 +353,7 @@ export default {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
       pdata.forEach((item) => {
-        if (
-          item.processStatus === "progress" &&
-          item.channelType === "instagram"
-        ) {
+        if (item.processStatus === "progress" && item.channelType === "instagram") {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -471,16 +436,14 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService
-            .influencelikes(uid, "product", productId)
-            .then((res) => {
-              // console.log(res.response.data.error);
-              // console.log(res.response);
-              this.getProductDetails();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+          this.itemService.influencelikes(uid, "product", productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            this.getProductDetails();
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
         });
       }
       console.log("likeProduct");
@@ -488,15 +451,15 @@ export default {
     sponsorshipCancellation() {
       this.isCancelspon = true;
       this.isActive = true;
-      console.log('sponsorshipCancellation');
+      console.log("sponsorshipCancellation");
     },
     closeDrawerBottom(isClose) {
-      console.log('isClose', isClose);
+      console.log("isClose", isClose);
       if (isClose) {
         this.isCancelspon = false;
         this.isActive = false;
       }
-    }
+    },
   },
 };
 </script>
@@ -555,6 +518,7 @@ export default {
   padding: 40px 20px 160px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  margin-top: -30px;
   position: relative;
   z-index: 1;
   /* top: 350px; */
@@ -712,9 +676,8 @@ export default {
 .main-wrap {
   position: relative;
   z-index: 2;
-  margin-top: -30px;
-  border-radius: 20px 20px 0 0;
   overflow: visible;
+  background: transparent;
 }
 .mainslide .swiper-pagination {
   bottom: 42px !important;

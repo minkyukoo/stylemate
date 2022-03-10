@@ -135,7 +135,7 @@ img:hover {
   padding-bottom: 40px;
   .headerLine {
     margin: 0;
-    padding: 60px 20px 20px 20px;
+    padding: 60px 0 20px;
   }
   &::before {
     content: "";
@@ -272,6 +272,16 @@ img:hover {
     width: 31%;
   }
 }
+.scrollDiv{
+  overflow-y: auto;
+  background-color: #ffffff;
+  height: 100vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 .main-wrap {
   height: 100vh;
@@ -279,6 +289,11 @@ img:hover {
   overflow-y: auto;
   background-color: #ffffff;
   padding-bottom: 130px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .inner-container {
   padding: 0 20px;

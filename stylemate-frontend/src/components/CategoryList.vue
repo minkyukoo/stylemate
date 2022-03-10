@@ -138,6 +138,7 @@ export default {
         } else {
           this.nofltData = false;
           let filterproductList = data;
+          console.log("filterproductList", filterproductList);
           this.$emit("fltData", true);
           this.$emit("filterproductList", filterproductList);
         }
@@ -151,7 +152,6 @@ export default {
         });
 
         this.activeId = ids;
-        // console.log("this.activeId", this.activeId);
         this.$emit("allbutton", this.activeId);
 
         let arr1 = this.childCategoryArray;
@@ -167,6 +167,7 @@ export default {
         this.childactiveId = "Allchild"; //To highlight the child button default
       } else {
         // alert(ids);
+        this.activeId = ids;
         this.childCategory = false;
         this.onClickButton(true);
       }
@@ -197,6 +198,7 @@ export default {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
+  z-index: 3;
 }
 .item-scroller-nav .main-menu {
   display: flex;
