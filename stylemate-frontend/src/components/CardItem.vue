@@ -272,7 +272,6 @@ export default defineComponent({
               } else {
                 this.store.methods.getData();
               }
-             
               // this.store.methods.getData();
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
@@ -285,7 +284,7 @@ export default defineComponent({
   },
   async updated() {
     if (this.isproductfilter) {
-      alert("isproductfilter");
+      // alert("isproductfilter");
       this.store.state.AppData = this.isproductfilter;
     }
     // console.log('isChannelIg', this.isChannelIg());

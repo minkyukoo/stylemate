@@ -14,7 +14,10 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
+          <swiper-slide
+            v-for="(slide, i) of productDetails.productImageFile"
+            :key="i + 1"
+          >
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
@@ -45,14 +48,16 @@
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
-            </div> -->
+            </div>-->
           </div>
           <div class="product-description">
             <h2>{{ productDetails.description }}</h2>
 
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
+                "#" + hash.tag
+              }}</span>
               <!-- <span>hi</span> -->
             </div>
 
@@ -64,17 +69,13 @@
               <span v-for="(item, i) of productDetails.campaign" :key="i">
                 {{
                   item.campaignSchedule
-                    ? moment(item.campaignSchedule.startedAt).format(
-                      "YYYY.MM.DD"
-                    )
+                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
                     : null
                 }}
                 ~
                 {{
                   item.campaignSchedule
-                    ? moment(item.campaignSchedule.finishedAt).format(
-                      "YYYY.MM.DD"
-                    )
+                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
                     : null
                 }}
               </span>
@@ -89,16 +90,28 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+          <img
+            v-if="productDetails.isInfluenceLike"
+            src="@/assets/icons/heart-filled.svg"
+          />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
         <!-- sponsership button -->
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
-        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
+        {{ sponsorship }}
+        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">
+          협찬 신청
+        </button>
         <!-- Cancellation of sponsorship application -->
-        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">협찬 신청 취소</button>
+        <button
+          v-else-if="cancel_spon"
+          @click="sponsorshipCancellation"
+          class="white-btn"
+        >
+          협찬 신청 취소
+        </button>
         <!-- Sponsorship application completed -->
         <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
         <!-- Sponsorship has ended. -->
@@ -217,7 +230,7 @@ export default {
       userToken: "",
       isCancelspon: false,
       sponsorship: false,
-      cancel_spon: true,
+      cancel_spon: false,
       complete_spon: false,
       end_spon: false,
     };
@@ -266,17 +279,11 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log("this.productDetails", this.productDetails);
-          console.log("process-status", res.campaign[0].processStatus);
-          console.log(
-            "processDetailStatus",
-            res.campaign[0].processDetailStatus
-          );
-          console.log(
-            "bookingStatus",
-            res.campaign[0].booking[0].bookingStatus
-          );
-          console.log("postStatus", res.campaign[0].booking[0].postStatus);
+          console.log("productDetails:-", this.productDetails);
+          console.log("processStatus:-", res.campaign[0].processStatus);
+          console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
+          console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
+          console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
           //apply sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
@@ -302,17 +309,15 @@ export default {
           //sponsership complete button
           if (
             res.campaign[0].processStatus == "progress" &&
-            ["announce", "posting"].includes(
-              res.campaign[0].processDetailStatus
-            ) &&
+            ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
             [
               "ready",
               "post_request",
-              "postComplete",
-              "postCancel",
-              "postModifyRequest",
-              "postModifyComplete",
+              "post_complete",
+              "post_cancel",
+              "post_modify_request",
+              "post_modify_complete",
             ].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
@@ -348,10 +353,7 @@ export default {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
       pdata.forEach((item) => {
-        if (
-          item.processStatus === "progress" &&
-          item.channelType === "instagram"
-        ) {
+        if (item.processStatus === "progress" && item.channelType === "instagram") {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -434,16 +436,14 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService
-            .influencelikes(uid, "product", productId)
-            .then((res) => {
-              // console.log(res.response.data.error);
-              // console.log(res.response);
-              this.getProductDetails();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+          this.itemService.influencelikes(uid, "product", productId).then((res) => {
+            // console.log(res.response.data.error);
+            // console.log(res.response);
+            this.getProductDetails();
+            if (res.response.data.error) {
+              Toast.fire({ title: res.response.data.error.message });
+            }
+          });
         });
       }
       console.log("likeProduct");
@@ -451,15 +451,15 @@ export default {
     sponsorshipCancellation() {
       this.isCancelspon = true;
       this.isActive = true;
-      console.log('sponsorshipCancellation');
+      console.log("sponsorshipCancellation");
     },
     closeDrawerBottom(isClose) {
-      console.log('isClose', isClose);
+      console.log("isClose", isClose);
       if (isClose) {
         this.isCancelspon = false;
         this.isActive = false;
       }
-    }
+    },
   },
 };
 </script>

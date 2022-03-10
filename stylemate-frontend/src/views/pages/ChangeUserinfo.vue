@@ -29,37 +29,45 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">old password</span>
+              <span class="labelGap">기존 비밀번호</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="oldPass" />
+                <input type="password" v-model="oldPass"  />
               </span>
             </div>
+            <small>{{ error.oldPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">New password</span>
+              <span class="labelGap">새 비밀번호</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="newPass" />
+                <input type="password" v-model="newPass"  />
+                <!-- :class="error.newPass ==''? 'redo':''" -->
               </span>
             </div>
+            <small>{{ error.newPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">Confirm password</span>
+              <span class="labelGap">새 비밀번호 확인</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="confirmPass" />
+                <input
+                  type="password"
+                  v-model="confirmPass"
+                  
+                />
               </span>
             </div>
+            <small>{{ error.confirmPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">휴대폰 번호</span>
+              <span class="labelGap">휴대폰 번호 </span>
             </div>
             <div class="inlineForm">
               <div class="notiWrap">
@@ -153,6 +161,11 @@ export default {
       ids: "",
       counting: false,
       verificationCode: "",
+      error: {
+        oldPass: "",
+        newPass: "",
+        confirmPass: "",
+      },
     };
   },
   created() {
@@ -189,10 +202,27 @@ export default {
         });
     },
     confirm() {
-      if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
-        alert("please fill the password feilds");
+      const pass_regex = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+      const ok = pass_regex.exec(this.newPass);
+      if (!ok) {
+        alert("enter valid password");
       } else {
-        this.changePass();
+        alert("password format is fine");
+      }
+      if (this.oldPass == "") {
+        this.error.oldPass = "required feild";
+      } else {
+        this.error.oldPass = "";
+      }
+      if (this.newPass == "") {
+        this.error.newPass = "required feild";
+      } else {
+        this.error.newPass = "";
+      }
+      if (this.confirmPass == "") {
+        this.error.confirmPass = "required feild";
+      } else {
+        this.error.confirmPass = "";
       }
     },
     sendOtp() {
@@ -304,7 +334,9 @@ export default {
 .inlineTime span:first-child {
   color: #c4c4c4;
 }
-
+small {
+  color: red;
+}
 .inlineTime span {
   color: #9d6aff;
   font-size: 14px;
@@ -365,6 +397,10 @@ export default {
   font-size: 14px;
   line-height: 18px;
   padding: 21px;
+}
+.redo {
+  border: 1px solid red !important;
+  transition: 500ms;
 }
 .button-group button.grey-btn {
   color: #797979;

@@ -17,13 +17,14 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active" v-for="(account, i) of igResData" :key="i + 1">
+          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="select">
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
                 <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
+                <h4>Acc ID: {{account.instagram_business_account.id}}</h4>
                 <h4>{{ account.instagram_business_account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
@@ -70,8 +71,8 @@
             </div>
           </li>
         </ul>
-        {{ igResData }}
-        {{ userChanneldata }}
+        <!-- {{ igResData }} -->
+        <!-- {{ userChanneldata }} -->
       </div>
       <div class="subscribe-wrap">
         <button class="black-btn">활동 신청하기</button>
@@ -172,12 +173,12 @@ export default {
 
     channelData() {
       this.channelService.getfbUser().then(res => {
-        console.log('getfbUser res:', res);
+        console.log('fbUser res:', res);
         this.fbResData = res;
       });
 
       this.channelService.getIgchannels().then(res => {
-        console.log('getIgchannels res:', res);
+        console.log('Igchannels list:', res);
         this.igResData = res.data;
       });
     }
