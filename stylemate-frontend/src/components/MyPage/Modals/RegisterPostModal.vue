@@ -12,20 +12,20 @@
       <div class="modal-content">
         <div class="Post-header">
           <div class="img-con">
-            <img src="../../../assets/images/MyPage-item1.png" alt="" />
+            <img :src="brand_img" alt="" />
           </div>
           <div class="item-desc">
             <div class="heading-wrap">
-              <h2>NCOVER</h2>
+              <h2>{{ brand_name }}</h2>
             </div>
             <div>
-              <h4>Plaster Cast Hoodie Blouse</h4>
-              <h6>End date 2012-02-13 15:30</h6>
+              <h4>{{ brand_desc }}</h4>
+              <h6>End date {{date}}</h6>
             </div>
           </div>
         </div>
         <div class="post-body">
-          <div class="refresh-btn">
+          <div class="refresh-btn" role="button" @click="reloadcontentData">
             <img src="../../../assets/icons/refresh.svg" alt="refresh" />
           </div>
           <div class="post-card-con">
@@ -34,7 +34,13 @@
               @choosePost="setDetails($event)"
             />
             <div>
-              <button class="btn-outline-block">see more</button>
+              <button
+                class="btn-outline-block"
+                @click="pageCalc"
+                v-if="show_button"
+              >
+                see more
+              </button>
             </div>
           </div>
         </div>
@@ -46,7 +52,7 @@
           class="btn-grey"
           @click="() => (store.state.isPostModalVisible = false)"
         >
-          to close
+          닫기
         </button>
         <button type="button" class="btn-black" @click="isSubmit">
           포스트 등록하기
@@ -57,7 +63,7 @@
 </template>
 
 <script>
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 import Modal from "../../Modal.vue";
 import PostModalCard from "./PostModalCard.vue";
 import MyPageService from "@/services/MyPageService";
@@ -95,6 +101,12 @@ export default {
       userProfile: {},
       requiredAccount: "",
       requiredHashtag: "",
+      per_page: 2,
+      show_button: false,
+      brand_img: "",
+      date: "",
+      brand_name: "",
+      brand_desc: "",
     };
   },
 
@@ -111,11 +123,6 @@ export default {
     const store = inject("store");
     const linkedChannel = inject("linkedChannel");
 
-    onMounted(() => {
-      // linkedChannel.methods.logInWithFacebook();
-      console.log("isssadas");
-    });
-
     return {
       store,
       linkedChannel,
@@ -123,15 +130,32 @@ export default {
   },
   mounted() {
     this.myPageService
-      .getPostingList(this.store.state.influenceId)
+      .getPostingList(this.store.state.influenceId, this.per_page)
       .then((res) => {
         console.log(res);
         this.postList = res.data.data;
+        this.total_posts = res.data.meta.total;
+        if (this.total_posts > this.per_page) {
+          this.show_button = true;
+        }
+        console.log(
+          "checking",
+          this.postList,
+          this.show_button,
+          this.total_posts,
+          this.per_page
+        );
       });
     this.itemService
       .getProductDetails(this.store.MyPageModals.productID)
       .then((res) => {
         console.log(res);
+        this.brand_name = res.brand.korName;
+        this.brand_desc = res.brand.description;
+        this.date = moment(res.campaign[0].campaignSchedule.finishedAt).format(
+          "YYYY-MM-DD HH:mm"
+        );
+        this.brand_img = res.brand.imageMainPath;
         if (res.campaign[0].campaignMission.requiredAccount) {
           this.requiredAccount =
             res.campaign[0].campaignMission.requiredAccount.join(" #");
@@ -150,9 +174,48 @@ export default {
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
   },
 
+  unmounted() {
+    this.store.MyPageModals.campaignId = null;
+    this.store.MyPageModals.bookingId = null;
+    this.store.MyPageModals.productID = null;
+  },
+
   methods: {
     closeModal() {
       this.isPostModalVisible = false;
+    },
+    pageCalc() {
+      if (this.per_page < this.total_posts) {
+        this.per_page += 4;
+        this.show_button = true;
+        this.myPageService
+          .getPostingList(this.store.state.influenceId, this.per_page)
+          .then((res) => {
+            console.log(res);
+            this.postList = res.data.data;
+            this.total_posts = res.data.meta.total;
+            if (this.total_posts <= this.per_page) {
+              this.show_button = false;
+            }
+            console.log(
+              "checking",
+              this.postList,
+              this.show_button,
+              this.total_posts,
+              this.per_page
+            );
+          });
+      } else {
+        this.show_button = false;
+      }
+    },
+    reloadcontentData() {
+      this.myPageService
+        .getPostingList(this.store.state.influenceId)
+        .then((res) => {
+          console.log(res);
+          this.postList = res.data.data;
+        });
     },
     setDetails(event) {
       console.log("test", event);
@@ -184,7 +247,7 @@ export default {
       this.timestamp = moment(res2.timestamp).format("YYYY-MM-DD HH:mm:ss");
       this.caption = `${res2.caption} ${
         this.requiredAccount ? `#${this.requiredAccount}` : ""
-      } ${this.requiredHashtag ? `#${this.requiredHashtag}` : ""}`;
+      } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
       this.username = res2.username;
       this.campaignId = this.store.MyPageModals.campaignId;
       this.bookingId = this.store.MyPageModals.bookingId;
@@ -251,7 +314,7 @@ export default {
 
 <style scoped>
 .modal-content {
-  padding: 24px 10px 0;
+  padding: 24px 10px 10px;
   background: linear-gradient(
     175.12deg,
     rgba(255, 255, 255, 0.5) -23.33%,
@@ -303,6 +366,7 @@ export default {
 .post-card-con {
   max-height: 250px;
   overflow-y: auto;
+  padding-bottom: 30px;
 }
 .refresh-btn {
   text-align: right;
@@ -336,6 +400,6 @@ export default {
   font-size: 14px;
   line-height: 18px;
   color: #797979;
-  margin: 4px 0 40px;
+  margin: 4px 0 10px;
 }
 </style>

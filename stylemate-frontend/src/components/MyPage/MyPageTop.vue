@@ -24,7 +24,7 @@
         "
       >
         <MyPageTopButton
-          :name="'Reapply'"
+          :name="'재신청'"
           :style="'btn-dark'"
           v-on:buttonEvent="fireButton"
         />
@@ -36,7 +36,7 @@
         "
       >
         <MyPageTopButton
-          :name="'Connecting Channels'"
+          :name="'채널 연결하기'"
           :style="'btn-dark'"
           v-on:buttonEvent="fireButton"
         />
@@ -66,14 +66,14 @@
       </div>
       <div class="btn-con" v-else-if="store.state.MyPageTopState === 'request'">
         <MyPageTopButton
-          :name="'Checking channel'"
+          :name="'채널 확인중'"
           :style="'btn-grey-outline'"
           v-on:buttonEvent="fireButton"
         />
       </div>
       <div class="btn-con" v-else-if="store.state.MyPageTopState === 'hold'">
         <MyPageTopButton
-          :name="'hold'"
+          :name="'보류'"
           :style="'btn-grey-solid'"
           v-on:buttonEvent="fireButton"
         />

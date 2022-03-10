@@ -90,6 +90,9 @@ export default {
 
     onUnmounted(() => {
       store.state.FltCampaignData = [];
+      store.state.cancelPopup = false;
+      store.state.isReRegisterModalVisible = false;
+      store.state.isPostModalVisible = false;
     });
 
     return {
