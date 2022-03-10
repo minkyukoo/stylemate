@@ -20,8 +20,7 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide
-          >
+          <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
                 <img
@@ -466,16 +465,16 @@ img {
   line-height: 12px;
   color: #595959;
 }
-.main-wrap{
+.main-wrap {
   position: relative;
   z-index: 2;
   overflow: visible;
   background: transparent;
 }
-.mainslide .swiper-pagination{
+.mainslide .swiper-pagination {
   bottom: 42px !important;
 }
-.tab-wrap .tab-content{
+.tab-wrap .tab-content {
   padding-bottom: 0;
 }
 </style>
