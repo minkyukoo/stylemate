@@ -89,6 +89,18 @@ export default class ChannelService {
       }
     });
   }
+  // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
+  async getIgApproveRequest(uid, channelId, status) {
+    return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
+      "stylemateStatus": status,
+    },
+    {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+      }
+    });
+  }
+
 
 
 
