@@ -1,5 +1,8 @@
 <template>
-  <div v-if="product || brand" class="item-scroller-nav">
+  <div
+    v-if="store.state.likedTabBrandLength || store.state.likedTabProductLength"
+    class="item-scroller-nav"
+  >
     <swiper
       class="main-menu"
       :slides-per-view="'auto'"
@@ -7,8 +10,15 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="category in allCategories" :key="category.name">
-        <a @click="handleClick(category.id)">{{ category.name }}</a>
+      <swiper-slide
+        v-for="(category, index) in store.state.likedTabAllCategories"
+        :key="category.name"
+      >
+        <a
+          :class="{ 'is-like-tab-active': category.active }"
+          @click="handleClick(category.id, index)"
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
   </div>
@@ -20,7 +30,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import UserInfoService from "@/services/UserInfoService";
-
+import { inject } from "vue";
 export default {
   name: "likedTab",
   components: {
@@ -28,6 +38,7 @@ export default {
     SwiperSlide,
   },
   setup() {
+    const store = inject("store");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
@@ -39,26 +50,13 @@ export default {
       onSwiper,
       onSlideChange,
       //   modules: [Navigation, Pagination, Scrollbar, A11y],
+      store,
     };
   },
   data() {
     return {
       product: false,
       brand: false,
-      allCategories: [
-        {
-          id: "all",
-          name: "all",
-        },
-        {
-          id: "Progress",
-          name: "Progress",
-        },
-        {
-          id: "end",
-          name: "end",
-        },
-      ],
     };
   },
   created() {
@@ -67,17 +65,100 @@ export default {
   mounted() {
     this.user.getUserInfo().then((userInfo) => {
       this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-        this.product = res.data.data.length > 0 ? true : false;
+        this.store.state.likedTabProductLength =
+          res.data.data.length > 0 ? true : false;
       });
       this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-        this.brand = res.data.data.length > 0 ? true : false;
+        this.store.state.likedTabBrandLength =
+          res.data.data.length > 0 ? true : false;
       });
     });
+  },
+  methods: {
+    handleClick(id, index) {
+      this.store.state.likedTabAllCategories.forEach((val, key) => {
+        if (index === key) {
+          this.store.state.likedTabAllCategories[index].active = true;
+        } else this.store.state.likedTabAllCategories[key].active = false;
+      });
+      let activeTab = this.store.state.likedTabState;
+      let categoryId = id;
+      if (categoryId === "all") {
+        this.user.getUserInfo().then((userInfo) => {
+          this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+            // console.log("product", res);
+            this.store.state.likedTabProduct = res.data.data;
+            this.store.state.likedTabProductLength =
+              res.data.data.length > 0 ? true : false;
+          });
+          this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+            // console.log("brand", res);
+            this.store.state.likedTabBrand = res.data.data;
+            this.store.state.likedTabBrandLength =
+              res.data.data.length > 0 ? true : false;
+          });
+        });
+      } else if (categoryId === "Progress") {
+        this.user.getUserInfo().then((userInfo) => {
+          if (activeTab === "item") {
+            this.user
+              .getInfluenceWithCategory(
+                userInfo.data.uid,
+                "product",
+                "progress"
+              )
+              .then((res) => {
+                // console.log("product", res);
+                this.store.state.likedTabProduct = res.data.data;
+                this.store.state.likedTabProductLength =
+                  res.data.data.length > 0 ? true : false;
+              });
+          }
+          if (activeTab === "brand") {
+            this.user
+              .getInfluenceWithCategory(userInfo.data.uid, "brand", "progress")
+              .then((res) => {
+                // console.log("brand", res);
+                this.store.state.likedTabBrand = res.data.data;
+                this.store.state.likedTabBrandLength =
+                  res.data.data.length > 0 ? true : false;
+              });
+          }
+        });
+      } else if (categoryId === "end") {
+        this.user.getUserInfo().then((userInfo) => {
+          if (activeTab === "item") {
+            this.user
+              .getInfluenceWithCategory(userInfo.data.uid, "product", "finish")
+              .then((res) => {
+                // console.log("product", res);
+                this.store.state.likedTabProduct = res.data.data;
+                this.store.state.likedTabProductLength =
+                  res.data.data.length > 0 ? true : false;
+              });
+          }
+          if (activeTab === "brand") {
+            this.user
+              .getInfluenceWithCategory(userInfo.data.uid, "brand", "finish")
+              .then((res) => {
+                // console.log("brand", res);
+                this.store.state.likedTabBrand = res.data.data;
+                this.store.state.likedTabBrandLength =
+                  res.data.data.length > 0 ? true : false;
+              });
+          }
+        });
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
+.is-like-tab-active {
+  background-color: black !important;
+  color: white !important;
+}
 .item-scroller-nav {
   background: #ffffff;
   width: 100%;
