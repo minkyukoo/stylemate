@@ -2,6 +2,7 @@ import axios from "axios";
 
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v13.0';
+// eslint-disable-next-line
 var token = localStorage.getItem('token');
 export default class ChannelService {
 
@@ -88,6 +89,18 @@ export default class ChannelService {
       }
     });
   }
+  // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
+  async getIgApproveRequest(uid, channelId) {
+    return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
+      "stylemateStatus": 'ready',
+    },
+    {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+      }
+    });
+  }
+
 
 
 

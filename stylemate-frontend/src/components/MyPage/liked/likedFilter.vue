@@ -84,6 +84,7 @@ export default {
   max-width: 500px;
   margin: 0 auto;
   padding: 20px 0;
+  z-index: 3;
 }
 .item-scroller-nav .main-menu {
   display: flex;

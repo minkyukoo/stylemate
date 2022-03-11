@@ -29,37 +29,45 @@
           </li>
           <li>
             <div>
-              <span class="labelGap">old password</span>
+              <span class="labelGap">기존 비밀번호</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="oldPass" />
+                <input type="password" v-model="oldPass"  />
               </span>
             </div>
+            <small>{{ error.oldPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">New password</span>
+              <span class="labelGap">새 비밀번호</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="newPass" />
+                <input type="password" v-model="newPass"  />
+                <!-- :class="error.newPass ==''? 'redo':''" -->
               </span>
             </div>
+            <small>{{ error.newPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">Confirm password</span>
+              <span class="labelGap">새 비밀번호 확인</span>
             </div>
             <div>
               <span>
-                <input type="password" v-model="confirmPass" />
+                <input
+                  type="password"
+                  v-model="confirmPass"
+                  
+                />
               </span>
             </div>
+            <small>{{ error.confirmPass }}</small>
           </li>
           <li>
             <div>
-              <span class="labelGap">휴대폰 번호</span>
+              <span class="labelGap">휴대폰 번호 </span>
             </div>
             <div class="inlineForm">
               <div class="notiWrap">
@@ -82,8 +90,27 @@
           </li>
           <li v-show="otp">
             <div class="inlineTime">
-              <span class="labelGap">인증번호 입력</span>
-              <span class="labelGap">01:53</span>
+              <span class="labelGap"
+                ><input
+                  v-model="verificationCode"
+                  type="text"
+                  placeholder="인증번호 입력"
+                  style="border: none"
+              /></span>
+              <span class="labelGap">
+                <vue-countdown
+                  v-if="counting"
+                  :time="180000"
+                  @end="onCountdownEnd"
+                  v-slot="{ minutes, seconds }"
+                  style="color: blue"
+                >
+                  {{ minutes }}:{{ seconds }}
+                </vue-countdown>
+                <button style="background-color: blue; color: #fff" v-else>
+                  Resend
+                </button>
+              </span>
             </div>
           </li>
         </ul>
@@ -112,10 +139,16 @@ import TopNav from "@/components/TopNav.vue";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 import VueNextSelect from "vue-next-select";
-
+import VueCountdown from "@chenfengyuan/vue-countdown";
 export default {
   name: "ChangeUserinfo",
-  components: { TopNav, IonContent, IonPage, "vue-select": VueNextSelect },
+  components: {
+    TopNav,
+    IonContent,
+    IonPage,
+    "vue-select": VueNextSelect,
+    VueCountdown,
+  },
   data() {
     return {
       uid: localStorage.getItem("userId"),
@@ -125,7 +158,14 @@ export default {
       newPass: "",
       confirmPass: "",
       mobile: "",
-      ids:""
+      ids: "",
+      counting: false,
+      verificationCode: "",
+      error: {
+        oldPass: "",
+        newPass: "",
+        confirmPass: "",
+      },
     };
   },
   created() {
@@ -162,10 +202,27 @@ export default {
         });
     },
     confirm() {
-      if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
-        alert("please fill the password feilds");
+      const pass_regex = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+      const ok = pass_regex.exec(this.newPass);
+      if (!ok) {
+        alert("enter valid password");
       } else {
-        this.changePass();
+        alert("password format is fine");
+      }
+      if (this.oldPass == "") {
+        this.error.oldPass = "required feild";
+      } else {
+        this.error.oldPass = "";
+      }
+      if (this.newPass == "") {
+        this.error.newPass = "required feild";
+      } else {
+        this.error.newPass = "";
+      }
+      if (this.confirmPass == "") {
+        this.error.confirmPass = "required feild";
+      } else {
+        this.error.confirmPass = "";
       }
     },
     sendOtp() {
@@ -173,38 +230,54 @@ export default {
         let minutesToAdd = 3;
         let currentDate = new Date();
         let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
-         this.userInfoService
-        .telAuth(`010${this.mobile}`, this.email, this.ids, this.formatDate(futureDate))
-        .then(() => {
-          this.otp=true;
-          alert("Otp sent");
-        });
+        this.userInfoService
+          .telAuth(
+            `010${this.mobile}`,
+            this.email,
+            this.ids,
+            this.formatDate(futureDate)
+          )
+          .then(() => {
+            this.otp = true;
+            this.counting = true;
+            alert("Otp sent");
+          });
         console.log(this.formatDate(futureDate));
       }
     },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
+    confirmOtp() {
+      this.userInfoService
+        .confirmPass(this.verificationCode, this.email, `010${this.mobile}`)
+        .then(() => {
+          alert("password confirmed");
+        });
+    },
     formatDate(value) {
-      
-            const date = new Date(value);
-            var dd = date.getDate();
-            var mm = date.getMonth() + 1;
-            var yyyy = date.getFullYear();
-            var hr = date.getHours();
-            var min = date.getMinutes();
-            var sec = date.getSeconds();
-            if (dd < 10) {
-                dd = '0' + dd;
-            }
-            if (min < 10) {
-                min = '0' + min;
-            }
-            if (sec < 10) {
-                sec = '0' + sec;
-            }
-            if (mm < 10) {
-                mm = '0' + mm;
-            }
-            return (value = yyyy + '-' + mm + '-' + dd + ' ' + hr + ':' + min + ':' + sec);
-        },
+      const date = new Date(value);
+      var dd = date.getDate();
+      var mm = date.getMonth() + 1;
+      var yyyy = date.getFullYear();
+      var hr = date.getHours();
+      var min = date.getMinutes();
+      var sec = date.getSeconds();
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      return (value =
+        yyyy + "-" + mm + "-" + dd + " " + hr + ":" + min + ":" + sec);
+    },
   },
 };
 </script>
@@ -261,7 +334,9 @@ export default {
 .inlineTime span:first-child {
   color: #c4c4c4;
 }
-
+small {
+  color: red;
+}
 .inlineTime span {
   color: #9d6aff;
   font-size: 14px;
@@ -322,6 +397,10 @@ export default {
   font-size: 14px;
   line-height: 18px;
   padding: 21px;
+}
+.redo {
+  border: 1px solid red !important;
+  transition: 500ms;
 }
 .button-group button.grey-btn {
   color: #797979;

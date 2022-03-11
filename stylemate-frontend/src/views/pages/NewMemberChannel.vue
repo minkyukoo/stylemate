@@ -4,7 +4,9 @@
     <TopNav headerTitle="채널연결" />
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
+      {{userUID}}-{{channelId}}
       <div class="contWrap">
         <ul class="connectionList">
           <li>
@@ -17,13 +19,14 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active" v-for="(account, i) of igResData" :key="i + 1">
+          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="select">
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
                 <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
+                <h4>Acc ID: {{ account.instagram_business_account.id }}</h4>
                 <h4>{{ account.instagram_business_account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
@@ -39,8 +42,16 @@
                 class="channelBtn"
                 type="button"
               >checking</button>
-              <button v-else-if="stylemateStatus === 'hold' && !isReApplication" class="channelBtn" type="button">hold</button>
-              <button v-else-if="stylemateStatus === 'hold' && isReApplication" class="channelBtn" type="button">reapplication</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && !isReApplication"
+                class="channelBtn"
+                type="button"
+              >hold</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && isReApplication"
+                class="channelBtn"
+                type="button"
+              >reapplication</button>
             </div>
           </li>
         </ul>
@@ -70,11 +81,11 @@
             </div>
           </li>
         </ul>
-        {{ igResData }}
-        {{ userChanneldata }}
+        <!-- {{ igResData }} -->
+        <!-- {{ userChanneldata }} -->
       </div>
       <div class="subscribe-wrap">
-        <button class="black-btn">활동 신청하기</button>
+        <button class="black-btn" @click="applyActivity">활동 신청하기</button>
       </div>
 
       <div class="bottomDrawer" :class="{ active: isActive }">
@@ -90,13 +101,14 @@
         </div>
       </div>
       <div class="overlay" :class="{ active: isActive }"></div>
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { inject, onMounted } from 'vue';
 // import { useRouter } from 'vue-router';
@@ -105,7 +117,7 @@ import UserInfoService from "@/services/UserInfoService";
 
 export default {
   name: "NewMemberChannel",
-  components: { TopNav, IonContent, IonPage },
+  components: { TopNav, IonPage },
   data() {
     return {
       isActive: false,
@@ -113,6 +125,8 @@ export default {
       fbResData: null,
       stylemateStatus: '',
       isReApplication: null,
+      userUID: '',
+      channelId: '',
 
     };
   },
@@ -144,12 +158,14 @@ export default {
     this.userInfoservice.getUserInfo().then(res => {
       console.log('infores data:', res.data);
       console.log('infores channel:', res.data.influence.channel);
+      this.userUID = res.data.uid;
       this.userChanneldata = res.data.influence.channel;
       let channelData = res.data.influence.channel;
       channelData.map(
         (item) => {
           this.stylemateStatus = item.stylemateStatus;
           this.isReApplication = item.isReApplication;
+          this.channelId = item.channelStat.channelId;
         }
       )
     });
@@ -172,13 +188,20 @@ export default {
 
     channelData() {
       this.channelService.getfbUser().then(res => {
-        console.log('getfbUser res:', res);
+        console.log('fbUser res:', res);
         this.fbResData = res;
       });
 
       this.channelService.getIgchannels().then(res => {
-        console.log('getIgchannels res:', res);
+        console.log('Igchannels list:', res);
         this.igResData = res.data;
+      });
+    },
+    // applyActivity
+    applyActivity() {
+      console.log('applyActivity');
+      this.channelService.getIgApproveRequest(30,2).then((res) => {
+        console.log('applyActivity res:', res);
       });
     }
 

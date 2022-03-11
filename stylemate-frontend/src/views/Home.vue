@@ -180,12 +180,10 @@
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
-            
             :space-between="12"
             :pagination="{
               clickable: true,
               dynamicBullets: true,
-              
             }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
@@ -234,6 +232,7 @@
           <div class="lookBookMain">
             <div class="bookLabel1 pattern1">
               <img
+                class="cursor-pointer"
                 v-for="book in lookBooks.lineOne.big"
                 :key="book.id"
                 :src="book.post.instagramPost.thumbnailUrl"
@@ -245,6 +244,7 @@
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                 <img
+                  class="cursor-pointer"
                   :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
@@ -258,6 +258,7 @@
             <div class="bookLabel2 pattern3">
               <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                 <img
+                  class="cursor-pointer"
                   :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
@@ -274,6 +275,7 @@
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                 <img
+                  class="cursor-pointer"
                   :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
@@ -283,6 +285,7 @@
             </div>
             <div class="bookLabel1 pattern1">
               <img
+                class="cursor-pointer"
                 v-for="book in lookBooks.lineThree.big"
                 :key="book.id"
                 :src="book.post.instagramPost.thumbnailUrl"
@@ -873,6 +876,10 @@ export default {
 .newBrandSec .headerLine {
   position: relative;
   z-index: 2;
+  max-width: 320px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 .newBrandSec .swiper {
   z-index: 2;
