@@ -1,21 +1,12 @@
 <template>
   <div class="inner-container listmain">
     <ion-searchbar
-      @keyup="sreachWord($event.target.value)"
+      @keyup.enter="sreachWord($event.target.value)"
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
-      <!-- <ul>
-        <li v-for="(item, i) in searchKeywords" :key="i">
-          <span @click="sreachWithHistory(item.searchKeyword)">
-            {{
-              item.searchKeyword
-            }}
-          </span>
-        </li>
-      </ul> -->
       <swiper
       class="main-menu"
       :slides-per-view="'auto'"
