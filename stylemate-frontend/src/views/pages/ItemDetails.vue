@@ -52,15 +52,15 @@
               </div>
             </div>
             <div class="product-description">
-              <h2>{{ productDetails.description }}</h2>
+              <!-- <h2>{{ productDetails.description }}</h2> -->
 
               <div class="hashwrap">
                 <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <span
+                <!-- <span
                   v-for="(hash, index) in productDetails.tag"
                   :key="index"
                   >{{ "#" + hash.tag }}</span
-                >
+                > -->
                 <!-- <span>hi</span> -->
               </div>
 

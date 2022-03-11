@@ -17,30 +17,36 @@ export default {
           name: "공지사항",
           Pagelink: "Notice",
           hash: "notice",
+          arrow: true,
         },
         {
           name: "FAQ",
           Pagelink: "Notice",
           hash: "faq",
+          arrow: true,
         },
         {
           name: "1:1 문의",
           Pagelink: "Notice",
           hash: "inquiry",
+          arrow: true,
         },
         {
           name: "이용약관",
           Pagelink: "CustomerServiceCenter",
           hash: "term",
+          arrow: true,
         },
         {
           name: "개인정보처리방침",
           Pagelink: "CustomerServiceCenter",
           hash: "policy",
+          arrow: true,
         },
         {
           name: "앱 버전정보",
-          Pagelink: "Home",
+          // static: true,
+          // Pagelink: "Home",
           arrow: false,
           version: "버전 1.10.0",
           hash: "",
@@ -55,6 +61,7 @@ export default {
 .my-information {
   padding-top: 50px;
 }
+
 .info-heading {
   font-weight: bold;
   font-size: 12px;

@@ -17,11 +17,13 @@ export default {
           name: "회원정보",
           Pagelink: "Userinfo",
           hash: "",
+          arrow: true,
         },
         {
           name: "채널연결",
           Pagelink: "NewMemberJoining",
           hash: "",
+          arrow: true,
         },
       ],
     };
