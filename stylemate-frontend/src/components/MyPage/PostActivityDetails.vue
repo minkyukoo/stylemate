@@ -59,6 +59,7 @@ export default {
       ],
       myPageService: null,
       progressdata: [],
+      per_page: 10,
     };
   },
   setup() {
@@ -71,10 +72,12 @@ export default {
     this.myPageService = new MyPageService();
   },
   mounted() {
-    this.myPageService.getPostingList(this.store.state.influenceId).then((res) => {
-      console.log(res);
-      this.progressdata = res.data.data;
-    });
+    this.myPageService
+      .getPostingList(this.store.state.influenceId, this.per_page)
+      .then((res) => {
+        console.log(res);
+        this.progressdata = res.data.data;
+      });
   },
 };
 </script>

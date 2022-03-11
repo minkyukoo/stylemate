@@ -44,24 +44,19 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <!-- <div class="right-section">
-              <button @click="showModal">
-                <img src="@/assets/icons/share.svg" />
-              </button>
-            </div>-->
-          </div>
-          <div class="product-description">
-            <h2>{{ productDetails.description }}</h2>
+            <div class="product-description">
+              <!-- <h2>{{ productDetails.description }}</h2> -->
 
-            <div class="hashwrap">
-              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
-                "#" + hash.tag
-              }}</span>
-              <!-- <span>hi</span> -->
-            </div>
-
-            <p>
+              <div class="hashwrap">
+                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+                <!-- <span
+                  v-for="(hash, index) in productDetails.tag"
+                  :key="index"
+                  >{{ "#" + hash.tag }}</span
+                > -->
+                <!-- <span>hi</span> -->
+              </div>
+              <p>
               <span>
                 <img src="@/assets/icons/calendar.svg" />
               </span>
@@ -80,6 +75,8 @@
                 }}
               </span>
             </p>
+            </div>
+            
           </div>
 
           <ProductDetailsTab :productData="productDetails" />
@@ -533,7 +530,7 @@ export default {
 }
 
 .top-section {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
 }

@@ -43,7 +43,6 @@ export default class MyPageService {
       },
       params: {
         perPage: per_page,
-        page:1,
       },
     });
   }

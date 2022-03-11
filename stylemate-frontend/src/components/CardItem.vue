@@ -62,8 +62,8 @@
                 })
               "
             >
-              <h3>{{ product.name }}</h3>
-              <p>{{ product.description }}</p>
+              <h3>{{ product.brand.korName }}</h3>
+              <p>{{ product.name }}</p>
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
@@ -106,9 +106,9 @@
               "
             >
               <div class="text-box">
-                <h3>{{ product.name }}</h3>
+                <h3>{{ product.brand.korName }}</h3>
               </div>
-              <p>{{ product.description }}</p>
+              <p>{{ product.name }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
