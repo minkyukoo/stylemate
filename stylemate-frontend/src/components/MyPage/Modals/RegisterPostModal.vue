@@ -20,7 +20,7 @@
             </div>
             <div>
               <h4>{{ brand_desc }}</h4>
-              <h6>End date {{date}}</h6>
+              <h6>End date {{ date }}</h6>
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@ export default {
         this.date = moment(res.campaign[0].campaignSchedule.finishedAt).format(
           "YYYY-MM-DD HH:mm"
         );
-        this.brand_img = res.brand.imageMainPath;
+        this.brand_img = res.brand.imageThumbnailPath;
         if (res.campaign[0].campaignMission.requiredAccount) {
           this.requiredAccount =
             res.campaign[0].campaignMission.requiredAccount.join(" #");
@@ -280,6 +280,14 @@ export default {
           )
           .then((res) => {
             console.log("if true res", res);
+            if (res.status == 200) {
+              let res3 = await this.myPageService.patchCampaign(
+                this.store.MyPageModals.reRegistrationNo,
+                this.campaignId,
+                this.bookingId
+              );
+              console.log(res3);
+            }
           });
         // console.log("if true unique state", this.userProfile);
       } else {

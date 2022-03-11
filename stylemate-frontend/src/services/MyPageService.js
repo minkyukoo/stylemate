@@ -94,6 +94,7 @@ export default class MyPageService {
       }
     );
   }
+
   async postCampaign(
     campaignId,
     bookingId,
@@ -139,6 +140,18 @@ export default class MyPageService {
         },
       }
     );
+  }
+
+  async patchCampaign (postId, campaignId, bookingId) {
+    return await axios.patch(`/stylemates/posts/${postId}/modify-complete`,{
+      campaignId: campaignId,
+      bookingId: bookingId,
+      postId: postId
+    },{
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
   }
 
   async deleteSponsor(campaignUID, bookingId) {
