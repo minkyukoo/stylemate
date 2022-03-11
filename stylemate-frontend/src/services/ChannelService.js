@@ -44,11 +44,10 @@ export default class ChannelService {
     console.log('myInfo', myInfo);
     console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
     // return myInfofbaccesstoken;
-    if(myInfofbaccesstoken) {
-      return myInfofbaccesstoken;
-    } else {
+    if(!myInfofbaccesstoken || myInfofbaccesstoken === '') {
       return null;
-      // router.push({ name: 'NewMemberJoining' });
+    } else {
+      return myInfofbaccesstoken;
     }
    
   }
@@ -66,7 +65,7 @@ export default class ChannelService {
   async getIgTokenRenew(authResponse) {
     return await axios.get(`/commons/instagram-token`,{
       params: {
-        authResponse
+        'authResponse': encodeURI(authResponse),
       },
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token

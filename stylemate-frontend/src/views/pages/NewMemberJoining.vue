@@ -155,23 +155,25 @@ export default {
 
     return { linkedChannel };
   },
-  created() {
+  async created() {
     this.channelService = new ChannelService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
+    let fbaccessToken = await this.channelService.getfbaccessToken();
 
-    if (this.channelService.getfbaccessToken()) {
-      this.$router.push({ name: 'NewMemberChannel' });
-    } else {
+    if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
+    } else {
+      this.$router.push({ name: 'NewMemberChannel' });
     }
 
   },
-  updated() {
-    if (this.channelService.getfbaccessToken()) {
-      this.$router.push({ name: 'NewMemberChannel' });
-    } else {
+  async updated() {
+    let fbaccessToken = await this.channelService.getfbaccessToken();
+    if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
+    } else {
+      this.$router.push({ name: 'NewMemberChannel' });
     }
   },
   methods: {
@@ -185,13 +187,14 @@ export default {
       this.isModalVisible = false;
     },
 
-    addIgChannel() {
+    async addIgChannel() {
       // this.logInWithFacebook();
       // this.linkedChannel.methods.logInWithFacebook();
-      if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
-        this.$router.push({ name: 'NewMemberChannel' });
-      } else {
+      let fbaccessToken = await this.channelService.getfbaccessToken();
+      if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
+      } else {
+        this.$router.push({ name: 'NewMemberChannel' });
       }
       // this.channelService.getfbUser().then(res => {
       //   console.log('getfbUser res:', res);
