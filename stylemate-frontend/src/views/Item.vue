@@ -6,7 +6,7 @@
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
-    <div class="main-wrap">
+    <div class="main-wrap" @scroll="onScroll">
       <!-- <ExploreContainer name="Item page" /> -->
       <CategoryList
         @clicked="onClickChild"
@@ -14,8 +14,7 @@
         v-on:filterproductList="filterproductList2($event)"
       />
 
-      <CardItem :isBanner="isBanner" :isFltData="isFltData" :isproductfilter="isproductfilter" />
-      
+      <CardItem :isBanner="isBanner" :isFltData="isFltData" :isproductfilter="isproductfilter" :loadMore="arr" />
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -38,10 +37,23 @@ export default {
       isFltData: true,
       isproductfilter: null,
       isallbutton: null,
+      arr: [],
+      
     }
   },
+  created() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
   methods: {
-    
+
+    onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+      if (scrollTop + clientHeight >= scrollHeight) {
+        console.log('end reached');
+        this.arr.push(this.arr.length + 1);
+        console.log('end reached for - ', this.arr.length);
+      }
+    },
+
     onClickChild(value) {
       console.log(value); // someValue
       this.isBanner = value;

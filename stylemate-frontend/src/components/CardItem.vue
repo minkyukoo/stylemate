@@ -1,9 +1,7 @@
 <template>
   <div>
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">
-      카테고리에 해당하는 제품이 없습니다
-    </div>
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
     <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
       <div class="fixed-container">
         <div class="top-section">
@@ -19,16 +17,10 @@
             </div>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -43,17 +35,11 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img
-                  v-if="isChannelIg(product.campaign)"
-                  src="@/assets/icons/instagram.svg"
-                />
+                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
               <div class="favorite" @click="likeProduct(product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img
-                  v-if="product.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -79,9 +65,7 @@
               <h3>{{ product.name }}</h3>
               <p>{{ product.description }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -109,10 +93,7 @@
               </div>
             </figure>
             <div class="favorite" @click="likeProduct(product.id)">
-              <img
-                v-if="product.isInfluenceLike"
-                src="@/assets/icons/heart-filled.svg"
-              />
+              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -130,9 +111,7 @@
               <p>{{ product.description }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -156,13 +135,14 @@ export default defineComponent({
     isBanner: { type: Boolean, default: true },
     isFltData: { type: Boolean, default: true },
     isproductfilter: null,
+    loadMore: { type: Array }
   },
   components: {
     "vue-select": VueNextSelect,
   },
   setup() {
     const store = inject("store");
-    
+
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
@@ -188,14 +168,15 @@ export default defineComponent({
       camp: [],
       products: [],
       bookOption: null,
+      loadmoreData: null,
     };
   },
   created() {
+
     this.itemService = new ItemService();
     this.tokenService = new TokenService();
     this.userInfoService = new UserInfoService();
   },
-
   mounted() {
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
@@ -214,13 +195,9 @@ export default defineComponent({
         });
       }
     },
+
   },
   methods: {
-    // getData() {
-    //   this.itemService.getProductList().then((data) => {
-    //     this.products = data;
-    //   });
-    // },
 
     isChannelIg(pdata) {
       let isProductCamp = false;
@@ -288,6 +265,8 @@ export default defineComponent({
       this.store.state.AppData = this.isproductfilter;
     }
     // console.log('isChannelIg', this.isChannelIg());
+     this.loadmoreData = this.$props.loadMore;
+    console.log('this.loadmoreData', this.loadmoreData);
   },
 });
 </script>
