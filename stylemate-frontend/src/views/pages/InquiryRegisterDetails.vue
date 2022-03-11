@@ -137,6 +137,7 @@ export default {
       this.nextId = res.nextId;
       this.previousId = res.previousId;
       this.id = res.id;
+      console.log(res);
     });
   },
   methods: {
