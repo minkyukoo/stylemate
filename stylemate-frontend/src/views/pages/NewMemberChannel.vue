@@ -19,7 +19,7 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="select">
+          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="selectPage(account.id)">
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -32,8 +32,8 @@
               </div>
             </div>
             <div class="btn-wrap">
-              <!-- <button class="channelBtn" type="button">선택</button> -->
-              <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
+              <button class="channelBtn" type="button">선택</button>
+              <!-- <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                 <button class="channelBtn" type="button">Linked Account</button>
                 <button class="channelBtn" type="button">disconnect</button>
               </div>
@@ -51,7 +51,7 @@
                 v-else-if="stylemateStatus === 'hold' && isReApplication"
                 class="channelBtn"
                 type="button"
-              >reapplication</button>
+              >reapplication</button> -->
             </div>
           </li>
         </ul>
@@ -147,12 +147,13 @@ export default {
 
     return { linkedChannel };
   },
-  created() {
+  async created() {
     this.channelService = new ChannelService();
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+     let fbaccessToken = await this.channelService.getfbaccessToken();
+    if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
     this.userInfoservice.getUserInfo().then(res => {
@@ -170,8 +171,9 @@ export default {
       )
     });
   },
-  updated() {
-    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+  async updated() {
+    let fbaccessToken = await this.channelService.getfbaccessToken();
+    if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
   },
@@ -203,6 +205,9 @@ export default {
       this.channelService.getIgApproveRequest(30,2).then((res) => {
         console.log('applyActivity res:', res);
       });
+    },
+    selectPage(pageId) {
+      console.log('selectPage:', pageId);
     }
 
   },

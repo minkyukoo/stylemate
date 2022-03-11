@@ -82,7 +82,7 @@ export default {
     }
   },
   mounted() {
-    axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/recently?type=policy`)
+    axios.get(`/stylemates/boards/recently?type=policy`)
       .then((res) => {
         // console.log("this.privacyPolicy",res.data.body);
         this.privacyPolicy = res.data.body;
