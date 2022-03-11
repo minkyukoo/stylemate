@@ -56,16 +56,7 @@
                 > -->
                 <!-- <span>hi</span> -->
               </div>
-
-            <div class="hashwrap">
-              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
-                "#" + hash.tag
-              }}</span>
-              <!-- <span>hi</span> -->
-            </div>
-
-            <p>
+              <p>
               <span>
                 <img src="@/assets/icons/calendar.svg" />
               </span>
@@ -84,6 +75,8 @@
                 }}
               </span>
             </p>
+            </div>
+            
           </div>
 
           <ProductDetailsTab :productData="productDetails" />
