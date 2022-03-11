@@ -26,7 +26,7 @@ const methods = {
       state.loginRes = response;
       state.isConnected = response.status;
       // localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
-      localStorage.setItem('userID', response.authResponse.userID);
+      // localStorage.setItem('userID', response.authResponse.userID);
 
     } else {
       // Not logged into your webpage or we are unable to tell.
@@ -52,6 +52,8 @@ const methods = {
           console.log('igTokenExtend: ', res.data);
           // localStorage.setItem('fbaccessToken', res.data.token.access_token);
           state.extendToken = res.data.token;
+          response.authResponse.accessToken = state.extendToken;
+          channelService.getIgTokenRenew(response.authResponse);
           this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);
@@ -62,7 +64,7 @@ const methods = {
         // alert("User cancelled login or did not fully authorize.");
         return false;
       }
-    }, { scope: 'public_profile,instagram_basic,pages_show_list' });
+    }, { scope: 'public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights' });
     return false;
   },
 
@@ -74,7 +76,7 @@ const methods = {
       let userId = res.data.id;
       channelService.getIgrenewaltoken(uid,channelId,fextoken,userId,fextokenName).then((res) => {
         console.log('igrenewaltoken: ', res.data);
-        localStorage.setItem('fbaccessToken', res.data.instagramChannel.accessToken);
+        // localStorage.setItem('fbaccessToken', res.data.instagramChannel.accessToken);
       });
     });
   }

@@ -152,7 +152,7 @@ export default {
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+    if (!this.channelService.getfbaccessToken()) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
     this.userInfoservice.getUserInfo().then(res => {
@@ -171,7 +171,7 @@ export default {
     });
   },
   updated() {
-    if (!this.channelService.getfbaccessToken() && !this.channelService.getfbuserId()) {
+    if (!this.channelService.getfbaccessToken()) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
   },

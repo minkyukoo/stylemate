@@ -1,7 +1,12 @@
 import axios from "axios";
+// import { useRouter } from "vue-router";
+// import router from '../router';
+import UserInfoService from "./UserInfoService";
 
 var fbBaseUrl = 'https://graph.facebook.com';
-var version = 'v13.0';
+var version = 'v10.0';
+var userInfoService = new UserInfoService();
+// const router = useRouter();
 // eslint-disable-next-line
 var token = localStorage.getItem('token');
 export default class ChannelService {
@@ -29,31 +34,103 @@ export default class ChannelService {
   }
 
   getfbuserId() {
-    return localStorage.getItem('userID');
+    // return localStorage.getItem('userID');
+    return 'me';
   }
-  getfbaccessToken() {
-    return localStorage.getItem('fbaccessToken');
+  async getfbaccessToken() {
+    // return localStorage.getItem('fbaccessToken');
+    let myInfo = await userInfoService.getUserInfo();
+    let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
+    console.log('myInfo', myInfo);
+    console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
+    // return myInfofbaccesstoken;
+    if(myInfofbaccesstoken) {
+      return myInfofbaccesstoken;
+    } else {
+      return null;
+      // router.push({ name: 'NewMemberJoining' });
+    }
+   
   }
 
   channelBaseUrl() {
     return fbBaseUrl + '/' + version;
   }
 
-
+  // 1. Check username - 유저이름 확인
   async getfbUser() {
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '?access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+    let myfbaccesstoken = await this.getfbaccessToken();
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '?access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
-
+  // 2. Token renewal - 토큰 갱신
+  async getIgTokenRenew(authResponse) {
+    return await axios.get(`/commons/instagram-token`,{
+      params: {
+        authResponse
+      },
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+  
+  //3. page id - 페이지 아이디
   async getIgchannels() {
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+    let myfbaccesstoken = await this.getfbaccessToken();
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
-  async getIgUser(iguserid) {
-    return await axios.get(this.channelBaseUrl() + '/' + iguserid + '?fields=' + encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username') + '&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+  //4. Check your business page
+  async getIgBusinessPage(pageId) {
+    let myfbaccesstoken = await this.getfbaccessToken();
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/' + pageId + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
+
+  //5. Check user information
+  async getIgUser(igUserId) {
+    let myfbaccesstoken = await this.getfbaccessToken();
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/' + igUserId + '?fields=' + encodeURI('biography,id,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username,website') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+  }
+
+  //7. Save selected channel
+  async selectChannel(uid,token,info) {
+    return await axios.post(`/users/${uid}/instagram-channel`, {
+      token: token,
+      info: info,
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+
+  async updateChannel(uid,token,info) {
+    return await axios.put(`/users/${uid}/instagram-channel`, {
+      token: token,
+      info: info,
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+
+
+
+
+
+
+  // async getIgchannels() {
+  //   let myfbaccesstoken = await this.getfbaccessToken();
+  //   return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+  // }
+
+  // async getIgUser(iguserid) {
+  //   let myfbaccesstoken = await this.getfbaccessToken();
+  //   return await axios.get(this.channelBaseUrl() + '/' + iguserid + '?fields=' + encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+  // }
 
   async getIgUsermedia(ig_postId) {
-    return await axios.get(this.channelBaseUrl() + '/' + ig_postId + '?fields=' + encodeURI('ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption') + '&access_token=' + this.getfbaccessToken()).then((res) => res.data).catch((err) => err);
+    let myfbaccesstoken = await this.getfbaccessToken();
+    return await axios.get(this.channelBaseUrl() + '/' + ig_postId + '?fields=' + encodeURI('ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   async getIguserinfo() {
@@ -65,6 +142,9 @@ export default class ChannelService {
     let ig_postId = '17988602920443231';
     return await this.getIgUsermedia(ig_postId);
   }
+
+
+
 
   async igTokenExtend(fbToken) {
     return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {

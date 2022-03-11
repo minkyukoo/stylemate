@@ -160,7 +160,7 @@ export default {
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
 
-    if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
+    if (this.channelService.getfbaccessToken()) {
       this.$router.push({ name: 'NewMemberChannel' });
     } else {
       this.$router.push({ name: 'NewMemberJoining' });
@@ -168,7 +168,7 @@ export default {
 
   },
   updated() {
-    if (this.channelService.getfbaccessToken() && this.channelService.getfbuserId()) {
+    if (this.channelService.getfbaccessToken()) {
       this.$router.push({ name: 'NewMemberChannel' });
     } else {
       this.$router.push({ name: 'NewMemberJoining' });
