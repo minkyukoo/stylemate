@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav :headerTitle="store.state.noticeTabPageName"></TopNav>
+    <TopNav headerTitle="1:1 문의"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
