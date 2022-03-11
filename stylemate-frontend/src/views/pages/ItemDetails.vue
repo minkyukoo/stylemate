@@ -530,7 +530,7 @@ export default {
 }
 
 .top-section {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
 }
