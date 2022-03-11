@@ -36,6 +36,14 @@ export default class UserInfoService {
     }).then((res) => res).catch((err) => err);
   }
 
+  async getInfluenceWithCategory(uid, filter, category) {
+    return await axios.get(`/stylemates/users/${uid}/influence-likes?type=${filter}&processStatus=${category}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res).catch((err) => err);
+  }
+
   async getUserdeliveries(uid) {
     return await axios.get(`/stylemates/users/${uid}/deliveries`, {
       headers: {

@@ -16,6 +16,27 @@ const state = reactive({
   status: "NotEmpty",
   noticeTabPageName: "Notice",
   likedTabState: "item",
+  likedTabBrand: [],
+  likedTabProduct: [], 
+  likedTabProductLength: 0,
+  likedTabBrandLength: 0,
+  likedTabAllCategories: [
+    {
+      id: "all",
+      name: "all",
+      active: true,
+    },
+    {
+      id: "Progress",
+      name: "Progress",
+      active: false,
+    },
+    {
+      id: "end",
+      name: "end",
+      active: false,
+    },
+  ],
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
   sponcerFilterNo: 1,
@@ -88,7 +109,7 @@ const methods = {
         state.FltCampaignData = data.data.data;
         // console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        console.log("0th",state.campaignEmpty);
+        console.log("0th", state.campaignEmpty);
         // return state.FltCampaignData;
       });
   },
