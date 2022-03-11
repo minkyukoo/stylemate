@@ -733,3 +733,9 @@ input:checked + .slider:before {
   position: absolute;
   transform: translate(0,-50%);
 }
+.vue-daum-postcode{
+  min-height: 450px;
+  .vue-daum-postcode-container{
+    min-height: 450px;
+  }
+}
