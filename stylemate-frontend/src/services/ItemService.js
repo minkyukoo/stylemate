@@ -89,7 +89,9 @@ export default class ItemService {
     if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
       productParams.push(`categoryId=${categoryId}`);
     }
-
+    if (categoryId === "All") {
+      return await this.getProductList(null, 1, null);
+    }
     if (!token) {
       return await axios
         .get(`/stylemates/products?${productParams.join('&')}`)
