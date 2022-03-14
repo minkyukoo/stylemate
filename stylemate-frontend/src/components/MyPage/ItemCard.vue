@@ -39,8 +39,7 @@
               store.state.cancelPopup = true;
               store.MyPageModals.campaignUID = progressDetails.uid;
               store.MyPageModals.bookingID = progressDetails.booking[0].id;
-              document.querySelector('ion-tab-bar').classList.add =
-                'remove-tabbar';
+              store.state.hideBar = true;
             }
           "
           >Cancellation of sponsorship</span
@@ -74,6 +73,7 @@
             @click="
               () => {
                 store.state.isReRegisterModalVisible = true;
+                store.state.hideBar = true;
                 store.MyPageModals.reRegistrationNo = this.progressDetails.id;
                 store.MyPageModals.productID = this.progressDetails.product.id;
                 store.MyPageModals.reRegistration = true;
@@ -105,6 +105,7 @@
             @click="
               () => {
                 store.state.isPostModalVisible = true;
+                store.state.hideBar = true;
                 store.MyPageModals.productID = this.progressDetails.product.id;
                 store.MyPageModals.campaignId =
                   this.progressDetails.campaignSchedule.campaignId;
