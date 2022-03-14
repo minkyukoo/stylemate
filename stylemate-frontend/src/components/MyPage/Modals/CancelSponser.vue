@@ -56,6 +56,7 @@ export default {
   unmounted() {
     this.store.MyPageModals.campaignUID = null;
     this.store.MyPageModals.bookingID = null;
+    this.store.state.hideBar = false;
   },
 };
 </script>

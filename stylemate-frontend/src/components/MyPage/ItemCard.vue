@@ -32,18 +32,17 @@
             ].bookingStatus === 'join' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].postStatus === 'postProgress'
+            ].postStatus === 'post_progress'
           "
           @click="
             () => {
               store.state.cancelPopup = true;
               store.MyPageModals.campaignUID = progressDetails.uid;
               store.MyPageModals.bookingID = progressDetails.booking[0].id;
-              document.querySelector('ion-tab-bar').classList.add =
-                'remove-tabbar';
+              store.state.hideBar = true;
             }
           "
-          >Cancellation of sponsorship</span
+          >협찬취소</span
         >
       </div>
       <div>
@@ -74,6 +73,7 @@
             @click="
               () => {
                 store.state.isReRegisterModalVisible = true;
+                store.state.hideBar = true;
                 store.MyPageModals.reRegistrationNo = this.progressDetails.id;
                 store.MyPageModals.productID = this.progressDetails.product.id;
                 store.MyPageModals.reRegistration = true;
@@ -84,7 +84,7 @@
               }
             "
           >
-            re-registration
+            재등록
           </button>
         </div>
         <div
@@ -105,6 +105,7 @@
             @click="
               () => {
                 store.state.isPostModalVisible = true;
+                store.state.hideBar = true;
                 store.MyPageModals.productID = this.progressDetails.product.id;
                 store.MyPageModals.campaignId =
                   this.progressDetails.campaignSchedule.campaignId;
@@ -113,7 +114,7 @@
               }
             "
           >
-            Register a post
+            포스트 등록하기
           </button>
         </div>
         <div v-else></div>
@@ -194,7 +195,7 @@ export default {
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
           progressDetails.booking[progressDetails.booking.length - 1]
-            .postStatus === "postProgress"
+            .postStatus === "post_progress"
         ) {
           this.tagShow = true;
           return "Checking";

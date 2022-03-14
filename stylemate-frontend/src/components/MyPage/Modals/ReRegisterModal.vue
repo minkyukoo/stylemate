@@ -146,6 +146,10 @@ export default {
       });
   },
 
+  unmounted() {
+    this.store.state.hideBar = false;
+  },
+
   setup() {
     const store = inject("store");
     return {

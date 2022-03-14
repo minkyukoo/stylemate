@@ -7,6 +7,7 @@ import MyPageService from "@/services/MyPageService";
 
 const state = reactive({
   // AppData: undefined,
+  hideBar: false,
   AppData: [],
   productMeta: null,
   AppFltData: undefined,
@@ -97,6 +98,7 @@ const methods = {
   setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
     state.contentDetailsModal = tab;
+    state.hideBar = true;
     console.log(state.contentDetailsId);
   },
   async getcampList() {

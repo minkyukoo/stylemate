@@ -178,6 +178,7 @@ export default {
     this.store.MyPageModals.campaignId = null;
     this.store.MyPageModals.bookingId = null;
     this.store.MyPageModals.productID = null;
+    this.store.state.hideBar = false;
   },
 
   methods: {

@@ -3,7 +3,7 @@
   <div class="main-container relative">
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar id="ionTabBar">
+      <ion-tab-bar id="ionTabBar" :style="{visibility : `${store.state.hideBar? 'hidden' :''}`}">
         <ion-tab-button class="tab-button" tab="tab1" href="/home" key="tab1">
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
