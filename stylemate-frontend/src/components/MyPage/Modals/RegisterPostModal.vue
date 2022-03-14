@@ -278,7 +278,7 @@ export default {
             this.timestamp,
             this.userProfile
           )
-          .then((res) => {
+          .then(async (res) => {
             console.log("if true res", res);
             if (res.status == 200) {
               let res3 = await this.myPageService.patchCampaign(
