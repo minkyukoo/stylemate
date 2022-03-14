@@ -216,6 +216,7 @@ export default {
       cancel_spon: false,
       complete_spon: false,
       end_spon: false,
+      platform: 'other',
     };
   },
   setup() {
@@ -248,7 +249,7 @@ export default {
     window.productShare = this.productShare;
     this.getMobileOS();
     if(this.getMobileOS() == 'Other') {
-      this.
+      this.platform = 'other';
     }
     console.log('getMobileOS', this.getMobileOS());
   },
@@ -471,7 +472,7 @@ export default {
         this.isActive = false;
       }
     },
-    
+
     // for productShare
     productShare(res) {
       alert(res);
