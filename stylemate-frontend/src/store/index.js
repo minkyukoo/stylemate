@@ -45,10 +45,12 @@ var itemService = new ItemService();
 var myPageService = new MyPageService();
 
 const methods = {
-  async getData() {
-    return await itemService.getProductList().then((data) => {
-      console.log("ItemList from store", data);
-      state.AppData = data;
+  async getData(order, page, categoryId) {
+    return await itemService.getProductList(order,page,categoryId).then((res) => {
+      console.log("ItemList from store", res);
+      console.log("ItemList from store res", res.response);
+      state.productMeta = res.meta;
+      state.AppData.push(...res.data);
       return state.AppData;
     });
   },

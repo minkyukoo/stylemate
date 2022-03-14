@@ -220,9 +220,13 @@ export default defineComponent({
     }
   },
   async updated() {
-    if (this.isproductfilter) {
-      this.store.state.AppData = this.isproductfilter;
-    }
+    // if (this.isproductfilter) {
+    //   // alert("isproductfilter");
+    //   console.log('isproductfilter:-', this.isproductfilter);
+    //   this.store.state.AppData = this.isproductfilter;
+    //   // this.store.state.AppData.push(this.isproductfilter);
+    //   console.log('this.store.state.AppData:-', this.store.state.AppData);
+    // }
   },
 });
 </script>

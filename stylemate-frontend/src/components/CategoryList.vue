@@ -123,13 +123,58 @@ export default {
 
     // Category click
     handleClick(childCategory, ids) {
-      // alert(ids);
-       this.itemServices.getFilterProduct(ids).then((data) => {
-        // console.log("category-filterproductList", data);
-        this.childactiveId = ids; //To activate the All button
-        if (data.length == 0) {
-          this.nofltData = true;
-          this.$emit("fltData", false);
+      let last_page = this.store.state.productMeta.last_page;
+      if (this.spage < last_page) {
+        this.spage = 1;
+        this.$emit('pageResetcat', this.spage);
+        this.$emit("categoryId", ids);
+
+        this.store.state.AppData = [];
+        this.store.methods.getData(null, this.spage, ids).then((res) => {
+         
+          console.log('this.store.state.AppData.length::::--', res);
+  
+          if (this.store.state.AppData.length < 1) {
+            this.nofltData = true;
+            this.$emit("fltData", false);
+          } else {
+            this.nofltData = false;
+            this.$emit("fltData", true);
+            this.$emit("childCategory", childCategory);
+          }
+        });
+
+
+
+
+        // this.itemServices.getFilterProduct(ids, this.spage).then((data) => {
+        //   // console.log("category-filterproductList", data);
+        //   this.childactiveId = ids; //To activate the All button
+        //   if (data.length == 0) {
+        //     this.nofltData = true;
+        //     this.$emit("fltData", false);
+        //   } else {
+        //     this.nofltData = false;
+        //     let filterproductList = data;
+        //     console.log("filterproductList", filterproductList);
+        //     this.$emit("fltData", true);
+        //     this.$emit("filterproductList", filterproductList);
+        //     this.$emit("childCategory", childCategory);
+        //   }
+        // });
+
+        if (typeof childCategory !== "undefined") {
+          this.childCategoryArray = [];
+          childCategory.forEach((element) => {
+            this.childCategoryArray.push(element);
+          });
+          this.activeId = ids;
+          this.$emit("allbutton", this.activeId);
+          let arr1 = this.childCategoryArray;
+          this.childCategories2 = arr1.unshift({ name: "All", id: ids });
+          this.childCategory = true;
+          this.onClickButton(false);
+          this.childactiveId = "Allchild"; //To highlight the child button default
         } else {
           this.nofltData = false;
           let filterproductList = data;
