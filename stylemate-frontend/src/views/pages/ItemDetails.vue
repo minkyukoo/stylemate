@@ -41,38 +41,40 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="product-description" >
-              <!-- <h2>{{ productDetails.description }}</h2> -->
-
-              <div class="hashwrap">
-                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <!-- <span
-                  v-for="(hash, index) in productDetails.tag"
-                  :key="index"
-                  >{{ "#" + hash.tag }}</span
-                >-->
-                <!-- <span>hi</span> -->
-              </div>
-              <p>
-                <span>
-                  <img src="@/assets/icons/calendar.svg" />
-                </span>
-                <!-- 2021.11.11 ~ 2021.12.25 -->
-                <span v-for="(item, i) of productDetails.campaign" :key="i">
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
-                      : null
-                  }}
-                  ~
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
-                      : null
-                  }}
-                </span>
-              </p>
+            <div class="right-section" v-if="!platform=='other'">
+              <button @click="showModal">
+                <img src="@/assets/icons/share.svg" />
+              </button>
             </div>
+          </div>
+
+          <div class="product-description">
+            <h2>{{ productDetails.description }}</h2>
+
+            <div class="hashwrap">
+              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
+              <!-- <span>hi</span> -->
+            </div>
+            <p>
+              <span>
+                <img src="@/assets/icons/calendar.svg" />
+              </span>
+              <!-- 2021.11.11 ~ 2021.12.25 -->
+              <span v-for="(item, i) of productDetails.campaign" :key="i">
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+                ~
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+              </span>
+            </p>
           </div>
 
           <ProductDetailsTab :productData="productDetails" />
@@ -248,7 +250,7 @@ export default {
     // this.getURL();
     window.productShare = this.productShare;
     this.getMobileOS();
-    if(this.getMobileOS() == 'Other') {
+    if (this.getMobileOS() == 'Other') {
       this.platform = 'other';
     }
     console.log('getMobileOS', this.getMobileOS());
@@ -554,7 +556,7 @@ export default {
 }
 
 .top-section {
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
