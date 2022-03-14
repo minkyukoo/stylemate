@@ -8,9 +8,6 @@ export default class ItemService {
   }
 
   async getProductList(order, page, categoryId) {
-
-    console.log('order', order);
-
     var productParams = [];
     if (order !== null && typeof order !== "undefined" && order !== '') {
       productParams.push(`order=${order}`);
@@ -21,22 +18,19 @@ export default class ItemService {
     if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
       productParams.push(`categoryId=${categoryId}`);
     }
-
-    console.log('productParams', productParams);
-
-    return await axios
-      .get(`/stylemates/products?${productParams.join('&')}`)
-      .then((res) => res.data);
-
-
-
-
-
-
-
-
-
-
+    if (!token) {
+      return await axios
+        .get(`/stylemates/products?${productParams.join('&')}`)
+        .then((res) => res.data);
+    } else {
+      return await axios
+        .get(`/stylemates/products?${productParams.join('&')}`, {
+          headers: {
+            Authorization: "Bearer " + token, //the token is a variable which holds the token
+          },
+        })
+        .then((res) => res.data);
+    }
     // if (order !== null) {
     //   if (!token) {
     //     return await axios

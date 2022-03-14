@@ -88,7 +88,7 @@ export default class ChannelService {
   //5. Check user information
   async getIgUser(igUserId) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/' + igUserId + '?fields=' + encodeURI('biography,id,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username,website') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + igUserId + '?fields=' + encodeURI('biography,id,ig_id,followers_count,follows_count,media_count,name,profile_picture_url,username,website') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //7. Save selected channel

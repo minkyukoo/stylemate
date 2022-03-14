@@ -19,7 +19,12 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="selectPage(account.id)">
+          <li
+            class="active"
+            v-for="(account, i) of igResData"
+            :key="i + 1"
+            @click="selectPage(account)"
+          >
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -51,7 +56,7 @@
                 v-else-if="stylemateStatus === 'hold' && isReApplication"
                 class="channelBtn"
                 type="button"
-              >reapplication</button> -->
+              >reapplication</button>-->
             </div>
           </li>
         </ul>
@@ -127,7 +132,9 @@ export default {
       isReApplication: null,
       userUID: '',
       channelId: '',
-
+      seletedPageId: null,
+      seletedIguserId: null,
+      igAccInfo: null,
     };
   },
   setup() {
@@ -152,7 +159,7 @@ export default {
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-     let fbaccessToken = await this.channelService.getfbaccessToken();
+    let fbaccessToken = await this.channelService.getfbaccessToken();
     if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
@@ -199,16 +206,57 @@ export default {
         this.igResData = res.data;
       });
     },
-    // applyActivity
-    applyActivity() {
-      console.log('applyActivity');
-      this.channelService.getIgApproveRequest(30,2).then((res) => {
-        console.log('applyActivity res:', res);
-      });
+
+    // Ig account info
+    getAccountInfo() {
+      if (this.seletedIguserId) {
+        this.channelService.getIgUser(this.seletedIguserId).then(res => {
+          console.log('IgUser res:', res);
+          this.igAccInfo = res.data;
+        });
+      }
     },
-    selectPage(pageId) {
-      console.log('selectPage:', pageId);
-    }
+
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+
+    // page selected
+    selectPage(pageinfo) {
+      console.log('selectPage:', pageinfo);
+      this.seletedPageId = pageinfo.id;
+      this.seletedIguserId = pageinfo.instagram_business_account.id;
+      this.getAccountInfo();
+    },
+
+    // applyActivity
+     async applyActivity() {
+      console.log('applyActivity');
+      // this.channelService.getIgApproveRequest(30, 2).then((res) => {
+      //   console.log('applyActivity res:', res);
+      // });
+      let token
+      let info = this.igAccInfo;
+      if (this.seletedPageId) {
+        let uid;
+        await this.isUserid().then((res) => {
+          uid = res;
+          this.channelService.selectChannel(uid, token, info).then((res) => {
+            console.log('res:', res);
+          });
+        });
+
+      } else {
+        alert('no page selected');
+      }
+    },
+
 
   },
 };
