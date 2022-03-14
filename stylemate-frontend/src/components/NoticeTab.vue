@@ -167,6 +167,7 @@ export default {
     });
 
     this.service.FAQs().then((res) => {
+      // console.log(res.data);
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
