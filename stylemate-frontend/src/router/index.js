@@ -385,6 +385,14 @@ const routes = [
       innerHeader: true,
     }
   },
+  {
+    path: "/change-member-info",
+    name: "ChangeMemberInfo",
+    component: () => import("@/views/pages/ChangeMemberInfo.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
   
 
 

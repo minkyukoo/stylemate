@@ -727,3 +727,19 @@ input:checked + .slider:before {
 .mainslide .swiper-pagination{
   bottom: 42px !important;
 }
+.overLapmodal .modal {
+  width: 100% !important;
+  top: 50%;
+  position: absolute;
+  transform: translate(0,-50%);
+}
+.vue-daum-postcode{
+  min-height: 450px;
+  .vue-daum-postcode-container{
+    min-height: 450px;
+  }
+}
+
+.modal-content p{
+  text-align: center;
+}

@@ -315,7 +315,7 @@
           </div>
 
           <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-          <button class="greyBtnFull" @click="getNotice">
+          <button class="greyBtnFull">
             <span>중요</span>
             {{ notice }}
           </button>
@@ -444,12 +444,12 @@ export default {
       }
     },
 
-    async getNotice() {
-      let isLogedIn = await this.tokenService.isAuth();
-      if (isLogedIn) {
-        this.$router.push({ name: "Notice" });
-      } else this.$router.push({ name: "LoginPage" });
-    },
+    // async getNotice() {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if (isLogedIn) {
+    //     this.$router.push({ name: "Notice" });
+    //   } else this.$router.push({ name: "LoginPage" });
+    // },
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {

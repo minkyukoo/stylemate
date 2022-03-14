@@ -1,7 +1,7 @@
 <template>
   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav headerTitle="1:1 문의"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
@@ -137,6 +137,7 @@ export default {
       this.nextId = res.nextId;
       this.previousId = res.previousId;
       this.id = res.id;
+      // console.log(res);
     });
   },
   methods: {

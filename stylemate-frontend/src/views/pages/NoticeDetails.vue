@@ -83,7 +83,7 @@ export default {
   mounted() {
     this.service.NoticeById(this.$route.params.id).then((res) => {
       this.notice.title = res.title;
-      this.notice.body = res.title;
+      this.notice.body = res.body;
       this.notice.createdAt = this.dateFormat(res.createdAt);
       this.notice.category = res.category;
       this.notice.prev = res.previousId;
