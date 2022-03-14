@@ -1,26 +1,19 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="My page"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <!-- <ion-content :fullscreen="true"> -->
+    <div class="main-wrap">
       <div class="tab-wrap">
         <div class="tabs">
-          <a
-            class="tab"
-            @click="layout = '#term'"
-            :class="{ active: layout === '#term' }"
-          >
-            이용약관
-          </a>
+          <a class="tab" @click="layout = '#term'" :class="{ active: layout === '#term' }">이용약관</a>
           <a
             class="tab"
             @click="layout = '#policy'"
             :class="{ active: layout === '#policy' }"
-          >
-            개인정보처리방침
-          </a>
+          >개인정보처리방침</a>
         </div>
         <!-- tab content 1 -->
         <div class="tab-content" v-if="layout === '#term'">
@@ -32,19 +25,20 @@
           <PrivacyPolicy />
         </div>
       </div>
-    </ion-content>
+    </div>
+    <!-- </ion-content> -->
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+// import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import TermsUse from "@/components/TermsUse.vue";
 import PrivacyPolicy from "@/components/PrivacyPolicy.vue";
 export default {
   name: "CustomerServiceCenter",
-  components: { TopNav, IonContent, IonPage, TermsUse, PrivacyPolicy },
+  components: { TopNav, TermsUse, PrivacyPolicy },
   data() {
     return {
       layout: "#term",

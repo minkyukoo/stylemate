@@ -7,12 +7,12 @@ export default class ItemService {
       .then((res) => res.data.data);
   }
 
-  async getProductList(order = null) {
+  async getProductList(order, page) {
     if (order != null) {
       if (!token) {
         return await axios
           .get(`/stylemates/products?order=${order}`)
-          .then((res) => res.data.data);
+          .then((res) => res.data);
       } else {
         return await axios
           .get(`/stylemates/products?order=${order}`, {
@@ -20,13 +20,27 @@ export default class ItemService {
               Authorization: "Bearer " + token, //the token is a variable which holds the token
             },
           })
-          .then((res) => res.data.data);
+          .then((res) => res.data);
       }
-    } else {
+    } else if (typeof page !== 'undefined') {
+      if (!token) {
+        return await axios
+          .get(`/stylemates/products?page=${page}`)
+          .then((res) => res.data);
+      } else {
+        return await axios
+          .get(`/stylemates/products?page=${page}`, {
+            headers: {
+              Authorization: "Bearer " + token, //the token is a variable which holds the token
+            },
+          })
+          .then((res) => res.data);
+      }
+    }else {
       if (!token) {
         return await axios
           .get(`/stylemates/products`)
-          .then((res) => res.data.data);
+          .then((res) => res.data);
       } else {
         return await axios
           .get(`/stylemates/products`, {
@@ -34,7 +48,7 @@ export default class ItemService {
               Authorization: "Bearer " + token, //the token is a variable which holds the token
             },
           })
-          .then((res) => res.data.data);
+          .then((res) => res.data);
       }
     }
   }

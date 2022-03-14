@@ -1,12 +1,11 @@
 <template>
   <div>
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">
-      카테고리에 해당하는 제품이 없습니다
-    </div>
-    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
+    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`" @scroll="onScroll2">
       <div class="fixed-container">
         <div class="top-section">
+          {{ loadMore }}
           <div class="left-section">
             <div class="selectWrap">
               <vue-select
@@ -19,16 +18,10 @@
             </div>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -43,17 +36,11 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img
-                  v-if="isChannelIg(product.campaign)"
-                  src="@/assets/icons/instagram.svg"
-                />
+                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
               <div class="favorite" @click="likeProduct(product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img
-                  v-if="product.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -79,9 +66,7 @@
               <h3>{{ product.brand.korName }}</h3>
               <p>{{ product.name }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -109,10 +94,7 @@
               </div>
             </figure>
             <div class="favorite" @click="likeProduct(product.id)">
-              <img
-                v-if="product.isInfluenceLike"
-                src="@/assets/icons/heart-filled.svg"
-              />
+              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -130,9 +112,7 @@
               <p>{{ product.name }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">
-                  {{ "#" + hash.tag }}
-                </span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
               </div>
             </div>
           </li>
@@ -162,7 +142,7 @@ export default defineComponent({
   },
   setup() {
     const store = inject("store");
-    
+
     const customPopoverOptions = {
       header: "Hair Color",
       subHeader: "Select your hair color",
@@ -191,37 +171,30 @@ export default defineComponent({
     };
   },
   created() {
+
     this.itemService = new ItemService();
     this.tokenService = new TokenService();
     this.userInfoService = new UserInfoService();
   },
-
   mounted() {
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
-    // this.getData();
   },
   watch: {
     bookOption: function (type) {
       if (type == "최신순") {
-        this.itemService.getProductList("latest").then((data) => {
+        this.itemService.getProductList("latest", 1).then((data) => {
           this.store.state.AppData = data;
         });
       } else if (type == "마감임박순") {
-        this.itemService.getProductList("popular").then((data) => {
+        this.itemService.getProductList("popular", 1).then((data) => {
           this.store.state.AppData = data;
         });
       }
     },
   },
   methods: {
-    // getData() {
-    //   this.itemService.getProductList().then((data) => {
-    //     this.products = data;
-    //   });
-    // },
-
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
@@ -262,11 +235,11 @@ export default defineComponent({
             .influencelikes(uid, "product", productId)
             .then((res) => {
               if (this.bookOption == "최신순") {
-                this.itemService.getProductList("latest").then((data) => {
+                this.itemService.getProductList("latest", 1).then((data) => {
                   this.store.state.AppData = data;
                 });
               } else if (this.bookOption == "마감임박순") {
-                this.itemService.getProductList("popular").then((data) => {
+                this.itemService.getProductList("popular", 1).then((data) => {
                   this.store.state.AppData = data;
                 });
               } else {
@@ -281,13 +254,29 @@ export default defineComponent({
       }
       console.log("likeProduct");
     },
+    moreProductLoad() {
+      console.log('loadmoreData', this.loadmoreData2);
+      if (this.loadmoreData2.length > 0) {
+        this.itemService.getProductList(this.loadmoreData + 1).then((data) => {
+          console.log('loadmoreData=', data);
+          this.store.state.AppData = data;
+          console.log('store loadmoreData', this.store.state.AppData);
+          return false;
+        });
+        return false;
+      }
+      return false;
+    }
   },
   async updated() {
     if (this.isproductfilter) {
       // alert("isproductfilter");
-      this.store.state.AppData = this.isproductfilter;
+      console.log('isproductfilter:-', this.isproductfilter);
+      // this.store.state.AppData = this.isproductfilter;
+      this.store.state.AppData.push(this.isproductfilter);
+
+      console.log('this.store.state.AppData:-', this.store.state.AppData);
     }
-    // console.log('isChannelIg', this.isChannelIg());
   },
 });
 </script>

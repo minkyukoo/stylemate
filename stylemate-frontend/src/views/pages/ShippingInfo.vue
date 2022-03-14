@@ -188,13 +188,22 @@ export default {
 
 <style scoped>
 .overLapmodal {
-  z-index: 9;
-  width: 500px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
   left: 50%;
-  margin-left: -250px;
+  background: rgba(9, 9, 9, 0.75);
+  z-index: 2;
+  display: block;
+  max-width: 500px;
+  transform: translate(-50%);
 }
 .overLapmodal .modal {
   width: 100% !important;
+  top: 50%;
+  position: absolute;
+  transform: translate(0,-50%);
 }
 
 .overLapmodal .overHeader {

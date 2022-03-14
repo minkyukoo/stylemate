@@ -6,7 +6,9 @@ import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
 
 const state = reactive({
-  AppData: undefined,
+  // AppData: undefined,
+  AppData: [],
+  productMeta: null,
   AppFltData: undefined,
   FltCampaignData: undefined,
   campaignEmpty: false,
@@ -16,6 +18,27 @@ const state = reactive({
   status: "NotEmpty",
   noticeTabPageName: "Notice",
   likedTabState: "item",
+  likedTabBrand: [],
+  likedTabProduct: [], 
+  likedTabProductLength: 0,
+  likedTabBrandLength: 0,
+  likedTabAllCategories: [
+    {
+      id: "all",
+      name: "all",
+      active: true,
+    },
+    {
+      id: "Progress",
+      name: "Progress",
+      active: false,
+    },
+    {
+      id: "end",
+      name: "end",
+      active: false,
+    },
+  ],
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
   sponcerFilterNo: 1,
@@ -57,10 +80,11 @@ var itemService = new ItemService();
 var myPageService = new MyPageService();
 
 const methods = {
-  async getData() {
-    return await itemService.getProductList().then((data) => {
-      console.log("ItemList from store", data);
-      state.AppData = data;
+  async getData(order,page) {
+    return await itemService.getProductList(order,page).then((res) => {
+      console.log("ItemList from store", res);
+      state.productMeta = res.meta;
+      state.AppData.push(...res.data);
       return state.AppData;
     });
   },
@@ -88,7 +112,7 @@ const methods = {
         state.FltCampaignData = data.data.data;
         // console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        console.log("0th",state.campaignEmpty);
+        console.log("0th", state.campaignEmpty);
         // return state.FltCampaignData;
       });
   },
