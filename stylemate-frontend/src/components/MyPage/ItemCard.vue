@@ -26,13 +26,13 @@
           v-if="
             store.state.sponsorTabState === 'progressHistory' &&
             this.progressDetails.processStatus === 'progress' &&
-            this.progressDetails.processDetailStatus === 'posting' &&
+            this.progressDetails.processDetailStatus === 'booking' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].bookingStatus === 'join' &&
+            ].bookingStatus === 'booking' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].postStatus === 'post_progress'
+            ].postStatus === 'ready'
           "
           @click="
             () => {
