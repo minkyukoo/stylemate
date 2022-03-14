@@ -49,7 +49,7 @@
               </h2>
 
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
-              <div @click="likeBrand(brandDetails.id)">
+              <div @click="likeBrand(brandDetails.id)" role="button">
                 <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>

@@ -73,8 +73,10 @@ export default defineComponent({
       this.productColor = data.productOption;
       this.compainId = data.campaign[0].id;
       this.uid = data.campaign[0].uid;
-      this.bookingId = data.campaign[0].booking[0].id;
-      console.log('bookingID:', this.bookingId);
+      if (data.campaign[0].booking.length > 0) {
+        this.bookingId = data.campaign[0].booking[0].id;
+        console.log('bookingID:', this.bookingId);
+      }
       // console.log("this.productColor", this.productColor);
       // console.log(this.compainId)
     });
@@ -133,8 +135,8 @@ export default defineComponent({
     // Apply cancel sponsership popup
     applycancelspon(campUid, campbookingId) {
       console.log('applycancelspon');
-      this.itemService.cancelSponsership(campUid, campbookingId).then((res)=>{
-        console.log('rescel:',res);
+      this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
+        console.log('rescel:', res);
       });
     }
   },

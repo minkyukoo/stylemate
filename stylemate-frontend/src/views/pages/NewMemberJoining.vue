@@ -6,8 +6,8 @@
     <!-- page content -->
     <div class="main-wrap">
       <div class="contWrap">
-        {{ linkedChannel.state.fbDetails }}
-        {{ linkedChannel.state.isConnected }}
+        <!-- {{ linkedChannel.state.fbDetails }}
+        {{ linkedChannel.state.isConnected }} -->
         <ul class="connectionList">
           <li>
             <div>

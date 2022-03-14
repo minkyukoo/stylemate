@@ -164,6 +164,7 @@ export default {
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
+      console.log(this.noticelist);
     });
 
     this.service.FAQs().then((res) => {
@@ -171,6 +172,7 @@ export default {
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
+        console.log(this.faqCategory);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
       });

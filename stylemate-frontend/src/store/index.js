@@ -7,6 +7,7 @@ import MyPageService from "@/services/MyPageService";
 
 const state = reactive({
   // AppData: undefined,
+  hideBar: false,
   AppData: [],
   productMeta: null,
   AppFltData: undefined,
@@ -80,8 +81,8 @@ var itemService = new ItemService();
 var myPageService = new MyPageService();
 
 const methods = {
-  async getData(order,page) {
-    return await itemService.getProductList(order,page).then((res) => {
+  async getData(order, page, categoryId) {
+    return await itemService.getProductList(order,page,categoryId).then((res) => {
       console.log("ItemList from store", res);
       state.productMeta = res.meta;
       state.AppData.push(...res.data);
@@ -97,6 +98,7 @@ const methods = {
   setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
     state.contentDetailsModal = tab;
+    state.hideBar = true;
     console.log(state.contentDetailsId);
   },
   async getcampList() {

@@ -82,6 +82,7 @@ export default defineComponent({
   unmounted() {
     this.store.state.contentDetailsId = "";
     this.store.state.contentDetailsModal = false;
+    this.store.state.hideBar = false;
   },
   created() {
     console.log("Page No", this.store.state.contentDetailsId);
@@ -109,7 +110,7 @@ export default defineComponent({
 </script>
 <style>
 .ion-page {
-  left: 0;
+  left: 50%;
   right: 0;
   top: 0;
   bottom: 0;
