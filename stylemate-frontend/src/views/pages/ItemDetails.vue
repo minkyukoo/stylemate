@@ -41,38 +41,40 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="product-description">
-              <!-- <h2>{{ productDetails.description }}</h2> -->
-
-              <div class="hashwrap">
-                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <!-- <span
-                  v-for="(hash, index) in productDetails.tag"
-                  :key="index"
-                  >{{ "#" + hash.tag }}</span
-                >-->
-                <!-- <span>hi</span> -->
-              </div>
-              <p>
-                <span>
-                  <img src="@/assets/icons/calendar.svg" />
-                </span>
-                <!-- 2021.11.11 ~ 2021.12.25 -->
-                <span v-for="(item, i) of productDetails.campaign" :key="i">
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
-                      : null
-                  }}
-                  ~
-                  {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
-                      : null
-                  }}
-                </span>
-              </p>
+            <div class="right-section" v-if="!platform=='other'">
+              <button @click="showModal">
+                <img src="@/assets/icons/share.svg" />
+              </button>
             </div>
+          </div>
+
+          <div class="product-description">
+            <h2>{{ productDetails.description }}</h2>
+
+            <div class="hashwrap">
+              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
+              <!-- <span>hi</span> -->
+            </div>
+            <p>
+              <span>
+                <img src="@/assets/icons/calendar.svg" />
+              </span>
+              <!-- 2021.11.11 ~ 2021.12.25 -->
+              <span v-for="(item, i) of productDetails.campaign" :key="i">
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+                ~
+                {{
+                  item.campaignSchedule
+                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
+                    : null
+                }}
+              </span>
+            </p>
           </div>
 
           <ProductDetailsTab :productData="productDetails" />
@@ -216,6 +218,7 @@ export default {
       cancel_spon: false,
       complete_spon: false,
       end_spon: false,
+      platform: 'other',
     };
   },
   setup() {
@@ -239,11 +242,30 @@ export default {
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.getProductDetails();
+    // setTimeout(() => {
+    //   this.pushNotification('http://stylemate.dvconsulting.org/item');
+    // }, 5000);
   },
   mounted() {
     // this.getURL();
+    window.productShare = this.productShare;
+    this.getMobileOS();
+    if (this.getMobileOS() == 'Other') {
+      this.platform = 'other';
+    }
+    console.log('getMobileOS', this.getMobileOS());
   },
   methods: {
+    getMobileOS() {
+      const ua = navigator.userAgent
+      if (/android/i.test(ua)) {
+        return "Android"
+      }
+      else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        return "iOS"
+      }
+      return "Other"
+    },
     showModal() {
       this.isModalVisible = true;
     },
@@ -270,25 +292,16 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log("productDetails:-", this.productDetails);
-          console.log("processStatus:-", res.campaign[0].processStatus);
-          console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
-          console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
-          console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
-          //apply sponsership button
-          if (
-            res.campaign[0].processStatus == "progress" &&
-            res.campaign[0].processDetailStatus == "booking"
-          ) {
-            this.sponsorship = true;
-            this.cancel_spon = false;
-            this.complete_spon = false;
-            this.end_spon = false;
-          }
+          // console.log("productDetails:-", this.productDetails);
+          // console.log("processStatus:-", res.campaign[0].processStatus);
+          // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
+          // console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
+          // console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
-            res.campaign[0].processDetailStatus == "booking " &&
+            res.campaign[0].processDetailStatus == "booking" &&
+            res.campaign[0].booking.length > 0 &&
             res.campaign[0].booking[0].bookingStatus == "booking" &&
             res.campaign[0].booking[0].postStatus == "ready"
           ) {
@@ -297,8 +310,18 @@ export default {
             this.complete_spon = false;
             this.end_spon = false;
           }
+          //apply sponsership button
+          else if (
+            res.campaign[0].processStatus == "progress" &&
+            res.campaign[0].processDetailStatus == "booking"
+          ) {
+            this.sponsorship = true;
+            this.cancel_spon = false;
+            this.complete_spon = false;
+            this.end_spon = false;
+          }
           //sponsership complete button
-          if (
+          else if (
             res.campaign[0].processStatus == "progress" &&
             ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
             res.campaign[0].booking[0].bookingStatus == "join" &&
@@ -321,7 +344,7 @@ export default {
             // console.log("postStatus", res.campaign[0].booking[0].postStatus);
           }
           //Sponsorship has ended. button
-          if (
+          else if (
             res.campaign[0].processStatus == "finish" &&
             res.campaign[0].processDetailStatus == "finish" &&
             res.campaign[0].booking[0].bookingStatus == "finish" &&
@@ -451,6 +474,15 @@ export default {
         this.isActive = false;
       }
     },
+
+    // for productShare
+    productShare(res) {
+      alert(res);
+      console.log("res", res);
+      if (res) {
+        window.location.href = res;
+      }
+    },
   },
 };
 </script>
@@ -524,7 +556,7 @@ export default {
 }
 
 .top-section {
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
