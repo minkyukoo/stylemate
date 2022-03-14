@@ -72,7 +72,12 @@
                   </figure>
                   <div
                     class="details-wrap"
-                    @click="$router.push({ name: 'ItemDetails' })"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
                   >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
@@ -107,12 +112,24 @@
                       <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
-                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <img :src="item.imageThumbnailPath" />
                   </figure>
                   <div
                     class="details-wrap"
-                    @click="$router.push({ name: 'ItemDetails' })"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
                   >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
@@ -147,12 +164,24 @@
                       <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
-                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <img :src="item.imageThumbnailPath" />
                   </figure>
                   <div
                     class="details-wrap"
-                    @click="$router.push({ name: 'ItemDetails' })"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
                   >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
@@ -453,7 +482,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        // console.log(res);
+        console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -475,6 +504,10 @@ export default {
         this.newStartItems = startArray;
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
+
+        console.log("this.newStartItems", startArray);
+        console.log("this.newOddItems", OddArray);
+        console.log("this.newEvanItems", EvanArray);
       });
     },
 
