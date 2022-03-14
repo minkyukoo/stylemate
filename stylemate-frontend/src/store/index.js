@@ -6,7 +6,9 @@ import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
 
 const state = reactive({
-  AppData: undefined,
+  // AppData: undefined,
+  AppData: [],
+  productMeta: null,
   AppFltData: undefined,
   FltCampaignData: undefined,
   campaignEmpty: false,
@@ -78,10 +80,11 @@ var itemService = new ItemService();
 var myPageService = new MyPageService();
 
 const methods = {
-  async getData() {
-    return await itemService.getProductList().then((data) => {
-      console.log("ItemList from store", data);
-      state.AppData = data;
+  async getData(order,page) {
+    return await itemService.getProductList(order,page).then((res) => {
+      console.log("ItemList from store", res);
+      state.productMeta = res.meta;
+      state.AppData.push(...res.data);
       return state.AppData;
     });
   },

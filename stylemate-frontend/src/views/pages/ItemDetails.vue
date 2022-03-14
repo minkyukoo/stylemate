@@ -14,10 +14,7 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide
-            v-for="(slide, i) of productDetails.productImageFile"
-            :key="i + 1"
-          >
+          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
@@ -53,30 +50,29 @@
                   v-for="(hash, index) in productDetails.tag"
                   :key="index"
                   >{{ "#" + hash.tag }}</span
-                > -->
+                >-->
                 <!-- <span>hi</span> -->
               </div>
               <p>
-              <span>
-                <img src="@/assets/icons/calendar.svg" />
-              </span>
-              <!-- 2021.11.11 ~ 2021.12.25 -->
-              <span v-for="(item, i) of productDetails.campaign" :key="i">
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
-                    : null
-                }}
-                ~
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
-                    : null
-                }}
-              </span>
-            </p>
+                <span>
+                  <img src="@/assets/icons/calendar.svg" />
+                </span>
+                <!-- 2021.11.11 ~ 2021.12.25 -->
+                <span v-for="(item, i) of productDetails.campaign" :key="i">
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
+                      : null
+                  }}
+                  ~
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
+                      : null
+                  }}
+                </span>
+              </p>
             </div>
-            
           </div>
 
           <ProductDetailsTab :productData="productDetails" />
@@ -87,29 +83,18 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img
-            v-if="productDetails.isInfluenceLike"
-            src="@/assets/icons/heart-filled.svg"
-          />
+          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
         <!-- sponsership button -->
-        <button @click="showModal" class="black-btn">showModal</button>
+        <!-- <button @click="showModal" class="black-btn">showModal</button> -->
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- {{ sponsorship }} -->
-        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">
-          협찬 신청
-        </button>
+        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
         <!-- Cancellation of sponsorship application -->
-        <button
-          v-else-if="cancel_spon"
-          @click="sponsorshipCancellation"
-          class="white-btn"
-        >
-          협찬 신청 취소
-        </button>
+        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">협찬 신청 취소</button>
         <!-- Sponsorship application completed -->
         <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
         <!-- Sponsorship has ended. -->
@@ -255,6 +240,9 @@ export default {
     this.tokenService = new TokenService();
     this.getProductDetails();
   },
+  mounted() {
+    // this.getURL();
+  },
   methods: {
     showModal() {
       this.isModalVisible = true;
@@ -264,6 +252,11 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
+    },
+    getURL() {
+      alert("The URL of this page is: " + window.location.href);
+      let currentUrl = window.location.href;
+      return currentUrl;
     },
     getProductDetails() {
       var proId = this.$route.params.id;

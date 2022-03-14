@@ -2,9 +2,10 @@
   <div>
     {{ item_list }}
     <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
-    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`">
+    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`" @scroll="onScroll2">
       <div class="fixed-container">
         <div class="top-section">
+          {{ loadMore }}
           <div class="left-section">
             <div class="selectWrap">
               <vue-select
@@ -135,7 +136,6 @@ export default defineComponent({
     isBanner: { type: Boolean, default: true },
     isFltData: { type: Boolean, default: true },
     isproductfilter: null,
-    loadMore: { type: Array }
   },
   components: {
     "vue-select": VueNextSelect,
@@ -168,7 +168,6 @@ export default defineComponent({
       camp: [],
       products: [],
       bookOption: null,
-      loadmoreData: null,
     };
   },
   created() {
@@ -181,24 +180,21 @@ export default defineComponent({
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
-    // this.getData();
   },
   watch: {
     bookOption: function (type) {
       if (type == "최신순") {
-        this.itemService.getProductList("latest").then((data) => {
+        this.itemService.getProductList("latest", 1).then((data) => {
           this.store.state.AppData = data;
         });
       } else if (type == "마감임박순") {
-        this.itemService.getProductList("popular").then((data) => {
+        this.itemService.getProductList("popular", 1).then((data) => {
           this.store.state.AppData = data;
         });
       }
     },
-
   },
   methods: {
-
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
@@ -239,11 +235,11 @@ export default defineComponent({
             .influencelikes(uid, "product", productId)
             .then((res) => {
               if (this.bookOption == "최신순") {
-                this.itemService.getProductList("latest").then((data) => {
+                this.itemService.getProductList("latest", 1).then((data) => {
                   this.store.state.AppData = data;
                 });
               } else if (this.bookOption == "마감임박순") {
-                this.itemService.getProductList("popular").then((data) => {
+                this.itemService.getProductList("popular", 1).then((data) => {
                   this.store.state.AppData = data;
                 });
               } else {
@@ -258,15 +254,29 @@ export default defineComponent({
       }
       console.log("likeProduct");
     },
+    moreProductLoad() {
+      console.log('loadmoreData', this.loadmoreData2);
+      if (this.loadmoreData2.length > 0) {
+        this.itemService.getProductList(this.loadmoreData + 1).then((data) => {
+          console.log('loadmoreData=', data);
+          this.store.state.AppData = data;
+          console.log('store loadmoreData', this.store.state.AppData);
+          return false;
+        });
+        return false;
+      }
+      return false;
+    }
   },
   async updated() {
     if (this.isproductfilter) {
       // alert("isproductfilter");
-      this.store.state.AppData = this.isproductfilter;
+      console.log('isproductfilter:-', this.isproductfilter);
+      // this.store.state.AppData = this.isproductfilter;
+      this.store.state.AppData.push(this.isproductfilter);
+
+      console.log('this.store.state.AppData:-', this.store.state.AppData);
     }
-    // console.log('isChannelIg', this.isChannelIg());
-     this.loadmoreData = this.$props.loadMore;
-    console.log('this.loadmoreData', this.loadmoreData);
   },
 });
 </script>

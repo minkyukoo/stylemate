@@ -14,7 +14,11 @@
         v-on:filterproductList="filterproductList2($event)"
       />
 
-      <CardItem :isBanner="isBanner" :isFltData="isFltData" :isproductfilter="isproductfilter" :loadMore="arr" />
+      <CardItem
+        :isBanner="isBanner"
+        :isFltData="isFltData"
+        :isproductfilter="isproductfilter"
+      />
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -24,6 +28,7 @@
 
 <script>
 // import { IonPage } from "@ionic/vue";
+import { inject } from "vue";
 import TopNav from "@/components/TopNav.vue";
 import CardItem from "@/components/CardItem.vue";
 import CategoryList from "@/components/CategoryList.vue";
@@ -38,19 +43,34 @@ export default {
       isproductfilter: null,
       isallbutton: null,
       arr: [],
-      
+      page: 1,
+
     }
   },
-  created() {
-    window.addEventListener('scroll', this.handleScroll);
+  setup() {
+    const store = inject("store");
+
+    // onMounted(() => {
+    //   store.methods.getData();
+    // });
+
+    return { store };
   },
   methods: {
 
-    onScroll ({ target: { scrollTop, clientHeight, scrollHeight }}) {
+    onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
         console.log('end reached');
         this.arr.push(this.arr.length + 1);
-        console.log('end reached for - ', this.arr.length);
+        let last_page = this.store.state.productMeta.last_page;
+        console.log('last_page', last_page);
+        if (this.page < last_page) {
+          this.page = this.page + 1;
+          console.log('page from incerement:',this.page);
+          this.store.methods.getData(null,this.page);
+        } else {
+          this.page = last_page;
+        }
       }
     },
 
