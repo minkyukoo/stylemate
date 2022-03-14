@@ -32,7 +32,7 @@
             ].bookingStatus === 'join' &&
             this.progressDetails.booking[
               this.progressDetails.booking.length - 1
-            ].postStatus === 'postProgress'
+            ].postStatus === 'post_progress'
           "
           @click="
             () => {
@@ -42,7 +42,7 @@
               store.state.hideBar = true;
             }
           "
-          >Cancellation of sponsorship</span
+          >협찬취소</span
         >
       </div>
       <div>
@@ -84,7 +84,7 @@
               }
             "
           >
-            re-registration
+            재등록
           </button>
         </div>
         <div
@@ -114,7 +114,7 @@
               }
             "
           >
-            Register a post
+            포스트 등록하기
           </button>
         </div>
         <div v-else></div>
@@ -195,7 +195,7 @@ export default {
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
           progressDetails.booking[progressDetails.booking.length - 1]
-            .postStatus === "postProgress"
+            .postStatus === "post_progress"
         ) {
           this.tagShow = true;
           return "Checking";

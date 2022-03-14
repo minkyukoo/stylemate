@@ -15,7 +15,7 @@
     </div>
     <RegisterPostModal v-if="store.state.isPostModalVisible" />
     <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
-    <CancelSponser />
+    <CancelSponser v-if="store.state.cancelPopup" />
   </div>
 </template>
 
