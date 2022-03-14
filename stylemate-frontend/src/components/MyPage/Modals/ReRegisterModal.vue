@@ -12,15 +12,15 @@
       <div class="modal-content">
         <div class="Post-header">
           <div class="img-con">
-            <img src="../../../assets/images/MyPage-item1.png" alt="" />
+            <img :src="small_img" alt="" />
           </div>
           <div class="item-desc">
             <div class="heading-wrap">
-              <h2>NCOVER</h2>
+              <h2>{{ name }}</h2>
             </div>
             <div>
-              <h4>Plaster Cast Hoodie Blouse</h4>
-              <h6>End date 2012-02-13 15:30</h6>
+              <h4>{{ description }}</h4>
+              <h6>End date {{ date }}</h6>
             </div>
           </div>
         </div>
@@ -29,44 +29,35 @@
           <div class="post-card-con">
             <div class="hashtagBox">
               <p>
-                Please change the #sponsorship hashtag to #advertising hashtag.
+                {{rejection_msg}}
               </p>
             </div>
-            <div class="grey-box"></div>
-            <div class="description-hashtag">
-              #Sponsored #Nyangpummongpoom gave me “liver health powder” as a
-              gift. When the parcel arrived, the box was so cute, so I cooked it
-              right away 💛 A teddy bear in a cute yellow box? It has a puppy?
-              it's so cute 😘❤️ It smells like cheese, so it smells delicious🧀
-              I found out that Danish cheese powder was used for puppies who
-              don't eat nutritional supplements!! It smells so delicious that
-              spring breathes in a storm 🤣 Every time Bom goes out for a walk,
-              he smells garbage and puts it in his mouth, but he said he was
-              worried about it, but the liver health powder has alleviated that
-              worry!! It contains ingredients such as milk thistle, zinc, and B
-              complex vitamin B that help to regenerate and recover damaged
-              liver cells. #dog nutrition #dog liver level #dog liver nutrition
+            <div class="grey-box">
+              <img :src="insta_post.img" alt="" />
             </div>
-            <div class="flex">
+            <div class="description-hashtag">
+              {{ insta_post.desc }}
+            </div>
+            <div class="flex insta-popularity">
               <span class="flex mr-3.5">
                 <img
                   src="../../../assets/icons/heart-outline-dark.svg"
                   alt=""
                   class="mr-1"
                 />
-                10
+                {{ insta_post.like }}
               </span>
-              <span class="flex">
+              <span class="flex insta-popularity">
                 <img
                   src="../../../assets/icons/comment-outline.svg"
                   alt=""
                   class="mr-1"
                 />
-                10
+                {{ insta_post.comment }}
               </span>
             </div>
             <div class="date-of-collection">
-              Data collected on 08/23/2021 09:33.
+              Data collected on {{insta_post.publishDate}}.
             </div>
           </div>
         </div>
@@ -80,7 +71,18 @@
         >
           to close
         </button>
-        <button type="button" class="btn-black">포스트 등록하기</button>
+        <button
+          type="button"
+          class="btn-black"
+          @click="
+            () => {
+              store.state.isReRegisterModalVisible = false;
+              store.state.isPostModalVisible = true;
+            }
+          "
+        >
+          포스트 등록하기
+        </button>
       </div>
     </template>
   </Modal>
@@ -89,10 +91,63 @@
 <script>
 import { inject } from "vue";
 import Modal from "../../Modal.vue";
+// import MyPageService from "@/services/MyPageService";
+import ItemService from "@/services/ItemService";
+import moment from "moment";
 export default {
   name: "re-register-modal",
   data() {
-    return {};
+    return {
+      itemService: null,
+      name: "",
+      description: "",
+      small_img: "",
+      date: "",
+      rejection_msg: "",
+      insta_post: {
+        img: "",
+        desc: "",
+        like: 0,
+        comment: 0,
+        publishDate: "",
+      },
+    };
+  },
+  created() {
+    this.itemService = new ItemService();
+    this.moment = moment;
+  },
+  mounted() {
+    this.itemService
+      .getProductDetails(this.store.MyPageModals.productID)
+      .then((res) => {
+        console.log(res);
+        this.name = res.brand.korName;
+        this.description = res.brand.description;
+        this.small_img = res.brand.imageThumbnailPath;
+        this.date = moment(res.campaign[0].campaignSchedule.finishedAt).format(
+          "YYYY-MM-DD HH:mm"
+        );
+        this.rejection_msg = res.campaign[0].booking[0].postHistory[0].message;
+        this.insta_post.img = res.campaign[0].booking[0].post.instagramPost
+          .thumbnailUrl
+          ? res.campaign[0].booking[0].post.instagramPost.thumbnailUrl
+          : res.campaign[0].booking[0].post.instagramPost.thumbnailOriginalUrl;
+        this.insta_post.desc =
+          `#${res.campaign[0].booking[0].post.instagramPost.hashTag.join(
+            " #"
+          )} ` + res.campaign[0].booking[0].post.instagramPost.description;
+        this.insta_post.like =
+          res.campaign[0].booking[0].post.instagramPost.likeCount;
+        this.insta_post.comment =
+          res.campaign[0].booking[0].post.instagramPost.commentCount;
+        this.insta_post.publishDate = moment(res.campaign[0].booking[0].post.instagramPost
+          .publishDate).format("YYYY-MM-DD HH:mm");
+      });
+  },
+
+  unmounted() {
+    this.store.state.hideBar = false;
   },
 
   setup() {
@@ -220,6 +275,11 @@ export default {
   height: 300px;
   background: #c4c4c4;
 }
+.grey-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .description-hashtag {
   padding: 4px 10px 12px;
   font-size: 12px;
@@ -234,5 +294,12 @@ export default {
   text-align: right;
   color: #9d6aff;
   padding-bottom: 40px;
+}
+.insta-popularity {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  align-items: center;
 }
 </style>

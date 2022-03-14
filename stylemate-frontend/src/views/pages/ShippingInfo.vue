@@ -17,7 +17,7 @@
               <span @click="showModal">
                 <input
                   type="text"
-                  placeholder="서울특별시 강남구 삼성로 95길 6"
+                  placeholder="배송지를 등록해 주세요"
                   v-model="addnew"
                 />
               </span>
@@ -31,15 +31,24 @@
                   placeholder="상세 주소를 입력해 주세요."
                   v-model="address2"
                 />
-                <small v-show="render" style="color:red;">don't keep it blank</small>
+                <small v-show="render" style="color: red"
+                  >don't keep it blank</small
+                >
               </span>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <div class="checkLabel">
-              <ion-checkbox color="primary" checked disabled></ion-checkbox>
+              <input type="checkbox" checked disabled />
+              <ion-checkbox color="primary" checked disabled></ion-checkbox> 
               <label style="color: #000">기본 배송지</label>
             </div>
+          </li> -->
+          <li class="checkboxWrap">
+            <label class="check-container">
+              <input type="checkbox" checked disabled />
+              <span class="checkmark"></span>기본 배송지
+            </label>
           </li>
         </ul>
       </div>
@@ -117,14 +126,14 @@ export default {
   // }
   data() {
     return {
-      uid:localStorage.getItem("userId"),
-      render:false,
+      uid: localStorage.getItem("userId"),
+      render: false,
       isModalVisible: false,
       // isActive: false,
       addnew: "",
       name: "divii",
       recipient: "school",
-      addressLocale:'domestic',
+      addressLocale: "domestic",
       addressZipcode: "",
       address1: "",
       address2: "",
@@ -148,14 +157,23 @@ export default {
       console.log("clivk");
     },
     //rec, loc, zip, adr1, adr2, def
-    submitAddress(){
-      if(this.address2==''){
-        this.render=true;
-      }else{
-        this.userInfoService.addaddress(this.uid,this.name,this.recipient,this.addressLocale,this.addressZipcode,this.address1,this.address2,this.isDefault).then(() => {
-      
-    });
-        this.render=false;
+    submitAddress() {
+      if (this.address2 == "") {
+        this.render = true;
+      } else {
+        this.userInfoService
+          .addaddress(
+            this.uid,
+            this.name,
+            this.recipient,
+            this.addressLocale,
+            this.addressZipcode,
+            this.address1,
+            this.address2,
+            this.isDefault
+          )
+          .then(() => {});
+        this.render = false;
       }
     },
     showModal() {
@@ -166,18 +184,26 @@ export default {
     },
   },
 };
-
 </script>
 
 <style scoped>
 .overLapmodal {
-  z-index: 9;
-  width: 500px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
   left: 50%;
-  margin-left: -250px;
+  background: rgba(9, 9, 9, 0.75);
+  z-index: 2;
+  display: block;
+  max-width: 500px;
+  transform: translate(-50%);
 }
 .overLapmodal .modal {
   width: 100% !important;
+  top: 50%;
+  position: absolute;
+  transform: translate(0,-50%);
 }
 
 .overLapmodal .overHeader {
@@ -336,8 +362,9 @@ export default {
 .button-group {
   display: flex;
   position: fixed;
-  width: 500px;
+  max-width: 500px;
   bottom: 0;
+  width: 100%;
 }
 .button-group button {
   display: flex;

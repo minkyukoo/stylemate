@@ -1,9 +1,9 @@
 <template>
   <div class="liked-wrap">
-    <div v-if="proLen || braLen">
+    <div v-if="store.state.likedTabProductLength || store.state.likedTabBrand">
       <div v-if="store.state.likedTabState === 'item'">
         <LikedItem
-          v-for="(item, index) in product"
+          v-for="(item, index) in store.state.likedTabProduct"
           :progressDetails="item"
           :key="index"
           v-on:productDislike="dislike($event)"
@@ -11,7 +11,7 @@
       </div>
       <div v-if="store.state.likedTabState === 'brand'">
         <BrandItems
-          v-for="(item, index) in brand"
+          v-for="(item, index) in this.store.state.likedTabBrand"
           :progressDetails="item"
           :tag="setTags(item.tag)"
           :key="index"
@@ -32,7 +32,7 @@ import BrandItems from "./BrandItems.vue";
 import Error from "../../Error.vue";
 import UserInfoService from "@/services/UserInfoService";
 export default {
-  name: 'likedItems',
+  name: "likedItems",
   components: { LikedItem, BrandItems, Error },
 
   setup() {
@@ -68,22 +68,24 @@ export default {
       this.user.getUserInfo().then((userInfo) => {
         this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
           console.log("product", res);
-          this.product = res.data.data;
-          this.proLen = res.data.data.length > 0 ? true : false;
+          this.store.state.likedTabProduct = res.data.data;
+          this.store.state.likedTabProductLength =
+            res.data.data.length > 0 ? true : false;
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
           console.log("brand", res);
-          this.brand = res.data.data;
-          this.braLen = res.data.data.length > 0 ? true : false;
+          this.store.state.likedTabBrand = res.data.data;
+          this.store.state.likedTabBrandLength =
+            res.data.data.length > 0 ? true : false;
         });
       });
     },
     dislike(event) {
-      console.log('event', event);
+      console.log("event", event);
       if (event) {
         this.getInfluenceList();
       }
-    }
+    },
   },
 };
 </script>

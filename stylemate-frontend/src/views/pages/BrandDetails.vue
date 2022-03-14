@@ -1,25 +1,55 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- header -->
     <TopNav headerTitle="상세보기"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
-      <div class="product-main-banner">
-          <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" />
-        </div>
+    <div class="scrollDiv">
+      <!-- <div class="product-main-banner">
+        <img
+          v-if="this.brandDetails.imageMainPath"
+          :src="brandDetails.imageMainPath"
+        />
+      </div>-->
+      <div class="mainslide">
+        <swiper
+          :modules="modules"
+          :slides-per-view="1"
+          :space-between="50"
+          :pagination="{ clickable: true }"
+          @swiper="onSwiper"
+          @slideChange="onSlideChange"
+        >
+          <swiper-slide>
+            <div class="mainslide-banner-wrap">
+              <figure>
+                <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" alt />
+                <div class="top-social-icon">
+                  <!-- <router-link to>
+                    <img src="@/assets/icons/instagram.svg" />
+                  </router-link>-->
+                  <img src="@/assets/icons/instagram.svg" />
+                </div>
+              </figure>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
       <div class="main-wrap">
-        
         <div class="item-wrapper">
           <div class="itemMain">
             <div class="itemHeader">
-              <h2>{{ brandDetails.korName }}<span>
-                <img src="@/assets/icons/arrow-left.svg" />
-              </span>
+              <h2>
+                {{
+                  brandDetails.korName
+                }}
+                <span>
+                  <img src="@/assets/icons/arrow-left.svg" />
+                </span>
               </h2>
-              
+
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
-              <div @click="likeBrand(brandDetails.id)">
+              <div @click="likeBrand(brandDetails.id)" role="button">
                 <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
@@ -61,12 +91,12 @@
           </div>
         </div>
       </div>
-    </ion-content>
+    </div>
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+// import { IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import BrandIntroduction from "@/components/BrandIntroduction.vue";
 import BrandItem from "@/components/BrandItem.vue";
@@ -74,14 +104,20 @@ import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 export default {
   name: "BrandDetails",
   components: {
-    IonPage,
     TopNav,
-    IonContent,
+    // IonContent,
     BrandIntroduction,
     BrandItem,
+    Swiper,
+    SwiperSlide,
   },
 
   data() {
@@ -92,26 +128,30 @@ export default {
       brandDetails: Object,
     };
   },
+  setup() {
+    // const userData = inject("userData");
+
+    //  onMounted( async () => {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if(isLogedIn) {
+    //     userData.methods.getUserData();
+    //   }
+    // });
+
+    return {
+      // userData,
+      modules: [Pagination],
+    };
+  },
   created() {
     this.brandService = new BrandService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
 
     var proId = this.$route.params.id;
-    this.brandService.getBrandDetails(proId).then((res) => {
-      // catch error
-      if (res.response) {
-        if (res.response.status == 404) {
-          alert(res.response.data.error.message);
-          this.$router.push("/brands");
-        }
-      }
-      // success
-      else {
-        console.log("res", res);
-        this.brandDetails = res;
-      }
-    });
+
+    this.getBrandDetails(proId);
+
   },
   mounted() { },
   methods: {
@@ -120,6 +160,22 @@ export default {
     },
     showItems() {
       this.visible = !this.visible;
+    },
+    getBrandDetails(proId) {
+      this.brandService.getBrandDetails(proId).then((res) => {
+        // catch error
+        if (res.response) {
+          if (res.response.status == 404) {
+            alert(res.response.data.error.message);
+            this.$router.push("/brands");
+          }
+        }
+        // success
+        else {
+          console.log("res", res);
+          this.brandDetails = res;
+        }
+      });
     },
     // isLogedIn
     async isLogedIn() {
@@ -143,18 +199,20 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          console.log('brand uid', uid);
-          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
-            console.log(res.response.data.error);
-            console.log(res);
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          console.log("brand uid", uid);
+          this.brandService
+            .influencelikes(uid, "brand", brandId)
+            .then((res) => {
+              let proId = this.$route.params.id;
+              this.getBrandDetails(proId);
+              if (res.response.data.error) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            });
         });
       }
-      console.log('likeProduct');
-    }
+      console.log("likeProduct");
+    },
   },
 };
 </script>
@@ -167,7 +225,7 @@ export default {
   /* background-color: #ffffff;
   padding-bottom: 60px;
 } */
-.itemMain .itemHeader h2{
+.itemMain .itemHeader h2 {
   display: flex;
   align-items: center;
 }
@@ -180,7 +238,7 @@ export default {
   margin-bottom: 30px;
 }
 .hastags li {
-  margin-left: 3px;
+  margin-left: 4px;
 }
 .hastags li:first-child {
   margin-left: 0;
@@ -191,13 +249,6 @@ export default {
   line-height: 12px;
   color: #c4c4c4;
   margin-bottom: 0;
-}
-.main-container {
-  max-width: 500px;
-  min-width: 500px;
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
 }
 .scrolldiv {
   height: 1000px;
@@ -235,10 +286,15 @@ img {
   padding: 40px 20px 60px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  margin-top: -30px;
   position: relative;
   z-index: 1;
-  top: 270px;
-  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
+  /* top: 270px; */
+  background: linear-gradient(
+    93.21deg,
+    rgba(241, 241, 241, 0.5) 0.78%,
+    rgba(241, 241, 241, 0.1) 100.78%
+  );
   backdrop-filter: blur(30px);
   /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
@@ -291,6 +347,15 @@ img {
   width: 24px;
   height: 24px;
 }
+.mainslide figure .top-social-icon {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+}
+.mainslide figure .top-social-icon img {
+  width: 24px;
+  height: 24px;
+}
 
 /* tab styling */
 
@@ -304,6 +369,7 @@ img {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   display: flex;
+  background: #ffffff;
 }
 
 .tabs .tab {
@@ -317,7 +383,6 @@ img {
   justify-content: center;
   padding: 20px;
   width: 50%;
-  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;
@@ -362,7 +427,7 @@ img {
   border-top: solid 1px #f6f6f6;
   padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child {
+.tag-info .tag-info-row:first-child {
   border-top: 0;
 }
 .tag-info .tag-info-row .top {
@@ -395,5 +460,17 @@ img {
   font-size: 10px;
   line-height: 12px;
   color: #595959;
+}
+.main-wrap {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  background: transparent;
+}
+.mainslide .swiper-pagination {
+  bottom: 42px !important;
+}
+.tab-wrap .tab-content {
+  padding-bottom: 0;
 }
 </style>

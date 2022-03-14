@@ -1,6 +1,9 @@
 <template>
   <div v-for="(items, index) in links" :key="index">
-    <div class="link-box" @click="reDirectPage(items)">
+    <div
+      :class="`link-box ${items.arrow ? '' : 'link-box-static'}`"
+      @click="reDirectPage(items)"
+    >
       <h3>{{ items.name }}</h3>
       <div v-if="items.arrow != false">
         <img src="../../assets/icons/arrow-right.svg" alt="" />
@@ -13,6 +16,9 @@
 </template>
 
 <script>
+import { inject } from "vue";
+import { useRouter } from "vue-router";
+
 export default {
   name: "MyPageLinks",
   props: {
@@ -21,11 +27,21 @@ export default {
       default: () => [],
     },
   },
-  methods: {
-    reDirectPage(item) {
-      console.log(item);
-      this.$router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
-    },
+  setup() {
+    const store = inject("store");
+    const router = useRouter();
+
+    const reDirectPage = (item) => {
+      store.state.noticeTabPageName = item.hash;
+      if (item.arrow) {
+        router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
+      }
+    };
+
+    return {
+      store,
+      reDirectPage,
+    };
   },
 };
 </script>
@@ -36,7 +52,12 @@ export default {
   justify-content: space-between;
   padding: 15px 0px;
   border-bottom: 1px solid #f7f7f7;
+  cursor: pointer;
 }
+.link-box.link-box-static {
+  cursor: default;
+}
+
 .link-box h3 {
   font-size: 14px;
   line-height: 18px;

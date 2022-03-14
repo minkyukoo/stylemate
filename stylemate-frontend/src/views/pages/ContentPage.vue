@@ -7,6 +7,7 @@
         v-for="(image, i) of best_contents"
         :key="i + 1"
         :class="'g-img-wrap a' + (i + 1)"
+        class="cursor-pointer"
       >
         <img
           :src="[
@@ -26,7 +27,7 @@
       <h1 class="title">NEW</h1>
       <!-- New content start -->
       <div class="new-row">
-        <div class="new-grid" v-for="image in new_contents" :key="image">
+        <div class="new-grid cursor-pointer" v-for="image in new_contents" :key="image">
           <img
             :src="[
               image.instagramPost.thumbnailUrl
@@ -141,6 +142,9 @@ export default {
 };
 </script>
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .contents-div {
   padding-top: 40px;
 }

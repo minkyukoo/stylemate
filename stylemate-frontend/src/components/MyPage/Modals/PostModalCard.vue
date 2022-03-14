@@ -1,18 +1,47 @@
 <template>
-  <div class="Post-card-wrap" v-for="(i, e) in cardData" :key="e">
+  <div
+    :class="`Post-card-wrap ${choosed === e ? 'active' : ''}`"
+    v-for="(i, e) in cardData"
+    :key="e"
+    @click="choosePost(i)"
+  >
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
-          <img :src="require('../../../assets/images/' + i.img)" alt="" />
+          <img
+            :src="
+              i.instagramPost.thumbnailUrl
+                ? i.instagramPost.thumbnailUrl
+                : i.instagramPost.thumbnailOriginalUrl
+            "
+            alt=""
+          />
         </div>
         <div class="item-desc">
           <div>
-            <h4>{{ i.date }}</h4>
+            <h4>
+              {{
+                moment(i.campaign.campaignSchedule.finishedAt).format(
+                  "YYYY.MM.DD  h:mm"
+                )
+              }}
+            </h4>
+            <ul>
+              <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
+                {{ tags }}
+              </li>
+            </ul>
             <h6>{{ i.desc }}</h6>
           </div>
         </div>
       </div>
-      <input type="radio" name="radio" :id="`radio-${e}`" />
+      <input
+        type="radio"
+        name="radio"
+        :id="`radio-${e}`"
+        @change="setActive(e)"
+        :value="i"
+      />
       <span class="checkmark"></span>
     </label>
     <!-- <div class="pad-x-10">
@@ -22,10 +51,28 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "PostModalCard",
   props: {
     cardData: Array,
+  },
+  data() {
+    return {
+      choosed: null,
+    };
+  },
+  created() {
+    this.moment = moment;
+  },
+  methods: {
+    choosePost(event) {
+      this.$emit("choosePost", event);
+    },
+    setActive(e) {
+      console.log(e);
+      this.choosed = e;
+    },
   },
 };
 </script>
@@ -72,12 +119,17 @@ export default {
   line-height: 16px;
   color: #c4c4c4;
   margin-top: 5px;
+  margin-bottom: 5px;
 }
-.Post-header .item-desc h6 {
+.Post-header .item-desc ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.Post-header .item-desc ul li {
   font-size: 10px;
   line-height: 12px;
   color: #595959;
-  margin-top: 5px;
+  padding: 0 3px;
 }
 .custom-radio {
   display: block;

@@ -1,27 +1,32 @@
 <template>
   <div class="sponsor-tab">
-    <div class="sponsor-tab-item" @click="() => (store.state.likedTabState = 'item')">
+    <div class="sponsor-tab-item" @click="setItemTab()">
       <button
         :class="[
           store.state.likedTabState === 'item'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"
-      >item</button>
+      >
+        item
+      </button>
     </div>
-    <div class="sponsor-tab-item" @click="() => (store.state.likedTabState = 'brand')">
+    <div class="sponsor-tab-item" @click="setBrandTab()">
       <button
         :class="[
           store.state.likedTabState === 'brand'
             ? 'sponsor-btn active'
             : 'sponsor-btn',
         ]"
-      >brand</button>
+      >
+        brand
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import UserInfoService from "@/services/UserInfoService";
 import { inject, onMounted } from "vue";
 export default {
   name: "likedTab",
@@ -40,10 +45,42 @@ export default {
       store,
     };
   },
+  created() {
+    this.user = new UserInfoService();
+  },
   methods: {
-    // setTab(val) {
-    //   this.tab = val;
-    // },
+    setItemTab() {
+      this.store.state.likedTabState = "item";
+      this.store.state.likedTabAllCategories.forEach((val, key) => {
+        if (key === 0) {
+          this.store.state.likedTabAllCategories[key].active = true;
+        } else this.store.state.likedTabAllCategories[key].active = false;
+      });
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
+          // console.log("product", res);
+          this.store.state.likedTabProduct = res.data.data;
+          this.store.state.likedTabProductLength =
+            res.data.data.length > 0 ? true : false;
+        });
+      });
+    },
+    setBrandTab() {
+      this.store.state.likedTabState = "brand";
+      this.store.state.likedTabAllCategories.forEach((val, key) => {
+        if (key === 0) {
+          this.store.state.likedTabAllCategories[key].active = true;
+        } else this.store.state.likedTabAllCategories[key].active = false;
+      });
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
+          // console.log("brand", res);
+          this.store.state.likedTabBrand = res.data.data;
+          this.store.state.likedTabBrandLength =
+            res.data.data.length > 0 ? true : false;
+        });
+      });
+    },
   },
 };
 </script>

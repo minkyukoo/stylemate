@@ -5,83 +5,129 @@
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
-       <div class="contWrap">
-          <ul>
-            <li>
-              <div>
-                <label>계정정보 수정</label></div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">이메일</span>
+      <div class="contWrap">
+        <ul>
+          <li>
+            <div>
+              <label>계정정보 수정</label>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">이메일</span>
+            </div>
+            <div>
+              <span>
+                <input
+                  type="text"
+                  :value="email"
+                  readonly
+                  placeholder="mediance@mediance.co.kr"
+                />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">기존 비밀번호</span>
+            </div>
+            <div>
+              <span>
+                <input type="password" v-model="oldPass"  />
+              </span>
+            </div>
+            <small>{{ error.oldPass }}</small>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">새 비밀번호</span>
+            </div>
+            <div>
+              <span>
+                <input type="password" v-model="newPass"  />
+                <!-- :class="error.newPass ==''? 'redo':''" -->
+              </span>
+            </div>
+            <small>{{ error.newPass }}</small>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">새 비밀번호 확인</span>
+            </div>
+            <div>
+              <span>
+                <input
+                  type="password"
+                  v-model="confirmPass"
+                  
+                />
+              </span>
+            </div>
+            <small>{{ error.confirmPass }}</small>
+          </li>
+          <li>
+            <div>
+              <span class="labelGap">휴대폰 번호 </span>
+            </div>
+            <div class="inlineForm">
+              <div class="notiWrap">
+                <vue-select placeholder="SKT" :options="options"> </vue-select>
               </div>
-              <div>
-                <span>
-                  <input type="text" value="hvdjfhbdf@gfcsdgh.com" readonly placeholder="mediance@mediance.co.kr">
-                </span>
+              <div class="codeWrap">
+                <span>010-</span>
+                <input type="text" maxlength="8" v-model="mobile" />
               </div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">비밀번호</span>
+              <div class="contWrapbtn">
+                <button
+                  type="button"
+                  @click="sendOtp"
+                  style="white-space: nowrap"
+                >
+                  인증번호
+                </button>
               </div>
-              <div>
-                <span>
-                  <input type="text">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">비밀번호 확인</span>
-              </div>
-              <div>
-                <span>
-                  <input type="text">
-                </span>
-              </div>
-            </li>
-            <li>
-              <div>
-                <span class="labelGap">휴대폰 번호</span>
-              </div>
-              <div class="inlineForm">
-                <div class="notiWrap">
-                  <vue-select
-                  placeholder="SKT"
-                  :options="options"> </vue-select>
-                </div>
-                <div class="codeWrap">
-                  <span>010-</span>
-                  <input type="text">
-                </div>
-                <div class="contWrapbtn">
-                  <button type="button">인증번호</button>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="inlineTime">
-                <span class="labelGap">인증번호 입력</span>
-                <span class="labelGap">01:53</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="button-group">
-            <button class="black-btn">신청하기</button>
-        </div>
+            </div>
+          </li>
+          <li v-show="otp">
+            <div class="inlineTime">
+              <span class="labelGap"
+                ><input
+                  v-model="verificationCode"
+                  type="text"
+                  placeholder="인증번호 입력"
+                  style="border: none"
+              /></span>
+              <span class="labelGap">
+                <vue-countdown
+                  v-if="counting"
+                  :time="180000"
+                  @end="onCountdownEnd"
+                  v-slot="{ minutes, seconds }"
+                  style="color: blue"
+                >
+                  {{ minutes }}:{{ seconds }}
+                </vue-countdown>
+                <button style="background-color: blue; color: #fff" v-else>
+                  Resend
+                </button>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="button-group">
+        <button class="black-btn" @click="confirm">신청하기</button>
+      </div>
     </ion-content>
     <!-- End page content -->
-
-    
   </ion-page>
 </template>
 
 <script>
-import { IonPage,  IonContent, } from '@ionic/vue';
+import { IonPage, IonContent } from "@ionic/vue";
+import UserInfoService from "@/services/UserInfoService";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
-import TopNav from '@/components/TopNav.vue';
+import TopNav from "@/components/TopNav.vue";
 // import MyTop from '@/components/MyPageTop.vue';
 // import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
@@ -92,11 +138,46 @@ import TopNav from '@/components/TopNav.vue';
 // import "swiper/css/scrollbar";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
-import VueNextSelect from 'vue-next-select';
-
+import VueNextSelect from "vue-next-select";
+import VueCountdown from "@chenfengyuan/vue-countdown";
 export default {
-  name: 'ChangeUserinfo',
-  components: { TopNav,  IonContent, IonPage, 'vue-select': VueNextSelect, },
+  name: "ChangeUserinfo",
+  components: {
+    TopNav,
+    IonContent,
+    IonPage,
+    "vue-select": VueNextSelect,
+    VueCountdown,
+  },
+  data() {
+    return {
+      uid: localStorage.getItem("userId"),
+      otp: false,
+      email: "",
+      oldPass: "",
+      newPass: "",
+      confirmPass: "",
+      mobile: "",
+      ids: "",
+      counting: false,
+      verificationCode: "",
+      error: {
+        oldPass: "",
+        newPass: "",
+        confirmPass: "",
+      },
+    };
+  },
+  created() {
+    this.userInfoService = new UserInfoService();
+  },
+  mounted() {
+    this.userInfoService.getUserInfo().then((res) => {
+      // console.log(res.data.email);
+      this.email = res.data.email;
+      this.ids = res.data.id;
+    });
+  },
   // mounted() {
   //   var queryString = window.location.search;
   //   const urlParams = new URLSearchParams(queryString);
@@ -106,38 +187,121 @@ export default {
   //   console.log(token);
   // }
   setup() {
-      const options = [
-          'SKT', 'SKT 1', 'SKT 2', 'SKT 3'
-      ];
-      return { options };
+    const options = ["SKT", "SKT 1", "SKT 2", "SKT 3"];
+    return { options };
   },
   methods: {
     openlink() {
       console.log("clivk");
+    },
+    changePass() {
+      this.userInfoService
+        .changePassword(this.uid, this.oldPass, this.newPass, this.confirmPass)
+        .then(() => {
+          alert("password changed");
+        });
+    },
+    confirm() {
+      const pass_regex = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+      const ok = pass_regex.exec(this.newPass);
+      if (!ok) {
+        alert("enter valid password");
+      } else {
+        alert("password format is fine");
+      }
+      if (this.oldPass == "") {
+        this.error.oldPass = "required feild";
+      } else {
+        this.error.oldPass = "";
+      }
+      if (this.newPass == "") {
+        this.error.newPass = "required feild";
+      } else {
+        this.error.newPass = "";
+      }
+      if (this.confirmPass == "") {
+        this.error.confirmPass = "required feild";
+      } else {
+        this.error.confirmPass = "";
+      }
+    },
+    sendOtp() {
+      if (this.mobile != "" && this.mobile.length == 8) {
+        let minutesToAdd = 3;
+        let currentDate = new Date();
+        let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
+        this.userInfoService
+          .telAuth(
+            `010${this.mobile}`,
+            this.email,
+            this.ids,
+            this.formatDate(futureDate)
+          )
+          .then(() => {
+            this.otp = true;
+            this.counting = true;
+            alert("Otp sent");
+          });
+        console.log(this.formatDate(futureDate));
+      }
+    },
+    onCountdownEnd: function () {
+      this.counting = false;
+    },
+    confirmOtp() {
+      this.userInfoService
+        .confirmPass(this.verificationCode, this.email, `010${this.mobile}`)
+        .then(() => {
+          alert("password confirmed");
+        });
+    },
+    formatDate(value) {
+      const date = new Date(value);
+      var dd = date.getDate();
+      var mm = date.getMonth() + 1;
+      var yyyy = date.getFullYear();
+      var hr = date.getHours();
+      var min = date.getMinutes();
+      var sec = date.getSeconds();
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      return (value =
+        yyyy + "-" + mm + "-" + dd + " " + hr + ":" + min + ":" + sec);
     },
   },
 };
 </script>
 
 <style scoped>
-.contWrap{
-  padding: 20px;
+.contWrap {
+  padding: 20px 20px 160px;
 }
-.codeWrap{
+.codeWrap {
   position: relative;
 }
-.codeWrap span{
+.codeWrap span {
   position: absolute;
   left: 15px;
   top: 15px;
-  color: #C4C4C4;
+  color: #c4c4c4;
   font-size: 14px;
 }
-.codeWrap input[type="text"]{
+.codeWrap input[type="text"] {
   padding-left: 50px !important;
 }
 .contWrap input[type="text"],
-.contWrapbtn [type="button"]{
+.contWrap input[type="password"],
+.contWrapbtn [type="button"] {
   border: 1px solid#E5E5E5;
   background: none;
   width: 100%;
@@ -147,59 +311,63 @@ export default {
   box-sizing: border-box;
   padding: 15px;
 }
-.labelGap{
+.labelGap {
   margin-bottom: 8px;
   display: flex;
 }
-.inlineForm{
+.inlineForm {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 -4px;
 }
-.inlineForm div{
+.inlineForm div {
   margin: 0 2px;
 }
 
-.inlineTime{
+.inlineTime {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.inlineTime span:first-child{
-  color: #C4C4C4;
+.inlineTime span:first-child {
+  color: #c4c4c4;
 }
-
-.inlineTime span{
-  color: #9D6AFF;
+small {
+  color: red;
+}
+.inlineTime span {
+  color: #9d6aff;
   font-size: 14px;
   font-weight: 400;
 }
 
-.contWrap ul li{
+.contWrap ul li {
   display: flex;
   /* justify-content: space-between; */
   /* align-items: center; */
   flex-direction: column;
-  border-bottom: 1px solid #F6F6F6;
+  border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
 }
-.contWrap li label{
-  color: #C4C4C4;
+.contWrap li label {
+  color: #c4c4c4;
   font-size: 12px;
   font-weight: 700;
 }
-.contWrap ul li lspanabel{
-  color: #25282B;
+.contWrap ul li lspanabel {
+  color: #25282b;
   font-size: 14px;
   font-weight: 400;
 }
 
-.secList,.thirdList,.forthList{
+.secList,
+.thirdList,
+.forthList {
   margin-top: 40px;
 }
-.secList button{
+.secList button {
   display: block;
   width: 100%;
   border-radius: 10px;
@@ -208,34 +376,38 @@ export default {
   padding: 14px 0;
 }
 
-.thirdList li{
+.thirdList li {
   justify-content: flex-start !important;
 }
-.thirdList li ion-checkbox{
+.thirdList li ion-checkbox {
   margin-right: 10px;
 }
 
-.button-group{
+.button-group {
   bottom: 0;
-  width: 500px;
+  max-width: 500px;
   position: fixed;
-  
+  width: 100%;
 }
-.button-group button{
-    width: 100%;
-    display: block;
-    align-items: center;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 21px;
+.button-group button {
+  width: 100%;
+  display: block;
+  align-items: center;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
 }
-.button-group button.grey-btn{
-    color: #797979;
-    background: #E5E5E5;
+.redo {
+  border: 1px solid red !important;
+  transition: 500ms;
 }
-.button-group button.black-btn{
-    color: #FFFFFF;
-    background: #090909;
+.button-group button.grey-btn {
+  color: #797979;
+  background: #e5e5e5;
+}
+.button-group button.black-btn {
+  color: #ffffff;
+  background: #090909;
 }
 </style>

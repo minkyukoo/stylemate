@@ -1,20 +1,35 @@
 <template>
-  <router-link class="notification" to="/notification">
+  <div class="notification" to="/notification" @click="alertConfirm()">
     <div class="notification-inner">
       <i class="icon-notification"></i>
       <span class="badge">{{ notificationCount }}</span>
       <i class="icon-blue-dot"></i>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
 // import { IonPopover } from '@ionic/vue';
+import UserInfoService from "@/services/UserInfoService";
 export default {
   name: "NotificationIcon",
   // components: { IonPopover },
   props: {
     notificationCount: Number,
+  },
+  created() {
+    this.user = new UserInfoService();
+  },
+  methods: {
+    alertConfirm() {
+      // this.user.getUserInfo().then((userInfo) => {
+      //   this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
+      //     console.log(res.response.status);
+      //   });
+      // });
+      this.$router.push({ path: "/notification" });
+      // alert("test")
+    },
   },
 };
 </script>
@@ -25,6 +40,7 @@ export default {
   width: 24px;
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 .notification .icon-blue-dot {
   position: absolute;

@@ -1,19 +1,19 @@
 <template>
-  <ion-page>
+   <ion-page class="main-container relative">
     <!-- header -->
-    <TopNav></TopNav>
+    <TopNav headerTitle="채널연결" />
     <!-- End header -->
     <!-- page content -->
     <ion-content :fullscreen="true">
       <div>
         <ion-grid>
           <ion-row>
-            <ion-col
-              ><h2 class="contentchannel">Channel Connection</h2></ion-col
-            >
+            <ion-col>
+              <h2 class="contentchannel">Channel Connection</h2>
+            </ion-col>
             <ion-col class="icon">
-              <ion-icon :src="sync" class="ioconsyn"> </ion-icon
-            ></ion-col>
+              <ion-icon :src="sync" class="ioconsyn"></ion-icon>
+            </ion-col>
           </ion-row>
         </ion-grid>
 
@@ -21,23 +21,20 @@
       </div>
 
       <div>
-        <ion-button shape="round" color="light" class="connectbtn"
-          >See how to connect</ion-button
-        >
+        <ion-button shape="round" color="light" class="connectbtn">See how to connect</ion-button>
         <div v-for="data in cards" :key="data">
           <img :src="data.src" />
           <h1>{{ data.cardName }}</h1>
           <div class="addcard">
- <ion-card>
-            <ion-item>
-              <ion-chip class="btnadd">
-                <ion-icon :src="add"></ion-icon>
-                <ion-label>Add Channel</ion-label>
-              </ion-chip>
-            </ion-item>
-          </ion-card>
+            <ion-card>
+              <ion-item>
+                <ion-chip class="btnadd">
+                  <ion-icon :src="add"></ion-icon>
+                  <ion-label>Add Channel</ion-label>
+                </ion-chip>
+              </ion-item>
+            </ion-card>
           </div>
-         
         </div>
         <!-- <AddChannelsVue/> -->
       </div>
@@ -55,7 +52,7 @@ import { sync, add } from "ionicons/icons";
 
 export default {
   name: "LinkChannel",
-  components: { IonContent, IonPage, TopNav, IonGrid, IonButton ,},
+  components: { IonContent, IonPage, TopNav, IonGrid, IonButton, },
   data() {
     return {
       cards: [
@@ -72,7 +69,7 @@ export default {
       add,
     };
   },
-   methods: {
+  methods: {
   },
 };
 </script>
@@ -94,6 +91,5 @@ export default {
 }
 .btnadd {
   background: #969090;
-  
 }
 </style>

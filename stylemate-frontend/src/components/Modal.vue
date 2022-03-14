@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div :class="`modal-backdrop ${modalSize? 'pad-t-60' : ''}`">
+    <div :class="`modal-backdrop ${modalSize? '' : ''}`">
       <div
         :class="`modal ${modalSize? modalSize : ''}`"
         role="dialog"
@@ -58,7 +58,10 @@ export default {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  max-width: 500px;
   right: 0;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;

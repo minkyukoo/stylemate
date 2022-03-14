@@ -26,7 +26,7 @@
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
               <b>{{ item.title }}</b>
               <p>{{ item.message }}</p>
-              <a href="#">
+              <a href="javascript:void(0)">
                 바로가기
                 <img src="@/assets/icons/smallarw.png" />
               </a>
@@ -64,6 +64,7 @@ export default {
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
+        console.log(notice.data.data)
         this.options = notice.data.data
           .map((option) => option.type)
           .filter((v, i, a) => a.indexOf(v) === i);
@@ -201,7 +202,7 @@ export default {
   align-items: center;
 }
 .loopList li .loopInner a img {
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5px;
   width: 5px;
   height: 9px;
 }

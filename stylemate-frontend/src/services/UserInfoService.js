@@ -19,6 +19,13 @@ export default class UserInfoService {
       }
     }).then((res) => res).catch((err) => err);
   }
+  async getNoticeConfirm(uid) {
+    return await axios.patch(`/stylemates/users/${uid}/alarm-confirm`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res).catch((err) => err);
+  }
 
   async getFilterNotice(uid, filter) {
     return await axios.get(`/stylemates/users/${uid}/alarms?filters={"type":"${filter}"}`, {
@@ -30,6 +37,14 @@ export default class UserInfoService {
 
   async getInfluence(uid, filter) {
     return await axios.get(`/stylemates/users/${uid}/influence-likes?type=${filter}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res).catch((err) => err);
+  }
+
+  async getInfluenceWithCategory(uid, filter, category) {
+    return await axios.get(`/stylemates/users/${uid}/influence-likes?type=${filter}&processStatus=${category}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -79,6 +94,44 @@ export default class UserInfoService {
 
       })
       .then((res) => res)
+  }
+  async changePassword(uid, oldpass, newpass, confpass) {
+    return await axios.patch(`stylemates/users/${uid}/password`, {
+        token: token,
+        oldPassword: oldpass,
+        password: newpass,
+        passwordConfirmation: confpass
+
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+
+      })
+      .then((res) => res)
+  }
+  async telAuth(telNo, mailId, ids, expiry) {
+    return await axios.post(`/stylemates/tel-auth`, {
+        tel: telNo,
+        email: mailId,
+        expiredAt: expiry,
+        id: ids
+
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+
+      })
+      .then((res) => res)
+  }
+
+  async confirmPass(vcode, mailId, telNo) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/tel-auth-confirm?verificationCode=${vcode}&email=${mailId}&tel=${telNo}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data.data).catch((err) => err);
   }
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);

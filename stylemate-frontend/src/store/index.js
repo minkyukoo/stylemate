@@ -1,20 +1,48 @@
-import { reactive } from "vue";
+import {
+  reactive
+} from "vue";
 // import axios from "axios";
 import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
 
 const state = reactive({
-  AppData: undefined,
+  // AppData: undefined,
+  hideBar: false,
+  AppData: [],
+  productMeta: null,
   AppFltData: undefined,
   FltCampaignData: undefined,
   campaignEmpty: false,
   number: 13,
   UserId: "",
+  influenceId: null,
   status: "NotEmpty",
+  noticeTabPageName: "Notice",
   likedTabState: "item",
+  likedTabBrand: [],
+  likedTabProduct: [], 
+  likedTabProductLength: 0,
+  likedTabBrandLength: 0,
+  likedTabAllCategories: [
+    {
+      id: "all",
+      name: "all",
+      active: true,
+    },
+    {
+      id: "Progress",
+      name: "Progress",
+      active: false,
+    },
+    {
+      id: "end",
+      name: "end",
+      active: false,
+    },
+  ],
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
-  sponcerFilterNo: 0,
+  sponcerFilterNo: 1,
   sponcerChannelType: "instagram",
   isPostModalVisible: false,
   cancelPopup: false,
@@ -22,6 +50,7 @@ const state = reactive({
   contentDetailsModal: false,
   contentDetailsId: null,
   MyPageTopState: "",
+  isChannelExists: false,
   MyPageTopDetails: {
     name: "",
     email: "",
@@ -39,7 +68,14 @@ const state = reactive({
   },
 });
 
-const EditPostModal = reactive({});
+const MyPageModals = reactive({
+  reRegistration: false,
+  reRegistrationNo: null,
+  campaignUID: null,
+  campaignId: null,
+  productID: null,
+  bookingId: null,
+});
 
 var itemService = new ItemService();
 var myPageService = new MyPageService();
@@ -60,9 +96,10 @@ const methods = {
     state.sponcerFilterId = "";
     methods.getcampList();
   },
-  setContentsDetailsModal(id,tab) {
+  setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
     state.contentDetailsModal = tab;
+    state.hideBar = true;
     console.log(state.contentDetailsId);
   },
   async getcampList() {
@@ -78,13 +115,14 @@ const methods = {
         state.FltCampaignData = data.data.data;
         // console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        return state.FltCampaignData;
+        console.log("0th", state.campaignEmpty);
+        // return state.FltCampaignData;
       });
   },
   setSponsorFilter(id, index) {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
-    console.log(index);
+    // console.log(index);
     methods.getcampList();
     console.log(
       "setSponsorFilter",
@@ -102,6 +140,6 @@ const methods = {
 
 export default {
   state,
-  EditPostModal,
+  MyPageModals,
   methods,
 };

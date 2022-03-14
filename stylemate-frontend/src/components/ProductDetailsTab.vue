@@ -297,6 +297,7 @@ export default {
   border: 1px solid #e5e5e5;
   border-radius: 6px;
   display: flex;
+  background: #ffffff;
 }
 
 .tabs .tab {
@@ -310,7 +311,6 @@ export default {
   justify-content: center;
   padding: 20px;
   width: 50%;
-  background: #ffffff;
 }
 .tabs .tab.active {
   color: #ffffff;
@@ -380,7 +380,7 @@ export default {
   border-top: solid 1px #f6f6f6;
   padding: 20px 0;
 }
-.tag-info .tag-info-rowfirst-child {
+.tag-info .tag-info-row:first-child {
   border-top: 0;
 }
 .tag-info .tag-info-row .top {

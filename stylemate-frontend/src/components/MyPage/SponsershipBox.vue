@@ -2,18 +2,18 @@
   <div class="sponsor-box-cont">
     <div class="sponsor-item" @click="() => this.$router.push({name: 'Sponsorships'})">
       <h3>{{ store.state.MyPageSponsorBox.sponsorship }}</h3>
-      <p>Sponsorship</p>
+      <p>협찬활동</p>
     </div>
     <div
       class="sponsor-item"
       @click="() => this.$router.push({name: 'PostActivity'})"
     >
       <h3>{{ store.state.MyPageSponsorBox.Post_activity }}</h3>
-      <p>post activity</p>
+      <p>포스트활동</p>
     </div>
     <div class="sponsor-item" @click="() => this.$router.push({name: 'MyPageLiked'})">
       <h3>{{ store.state.MyPageSponsorBox.like }}</h3>
-      <p>like</p>
+      <p>좋아요</p>
     </div>
   </div>
 </template>

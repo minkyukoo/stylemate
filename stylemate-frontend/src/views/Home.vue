@@ -40,17 +40,23 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newEvanItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img
+                        v-if="item.isInfluenceLike"
+                        src="@/assets/icons/heart-filled.svg"
+                      />
                       <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
@@ -64,7 +70,15 @@
                   >
                     <img :src="item.imageThumbnailPath" />
                   </figure>
-                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <div
+                    class="details-wrap"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
                     <div class="hashWrap">
@@ -78,24 +92,45 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newOddItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img
+                        v-if="item.isInfluenceLike"
+                        src="@/assets/icons/heart-filled.svg"
+                      />
                       <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
-                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <img :src="item.imageThumbnailPath" />
                   </figure>
-                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <div
+                    class="details-wrap"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
                     <div class="hashWrap">
@@ -109,24 +144,45 @@
             <swiper-slide>
               <div class="multiSlideWrap product-list">
                 <div
-                  class="slideItem product-list-item"
+                  class="slideItem product-list-item cursor-pointer"
                   v-for="(item, index) in newStartItems"
                   :key="index"
                 >
                   <div class="top-float-div">
                     <div class="social-icon">
-                      <img src="@/assets/icons/instagram.svg" />
+                      <img
+                        v-if="isChannelIg(item.campaign)"
+                        src="@/assets/icons/instagram.svg"
+                      />
                     </div>
                     <div class="favorite" @click="likeProduct(item.id)">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                      <img
+                        v-if="item.isInfluenceLike"
+                        src="@/assets/icons/heart-filled.svg"
+                      />
                       <img v-else src="@/assets/icons/heart-outline.svg" />
                     </div>
                   </div>
-                  <figure @click="$router.push({ name: 'ItemDetails' })">
+                  <figure
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <img :src="item.imageThumbnailPath" />
                   </figure>
-                  <div class="details-wrap" @click="$router.push({ name: 'ItemDetails' })">
+                  <div
+                    class="details-wrap"
+                    @click="
+                      $router.push({
+                        name: 'ItemDetails',
+                        params: { id: item.id },
+                      })
+                    "
+                  >
                     <h3>{{ item.brand.engName }}</h3>
                     <p>{{ item.name }}</p>
                     <div class="hashWrap">
@@ -149,12 +205,15 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :centeredSlidesBounds="false"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
+            :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :pagination="{ clickable: true }"
+            :pagination="{
+              clickable: true,
+              dynamicBullets: true,
+            }"
             @slideChange="onBrandSlideChange"
             class="newBrandSwiper"
           >
@@ -162,7 +221,9 @@
               class="brandSliderimg"
               v-for="item in brandList"
               :key="item.id"
-              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -200,17 +261,23 @@
           <div class="lookBookMain">
             <div class="bookLabel1 pattern1">
               <img
+                class="cursor-pointer"
                 v-for="book in lookBooks.lineOne.big"
                 :key="book.id"
-                :src="book.post.product.imageThumbnailPath"
-                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                :src="book.post.instagramPost.thumbnailUrl"
+                @click="
+                  store.methods.setContentsDetailsModal(book.post.id, true)
+                "
               />
             </div>
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
-                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                  class="cursor-pointer"
+                  :src="book.post.instagramPost.thumbnailUrl"
+                  @click="
+                    store.methods.setContentsDetailsModal(book.post.id, true)
+                  "
                 />
               </div>
             </div>
@@ -220,28 +287,40 @@
             <div class="bookLabel2 pattern3">
               <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
-                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                  class="cursor-pointer"
+                  :src="book.post.instagramPost.thumbnailUrl"
+                  @click="
+                    store.methods.setContentsDetailsModal(book.post.id, true)
+                  "
                 />
               </div>
             </div>
           </div>
 
-          <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+          <div
+            v-if="lookBooks.lineThree.normal.length !== 0"
+            class="lookBookMain"
+          >
             <div class="bookLabel1 pattern2">
               <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                 <img
-                  :src="book.post.product.imageThumbnailPath"
-                  @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                  class="cursor-pointer"
+                  :src="book.post.instagramPost.thumbnailUrl"
+                  @click="
+                    store.methods.setContentsDetailsModal(book.post.id, true)
+                  "
                 />
               </div>
             </div>
             <div class="bookLabel1 pattern1">
               <img
+                class="cursor-pointer"
                 v-for="book in lookBooks.lineThree.big"
                 :key="book.id"
-                :src="book.post.product.imageThumbnailPath"
-                @click="store.methods.setContentsDetailsModal(book.post.id, true)"
+                :src="book.post.instagramPost.thumbnailUrl"
+                @click="
+                  store.methods.setContentsDetailsModal(book.post.id, true)
+                "
               />
             </div>
           </div>
@@ -251,12 +330,12 @@
               <ul>
                 <li>
                   <a href="https://app.mediance.co.kr/">
-                    <img src="@/assets/images/logo-1.png" />
+                    <img src="@/assets/images/logo-2.png" />
                   </a>
                 </li>
                 <li>
                   <a href="http://influencer.mediance.co.kr/">
-                    <img src="@/assets/images/logo-2.png" />
+                    <img src="@/assets/images/logo-1.png" />
                   </a>
                 </li>
               </ul>
@@ -265,7 +344,7 @@
           </div>
 
           <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-          <button class="greyBtnFull" @click="getNotice">
+          <button class="greyBtnFull">
             <span>중요</span>
             {{ notice }}
           </button>
@@ -343,7 +422,8 @@ export default {
       newProItems: null,
       isActive: false,
       notificationLength: 0,
-      image: "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/f/15/1645748657916_20220225092418.jpg",
+      image:
+        "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/f/15/1645748657916_20220225092418.jpg",
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -368,21 +448,10 @@ export default {
       this.brandList = res;
     });
 
+    this.getNoticeIsAuth();
+
     window.callJsFunction = this.callJsFunction;
     window.pushNotification = this.pushNotification;
-
-    if (
-      localStorage.getItem("token") &&
-      localStorage.getItem("token") !== undefined &&
-      localStorage.getItem("token") !== ""
-    ) {
-      this.userInfoService.Notice().then((res) => {
-        this.notice = res.data[0].title;
-        // console.log(res.data);
-      });
-    } else {
-      this.notice = "[알림] 서비스 점검 안내";
-    }
   },
   methods: {
     truncate(input, length) {
@@ -392,19 +461,28 @@ export default {
       return input;
     },
 
-    getNotice() {
-      if (
-        localStorage.getItem("token") &&
-        localStorage.getItem("token") !== undefined &&
-        localStorage.getItem("token") !== ""
-      ) {
-        this.$router.push({ name: "Notice" });
-      } else this.$router.push({ name: "LoginPage" });
+    async getNoticeIsAuth() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        this.userInfoService.Notice().then((res) => {
+          this.notice = res.data[0].title;
+          console.log(res.data);
+        });
+      } else {
+        this.notice = "[알림] 서비스 점검 안내";
+      }
     },
+
+    // async getNotice() {
+    //   let isLogedIn = await this.tokenService.isAuth();
+    //   if (isLogedIn) {
+    //     this.$router.push({ name: "Notice" });
+    //   } else this.$router.push({ name: "LoginPage" });
+    // },
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        // console.log(res);
+        console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -426,6 +504,10 @@ export default {
         this.newStartItems = startArray;
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
+
+        console.log("this.newStartItems", startArray);
+        console.log("this.newOddItems", OddArray);
+        console.log("this.newEvanItems", EvanArray);
       });
     },
 
@@ -493,29 +575,46 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService.influencelikes(uid, 'product', productId).then((res) => {
-            // console.log(res.response.data.error);
-            // console.log(res.response);
-            this.getProductItemList();
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          this.itemService
+            .influencelikes(uid, "product", productId)
+            .then((res) => {
+              // console.log(res.response.data.error);
+              // console.log(res.response);
+              this.getProductItemList();
+              if (res.response.data.error) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            });
         });
       }
-      console.log('likeProduct');
+      console.log("likeProduct");
+    },
+    // isChannelIg
+    isChannelIg(pdata) {
+      let isProductCamp = false;
+      if (!pdata) return isProductCamp;
+      pdata.forEach((item) => {
+        if (
+          item.processStatus === "progress" &&
+          item.channelType === "instagram"
+        ) {
+          isProductCamp = true;
+          return isProductCamp;
+        }
+      });
+      return isProductCamp;
     },
 
-    // for pushnotification
-    pushNotification(res) {
-      // const obj = JSON.parse(JSON.stringify(res));
-      alert(res);
-      console.log("res", res);
-      if (res) {
-        this.$router.push(res);
-        // this.$router.push({name: 'products.index', params: { id: 1 }});
-      }
-    },
+    // // for pushnotification
+    // pushNotification(res) {
+    //   // const obj = JSON.parse(JSON.stringify(res));
+    //   alert(res);
+    //   console.log("res", res);
+    //   if (res) {
+    //     this.$router.push(res);
+    //     // this.$router.push({name: 'products.index', params: { id: 1 }});
+    //   }
+    // },
 
     // onMessage(res) {
     //   console.log("Data : " + res),
@@ -535,6 +634,9 @@ export default {
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .top-float-div {
   width: 100%;
   display: flex;
@@ -807,11 +909,16 @@ export default {
 .newBrandSec .headerLine {
   position: relative;
   z-index: 2;
+  max-width: 320px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
 }
 .newBrandSec .swiper {
   z-index: 2;
 }
-.greyBtnFull{
+.greyBtnFull {
   padding: 12px 0;
+  font-size: 12px;
 }
 </style>

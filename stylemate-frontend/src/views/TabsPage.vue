@@ -3,7 +3,7 @@
   <div class="main-container relative">
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar>
+      <ion-tab-bar id="ionTabBar" :style="{visibility : `${store.state.hideBar? 'hidden' :''}`}">
         <ion-tab-button class="tab-button" tab="tab1" href="/home" key="tab1">
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
@@ -25,7 +25,12 @@
           <ion-label>BRAND</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab4" href="/contents" key="tab4">
+        <ion-tab-button
+          class="tab-button"
+          tab="tab4"
+          href="/contents"
+          key="tab4"
+        >
           <!-- <ion-icon :src="require(`@/assets/icons/contents.svg`)" /> -->
           <i class="icon icon-dft icon-contents" />
           <i class="icon icon-hvr icon-contents-white" />
@@ -40,14 +45,15 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    <StickyBtn/>
+    <StickyBtn />
   </div>
   <!-- </ion-page> -->
 </template>
 
 <script>
-
-import StickyBtn from '@/components/StickyBtn.vue';
+import { inject } from "vue";
+import { watch } from "vue";
+import StickyBtn from "@/components/StickyBtn.vue";
 import {
   IonTabBar,
   IonTabButton,
@@ -71,8 +77,21 @@ export default {
     // IonIcon,
     // IonPage,
     IonRouterOutlet,
-    StickyBtn
+    StickyBtn,
   },
+  setup() {
+    const store = inject("store");
+
+    watch(store.state.isPostModalVisible, () => {
+      document.querySelector("ion-tab-bar").classList.add = "remove-tabbar";
+    });
+
+    return {
+      store,
+      // setTab,
+    };
+  },
+
   data() {
     return {
       hover: true,
@@ -83,7 +102,7 @@ export default {
 </script>
 
 <style scoped>
-ion-tabs{
+ion-tabs {
   background: #fff;
 }
 ion-icon {
@@ -101,15 +120,29 @@ ion-icon {
 ion-tab-bar {
   height: 70px;
   margin: 0 10px 10px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(10px);
   border-radius: 10px;
+  position: absolute;
+  left: auto;
+  right: auto;
+  bottom: 0;
+  width: calc(100% - 20px);
 }
 ion-tab-button {
   /* background: black; */
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
+  /* background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px); */
+  background: transparent;
   overflow: hidden;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+.button-native {
+  background: transparent !important;
+  padding: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
 }
 ion-tab-button.tab-selected ion-label {
   color: #ffffff;
@@ -130,9 +163,9 @@ ion-tab-button.tab-selected .icon.icon-dft {
   display: none;
 }
 ion-label {
-  /* font-family: Europa-Bold; */
+  font-family: europa, sans-serif;
+  font-weight: 700;
   font-style: normal;
-  font-weight: bold;
   font-size: 9px;
   line-height: 9px;
   color: #797979;

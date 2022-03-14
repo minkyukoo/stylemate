@@ -1,21 +1,27 @@
 <template>
   <div class="inner-container listmain">
     <ion-searchbar
-      @keyup="sreachWord($event.target.value)"
+      @keyup.enter="sreachWord($event.target.value)"
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
-      <ul>
-        <li v-for="(item, i) in searchKeywords" :key="i">
-          <span @click="sreachWithHistory(item.searchKeyword)">
-            {{
-              item.searchKeyword
-            }}
-          </span>
-        </li>
-      </ul>
+      <swiper
+      class="main-menu"
+      :slides-per-view="'auto'"
+      :space-between="4"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide
+        v-for="(item, i) in searchKeywords" :key="i">
+        <a
+          @click="sreachWithHistory(item.searchKeyword)"
+          >{{item.searchKeyword}}</a
+        >
+      </swiper-slide>
+    </swiper>
     </div>
 
     <div v-if="notFound" class="content-not-found">
@@ -76,9 +82,14 @@ import Toast from "@/alert/alert";
 import BrandService from "@/services/BrandService";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
+import { Swiper, SwiperSlide } from "swiper/vue";
+// import { inject, onMounted } from "vue";
+import "swiper/css";
+import "swiper/css/scrollbar";
+
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar },
+  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, Swiper, SwiperSlide, },
   setup() {
     return { heart };
   },
@@ -101,17 +112,17 @@ export default {
     this.tokenService = new TokenService();
   },
   mounted() {
-    // this.setUser();
+    this.setUser();
     this.getBrandList();
   },
 
   methods: {
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
-        console.log('errorstate', res.response.status);
-        if (res.response.status == 401) {
+        // console.log('errorstate', res.status);
+        if (res.status == 401) {
           this.$router.push({ name: 'LoginPage' });
-        } else if (res.response.status == 200) {
+        } else if (res.status == 200) {
           this.user = res.data;
           this.setHistoryKeywords(res.data.uid);
         }
@@ -122,14 +133,15 @@ export default {
       console.log('call from likeBrand');
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
-        console.log('this.brands list', data);
+        // console.log('this.brands list', data);
       });
     },
 
     setHistoryKeywords(uid) {
       this.brandService.brandSearchHistory(uid).then((res) => {
-        this.history = res.length > 0 ? true : false;
-        this.searchKeywords = res;
+        this.history = res.data.length > 0 ? true : false;
+        this.searchKeywords = res.data;
+        // console.log(this.searchKeywords);
       });
     },
 
@@ -214,6 +226,10 @@ export default {
 .maincontent {
   font-size: 14px;
   color: #25282b;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .maincard {
   width: 100%;
@@ -232,7 +248,7 @@ export default {
   object-fit: cover;
   border-radius: 6px;
   overflow: hidden;
-  background-color: #c4c4c4;
+  /* background-color: #c4c4c4; */
   cursor: pointer;
 }
 .imgsec {
@@ -291,5 +307,30 @@ ion-card-title h3 {
   text-align: center;
   color: #c4c4c4;
   padding: 30px 0 20px 0;
+}
+.history-keywords{
+  margin: 16px 0 20px;
+}
+.history-keywords .swiper-slide{
+  width: auto;
+}
+.history-keywords .swiper-slide a{
+  background: #F7F7F7;
+  border-radius: 100px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #25282B;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.history-keywords .swiper-slide.swiper-slide-active a{
+  border: 1px solid #090909;
+  background: #090909;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s;
 }
 </style>
