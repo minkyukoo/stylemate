@@ -6,7 +6,7 @@
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
     <div class="main-wrap">
-      {{userUID}}-{{channelId}}
+      <!-- {{userUID}}-{{channelId}} -->
       <div class="contWrap">
         <ul class="connectionList">
           <li>

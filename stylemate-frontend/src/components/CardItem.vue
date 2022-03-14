@@ -191,6 +191,7 @@ export default defineComponent({
         console.log('page from incerement:', this.page);
         if (type == "최신순") {
           this.$emit('bookOption', 'latest');
+          this.page = 1;
           this.store.state.AppData = [];
           this.store.methods.getData('latest',this.page);
           // this.itemService.getProductList("latest", this.page).then((data) => {
@@ -198,6 +199,7 @@ export default defineComponent({
           //   // this.store.state.AppData.push(...data);
           // });
         } else if (type == "마감임박순") {
+          this.page = 1;
           this.$emit('bookOption', 'popular');
           this.store.state.AppData = [];
           this.store.methods.getData('popular',this.page);
