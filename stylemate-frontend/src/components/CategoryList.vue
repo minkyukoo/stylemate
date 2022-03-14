@@ -12,8 +12,7 @@
         <a
           :class="{ active: category.id === activeId }"
           @click="handleClick(category.childCategory, category.id)"
-          >{{ category.name }}</a
-        >
+        >{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -26,15 +25,11 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide
-        v-for="childCategory in childCategoryArray"
-        :key="childCategory.name"
-      >
+      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
         <a
           :class="{ active: childCategory.id === childactiveId }"
           @click="handleClick2(childCategory.id)"
-          >{{ childCategory.name }}</a
-        >
+        >{{ childCategory.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -50,6 +45,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 import ItemService from "@/services/ItemService";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
@@ -60,8 +56,11 @@ export default {
     Swiper,
     SwiperSlide,
   },
-
+  props: {
+    page: { type: Number },
+  },
   setup() {
+    const store = inject("store");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
@@ -69,6 +68,7 @@ export default {
       console.log("slide change");
     };
     return {
+      store,
       onSwiper,
       onSlideChange,
     };
@@ -87,6 +87,7 @@ export default {
       childCategories2: null,
       activeId: -1,
       childactiveId: -1,
+      spage: this.$props.page,
     };
   },
 
@@ -102,74 +103,84 @@ export default {
   methods: {
     // Child category click
     handleClick2(ids) {
-      // alert(ids);
-      this.itemServices.getFilterProduct(ids).then((data) => {
-        // console.log("filterproductList", data);
-        this.childactiveId = ids; //To activate the All button
-
-        if (data.length == 0) {
-          // alert('nodata')
-          this.nofltData = true;
-          this.$emit("fltData", false);
-        } else {
-          this.nofltData = false;
-          this.$emit("fltData", true);
-
-          let filterproductList = data;
-          this.$emit("filterproductList", filterproductList);
-        }
-        // else{
-        //   let allData = data;
-        //   console.log("allData",allData);
-        //   this.$emit("allData",allData);
-        // }
-      });
+      alert(ids);
+      let last_page = this.store.state.productMeta.last_page;
+      if (this.spage < last_page) {
+        this.spage = 1;
+        this.$emit('pageResetcat', this.spage);
+        this.itemServices.getFilterProduct(ids, this.spage).then((data) => {
+          // console.log("filterproductList", data);
+          this.childactiveId = ids; //To activate the All button
+          if (data.length == 0) {
+            // alert('nodata')
+            this.nofltData = true;
+            this.$emit("fltData", false);
+          } else {
+            this.nofltData = false;
+            this.$emit("fltData", true);
+            alert(ids);
+            this.$emit("categoryId", ids);
+            let filterproductList = data;
+            this.$emit("filterproductList", filterproductList);
+          }
+        });
+      } else {
+        this.spage = last_page;
+      }
     },
 
     // Category click
     handleClick(childCategory, ids) {
       // alert(ids);
-      this.itemServices.getFilterProduct(ids).then((data) => {
-        // console.log("category-filterproductList", data);
-        this.childactiveId = ids; //To activate the All button
-        if (data.length == 0) {
-          this.nofltData = true;
-          this.$emit("fltData", false);
-        } else {
-          this.nofltData = false;
-          let filterproductList = data;
-          console.log("filterproductList", filterproductList);
-          this.$emit("fltData", true);
-          this.$emit("filterproductList", filterproductList);
-        }
-      });
-
-      if (typeof childCategory !== "undefined") {
-        this.childCategoryArray = [];
-
-        childCategory.forEach((element) => {
-          this.childCategoryArray.push(element);
+      let last_page = this.store.state.productMeta.last_page;
+      if (this.spage < last_page) {
+        this.spage = 1;
+        this.$emit('pageResetcat', this.spage);
+        this.$emit("categoryId", ids);
+        this.itemServices.getFilterProduct(ids, this.spage).then((data) => {
+          // console.log("category-filterproductList", data);
+          this.childactiveId = ids; //To activate the All button
+          if (data.length == 0) {
+            this.nofltData = true;
+            this.$emit("fltData", false);
+          } else {
+            this.nofltData = false;
+            let filterproductList = data;
+            console.log("filterproductList", filterproductList);
+            this.$emit("fltData", true);
+            this.$emit("filterproductList", filterproductList);
+            this.$emit("childCategory", childCategory);
+          }
         });
+        if (typeof childCategory !== "undefined") {
+          this.childCategoryArray = [];
 
-        this.activeId = ids;
-        this.$emit("allbutton", this.activeId);
+          childCategory.forEach((element) => {
+            this.childCategoryArray.push(element);
+          });
 
-        let arr1 = this.childCategoryArray;
-        // console.log("arr1", arr1);
-        this.childCategories2 = arr1.unshift({ name: "All", id: ids });
-        // console.log("this.childCategories2", this.childCategories2);
+          this.activeId = ids;
+          this.$emit("allbutton", this.activeId);
 
-        // alert("child cat id", ids);
-        this.childCategory = true;
-        this.onClickButton(false);
-        // console.log("this", this);
+          let arr1 = this.childCategoryArray;
+          // console.log("arr1", arr1);
+          this.childCategories2 = arr1.unshift({ name: "All", id: ids });
+          // console.log("this.childCategories2", this.childCategories2);
 
-        this.childactiveId = "Allchild"; //To highlight the child button default
+          // alert("child cat id", ids);
+          this.childCategory = true;
+          this.onClickButton(false);
+          // console.log("this", this);
+
+          this.childactiveId = "Allchild"; //To highlight the child button default
+        } else {
+          // alert(ids);
+          this.activeId = ids;
+          this.childCategory = false;
+          this.onClickButton(true);
+        }
       } else {
-        // alert(ids);
-        this.activeId = ids;
-        this.childCategory = false;
-        this.onClickButton(true);
+        this.spage = last_page;
       }
     },
 

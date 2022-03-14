@@ -135,7 +135,9 @@ export default defineComponent({
   props: {
     isBanner: { type: Boolean, default: true },
     isFltData: { type: Boolean, default: true },
-    isproductfilter: null,
+    isproductfilter: null, 
+    page: { type: Number },
+    categoryId: { type: Number },
   },
   components: {
     "vue-select": VueNextSelect,
@@ -168,7 +170,8 @@ export default defineComponent({
       camp: [],
       products: [],
       bookOption: null,
-      page: 0,
+      spage: this.$props.page,
+      scategoryId: this.$props.categoryId,
     };
   },
   created() {
@@ -186,30 +189,35 @@ export default defineComponent({
     bookOption: function (type) {
       let last_page = this.store.state.productMeta.last_page;
       console.log('last_page', last_page);
-      if (this.page < last_page) {
-        this.page = this.page + 1;
-        console.log('page from incerement:', this.page);
+      if (this.spage < last_page) {
+        // this.spage = this.spage + 1;
+        // console.log('page from carditem:-:',this.page);
+        // console.log('page from incerement:', this.spage);
         if (type == "최신순") {
+          this.spage = 1;
           this.$emit('bookOption', 'latest');
-          this.page = 1;
+          this.$emit('pageReset', this.spage);
+           console.log('page from carditem latest:-:',this.page);
           this.store.state.AppData = [];
-          this.store.methods.getData('latest',this.page);
-          // this.itemService.getProductList("latest", this.page).then((data) => {
+          this.store.methods.getData('latest',this.spage,this.scategoryId);
+          // this.itemService.getProductList("latest", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
           // });
         } else if (type == "마감임박순") {
-          this.page = 1;
+          this.spage = 1;
+           console.log('page from carditem popular:-:',this.page);
           this.$emit('bookOption', 'popular');
+          this.$emit('pageReset', this.spage);
           this.store.state.AppData = [];
-          this.store.methods.getData('popular',this.page);
-          // this.itemService.getProductList("popular", this.page).then((data) => {
+          this.store.methods.getData('popular',this.spage,this.scategoryId);
+          // this.itemService.getProductList("popular", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
           // });
         }
       } else {
-        this.page = last_page;
+        this.spage = last_page;
       }
 
     },
@@ -279,9 +287,8 @@ export default defineComponent({
     if (this.isproductfilter) {
       // alert("isproductfilter");
       console.log('isproductfilter:-', this.isproductfilter);
-      // this.store.state.AppData = this.isproductfilter;
-      this.store.state.AppData.push(this.isproductfilter);
-
+      this.store.state.AppData = this.isproductfilter;
+      // this.store.state.AppData.push(this.isproductfilter);
       console.log('this.store.state.AppData:-', this.store.state.AppData);
     }
   },

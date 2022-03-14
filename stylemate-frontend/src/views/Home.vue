@@ -605,16 +605,16 @@ export default {
       return isProductCamp;
     },
 
-    // for pushnotification
-    pushNotification(res) {
-      // const obj = JSON.parse(JSON.stringify(res));
-      alert(res);
-      console.log("res", res);
-      if (res) {
-        this.$router.push(res);
-        // this.$router.push({name: 'products.index', params: { id: 1 }});
-      }
-    },
+    // // for pushnotification
+    // pushNotification(res) {
+    //   // const obj = JSON.parse(JSON.stringify(res));
+    //   alert(res);
+    //   console.log("res", res);
+    //   if (res) {
+    //     this.$router.push(res);
+    //     // this.$router.push({name: 'products.index', params: { id: 1 }});
+    //   }
+    // },
 
     // onMessage(res) {
     //   console.log("Data : " + res),
