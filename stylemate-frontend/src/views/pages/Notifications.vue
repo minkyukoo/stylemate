@@ -24,7 +24,7 @@
             </span>
             <div class="loopInner">
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
-              <b>{{ item.title }}</b>
+              <b>{{ setTitle(item.subType) }}</b>
               <p>{{ item.message }}</p>
               <a href="javascript:void(0)">
                 바로가기
@@ -60,11 +60,10 @@ export default {
     this.userInfoService = new UserInfoService();
   },
   mounted() {
-    
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
-        console.log(notice.data.data)
+        console.log(notice.data.data);
         this.options = notice.data.data
           .map((option) => option.type)
           .filter((v, i, a) => a.indexOf(v) === i);
@@ -101,6 +100,20 @@ export default {
       let dt = new Date(date);
       let month = months[dt.getMonth()];
       return `${month} ${dt.getDate()}, ${dt.getFullYear()}`;
+    },
+
+    setTitle(arg) {
+      if (arg === "postRequest") {
+        return "포스트 등록 요청";
+      } else if (arg === "announce") {
+        return "발표하다";
+      } else if (arg === "postModifyRequest") {
+        return "수정 요청 게시";
+      } else if (arg === "disconnected") {
+        return "연결이 끊긴";
+      } else if (arg === "finish"){
+        return "마치다";
+      }
     },
   },
   setup() {
