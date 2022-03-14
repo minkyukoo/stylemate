@@ -239,14 +239,17 @@ export default {
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.getProductDetails();
-    setTimeout(() => {
-      this.pushNotification('http://stylemate.dvconsulting.org/item');
-    }, 5000);
+    // setTimeout(() => {
+    //   this.pushNotification('http://stylemate.dvconsulting.org/item');
+    // }, 5000);
   },
   mounted() {
     // this.getURL();
-    window.pushNotification = this.pushNotification;
+    window.productShare = this.productShare;
     this.getMobileOS();
+    if(this.getMobileOS() == 'Other') {
+      this.
+    }
     console.log('getMobileOS', this.getMobileOS());
   },
   methods: {
@@ -468,16 +471,13 @@ export default {
         this.isActive = false;
       }
     },
-
-
-    // for pushnotification
-    pushNotification(res) {
+    
+    // for productShare
+    productShare(res) {
       alert(res);
       console.log("res", res);
       if (res) {
-        // this.$router.push(res);
         window.location.href = res;
-        // this.$router.push({name: 'products.index', params: { id: 1 }});
       }
     },
   },
