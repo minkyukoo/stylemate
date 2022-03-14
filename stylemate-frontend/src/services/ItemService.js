@@ -11,11 +11,11 @@ export default class ItemService {
     if (order != null) {
       if (!token) {
         return await axios
-          .get(`/stylemates/products?order=${order}`)
+          .get(`/stylemates/products?order=${order}&page=${page}`)
           .then((res) => res.data);
       } else {
         return await axios
-          .get(`/stylemates/products?order=${order}`, {
+          .get(`/stylemates/products?order=${order}&page=${page}`, {
             headers: {
               Authorization: "Bearer " + token, //the token is a variable which holds the token
             },

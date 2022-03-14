@@ -18,6 +18,7 @@
         :isBanner="isBanner"
         :isFltData="isFltData"
         :isproductfilter="isproductfilter"
+        v-on:bookOption="bookOption($event)"
       />
     </div>
     <!-- </ion-content> -->
@@ -44,6 +45,7 @@ export default {
       isallbutton: null,
       arr: [],
       page: 1,
+      bookOptionVal: null,
 
     }
   },
@@ -61,16 +63,26 @@ export default {
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
         console.log('end reached');
-        this.arr.push(this.arr.length + 1);
         let last_page = this.store.state.productMeta.last_page;
-        console.log('last_page', last_page);
         if (this.page < last_page) {
           this.page = this.page + 1;
           console.log('page from incerement:',this.page);
-          this.store.methods.getData(null,this.page);
+          if(this.bookOptionVal) {
+            console.log('this.bookOption:',this.bookOptionVal);
+            this.store.methods.getData(this.bookOptionVal,this.page);
+          } else {
+            this.store.methods.getData(null,this.page);
+          }
         } else {
           this.page = last_page;
         }
+      }
+    },
+
+    bookOption(event) {
+      if(event) {
+        console.log('event:',event);
+        this.bookOptionVal = event;
       }
     },
 

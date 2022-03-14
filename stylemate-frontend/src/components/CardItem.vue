@@ -168,6 +168,7 @@ export default defineComponent({
       camp: [],
       products: [],
       bookOption: null,
+      page: 0,
     };
   },
   created() {
@@ -183,15 +184,32 @@ export default defineComponent({
   },
   watch: {
     bookOption: function (type) {
-      if (type == "최신순") {
-        this.itemService.getProductList("latest", 1).then((data) => {
-          this.store.state.AppData = data;
-        });
-      } else if (type == "마감임박순") {
-        this.itemService.getProductList("popular", 1).then((data) => {
-          this.store.state.AppData = data;
-        });
+      let last_page = this.store.state.productMeta.last_page;
+      console.log('last_page', last_page);
+      if (this.page < last_page) {
+        this.page = this.page + 1;
+        console.log('page from incerement:', this.page);
+        if (type == "최신순") {
+          this.$emit('bookOption', 'latest');
+          this.store.state.AppData = [];
+          this.store.methods.getData('latest',this.page);
+          // this.itemService.getProductList("latest", this.page).then((data) => {
+          //   this.store.state.AppData = data;
+          //   // this.store.state.AppData.push(...data);
+          // });
+        } else if (type == "마감임박순") {
+          this.$emit('bookOption', 'popular');
+          this.store.state.AppData = [];
+          this.store.methods.getData('popular',this.page);
+          // this.itemService.getProductList("popular", this.page).then((data) => {
+          //   this.store.state.AppData = data;
+          //   // this.store.state.AppData.push(...data);
+          // });
+        }
+      } else {
+        this.page = last_page;
       }
+
     },
   },
   methods: {
@@ -254,19 +272,6 @@ export default defineComponent({
       }
       console.log("likeProduct");
     },
-    moreProductLoad() {
-      console.log('loadmoreData', this.loadmoreData2);
-      if (this.loadmoreData2.length > 0) {
-        this.itemService.getProductList(this.loadmoreData + 1).then((data) => {
-          console.log('loadmoreData=', data);
-          this.store.state.AppData = data;
-          console.log('store loadmoreData', this.store.state.AppData);
-          return false;
-        });
-        return false;
-      }
-      return false;
-    }
   },
   async updated() {
     if (this.isproductfilter) {
