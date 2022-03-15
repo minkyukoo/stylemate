@@ -108,19 +108,28 @@ export default {
       if (this.spage < last_page) {
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
-        this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
-          this.childactiveId = ids; //To activate the All button
-          if (data.length == 0) {
-            this.nofltData = true;
-            this.$emit("fltData", false);
-          } else {
-            this.nofltData = false;
-            this.$emit("fltData", true);
-            this.$emit("categoryId", ids);
-            let filterproductList = data;
-            this.$emit("filterproductList", filterproductList);
-          }
-        });
+
+
+        this.store.state.AppData = [];
+
+        this.store.methods.getData(null, this.spage, ids);
+
+
+
+
+        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
+        //   this.childactiveId = ids; //To activate the All button
+        //   if (data.length == 0) {
+        //     this.nofltData = true;
+        //     this.$emit("fltData", false);
+        //   } else {
+        //     this.nofltData = false;
+        //     this.$emit("fltData", true);
+        //     this.$emit("categoryId", ids);
+        //     let filterproductList = data;
+        //     this.$emit("filterproductList", filterproductList);
+        //   }
+        // });
       } else {
         this.spage = last_page;
       }
@@ -133,21 +142,29 @@ export default {
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
         this.$emit("categoryId", ids);
-        this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
-          // console.log("category-filterproductList", data);
-          this.childactiveId = ids; //To activate the All button
-          if (data.length == 0) {
-            this.nofltData = true;
-            this.$emit("fltData", false);
-          } else {
-            this.nofltData = false;
-            let filterproductList = data;
-            console.log("filterproductList", filterproductList);
-            this.$emit("fltData", true);
-            this.$emit("filterproductList", filterproductList);
-            this.$emit("childCategory", childCategory);
-          }
-        });
+
+        this.store.state.AppData = [];
+
+        this.store.methods.getData(null, this.spage, ids);
+
+
+        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
+        //   // console.log("category-filterproductList", data);
+        //   this.childactiveId = ids; //To activate the All button
+        //   if (data.length == 0) {
+        //     this.nofltData = true;
+        //     this.$emit("fltData", false);
+        //   } else {
+        //     this.nofltData = false;
+        //     let filterproductList = data;
+        //     console.log("filterproductList", filterproductList);
+        //     this.$emit("fltData", true);
+        //     this.$emit("filterproductList", filterproductList);
+        //     this.$emit("childCategory", childCategory);
+        //   }
+        // });
+
+
         if (typeof childCategory !== "undefined") {
           this.childCategoryArray = [];
           childCategory.forEach((element) => {

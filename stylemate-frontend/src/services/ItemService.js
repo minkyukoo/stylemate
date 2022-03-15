@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store/index";
 var token = localStorage.getItem("token");
 export default class ItemService {
   async getProductCategories() {
@@ -18,21 +19,21 @@ export default class ItemService {
     if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
       productParams.push(`categoryId=${categoryId}`);
     }
-    if (categoryId === "All") {
-      if (!token) {
-        return await axios
-          .get(`/stylemates/products?page=${page}`)
-          .then((res) => res.data);
-      } else {
-        return await axios
-          .get(`/stylemates/products?page=${page}`, {
-            headers: {
-              Authorization: "Bearer " + token, //the token is a variable which holds the token
-            },
-          })
-          .then((res) => res.data);
-      }
-    }
+    // if (categoryId === "All") {
+    //   if (!token) {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`)
+    //       .then((res) => res.data);
+    //   } else {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`, {
+    //         headers: {
+    //           Authorization: "Bearer " + token, //the token is a variable which holds the token
+    //         },
+    //       })
+    //       .then((res) => res.data);
+    //   }
+    // }
     if (!token) {
       return await axios
         .get(`/stylemates/products?${productParams.join('&')}`)
@@ -104,24 +105,25 @@ export default class ItemService {
     if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
       productParams.push(`categoryId=${categoryId}`);
     }
-    // if (categoryId === "All") {
-    //   return await this.getProductList(null, 1, null);
-    // }
     if (categoryId === "All") {
-      if (!token) {
-        return await axios
-          .get(`/stylemates/products?page=${page}`)
-          .then((res) => res.data);
-      } else {
-        return await axios
-          .get(`/stylemates/products?page=${page}`, {
-            headers: {
-              Authorization: "Bearer " + token, //the token is a variable which holds the token
-            },
-          })
-          .then((res) => res.data);
-      }
+      store.methods.getData(null, 1, null);
+      // return await this.getProductList(null, 1, null);
     }
+    // if (categoryId === "All") {
+    //   if (!token) {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`)
+    //       .then((res) => res.data);
+    //   } else {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`, {
+    //         headers: {
+    //           Authorization: "Bearer " + token, //the token is a variable which holds the token
+    //         },
+    //       })
+    //       .then((res) => res.data);
+    //   }
+    // }
     if (!token) {
       return await axios
         .get(`/stylemates/products?${productParams.join('&')}`)
