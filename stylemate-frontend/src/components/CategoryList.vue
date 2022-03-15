@@ -138,7 +138,9 @@ export default {
     // Category click
     handleClick(childCategory, ids) {
       let last_page = this.store.state.productMeta.last_page;
-      if (this.spage < last_page) {
+      console.log('spage', this.spage, 'lastPage', last_page );
+      if (this.spage <= last_page) {
+      console.log('clicked');
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
         this.$emit("categoryId", ids);
