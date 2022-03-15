@@ -334,8 +334,18 @@ export default {
   font-size: 14px;
   color: #52525b;
 }
+.overSearch li:last-child{
+  margin-bottom: 0;
+}
 .overSearch li ion-checkbox {
   margin: 0 10px 0 0;
+}
+.overSearch li.checkboxWrap .check-container{
+  margin-bottom: 0;
+  color: #52525B !important;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
 }
 .footBtn {
   display: flex;
@@ -352,4 +362,5 @@ export default {
 .footBtnBlack {
   background: #090909;
 }
+
 </style>

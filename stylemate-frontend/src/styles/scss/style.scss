@@ -743,3 +743,19 @@ input:checked + .slider:before {
 .modal-content p{
   text-align: center;
 }
+
+.channelconnectionmodal {
+  .modal{
+    background: linear-gradient(159.45deg, rgba(255, 255, 255, 0.5) -37.31%, #FFFFFF 43.98%);
+    backdrop-filter: blur(10px);
+  }
+  .modal-header{
+    padding: 28px 0 24px;
+    h2{
+      margin-top: 0;
+    }
+  }
+  .modal-content{
+    padding: 0 32px 28px;
+  }
+}
