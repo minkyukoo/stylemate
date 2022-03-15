@@ -56,9 +56,11 @@ export default {
       noticeOption: null,
     };
   },
+  
   created() {
     this.userInfoService = new UserInfoService();
   },
+
   mounted() {
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
@@ -70,6 +72,7 @@ export default {
       });
     });
   },
+
   watch: {
     noticeOption: function (type) {
       this.userInfoService.getUserInfo().then((userInfo) => {
@@ -81,6 +84,7 @@ export default {
       });
     },
   },
+
   methods: {
     humanReadableFormat(date) {
       const months = [
@@ -115,7 +119,7 @@ export default {
         return "마치다";
       }
     },
-    
+
   },
   setup() {
     const options = [
