@@ -48,7 +48,7 @@
           </li>
         </ul>
       </div>
-      <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="overLapmodal">
+      <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="channelconnectionmodal">
         <template v-slot:header>
           <div class="overHeader">
             <h2>확인해주세요!</h2>

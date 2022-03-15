@@ -90,7 +90,7 @@
         </figure>
 
         <!-- sponsership button -->
-        <!-- <button @click="showModal" class="black-btn">showModal</button> -->
+        <button @click="showModal" class="black-btn">showModal</button>
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- {{ sponsorship }} -->
