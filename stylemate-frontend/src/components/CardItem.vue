@@ -28,7 +28,6 @@
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
           <!-- {{item_list}} -->
-          {{ this.isInfluenceLike }}
           <li
             v-for="(product, index) in store.state.AppData"
             :key="index"
@@ -39,7 +38,7 @@
               <div class="social-icon">
                 <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
-              <div class="favorite" @click="likeProduct($event, product.id)">
+              <div class="favorite" @click="likeProduct(index,product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                 <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -95,7 +94,7 @@
               </div>
             </figure>
 
-            <div class="favorite" @click="likeProduct(product.id, index)">
+            <div class="favorite" @click="likeProduct(product.id)">
               <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
@@ -154,7 +153,8 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      store.methods.getData();
+      store.state.AppData = [];
+      store.methods.getData(null,1,null);
     });
 
     return { store, customPopoverOptions };
@@ -174,7 +174,6 @@ export default defineComponent({
       bookOption: null,
       spage: this.$props.page,
       scategoryId: this.$props.categoryId,
-      isInfluenceLike: false,
 
     };
   },
@@ -188,7 +187,6 @@ export default defineComponent({
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
-    this.getProductInfo();
   },
   watch: {
     bookOption: function (type) {
@@ -228,13 +226,6 @@ export default defineComponent({
     },
   },
   methods: {
-    getProductInfo() {
-      let products = this.store.state.AppData;
-      products.map((product) => {
-        this.isInfluenceLike = product.isInfluenceLike;
-      });
-    },
-
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
@@ -262,7 +253,7 @@ export default defineComponent({
         });
       }
     },
-    async likeProduct(productId, index) {
+    async likeProduct(index,productId) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
@@ -286,10 +277,7 @@ export default defineComponent({
 
              console.log('this.store.state.AppData:--', this.store.state.AppData[index]);
               this.store.state.AppData[index].isInfluenceLike = true;
-              // this.store.state.AppData = [];
-              // console.log('event.target.state:-', event.target);
-              // event.target.state.product.influencelikes = !event.target.state.product.influencelikes;
-              // this.store.methods.getData();
+             
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
               }
