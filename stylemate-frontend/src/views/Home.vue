@@ -924,7 +924,10 @@ export default {
   z-index: 2;
 }
 .greyBtnFull {
-  padding: 12px 0;
+  padding: 12px 15px;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
