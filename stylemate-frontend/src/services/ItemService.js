@@ -18,6 +18,21 @@ export default class ItemService {
     if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
       productParams.push(`categoryId=${categoryId}`);
     }
+    if (categoryId === "All") {
+      if (!token) {
+        return await axios
+          .get(`/stylemates/products?page=${page}`)
+          .then((res) => res.data);
+      } else {
+        return await axios
+          .get(`/stylemates/products?page=${page}`, {
+            headers: {
+              Authorization: "Bearer " + token, //the token is a variable which holds the token
+            },
+          })
+          .then((res) => res.data);
+      }
+    }
     if (!token) {
       return await axios
         .get(`/stylemates/products?${productParams.join('&')}`)
@@ -79,32 +94,49 @@ export default class ItemService {
   }
 
   async getFilterProduct(categoryId, page, order) {
-    var productParams = [];
-    if (order !== null && typeof order !== "undefined" && order !== '') {
-      productParams.push(`order=${order}`);
-    }
-    if (page !== null && typeof page !== "undefined" && page !== '') {
-      productParams.push(`page=${page}`);
-    }
-    if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
-      productParams.push(`categoryId=${categoryId}`);
-    }
-    if (categoryId === "All") {
-      return await this.getProductList(null, 1, null);
-    }
-    if (!token) {
-      return await axios
-        .get(`/stylemates/products?${productParams.join('&')}`)
-        .then((res) => res.data.data);
-    } else {
-      return await axios
-        .get(`/stylemates/products?${productParams.join('&')}`, {
-          headers: {
-            Authorization: "Bearer " + token, //the token is a variable which holds the token
-          },
-        })
-        .then((res) => res.data.data);
-    }
+    this.getProductList(order, page, categoryId);
+
+    // var productParams = [];
+    // if (order !== null && typeof order !== "undefined" && order !== '') {
+    //   productParams.push(`order=${order}`);
+    // }
+    // if (page !== null && typeof page !== "undefined" && page !== '') {
+    //   productParams.push(`page=${page}`);
+    // }
+    // if (categoryId !== null && typeof categoryId !== "undefined" && categoryId !== '') {
+    //   productParams.push(`categoryId=${categoryId}`);
+    // }
+    // if (categoryId === "All") {
+    //   return await this.getProductList(null, 1, null);
+    // }
+    // if (categoryId === "All") {
+    //   if (!token) {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`)
+    //       .then((res) => res.data);
+    //   } else {
+    //     return await axios
+    //       .get(`/stylemates/products?page=${page}`, {
+    //         headers: {
+    //           Authorization: "Bearer " + token, //the token is a variable which holds the token
+    //         },
+    //       })
+    //       .then((res) => res.data);
+    //   }
+    // }
+    // if (!token) {
+    //   return await axios
+    //     .get(`/stylemates/products?${productParams.join('&')}`)
+    //     .then((res) => res.data.data);
+    // } else {
+    //   return await axios
+    //     .get(`/stylemates/products?${productParams.join('&')}`, {
+    //       headers: {
+    //         Authorization: "Bearer " + token, //the token is a variable which holds the token
+    //       },
+    //     })
+    //     .then((res) => res.data.data);
+    // }
 
 
     // if (ids === "All") {
