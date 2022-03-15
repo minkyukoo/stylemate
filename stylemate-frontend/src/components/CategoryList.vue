@@ -133,7 +133,7 @@ export default {
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
         this.$emit("categoryId", ids);
-        this.itemServices.getFilterProduct(ids, this.spage).then((data) => {
+        this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
           // console.log("category-filterproductList", data);
           this.childactiveId = ids; //To activate the All button
           if (data.length == 0) {

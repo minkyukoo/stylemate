@@ -135,6 +135,8 @@ export default {
       seletedPageId: null,
       seletedIguserId: null,
       igAccInfo: null,
+      fbToken: null,
+      instagramChannelInfo: null,
     };
   },
   setup() {
@@ -171,9 +173,11 @@ export default {
       let channelData = res.data.influence.channel;
       channelData.map(
         (item) => {
+          this.instagramChannelInfo = item.instagramChannel;
           this.stylemateStatus = item.stylemateStatus;
           this.isReApplication = item.isReApplication;
           this.channelId = item.channelStat.channelId;
+          this.fbToken = item.instagramChannel.accessToken;
         }
       )
     });
@@ -209,10 +213,57 @@ export default {
 
     // Ig account info
     getAccountInfo() {
+      let igInfo = this.instagramChannelInfo; 
+      let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
           console.log('IgUser res:', res);
-          this.igAccInfo = res.data;
+          let accinfo = {
+            accessToken: token,
+            accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
+            accountType: igInfo.accountType,
+            analyticsMediaCount: igInfo.analyticsMediaCount,
+            businessCategoryName: igInfo.businessCategoryName,
+            categoryName: igInfo.categoryName,
+            channelId: res.id,
+            channelInstagramId: res.ig_id,
+            createdAt: igInfo.createdAt,
+            description: igInfo.description,
+            engagementRate: igInfo.engagementRate,
+            externalUrl: igInfo.externalUrl,
+            facebookUserId: igInfo.facebookUserId,
+            facebookUserName: igInfo.facebookUserName,
+            fbid: igInfo.fbid,
+            followCount: res.follows_count,
+            followerCount: res.followers_count,
+            followerCountIncrease: igInfo.followerCountIncrease,
+            fullName: igInfo.fullName,
+            impression: igInfo.impression,
+            isPrivate: igInfo.isPrivate,
+            latelyCommentCount: igInfo.latelyCommentCount,
+            latelyCommentCountAvg: igInfo.latelyCommentCountAvg,
+            latelyEngagement: igInfo.latelyEngagement,
+            latelyEngagementAvg: igInfo.latelyEngagementAvg,
+            latelyLikeCount: igInfo.latelyLikeCount,
+            latelyLikeCountAvg: igInfo.latelyLikeCountAvg,
+            latelyMediaTypeSate: igInfo.latelyMediaTypeSate,
+            latelyPublishedTimeSate: igInfo.latelyPublishedTimeSate,
+            latelyPublishedWeekDayStat: igInfo.latelyPublishedWeekDayStat,
+            mediaCount: res.media_count,
+            monthFollowerCountIncrease: igInfo.monthFollowerCountIncrease,
+            overallCategoryName: igInfo.overallCategoryName,
+            pageAccessToken: igInfo.pageAccessToken,
+            pageId: igInfo.pageId,
+            pageName: igInfo.pageName,
+            refreshTokenAt: igInfo.refreshTokenAt,
+            thumbnailOriginalUrl: res.profile_picture_url,
+            thumbnailUrl: igInfo.thumbnailUrl,
+            trackedAt: igInfo.trackedAt,
+            updatedAt: igInfo.updatedAt,
+            userName: res.username,
+          }
+          this.igAccInfo = accinfo;
+          console.log('this.igAccInfo', this.igAccInfo);
         });
       }
     },
@@ -236,22 +287,18 @@ export default {
     },
 
     // applyActivity
-     async applyActivity() {
+    async applyActivity() {
       console.log('applyActivity');
       // this.channelService.getIgApproveRequest(30, 2).then((res) => {
       //   console.log('applyActivity res:', res);
       // });
-      let token
+      let token = this.fbToken;
       let info = this.igAccInfo;
+      let uid = this.userUID;
       if (this.seletedPageId) {
-        let uid;
-        await this.isUserid().then((res) => {
-          uid = res;
-          this.channelService.selectChannel(uid, token, info).then((res) => {
-            console.log('res:', res);
-          });
+        this.channelService.selectChannel(uid, token, info).then((res) => {
+          console.log('res:', res);
         });
-
       } else {
         alert('no page selected');
       }
