@@ -95,27 +95,27 @@ export default {
         {
           no: 0,
           id: "",
-          name: "all",
+          name: "전체",
         },
         {
           no: 1,
           id: "postRequest",
-          name: "post registration",
+          name: "포스트 등록",
         },
         {
           no: 2,
           id: "postProgress",
-          name: "checking",
+          name: "확인중",
         },
         {
           no: 3,
           id: "postModifyRequest",
-          name: "re-registration",
+          name: "재등록",
         },
         {
           no: 4,
           id: "selected",
-          name: "sponcer selection",
+          name: "협찬선정",
         },
       ],
       CategoriesApplication: [
@@ -127,22 +127,22 @@ export default {
         {
           no: 1,
           id: "finish",
-          name: "Application completed",
+          name: "신청완료",
         },
         {
           no: 2,
           id: "selected",
-          name: "sponcer selection",
+          name: "협찬선정",
         },
         {
           no: 3,
           id: "unselected",
-          name: "unselected",
+          name: "미선정",
         },
         {
           no: 4,
           id: "finish",
-          name: "sponcership completed",
+          name: "협찬완료",
         },
       ],
       myPageService: null,

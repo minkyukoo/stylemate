@@ -129,19 +129,19 @@ export default {
           "YYYY-MM-DD HH:mm"
         );
         this.rejection_msg = res.campaign[0].booking[0].postHistory[0].message;
-        this.insta_post.img = res.campaign[0].booking[0].post.instagramPost
+        this.insta_post.img = res.campaign[0].booking[0].post?.instagramPost
           .thumbnailUrl
-          ? res.campaign[0].booking[0].post.instagramPost.thumbnailUrl
-          : res.campaign[0].booking[0].post.instagramPost.thumbnailOriginalUrl;
+          ? res.campaign[0].booking[0].post?.instagramPost.thumbnailUrl
+          : res.campaign[0].booking[0].post?.instagramPost.thumbnailOriginalUrl;
         this.insta_post.desc =
-          `#${res.campaign[0].booking[0].post.instagramPost.hashTag.join(
+          `#${res.campaign[0].booking[0].post?.instagramPost.hashTag.join(
             " #"
-          )} ` + res.campaign[0].booking[0].post.instagramPost.description;
+          )} ` + res.campaign[0].booking[0].post?.instagramPost.description;
         this.insta_post.like =
-          res.campaign[0].booking[0].post.instagramPost.likeCount;
+          res.campaign[0].booking[0].post?.instagramPost.likeCount;
         this.insta_post.comment =
-          res.campaign[0].booking[0].post.instagramPost.commentCount;
-        this.insta_post.publishDate = moment(res.campaign[0].booking[0].post.instagramPost
+          res.campaign[0].booking[0].post?.instagramPost.commentCount;
+        this.insta_post.publishDate = moment(res.campaign[0].booking[0].post?.instagramPost
           .publishDate).format("YYYY-MM-DD HH:mm");
       });
   },
