@@ -115,6 +115,7 @@ export default {
         return "마치다";
       }
     },
+    
   },
   setup() {
     const options = [
