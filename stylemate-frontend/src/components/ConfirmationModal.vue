@@ -40,12 +40,16 @@ export default {
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  max-width: 500px;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99;
 }
 
 .modal {

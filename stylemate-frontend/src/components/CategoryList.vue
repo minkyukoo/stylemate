@@ -103,29 +103,33 @@ export default {
   methods: {
     // Child category click
     handleClick2(ids) {
-      alert(ids);
+      // alert(ids);
       let last_page = this.store.state.productMeta.last_page;
       if (this.spage < last_page) {
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
 
-        this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
-          // console.log("filterproductList", data);
-          this.childactiveId = ids; //To activate the All button
-          if (data.length == 0) {
-            // alert('nodata')
-            this.nofltData = true;
-            this.$emit("fltData", false);
-          } else {
-            this.nofltData = false;
-            this.$emit("fltData", true);
-            alert(ids);
-            this.$emit("categoryId", ids);
-            let filterproductList = data;
-            this.$emit("filterproductList", filterproductList);
-          }
-        });
 
+        this.store.state.AppData = [];
+
+        this.store.methods.getData(null, this.spage, ids);
+
+
+
+
+        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
+        //   this.childactiveId = ids; //To activate the All button
+        //   if (data.length == 0) {
+        //     this.nofltData = true;
+        //     this.$emit("fltData", false);
+        //   } else {
+        //     this.nofltData = false;
+        //     this.$emit("fltData", true);
+        //     this.$emit("categoryId", ids);
+        //     let filterproductList = data;
+        //     this.$emit("filterproductList", filterproductList);
+        //   }
+        // });
       } else {
         this.spage = last_page;
       }
@@ -133,53 +137,49 @@ export default {
 
     // Category click
     handleClick(childCategory, ids) {
-      // alert(ids);
       let last_page = this.store.state.productMeta.last_page;
-      if (this.spage < last_page) {
+      console.log('spage', this.spage, 'lastPage', last_page );
+      if (this.spage <= last_page) {
+      console.log('clicked');
         this.spage = 1;
         this.$emit('pageResetcat', this.spage);
         this.$emit("categoryId", ids);
 
+        this.store.state.AppData = [];
+
+        this.store.methods.getData(null, this.spage, ids);
 
 
-        this.itemServices.getFilterProduct(ids, this.spage).then((data) => {
-          // console.log("category-filterproductList", data);
-          this.childactiveId = ids; //To activate the All button
-          if (data.length == 0) {
-            this.nofltData = true;
-            this.$emit("fltData", false);
-          } else {
-            this.nofltData = false;
-            let filterproductList = data;
-            console.log("filterproductList", filterproductList);
-            this.$emit("fltData", true);
-            this.$emit("filterproductList", filterproductList);
-            this.$emit("childCategory", childCategory);
-          }
-        });
+        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
+        //   // console.log("category-filterproductList", data);
+        //   this.childactiveId = ids; //To activate the All button
+        //   if (data.length == 0) {
+        //     this.nofltData = true;
+        //     this.$emit("fltData", false);
+        //   } else {
+        //     this.nofltData = false;
+        //     let filterproductList = data;
+        //     console.log("filterproductList", filterproductList);
+        //     this.$emit("fltData", true);
+        //     this.$emit("filterproductList", filterproductList);
+        //     this.$emit("childCategory", childCategory);
+        //   }
+        // });
+
+
         if (typeof childCategory !== "undefined") {
           this.childCategoryArray = [];
-
           childCategory.forEach((element) => {
             this.childCategoryArray.push(element);
           });
-
           this.activeId = ids;
           this.$emit("allbutton", this.activeId);
-
           let arr1 = this.childCategoryArray;
-          // console.log("arr1", arr1);
           this.childCategories2 = arr1.unshift({ name: "All", id: ids });
-          // console.log("this.childCategories2", this.childCategories2);
-
-          // alert("child cat id", ids);
           this.childCategory = true;
           this.onClickButton(false);
-          // console.log("this", this);
-
           this.childactiveId = "Allchild"; //To highlight the child button default
         } else {
-          // alert(ids);
           this.activeId = ids;
           this.childCategory = false;
           this.onClickButton(true);

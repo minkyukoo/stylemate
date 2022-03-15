@@ -1,13 +1,8 @@
 import axios from "axios";
-// import { useRouter } from "vue-router";
-// import router from '../router';
 import UserInfoService from "./UserInfoService";
-
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v10.0';
 var userInfoService = new UserInfoService();
-// const router = useRouter();
-// eslint-disable-next-line
 var token = localStorage.getItem('token');
 export default class ChannelService {
 
@@ -44,12 +39,12 @@ export default class ChannelService {
     console.log('myInfo', myInfo);
     console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
     // return myInfofbaccesstoken;
-    if(!myInfofbaccesstoken || myInfofbaccesstoken === '') {
+    if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
       return null;
     } else {
       return myInfofbaccesstoken;
     }
-   
+
   }
 
   channelBaseUrl() {
@@ -63,7 +58,7 @@ export default class ChannelService {
   }
   // 2. Token renewal - 토큰 갱신
   async getIgTokenRenew(authResponse) {
-    return await axios.get(`/commons/instagram-token`,{
+    return await axios.get(`/commons/instagram-token`, {
       params: {
         'authResponse': encodeURI(authResponse),
       },
@@ -72,7 +67,7 @@ export default class ChannelService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
-  
+
   //3. page id - 페이지 아이디
   async getIgchannels() {
     let myfbaccesstoken = await this.getfbaccessToken();
@@ -92,22 +87,27 @@ export default class ChannelService {
   }
 
   //7. Save selected channel
-  async selectChannel(uid,token,info) {
-    return await axios.post(`/users/${uid}/instagram-channel`, {
-      token: token,
-      info: info,
-      headers: {
-        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+  async selectChannel(uid, ftoken, info) {
+    return await axios.post(`/users/${uid}/instagram-channel`,
+      {
+        token: ftoken,
+        info: info,
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        }
       }
-    }).then((res) => res.data).catch((err) => err);
+    ).then((res) => res.data).catch((err) => err);
   }
 
-  async updateChannel(uid,token,info) {
+  async updateChannel(uid, token, info) {
     return await axios.put(`/users/${uid}/instagram-channel`, {
       token: token,
       info: info,
       headers: {
-        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        "Content-Type": 'application/json',
       }
     }).then((res) => res.data).catch((err) => err);
   }
@@ -161,23 +161,23 @@ export default class ChannelService {
         "name": ftokenName
       },
     },
-    {
-      headers: {
-        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
-        "Content-Type": 'application/json',
-      }
-    });
+      {
+        headers: {
+          Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+          "Content-Type": 'application/json',
+        }
+      });
   }
   // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
   async getIgApproveRequest(uid, channelId) {
     return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
       "stylemateStatus": 'ready',
     },
-    {
-      headers: {
-        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
-      }
-    });
+      {
+        headers: {
+          Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        }
+      });
   }
 
 

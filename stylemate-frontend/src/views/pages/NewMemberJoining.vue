@@ -48,7 +48,7 @@
           </li>
         </ul>
       </div>
-      <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="overLapmodal">
+      <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="channelconnectionmodal">
         <template v-slot:header>
           <div class="overHeader">
             <h2>확인해주세요!</h2>
@@ -159,22 +159,22 @@ export default {
     this.channelService = new ChannelService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
-    let fbaccessToken = await this.channelService.getfbaccessToken();
+    // let fbaccessToken = await this.channelService.getfbaccessToken();
 
-    if (!fbaccessToken) {
-      this.$router.push({ name: 'NewMemberJoining' });
-    } else {
-      this.$router.push({ name: 'NewMemberChannel' });
-    }
+    // if (!fbaccessToken) {
+    //   this.$router.push({ name: 'NewMemberJoining' });
+    // } else {
+    //   this.$router.push({ name: 'NewMemberChannel' });
+    // }
 
   },
   async updated() {
-    let fbaccessToken = await this.channelService.getfbaccessToken();
-    if (!fbaccessToken) {
-      this.$router.push({ name: 'NewMemberJoining' });
-    } else {
-      this.$router.push({ name: 'NewMemberChannel' });
-    }
+    // let fbaccessToken = await this.channelService.getfbaccessToken();
+    // if (!fbaccessToken) {
+    //   this.$router.push({ name: 'NewMemberJoining' });
+    // } else {
+    //   this.$router.push({ name: 'NewMemberChannel' });
+    // }
   },
   methods: {
     openlink() {
