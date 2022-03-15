@@ -19,7 +19,12 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="active" v-for="(account, i) of igResData" :key="i + 1" @click="selectPage(account.id)">
+          <li
+            class="active"
+            v-for="(account, i) of igResData"
+            :key="i + 1"
+            @click="selectPage(account)"
+          >
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -51,7 +56,7 @@
                 v-else-if="stylemateStatus === 'hold' && isReApplication"
                 class="channelBtn"
                 type="button"
-              >reapplication</button> -->
+              >reapplication</button>-->
             </div>
           </li>
         </ul>
@@ -127,7 +132,11 @@ export default {
       isReApplication: null,
       userUID: '',
       channelId: '',
-
+      seletedPageId: null,
+      seletedIguserId: null,
+      igAccInfo: null,
+      fbToken: null,
+      instagramChannelInfo: null,
     };
   },
   setup() {
@@ -152,7 +161,7 @@ export default {
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-     let fbaccessToken = await this.channelService.getfbaccessToken();
+    let fbaccessToken = await this.channelService.getfbaccessToken();
     if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
@@ -164,9 +173,11 @@ export default {
       let channelData = res.data.influence.channel;
       channelData.map(
         (item) => {
+          this.instagramChannelInfo = item.instagramChannel;
           this.stylemateStatus = item.stylemateStatus;
           this.isReApplication = item.isReApplication;
           this.channelId = item.channelStat.channelId;
+          this.fbToken = item.instagramChannel.accessToken;
         }
       )
     });
@@ -199,16 +210,100 @@ export default {
         this.igResData = res.data;
       });
     },
-    // applyActivity
-    applyActivity() {
-      console.log('applyActivity');
-      this.channelService.getIgApproveRequest(30,2).then((res) => {
-        console.log('applyActivity res:', res);
-      });
+
+    // Ig account info
+    getAccountInfo() {
+      let igInfo = this.instagramChannelInfo; 
+      let token = this.fbToken;
+      if (this.seletedIguserId) {
+        this.channelService.getIgUser(this.seletedIguserId).then(res => {
+          console.log('IgUser res:', res);
+          let accinfo = {
+            accessToken: token,
+            accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
+            accountType: igInfo.accountType,
+            analyticsMediaCount: igInfo.analyticsMediaCount,
+            businessCategoryName: igInfo.businessCategoryName,
+            categoryName: igInfo.categoryName,
+            channelId: res.id,
+            channelInstagramId: res.ig_id,
+            createdAt: igInfo.createdAt,
+            description: igInfo.description,
+            engagementRate: igInfo.engagementRate,
+            externalUrl: igInfo.externalUrl,
+            facebookUserId: igInfo.facebookUserId,
+            facebookUserName: igInfo.facebookUserName,
+            fbid: igInfo.fbid,
+            followCount: res.follows_count,
+            followerCount: res.followers_count,
+            followerCountIncrease: igInfo.followerCountIncrease,
+            fullName: igInfo.fullName,
+            impression: igInfo.impression,
+            isPrivate: igInfo.isPrivate,
+            latelyCommentCount: igInfo.latelyCommentCount,
+            latelyCommentCountAvg: igInfo.latelyCommentCountAvg,
+            latelyEngagement: igInfo.latelyEngagement,
+            latelyEngagementAvg: igInfo.latelyEngagementAvg,
+            latelyLikeCount: igInfo.latelyLikeCount,
+            latelyLikeCountAvg: igInfo.latelyLikeCountAvg,
+            latelyMediaTypeSate: igInfo.latelyMediaTypeSate,
+            latelyPublishedTimeSate: igInfo.latelyPublishedTimeSate,
+            latelyPublishedWeekDayStat: igInfo.latelyPublishedWeekDayStat,
+            mediaCount: res.media_count,
+            monthFollowerCountIncrease: igInfo.monthFollowerCountIncrease,
+            overallCategoryName: igInfo.overallCategoryName,
+            pageAccessToken: igInfo.pageAccessToken,
+            pageId: igInfo.pageId,
+            pageName: igInfo.pageName,
+            refreshTokenAt: igInfo.refreshTokenAt,
+            thumbnailOriginalUrl: res.profile_picture_url,
+            thumbnailUrl: igInfo.thumbnailUrl,
+            trackedAt: igInfo.trackedAt,
+            updatedAt: igInfo.updatedAt,
+            userName: res.username,
+          }
+          this.igAccInfo = accinfo;
+          console.log('this.igAccInfo', this.igAccInfo);
+        });
+      }
     },
-    selectPage(pageId) {
-      console.log('selectPage:', pageId);
-    }
+
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+
+    // page selected
+    selectPage(pageinfo) {
+      console.log('selectPage:', pageinfo);
+      this.seletedPageId = pageinfo.id;
+      this.seletedIguserId = pageinfo.instagram_business_account.id;
+      this.getAccountInfo();
+    },
+
+    // applyActivity
+    async applyActivity() {
+      console.log('applyActivity');
+      // this.channelService.getIgApproveRequest(30, 2).then((res) => {
+      //   console.log('applyActivity res:', res);
+      // });
+      let token = this.fbToken;
+      let info = this.igAccInfo;
+      let uid = this.userUID;
+      if (this.seletedPageId) {
+        this.channelService.selectChannel(uid, token, info).then((res) => {
+          console.log('res:', res);
+        });
+      } else {
+        alert('no page selected');
+      }
+    },
+
 
   },
 };
