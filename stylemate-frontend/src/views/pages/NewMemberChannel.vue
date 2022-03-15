@@ -131,6 +131,7 @@ export default {
       stylemateStatus: '',
       isReApplication: null,
       userUID: '',
+      userId: '',
       channelId: '',
       seletedPageId: null,
       seletedIguserId: null,
@@ -169,6 +170,7 @@ export default {
       console.log('infores data:', res.data);
       console.log('infores channel:', res.data.influence.channel);
       this.userUID = res.data.uid;
+      this.userId = res.data.id;
       this.userChanneldata = res.data.influence.channel;
       let channelData = res.data.influence.channel;
       channelData.map(
@@ -213,7 +215,7 @@ export default {
 
     // Ig account info
     getAccountInfo() {
-      let igInfo = this.instagramChannelInfo; 
+      let igInfo = this.instagramChannelInfo;
       let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
@@ -295,9 +297,10 @@ export default {
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
+      let userid = this.userId;
       let token = {
         "accessToken": igInfo.accessToken,
-        "userID": 'd',
+        "userID": userid,
         "name": igInfo.accountType,
       };
       if (this.seletedPageId) {
