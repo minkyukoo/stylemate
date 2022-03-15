@@ -344,7 +344,12 @@
           </div>
 
           <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-          <button class="greyBtnFull">
+          <button
+            class="greyBtnFull"
+            @click="
+              $router.push({ name: 'NoticeDetails', params: { id: id } })
+            "
+          >
             <span>중요</span>
             {{ notice }}
           </button>
@@ -408,6 +413,7 @@ export default {
   },
   data() {
     return {
+      id: null,
       notice: null,
       bannerList: null,
       brandList: [],
@@ -466,7 +472,7 @@ export default {
       if (isLogedIn) {
         this.userInfoService.Notice().then((res) => {
           this.notice = res.data[0].title;
-          console.log(res.data);
+          this.id = res.data[0].id;
         });
       } else {
         this.notice = "[알림] 서비스 점검 안내";
