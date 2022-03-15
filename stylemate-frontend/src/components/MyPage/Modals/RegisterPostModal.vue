@@ -101,7 +101,7 @@ export default {
       userProfile: {},
       requiredAccount: "",
       requiredHashtag: "",
-      per_page: 2,
+      per_page: 4,
       show_button: false,
       brand_img: "",
       date: "",

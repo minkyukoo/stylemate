@@ -108,7 +108,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .ion-page {
   left: 50%;
   right: 0;

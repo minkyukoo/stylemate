@@ -9,13 +9,13 @@
     </div>
     <div v-else>
       <Error
-        errors="You have not yet been selected for sponsorship. 
-        Please apply for sponsorship for products from other brands as well."
+        errors="아직 협찬에 선정되지 못하였습니다.
+                다른 브랜드의 제품들도 협찬을 신청해보세요."
       />
     </div>
     <RegisterPostModal v-if="store.state.isPostModalVisible" />
     <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
-    <CancelSponser v-if="store.state.cancelPopup" />
+    <CancelSponser v-if="store.state.cancelPopup" @cancelSponsor="rerun" />
   </div>
 </template>
 
@@ -99,6 +99,12 @@ export default {
       store,
     };
   },
+  methods : {
+    rerun() {
+      this.store.state.cancelPopup = false;
+      this.store.methods.getcampList();
+    },
+   },
   // mounted() {
   //   this.myPageService
   //     .getCampaignData(
