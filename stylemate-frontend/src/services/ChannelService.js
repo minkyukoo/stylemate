@@ -96,10 +96,13 @@ export default class ChannelService {
     return await axios.post(`/users/${uid}/instagram-channel`, {
       token: token,
       info: info,
+    },
+    {
       headers: {
-        Authorization: 'Bearer ' + token //the token is a variable which holds the token
-      }
-    }).then((res) => res.data).catch((err) => err);
+        Authorization: "Bearer " + token, //the token is a variable which holds the token
+      },
+    }
+    ).then((res) => res.data).catch((err) => err);
   }
 
   async updateChannel(uid,token,info) {

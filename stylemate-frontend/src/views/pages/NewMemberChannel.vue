@@ -292,9 +292,14 @@ export default {
       // this.channelService.getIgApproveRequest(30, 2).then((res) => {
       //   console.log('applyActivity res:', res);
       // });
-      let token = this.fbToken;
+      let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
+      let token = {
+        "accessToken": igInfo.accessToken,
+        "userID": 'd',
+        "name": igInfo.accountType,
+      };
       if (this.seletedPageId) {
         this.channelService.selectChannel(uid, token, info).then((res) => {
           console.log('res:', res);
