@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="button-group">
-      <button class="grey-btn" @click="cancel">취소</button>
+      <button class="grey-btn" @click="cancelspon">취소</button>
       <button class="black-btn" @click="apply" :disabled="disable">신청하기</button>
     </div>
   </div>
@@ -126,6 +126,7 @@ export default defineComponent({
         )
         .then((data) => {
           console.log(data);
+          this.$emit("closePopup", true);
         });
     },
     // close cancel sponsership popup
@@ -137,6 +138,7 @@ export default defineComponent({
       console.log('applycancelspon');
       this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
         console.log('rescel:', res);
+        this.$emit("closePopup", true);
       });
     }
   },

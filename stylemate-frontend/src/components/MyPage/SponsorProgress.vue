@@ -15,7 +15,7 @@
     </div>
     <RegisterPostModal v-if="store.state.isPostModalVisible" />
     <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
-    <CancelSponser v-if="store.state.cancelPopup" />
+    <CancelSponser v-if="store.state.cancelPopup" @cancelSponsor="rerun" />
   </div>
 </template>
 
@@ -99,6 +99,12 @@ export default {
       store,
     };
   },
+  methods : {
+    rerun() {
+      this.store.state.cancelPopup = false;
+      this.store.methods.getcampList();
+    },
+   },
   // mounted() {
   //   this.myPageService
   //     .getCampaignData(
