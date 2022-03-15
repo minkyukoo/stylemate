@@ -473,6 +473,7 @@ export default {
         this.isCancelspon = false;
         this.isActive = false;
       }
+      this.getProductDetails();
     },
 
     // for productShare

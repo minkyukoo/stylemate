@@ -29,7 +29,7 @@
           <div class="post-card-con">
             <div class="hashtagBox">
               <p>
-                {{rejection_msg}}
+                {{ rejection_msg }}
               </p>
             </div>
             <div class="grey-box">
@@ -57,7 +57,7 @@
               </span>
             </div>
             <div class="date-of-collection">
-              Data collected on {{insta_post.publishDate}}.
+              Data collected on {{ insta_post.publishDate }}.
             </div>
           </div>
         </div>
@@ -67,7 +67,12 @@
       <div class="post-footer">
         <button
           class="btn-grey"
-          @click="() => (store.state.isReRegisterModalVisible = false)"
+          @click="
+            () => {
+              store.state.isReRegisterModalVisible = false;
+              store.state.hideBar = false;
+            }
+          "
         >
           to close
         </button>
@@ -141,14 +146,15 @@ export default {
           res.campaign[0].booking[0].post?.instagramPost.likeCount;
         this.insta_post.comment =
           res.campaign[0].booking[0].post?.instagramPost.commentCount;
-        this.insta_post.publishDate = moment(res.campaign[0].booking[0].post?.instagramPost
-          .publishDate).format("YYYY-MM-DD HH:mm");
+        this.insta_post.publishDate = moment(
+          res.campaign[0].booking[0].post?.instagramPost.publishDate
+        ).format("YYYY-MM-DD HH:mm");
       });
   },
 
-  unmounted() {
-    this.store.state.hideBar = false;
-  },
+  // unmounted() {
+  //   this.store.state.hideBar = false;
+  // },
 
   setup() {
     const store = inject("store");
