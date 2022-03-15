@@ -28,6 +28,7 @@
         </div>
         <ul v-if="layout === 'grid'" class="product-list grid-view">
           <!-- {{item_list}} -->
+          {{ this.isInfluenceLike }}
           <li
             v-for="(product, index) in store.state.AppData"
             :key="index"
@@ -38,7 +39,7 @@
               <div class="social-icon">
                 <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
-              <div class="favorite" @click="likeProduct(product.id)">
+              <div class="favorite" @click="likeProduct($event, product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                 <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -93,7 +94,8 @@
                 </div>
               </div>
             </figure>
-            <div class="favorite" @click="likeProduct(product.id)">
+
+            <div class="favorite" @click="likeProduct(product.id, index)">
               <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
@@ -135,7 +137,7 @@ export default defineComponent({
   props: {
     isBanner: { type: Boolean, default: true },
     isFltData: { type: Boolean, default: true },
-    isproductfilter: null, 
+    isproductfilter: null,
     page: { type: Number },
     categoryId: { type: Number },
   },
@@ -172,6 +174,8 @@ export default defineComponent({
       bookOption: null,
       spage: this.$props.page,
       scategoryId: this.$props.categoryId,
+      isInfluenceLike: false,
+
     };
   },
   created() {
@@ -184,6 +188,7 @@ export default defineComponent({
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
+    this.getProductInfo();
   },
   watch: {
     bookOption: function (type) {
@@ -197,20 +202,20 @@ export default defineComponent({
           this.spage = 1;
           this.$emit('bookOption', 'latest');
           this.$emit('pageReset', this.spage);
-           console.log('page from carditem latest:-:',this.page);
+          console.log('page from carditem latest:-:', this.page);
           this.store.state.AppData = [];
-          this.store.methods.getData('latest',this.spage,this.scategoryId);
+          this.store.methods.getData('latest', this.spage, this.scategoryId);
           // this.itemService.getProductList("latest", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
           // });
         } else if (type == "마감임박순") {
           this.spage = 1;
-           console.log('page from carditem popular:-:',this.page);
+          console.log('page from carditem popular:-:', this.page);
           this.$emit('bookOption', 'popular');
           this.$emit('pageReset', this.spage);
           this.store.state.AppData = [];
-          this.store.methods.getData('popular',this.spage,this.scategoryId);
+          this.store.methods.getData('popular', this.spage, this.scategoryId);
           // this.itemService.getProductList("popular", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
@@ -223,6 +228,13 @@ export default defineComponent({
     },
   },
   methods: {
+    getProductInfo() {
+      let products = this.store.state.AppData;
+      products.map((product) => {
+        this.isInfluenceLike = product.isInfluenceLike;
+      });
+    },
+
     isChannelIg(pdata) {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
@@ -250,7 +262,7 @@ export default defineComponent({
         });
       }
     },
-    async likeProduct(productId) {
+    async likeProduct(productId, index) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
@@ -270,9 +282,13 @@ export default defineComponent({
                 this.itemService.getProductList("popular", 1).then((data) => {
                   this.store.state.AppData = data;
                 });
-              } else {
-                this.store.methods.getData();
               }
+
+             console.log('this.store.state.AppData:--', this.store.state.AppData[index]);
+              this.store.state.AppData[index].isInfluenceLike = true;
+              // this.store.state.AppData = [];
+              // console.log('event.target.state:-', event.target);
+              // event.target.state.product.influencelikes = !event.target.state.product.influencelikes;
               // this.store.methods.getData();
               if (res.response.data.error) {
                 Toast.fire({ title: res.response.data.error.message });
@@ -284,14 +300,14 @@ export default defineComponent({
     },
   },
   async updated() {
-    if (this.isproductfilter) {
-      // alert("isproductfilter");
-      console.log('isproductfilter:-', this.isproductfilter);
-      this.store.state.AppData = [];
-      this.store.state.AppData = this.isproductfilter;
-      // this.store.state.AppData.push(this.isproductfilter);
-      console.log('this.store.state.AppData:-', this.store.state.AppData);
-    }
+    // if (this.isproductfilter) {
+    //   // alert("isproductfilter");
+    //   console.log('isproductfilter:-', this.isproductfilter);
+    //   this.store.state.AppData = [];
+    //   this.store.state.AppData = this.isproductfilter;
+    //   // this.store.state.AppData.push(this.isproductfilter);
+    //   console.log('this.store.state.AppData:-', this.store.state.AppData);
+    // }
   },
 });
 </script>
