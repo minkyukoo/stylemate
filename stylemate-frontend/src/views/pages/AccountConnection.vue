@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="subscribe-wrap">
-          <button class="black-btn">확인</button>
+          <button class="black-btn" @click="accConnectConfirm">확인</button>
         </div>
       </div>
     </div>
@@ -82,6 +82,13 @@ export default {
       this.connectionInfo = res.data.boardGuideDetail;
     });
   },
+  methods: {
+    accConnectConfirm() {
+      this.$router.push({
+        name: "NewMemberJoining",
+      });
+    },
+  },
 };
 </script>
 
@@ -91,7 +98,10 @@ export default {
   align-items: center;
   justify-content: center;*/
   height: 100vh;
-  padding: 50px 0 60px;
+  padding: 50px 0 0;
+}
+.accountconnectionWrap .inner{
+  height: 100%;
 }
 .accountconnectionWrap h2 {
   font-weight: bold;
@@ -113,9 +123,11 @@ export default {
 .sliderBox {
   margin-top: 40px;
   min-height: 500px;
+  height: 100%;
 }
 .sliderBox .mainslide-banner-wrap img {
   margin: 0 auto;
+  max-width: 200px;
 }
 .subscribe-wrap {
   display: flex;
@@ -141,6 +153,11 @@ export default {
 }
 .sliderBox .swiper {
   min-height: 500px;
+  height: 100%;
 }
-
+.ci-body{
+  padding: 0 20px;
+  text-align: center;
+  margin-top: 30px;
+}
 </style>

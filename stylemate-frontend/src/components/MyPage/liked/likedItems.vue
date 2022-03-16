@@ -98,6 +98,7 @@ export default {
 <style scoped>
 .liked-wrap {
   padding: 0 20px;
+  margin-top: 20px;
 }
 .empty {
   text-align: center;
