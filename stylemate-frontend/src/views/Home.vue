@@ -618,7 +618,7 @@ export default {
           }
         });
       }
-      console.log("likeProduct");
+      // console.log("likeProduct");
     },
 
     // isChannelIg

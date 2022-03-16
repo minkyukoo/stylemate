@@ -1,7 +1,7 @@
 <template>
   <div class="liked-wrap">
-    <div v-if="store.state.likedTabProductLength || store.state.likedTabBrand">
-      <div v-if="store.state.likedTabState === 'item'">
+    <div v-if="store.state.likedTabState === 'item'">
+      <div v-if="store.state.likedTabProductLength">
         <LikedItem
           v-for="(item, index) in store.state.likedTabProduct"
           :progressDetails="item"
@@ -9,7 +9,12 @@
           v-on:productDislike="dislike($event)"
         />
       </div>
-      <div v-if="store.state.likedTabState === 'brand'">
+      <div v-else>
+        <Error errors="You don't have a wishlist yet." />
+      </div>
+    </div>
+    <div v-if="store.state.likedTabState === 'brand'">
+      <div v-if="store.state.likedTabBrandLength">
         <BrandItems
           v-for="(item, index) in this.store.state.likedTabBrand"
           :progressDetails="item"
@@ -18,9 +23,9 @@
           v-on:brandDislike="dislike($event)"
         />
       </div>
-    </div>
-    <div v-else>
-      <Error errors="You don't have a wishlist yet." />
+      <div v-else>
+        <Error errors="You don't have a wishlist yet." />
+      </div>
     </div>
   </div>
 </template>
