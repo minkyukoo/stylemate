@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="subscribe-wrap">
-          <button class="black-btn">확인</button>
+          <button class="black-btn" @click="accConnectConfirm">확인</button>
         </div>
       </div>
     </div>
@@ -81,6 +81,13 @@ export default {
       console.log('getAccountConnection res', res);
       this.connectionInfo = res.data.boardGuideDetail;
     });
+  },
+  methods: {
+    accConnectConfirm() {
+      this.$router.push({
+        name: "NewMemberJoining",
+      });
+    },
   },
 };
 </script>
