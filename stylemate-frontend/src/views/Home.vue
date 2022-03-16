@@ -51,7 +51,10 @@
                         src="@/assets/icons/instagram.svg"
                       />
                     </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
+                    <div
+                      class="favorite"
+                      @click="likeProduct(item.id, index, 'n')"
+                    >
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                       <img
                         v-if="item.isInfluenceLike"
@@ -103,7 +106,7 @@
                         src="@/assets/icons/instagram.svg"
                       />
                     </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
+                    <div class="favorite" @click="likeProduct(item.id, index, 'o')">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                       <img
                         v-if="item.isInfluenceLike"
@@ -155,7 +158,7 @@
                         src="@/assets/icons/instagram.svg"
                       />
                     </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
+                    <div class="favorite" @click="likeProduct(item.id, index, 's')">
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                       <img
                         v-if="item.isInfluenceLike"
@@ -346,9 +349,7 @@
           <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
           <button
             class="greyBtnFull"
-            @click="
-              $router.push({ name: 'NoticeDetails', params: { id: id } })
-            "
+            @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
           >
             <span>중요</span>
             {{ notice }}
@@ -572,7 +573,7 @@ export default {
         });
       }
     },
-    async likeProduct(productId) {
+    async likeProduct(productId, i, a) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
@@ -581,20 +582,39 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService
-            .influencelikes(uid, "product", productId)
-            .then((res) => {
-              // console.log(res.response.data.error);
-              // console.log(res.response);
-              this.getProductItemList();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+
+          if (a === "n") {
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newEvanItems[i];
+          } else if(a === "o") {
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newOddItems[i];
+          } else if (a === "s"){
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newStartItems[i];
+          }
+
+          if (selfItem.isInfluenceLike) {
+            this.itemService
+              .influencedislikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res);
+                selfItem.isInfluenceLike = false;
+              });
+          } else {
+            this.itemService
+              .influencelikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                selfItem.isInfluenceLike = true;
+              });
+          }
         });
       }
       console.log("likeProduct");
     },
+
     // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
