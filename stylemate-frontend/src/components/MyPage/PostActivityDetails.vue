@@ -17,6 +17,11 @@ import ItemCardPost from "./ItemCardPost.vue";
 import MyPageService from "@/services/MyPageService";
 export default {
   name: "PostActivityDetails",
+  props: {
+    page: {
+      type: Number
+    },
+  },
   components: {
     ItemCardPost,
     // ReRegisterModal,
@@ -72,12 +77,57 @@ export default {
     this.myPageService = new MyPageService();
   },
   mounted() {
-    this.myPageService
-      .getPostingList(this.store.state.influenceId, this.per_page)
-      .then((res) => {
-        console.log(res);
-        this.progressdata = res.data.data;
-      });
+    this.loadData();
+  },
+  methods: {
+    async loadData() {
+      console.log(
+        "page from PostActivityDetails:-",
+        this.store.state.influenceId
+      );
+      if (this.store.state.influenceId) {
+        this.myPageService
+          .getPostingList(
+            this.store.state.influenceId,
+            this.per_page,
+            this.page
+          )
+          .then((res) => {
+            console.log(res);
+            this.progressdata = res.data.data;
+            let last_page = res.data.meta.last_page;
+            this.$emit("lastPage", last_page);
+          });
+      }
+      else {
+        let res = await this.myPageService.getMyPageData();
+        this.myPageService
+          .getPostingList(
+            res.data.influence.influenceStat.influenceId,
+            this.per_page,
+            this.page
+          )
+          .then((res) => {
+            console.log(res);
+            this.progressdata = res.data.data;
+            let last_page = res.data.meta.last_page;
+            this.$emit("lastPage", last_page);
+          });
+      }
+    },
+  },
+
+  watch: {
+    page: function () {
+      this.myPageService
+        .getPostingList(this.store.state.influenceId, this.per_page, this.page)
+        .then((res) => {
+          console.log(res);
+          this.progressdata.push(...res.data.data);
+          let last_page = res.data.meta.last_page;
+          this.$emit("lastPage", last_page);
+        });
+    },
   },
 };
 </script>

@@ -114,7 +114,7 @@
               </div>
             </figure>
 
-            <div class="favorite" @click="likeProduct(product.id)">
+            <div class="favorite" @click="likeProduct(index, product.id)">
               <img
                 v-if="product.isInfluenceLike"
                 src="@/assets/icons/heart-filled.svg"

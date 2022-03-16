@@ -77,7 +77,7 @@ export default class ChannelService {
   //4. Check your business page
   async getIgBusinessPage(pageId) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/' + pageId + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + pageId + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //5. Check user information

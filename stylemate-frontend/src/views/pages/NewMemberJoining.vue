@@ -195,23 +195,6 @@ export default {
       } else {
         this.$router.push({ name: 'NewMemberChannel' });
       }
-      // this.channelService.getfbUser().then(res => {
-      //   console.log('getfbUser res:', res);
-      // });
-
-      // this.channelService.getIgchannels().then(res => {
-      //   console.log('getIgchannels res:', res);
-      // });
-
-      // this.channelService.getIguserinfo().then(res => {
-      //   console.log('getIguserId res:', res);
-      // });
-
-      // this.channelService.getIgusermediainfo().then(res => {
-      //   console.log('getIguserId res:', res);
-      // });
-
-
     },
 
 
