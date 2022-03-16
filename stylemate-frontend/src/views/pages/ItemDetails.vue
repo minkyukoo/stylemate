@@ -110,6 +110,7 @@
         class="bottomDrawer"
         :class="{ active: isActive }"
         :isCancelspon="isCancelspon"
+        v-if="isActive"
         v-on:closePopup="closeDrawerBottom($event)"
       />
 
