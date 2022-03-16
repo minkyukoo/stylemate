@@ -71,13 +71,13 @@ export default class ChannelService {
   //3. page id - 페이지 아이디
   async getIgchannels() {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},tasks') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //4. Check your business page
   async getIgBusinessPage(pageId) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + pageId + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + pageId + '?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},category_list') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //5. Check user information
@@ -88,7 +88,7 @@ export default class ChannelService {
 
   //7. Save selected channel
   async selectChannel(uid, ftoken, info) {
-    return await axios.post(`/users/${uid}/instagram-channel`,
+    return await axios.post(`/stylemates/users/${uid}/instagram-channel`,
       {
         token: ftoken,
         info: info,
@@ -170,7 +170,7 @@ export default class ChannelService {
   }
   // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
   async getIgApproveRequest(uid, channelId) {
-    return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
+    return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/approve-request`, {
       "stylemateStatus": 'ready',
     },
       {
