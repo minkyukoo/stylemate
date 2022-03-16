@@ -26,10 +26,15 @@
               <span>{{ humanReadableFormat(item.createdAt) }}</span>
               <b>{{ setTitle(item.subType) }}</b>
               <p>{{ item.message }}</p>
-              <a href="javascript:void(0)">
+              <router-link
+                :to="{
+                  name: 'ItemDetails',
+                  params: { id: item.campaign.productId },
+                }"
+              >
                 바로가기
                 <img src="@/assets/icons/smallarw.png" />
-              </a>
+              </router-link>
             </div>
           </li>
         </ul>
@@ -56,7 +61,7 @@ export default {
       noticeOption: null,
     };
   },
-  
+
   created() {
     this.userInfoService = new UserInfoService();
   },
@@ -115,11 +120,10 @@ export default {
         return "수정 요청 게시";
       } else if (arg === "disconnected") {
         return "연결이 끊긴";
-      } else if (arg === "finish"){
+      } else if (arg === "finish") {
         return "마치다";
       }
     },
-
   },
   setup() {
     const options = [
