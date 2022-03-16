@@ -72,13 +72,13 @@ export default {
     getInfluenceList() {
       this.user.getUserInfo().then((userInfo) => {
         this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-          console.log("product", res);
+          // console.log("product", res);
           this.store.state.likedTabProduct = res.data.data;
           this.store.state.likedTabProductLength =
             res.data.data.length > 0 ? true : false;
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-          console.log("brand", res);
+          // console.log("brand", res);
           this.store.state.likedTabBrand = res.data.data;
           this.store.state.likedTabBrandLength =
             res.data.data.length > 0 ? true : false;
@@ -86,7 +86,7 @@ export default {
       });
     },
     dislike(event) {
-      console.log("event", event);
+      // console.log("event", event);
       if (event) {
         this.getInfluenceList();
       }
