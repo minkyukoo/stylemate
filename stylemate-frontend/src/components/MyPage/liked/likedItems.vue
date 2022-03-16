@@ -1,7 +1,7 @@
 <template>
   <div class="liked-wrap">
-    <div v-if="store.state.likedTabProductLength || store.state.likedTabBrand">
-      <div v-if="store.state.likedTabState === 'item'">
+    <div v-if="store.state.likedTabState === 'item'">
+      <div v-if="store.state.likedTabProductLength">
         <LikedItem
           v-for="(item, index) in store.state.likedTabProduct"
           :progressDetails="item"
@@ -9,7 +9,12 @@
           v-on:productDislike="dislike($event)"
         />
       </div>
-      <div v-if="store.state.likedTabState === 'brand'">
+      <div v-else>
+        <Error errors="You don't have a wishlist yet." />
+      </div>
+    </div>
+    <div v-if="store.state.likedTabState === 'brand'">
+      <div v-if="store.state.likedTabBrandLength">
         <BrandItems
           v-for="(item, index) in this.store.state.likedTabBrand"
           :progressDetails="item"
@@ -18,9 +23,9 @@
           v-on:brandDislike="dislike($event)"
         />
       </div>
-    </div>
-    <div v-else>
-      <Error errors="You don't have a wishlist yet." />
+      <div v-else>
+        <Error errors="You don't have a wishlist yet." />
+      </div>
     </div>
   </div>
 </template>
@@ -67,13 +72,13 @@ export default {
     getInfluenceList() {
       this.user.getUserInfo().then((userInfo) => {
         this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
-          console.log("product", res);
+          // console.log("product", res);
           this.store.state.likedTabProduct = res.data.data;
           this.store.state.likedTabProductLength =
             res.data.data.length > 0 ? true : false;
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-          console.log("brand", res);
+          // console.log("brand", res);
           this.store.state.likedTabBrand = res.data.data;
           this.store.state.likedTabBrandLength =
             res.data.data.length > 0 ? true : false;
@@ -81,7 +86,7 @@ export default {
       });
     },
     dislike(event) {
-      console.log("event", event);
+      // console.log("event", event);
       if (event) {
         this.getInfluenceList();
       }

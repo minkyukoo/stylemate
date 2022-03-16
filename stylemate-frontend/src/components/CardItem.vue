@@ -1,8 +1,14 @@
 <template>
   <div>
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
-    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`" @scroll="onScroll2">
+    <div class="nodata" v-if="!isFltData">
+      카테고리에 해당하는 제품이 없습니다
+    </div>
+    <div
+      v-else
+      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`"
+      @scroll="onScroll2"
+    >
       <div class="fixed-container">
         <div class="top-section">
           {{ loadMore }}
@@ -18,10 +24,16 @@
             </div>
           </div>
           <div class="right-section">
-            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
+            <button
+              @click="layout = 'list'"
+              :class="{ active: layout === 'grid' }"
+            >
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
+            <button
+              @click="layout = 'grid'"
+              :class="{ active: layout === 'list' }"
+            >
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -36,11 +48,17 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
+                <img
+                  v-if="isChannelIg(product.campaign)"
+                  src="@/assets/icons/instagram.svg"
+                />
               </div>
-              <div class="favorite" @click="likeProduct(product.id)">
+              <div class="favorite" @click="likeProduct(index, product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="product.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -66,7 +84,9 @@
               <h3>{{ product.brand.korName }}</h3>
               <p>{{ product.name }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{
+                  "#" + hash.tag
+                }}</span>
               </div>
             </div>
           </li>
@@ -93,8 +113,12 @@
                 </div>
               </div>
             </figure>
+
             <div class="favorite" @click="likeProduct(product.id)">
-              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+              <img
+                v-if="product.isInfluenceLike"
+                src="@/assets/icons/heart-filled.svg"
+              />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -112,7 +136,9 @@
               <p>{{ product.name }}</p>
               <span>{{ product.hashtags }}</span>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{ "#" + hash.tag }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">{{
+                  "#" + hash.tag
+                }}</span>
               </div>
             </div>
           </li>
@@ -135,7 +161,7 @@ export default defineComponent({
   props: {
     isBanner: { type: Boolean, default: true },
     isFltData: { type: Boolean, default: true },
-    isproductfilter: null, 
+    isproductfilter: null,
     page: { type: Number },
     categoryId: { type: Number },
   },
@@ -152,7 +178,8 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      store.methods.getData();
+      store.state.AppData = [];
+      store.methods.getData(null, 1, null);
     });
 
     return { store, customPopoverOptions };
@@ -175,7 +202,6 @@ export default defineComponent({
     };
   },
   created() {
-
     this.itemService = new ItemService();
     this.tokenService = new TokenService();
     this.userInfoService = new UserInfoService();
@@ -188,29 +214,29 @@ export default defineComponent({
   watch: {
     bookOption: function (type) {
       let last_page = this.store.state.productMeta.last_page;
-      console.log('last_page', last_page);
+      // console.log("last_page", last_page);
       if (this.spage < last_page) {
         // this.spage = this.spage + 1;
         // console.log('page from carditem:-:',this.page);
         // console.log('page from incerement:', this.spage);
         if (type == "최신순") {
           this.spage = 1;
-          this.$emit('bookOption', 'latest');
-          this.$emit('pageReset', this.spage);
-           console.log('page from carditem latest:-:',this.page);
+          this.$emit("bookOption", "latest");
+          this.$emit("pageReset", this.spage);
+          // console.log("page from carditem latest:-:", this.page);
           this.store.state.AppData = [];
-          this.store.methods.getData('latest',this.spage,this.scategoryId);
+          this.store.methods.getData("latest", this.spage, this.scategoryId);
           // this.itemService.getProductList("latest", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
           // });
         } else if (type == "마감임박순") {
           this.spage = 1;
-           console.log('page from carditem popular:-:',this.page);
-          this.$emit('bookOption', 'popular');
-          this.$emit('pageReset', this.spage);
+          // console.log("page from carditem popular:-:", this.page);
+          this.$emit("bookOption", "popular");
+          this.$emit("pageReset", this.spage);
           this.store.state.AppData = [];
-          this.store.methods.getData('popular',this.spage,this.scategoryId);
+          this.store.methods.getData("popular", this.spage, this.scategoryId);
           // this.itemService.getProductList("popular", this.spage).then((data) => {
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
@@ -219,7 +245,6 @@ export default defineComponent({
       } else {
         this.spage = last_page;
       }
-
     },
   },
   methods: {
@@ -250,7 +275,7 @@ export default defineComponent({
         });
       }
     },
-    async likeProduct(productId) {
+    async likeProduct(index, productId) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
@@ -259,39 +284,46 @@ export default defineComponent({
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService
-            .influencelikes(uid, "product", productId)
-            .then((res) => {
-              if (this.bookOption == "최신순") {
-                this.itemService.getProductList("latest", 1).then((data) => {
-                  this.store.state.AppData = data;
-                });
-              } else if (this.bookOption == "마감임박순") {
-                this.itemService.getProductList("popular", 1).then((data) => {
-                  this.store.state.AppData = data;
-                });
-              } else {
-                this.store.methods.getData();
-              }
-              // this.store.methods.getData();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+          if (this.store.state.AppData[index].isInfluenceLike) {
+            this.itemService
+              .influencedislikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res);
+                this.store.state.AppData[index].isInfluenceLike = false;
+              });
+          } else {
+            this.itemService
+              .influencelikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                this.store.state.AppData[index].isInfluenceLike = true;
+                if (this.bookOption == "최신순") {
+                  this.itemService.getProductList("latest", 1).then((data) => {
+                    this.store.state.AppData = data;
+                  });
+                } else if (this.bookOption == "마감임박순") {
+                  this.itemService.getProductList("popular", 1).then((data) => {
+                    this.store.state.AppData = data;
+                  });
+                }
+              });
+          }
+        
         });
       }
-      console.log("likeProduct");
+      // console.log("likeProduct");
     },
   },
   async updated() {
-    if (this.isproductfilter) {
-      // alert("isproductfilter");
-      console.log('isproductfilter:-', this.isproductfilter);
-      this.store.state.AppData = [];
-      this.store.state.AppData = this.isproductfilter;
-      // this.store.state.AppData.push(this.isproductfilter);
-      console.log('this.store.state.AppData:-', this.store.state.AppData);
-    }
+    // if (this.isproductfilter) {
+    //   // alert("isproductfilter");
+    //   console.log('isproductfilter:-', this.isproductfilter);
+    //   this.store.state.AppData = [];
+    //   this.store.state.AppData = this.isproductfilter;
+    //   // this.store.state.AppData.push(this.isproductfilter);
+    //   console.log('this.store.state.AppData:-', this.store.state.AppData);
+    // }
   },
 });
 </script>

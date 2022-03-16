@@ -12,7 +12,8 @@
         <a
           :class="{ active: category.id === activeId }"
           @click="handleClick(category.childCategory, category.id)"
-        >{{ category.name }}</a>
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -25,11 +26,15 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+      <swiper-slide
+        v-for="childCategory in childCategoryArray"
+        :key="childCategory.name"
+      >
         <a
           :class="{ active: childCategory.id === childactiveId }"
           @click="handleClick2(childCategory.id)"
-        >{{ childCategory.name }}</a>
+          >{{ childCategory.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -100,36 +105,37 @@ export default {
       this.activeId = "All"; //To highlight the button default
     });
   },
+
   methods: {
+    fltDataCondition(i, l) {
+      if (l > 0) {
+        this.nofltData = false;
+        this.$emit("fltData", true);
+        this.$emit("categoryId", i);
+      } else {
+        this.nofltData = true;
+        this.$emit("fltData", false);
+        // let filterproductList = data;
+        // this.$emit("filterproductList", filterproductList);
+      }
+      console.log(l);
+    },
+
     // Child category click
     handleClick2(ids) {
       // alert(ids);
       let last_page = this.store.state.productMeta.last_page;
-      if (this.spage < last_page) {
+      if (this.spage <= last_page) {
         this.spage = 1;
-        this.$emit('pageResetcat', this.spage);
-
+        this.$emit("pageResetcat", this.spage);
 
         this.store.state.AppData = [];
+        
+        var self = this;
 
-        this.store.methods.getData(null, this.spage, ids);
-
-
-
-
-        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
-        //   this.childactiveId = ids; //To activate the All button
-        //   if (data.length == 0) {
-        //     this.nofltData = true;
-        //     this.$emit("fltData", false);
-        //   } else {
-        //     this.nofltData = false;
-        //     this.$emit("fltData", true);
-        //     this.$emit("categoryId", ids);
-        //     let filterproductList = data;
-        //     this.$emit("filterproductList", filterproductList);
-        //   }
-        // });
+        this.store.methods.getData(null, this.spage, ids).then(function (data) {
+          self.fltDataCondition(ids, data.length);
+        });
       } else {
         this.spage = last_page;
       }
@@ -138,34 +144,20 @@ export default {
     // Category click
     handleClick(childCategory, ids) {
       let last_page = this.store.state.productMeta.last_page;
-      console.log('spage', this.spage, 'lastPage', last_page );
+      console.log("spage", this.spage, "lastPage", last_page);
       if (this.spage <= last_page) {
-      console.log('clicked');
+        console.log("clicked");
         this.spage = 1;
-        this.$emit('pageResetcat', this.spage);
+        this.$emit("pageResetcat", this.spage);
         this.$emit("categoryId", ids);
 
         this.store.state.AppData = [];
 
-        this.store.methods.getData(null, this.spage, ids);
+        var self = this;
 
-
-        // this.itemServices.getFilterProduct(ids, this.spage, null).then((data) => {
-        //   // console.log("category-filterproductList", data);
-        //   this.childactiveId = ids; //To activate the All button
-        //   if (data.length == 0) {
-        //     this.nofltData = true;
-        //     this.$emit("fltData", false);
-        //   } else {
-        //     this.nofltData = false;
-        //     let filterproductList = data;
-        //     console.log("filterproductList", filterproductList);
-        //     this.$emit("fltData", true);
-        //     this.$emit("filterproductList", filterproductList);
-        //     this.$emit("childCategory", childCategory);
-        //   }
-        // });
-
+        this.store.methods.getData(null, this.spage, ids).then(function (data) {
+          self.fltDataCondition(ids, data.length);
+        });
 
         if (typeof childCategory !== "undefined") {
           this.childCategoryArray = [];
