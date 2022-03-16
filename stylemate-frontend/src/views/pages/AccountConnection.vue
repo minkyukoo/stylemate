@@ -1,8 +1,9 @@
 <template>
-  <ion-page class="main-container relative">
+  <div class="main-container relative">
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <div class="main-wrap">
       <div class="accountconnectionWrap">
+        {{connectionInfo}}
         <div class="inner">
           <h2>1단계 <span>인스타그램 계정 설정하기</span></h2>
           <div class="sliderBox">
@@ -19,6 +20,8 @@
                 </div>
                 <h4>인스타그램을 실행 해 주세요</h4>
               </swiper-slide>
+
+              
               <swiper-slide>
                 <div class="mainslide-banner-wrap">
                   <img src="@/assets/images/mypage-frame.png" alt />
@@ -68,22 +71,21 @@
           <button class="black-btn">확인</button>
         </div>
       </div>
-    </ion-content>
+    </div>
     <!-- End page content -->
-  </ion-page>
+  </div>
 </template>
 
 <script>
 import { Pagination, EffectCoverflow, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import { inject } from "vue";
+import ChannelService from "@/services/ChannelService";
 
 export default {
   name: "AccountConnection",
@@ -107,6 +109,22 @@ export default {
       // modules: [EffectCoverflow, Pagination],
       store,
     };
+  },
+  data() {
+    return {
+      connectionInfo: null,
+    };
+  },
+  created() {
+    this.channelService = new ChannelService();
+
+  },
+  mounted() {
+    console.log("mounted");
+    this.channelService.getAccountConnection().then((res) => {
+      console.log(res);
+      this.connectionInfo = res.boardGuideDetail;
+    });
   },
 };
 </script>

@@ -7,7 +7,7 @@
     <div class="main-wrap">
       <div class="contWrap">
         <!-- {{ linkedChannel.state.fbDetails }}
-        {{ linkedChannel.state.isConnected }} -->
+        {{ linkedChannel.state.isConnected }}-->
         <ul class="connectionList">
           <li>
             <div>
@@ -59,51 +59,28 @@
             <div class="modalBody">
               <div class="overSearch">
                 <ul>
+                  {{ checkValue_1 }}
                   <li class="checkboxWrap">
                     <label class="check-container">
-                      <input
-                        type="checkbox"
-                        checked="checked"
-                        @change="updateInfo"
-                        v-bind:value="marketing"
-                        v-model="marketing"
-                      />
+                      <input type="checkbox" v-model="checkValue_1" @change="checkALL" />
                       <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
                     </label>
                   </li>
                   <li class="checkboxWrap">
                     <label class="check-container">
-                      <input
-                        type="checkbox"
-                        checked="checked"
-                        @change="updateInfo"
-                        v-bind:value="marketing"
-                        v-model="marketing"
-                      />
+                      <input type="checkbox" v-model="checkValue_2" @change="checkALL" />
                       <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
                     </label>
                   </li>
                   <li class="checkboxWrap">
                     <label class="check-container">
-                      <input
-                        type="checkbox"
-                        checked="checked"
-                        @change="updateInfo"
-                        v-bind:value="marketing"
-                        v-model="marketing"
-                      />
+                      <input type="checkbox" v-model="checkValue_3" @change="checkALL" />
                       <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
                     </label>
                   </li>
                   <li class="checkboxWrap">
                     <label class="check-container">
-                      <input
-                        type="checkbox"
-                        checked="checked"
-                        @change="updateInfo"
-                        v-bind:value="marketing"
-                        v-model="marketing"
-                      />
+                      <input type="checkbox" v-model="checkValue_4" @change="checkALL" />
                       <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
                     </label>
                   </li>
@@ -120,7 +97,12 @@
               @click="closeModal"
               aria-label="Close modal"
             >닫기</button>
-            <button type="button" class="footBtnbutton footBtnBlack">다음</button>
+            <button
+              type="button"
+              @click="accConnectMethods"
+              class="footBtnbutton footBtnBlack"
+              :disabled="disabled"
+            >다음</button>
           </div>
         </template>
       </ConfirmationModal>
@@ -134,6 +116,7 @@ import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
 import { inject, onMounted } from 'vue';
+import Toast from '@/alert/alert';
 
 export default {
   name: 'NewMember',
@@ -141,6 +124,11 @@ export default {
   data() {
     return {
       isModalVisible: false,
+      checkValue_1: false,
+      checkValue_2: false,
+      checkValue_3: false,
+      checkValue_4: false,
+      disabled: true,
       // igResData: null,
       // fbResData: null,
     }
@@ -185,6 +173,21 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+
+    accConnectMethods() {
+      this.closeModal();
+      this.$router.push({ name: 'AccountConnection' });
+    },
+
+    checkALL() {
+      alert(this.checkValue_1, this.checkValue_2, this.checkValue_3, this.checkValue_4);
+      if (this.checkValue_1 && this.checkValue_2 && this.checkValue_3 && this.checkValue_4) {
+        this.disabled = false;
+      }else {
+        this.disabled = true;
+        Toast.fire({ title: "Please check all" });
+      }
     },
 
     async addIgChannel() {
@@ -334,15 +337,15 @@ export default {
   font-size: 14px;
   color: #52525b;
 }
-.overSearch li:last-child{
+.overSearch li:last-child {
   margin-bottom: 0;
 }
 .overSearch li ion-checkbox {
   margin: 0 10px 0 0;
 }
-.overSearch li.checkboxWrap .check-container{
+.overSearch li.checkboxWrap .check-container {
   margin-bottom: 0;
-  color: #52525B !important;
+  color: #52525b !important;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -362,5 +365,4 @@ export default {
 .footBtnBlack {
   background: #090909;
 }
-
 </style>
