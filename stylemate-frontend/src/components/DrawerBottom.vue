@@ -17,6 +17,7 @@
           :options="item.optionValues"
           v-model="selected"
           @toggle="control(i)"
+          :close-on-select="true"
         ></vue-select>
       </div>
     </div>

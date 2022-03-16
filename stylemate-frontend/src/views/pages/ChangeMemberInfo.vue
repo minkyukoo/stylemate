@@ -20,7 +20,11 @@
           <div class="password-grp" v-show="savediv">
             <div class="input-grp">
               <label>기존 비밀번호</label>
-              <input type="text" placeholder="기존 비밀번호 입력" v-model="oldPass" />
+              <input
+                type="text"
+                placeholder="기존 비밀번호 입력"
+                v-model="oldPass"
+              />
             </div>
             <div class="input-grp">
               <label>새 비밀번호</label>
@@ -32,10 +36,19 @@
             </div>
             <div class="input-grp">
               <label>새 비밀번호 확인</label>
-              <input type="text" placeholder="비밀번호 입력 확인"  v-model="confirmPass" />
+              <input
+                type="text"
+                placeholder="비밀번호 입력 확인"
+                v-model="confirmPass"
+              />
             </div>
             <div class="input-grp">
-              <button class="white-btn" type="button" name="save" @click="savepassword">
+              <button
+                class="white-btn"
+                type="button"
+                name="save"
+                @click="savepassword"
+              >
                 비밀번호 저장
               </button>
             </div>
@@ -68,8 +81,13 @@
           </div>
           <div class="timerWrap" v-show="otp">
             <div class="input-grp">
-              <input type="text" placeholder="인증번호 입력" v-model="verificationCode" />
-              <span class="timer"><vue-countdown
+              <input
+                type="text"
+                placeholder="인증번호 입력"
+                v-model="verificationCode"
+              />
+              <span class="timer" v-show="countd"
+                ><vue-countdown
                   v-if="counting"
                   :time="180000"
                   @end="onCountdownEnd"
@@ -77,16 +95,21 @@
                   style="color: blue"
                 >
                   {{ minutes }}:{{ seconds }}
-                </vue-countdown></span>
+                </vue-countdown></span
+              >
             </div>
             <div class="input-grp">
-              <button class="black-btn" type="button" >인증번호 확인</button>
+              <button class="black-btn" type="button" @click="confirmOtp">
+                인증번호 확인
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div class="button-group">
-        <button class="black-btn-fixed">확인</button>
+        <button class="black-btn-fixed" :disabled="confirmBtn" @click="confirm">
+          확인
+        </button>
       </div>
     </ion-content>
   </ion-page>
@@ -99,17 +122,24 @@ import VueNextSelect from "vue-next-select";
 import UserInfoService from "@/services/UserInfoService";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 import Toast from "@/alert/alert.js";
+// import Swal from "sweetalert2";
 export default {
   name: "ChangeMemberInfo",
-  components: { TopNav, IonContent, IonPage, "vue-select": VueNextSelect,VueCountdown },
+  components: {
+    TopNav,
+    IonContent,
+    IonPage,
+    "vue-select": VueNextSelect,
+    VueCountdown,
+  },
   setup() {
     const options = ["SKT", "SKT 1", "SKT 2", "SKT 3"];
     return { options };
   },
   data() {
     return {
-      changepwd:true,
-      savediv:false,
+      changepwd: true,
+      savediv: false,
       uid: localStorage.getItem("userId"),
       otp: false,
       email: "",
@@ -118,6 +148,7 @@ export default {
       confirmPass: "",
       mobile: "",
       ids: "",
+      countd:true,
       counting: false,
       verificationCode: "",
       error: {
@@ -125,6 +156,7 @@ export default {
         newPass: "",
         confirmPass: "",
       },
+      confirmBtn: true,
     };
   },
   created() {
@@ -147,45 +179,65 @@ export default {
   // },
   methods: {
     changepassword() {
-      this.savediv=true;
-      this.changepwd=false;
+      this.confirmBtn = false;
+      this.savediv = true;
+      this.changepwd = false;
     },
     openlink() {
       console.log("clivk");
     },
-    savepassword() {
-      this.userInfoService
-        .changePassword(this.uid, this.oldPass, this.newPass, this.confirmPass)
-        .then(() => {
-          alert("password changed");
-        });
-    },
     confirm() {
-      const pass_regex = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
-      const ok = pass_regex.exec(this.newPass);
-      if (!ok) {
-        alert("enter valid password");
+      this.savediv = false;
+      this.changepwd = true;
+      this.otp = false;
+      this.counting = false;
+    },
+    savepassword() {
+      this.confirmBtn = false;
+      if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
+        Toast.fire({ title: "please don't keep password feilds blank" });
+      } else if (this.newPass !== this.confirmPass) {
+        Toast.fire({ title: "Passwords do not match." });
+      }else if(this.oldPass == this.newPass){
+        Toast.fire({ title: "old password & new password should not match" });
       } else {
-        alert("password format is fine");
-      }
-      if (this.oldPass == "") {
-        this.error.oldPass = "required feild";
-      } else {
-        this.error.oldPass = "";
-      }
-      if (this.newPass == "") {
-        this.error.newPass = "required feild";
-      } else {
-        this.error.newPass = "";
-      }
-      if (this.confirmPass == "") {
-        this.error.confirmPass = "required feild";
-      } else {
-        this.error.confirmPass = "";
+        this.userInfoService
+          .changePassword(
+            this.uid,
+            this.oldPass,
+            this.newPass,
+            this.confirmPass
+          )
+          .then(() => {
+            // Swal.fire("Good job!", "password changed!", "success");
+            Toast.fire({ title: "password changed!" });
+            this.oldPass = "";
+            this.newPass = "";
+            this.confirmPass = "";
+          })
+          .catch((err) => {
+            console.log(err.response.status);
+            if (err.response.status == 412) {
+              Toast.fire({ title: "You entered your password incorrectly." });
+            } else if (err.response.status == 422) {
+              Toast.fire({
+                title: "It doesn't fit the password format.",
+              });
+            }
+          });
       }
     },
+    // confirm() {
+    //   const pass_regex = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{8,16}$/;
+    //   const ok = pass_regex.exec(this.newPass);
+
+    // },
     sendOtp() {
-      if (this.mobile != "" && this.mobile.length == 8) {
+      if (this.mobile == "") {
+        Toast.fire({ title: "please fill mmobile Number feild" });
+      } else if (this.mobile.length !== 8) {
+        Toast.fire({ title: "Enter avalid mobile number" });
+      } else {
         let minutesToAdd = 3;
         let currentDate = new Date();
         let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
@@ -197,10 +249,12 @@ export default {
             this.formatDate(futureDate)
           )
           .then(() => {
+            this.countd=true;
+            this.confirmBtn = false;
             this.otp = true;
             this.counting = true;
             // alert("Otp sent");
-            Toast.fire({ title: "Otp sent" });
+            // Toast.fire({ title: "Otp sent" });
           });
         console.log(this.formatDate(futureDate));
       }
@@ -211,8 +265,20 @@ export default {
     confirmOtp() {
       this.userInfoService
         .confirmPass(this.verificationCode, this.email, `010${this.mobile}`)
-        .then(() => {
-          alert("password confirmed");
+        .then((res) => {
+          // alert("password confirmed");
+          console.log(res.response.status);
+          if (res.response.status === 200) {
+            this.countd=false;
+            Toast.fire({ title: "You are verified!" });
+            // Swal.fire("Good job!", "You are verified!", "success");
+          } else if (res.response.status === 412) {
+            Toast.fire({
+              title: "The verification code was entered incorrectly.",
+            });
+          } else {
+            Toast.fire({ title: "Not Found." });
+          }
         });
     },
     formatDate(value) {

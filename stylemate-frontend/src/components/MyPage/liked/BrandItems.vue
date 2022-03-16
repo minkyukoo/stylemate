@@ -60,7 +60,7 @@ export default {
       }
     },
     async dislikeBrand(brandId) {
-      console.log('brandId', brandId);
+      // console.log('brandId', brandId);
       let uid;
 
       await this.isUserid().then((res) => {
@@ -68,7 +68,7 @@ export default {
         console.log('uid', uid);
 
         this.brandService.influencedislikes(uid, 'brand', brandId).then((res) => {
-          console.log('dres', res);
+          // console.log('dres', res);
           if (res) {
             if (res.response.status && res.response.status !== 204) {
               Toast.fire({ title: res.response.data.error.message });
@@ -78,7 +78,7 @@ export default {
           }
         });
       });
-      console.log('brand dislike');
+      // console.log('brand dislike');
     }
   },
 };

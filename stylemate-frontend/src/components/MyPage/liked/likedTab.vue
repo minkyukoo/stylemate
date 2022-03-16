@@ -27,7 +27,7 @@
 
 <script>
 import UserInfoService from "@/services/UserInfoService";
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 export default {
   name: "likedTab",
   data() {
@@ -37,10 +37,7 @@ export default {
   },
   setup() {
     const store = inject("store");
-    onMounted(() => {
-      console.log("from Store", store.state.likedTabState);
-    });
-
+    
     return {
       store,
     };
