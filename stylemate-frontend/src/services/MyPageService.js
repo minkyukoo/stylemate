@@ -9,6 +9,7 @@ export default class MyPageService {
     });
   }
   async getCampaignData(
+    pageNo,
     uid,
     sponsorTabState,
     sponcerFilterId,
@@ -26,15 +27,18 @@ export default class MyPageService {
     let encodedUrl = encodeURIComponent(filterType);
     console.log("console encode", encodedUrl);
     return await axios.get(
-      `/stylemates/users/${uid}/campaigns?filters=${encodedUrl}&page=1`,
+      `/stylemates/users/${uid}/campaigns?filters=${encodedUrl}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        params: {
+          page: pageNo,
+        },
       }
     );
   }
-  async getPostingList(id,per_page) {
+  async getPostingList(id,per_page,pageNo) {
     let encodedUrl = encodeURIComponent('{"influenceId":' + id + "}");
     console.log(encodedUrl);
     return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
@@ -43,6 +47,7 @@ export default class MyPageService {
       },
       params: {
         perPage: per_page,
+        page: pageNo,
       },
     });
   }
