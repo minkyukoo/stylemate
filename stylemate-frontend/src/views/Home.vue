@@ -18,7 +18,7 @@
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
             <div class="mainslide-banner-wrap">
-              <img :src="slide.pcImagePath" alt />
+              <img :src="slide.mobileImagePath" alt />
             </div>
           </swiper-slide>
         </swiper>
