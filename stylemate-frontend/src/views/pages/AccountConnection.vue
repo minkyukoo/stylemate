@@ -4,7 +4,10 @@
     <div class="main-wrap">
       <div class="accountconnectionWrap">
         <div class="inner">
-          <h2>1단계 <span>인스타그램 계정 설정하기</span></h2>
+          <h2>
+            1단계
+            <span>인스타그램 계정 설정하기</span>
+          </h2>
           <div class="sliderBox">
             <swiper
               :modules="modules"
@@ -13,14 +16,13 @@
               :pagination="{ clickable: false }"
               :navigation="true"
             >
-              <swiper-slide v-for="(citem,i) of connectionInfo" :key="i+1">
+              <swiper-slide v-for="(citem, i) of connectionInfo" :key="i + 1">
                 <div class="mainslide-banner-wrap">
-                  <img :src="citem.imagePath" alt="" />
+                  <img :src="citem.imagePath" alt />
                 </div>
                 <div v-html="citem.body" class="ci-body"></div>
                 <!-- <h4>인스타그램을 실행 해 주세요</h4> -->
               </swiper-slide>
-              
             </swiper>
           </div>
         </div>
@@ -58,7 +60,7 @@ export default {
     const onSlideChange = () => {
       console.log("slide change");
     };
-    
+
     return {
       onSwiper,
       onSlideChange,
@@ -100,7 +102,7 @@ export default {
   height: 100vh;
   padding: 50px 0 0;
 }
-.accountconnectionWrap .inner{
+.accountconnectionWrap .inner {
   height: 100%;
 }
 .accountconnectionWrap h2 {
@@ -155,9 +157,15 @@ export default {
   min-height: 500px;
   height: 100%;
 }
-.ci-body{
+.ci-body {
   padding: 0 20px;
   text-align: center;
   margin-top: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  color: #212226;
 }
 </style>
