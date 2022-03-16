@@ -84,7 +84,7 @@ export default {
     const store = inject("store");
 
     onMounted(() => {
-      store.methods.getcampList();
+      // store.methods.getcampList();
       console.log("onPage", store.state.FltCampaignData);
     });
 
