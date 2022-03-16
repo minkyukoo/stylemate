@@ -30,7 +30,7 @@
     </div>
 
     <div class="main pad-b-40">
-      <div class="maincard" v-for="info in brands" :key="info.id">
+      <div class="maincard" v-for="(info, i) in brands" :key="info.id">
         <figure
           class="img-wrap"
           @click="
@@ -53,8 +53,7 @@
               >
                 {{ info.korName }}
               </h3>
-              <div class="text-box" @click="likeBrand(info.id)">
-                <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
+              <div class="text-box" @click="likeBrand(info.id, i)">
                 <img
                   v-if="info.isInfluenceLike"
                   src="@/assets/icons/heart-filled.svg"
@@ -232,24 +231,43 @@ export default {
         });
       }
     },
-    async likeBrand(brandId) {
+    async likeBrand(brandId, i) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
         Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
       } else {
+        // eslint-disable-next-line no-unused-vars
         let uid;
+        let selfItem = this.brands[i];
         await this.isUserid().then((res) => {
           uid = res;
-          console.log("brand uid", uid);
-          this.brandService
-            .influencelikes(uid, "brand", brandId)
-            .then((res) => {
-              this.getBrandList();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+          // console.log(brandId);
+          if (selfItem.isInfluenceLike === false) {
+            this.brandService
+              .influencelikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res)
+                selfItem.isInfluenceLike = true;
+              });
+          } else {
+            this.brandService
+              .influencedislikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res);
+                selfItem.isInfluenceLike = false;
+              });
+          }
+
+          // this.brandService
+          //   .influencelikes(uid, "brand", brandId)
+          //   .then((res) => {
+          //     if (res.response.data.error) {
+          //       Toast.fire({ title: res.response.data.error.message });
+          //     }
+          //   });
         });
       }
     },
