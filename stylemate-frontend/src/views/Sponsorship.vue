@@ -32,11 +32,14 @@ export default {
     return { store };
   },
   methods: {
+    onScroll2(e) {
+      console.log(e);
+    },
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
         console.log('end reached');
         let last_page = this.store.state.sponcerMeta.last_page;
-        if (this.page <= last_page) {
+        if (this.page < last_page) {
           this.page = this.page + 1;
           console.log('page from itemvue:-:', this.page);
           this.store.methods.getcampList(this.page);

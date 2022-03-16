@@ -38,7 +38,7 @@ export default class MyPageService {
       }
     );
   }
-  async getPostingList(id,per_page) {
+  async getPostingList(id,per_page,pageNo) {
     let encodedUrl = encodeURIComponent('{"influenceId":' + id + "}");
     console.log(encodedUrl);
     return await axios.get(`/stylemates/posts?filters=${encodedUrl}`, {
@@ -47,6 +47,7 @@ export default class MyPageService {
       },
       params: {
         perPage: per_page,
+        page: pageNo,
       },
     });
   }
