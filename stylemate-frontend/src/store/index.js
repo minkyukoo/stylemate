@@ -19,11 +19,10 @@ const state = reactive({
   noticeTabPageName: "Notice",
   likedTabState: "item",
   likedTabBrand: [],
-  likedTabProduct: [], 
+  likedTabProduct: [],
   likedTabProductLength: 0,
   likedTabBrandLength: 0,
-  likedTabAllCategories: [
-    {
+  likedTabAllCategories: [{
       id: "all",
       name: "all",
       active: true,
@@ -83,12 +82,21 @@ var myPageService = new MyPageService();
 
 const methods = {
   async getData(order, page, categoryId) {
-    return await itemService.getProductList(order,page,categoryId).then((res) => {
-      console.log("ItemList from store", res);
-      state.productMeta = res.meta;
-      state.AppData.push(...res.data);
-      return state.AppData;
-    });
+    if (categoryId === 'All') {
+      return await itemService.getProductList(order, page, null).then((res) => {
+        console.log("ItemList from store", res);
+        state.productMeta = res.meta;
+        state.AppData.push(...res.data);
+        return state.AppData;
+      });
+    } else {
+      return await itemService.getProductList(order, page, categoryId).then((res) => {
+        console.log("ItemList from store", res);
+        state.productMeta = res.meta;
+        state.AppData.push(...res.data);
+        return state.AppData;
+      });
+    }
   },
   setSponsorTab(tab) {
     state.sponsorTabState = tab;

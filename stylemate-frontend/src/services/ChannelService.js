@@ -181,6 +181,21 @@ export default class ChannelService {
   }
 
 
+  async getAccountConnection() {
+    return await axios.get(`/guides/recently`,
+      {
+        "userType": 'new',
+        "deviceType": 'mobile',
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        }
+      }
+    );
+  }
+
+
 
 
 
