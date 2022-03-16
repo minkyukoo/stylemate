@@ -177,7 +177,7 @@ export default {
       this.brandService.brandSearchHistory(uid, 1).then((res) => {
         this.history = res.data.length > 0 ? true : false;
         this.searchKeywords = res.data;
-        console.log(res);
+        // console.log(res);
       });
     },
 
@@ -261,13 +261,6 @@ export default {
               });
           }
 
-          // this.brandService
-          //   .influencelikes(uid, "brand", brandId)
-          //   .then((res) => {
-          //     if (res.response.data.error) {
-          //       Toast.fire({ title: res.response.data.error.message });
-          //     }
-          //   });
         });
       }
     },
