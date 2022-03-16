@@ -423,6 +423,9 @@ export default {
   color: #ffffff;
   background: #090909;
 }
+.button-group .black-btn-fixed[disabled]{
+  cursor:not-allowed;
+}
 button {
   white-space: nowrap;
 }
