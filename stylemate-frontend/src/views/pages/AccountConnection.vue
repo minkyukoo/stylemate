@@ -3,7 +3,6 @@
     <!-- page content -->
     <div class="main-wrap">
       <div class="accountconnectionWrap">
-        {{connectionInfo}}
         <div class="inner">
           <h2>1단계 <span>인스타그램 계정 설정하기</span></h2>
           <div class="sliderBox">
@@ -14,56 +13,14 @@
               :pagination="{ clickable: false }"
               :navigation="true"
             >
-              <swiper-slide>
+              <swiper-slide v-for="(citem,i) of connectionInfo" :key="i+1">
                 <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
+                  <img :src="citem.imagePath" alt="" />
                 </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
+                <div v-html="citem.body" class="ci-body"></div>
+                <!-- <h4>인스타그램을 실행 해 주세요</h4> -->
               </swiper-slide>
-
               
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
-              <swiper-slide>
-                <div class="mainslide-banner-wrap">
-                  <img src="@/assets/images/mypage-frame.png" alt />
-                </div>
-                <h4>인스타그램을 실행 해 주세요</h4>
-              </swiper-slide>
             </swiper>
           </div>
         </div>
@@ -120,10 +77,9 @@ export default {
 
   },
   mounted() {
-    console.log("mounted");
     this.channelService.getAccountConnection().then((res) => {
-      console.log(res);
-      this.connectionInfo = res.boardGuideDetail;
+      console.log('getAccountConnection res', res);
+      this.connectionInfo = res.data.boardGuideDetail;
     });
   },
 };
