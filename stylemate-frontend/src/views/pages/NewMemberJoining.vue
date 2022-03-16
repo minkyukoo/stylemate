@@ -59,7 +59,6 @@
             <div class="modalBody">
               <div class="overSearch">
                 <ul>
-                  {{ checkValue_1 }}
                   <li class="checkboxWrap">
                     <label class="check-container">
                       <input type="checkbox" v-model="checkValue_1" @change="checkALL" />
@@ -116,7 +115,6 @@ import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
 import { inject, onMounted } from 'vue';
-import Toast from '@/alert/alert';
 
 export default {
   name: 'NewMember',
@@ -181,12 +179,10 @@ export default {
     },
 
     checkALL() {
-      alert(this.checkValue_1, this.checkValue_2, this.checkValue_3, this.checkValue_4);
       if (this.checkValue_1 && this.checkValue_2 && this.checkValue_3 && this.checkValue_4) {
         this.disabled = false;
-      }else {
+      } else {
         this.disabled = true;
-        Toast.fire({ title: "Please check all" });
       }
     },
 
@@ -364,5 +360,8 @@ export default {
 }
 .footBtnBlack {
   background: #090909;
+}
+.footBtnBlack[disabled] {
+  cursor: not-allowed;
 }
 </style>

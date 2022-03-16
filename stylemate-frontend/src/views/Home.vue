@@ -17,9 +17,9 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <div class="mainslide-banner-wrap">
-              <img :src="slide.pcImagePath" alt />
-            </div>
+            <router-link to="" class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+              <img :src="slide.mobileImagePath" alt="Banner" />
+            </router-link>
           </swiper-slide>
         </swiper>
       </div>
@@ -447,6 +447,7 @@ export default {
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
       this.bannerList = res;
+      console.log('bannerList', this.bannerList);
     });
     this.getProductItemList();
     this.getLookBook();
@@ -465,6 +466,11 @@ export default {
         return input.substring(0, length) + "...";
       }
       return input;
+    },
+
+    bannerRedirect(url) {
+      alert(url);
+      window.open(url, '_blank');
     },
 
     async getNoticeIsAuth() {
