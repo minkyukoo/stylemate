@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="store.state.likedTabBrandLength || store.state.likedTabProductLength"
     class="item-scroller-nav"
   >
     <swiper
@@ -68,10 +67,6 @@ export default {
         this.store.state.likedTabProductLength =
           res.data.data.length > 0 ? true : false;
       });
-      this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-        this.store.state.likedTabBrandLength =
-          res.data.data.length > 0 ? true : false;
-      });
     });
   },
   methods: {
@@ -91,12 +86,6 @@ export default {
             this.store.state.likedTabProductLength =
               res.data.data.length > 0 ? true : false;
           });
-          this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
-            // console.log("brand", res);
-            this.store.state.likedTabBrand = res.data.data;
-            this.store.state.likedTabBrandLength =
-              res.data.data.length > 0 ? true : false;
-          });
         });
       } else if (categoryId === "Progress") {
         this.user.getUserInfo().then((userInfo) => {
@@ -114,16 +103,6 @@ export default {
                   res.data.data.length > 0 ? true : false;
               });
           }
-          if (activeTab === "brand") {
-            this.user
-              .getInfluenceWithCategory(userInfo.data.uid, "brand", "progress")
-              .then((res) => {
-                // console.log("brand", res);
-                this.store.state.likedTabBrand = res.data.data;
-                this.store.state.likedTabBrandLength =
-                  res.data.data.length > 0 ? true : false;
-              });
-          }
         });
       } else if (categoryId === "end") {
         this.user.getUserInfo().then((userInfo) => {
@@ -134,16 +113,6 @@ export default {
                 // console.log("product", res);
                 this.store.state.likedTabProduct = res.data.data;
                 this.store.state.likedTabProductLength =
-                  res.data.data.length > 0 ? true : false;
-              });
-          }
-          if (activeTab === "brand") {
-            this.user
-              .getInfluenceWithCategory(userInfo.data.uid, "brand", "finish")
-              .then((res) => {
-                // console.log("brand", res);
-                this.store.state.likedTabBrand = res.data.data;
-                this.store.state.likedTabBrandLength =
                   res.data.data.length > 0 ? true : false;
               });
           }
