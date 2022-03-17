@@ -19,7 +19,7 @@
       <div class="container">
         <div class="flex items-center justify-center relative">
           <ion-buttons slot="start" class="back-btn-wrap">
-            <button class="back-btn" @click="$router.go(-1)">
+            <button class="back-btn" @click="backMainpage">
               <i class="icon-left-arrow"></i>
             </button>
           </ion-buttons>
@@ -61,13 +61,22 @@ export default {
   },
   mounted() {
     this.getNotificationLength();
+    console.log(this.$route.name);
   },
   methods: {
     // isLogedIn
     async isLogedIn() {
       return await this.tokenService.isAuth();
     },
-
+    backMainpage() {
+      if (this.$route.name === 'Notice') {
+        this.$router.push({
+          path: "/mypage",
+        });
+      } else {
+        this.$router.go(-1);
+      }
+    },
     async getNotificationLength() {
       let isLogedIn = await this.isLogedIn();
       if (isLogedIn) {
