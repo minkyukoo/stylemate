@@ -222,6 +222,7 @@ export default {
   line-height: 12px;
   opacity: 0.6;
   text-align: center;
+  margin-top: 8px;
 }
 .social-media {
   display: flex;

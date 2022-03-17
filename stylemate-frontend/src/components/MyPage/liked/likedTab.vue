@@ -8,7 +8,7 @@
             : 'sponsor-btn',
         ]"
       >
-        item
+        아이템
       </button>
     </div>
     <div class="sponsor-tab-item" @click="setBrandTab()">
@@ -19,7 +19,7 @@
             : 'sponsor-btn',
         ]"
       >
-        brand
+        브랜드
       </button>
     </div>
   </div>
