@@ -169,26 +169,11 @@ export default {
     if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
-    this.userInfoservice.getUserInfo().then(res => {
-      console.log('infores data:', res.data);
-      console.log('infores channel:', res.data.influence.channel);
-      this.userUID = res.data.uid;
-      this.userId = res.data.id;
-      this.userChanneldata = res.data.influence.channel;
-      let channelData = res.data.influence.channel;
-      channelData.map(
-        (item) => {
-          console.log('channel data:--', item );
-          this.instagramChannelInfo = item.instagramChannel;
-          this.stylemateStatus = item.stylemateStatus;
-          this.isReApplication = item.isReApplication;
-          this.channelId = item.id;
-          this.fbToken = item.instagramChannel.accessToken;
-        }
-      )
-    });
 
-    
+    this.getUserinfo2();
+
+
+
   },
   async updated() {
     let fbaccessToken = await this.channelService.getfbaccessToken();
@@ -205,6 +190,28 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
+    },
+
+    getUserinfo2() {
+      this.userInfoservice.getUserInfo().then(res => {
+        console.log('infores data:', res.data);
+        console.log('infores channel:', res.data.influence.channel);
+        this.userUID = res.data.uid;
+        this.userId = res.data.id;
+        this.userChanneldata = res.data.influence.channel;
+        let channelData = res.data.influence.channel;
+        channelData.map(
+          (item) => {
+            console.log('channel data:--', item);
+            this.instagramChannelInfo = item.instagramChannel;
+            this.stylemateStatus = item.stylemateStatus;
+            this.isReApplication = item.isReApplication;
+            this.channelId = item.id;
+            this.fbToken = item.instagramChannel.accessToken;
+          }
+        )
+        this.upadteStatus(this.userUID,this.channelId);
+      });
     },
 
     //isUserid
@@ -310,6 +317,7 @@ export default {
             ig_id: res.ig_id,
             follows_count: res.follows_count,
             followers_count: res.followers_count,
+            profile_picture_url: res.profile_picture_url,
             media_count: res.media_count,
             username: res.username,
           }
@@ -320,7 +328,7 @@ export default {
     },
 
     // page selected
-    selectPage(pageinfo,i) {
+    selectPage(pageinfo, i) {
       console.log('selectPage:', pageinfo);
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
@@ -344,15 +352,23 @@ export default {
       if (this.seletedPageId) {
         this.channelService.selectChannel(uid, token, info).then((res) => {
           console.log('7. selectChannel res:', res);
+          console.log('response:----', res.status);
+          this.getUserinfo2();
+          this.$router.push({ name: 'NewMemberJoining' });
         });
-        //patch
-        this.channelService.getIgApproveRequest(this.userUID, this.channelId).then((res) => {
-          console.log('applyActivity res:', res);
-        });
+        //  await this.getUserinfo2();
+        
       } else {
         alert('no page selected');
       }
     },
+
+  // //patch
+    upadteStatus(uid,channelId) {
+        this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
+          console.log('applyActivity res:', res);
+        });
+    }
 
 
   },

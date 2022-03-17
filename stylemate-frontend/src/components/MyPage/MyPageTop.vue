@@ -217,6 +217,7 @@ export default {
   font-size: 12px;
   line-height: 12px;
   opacity: 0.6;
+  text-align: center;
 }
 .social-media {
   display: flex;

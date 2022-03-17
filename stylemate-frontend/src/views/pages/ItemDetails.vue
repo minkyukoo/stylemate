@@ -41,7 +41,7 @@
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="right-section" v-if="!platform=='other'">
+            <div class="right-section" v-if="!platform == 'other'">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
@@ -215,7 +215,7 @@ export default {
       productCampaign: null,
       userToken: "",
       isCancelspon: false,
-      sponsorship: false,
+      sponsorship: true,
       cancel_spon: false,
       complete_spon: false,
       end_spon: false,
@@ -237,11 +237,15 @@ export default {
       modules: [Pagination],
     };
   },
-  created() {
+  async created() {
     this.moment = moment;
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
+    let isLogedIn = await this.tokenService.isAuth();
+    if (isLogedIn) {
+      this.sponsorship = false;
+    }
     this.getProductDetails();
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/item');
@@ -283,6 +287,7 @@ export default {
     },
     getProductDetails() {
       var proId = this.$route.params.id;
+
       this.itemService.getProductDetails(proId).then((res) => {
         // catch error
         if (res.response) {

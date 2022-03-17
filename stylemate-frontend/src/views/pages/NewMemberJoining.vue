@@ -13,7 +13,7 @@
             <div>
               <label>채널연결</label>
             </div>
-            <div>
+            <div @click="refreshChannel">
               <img src="@/assets/icons/refresh.svg" />
             </div>
           </li>
@@ -26,7 +26,50 @@
             <h4>
               <img src="@/assets/icons/instagram-list.svg" /> Instagram
             </h4>
-            <div>
+            <!-- if selected channel -->
+            <ul class="newChannel" v-if="selChannelType === 'instagram'">
+              <li>
+                <div class="channelLeft">
+                  <div class="channelImg">
+                    <!-- <img src="@/assets/icons/refresh.svg" /> -->
+                    <img :src="selChannel.instagramChannel.thumbnailOriginalUrl" />
+                  </div>
+                  <div class="channelDec">
+                    <!-- <h4>{{ account.instagram_business_account.name }}</h4> -->
+                    <p>{{ selChannel.instagramChannel.pageName }}</p>
+                    {{ stylemateStatus }}
+                  </div>
+                </div>
+                <div class="btn-wrap">
+                  <!-- <button class="channelBtn" type="button">선택</button> -->
+                  <button
+                    class="channelBtn"
+                    type="button"
+                    @click="disconnected(userID, selChannel.id)"
+                  >disconnect</button>
+                  <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
+                    <button class="channelBtn" type="button">Linked Account</button>
+                    <button class="channelBtn" type="button" @click="disconnected">disconnect</button>
+                  </div>
+                  <button
+                    v-else-if="stylemateStatus === 'request'"
+                    class="channelBtn"
+                    type="button"
+                  >checking</button>
+                  <button
+                    v-else-if="stylemateStatus === 'hold' && !isReApplication"
+                    class="channelBtn"
+                    type="button"
+                  >hold</button>
+                  <button
+                    v-else-if="stylemateStatus === 'hold' && isReApplication"
+                    class="channelBtn"
+                    type="button"
+                  >selete</button>
+                </div>
+              </li>
+            </ul>
+            <div class="adddivwrap">
               <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>
@@ -34,7 +77,7 @@
             <h4>
               <img src="@/assets/icons/youtube.svg" /> Youtube
             </h4>
-            <div>
+            <div class="adddivwrap">
               <button class="connectBtn" type="button">+ 연결방법 보기</button>
             </div>
           </li>
@@ -42,7 +85,7 @@
             <h4>
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
-            <div>
+            <div class="adddivwrap">
               <button class="connectBtn" type="button">+ 연결방법 보기</button>
             </div>
           </li>
@@ -114,6 +157,7 @@
 import TopNav from '@/components/TopNav.vue';
 import ConfirmationModal from "@/components/ConfirmationModal.vue";
 import ChannelService from "@/services/ChannelService";
+import UserInfoService from '@/services/UserInfoService';
 import { inject, onMounted } from 'vue';
 
 export default {
@@ -127,6 +171,10 @@ export default {
       checkValue_3: false,
       checkValue_4: false,
       disabled: true,
+      userID: null,
+      selChannel: null,
+      selChannelType: null,
+      stylemateStatus: null,
       // igResData: null,
       // fbResData: null,
     }
@@ -143,10 +191,11 @@ export default {
   },
   async created() {
     this.channelService = new ChannelService();
+    this.userInfoService = new UserInfoService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
     this.channelService.initFacebook();
     // let fbaccessToken = await this.channelService.getfbaccessToken();
-
+    this.getUserChannelInfo();
     // if (!fbaccessToken) {
     //   this.$router.push({ name: 'NewMemberJoining' });
     // } else {
@@ -154,13 +203,19 @@ export default {
     // }
 
   },
-  async updated() {
+  mounted() {
+    this.getUserChannelInfo();
+  },
+  updated() {
     // let fbaccessToken = await this.channelService.getfbaccessToken();
     // if (!fbaccessToken) {
     //   this.$router.push({ name: 'NewMemberJoining' });
     // } else {
     //   this.$router.push({ name: 'NewMemberChannel' });
     // }
+    // this.upadteStatus(this.userID, this.channelId);
+
+
   },
   methods: {
     openlink() {
@@ -171,6 +226,19 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+
+    getUserChannelInfo() {
+      this.userInfoService.getUserInfo().then((res) => {
+        this.userID = res.data.uid;
+        let channelData = res.data.influence.channel;
+        channelData.map((item) => {
+          console.log('item:00--', item);
+          this.selChannelType = item.type;
+          this.stylemateStatus = item.stylemateStatus;
+          this.selChannel = item
+        });
+      });
     },
 
     accConnectMethods() {
@@ -187,14 +255,26 @@ export default {
     },
 
     async addIgChannel() {
-      // this.logInWithFacebook();
-      // this.linkedChannel.methods.logInWithFacebook();
       let fbaccessToken = await this.channelService.getfbaccessToken();
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
         this.$router.push({ name: 'NewMemberChannel' });
       }
+    },
+
+    // channel disconnect
+    disconnected(uid, channelId) {
+      console.log('disconnected');
+      this.channelService.channelDisconnect(uid, channelId).then((res) => {
+        this.getUserChannelInfo();
+        console.log('channelDisconnect', res);
+        console.log('channelDisconnect status:', res.response);
+      });
+    },
+
+    refreshChannel() {
+      this.getUserChannelInfo();
     },
 
 
@@ -285,7 +365,7 @@ export default {
   margin-right: 10px;
 }
 
-.addChannel li div {
+.addChannel li div.adddivwrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -346,5 +426,92 @@ export default {
 }
 .footBtnBlack[disabled] {
   cursor: not-allowed;
+}
+
+.newChannel {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit !important;
+  margin: 10px 0 0 0;
+}
+.addChannel li div.channelLeft {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+.newChannel li {
+  margin-bottom: 10px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
+  border-radius: 8px;
+  flex-direction: row;
+  align-items: center !important;
+}
+.newChannel li:hover,
+.newChannel li.active {
+  border-color: #5700ff;
+}
+.newChannel li.disable {
+  background: #f7f7f7;
+  border: 1px solid #e5e5e5;
+}
+.newChannel li.disable .channelImg {
+  position: relative;
+}
+.newChannel li.disable .channelImg::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    0deg,
+    rgba(121, 121, 121, 0.8),
+    rgba(121, 121, 121, 0.8)
+  );
+}
+.newChannel li.disable .channelDec h4,
+.newChannel li.disable .channelDec p {
+  color: #797979;
+}
+.newChannel li.disable .channelBtn {
+  border: 1px solid #e5e5e5;
+  background: #f7f7f7;
+  color: #797979;
+}
+.newChannel li .channelImg {
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #797979;
+  margin-right: 12px;
+}
+.newChannel li .channelLeft .channelDec h4 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 150%;
+  margin-bottom: 3px;
+}
+.newChannel li .channelLeft .channelDec p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+}
+.newChannel li .channelBtn {
+  border: 1px solid #797979;
+  color: #797979;
+  padding: 5px 30px;
+  border-radius: 20px;
+  font-size: 10px;
 }
 </style>

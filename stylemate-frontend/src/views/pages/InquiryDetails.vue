@@ -153,10 +153,11 @@ export default {
         )
           .then((res) => {
             if (res.status === 200) {
-              this.$router.push({
-                name: "InquiryRegisterDetails",
-                params: { id: res.data.id },
-              });
+              // this.$router.push({
+              //   name: "InquiryRegisterDetails",
+              //   params: { id: res.data.id },
+              // });
+              this.$router.go(-1)
             }
           })
           .catch((err) => console.log(err));
@@ -164,10 +165,11 @@ export default {
         API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
           .then((res) => {
             if (res.status === 201) {
-              this.$router.push({
-                name: "InquiryRegisterDetails",
-                params: { id: res.data.id },
-              });
+              // this.$router.push({
+              //   name: "InquiryRegisterDetails",
+              //   params: { id: res.data.id },
+              // });
+              this.$router.go(-1)
             }
           })
           .catch((err) => console.log(err));

@@ -509,4 +509,10 @@ export default defineComponent({
 .details-wrap {
   cursor: pointer;
 }
+/* .selectWrap {
+  max-width: 100px;
+}
+.selectWrap .vue-select {
+  width: 100%;
+} */
 </style>
