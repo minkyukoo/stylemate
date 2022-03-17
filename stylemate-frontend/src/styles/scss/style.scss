@@ -763,3 +763,7 @@ input:checked + .slider:before {
     padding: 0 32px 28px;
   }
 }
+
+body.swal2-toast-shown .swal2-container.swal2-bottom{
+  bottom: 85px !important;
+}

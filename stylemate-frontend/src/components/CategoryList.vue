@@ -202,7 +202,7 @@ export default {
 .item-scroller-nav {
   position: fixed;
   background: #ffffff;
-  top: 61px;
+  top: 60px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;

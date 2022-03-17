@@ -67,8 +67,8 @@ export default class ChannelService {
     console.log('authResponse--', authResponse);
     return await axios.get(`/commons/instagram-token`, {
       params: {
-        // 'authResponse': encodeURI(authResponse),
-        'token': authResponse,
+        'authResponse': encodeURI(authResponse),
+        // 'token': authResponse,
       },
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
