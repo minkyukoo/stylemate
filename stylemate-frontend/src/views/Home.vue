@@ -26,6 +26,7 @@
       <!-- New item sectinon -->
       <div class="overlapSlide">
         <div class="fixed-container">
+          <div class="newItemWrap">
           <div class="headerLine">
             <h4>NEW ITEM</h4>
           </div>
@@ -196,6 +197,7 @@
               </div>
             </swiper-slide>
           </swiper>
+          </div>
         </div>
         <!-- new Brand section -->
         <div
@@ -208,6 +210,7 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
+            :loop="true"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
@@ -955,5 +958,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.newItemWrap{
+  margin-bottom: 48px;
 }
 </style>

@@ -93,7 +93,7 @@ export default {
 }
 .item-card .img-con {
   width: 100px;
-  height: 120px;
+  height: 100px;
   border-radius: 6px;
   position: relative;
 }

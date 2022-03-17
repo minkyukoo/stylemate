@@ -50,9 +50,12 @@ export default {
         this.store.MyPageModals.campaignUID,
         this.store.MyPageModals.bookingID
       );
-      this.$emit("cancelSponsor");
-      this.store.state.cancelPopup = false
-      console.log("delete",res);
+      if (res.status === 204) {
+        this.store.state.FltCampaignData = [];
+        this.$emit("cancelSponsor");
+        console.log("delete", res);
+        // this.store.methods.getcampList();
+      }
     },
   },
   unmounted() {

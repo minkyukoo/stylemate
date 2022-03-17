@@ -99,12 +99,12 @@ export default {
       store,
     };
   },
-  methods : {
+  methods: {
     rerun() {
-      this.store.state.cancelPopup = false;
       this.store.methods.getcampList();
+      this.store.state.cancelPopup = false;
     },
-   },
+  },
   // mounted() {
   //   this.myPageService
   //     .getCampaignData(
