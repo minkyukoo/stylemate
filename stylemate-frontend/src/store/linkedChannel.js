@@ -48,12 +48,13 @@ const methods = {
       if (response.authResponse) {
         // alert("You are logged in &amp; cookie set!");
         let ftoken = response.authResponse.accessToken;
+        console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
         channelService.igTokenExtend(ftoken).then((res) => {
           console.log('igTokenExtend: ', res.data);
           // localStorage.setItem('fbaccessToken', res.data.token.access_token);
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
-          channelService.getIgTokenRenew(response.authResponse);
+          channelService.getIgTokenRenew(response.authResponse.accessToken.access_token);
           this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);
@@ -67,7 +68,8 @@ const methods = {
     }, { scope: 'public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights' });
     return false;
   },
-
+  // public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights -- scope
+  
   setIgrenewaltoken(fextoken, fextokenName) {
     userInfoService.getUserInfo().then((res) => {
       console.log('getUserInfo: ', res.data);

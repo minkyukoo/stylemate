@@ -5,6 +5,7 @@
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
+      @ionBlur="keyboardHide('KeyboardHide')"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
@@ -17,9 +18,7 @@
         <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
           
           <a @click="sreachWithHistory(item.searchKeyword)">
-            {{
-              item.searchKeyword
-            }}
+            {{ item.searchKeyword }}
           </a>
         </swiper-slide>
       </swiper>
@@ -53,9 +52,14 @@
                     params: { id: info.id },
                   })
                 "
-              >{{ info.korName }}</h3>
+              >
+                {{ info.korName }}
+              </h3>
               <div class="text-box" @click="likeBrand(info.id, i)">
-                <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="info.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </ion-card-title>
@@ -65,13 +69,15 @@
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="maincontent"
-          >{{ info.description }}</ion-card-content>
+            >{{ info.description }}</ion-card-content
+          >
           <ion-card-content
             @click="
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="subcontent"
-          >{{ setTags(info.tag) }}</ion-card-content>
+            >{{ setTags(info.tag) }}</ion-card-content
+          >
         </div>
       </div>
     </div>
@@ -256,16 +262,15 @@ export default {
                 selfItem.isInfluenceLike = false;
               });
           }
-
         });
       }
     },
 
     // for productShare
-    keyboardHide(res) {
-      alert(res);
+    keyboardHide(arg) {
+      console.log(arg);
+      alert(arg);
     },
-
 
     // window.addEventListener("message", (event) => {
     //   // Do we trust the sender of this message?  (might be
@@ -276,11 +281,6 @@ export default {
     //   // event.source is popup
     //   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
     // }, false)
-
-
-
-
-
   },
 };
 </script>

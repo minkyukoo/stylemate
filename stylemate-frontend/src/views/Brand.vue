@@ -6,7 +6,7 @@
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
-    <div class="main-wrap">
+    <div class="main-wrap" @scroll="windowScroll">
       <BrandList />
     </div>
     <!-- </ion-content> -->
@@ -24,5 +24,13 @@ import TopNav from "@/components/TopNav.vue";
 export default {
   name: "Brand",
   components: { TopNav, BrandList },
+  setup() {
+    const windowScroll = () => {
+      console.log("windowScroll");
+    };
+    return {
+      windowScroll,
+    };
+  },
 };
 </script>
