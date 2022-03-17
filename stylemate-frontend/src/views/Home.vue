@@ -682,7 +682,7 @@ export default {
   padding: 7px;
 }
 .top-float-div .favorite {
-  margin-right: 12px;
+  margin-right: 5px;
   cursor: pointer;
 }
 .top-float-div .favorite img {

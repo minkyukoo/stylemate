@@ -21,7 +21,7 @@
             <div class="input-grp">
               <label>기존 비밀번호</label>
               <input
-                type="text"
+                type="password"
                 placeholder="기존 비밀번호 입력"
                 v-model="oldPass"
               />
@@ -29,7 +29,7 @@
             <div class="input-grp">
               <label>새 비밀번호</label>
               <input
-                type="text"
+                type="password"
                 placeholder="비밀번호 입력 (영문+숫자+특수기호 조합)"
                 v-model="newPass"
               />
@@ -37,7 +37,7 @@
             <div class="input-grp">
               <label>새 비밀번호 확인</label>
               <input
-                type="text"
+                type="password"
                 placeholder="비밀번호 입력 확인"
                 v-model="confirmPass"
               />
@@ -72,7 +72,7 @@
               </div>
               <div class="codeWrap">
                 <span>010-</span>
-                <input type="text" maxlength="8" v-model="mobile" />
+                <input type="text" maxlength="9" v-model="mobile" :close-on-select="true" id="tbNum" @input="acceptNumber"/>
               </div>
               <div class="contWrapbtn">
                 <button type="button" @click="sendOtp">인증번호</button>
@@ -178,6 +178,10 @@ export default {
   //   console.log(token);
   // },
   methods: {
+    acceptNumber() {
+        var x = this.mobile.replace(/\D/g, '').match(/(\d{0,4})(\d{0,4})/);
+  this.mobile = !x[2] ? x[1] :  x[1] + (x[2] ? '-' + x[2] : '');
+    },
     changepassword() {
       this.confirmBtn = false;
       this.savediv = true;
@@ -235,15 +239,15 @@ export default {
     sendOtp() {
       if (this.mobile == "") {
         Toast.fire({ title: "please fill mmobile Number feild" });
-      } else if (this.mobile.length !== 8) {
-        Toast.fire({ title: "Enter avalid mobile number" });
+      } else if (this.mobile.length !== 9) {
+        Toast.fire({ title: "Enter a valid mobile number" });
       } else {
         let minutesToAdd = 3;
         let currentDate = new Date();
         let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
         this.userInfoService
           .telAuth(
-            `010${this.mobile}`,
+            `010${this.mobile.replace(/-/g,'')}`,
             this.email,
             this.ids,
             this.formatDate(futureDate)
@@ -398,12 +402,12 @@ export default {
 .codeWrap span {
   position: absolute;
   left: 15px;
-  top: 15px;
-  color: #c4c4c4;
+  top: 11px;
+  color: #000;
   font-size: 14px;
 }
 .codeWrap input[type="text"] {
-  padding-left: 50px !important;
+  padding-left: 44px !important;
 }
 .button-group {
   bottom: 0;
