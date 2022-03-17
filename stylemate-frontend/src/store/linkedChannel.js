@@ -55,7 +55,7 @@ const methods = {
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
           channelService.getIgTokenRenew(response.authResponse.accessToken.access_token);
-          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);
         return true;
