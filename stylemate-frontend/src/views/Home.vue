@@ -17,7 +17,11 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link to="" class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+            <router-link
+              to=""
+              class="mainslide-banner-wrap"
+              @click="bannerRedirect(slide.mobileLink)"
+            >
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -25,7 +29,7 @@
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
-        <div class="fixed-container">
+        <div class="fixed-container item-slide-section">
           <div class="headerLine">
             <h4>NEW ITEM</h4>
           </div>
@@ -106,7 +110,10 @@
                         src="@/assets/icons/instagram.svg"
                       />
                     </div>
-                    <div class="favorite" @click="likeProduct(item.id, index, 'o')">
+                    <div
+                      class="favorite"
+                      @click="likeProduct(item.id, index, 'o')"
+                    >
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                       <img
                         v-if="item.isInfluenceLike"
@@ -158,7 +165,10 @@
                         src="@/assets/icons/instagram.svg"
                       />
                     </div>
-                    <div class="favorite" @click="likeProduct(item.id, index, 's')">
+                    <div
+                      class="favorite"
+                      @click="likeProduct(item.id, index, 's')"
+                    >
                       <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                       <img
                         v-if="item.isInfluenceLike"
@@ -210,6 +220,7 @@
             :centeredSlides="true"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
+            :loop="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
@@ -218,6 +229,7 @@
               dynamicBullets: true,
             }"
             @slideChange="onBrandSlideChange"
+            @swiper="onBrandSwiper"
             class="newBrandSwiper"
           >
             <swiper-slide
@@ -400,13 +412,17 @@ export default {
     const onSlideChange = () => {
       console.log("slide change");
     };
-    const onBrandSlideChange = () => {
-      console.log("slide change");
+    const onBrandSlideChange = (e) => {
+      console.log("slider change",e);
+    };
+    const onBrandSwiper = (event) => {
+      console.log("brand swiper", event);
     };
     return {
       onSwiper,
       onSlideChange,
       onBrandSlideChange,
+      onBrandSwiper,
       modules: [Pagination, EffectCoverflow, Pagination],
       // modules: [EffectCoverflow, Pagination],
       store,
@@ -448,7 +464,7 @@ export default {
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
       this.bannerList = res;
-      console.log('bannerList', this.bannerList);
+      console.log("bannerList", this.bannerList);
     });
     this.getProductItemList();
     this.getLookBook();
@@ -471,7 +487,7 @@ export default {
 
     bannerRedirect(url) {
       alert(url);
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     },
 
     async getNoticeIsAuth() {
@@ -592,10 +608,10 @@ export default {
           if (a === "n") {
             // eslint-disable-next-line no-redeclare
             var selfItem = this.newEvanItems[i];
-          } else if(a === "o") {
+          } else if (a === "o") {
             // eslint-disable-next-line no-redeclare
             var selfItem = this.newOddItems[i];
-          } else if (a === "s"){
+          } else if (a === "s") {
             // eslint-disable-next-line no-redeclare
             var selfItem = this.newStartItems[i];
           }
@@ -955,5 +971,9 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.item-slide-section > .swiper-pagination {
+  bottom: 45px !important;
 }
 </style>
