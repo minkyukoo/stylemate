@@ -5,7 +5,9 @@
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
-      @ionBlur="keyboardHide('KeyboardHide')"
+      @ionBlur="$emit('searchInputBlur', $event)"
+      @ionFocus="$emit('searchInputFocus', $event)"
+
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
@@ -112,6 +114,9 @@ export default {
   setup() {
     return { heart };
   },
+  props: {
+    windowScroll: { type: Number, default: 0 },
+  },
   data() {
     return {
       brands: [],
@@ -126,6 +131,7 @@ export default {
       defaultPage: 2,
     };
   },
+
   created() {
     this.brandService = new BrandService();
     this.userInfoService = new UserInfoService();
@@ -264,21 +270,6 @@ export default {
         });
       }
     },
-
-    // for productShare
-    keyboardHide(arg) {
-      console.log(arg);
-    },
-
-    // window.addEventListener("message", (event) => {
-    //   // Do we trust the sender of this message?  (might be
-    //   // different from what we originally opened, for example).
-    //   if (event.origin !== "http://example.com")
-    //     return;
-
-    //   // event.source is popup
-    //   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
-    // }, false)
   },
 };
 </script>

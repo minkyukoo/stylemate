@@ -165,10 +165,10 @@ export default {
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-    let fbaccessToken = await this.channelService.getfbaccessToken();
-    if (!fbaccessToken) {
-      this.$router.push({ name: 'NewMemberJoining' });
-    }
+    // let fbaccessToken = await this.channelService.getfbaccessToken();
+    // if (!fbaccessToken) {
+    //   this.$router.push({ name: 'NewMemberJoining' });
+    // }
 
     this.getUserinfo2();
 
@@ -176,10 +176,10 @@ export default {
 
   },
   async updated() {
-    let fbaccessToken = await this.channelService.getfbaccessToken();
-    if (!fbaccessToken) {
-      this.$router.push({ name: 'NewMemberJoining' });
-    }
+    // let fbaccessToken = await this.channelService.getfbaccessToken();
+    // if (!fbaccessToken) {
+    //   this.$router.push({ name: 'NewMemberJoining' });
+    // }
   },
   mounted() {
     this.channelData();

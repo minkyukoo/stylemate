@@ -23,7 +23,7 @@
           <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
-                <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" alt />
+                <img v-if="this.brandDetails.imageThumbnailPath" :src="brandDetails.imageThumbnailPath" alt />
                 <div class="top-social-icon">
                   <!-- <router-link to>
                     <img src="@/assets/icons/instagram.svg" />

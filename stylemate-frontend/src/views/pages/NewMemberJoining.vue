@@ -45,7 +45,7 @@
                   <button
                     class="channelBtn"
                     type="button"
-                    @click="disconnected(userID, selChannel.id)"
+                    @click="disconnected(userUID, selChannel.id)"
                   >disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
@@ -171,10 +171,15 @@ export default {
       checkValue_3: false,
       checkValue_4: false,
       disabled: true,
-      userID: null,
+      userUID: null,
+      userId: null,
       selChannel: null,
       selChannelType: null,
       stylemateStatus: null,
+      fbToken: null,
+      instagramChannelInfo: null,
+      isReApplication: null,
+      igAccInfo: null,
       // igResData: null,
       // fbResData: null,
     }
@@ -230,13 +235,18 @@ export default {
 
     getUserChannelInfo() {
       this.userInfoService.getUserInfo().then((res) => {
-        this.userID = res.data.uid;
+        this.userUID = res.data.uid;
+        this.userId = res.data.id;
         let channelData = res.data.influence.channel;
         channelData.map((item) => {
-          console.log('item:00--', item);
           this.selChannelType = item.type;
           this.stylemateStatus = item.stylemateStatus;
           this.selChannel = item
+
+          this.instagramChannelInfo = item.instagramChannel;
+          this.isReApplication = item.isReApplication;
+          this.channelId = item.id;
+          this.fbToken = item.instagramChannel.accessToken;
         });
       });
     },
@@ -255,12 +265,15 @@ export default {
     },
 
     async addIgChannel() {
+      // this.$router.push({ name: 'NewMemberChannel' });
+
       let fbaccessToken = await this.channelService.getfbaccessToken();
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
         this.$router.push({ name: 'NewMemberChannel' });
       }
+      // this.applyActivity();
     },
 
     // channel disconnect
@@ -271,6 +284,121 @@ export default {
         console.log('channelDisconnect', res);
         console.log('channelDisconnect status:', res.response);
       });
+    },
+
+
+    // 4. Check your business page
+    getPageInfo(pageId) {
+      this.channelService.getIgBusinessPage(pageId).then(res => {
+        console.log('4. igBusinessPageInfo res:', res);
+        this.igBusinessPageInfo = res;
+        let cates = res.category_list
+        cates.map((item) => {
+          this.igpagecategoryname = item.name;
+        })
+        this.getAccountInfo(pageId);
+      });
+    },
+
+    // 5. Check user information
+    getAccountInfo(pageId) {
+      // let igInfo = this.instagramChannelInfo;
+      let igcategory = this.igBusinessPageInfo;
+      let igcategoryname = this.igpagecategoryname;
+      console.log('igcategory--', igcategory);
+      // let token = this.fbToken;
+      if (this.seletedIguserId) {
+        this.channelService.getIgUser(this.seletedIguserId).then(res => {
+          console.log('5. IgUser res:', res);
+          // let accinfo = {
+          //   accessToken: token,
+          //   accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
+          //   accountType: igInfo.accountType,
+          //   analyticsMediaCount: igInfo.analyticsMediaCount,
+          //   businessCategoryName: igInfo.businessCategoryName,
+          //   categoryName: igInfo.categoryName,
+          //   channelId: res.id,
+          //   channelInstagramId: res.ig_id,
+          //   createdAt: igInfo.createdAt,
+          //   description: igInfo.description,
+          //   engagementRate: igInfo.engagementRate,
+          //   externalUrl: igInfo.externalUrl,
+          //   facebookUserId: igInfo.facebookUserId,
+          //   facebookUserName: igInfo.facebookUserName,
+          //   fbid: igInfo.fbid,
+          //   followCount: res.follows_count,
+          //   followerCount: res.followers_count,
+          //   followerCountIncrease: igInfo.followerCountIncrease,
+          //   fullName: igInfo.fullName,
+          //   impression: igInfo.impression,
+          //   isPrivate: igInfo.isPrivate,
+          //   latelyCommentCount: igInfo.latelyCommentCount,
+          //   latelyCommentCountAvg: igInfo.latelyCommentCountAvg,
+          //   latelyEngagement: igInfo.latelyEngagement,
+          //   latelyEngagementAvg: igInfo.latelyEngagementAvg,
+          //   latelyLikeCount: igInfo.latelyLikeCount,
+          //   latelyLikeCountAvg: igInfo.latelyLikeCountAvg,
+          //   latelyMediaTypeSate: igInfo.latelyMediaTypeSate,
+          //   latelyPublishedTimeSate: igInfo.latelyPublishedTimeSate,
+          //   latelyPublishedWeekDayStat: igInfo.latelyPublishedWeekDayStat,
+          //   mediaCount: res.media_count,
+          //   monthFollowerCountIncrease: igInfo.monthFollowerCountIncrease,
+          //   overallCategoryName: igInfo.overallCategoryName,
+          //   pageAccessToken: igInfo.pageAccessToken,
+          //   pageId: igInfo.pageId,
+          //   pageName: igInfo.pageName,
+          //   refreshTokenAt: igInfo.refreshTokenAt,
+          //   thumbnailOriginalUrl: res.profile_picture_url,
+          //   thumbnailUrl: igInfo.thumbnailUrl,
+          //   trackedAt: igInfo.trackedAt,
+          //   updatedAt: igInfo.updatedAt,
+          //   userName: res.username,
+          // }
+          let accinfo = {
+            biography: res.biography,
+            page_id: pageId,
+            category: igcategoryname,
+            category_list: igcategory.category_list,
+            name: res.name ? res.name : '',
+            id: res.id,
+            ig_id: res.ig_id,
+            follows_count: res.follows_count,
+            followers_count: res.followers_count,
+            profile_picture_url: res.profile_picture_url,
+            media_count: res.media_count,
+            username: res.username,
+          }
+          this.igAccInfo = accinfo;
+          console.log('this.igAccInfo', this.igAccInfo);
+        });
+      }
+    },
+
+
+    async applyActivity() {
+      console.log('applyActivity');
+
+      let igInfo = this.instagramChannelInfo;
+      let info = this.igAccInfo;
+      let uid = this.userUID;
+      let userid = this.userId;
+      let token = {
+        "accessToken": igInfo.accessToken,
+        "userID": userid,
+        "name": igInfo.accountType,
+      };
+      if (this.seletedPageId) {
+        this.channelService.selectChannel(uid, token, info).then((res) => {
+          console.log('7. selectChannel res:', res);
+          console.log('response:----', res.status);
+          this.getUserinfo2();
+          this.$router.push({ name: 'NewMemberJoining' });
+        });
+        //  await this.getUserinfo2();
+
+      } else {
+        alert('no page selected');
+      }
     },
 
     refreshChannel() {

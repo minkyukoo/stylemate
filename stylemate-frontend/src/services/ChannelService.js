@@ -64,9 +64,11 @@ export default class ChannelService {
   }
   // 2. Token renewal - 토큰 갱신
   async getIgTokenRenew(authResponse) {
+    console.log('authResponse--', authResponse);
     return await axios.get(`/commons/instagram-token`, {
       params: {
-        'authResponse': encodeURI(authResponse),
+        // 'authResponse': encodeURI(authResponse),
+        'token': authResponse,
       },
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
