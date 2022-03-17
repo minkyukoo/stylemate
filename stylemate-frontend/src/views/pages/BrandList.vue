@@ -5,6 +5,7 @@
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
+      @ionBlur="keyboardHide('KeyboardHide')"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
@@ -15,9 +16,9 @@
         @reachEnd="onSlideChange"
       >
         <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
-          <a @click="sreachWithHistory(item.searchKeyword)">{{
-            item.searchKeyword
-          }}</a>
+          <a @click="sreachWithHistory(item.searchKeyword)">
+            {{ item.searchKeyword }}
+          </a>
         </swiper-slide>
       </swiper>
     </div>
@@ -74,9 +75,8 @@
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="subcontent"
+            >{{ setTags(info.tag) }}</ion-card-content
           >
-            {{ setTags(info.tag) }}
-          </ion-card-content>
         </div>
       </div>
     </div>
@@ -132,6 +132,7 @@ export default {
     this.tokenService = new TokenService();
   },
   mounted() {
+    window.keyboardHide = this.keyboardHide;
     this.setUser();
     this.getBrandList();
   },
@@ -260,10 +261,24 @@ export default {
                 selfItem.isInfluenceLike = false;
               });
           }
-
         });
       }
     },
+
+    // for productShare
+    keyboardHide(arg) {
+      console.log(arg);
+    },
+
+    // window.addEventListener("message", (event) => {
+    //   // Do we trust the sender of this message?  (might be
+    //   // different from what we originally opened, for example).
+    //   if (event.origin !== "http://example.com")
+    //     return;
+
+    //   // event.source is popup
+    //   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
+    // }, false)
   },
 };
 </script>

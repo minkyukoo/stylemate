@@ -54,7 +54,7 @@ const methods = {
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
           channelService.getIgTokenRenew(response.authResponse);
-          this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);dv
         });
         this.statusChangeCallback(response);
         return true;
@@ -67,7 +67,7 @@ const methods = {
     }, { scope: 'public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights' });
     return false;
   },
-
+  // public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights -- scope
   setIgrenewaltoken(fextoken, fextokenName) {
     userInfoService.getUserInfo().then((res) => {
       console.log('getUserInfo: ', res.data);
