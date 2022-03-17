@@ -31,182 +31,182 @@
       <div class="overlapSlide">
         <div class="fixed-container">
           <div class="newItemWrap">
-          <div class="headerLine">
-            <h4>NEW ITEM</h4>
-          </div>
-          <swiper
-            :modules="modules"
-            :slides-per-view="1"
-            :space-between="50"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newEvanItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div
-                      class="favorite"
-                      @click="likeProduct(item.id, index, 'n')"
-                    >
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
+            <div class="headerLine">
+              <h4>NEW ITEM</h4>
+            </div>
+            <swiper
+              :modules="modules"
+              :slides-per-view="1"
+              :space-between="50"
+              :pagination="{ clickable: true }"
+              @swiper="onSwiper"
+              @slideChange="onSlideChange"
+            >
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
                   <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newEvanItems"
+                    :key="index"
                   >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'n')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </swiper-slide>
+              </swiper-slide>
 
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newOddItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div
-                      class="favorite"
-                      @click="likeProduct(item.id, index, 'o')"
-                    >
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
                   <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newOddItems"
+                    :key="index"
                   >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'o')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </swiper-slide>
+              </swiper-slide>
 
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newStartItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div
-                      class="favorite"
-                      @click="likeProduct(item.id, index, 's')"
-                    >
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
                   <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newStartItems"
+                    :key="index"
                   >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 's')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </swiper-slide>
-          </swiper>
+              </swiper-slide>
+            </swiper>
           </div>
         </div>
         <!-- new Brand section -->
@@ -221,6 +221,7 @@
             :modules="modules"
             :centeredSlides="true"
             :loop="true"
+            :centerInsufficientSlides="true"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
@@ -236,7 +237,7 @@
             <swiper-slide
               class="brandSliderimg"
               v-for="item in brandList"
-              v-slot="{ isNext }"
+              v-slot="{ isVisible }"
               :key="item.id"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
@@ -246,7 +247,7 @@
                 <div class="nb-img-wrap">
                   <img
                     :src="item.imageThumbnailPath"
-                    :id="[isNext ? 'activeImg' : 'inactive']"
+                    :id="[isVisible ? 'activeImg' : 'inactive']"
                   />
                 </div>
                 <div class="brandDetails">
@@ -441,7 +442,7 @@ export default {
       // onBrandSlideChange,
       onBrandSwiper,
       img,
-      modules: [Pagination, EffectCoverflow, Pagination],
+      modules: [Pagination, EffectCoverflow],
       // modules: [EffectCoverflow, Pagination],
       store,
     };
@@ -494,7 +495,6 @@ export default {
 
     window.callJsFunction = this.callJsFunction;
     window.pushNotification = this.pushNotification;
-    
   },
   methods: {
     onBrandSlideChange() {
@@ -503,7 +503,6 @@ export default {
       this.image = document.getElementById("activeImg").src;
       console.log(this.image);
     },
-
 
     truncate(input, length) {
       if (input.length > length) {
@@ -999,7 +998,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.newItemWrap{
+.newItemWrap {
   margin-bottom: 48px;
 }
 </style>
