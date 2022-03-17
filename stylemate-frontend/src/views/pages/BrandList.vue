@@ -268,6 +268,7 @@ export default {
     // for productShare
     keyboardHide(arg) {
       console.log(arg);
+      alert(arg);
     },
 
     // window.addEventListener("message", (event) => {
