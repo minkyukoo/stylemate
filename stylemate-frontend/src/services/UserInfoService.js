@@ -164,4 +164,12 @@ export default class UserInfoService {
       }
     }).then((res) => res.data).catch((err) => err);
   }
+
+  async QNAsCheckById(id) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas/${id}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res);
+  }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="empty">{{ errors }}</div>
+  <div class="empty" v-html="errors"></div>
 </template>
 
 <script>
