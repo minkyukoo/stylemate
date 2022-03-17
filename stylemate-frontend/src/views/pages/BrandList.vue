@@ -5,8 +5,9 @@
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
-      @ionBlur="keyboardHide('KeyboardHide')"
-      @ionFocus="searchInputFocus = true"
+      @ionBlur="$emit('searchInputBlur', $event)"
+      @ionFocus="$emit('searchInputFocus', $event)"
+
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
@@ -118,7 +119,6 @@ export default {
   },
   data() {
     return {
-      searchInputFocus: false,
       brands: [],
       error: [],
       hashcontent: [],
@@ -131,7 +131,7 @@ export default {
       defaultPage: 2,
     };
   },
-  
+
   created() {
     this.brandService = new BrandService();
     this.userInfoService = new UserInfoService();
@@ -269,12 +269,6 @@ export default {
           }
         });
       }
-    },
-
-    // for productShare
-    keyboardHide(arg) {
-      console.log(arg);
-      alert(arg);
     },
   },
 };

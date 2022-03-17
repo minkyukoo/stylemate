@@ -7,7 +7,10 @@
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
     <div class="main-wrap" @scroll="windowScroll">
-      <BrandList :windowScroll="scroller" />
+      <BrandList
+        @searchInputBlur="getBlur($event)"
+        @searchInputFocus="getFocus($event)"
+      />
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -27,18 +30,50 @@ export default {
   components: { TopNav, BrandList },
   setup() {
     const data = ref(0);
-    const scroller = ref(0);
+    // for child components emit data calculations
+    const dataFocus = ref(false);
+    const dataBlur = ref(false);
+
     const windowScroll = () => {
-      if (data.value === 1) {
-        scroller.value = data.value;
-        console.log(data.value);
+      if (data.value === 1 && dataFocus.value === true && dataBlur.value === false) {
+        keyboardHide("keyboardHide");
       }
-      data.value++
+      data.value++;
     };
+
+    const getBlur = (e) => {
+      if (e) {
+        dataBlur.value = true;
+        dataFocus.value = false;
+        // console.log("Input Blur");
+      }
+    };
+
+    const getFocus = (e) => {
+      if (e) {
+        dataFocus.value = true;
+        dataBlur.value = false;
+        data.value = 0;
+        // console.log("Input Focus");
+      }
+    };
+
+    const keyboardHide = (e) => {
+      dataBlur.value = true; 
+      dataFocus.value = false;
+      console.log(e);
+      alert(e);
+    };
+
     return {
       windowScroll,
-      scroller
+      getBlur,
+      keyboardHide,
+      getFocus,
     };
+  },
+  mounted() {
+    window.keyboardHide = this.keyboardHide;
   },
 };
 </script>
