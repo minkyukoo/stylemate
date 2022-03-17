@@ -69,12 +69,12 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
-      if (this.$route.name == Notice) {
+      if (this.$route.name === 'Notice') {
         this.$router.push({
           path: "/mypage",
         });
       } else {
-        this.$route.go(-1);
+        this.$router.go(-1);
       }
     },
     async getNotificationLength() {
