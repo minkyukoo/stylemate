@@ -15,6 +15,7 @@
         @reachEnd="onSlideChange"
       >
         <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
+          
           <a @click="sreachWithHistory(item.searchKeyword)">
             {{
               item.searchKeyword
