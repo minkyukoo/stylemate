@@ -524,10 +524,11 @@ img:hover {
     .selectWrap {
       .vue-select {
         border: none;
+        width: 116px;
         .vue-select-header{
           .icon.arrow-downward{
             background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
-            width: 9px;
+            width: 10px;
             height: 6px;
             color: transparent;
             border: 0;

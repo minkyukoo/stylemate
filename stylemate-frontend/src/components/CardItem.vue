@@ -134,7 +134,7 @@
                 <h3>{{ product.brand.korName }}</h3>
               </div>
               <p>{{ product.name }}</p>
-              <span>{{ product.hashtags }}</span>
+              <!-- <span>{{ product.hashtags }}</span> -->
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">{{
                   "#" + hash.tag
@@ -378,7 +378,7 @@ export default defineComponent({
 .item-wrapper .product-list {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -4px;
+  /* margin: 0 -4px; */
 }
 .item-wrapper .grid-view .product-list-item {
   width: 50%;
@@ -463,6 +463,7 @@ export default defineComponent({
   margin-top: 12px;
   width: 100%;
   position: relative;
+  padding: 0 4px;
 }
 .list-view .product-list-item:first-child {
   margin-top: 0;
@@ -480,7 +481,7 @@ export default defineComponent({
 }
 .list-view .product-list-item .favorite {
   position: absolute;
-  right: 0;
+  right: 4px;
   top: 14px;
   margin-right: 0;
   cursor: pointer;

@@ -256,6 +256,7 @@
           </swiper>
         </div>
         <!-- lookbook -->
+        <div class="lookBokkWrap">
         <div class="fixed-container lookbook">
           <div class="headerLine">
             <h4>LOOKBOOK</h4>
@@ -357,6 +358,7 @@
             <span>중요</span>
             {{ notice }}
           </button>
+        </div>
         </div>
       </div>
     </div>
@@ -961,5 +963,8 @@ export default {
 }
 .newItemWrap{
   margin-bottom: 48px;
+}
+.lookBokkWrap{
+  background: #ffffff;
 }
 </style>
