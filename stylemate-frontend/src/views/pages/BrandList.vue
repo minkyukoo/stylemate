@@ -5,6 +5,7 @@
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
+      @ionBlur="keyboardHide"
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
