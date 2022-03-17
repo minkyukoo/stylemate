@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapSec2">
     {{ item_list }}
     <div class="nodata" v-if="!isFltData">
       카테고리에 해당하는 제품이 없습니다
@@ -370,15 +370,16 @@ export default defineComponent({
   backdrop-filter: blur(30px);
 }
 .item-wrapper.withoutbanner {
-  top: 93px;
+  top: 90px;
   transition: all 0.5s ease-in-out;
   margin-top: 0;
   border-radius: 0;
+  height: 100%;
 }
 .item-wrapper .product-list {
   display: flex;
   flex-wrap: wrap;
-  /* margin: 0 -4px; */
+  margin: 0 -4px;
 }
 .item-wrapper .grid-view .product-list-item {
   width: 50%;
@@ -482,7 +483,7 @@ export default defineComponent({
 .list-view .product-list-item .favorite {
   position: absolute;
   right: 4px;
-  top: 22px;
+  top: 24px;
   margin-right: 0;
   cursor: pointer;
 }
@@ -518,5 +519,8 @@ export default defineComponent({
 } */
 .list-view .product-list-item .desc-box p{
   margin-bottom: 8px;
+}
+.wrapSec2{
+  height: 100%;
 }
 </style>

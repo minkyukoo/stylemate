@@ -526,6 +526,9 @@ img:hover {
         border: none;
         width: 116px;
         .vue-select-header{
+          .vue-input{
+            padding: 0;
+          }
           .icon.arrow-downward{
             background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
             width: 10px;
