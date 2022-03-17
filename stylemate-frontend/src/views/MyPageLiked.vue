@@ -1,7 +1,7 @@
 <template>
   <div class="mypage-liked">
     <!-- header -->
-    <TopNav headerTitle="like" />
+    <TopNav headerTitle="좋아요" />
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->

@@ -222,7 +222,7 @@
             :centeredSlides="true"
             :loop="true"
             :centerInsufficientSlides="true"
-            :slidesPerGroup="1"
+            :initialSlide="0"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
@@ -231,6 +231,7 @@
               clickable: true,
             }"
             @slideChange="onBrandSlideChange"
+            
             @swiper="onBrandSwiper"
             class="newBrandSwiper"
           >
@@ -264,7 +265,7 @@
                     </b>
                   </h3>
                   <p>{{ setTags(item.tag) }}</p>
-                  <span>{{ truncate(item.description, 56) }}</span>
+                  <span>{{ truncate(item.description, 36) }}</span>
                 </div>
               </div>
             </swiper-slide>
@@ -874,7 +875,7 @@ export default {
 }
 .gotofamilyList {
   position: absolute;
-  bottom: 100%;
+  bottom: 98%;
   width: 100%;
   display: none;
 }
