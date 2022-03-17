@@ -102,6 +102,7 @@ const methods = {
     state.sponsorTabState = tab;
     state.sponcerFilterNo = 0;
     state.sponcerFilterId = "";
+    state.FltCampaignData = [];
     methods.getcampList();
   },
   setContentsDetailsModal(id, tab) {
@@ -134,6 +135,7 @@ const methods = {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
     // console.log(index);
+    state.FltCampaignData = [];
     methods.getcampList();
     console.log(
       "setSponsorFilter",
