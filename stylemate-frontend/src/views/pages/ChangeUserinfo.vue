@@ -68,7 +68,7 @@
             <label>휴대폰 번호 </label>
             <div class="inlineForm">
               <div class="notiWrap">
-                <vue-select placeholder="SKT" :options="options"> </vue-select>
+                <vue-select placeholder="SKT" :options="options" :close-on-select="true"> </vue-select>
               </div>
               <div class="codeWrap">
                 <span>010-</span>
@@ -201,7 +201,7 @@ export default {
       if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
         Toast.fire({ title: "please don't keep password feilds blank" });
       } else if (this.newPass !== this.confirmPass) {
-        Toast.fire({ title: "Passwords do not match." });
+        Toast.fire({ title: "비밀번호가 일치하지 않습니다." });
       }else if(this.oldPass == this.newPass){
         Toast.fire({ title: "old password & new password should not match" });
       } else {
@@ -222,10 +222,10 @@ export default {
           .catch((err) => {
             console.log(err.response.status);
             if (err.response.status == 412) {
-              Toast.fire({ title: "You entered your password incorrectly." });
+              Toast.fire({ title: "비밀번호를 잘못 입력하였습니다." });
             } else if (err.response.status == 422) {
               Toast.fire({
-                title: "It doesn't fit the password format.",
+                title: "비밀번호 형식에 맞지 않습니다.",
               });
             }
           });
@@ -278,7 +278,7 @@ export default {
             // Swal.fire("Good job!", "You are verified!", "success");
           } else if (res.response.status === 412) {
             Toast.fire({
-              title: "The verification code was entered incorrectly.",
+              title: "인증번호가 잘못 입력되었습니다.",
             });
           } else {
             Toast.fire({ title: "Not Found." });
