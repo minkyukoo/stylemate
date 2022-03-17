@@ -1,7 +1,7 @@
 <template>
   <div class="sponsership-page">
     <!-- header -->
-    <TopNav headerTitle="Sponsorship" />
+    <TopNav headerTitle="협찬활동" />
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->

@@ -1,7 +1,7 @@
 <template>
   <div class="postactivity-page">
     <!-- header -->
-    <TopNav headerTitle="post activity" />
+    <TopNav headerTitle="포스트활동" />
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
