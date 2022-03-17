@@ -33,9 +33,9 @@ export default {
 
     const reDirectPage = (item) => {
       store.state.noticeTabPageName = item.hash;
-      if (item.arrow) {
+      // if (item.arrow) {
         router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
-      }
+      // }
     };
 
     return {
