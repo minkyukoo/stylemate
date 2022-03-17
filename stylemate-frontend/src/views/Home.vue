@@ -29,7 +29,8 @@
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
-        <div class="fixed-container item-slide-section">
+        <div class="fixed-container">
+          <div class="newItemWrap">
           <div class="headerLine">
             <h4>NEW ITEM</h4>
           </div>
@@ -206,6 +207,7 @@
               </div>
             </swiper-slide>
           </swiper>
+          </div>
         </div>
         <!-- new Brand section -->
         <div
@@ -218,15 +220,14 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
+            :loop="true"
             :slidesPerGroup="1"
             :watchSlidesProgress="true"
-            :loop="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
             :pagination="{
               clickable: true,
-              dynamicBullets: true,
             }"
             @slideChange="onBrandSlideChange"
             @swiper="onBrandSwiper"
@@ -721,7 +722,7 @@ export default {
   padding: 7px;
 }
 .top-float-div .favorite {
-  margin-right: 12px;
+  margin-right: 5px;
   cursor: pointer;
 }
 .top-float-div .favorite img {
@@ -998,8 +999,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-.item-slide-section > .swiper-pagination {
-  bottom: 45px !important;
+.newItemWrap{
+  margin-bottom: 48px;
 }
 </style>

@@ -10,6 +10,8 @@ export default class ChannelService {
     window.fbAsyncInit = () => {
       window.FB.init({
         appId: "662067494654261", //You will need to change this
+        // appId: "1403988446624373", //You will need to change this
+        // 1403988446624373 --- App id by client 
         cookie: true, // This is important, it's not enabled by default
         version: "v13.0",
       });
@@ -35,14 +37,18 @@ export default class ChannelService {
   async getfbaccessToken() {
     // return localStorage.getItem('fbaccessToken');
     let myInfo = await userInfoService.getUserInfo();
-    let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
-    console.log('myInfo', myInfo);
-    console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
-    // return myInfofbaccesstoken;
-    if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
-      return null;
+    if (myInfo.data.influence.channel.length < 1) {
+      return false;
     } else {
-      return myInfofbaccesstoken;
+      let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
+      console.log('myInfo', myInfo);
+      console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
+      // return myInfofbaccesstoken;
+      if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
+        return null;
+      } else {
+        return myInfofbaccesstoken;
+      }
     }
 
   }
@@ -71,13 +77,13 @@ export default class ChannelService {
   //3. page id - 페이지 아이디
   async getIgchannels() {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},tasks') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //4. Check your business page
   async getIgBusinessPage(pageId) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + pageId + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url}') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + pageId + '?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},category_list') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //5. Check user information
@@ -88,7 +94,7 @@ export default class ChannelService {
 
   //7. Save selected channel
   async selectChannel(uid, ftoken, info) {
-    return await axios.post(`/users/${uid}/instagram-channel`,
+    return await axios.post(`/stylemates/users/${uid}/instagram-channel`,
       {
         token: ftoken,
         info: info,
@@ -169,15 +175,24 @@ export default class ChannelService {
       });
   }
   // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
-  async getIgApproveRequest(uid, channelId) {
-    return await axios.patch(`/stylemates/users/${uid}/channel/${channelId}/approve-request`, {
-      "stylemateStatus": 'ready',
+  async getIgApproveRequest(uid,channelId) {
+    return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/approve-request`, {
+      "stylemateStatus": 'request',
     },
       {
         headers: {
           Authorization: 'Bearer ' + token, //the token is a variable which holds the token
         }
       });
+  }
+
+
+  async channelDisconnect(uid, channelId) {
+    return await axios.delete(`/stylemates/users/${uid}/channels/${channelId}`, {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 
 

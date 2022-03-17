@@ -20,10 +20,10 @@
         </ul>
         <ul class="newChannel">
           <li
-            class="active"
             v-for="(account, i) of igResData"
             :key="i + 1"
-            @click="selectPage(account)"
+            @click="selectPage(account, i)"
+            :class="(isSeleted === i) ? 'active' : ''"
           >
             <div class="channelLeft">
               <div class="channelImg">
@@ -130,6 +130,7 @@ export default {
       fbResData: null,
       stylemateStatus: '',
       isReApplication: null,
+      isSeleted: null,
       userUID: '',
       userId: '',
       channelId: '',
@@ -139,6 +140,7 @@ export default {
       fbToken: null,
       instagramChannelInfo: null,
       igBusinessPageInfo: null,
+      igpagecategoryname: null,
     };
   },
   setup() {
@@ -167,23 +169,11 @@ export default {
     if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
-    this.userInfoservice.getUserInfo().then(res => {
-      console.log('infores data:', res.data);
-      console.log('infores channel:', res.data.influence.channel);
-      this.userUID = res.data.uid;
-      this.userId = res.data.id;
-      this.userChanneldata = res.data.influence.channel;
-      let channelData = res.data.influence.channel;
-      channelData.map(
-        (item) => {
-          this.instagramChannelInfo = item.instagramChannel;
-          this.stylemateStatus = item.stylemateStatus;
-          this.isReApplication = item.isReApplication;
-          this.channelId = item.channelStat.channelId;
-          this.fbToken = item.instagramChannel.accessToken;
-        }
-      )
-    });
+
+    this.getUserinfo2();
+
+
+
   },
   async updated() {
     let fbaccessToken = await this.channelService.getfbaccessToken();
@@ -200,6 +190,28 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
+    },
+
+    getUserinfo2() {
+      this.userInfoservice.getUserInfo().then(res => {
+        console.log('infores data:', res.data);
+        console.log('infores channel:', res.data.influence.channel);
+        this.userUID = res.data.uid;
+        this.userId = res.data.id;
+        this.userChanneldata = res.data.influence.channel;
+        let channelData = res.data.influence.channel;
+        channelData.map(
+          (item) => {
+            console.log('channel data:--', item);
+            this.instagramChannelInfo = item.instagramChannel;
+            this.stylemateStatus = item.stylemateStatus;
+            this.isReApplication = item.isReApplication;
+            this.channelId = item.id;
+            this.fbToken = item.instagramChannel.accessToken;
+          }
+        )
+        this.upadteStatus(this.userUID,this.channelId);
+      });
     },
 
     //isUserid
@@ -226,19 +238,27 @@ export default {
       });
     },
 
-    
+
 
     // 4. Check your business page
     getPageInfo(pageId) {
       this.channelService.getIgBusinessPage(pageId).then(res => {
         console.log('4. igBusinessPageInfo res:', res);
         this.igBusinessPageInfo = res;
+        let cates = res.category_list
+        cates.map((item) => {
+          this.igpagecategoryname = item.name;
+        })
+        this.getAccountInfo(pageId);
       });
     },
 
     // 5. Check user information
     getAccountInfo(pageId) {
-      let igInfo = this.instagramChannelInfo;
+      // let igInfo = this.instagramChannelInfo;
+      let igcategory = this.igBusinessPageInfo;
+      let igcategoryname = this.igpagecategoryname;
+      console.log('igcategory--', igcategory);
       // let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
@@ -288,13 +308,16 @@ export default {
           //   userName: res.username,
           // }
           let accinfo = {
+            biography: res.biography,
             page_id: pageId,
-            category: igInfo.categoryName,
-            name: igInfo.fullName,
+            category: igcategoryname,
+            category_list: igcategory.category_list,
+            name: res.name ? res.name : '',
             id: res.id,
             ig_id: res.ig_id,
             follows_count: res.follows_count,
             followers_count: res.followers_count,
+            profile_picture_url: res.profile_picture_url,
             media_count: res.media_count,
             username: res.username,
           }
@@ -305,20 +328,18 @@ export default {
     },
 
     // page selected
-    selectPage(pageinfo) {
+    selectPage(pageinfo, i) {
       console.log('selectPage:', pageinfo);
+      this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
       this.seletedIguserId = pageinfo.instagram_business_account.id;
       this.getPageInfo(this.seletedPageId);
-      this.getAccountInfo(this.seletedPageId);
     },
 
     // 7. Save the selected channel applyActivity
     async applyActivity() {
       console.log('applyActivity');
-      // this.channelService.getIgApproveRequest(30, 2).then((res) => {
-      //   console.log('applyActivity res:', res);
-      // });
+
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -331,11 +352,23 @@ export default {
       if (this.seletedPageId) {
         this.channelService.selectChannel(uid, token, info).then((res) => {
           console.log('7. selectChannel res:', res);
+          console.log('response:----', res.status);
+          this.getUserinfo2();
+          this.$router.push({ name: 'NewMemberJoining' });
         });
+        //  await this.getUserinfo2();
+        
       } else {
         alert('no page selected');
       }
     },
+
+  // //patch
+    upadteStatus(uid,channelId) {
+        this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
+          console.log('applyActivity res:', res);
+        });
+    }
 
 
   },

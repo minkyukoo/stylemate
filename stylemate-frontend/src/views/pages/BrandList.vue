@@ -8,20 +8,20 @@
     ></ion-searchbar>
     <div class="history-keywords" v-if="history">
       <swiper
-      class="main-menu"
-      :slides-per-view="'auto'"
-      :space-between="4"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-    >
-      <swiper-slide
-        v-for="(item, i) in searchKeywords" :key="i">
-        <a
-          @click="sreachWithHistory(item.searchKeyword)"
-          >{{item.searchKeyword}}</a
-        >
-      </swiper-slide>
-    </swiper>
+        class="main-menu"
+        :slides-per-view="'auto'"
+        :space-between="4"
+        @swiper="onSwiper"
+        @reachEnd="onSlideChange"
+      >
+        <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
+          <a @click="sreachWithHistory(item.searchKeyword)">
+            {{
+              item.searchKeyword
+            }}
+          </a>
+        </swiper-slide>
+      </swiper>
     </div>
 
     <div v-if="notFound" class="content-not-found">
@@ -32,10 +32,12 @@
     </div>
 
     <div class="main pad-b-40">
-      <div class="maincard" v-for="info in brands" :key="info.id">
+      <div class="maincard" v-for="(info, i) in brands" :key="info.id">
         <figure
           class="img-wrap"
-          @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+          @click="
+            $router.push({ name: 'BrandDetails', params: { id: info.id } })
+          "
         >
           <img :src="info.imageThumbnailPath" class="imgsec" alt="ion" />
         </figure>
@@ -44,27 +46,31 @@
           <ion-card-header>
             <ion-card-title>
               <h3
-                @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+                @click="
+                  $router.push({
+                    name: 'BrandDetails',
+                    params: { id: info.id },
+                  })
+                "
               >{{ info.korName }}</h3>
-              <div class="text-box" @click="likeBrand(info.id)">
-                <!-- <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-outline.svg" /> -->
+              <div class="text-box" @click="likeBrand(info.id, i)">
                 <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </ion-card-title>
           </ion-card-header>
           <ion-card-content
-            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            @click="
+              $router.push({ name: 'BrandDetails', params: { id: info.id } })
+            "
             class="maincontent"
           >{{ info.description }}</ion-card-content>
           <ion-card-content
-            @click="$router.push({ name: 'BrandDetails', params: { id: info.id } })"
+            @click="
+              $router.push({ name: 'BrandDetails', params: { id: info.id } })
+            "
             class="subcontent"
-          >
-            {{
-              setTags(info.tag)
-            }}
-          </ion-card-content>
+          >{{ setTags(info.tag) }}</ion-card-content>
         </div>
       </div>
     </div>
@@ -89,7 +95,14 @@ import "swiper/css/scrollbar";
 
 export default {
   name: "BrandList",
-  components: { IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, Swiper, SwiperSlide, },
+  components: {
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonSearchbar,
+    Swiper,
+    SwiperSlide,
+  },
   setup() {
     return { heart };
   },
@@ -104,6 +117,7 @@ export default {
       notFound: false,
       show_error: false,
       user: null,
+      defaultPage: 2,
     };
   },
   created() {
@@ -112,6 +126,7 @@ export default {
     this.tokenService = new TokenService();
   },
   mounted() {
+    window.keyboardHide = this.keyboardHide;
     this.setUser();
     this.getBrandList();
   },
@@ -121,16 +136,32 @@ export default {
       this.userInfoService.getUserInfo().then((res) => {
         // console.log('errorstate', res.status);
         if (res.status == 401) {
-          this.$router.push({ name: 'LoginPage' });
+          this.$router.push({ name: "LoginPage" });
         } else if (res.status == 200) {
           this.user = res.data;
           this.setHistoryKeywords(res.data.uid);
         }
       });
     },
+    onSwiper() {
+      // console.log("onSwiper");
+    },
+    onSlideChange() {
+      // console.log("onSlideChange");
+      var page = this.defaultPage++;
+      // console.log(page);
+      this.userInfoService.getUserInfo().then((res) => {
+        this.brandService.brandSearchHistory(res.data.uid, page).then((res) => {
+          if (res.data.length > 0) {
+            this.searchKeywords.push(...res.data);
+          }
+          // console.log(res.data);
+        });
+      });
+    },
 
     getBrandList() {
-      console.log('call from likeBrand');
+      // console.log("call from likeBrand");
       this.brandService.getBrandList().then((data) => {
         this.brands = data;
         // console.log('this.brands list', data);
@@ -138,10 +169,10 @@ export default {
     },
 
     setHistoryKeywords(uid) {
-      this.brandService.brandSearchHistory(uid).then((res) => {
+      this.brandService.brandSearchHistory(uid, 1).then((res) => {
         this.history = res.data.length > 0 ? true : false;
         this.searchKeywords = res.data;
-        // console.log(this.searchKeywords);
+        // console.log(res);
       });
     },
 
@@ -195,25 +226,60 @@ export default {
         });
       }
     },
-    async likeBrand(brandId) {
+    async likeBrand(brandId, i) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
         Toast.fire({ title: "회원 전용 서비스입니다. 로그인하세요." });
       } else {
+        // eslint-disable-next-line no-unused-vars
         let uid;
+        let selfItem = this.brands[i];
         await this.isUserid().then((res) => {
           uid = res;
-          console.log('brand uid', uid);
-          this.brandService.influencelikes(uid, 'brand', brandId).then((res) => {
-            this.getBrandList();
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          // console.log(brandId);
+          if (selfItem.isInfluenceLike === false) {
+            this.brandService
+              .influencelikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res)
+                selfItem.isInfluenceLike = true;
+              });
+          } else {
+            this.brandService
+              .influencedislikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res);
+                selfItem.isInfluenceLike = false;
+              });
+          }
+
         });
       }
-    }
+    },
+
+    // for productShare
+    keyboardHide(res) {
+      alert(res);
+    },
+
+
+    // window.addEventListener("message", (event) => {
+    //   // Do we trust the sender of this message?  (might be
+    //   // different from what we originally opened, for example).
+    //   if (event.origin !== "http://example.com")
+    //     return;
+
+    //   // event.source is popup
+    //   // event.data is "hi there yourself!  the secret response is: rheeeeet!"
+    // }, false)
+
+
+
+
+
   },
 };
 </script>
@@ -308,25 +374,25 @@ ion-card-title h3 {
   color: #c4c4c4;
   padding: 30px 0 20px 0;
 }
-.history-keywords{
+.history-keywords {
   margin: 16px 0 20px;
 }
-.history-keywords .swiper-slide{
+.history-keywords .swiper-slide {
   width: auto;
 }
-.history-keywords .swiper-slide a{
-  background: #F7F7F7;
+.history-keywords .swiper-slide a {
+  background: #f7f7f7;
   border-radius: 100px;
   font-size: 12px;
   line-height: 16px;
-  color: #25282B;
+  color: #25282b;
   padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-.history-keywords .swiper-slide.swiper-slide-active a{
+.history-keywords .swiper-slide.swiper-slide-active a {
   border: 1px solid #090909;
   background: #090909;
   font-weight: bold;

@@ -29,8 +29,8 @@ export default class BrandService {
     return await axios.get(`/stylemates/brands?filters={"keyword":"${brand}"}`).then((res) => res.data.data).catch((err) => err);
   }
 
-  async brandSearchHistory(uid) {
-    return await axios.get(`/stylemates/users/${uid}/influence-search-history?type=brand`, {
+  async brandSearchHistory(uid, page) {
+    return await axios.get(`/stylemates/users/${uid}/influence-search-history?type=brand&perPage=10&page=${page}`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }
