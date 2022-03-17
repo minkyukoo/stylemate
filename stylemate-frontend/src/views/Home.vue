@@ -235,6 +235,7 @@
             <swiper-slide
               class="brandSliderimg"
               v-for="item in brandList"
+              v-slot="{ isNext }"
               :key="item.id"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
@@ -242,7 +243,10 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img :src="item.imageThumbnailPath" />
+                  <img
+                    :src="item.imageThumbnailPath"
+                    :id="[isNext ? 'activeImg' : 'inactive']"
+                  />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.engName">
@@ -394,7 +398,7 @@ import UserInfoService from "@/services/UserInfoService";
 import ContentDetails from "@/components/ContentDetails.vue";
 import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
-import { inject } from "vue";
+import { inject, ref } from "vue";
 export default {
   name: "Home",
   components: {
@@ -406,23 +410,36 @@ export default {
   },
   setup() {
     const store = inject("store");
+    const img = ref("");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
     const onSlideChange = () => {
       console.log("slide change");
     };
-    const onBrandSlideChange = (e) => {
-      console.log("slider change",e);
-    };
+
+    // onMounted(() => {
+
+    // })
+
+    // onBeforeUpdate(() => {
+    //   img.value = "";
+    // });
+
+    // const onBrandSlideChange = (e) => {
+    //   console.log("slider change", e);
+    //   img.value = document.getElementById("activeImg").src;
+    //   console.log(img.value);
+    // };
     const onBrandSwiper = (event) => {
       console.log("brand swiper", event);
     };
     return {
       onSwiper,
       onSlideChange,
-      onBrandSlideChange,
+      // onBrandSlideChange,
       onBrandSwiper,
+      img,
       modules: [Pagination, EffectCoverflow, Pagination],
       // modules: [EffectCoverflow, Pagination],
       store,
@@ -476,8 +493,17 @@ export default {
 
     window.callJsFunction = this.callJsFunction;
     window.pushNotification = this.pushNotification;
+    
   },
   methods: {
+    onBrandSlideChange() {
+      console.log("slider change");
+      this.image = "";
+      this.image = document.getElementById("activeImg").src;
+      console.log(this.image);
+    },
+
+
     truncate(input, length) {
       if (input.length > length) {
         return input.substring(0, length) + "...";
