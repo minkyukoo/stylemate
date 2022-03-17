@@ -482,7 +482,7 @@ export default defineComponent({
 .list-view .product-list-item .favorite {
   position: absolute;
   right: 4px;
-  top: 14px;
+  top: 24px;
   margin-right: 0;
   cursor: pointer;
 }
@@ -516,4 +516,7 @@ export default defineComponent({
 .selectWrap .vue-select {
   width: 100%;
 } */
+.list-view .product-list-item .desc-box p{
+  margin-bottom: 8px;
+}
 </style>
