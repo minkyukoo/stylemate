@@ -370,6 +370,7 @@ img {
   border-radius: 6px;
   display: flex;
   background: #ffffff;
+  margin-top: 3px;
 }
 
 .tabs .tab {
