@@ -265,15 +265,15 @@ export default {
     },
 
     async addIgChannel() {
-      this.$router.push({ name: 'NewMemberChannel' });
+      // this.$router.push({ name: 'NewMemberChannel' });
 
-      // let fbaccessToken = await this.channelService.getfbaccessToken();
-      // if (!fbaccessToken) {
-      //   this.linkedChannel.methods.logInWithFacebook();
-      // } else {
-      //   this.$router.push({ name: 'NewMemberChannel' });
-      // }
-      this.applyActivity();
+      let fbaccessToken = await this.channelService.getfbaccessToken();
+      if (!fbaccessToken) {
+        this.linkedChannel.methods.logInWithFacebook();
+      } else {
+        this.$router.push({ name: 'NewMemberChannel' });
+      }
+      // this.applyActivity();
     },
 
     // channel disconnect
