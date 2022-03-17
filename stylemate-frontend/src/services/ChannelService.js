@@ -10,6 +10,7 @@ export default class ChannelService {
     window.fbAsyncInit = () => {
       window.FB.init({
         appId: "662067494654261", //You will need to change this
+        // 1403988446624373 --- App id by client 
         cookie: true, // This is important, it's not enabled by default
         version: "v13.0",
       });
@@ -35,14 +36,18 @@ export default class ChannelService {
   async getfbaccessToken() {
     // return localStorage.getItem('fbaccessToken');
     let myInfo = await userInfoService.getUserInfo();
-    let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
-    console.log('myInfo', myInfo);
-    console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
-    // return myInfofbaccesstoken;
-    if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
-      return null;
+    if (myInfo.data.influence.channel.length < 1) {
+      return false;
     } else {
-      return myInfofbaccesstoken;
+      let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
+      console.log('myInfo', myInfo);
+      console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
+      // return myInfofbaccesstoken;
+      if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
+        return null;
+      } else {
+        return myInfofbaccesstoken;
+      }
     }
 
   }
@@ -169,15 +174,24 @@ export default class ChannelService {
       });
   }
   // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
-  async getIgApproveRequest(uid, channelId) {
+  async getIgApproveRequest(uid,channelId) {
     return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/approve-request`, {
-      "stylemateStatus": 'ready',
+      "stylemateStatus": 'request',
     },
       {
         headers: {
           Authorization: 'Bearer ' + token, //the token is a variable which holds the token
         }
       });
+  }
+
+
+  async channelDisconnect(uid, channelId) {
+    return await axios.delete(`/stylemates/users/${uid}/channels/${channelId}`, {
+      headers: {
+        Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 
 
