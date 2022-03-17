@@ -58,7 +58,7 @@
         <div class="btn-wrap">
           <button
             class="main-btn"
-            @click="$router.push({ path: '/notice', hash: '#inquiry' })"
+            @click="$router.go(-1)"
           >
             목록으로
           </button>
