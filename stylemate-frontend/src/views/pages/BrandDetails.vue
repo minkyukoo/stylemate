@@ -24,12 +24,12 @@
             <div class="mainslide-banner-wrap">
               <figure>
                 <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" alt />
-                <div class="top-social-icon">
-                  <!-- <router-link to>
+                <!-- <div class="top-social-icon">
+                   <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
-                  </router-link>-->
+                  </router-link>
                   <img src="@/assets/icons/instagram.svg" />
-                </div>
+                </div> -->
               </figure>
             </div>
           </swiper-slide>
