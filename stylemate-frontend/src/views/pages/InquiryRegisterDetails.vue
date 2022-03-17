@@ -42,7 +42,7 @@
             {{ answer }}
           </p>
         </div>
-        <div class="buttongrp">
+        <div class="buttongrp p-16">
           <button
             class="inqList-btn"
             @click="
@@ -241,6 +241,9 @@ export default {
   align-items: center;
   justify-content: flex-end;
   margin: 9px 0;
+}
+.buttongrp.p-16 {
+  padding: 0 16px;
 }
 .inqList-btn {
   font-weight: bold;
