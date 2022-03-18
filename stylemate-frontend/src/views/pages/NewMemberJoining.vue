@@ -35,14 +35,13 @@
                     <img :src="selChannel.instagramChannel.thumbnailOriginalUrl" />
                   </div>
                   <div class="channelDec">
-                    <!-- <h4>{{ account.instagram_business_account.name }}</h4> -->
-                    <p>{{ selChannel.instagramChannel.pageName }}</p>
-                    {{ stylemateStatus }}
+                    <h4>{{ selChannel.instagramChannel.pageName }}</h4>
+                    <p>{{ selChannel.channelName }}</p>
                   </div>
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
                     <button class="channelBtn" type="button" @click="disconnected">disconnect</button>
@@ -65,7 +64,7 @@
                 </div>
               </li>
             </ul>
-            <div class="adddivwrap">
+            <div class="adddivwrap" v-else>
               <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>

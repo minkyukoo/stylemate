@@ -31,7 +31,7 @@
                 <img :src="account.instagram_business_account.profile_picture_url" />
               </div>
               <div class="channelDec">
-                <h4>Acc ID: {{ account.instagram_business_account.id }}</h4>
+                <!-- <h4>Acc ID: {{ account.instagram_business_account.id }}</h4> -->
                 <h4>{{ account.instagram_business_account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
