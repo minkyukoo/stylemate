@@ -182,6 +182,7 @@ export default {
     }
   },
   mounted() {
+    this.getLogUserInfo();
     this.channelData();
   },
   methods: {
@@ -197,29 +198,44 @@ export default {
       this.hideSponserButton();
     },
 
-    getUserinfo2() {
+    getLogUserInfo() {
       this.userInfoservice.getUserInfo().then(res => {
-        console.log('infores data:', res.data);
-        console.log('infores channel:', res.data.influence.channel);
+        console.log('getLogUserInfo:', res);
         this.userUID = res.data.uid;
         this.userId = res.data.id;
-        this.userChanneldata = res.data.influence.channel;
-        let channelData = res.data.influence.channel;
-        channelData.map(
-          (item) => {
-            console.log('channel data:--', item);
-            this.instagramChannelInfo = item.instagramChannel;
-            this.stylemateStatus = item.stylemateStatus;
-            this.isReApplication = item.isReApplication;
-            this.channelId = item.id;
-            this.fbToken = item.instagramChannel.accessToken;
-          }
-        )
-        // this.upadteStatus(this.userUID,this.channelId);
+      });
+    },
 
-        setTimeout(() => {
-           this.upadteStatus(this.userUID,this.channelId);
-        }, 1000);
+    getUserinfo2() {
+      this.userInfoservice.getUserInfo().then(res => {
+        if (res.data.influence.channel.length < 1) {
+          if (localStorage.getItem('fbaccessToken')) {
+            let fbtoken = localStorage.getItem('fbaccessToken');
+            this.fbToken = fbtoken;
+          } else {
+            this.$router.push({ name: 'NewMemberJoining' });
+          }
+        } else {
+          console.log('infores data:', res.data);
+          console.log('infores channel:', res.data.influence.channel);
+          this.userUID = res.data.uid;
+          this.userId = res.data.id;
+          this.userChanneldata = res.data.influence.channel;
+          let channelData = res.data.influence.channel;
+          channelData.map(
+            (item) => {
+              console.log('channel data:--', item);
+              this.instagramChannelInfo = item.instagramChannel;
+              this.stylemateStatus = item.stylemateStatus;
+              this.isReApplication = item.isReApplication;
+              this.channelId = item.id;
+              this.fbToken = item.instagramChannel.accessToken;
+            }
+          )
+          setTimeout(() => {
+            this.upadteStatus(this.userUID, this.channelId);
+          }, 1000);
+        }
       });
     },
 
@@ -349,14 +365,23 @@ export default {
     async applyActivity() {
       console.log('applyActivity');
 
-      let igInfo = this.instagramChannelInfo;
+      // let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
       let userid = this.userId;
+
+
+      console.log('....applyActivity token info...:', uid, userid, this.linkedChannel.state.fbaccessTokenType);
+
+
+
+
+
+
       let token = {
-        "accessToken": igInfo.accessToken,
+        "accessToken": this.fbToken,
         "userID": userid,
-        "name": igInfo.accountType,
+        "name": this.linkedChannel.state.fbaccessTokenType,
       };
       if (this.seletedPageId) {
         this.channelService.selectChannel(uid, token, info).then((res) => {
@@ -366,17 +391,17 @@ export default {
           this.$router.push({ name: 'NewMemberJoining' });
         });
         //  await this.getUserinfo2();
-        
+
       } else {
         alert('no page selected');
       }
     },
 
-  // //patch
-    upadteStatus(uid,channelId) {
-        this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
-          console.log('applyActivity res:', res);
-        });
+    // //patch
+    upadteStatus(uid, channelId) {
+      this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
+        console.log('applyActivity res:', res);
+      });
     }
 
 

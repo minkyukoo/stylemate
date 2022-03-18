@@ -1,11 +1,11 @@
 import axios from "axios";
-// import UserInfoService from "./UserInfoService";
+import UserInfoService from "./UserInfoService";
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v10.0';
-// var userInfoService = new UserInfoService();
+var userInfoService = new UserInfoService();
 var token = localStorage.getItem('token');
 export default class ChannelService {
-  
+
   async initFacebook() {
     window.fbAsyncInit = () => {
       window.FB.init({
@@ -17,10 +17,10 @@ export default class ChannelService {
       });
     };
   }
-  
+
   async loadFacebookSDK(d, s, id) {
     var js,
-    fjs = d.getElementsByTagName(s)[0];
+      fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {
       return;
     }
@@ -29,7 +29,7 @@ export default class ChannelService {
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }
-  
+
   // set fb base url
   channelBaseUrl() {
     return fbBaseUrl + '/' + version;
@@ -43,22 +43,26 @@ export default class ChannelService {
 
   // get fb access token
   async getfbaccessToken() {
-    return localStorage.getItem('fbaccessToken');
+    // return localStorage.getItem('fbaccessToken');
 
-    // let myInfo = await userInfoService.getUserInfo();
-    // if (myInfo.data.influence.channel.length < 1) {
-    //   return false;
-    // } else {
-    //   let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
-    //   console.log('myInfo', myInfo);
-    //   console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
-    //   // return myInfofbaccesstoken;
-    //   if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
-    //     return null;
-    //   } else {
-    //     return myInfofbaccesstoken;
-    //   }
-    // }
+    let myInfo = await userInfoService.getUserInfo();
+    if (myInfo.data.influence.channel.length < 1) {
+      if (localStorage.getItem('fbaccessToken')) {
+        return localStorage.getItem('fbaccessToken');
+      } else {
+        return null;
+      }
+    } else {
+      let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
+      console.log('myInfo', myInfo);
+      console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
+      return myInfofbaccesstoken;
+      // if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
+      //   return null;
+      // } else {
+      //   return myInfofbaccesstoken;
+      // }
+    }
 
   }
 
@@ -68,6 +72,7 @@ export default class ChannelService {
     let myfbaccesstoken = await this.getfbaccessToken();
     return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '?access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
+
   // 2. Token renewal - 토큰 갱신
   async getIgTokenRenew(authResponse) {
     return await axios.get(`/commons/instagram-token`, {
@@ -160,7 +165,7 @@ export default class ChannelService {
 
   //fb token exted for long term
   async igTokenExtend(fbToken) {
-    return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {
+    return axios.get(`https://api.alloo.cc/commons/instagram-token`, {
       params: {
         token: fbToken,
       },
@@ -185,7 +190,7 @@ export default class ChannelService {
   }
 
   // Style Mate Channel Approval Request patch
-  async getIgApproveRequest(uid,channelId) {
+  async getIgApproveRequest(uid, channelId) {
     return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/approve-request`, {
       "stylemateStatus": 'request',
     },
