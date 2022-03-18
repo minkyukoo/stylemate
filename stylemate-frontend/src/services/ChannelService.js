@@ -9,8 +9,8 @@ export default class ChannelService {
   async initFacebook() {
     window.fbAsyncInit = () => {
       window.FB.init({
-        appId: "662067494654261", //You will need to change this
-        // appId: "1403988446624373", //You will need to change this
+        // appId: "662067494654261", //You will need to change this
+        appId: "1403988446624373", //You will need to change this
         // 1403988446624373 --- App id by client 
         cookie: true, // This is important, it's not enabled by default
         version: "v13.0",
