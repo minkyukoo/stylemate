@@ -42,11 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button
-                    class="channelBtn"
-                    type="button"
-                    @click="disconnected(userUID, selChannel.id)"
-                  >disconnect</button>
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
                     <button class="channelBtn" type="button" @click="disconnected">disconnect</button>
@@ -148,6 +144,25 @@
           </div>
         </template>
       </ConfirmationModal>
+
+      <div class="bottomDrawer" :class="{ active: isActive }">
+        <div class="drawer-wrap">
+          <div class="drawer-top">
+            <h4>연결된 채널을 해제하시겠습니까?</h4>
+            <p>연결을 해제한 채널은 재연결이 가능합니다.</p>
+          </div>
+          <div class="button-group">
+            <button class="grey-btn" @click="closepop">취소</button>
+            <button class="black-btn" @click="disconnected(userUID, selChannel.id)">확인</button>
+          </div>
+        </div>
+      </div>
+      <div class="overlay" :class="{ active: isActive }"></div>
+
+      <div class="info-toast-wrap">
+        <div class="info-toast" v-if="stylemateStatus === 'request'">Sponsorship is possible if the manager approves.</div>
+        <div class="info-toast" v-else-if="stylemateStatus === 'hold' && !isReApplication">You can reapply after 15 days.</div>
+      </div>
     </div>
     <!-- End page content -->
   </div>
@@ -165,6 +180,7 @@ export default {
   components: { TopNav, ConfirmationModal },
   data() {
     return {
+      isActive: false,
       isModalVisible: false,
       checkValue_1: false,
       checkValue_2: false,
@@ -210,6 +226,7 @@ export default {
   },
   mounted() {
     this.getUserChannelInfo();
+    this.refreshChannel();
   },
   updated() {
     // let fbaccessToken = await this.channelService.getfbaccessToken();
@@ -219,6 +236,7 @@ export default {
     //   this.$router.push({ name: 'NewMemberChannel' });
     // }
     // this.upadteStatus(this.userID, this.channelId);
+
 
 
   },
@@ -231,6 +249,12 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    closepop() {
+      this.isActive = false;
+    },
+    disconnectpopup() {
+      this.isActive = true;
     },
 
     getUserChannelInfo() {
@@ -265,8 +289,6 @@ export default {
     },
 
     async addIgChannel() {
-      // this.$router.push({ name: 'NewMemberChannel' });
-
       let fbaccessToken = await this.channelService.getfbaccessToken();
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
@@ -281,6 +303,7 @@ export default {
       console.log('disconnected');
       this.channelService.channelDisconnect(uid, channelId).then((res) => {
         this.getUserChannelInfo();
+        this.closepop();
         console.log('channelDisconnect', res);
         console.log('channelDisconnect status:', res.response);
       });
@@ -411,6 +434,77 @@ export default {
 </script>
 
 <style scoped>
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  background: rgba(9, 9, 9, 0.75);
+  z-index: 1;
+  display: none;
+  max-width: 500px;
+  transform: translate(-50%);
+}
+.bottomDrawer {
+  display: none;
+}
+.bottomDrawer.active,
+.overlay.active {
+  display: block;
+}
+.drawer-wrap {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  max-width: 500px;
+  background: linear-gradient(
+    150.57deg,
+    rgba(255, 255, 255, 0.5) -60.05%,
+    #ffffff 71.1%
+  );
+  backdrop-filter: blur(30px);
+  border-radius: 20px 20px 0px 0px;
+}
+.drawer-top {
+  padding: 40px 20px;
+  text-align: center;
+}
+.drawer-top h4 {
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #25282b;
+}
+.drawer-top p {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #595959;
+  margin-top: 24px;
+}
+.button-group {
+  display: flex;
+}
+.button-group button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
+}
+.button-group button.grey-btn {
+  color: #797979;
+  background: #e5e5e5;
+}
+.button-group button.black-btn {
+  color: #ffffff;
+  background: #090909;
+}
 .contWrap {
   padding: 20px;
 }
@@ -641,5 +735,25 @@ export default {
   padding: 5px 30px;
   border-radius: 20px;
   font-size: 10px;
+}
+.info-toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 40px;
+  position: absolute;
+  height: 32px;
+  left: 11.11%;
+  right: 11.39%;
+  top: calc(50% - 32px / 2 + 316px);
+  background: #25282b;
+  opacity: 0.9;
+  border-radius: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: #f7f7f7;
 }
 </style>

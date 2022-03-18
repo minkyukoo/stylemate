@@ -51,11 +51,11 @@ const methods = {
         console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
         channelService.igTokenExtend(ftoken).then((res) => {
           console.log('igTokenExtend: ', res.data);
-          // localStorage.setItem('fbaccessToken', res.data.token.access_token);
+          localStorage.setItem('fbaccessToken', res.data.token.access_token);
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
-          // channelService.getIgTokenRenew(response.authResponse.accessToken.access_token);
-          channelService.getIgTokenRenew(response.authResponse);
+          channelService.getIgTokenRenew(response.authResponse.accessToken.access_token);
+          // channelService.getIgTokenRenew(response.authResponse);
           this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);

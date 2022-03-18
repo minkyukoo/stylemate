@@ -82,7 +82,7 @@
               </div>
             </div>
             <div>
-              <button class="channelBtn" type="button">선택</button>
+              <button class="channelBtn" type="button" @click="openD">선택</button>
             </div>
           </li>
         </ul>
@@ -165,10 +165,10 @@ export default {
     this.userInfoservice = new UserInfoService();
     // this.fbData();
     // this.igData();
-    // let fbaccessToken = await this.channelService.getfbaccessToken();
-    // if (!fbaccessToken) {
-    //   this.$router.push({ name: 'NewMemberJoining' });
-    // }
+    let fbaccessToken = await this.channelService.getfbaccessToken();
+    if (!fbaccessToken) {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
 
     this.getUserinfo2();
 
@@ -176,10 +176,10 @@ export default {
 
   },
   async updated() {
-    // let fbaccessToken = await this.channelService.getfbaccessToken();
-    // if (!fbaccessToken) {
-    //   this.$router.push({ name: 'NewMemberJoining' });
-    // }
+    let fbaccessToken = await this.channelService.getfbaccessToken();
+    if (!fbaccessToken) {
+      this.$router.push({ name: 'NewMemberJoining' });
+    }
   },
   mounted() {
     this.channelData();
@@ -190,6 +190,11 @@ export default {
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
+    },
+
+    openD() {
+      console.log('openD');
+      this.hideSponserButton();
     },
 
     getUserinfo2() {
@@ -210,7 +215,11 @@ export default {
             this.fbToken = item.instagramChannel.accessToken;
           }
         )
-        this.upadteStatus(this.userUID,this.channelId);
+        // this.upadteStatus(this.userUID,this.channelId);
+
+        setTimeout(() => {
+           this.upadteStatus(this.userUID,this.channelId);
+        }, 1000);
       });
     },
 

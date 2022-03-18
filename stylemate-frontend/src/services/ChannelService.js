@@ -1,8 +1,8 @@
 import axios from "axios";
-import UserInfoService from "./UserInfoService";
+// import UserInfoService from "./UserInfoService";
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v10.0';
-var userInfoService = new UserInfoService();
+// var userInfoService = new UserInfoService();
 var token = localStorage.getItem('token');
 export default class ChannelService {
 
@@ -35,21 +35,21 @@ export default class ChannelService {
     return 'me';
   }
   async getfbaccessToken() {
-    // return localStorage.getItem('fbaccessToken');
-    let myInfo = await userInfoService.getUserInfo();
-    if (myInfo.data.influence.channel.length < 1) {
-      return false;
-    } else {
-      let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
-      console.log('myInfo', myInfo);
-      console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
-      // return myInfofbaccesstoken;
-      if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
-        return null;
-      } else {
-        return myInfofbaccesstoken;
-      }
-    }
+    return localStorage.getItem('fbaccessToken');
+    // let myInfo = await userInfoService.getUserInfo();
+    // if (myInfo.data.influence.channel.length < 1) {
+    //   return false;
+    // } else {
+    //   let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
+    //   console.log('myInfo', myInfo);
+    //   console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
+    //   // return myInfofbaccesstoken;
+    //   if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
+    //     return null;
+    //   } else {
+    //     return myInfofbaccesstoken;
+    //   }
+    // }
 
   }
 
@@ -67,8 +67,8 @@ export default class ChannelService {
     console.log('authResponse--', authResponse);
     return await axios.get(`/commons/instagram-token`, {
       params: {
-        'authResponse': encodeURI(authResponse),
-        // 'token': authResponse,
+        // 'authResponse': encodeURI(authResponse),
+        'token': authResponse,
       },
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
