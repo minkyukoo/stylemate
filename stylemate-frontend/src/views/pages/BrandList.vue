@@ -1,5 +1,5 @@
 <template>
-  <div class="inner-container listmain" @scroll="onScrollfor">
+  <div class="inner-container listmain">
     <ion-searchbar
       @keyup.enter="sreachWord($event.target.value)"
       v-model="searchValue"
@@ -145,10 +145,6 @@ export default {
   },
 
   methods: {
-    onScrollfor() {
-      this.$emit("scroll", this.windowScroll);
-      console.log('scroll', this.windowScroll);
-    },
     setUser() {
       this.userInfoService.getUserInfo().then((res) => {
         // console.log('errorstate', res.status);

@@ -54,9 +54,11 @@ const methods = {
           localStorage.setItem('fbaccessToken', res.data.token.access_token);
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
-          channelService.getIgTokenRenew(response.authResponse.accessToken.access_token);
+          channelService.getIgTokenRenew(response.authResponse.accessToken.access_token).then((res) => {
+            console.log('igTokenRenew: ', res);
+          });
           // channelService.getIgTokenRenew(response.authResponse);
-          this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);
         return true;

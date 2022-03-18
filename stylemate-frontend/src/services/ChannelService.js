@@ -5,7 +5,7 @@ var version = 'v10.0';
 // var userInfoService = new UserInfoService();
 var token = localStorage.getItem('token');
 export default class ChannelService {
-
+  
   async initFacebook() {
     window.fbAsyncInit = () => {
       window.FB.init({
@@ -17,10 +17,10 @@ export default class ChannelService {
       });
     };
   }
-
+  
   async loadFacebookSDK(d, s, id) {
     var js,
-      fjs = d.getElementsByTagName(s)[0];
+    fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) {
       return;
     }
@@ -29,13 +29,22 @@ export default class ChannelService {
     js.src = "https://connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }
+  
+  // set fb base url
+  channelBaseUrl() {
+    return fbBaseUrl + '/' + version;
+  }
 
+  // get fb userid
   getfbuserId() {
     // return localStorage.getItem('userID');
     return 'me';
   }
+
+  // get fb access token
   async getfbaccessToken() {
     return localStorage.getItem('fbaccessToken');
+
     // let myInfo = await userInfoService.getUserInfo();
     // if (myInfo.data.influence.channel.length < 1) {
     //   return false;
@@ -53,9 +62,6 @@ export default class ChannelService {
 
   }
 
-  channelBaseUrl() {
-    return fbBaseUrl + '/' + version;
-  }
 
   // 1. Check username - 유저이름 확인
   async getfbUser() {
@@ -64,7 +70,6 @@ export default class ChannelService {
   }
   // 2. Token renewal - 토큰 갱신
   async getIgTokenRenew(authResponse) {
-    console.log('authResponse--', authResponse);
     return await axios.get(`/commons/instagram-token`, {
       params: {
         // 'authResponse': encodeURI(authResponse),
@@ -135,6 +140,7 @@ export default class ChannelService {
   //   return await axios.get(this.channelBaseUrl() + '/' + iguserid + '?fields=' + encodeURI('ig_id,biography,followers_count,follows_count,media_count,name,profile_picture_url,username') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   // }
 
+  // for mypage media
   async getIgUsermedia(ig_postId) {
     let myfbaccesstoken = await this.getfbaccessToken();
     return await axios.get(this.channelBaseUrl() + '/' + ig_postId + '?fields=' + encodeURI('ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
@@ -152,7 +158,7 @@ export default class ChannelService {
 
 
 
-
+  //fb token exted for long term
   async igTokenExtend(fbToken) {
     return axios.get(`https://elsa.alloo.cc/commons/instagram-token`, {
       params: {
@@ -161,6 +167,7 @@ export default class ChannelService {
     });
   }
 
+  // Save extent token to user Myinfo 
   async getIgrenewaltoken(uid, channelId, ftoken, userId, ftokenName) {
     return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/instagram-renewal-token`, {
       "token": {
@@ -176,7 +183,8 @@ export default class ChannelService {
         }
       });
   }
-  // Style Mate Channel Approval Request /stylemates/users/{user}/channel/{channel}/approve-request
+
+  // Style Mate Channel Approval Request patch
   async getIgApproveRequest(uid,channelId) {
     return await axios.patch(`/stylemates/users/${uid}/channels/${channelId}/approve-request`, {
       "stylemateStatus": 'request',
@@ -188,7 +196,7 @@ export default class ChannelService {
       });
   }
 
-
+  // channel disconnect 
   async channelDisconnect(uid, channelId) {
     return await axios.delete(`/stylemates/users/${uid}/channels/${channelId}`, {
       headers: {
@@ -197,7 +205,7 @@ export default class ChannelService {
     }).then((res) => res.data).catch((err) => err);
   }
 
-
+  // channel connect procedure
   async getAccountConnection() {
     return await axios.get(`/guides/recently`,
       {

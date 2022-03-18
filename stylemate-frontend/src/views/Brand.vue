@@ -37,6 +37,8 @@ export default {
     const windowScroll = () => {
       if (data.value === 1 && dataFocus.value === true && dataBlur.value === false) {
         keyboardHide("keyboardHide");
+        console.log(data.value);
+        console.log('keyboardHide');
       }
       data.value++;
     };
