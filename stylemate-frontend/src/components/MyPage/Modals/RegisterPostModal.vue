@@ -171,6 +171,7 @@ export default {
           this.requiredHashtag
         );
       });
+
     this.myPageService.getMyPageData().then((res) => {
       console.log(res);
       let fbid =
@@ -178,13 +179,21 @@ export default {
           .instagramChannel.fbid;
       this.channelService.getIgPosts(fbid).then((response) => {
         console.log("getIgPosts", response);
-        this.postList = response.data;
-        this.postListBackup = [...this.postList]
         this.total_posts = response.data.length;
         if (this.total_posts > this.per_page) {
           this.show_button = true;
-          this.postList = this.postListBackup.splice(0, this.per_page);
         }
+      });
+    });
+
+    this.myPageService.getMyPageData().then((res) => {
+      console.log(res);
+      let fbid =
+        res.data.influence.channel[res.data.influence.channel.length - 1]
+          .instagramChannel.fbid;
+      this.channelService.getIgPosts(fbid, this.per_page).then((response) => {
+        console.log("getIgPosts", response);
+        this.postList = response.data;
       });
       // this.userProfile = res.data.data.user;
     });
@@ -207,23 +216,40 @@ export default {
       if (this.per_page < this.total_posts) {
         this.per_page += 4;
         this.show_button = true;
-        this.myPageService
-          .getPostingList(this.store.state.influenceId, this.per_page)
-          .then((res) => {
-            console.log(res);
-            this.postList = res.data.data;
-            this.total_posts = res.data.meta.total;
-            if (this.total_posts <= this.per_page) {
-              this.show_button = false;
-            }
-            console.log(
-              "checking",
-              this.postList,
-              this.show_button,
-              this.total_posts,
-              this.per_page
-            );
-          });
+        this.myPageService.getMyPageData().then((res) => {
+          console.log(res);
+          let fbid =
+            res.data.influence.channel[res.data.influence.channel.length - 1]
+              .instagramChannel.fbid;
+          this.channelService
+            .getIgPosts(fbid, this.per_page)
+            .then((response) => {
+              console.log("getIgPosts", response);
+              this.postList = response.data;
+              this.total_posts = response.data.length;
+              if (this.total_posts <= this.per_page) {
+                this.show_button = false;
+              }
+            });
+        });
+
+        // this.myPageService
+        //   .getPostingList(this.store.state.influenceId, this.per_page)
+        //   .then((res) => {
+        //     console.log(res);
+        //     this.postList = res.data.data;
+        //     this.total_posts = res.data.meta.total;
+        //     if (this.total_posts <= this.per_page) {
+        //       this.show_button = false;
+        //     }
+        //     console.log(
+        //       "checking",
+        //       this.postList,
+        //       this.show_button,
+        //       this.total_posts,
+        //       this.per_page
+        //     );
+        //   });
       } else {
         this.show_button = false;
       }
@@ -252,7 +278,7 @@ export default {
       // this.campaignId = event.campaignId;
       // this.bookingId = event.bookingId;
       this.channelId = event.channelId;
-      this.comments_count = event.instagramPost.commentCount;
+      this.comments_count = event.comments_count;
       this.like_count = event.instagramPost.likeCount;
       this.media_type = event.instagramPost.postType;
       this.media_product_type = event.instagramPost.productType;
