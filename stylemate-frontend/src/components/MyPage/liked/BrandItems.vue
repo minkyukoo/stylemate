@@ -6,7 +6,7 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.engName }}</h2>
+        <h2>{{ progressDetails.korName }}</h2>
         <button class="like" @click="dislikeBrand(progressDetails.id)">
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>

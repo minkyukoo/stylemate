@@ -41,7 +41,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
                     <button class="channelBtn" type="button" @click="disconnected">disconnect</button>
@@ -64,7 +64,7 @@
                 </div>
               </li>
             </ul>
-            <div class="adddivwrap" v-else>
+            <div class="adddivwrap">
               <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>
@@ -159,8 +159,14 @@
       <div class="overlay" :class="{ active: isActive }"></div>
 
       <div class="info-toast-wrap">
-        <div class="info-toast" v-if="stylemateStatus === 'request'">Sponsorship is possible if the manager approves.</div>
-        <div class="info-toast" v-else-if="stylemateStatus === 'hold' && !isReApplication">You can reapply after 15 days.</div>
+        <div
+          class="info-toast"
+          v-if="stylemateStatus === 'request'"
+        >Sponsorship is possible if the manager approves.</div>
+        <div
+          class="info-toast"
+          v-else-if="stylemateStatus === 'hold' && !isReApplication"
+        >You can reapply after 15 days.</div>
       </div>
     </div>
     <!-- End page content -->
@@ -195,6 +201,7 @@ export default {
       instagramChannelInfo: null,
       isReApplication: null,
       igAccInfo: null,
+      channelId: null,
       // igResData: null,
       // fbResData: null,
     }
@@ -226,8 +233,11 @@ export default {
   mounted() {
     this.getUserChannelInfo();
     this.refreshChannel();
+    this.channelService.getIgPosts('17841451993862793').then(res => {
+      console.log('getIgPosts', res);
+    })
   },
-  updated() {
+  updated() {    
     // let fbaccessToken = await this.channelService.getfbaccessToken();
     // if (!fbaccessToken) {
     //   this.$router.push({ name: 'NewMemberJoining' });
@@ -264,6 +274,7 @@ export default {
         channelData.map((item) => {
           this.selChannelType = item.type;
           this.stylemateStatus = item.stylemateStatus;
+          this.channelId = item.id;
           this.selChannel = item
 
           this.instagramChannelInfo = item.instagramChannel;
@@ -307,7 +318,6 @@ export default {
         console.log('channelDisconnect status:', res.response);
       });
     },
-
 
     // 4. Check your business page
     getPageInfo(pageId) {
@@ -396,7 +406,7 @@ export default {
       }
     },
 
-
+    // applyActivity
     async applyActivity() {
       console.log('applyActivity');
 
@@ -423,9 +433,17 @@ export default {
       }
     },
 
+    // refreshChannel
     refreshChannel() {
       this.getUserChannelInfo();
     },
+
+    // //patch
+    upadteStatus(uid, channelId) {
+      this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
+        console.log('applyActivity res:', res);
+      });
+    }
 
 
   },

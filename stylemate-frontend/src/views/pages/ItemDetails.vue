@@ -36,7 +36,8 @@
         <div class="item-wrapper">
           <div class="top-section">
             <div class="left-section">
-              <h3>{{ productDetails.name }}</h3>
+              <h3>{{ productBrand.korName }}</h3>
+              <!-- <h3>{{ productDetails.name }}</h3> -->
               <span>
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
@@ -49,7 +50,8 @@
           </div>
 
           <div class="product-description">
-            <h2>{{ productDetails.description }}</h2>
+            <!-- <h2>{{ productDetails.description }}</h2> -->
+            <h2>{{productDetails.name}}</h2>
 
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
@@ -212,6 +214,7 @@ export default {
       isModalVisible: false,
       isActive: false,
       productDetails: [],
+      productBrand: '',
       productCampaign: null,
       userToken: "",
       isCancelspon: false,
@@ -298,7 +301,7 @@ export default {
         // success
         else {
           this.productDetails = res;
-          // console.log("productDetails:-", this.productDetails);
+          console.log("productDetails:-", this.productDetails);
           // console.log("processStatus:-", res.campaign[0].processStatus);
           // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
           // console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
@@ -365,6 +368,8 @@ export default {
           this.productDetails.campaign.map((item) => {
             this.productCampaign = item;
           });
+          this.productBrand = this.productDetails.brand;
+          console.log('productBrand:', this.productBrand);
         }
       });
     },

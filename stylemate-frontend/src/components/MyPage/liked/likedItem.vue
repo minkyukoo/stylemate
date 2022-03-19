@@ -6,13 +6,15 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.name }}</h2>
+        <h2>{{ progressDetails.brand.korName }}</h2>
+        <!-- <h2>{{ progressDetails.name }}</h2> -->
         <button class="like" @click="dislikeProduct(progressDetails.id)">
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>
       </div>
       <div>
-        <h4>{{ progressDetails.description }}</h4>
+        <!-- <h4>{{ progressDetails.description }}</h4> -->
+        <h4>{{progressDetails.name}}</h4>
         <h6>End date {{ dateFormat(progressDetails.createdAt) }}</h6>
       </div>
     </div>

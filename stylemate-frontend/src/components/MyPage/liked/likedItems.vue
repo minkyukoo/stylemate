@@ -59,6 +59,9 @@ export default {
     this.user = new UserInfoService();
     this.getInfluenceList();
   },
+  mounted() {
+    console.log('store.state.likedTabProduct', this.store.state.likedTabProduct);
+  },
   methods: {
     setTags(items) {
       var filterItems = [];
@@ -76,12 +79,14 @@ export default {
           this.store.state.likedTabProduct = res.data.data;
           this.store.state.likedTabProductLength =
             res.data.data.length > 0 ? true : false;
+            console.log('store.state.likedTabProduct', this.store.state.likedTabProduct);
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
           // console.log("brand", res);
           this.store.state.likedTabBrand = res.data.data;
           this.store.state.likedTabBrandLength =
             res.data.data.length > 0 ? true : false;
+            console.log(' this.store.state.likedTabBrand ', this.store.state.likedTabBrand );
         });
       });
     },

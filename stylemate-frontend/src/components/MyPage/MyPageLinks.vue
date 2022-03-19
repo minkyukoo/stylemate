@@ -1,12 +1,9 @@
 <template>
   <div v-for="(items, index) in links" :key="index">
-    <div
-      :class="`link-box ${items.arrow ? '' : 'link-box-static'}`"
-      @click="reDirectPage(items)"
-    >
+    <div :class="`link-box ${items.arrow ? '' : 'link-box-static'}`" @click="reDirectPage(items)">
       <h3>{{ items.name }}</h3>
       <div v-if="items.arrow != false">
-        <img src="../../assets/icons/arrow-right.svg" alt="" />
+        <img src="../../assets/icons/arrow-right.svg" alt />
       </div>
       <div v-else>
         <span>{{ items.version }}</span>
@@ -18,6 +15,7 @@
 <script>
 import { inject } from "vue";
 import { useRouter } from "vue-router";
+import TokenService from "@/services/TokenService";
 
 export default {
   name: "MyPageLinks",
@@ -30,11 +28,31 @@ export default {
   setup() {
     const store = inject("store");
     const router = useRouter();
+    const tokenService = new TokenService();
+
+    const isLogedIn = async () => {
+      return await tokenService.isAuth();
+    };
 
     const reDirectPage = (item) => {
       store.state.noticeTabPageName = item.hash;
-      // if (item.arrow) {
+
+      // isAuthorized
+
+      if (item.hash === "inquiry") {
+        if (!isLogedIn) {
+          router.push({ name: "Login" });
+        } else {
+          router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
+        }
+      } else {
         router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
+      }
+
+
+
+      // if (item.arrow) {
+      // router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
       // }
     };
 
