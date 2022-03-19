@@ -75,7 +75,7 @@ const MyPageModals = reactive({
   campaignId: null,
   productID: null,
   bookingId: null,
-  fbid: null,
+  channelId: null,
 });
 
 var itemService = new ItemService();
