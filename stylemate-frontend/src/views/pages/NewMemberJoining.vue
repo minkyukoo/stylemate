@@ -18,6 +18,7 @@
             </div>
           </li>
         </ul>
+
         <div class="howtoConnect">
           <button type="button" class="connectBtn" @click="showModal">연결방법 보기</button>
         </div>
@@ -41,31 +42,76 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
                     <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   </div>
                   <button
                     v-else-if="stylemateStatus === 'request'"
-                    class="channelBtn"
+                    class="channelBtn greyBg"
                     type="button"
                     disabled="true"
                   >checking</button>
                   <button
                     v-else-if="stylemateStatus === 'hold' && !isReApplication"
-                    class="channelBtn"
+                    class="channelBtn greyBg"
                     type="button"
                   >hold</button>
-                  <button
+                  <div
+                    class="dbl-btn-wrap"
                     v-else-if="stylemateStatus === 'hold' && isReApplication"
-                    class="channelBtn"
-                    type="button"
-                  >selete</button>
+                  >
+                    <button class="channelBtn" type="button" @click="selectPage(account, i)">selete</button>
+                    <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  </div>
                 </div>
               </li>
             </ul>
-            <div class="adddivwrap">
+            <!-- 2 -->
+            <ul class="newChannel" v-if="setNewchannel">
+              <li
+                v-for="(account, i) of igResData"
+                :key="i + 1"
+                @click="selectPage(account, i)"
+                :class="(isSeleted === i) ? 'active' : ''"
+              >
+                <div class="channelLeft">
+                  <div class="channelImg">
+                    <!-- <img src="@/assets/icons/refresh.svg" /> -->
+                    <img :src="account.instagram_business_account.profile_picture_url" />
+                  </div>
+                  <div class="channelDec">
+                    <!-- <h4>Acc ID: {{ account.instagram_business_account.id }}</h4> -->
+                    <h4>{{ account.instagram_business_account.name }}</h4>
+                    <p>{{ fbResData.name }}</p>
+                  </div>
+                </div>
+                <div class="btn-wrap">
+                  <button class="channelBtn" type="button">선택</button>
+                  <!-- <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
+                <button class="channelBtn" type="button">Linked Account</button>
+                <button class="channelBtn" type="button">disconnect</button>
+              </div>
+              <button
+                v-else-if="stylemateStatus === 'request'"
+                class="channelBtn"
+                type="button"
+              >checking</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && !isReApplication"
+                class="channelBtn"
+                type="button"
+              >hold</button>
+              <button
+                v-else-if="stylemateStatus === 'hold' && isReApplication"
+                class="channelBtn"
+                type="button"
+                  >reapplication</button>-->
+                </div>
+              </li>
+            </ul>
+            <div class="adddivwrap" v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1">
               <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>
@@ -145,6 +191,10 @@
         </template>
       </ConfirmationModal>
 
+      <div class="subscribe-wrap">
+        <button class="black-btn" @click="applyActivity" v-if="isapplyAct">활동 신청하기</button>
+      </div>
+
       <div class="bottomDrawer" :class="{ active: isActive }">
         <div class="drawer-wrap" v-if="!isCampaignsOngoing">
           <div class="drawer-top">
@@ -172,14 +222,11 @@
       <div class="overlay" :class="{ active: isActive }"></div>
 
       <div class="info-toast-wrap">
-        <div
-          class="info-toast"
-          v-if="stylemateStatus === 'request'"
-        >Sponsorship is possible if the manager approves.</div>
+        <div class="info-toast" v-if="stylemateStatus === 'request'">관리자가 승인하면 협찬활동이 가능합니다.</div>
         <div
           class="info-toast"
           v-else-if="stylemateStatus === 'hold' && !isReApplication"
-        >You can reapply after 15 days.</div>
+        >15일이 지난 후에 재신청이 가능합니다.</div>
       </div>
     </div>
     <!-- End page content -->
@@ -205,17 +252,22 @@ export default {
       checkValue_3: false,
       checkValue_4: false,
       disabled: true,
+      userChannel: '',
       userUID: null,
       userId: null,
       selChannel: null,
       selChannelType: null,
       fbToken: null,
       instagramChannelInfo: null,
-      isReApplication: false,
-      stylemateStatus: 'request',
+      isReApplication: Boolean,
+      stylemateStatus: null,
       igAccInfo: null,
       channelId: null,
       isCampaignsOngoing: '',
+      isapplyAct: false,
+      igResData: null,
+      fbResData: null,
+      setNewchannel: false
       // igResData: null,
       // fbResData: null,
     }
@@ -246,6 +298,7 @@ export default {
   },
   mounted() {
     this.getUserChannelInfo();
+    this.channelData();
     this.refreshChannel();
 
 
@@ -278,19 +331,84 @@ export default {
       this.isActive = true;
     },
 
+    //isUserid
+    async isUserid() {
+      let isLogedIn = await this.tokenService.isAuth();
+      if (isLogedIn) {
+        return await this.userInfoService.getUserInfo().then((res) => {
+          return res.data.uid;
+        });
+      }
+    },
+
+    channelData() {
+      // 1. Check Username
+      this.channelService.getfbUser().then(res => {
+        console.log('1. fbUser res:', res);
+        this.fbResData = res;
+      });
+
+      // 3. page id 
+      this.channelService.getIgchannels().then(res => {
+        console.log('3. Igchannels list:', res);
+        let existchannelId = this.instagramChannelInfo.fbid;
+        let allChannel = res.data;
+        let freshChannel = allChannel.filter(channel => {
+          return channel.instagram_business_account.id !== existchannelId;
+        });
+        this.igResData = freshChannel;
+      });
+    },
+
+    getUserinfo2() {
+      this.userInfoService.getUserInfo().then(res => {
+        if (res.data.influence.channel.length < 1) {
+          if (localStorage.getItem('fbaccessToken')) {
+            let fbtoken = localStorage.getItem('fbaccessToken');
+            this.fbToken = fbtoken;
+          } else {
+            this.$router.push({ name: 'NewMemberJoining' });
+          }
+        } else {
+          console.log('infores data:', res.data);
+          console.log('infores channel:', res.data.influence.channel);
+          this.userUID = res.data.uid;
+          this.userId = res.data.id;
+          this.userChanneldata = res.data.influence.channel;
+          let channelData = res.data.influence.channel;
+          channelData.map(
+            (item) => {
+              console.log('channel data:--', item);
+              this.instagramChannelInfo = item.instagramChannel;
+              this.stylemateStatus = item.stylemateStatus;
+              this.isReApplication = item.isReApplication;
+              this.channelId = item.id;
+              this.fbToken = item.instagramChannel.accessToken;
+            }
+          )
+          setTimeout(() => {
+            this.upadteStatus(this.userUID, this.channelId);
+          }, 1000);
+        }
+      });
+    },
+
     getUserChannelInfo() {
       this.userInfoService.getUserInfo().then((res) => {
         this.userUID = res.data.uid;
         this.userId = res.data.id;
         let channelData = res.data.influence.channel;
+        this.userChannel = channelData;
+        this.userChannellength = channelData.length;
+        console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
           this.selChannelType = item.type;
-          // this.stylemateStatus = item.stylemateStatus;
+          this.stylemateStatus = item.stylemateStatus;
           this.channelId = item.id;
           this.selChannel = item
 
           this.instagramChannelInfo = item.instagramChannel;
-          // this.isReApplication = item.isReApplication;
+          this.isReApplication = item.isReApplication;
           this.channelId = item.id;
           this.fbToken = item.instagramChannel.accessToken;
         });
@@ -315,7 +433,11 @@ export default {
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
-        this.$router.push({ name: 'NewMemberChannel' });
+        if (this.userChannel.length > 0) {
+          this.setNewchannel = true;
+        } else {
+          this.$router.push({ name: 'NewMemberChannel' });
+        }
       }
       // this.applyActivity();
     },
@@ -425,7 +547,6 @@ export default {
     // applyActivity
     async applyActivity() {
       console.log('applyActivity');
-
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -449,6 +570,16 @@ export default {
       }
     },
 
+    // page selected
+    selectPage(pageinfo, i) {
+      console.log('selectPage:', pageinfo);
+      this.isapplyAct = true;
+      this.isSeleted = i;
+      this.seletedPageId = pageinfo.id;
+      this.seletedIguserId = pageinfo.instagram_business_account.id;
+      this.getPageInfo(this.seletedPageId);
+    },
+
     // refreshChannel
     refreshChannel() {
       this.getUserChannelInfo();
@@ -463,10 +594,11 @@ export default {
 
     //getCampaignsOngoing
     campaignsOngoing(uid) {
-      this.channelService.getCampaignsOngoing(uid).then((res) => {
-        console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
-        this.isCampaignsOngoing = res.data.length > 0 ? false : true;
-      });
+      console.log(uid);
+      // this.channelService.getCampaignsOngoing(uid).then((res) => {
+      //   console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
+      //   this.isCampaignsOngoing = res.data.length > 0 ? false : true;
+      // });
     }
 
 
@@ -750,6 +882,12 @@ export default {
   background: #f7f7f7;
   color: #797979;
 }
+.newChannel li .channelBtn.greyBg {
+  border: 1px solid #e5e5e5;
+  background: #f7f7f7;
+  color: #797979;
+  cursor: not-allowed;
+}
 .newChannel li .channelImg {
   width: 56px;
   height: 56px;
@@ -806,5 +944,28 @@ export default {
 }
 .dbl-btn-wrap button:last-child {
   margin-bottom: 0px;
+}
+.subscribe-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 21px;
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.subscribe-wrap .black-btn {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090909;
+  padding: 24px;
+  width: 100%;
 }
 </style>
