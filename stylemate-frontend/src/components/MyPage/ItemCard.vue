@@ -20,7 +20,7 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.product.brand.engName }}</h2>
+        <h2>{{ progressDetails.product.brand.korName }}</h2>
         <span
           class="cancel-tag"
           v-if="
@@ -81,6 +81,8 @@
                   this.progressDetails.campaignSchedule.campaignId;
                 store.MyPageModals.bookingId =
                   this.progressDetails.booking[0].id;
+                store.MyPageModals.channelId =
+                  this.progressDetails.booking[0].channelId;
               }
             "
           >
@@ -111,6 +113,8 @@
                   this.progressDetails.campaignSchedule.campaignId;
                 store.MyPageModals.bookingId =
                   this.progressDetails.booking[0].id;
+                store.MyPageModals.channelId =
+                  this.progressDetails.booking[0].channelId;
               }
             "
           >

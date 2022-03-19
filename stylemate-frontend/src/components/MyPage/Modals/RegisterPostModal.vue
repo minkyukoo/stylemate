@@ -275,38 +275,39 @@ export default {
     },
     setDetails(event) {
       console.log("test", event);
-      // this.campaignId = event.campaignId;
-      // this.bookingId = event.bookingId;
-      this.channelId = event.channelId;
       this.comments_count = event.comments_count;
-      this.like_count = event.instagramPost.likeCount;
-      this.media_type = event.instagramPost.postType;
-      this.media_product_type = event.instagramPost.productType;
-      if (event.instagramPost.productType === "video") {
+      this.like_count = event.like_count;
+      this.media_type = event.media_type;
+      this.media_product_type = event.media_product_type;
+      if (event.media_product_type === "video") {
         this.thumbnail_url = event.instagramPost.thumbnailUrl;
       }
-      this.media_url = event.instagramPost.thumbnailUrl
-        ? event.instagramPost.thumbnailUrl
-        : event.instagramPost.thumbnailOriginalUrl;
+      this.media_url = event.media_url;
       this.id = `${event.id}`;
-      // Object.keys(this.userProfile).push(event.instagramPost.description);
-      // this.userProfile.description = event.instagramPost.description;
+      this.ig_id = event.ig_id;
+      this.shortcode = event.shortcode;
+      this.username = event.username;
+      this.timestamp = moment(event.timestamp).format("YYYY-MM-DD HH:mm:ss");
+      this.caption = `${event.caption} ${
+        this.requiredAccount ? `#${this.requiredAccount}` : ""
+      } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
     },
     async isSubmit() {
       let res = await this.channelService.getIguserinfo();
       let res2 = await this.channelService.getIgusermediainfo();
       console.log("res2", res2);
       this.userProfile = res;
-      this.ig_id = res2.ig_id;
-      this.shortcode = res2.shortcode;
+      // this.ig_id = res2.ig_id;
+      // this.shortcode = res2.shortcode;
       this.permalink = res2.permalink;
-      this.timestamp = moment(res2.timestamp).format("YYYY-MM-DD HH:mm:ss");
-      this.caption = `${res2.caption} ${
-        this.requiredAccount ? `#${this.requiredAccount}` : ""
-      } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
-      this.username = res2.username;
+      // this.timestamp = moment(res2.timestamp).format("YYYY-MM-DD HH:mm:ss");
+      // this.caption = `${res2.caption} ${
+      //   this.requiredAccount ? `#${this.requiredAccount}` : ""
+      // } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
+      // this.username = res2.username;
       this.campaignId = this.store.MyPageModals.campaignId;
       this.bookingId = this.store.MyPageModals.bookingId;
+      this.channelId = this.store.MyPageModals.channelId;
       // this.media_url = res2.media_url;
       // console.log("unique state",this.userProfile);
       if (
@@ -368,6 +369,9 @@ export default {
           )
           .then((res) => {
             console.log("if false res", res);
+            if(res.status === 201) {
+              this.store.state.isPostModalVisible = false;
+            }
           });
         // console.log("if false unique state", this.userProfile);
       }
