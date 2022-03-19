@@ -82,6 +82,7 @@ export default {
       channelService: null,
       itemService: null,
       postList: [],
+      postListBackup: [],
       campaignId: 0,
       bookingId: 0,
       channelId: 0,
@@ -178,7 +179,12 @@ export default {
       this.channelService.getIgPosts(fbid).then((response) => {
         console.log("getIgPosts", response);
         this.postList = response.data;
+        this.postListBackup = [...this.postList]
         this.total_posts = response.data.length;
+        if (this.total_posts > this.per_page) {
+          this.show_button = true;
+          this.postList = this.postListBackup.splice(0, this.per_page);
+        }
       });
       // this.userProfile = res.data.data.user;
     });
@@ -223,12 +229,23 @@ export default {
       }
     },
     reloadcontentData() {
-      this.myPageService
-        .getPostingList(this.store.state.influenceId)
-        .then((res) => {
-          console.log(res);
-          this.postList = res.data.data;
+      // this.myPageService
+      //   .getPostingList(this.store.state.influenceId)
+      //   .then((res) => {
+      //     console.log(res);
+      //     this.postList = res.data.data;
+      //   });
+      this.myPageService.getMyPageData().then((res) => {
+        console.log(res);
+        let fbid =
+          res.data.influence.channel[res.data.influence.channel.length - 1]
+            .instagramChannel.fbid;
+        this.channelService.getIgPosts(fbid).then((response) => {
+          console.log("getIgPosts", response);
+          this.postList = response.data;
+          this.total_posts = response.data.length;
         });
+      });
     },
     setDetails(event) {
       console.log("test", event);

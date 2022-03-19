@@ -12,19 +12,19 @@
         </div>
         <div class="item-desc">
           <div>
-            <!-- <h4>
+            <h4>
               {{
-                moment(i.campaign.campaignSchedule.finishedAt).format(
+                moment(i.timestamp).format(
                   "YYYY.MM.DD  h:mm"
                 )
               }}
-            </h4> -->
+            </h4>
             <!-- <ul>
               <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
                 {{ tags }}
               </li>
             </ul> -->
-            <!-- <h6>{{ i.caption }}</h6> -->
+            <h6>{{ i.caption }}</h6>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-.Post-header .item-desc ul li {
+.Post-header .item-desc h6 {
   font-size: 10px;
   line-height: 12px;
   color: #595959;
