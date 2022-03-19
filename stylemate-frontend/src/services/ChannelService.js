@@ -243,9 +243,9 @@ export default class ChannelService {
   // /stylemates/users/{{uid}}/campaigns?filters=%7B%22channelType%22%3A%20%22instagram%22%2C%20%22menuType%22%3A%20%22progressHistory%22%7D
 
   // Ig posts 
-  async getIgPosts(igID) {
+  async getIgPosts(igID, limit) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI('caption,thumbnail_url,media_url,shortcode,comments_count,like_count,timestamp') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,timestamp,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
 

@@ -233,9 +233,9 @@ export default {
   mounted() {
     this.getUserChannelInfo();
     this.refreshChannel();
-   
+
   },
-  updated() {    
+  updated() {
     // let fbaccessToken = await this.channelService.getfbaccessToken();
     // if (!fbaccessToken) {
     //   this.$router.push({ name: 'NewMemberJoining' });
@@ -244,6 +244,10 @@ export default {
     // }
     // this.upadteStatus(this.userID, this.channelId);
 
+
+    this.channelService.getIgPosts('17841451993862793',2).then(res => {
+      console.log('getIgPosts', res);
+    })
 
 
   },
