@@ -8,30 +8,23 @@
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
-          <img
-            :src="
-              i.instagramPost.thumbnailUrl
-                ? i.instagramPost.thumbnailUrl
-                : i.instagramPost.thumbnailOriginalUrl
-            "
-            alt=""
-          />
+          <img :src="i.media_url" alt="" />
         </div>
         <div class="item-desc">
           <div>
-            <h4>
+            <!-- <h4>
               {{
                 moment(i.campaign.campaignSchedule.finishedAt).format(
                   "YYYY.MM.DD  h:mm"
                 )
               }}
-            </h4>
-            <ul>
+            </h4> -->
+            <!-- <ul>
               <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
                 {{ tags }}
               </li>
-            </ul>
-            <h6>{{ i.desc }}</h6>
+            </ul> -->
+            <!-- <h6>{{ i.caption }}</h6> -->
           </div>
         </div>
       </div>

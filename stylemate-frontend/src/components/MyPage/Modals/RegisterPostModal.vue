@@ -170,13 +170,20 @@ export default {
           this.requiredHashtag
         );
       });
+    this.myPageService.getMyPageData().then((res) => {
+      console.log(res);
+      let fbid =
+        res.data.influence.channel[res.data.influence.channel.length - 1]
+          .instagramChannel.fbid;
+      this.channelService.getIgPosts(fbid).then((response) => {
+        console.log("getIgPosts", response);
+        this.postList = response.data;
+        this.total_posts = response.data.length;
+      });
+      // this.userProfile = res.data.data.user;
+    });
     // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
-    this.myPageServices.getMyPageData().then((res) => {
-      this.channelService.getIgPosts(res.influence.channel[0].instagramChannel.fbid).then((response) => {
-        console.log("getIgPosts", response);
-      });
-    });
   },
 
   unmounted() {
