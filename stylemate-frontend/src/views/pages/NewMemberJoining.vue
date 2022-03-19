@@ -233,9 +233,7 @@ export default {
   mounted() {
     this.getUserChannelInfo();
     this.refreshChannel();
-    this.channelService.getIgPosts('17841451993862793').then(res => {
-      console.log('getIgPosts', res);
-    })
+   
   },
   updated() {    
     // let fbaccessToken = await this.channelService.getfbaccessToken();

@@ -245,7 +245,7 @@ export default class ChannelService {
   // Ig posts 
   async getIgPosts(igID) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI('caption,thumbnail_url,media_url,shortcode,comments_count,like_count') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI('caption,thumbnail_url,media_url,shortcode,comments_count,like_count,timestamp') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
 
