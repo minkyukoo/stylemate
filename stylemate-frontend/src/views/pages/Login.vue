@@ -68,15 +68,15 @@ export default {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('tokenexpiresAt', token_expiresAt);
-      // window.location.href = this.redirectlocalUrl;
-      window.location.href = this.redirectServerUrl;
+      window.location.href = this.redirectlocalUrl;
+      // window.location.href = this.redirectServerUrl;
     }
   },
   methods: {
     loginHandaler() {
       // alert('Login');
-      // window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
-      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
+      window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.localUrl);
+      // window.location.href = 'https://accounts.beta.mediance.co.kr/login?service=stylemate&type=influence&site=stylemate&callback=' + encodeURI(this.serverUrl);
     }
   },
 }
