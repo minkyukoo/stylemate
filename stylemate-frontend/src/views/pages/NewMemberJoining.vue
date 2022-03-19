@@ -244,11 +244,9 @@ export default {
     // }
     // this.upadteStatus(this.userID, this.channelId);
 
-
-    this.channelService.getIgPosts('17841451993862793',2).then(res => {
+this.channelService.getIgPosts('17841451993862793', 2).then(res => {
       console.log('getIgPosts', res);
     })
-
 
   },
   methods: {
