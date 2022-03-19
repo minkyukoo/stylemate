@@ -226,26 +226,26 @@ export default class ChannelService {
   }
 
   // channel connect procedure
-  // async getCampaignsOngoing() {
-  //   return await axios.get(`/stylemates/users/{{uid}}/campaigns?filters=channelType='menuType%22%3A%20%22progressHistory%22%7D`,
-  //     {
-  //       "userType": 'new',
-  //       "deviceType": 'mobile',
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: 'Bearer ' + token, //the token is a variable which holds the token
-  //       }
-  //     }
-  //   );
-  // }
+  async getCampaignsOngoing(uid) {
+    return await axios.get(`/stylemates/users/${uid}/campaigns`,
+      {
+        params: {
+          "channelType": 'instagram',
+          "menuType": 'progressHistory',
+        },
+        headers: {
+          Authorization: 'Bearer ' + token, //the token is a variable which holds the token
+        }
+      }
+    );
+  }
 
   // /stylemates/users/{{uid}}/campaigns?filters=%7B%22channelType%22%3A%20%22instagram%22%2C%20%22menuType%22%3A%20%22progressHistory%22%7D
 
   // Ig posts 
   async getIgPosts(igID, limit) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,username,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,offset,username,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
 

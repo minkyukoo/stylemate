@@ -44,12 +44,13 @@
                   <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
-                    <button class="channelBtn" type="button" @click="disconnected">disconnect</button>
+                    <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   </div>
                   <button
                     v-else-if="stylemateStatus === 'request'"
                     class="channelBtn"
                     type="button"
+                    disabled="true"
                   >checking</button>
                   <button
                     v-else-if="stylemateStatus === 'hold' && !isReApplication"
@@ -145,7 +146,7 @@
       </ConfirmationModal>
 
       <div class="bottomDrawer" :class="{ active: isActive }">
-        <div class="drawer-wrap">
+        <div class="drawer-wrap" v-if="!isCampaignsOngoing">
           <div class="drawer-top">
             <h4>연결된 채널을 해제하시겠습니까?</h4>
             <p>연결을 해제한 채널은 재연결이 가능합니다.</p>
@@ -153,6 +154,18 @@
           <div class="button-group">
             <button class="grey-btn" @click="closepop">취소</button>
             <button class="black-btn" @click="disconnected(userUID, selChannel.id)">확인</button>
+          </div>
+        </div>
+        <!-- if on going camp -->
+        <div class="drawer-wrap" v-else>
+          <div class="drawer-top">
+            <h4>
+              진행 중인 협찬/캠페인이 존재하여
+              <br />연결해제가 불가능합니다.
+            </h4>
+          </div>
+          <div class="button-group">
+            <button class="black-btn" @click="closepop">확인</button>
           </div>
         </div>
       </div>
@@ -196,12 +209,13 @@ export default {
       userId: null,
       selChannel: null,
       selChannelType: null,
-      stylemateStatus: null,
       fbToken: null,
       instagramChannelInfo: null,
-      isReApplication: null,
+      isReApplication: false,
+      stylemateStatus: 'request',
       igAccInfo: null,
       channelId: null,
+      isCampaignsOngoing: '',
       // igResData: null,
       // fbResData: null,
     }
@@ -234,8 +248,10 @@ export default {
     this.getUserChannelInfo();
     this.refreshChannel();
 
+
   },
   updated() {
+    this.campaignsOngoing(this.userUID);
     // let fbaccessToken = await this.channelService.getfbaccessToken();
     // if (!fbaccessToken) {
     //   this.$router.push({ name: 'NewMemberJoining' });
@@ -243,10 +259,6 @@ export default {
     //   this.$router.push({ name: 'NewMemberChannel' });
     // }
     // this.upadteStatus(this.userID, this.channelId);
-
-this.channelService.getIgPosts('17841451993862793', 2).then(res => {
-      console.log('getIgPosts', res);
-    })
 
   },
   methods: {
@@ -273,12 +285,12 @@ this.channelService.getIgPosts('17841451993862793', 2).then(res => {
         let channelData = res.data.influence.channel;
         channelData.map((item) => {
           this.selChannelType = item.type;
-          this.stylemateStatus = item.stylemateStatus;
+          // this.stylemateStatus = item.stylemateStatus;
           this.channelId = item.id;
           this.selChannel = item
 
           this.instagramChannelInfo = item.instagramChannel;
-          this.isReApplication = item.isReApplication;
+          // this.isReApplication = item.isReApplication;
           this.channelId = item.id;
           this.fbToken = item.instagramChannel.accessToken;
         });
@@ -310,13 +322,17 @@ this.channelService.getIgPosts('17841451993862793', 2).then(res => {
 
     // channel disconnect
     disconnected(uid, channelId) {
-      console.log('disconnected');
-      this.channelService.channelDisconnect(uid, channelId).then((res) => {
-        this.getUserChannelInfo();
-        this.closepop();
-        console.log('channelDisconnect', res);
-        console.log('channelDisconnect status:', res.response);
-      });
+      if (!this.isCampaignsOngoing) {
+        console.log('disconnected');
+        this.channelService.channelDisconnect(uid, channelId).then((res) => {
+          this.getUserChannelInfo();
+          this.closepop();
+          console.log('channelDisconnect', res);
+          console.log('channelDisconnect status:', res.response);
+        });
+      } else {
+        console.log('not disconnected');
+      }
     },
 
     // 4. Check your business page
@@ -442,6 +458,14 @@ this.channelService.getIgPosts('17841451993862793', 2).then(res => {
     upadteStatus(uid, channelId) {
       this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
         console.log('applyActivity res:', res);
+      });
+    },
+
+    //getCampaignsOngoing
+    campaignsOngoing(uid) {
+      this.channelService.getCampaignsOngoing(uid).then((res) => {
+        console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
+        this.isCampaignsOngoing = res.data.length > 0 ? false : true;
       });
     }
 
@@ -772,5 +796,15 @@ this.channelService.getIgPosts('17841451993862793', 2).then(res => {
   line-height: 16px;
   text-align: center;
   color: #f7f7f7;
+}
+.dbl-btn-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.dbl-btn-wrap button {
+  margin-bottom: 10px;
+}
+.dbl-btn-wrap button:last-child {
+  margin-bottom: 0px;
 }
 </style>
