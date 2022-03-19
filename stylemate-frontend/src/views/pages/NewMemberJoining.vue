@@ -50,6 +50,7 @@
                     v-else-if="stylemateStatus === 'request'"
                     class="channelBtn"
                     type="button"
+                    disabled="true"
                   >checking</button>
                   <button
                     v-else-if="stylemateStatus === 'hold' && !isReApplication"
@@ -211,7 +212,7 @@ export default {
       fbToken: null,
       instagramChannelInfo: null,
       isReApplication: false,
-      stylemateStatus: 'approve',
+      stylemateStatus: 'request',
       igAccInfo: null,
       channelId: null,
       isCampaignsOngoing: '',

@@ -37,7 +37,7 @@
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="tab-button" tab="tab5" href="/mypage" key="tab5">
+        <ion-tab-button class="tab-button" tab="tab5" href="/mypage" key="tab5" @click="goToMypage">
           <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
           <i class="icon icon-dft icon-mypage" />
           <i class="icon icon-hvr icon-mypage-white" />
@@ -96,6 +96,13 @@ export default {
     return {
       hover: true,
       activeId: "tab1",
+    };
+  },
+  methods() {
+    return {
+      goToMypage() {
+        this.$router.push("/mypage");
+      },
     };
   },
 };
