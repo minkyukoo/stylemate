@@ -129,23 +129,23 @@ export default {
     };
   },
   mounted() {
-    this.myPageService
-      .getPostingList(this.store.state.influenceId, this.per_page)
-      .then((res) => {
-        console.log(res);
-        this.postList = res.data.data;
-        this.total_posts = res.data.meta.total;
-        if (this.total_posts > this.per_page) {
-          this.show_button = true;
-        }
-        console.log(
-          "checking",
-          this.postList,
-          this.show_button,
-          this.total_posts,
-          this.per_page
-        );
-      });
+    // this.myPageService
+    //   .getPostingList(this.store.state.influenceId, this.per_page)
+    //   .then((res) => {
+    //     console.log(res);
+    //     this.postList = res.data.data;
+    //     this.total_posts = res.data.meta.total;
+    //     if (this.total_posts > this.per_page) {
+    //       this.show_button = true;
+    //     }
+    //     console.log(
+    //       "checking",
+    //       this.postList,
+    //       this.show_button,
+    //       this.total_posts,
+    //       this.per_page
+    //     );
+    //   });
     this.itemService
       .getProductDetails(this.store.MyPageModals.productID)
       .then((res) => {
@@ -172,6 +172,11 @@ export default {
       });
     // this.linkedChannel.methods.logInWithFacebook();
     // console.log(this.store.MyPageModals.reRegistrationNo,this.store.MyPageModals.reRegistration);
+    this.myPageServices.getMyPageData().then((res) => {
+      this.channelService.getIgPosts(res.influence.channel[0].instagramChannel.fbid).then((response) => {
+        console.log("getIgPosts", response);
+      });
+    });
   },
 
   unmounted() {

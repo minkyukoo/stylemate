@@ -293,6 +293,7 @@ export default {
 
       this.itemService.getProductDetails(proId).then((res) => {
         // catch error
+        console.log(res);
         if (res.response) {
           if (res.response.status == 404) {
             this.$router.push("/item");
@@ -304,15 +305,15 @@ export default {
           console.log("productDetails:-", this.productDetails);
           // console.log("processStatus:-", res.campaign[0].processStatus);
           // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
-          // console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
-          // console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
+          // console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
+          // console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
             res.campaign[0].processDetailStatus == "booking" &&
             res.campaign[0].booking.length > 0 &&
-            res.campaign[0].booking[0].bookingStatus == "booking" &&
-            res.campaign[0].booking[0].postStatus == "ready"
+            res.campaign[0].booking[0]?.bookingStatus == "booking" &&
+            res.campaign[0].booking[0]?.postStatus == "ready"
           ) {
             this.sponsorship = false;
             this.cancel_spon = true;
@@ -333,7 +334,7 @@ export default {
           else if (
             res.campaign[0].processStatus == "progress" &&
             ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
-            res.campaign[0].booking[0].bookingStatus == "join" &&
+            res.campaign[0].booking[0]?.bookingStatus == "join" &&
             [
               "ready",
               "post_request",
@@ -356,8 +357,8 @@ export default {
           else if (
             res.campaign[0].processStatus == "finish" &&
             res.campaign[0].processDetailStatus == "finish" &&
-            res.campaign[0].booking[0].bookingStatus == "finish" &&
-            res.campaign[0].booking[0].postStatus == "finish"
+            res.campaign[0].booking[0]?.bookingStatus == "finish" &&
+            res.campaign[0].booking[0]?.postStatus == "finish"
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
