@@ -44,7 +44,7 @@ const state = reactive({
   FltCampaignData: [],
   sponcerMeta: null,
   sponcerChannelType: "instagram",
-  isPostModalVisible: false,
+  isPostModalVisible: true,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,

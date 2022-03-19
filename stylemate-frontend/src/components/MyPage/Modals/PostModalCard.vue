@@ -13,18 +13,14 @@
         <div class="item-desc">
           <div>
             <h4>
-              {{
-                moment(i.timestamp).format(
-                  "YYYY.MM.DD  h:mm"
-                )
-              }}
+              {{ moment(i.timestamp).format("YYYY.MM.DD  h:mm") }}
             </h4>
             <!-- <ul>
               <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
                 {{ tags }}
               </li>
             </ul> -->
-            <h6>{{ i.caption }}</h6>
+            <h6>{{ truncate(i.caption, 40) }}</h6>
           </div>
         </div>
       </div>
@@ -61,6 +57,12 @@ export default {
   methods: {
     choosePost(event) {
       this.$emit("choosePost", event);
+    },
+    truncate(input, length) {
+      if (input.length > length) {
+        return input.substring(0, length) + "...";
+      }
+      return input;
     },
     setActive(e) {
       console.log(e);
