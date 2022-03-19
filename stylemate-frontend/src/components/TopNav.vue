@@ -3,11 +3,7 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img
-            src="@/assets/images/logo-black.svg"
-            class="siteLogo"
-            alt="Logo"
-          />
+          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
           <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
@@ -23,9 +19,7 @@
               <i class="icon-left-arrow"></i>
             </button>
           </ion-buttons>
-          <h1 v-if="headerTitle" class="header-title text-center">
-            {{ headerTitle }}
-          </h1>
+          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
           <NotificationIcon :notificationCount="notificationLength" />
         </div>
@@ -69,11 +63,12 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
-      if (this.$route.name === 'Notice') {
+      if (this.$route.name === 'Notice' || this.$route.name === 'NewMemberJoining') {
         this.$router.push({
           path: "/mypage",
         });
-      } else {
+      }
+      else {
         this.$router.go(-1);
       }
     },

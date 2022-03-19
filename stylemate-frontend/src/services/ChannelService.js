@@ -245,12 +245,12 @@ export default class ChannelService {
   // Ig posts 
   async getIgPosts(igID, limit) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,timestamp,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,username,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
 
 
-
+  // https://graph.facebook.com/v10.0/%7Big_id%7D/media?fields=caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,username,children&limit=10
 
 
 }
