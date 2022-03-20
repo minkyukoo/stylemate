@@ -63,14 +63,14 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
-      // if (this.$route.name === 'Notice' || this.$route.name === 'NewMemberJoining') {
-      //   this.$router.push({
-      //     path: "/mypage",
-      //   });
-      // }
-      // else {
+      if (this.$route.name === 'NewMemberJoining') {
+        this.$router.push({
+          path: "/mypage",
+        });
+      }
+      else {
         this.$router.go(-1);
-      // }
+      }
     },
     async getNotificationLength() {
       let isLogedIn = await this.isLogedIn();
