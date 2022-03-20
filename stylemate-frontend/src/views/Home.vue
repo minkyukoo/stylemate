@@ -17,11 +17,7 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link
-              to=""
-              class="mainslide-banner-wrap"
-              @click="bannerRedirect(slide.mobileLink)"
-            >
+            <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -51,20 +47,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 'n')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 'n')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -106,20 +93,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 'o')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 'o')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -161,20 +139,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 's')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 's')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -231,7 +200,6 @@
               clickable: true,
             }"
             @slideChange="onBrandSlideChange"
-            
             @swiper="onBrandSwiper"
             class="newBrandSwiper"
           >
@@ -246,10 +214,7 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img
-                    :src="item.imageThumbnailPath"
-                    :id="[isVisible ? 'activeImg' : 'inactive']"
-                  />
+                  <img :src="item.imageThumbnailPath" :id="[isVisible ? 'activeImg' : 'inactive']" />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.engName">
@@ -273,30 +238,70 @@
         </div>
         <!-- lookbook -->
         <div class="lookBokkWrap">
-        <div class="fixed-container lookbook">
-          <div class="headerLine">
-            <h4>LOOKBOOK</h4>
-            <span @click="$router.push({ name: 'Contents' })">
-              <img src="@/assets/icons/arrow-right.svg" />
-            </span>
-          </div>
-
-          <div class="lookBookMain">
-            <div class="bookLabel1 pattern1">
-              <img
-                class="cursor-pointer"
-                v-for="book in lookBooks.lineOne.big"
-                :key="book.id"
-                :src="book.post.instagramPost.thumbnailUrl"
-                @click="
-                  store.methods.setContentsDetailsModal(book.post.id, true)
-                "
-              />
+          <div class="fixed-container lookbook">
+            <div class="headerLine">
+              <h4>LOOKBOOK</h4>
+              <span @click="$router.push({ name: 'Contents' })">
+                <img src="@/assets/icons/arrow-right.svg" />
+              </span>
             </div>
-            <div class="bookLabel1 pattern2">
-              <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+
+            <div class="lookBookMain">
+              <div class="bookLabel1 pattern1">
                 <img
                   class="cursor-pointer"
+                  v-for="book in lookBooks.lineOne.big"
+                  :key="book.id"
+                  :src="book.post.instagramPost.thumbnailUrl"
+                  @click="
+                    store.methods.setContentsDetailsModal(book.post.id, true)
+                  "
+                />
+              </div>
+              <div class="bookLabel1 pattern2">
+                <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
+                  <img
+                    class="cursor-pointer"
+                    :src="book.post.instagramPost.thumbnailUrl"
+                    @click="
+                      store.methods.setContentsDetailsModal(book.post.id, true)
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="lookBookMain">
+              <div class="bookLabel2 pattern3">
+                <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
+                  <img
+                    class="cursor-pointer"
+                    :src="book.post.instagramPost.thumbnailUrl"
+                    @click="
+                      store.methods.setContentsDetailsModal(book.post.id, true)
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+              <div class="bookLabel1 pattern2">
+                <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
+                  <img
+                    class="cursor-pointer"
+                    :src="book.post.instagramPost.thumbnailUrl"
+                    @click="
+                      store.methods.setContentsDetailsModal(book.post.id, true)
+                    "
+                  />
+                </div>
+              </div>
+              <div class="bookLabel1 pattern1">
+                <img
+                  class="cursor-pointer"
+                  v-for="book in lookBooks.lineThree.big"
+                  :key="book.id"
                   :src="book.post.instagramPost.thumbnailUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
@@ -304,77 +309,34 @@
                 />
               </div>
             </div>
-          </div>
 
-          <div class="lookBookMain">
-            <div class="bookLabel2 pattern3">
-              <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
-                <img
-                  class="cursor-pointer"
-                  :src="book.post.instagramPost.thumbnailUrl"
-                  @click="
-                    store.methods.setContentsDetailsModal(book.post.id, true)
-                  "
-                />
+            <div class="gotoFamily">
+              <div class="gotofamilyList" :class="{ active: isActive }">
+                <ul>
+                  <li>
+                    <a href="https://app.mediance.co.kr/">
+                      <img src="@/assets/images/logo-2.png" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="http://influencer.mediance.co.kr/">
+                      <img src="@/assets/images/logo-1.png" />
+                    </a>
+                  </li>
+                </ul>
               </div>
+              <button @click="myFilter">패밀리 사이트 바로가기</button>
             </div>
-          </div>
 
-          <div
-            v-if="lookBooks.lineThree.normal.length !== 0"
-            class="lookBookMain"
-          >
-            <div class="bookLabel1 pattern2">
-              <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
-                <img
-                  class="cursor-pointer"
-                  :src="book.post.instagramPost.thumbnailUrl"
-                  @click="
-                    store.methods.setContentsDetailsModal(book.post.id, true)
-                  "
-                />
-              </div>
-            </div>
-            <div class="bookLabel1 pattern1">
-              <img
-                class="cursor-pointer"
-                v-for="book in lookBooks.lineThree.big"
-                :key="book.id"
-                :src="book.post.instagramPost.thumbnailUrl"
-                @click="
-                  store.methods.setContentsDetailsModal(book.post.id, true)
-                "
-              />
-            </div>
+            <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
+            <button
+              class="greyBtnFull"
+              @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
+            >
+              <span>중요</span>
+              {{ notice }}
+            </button>
           </div>
-
-          <div class="gotoFamily">
-            <div class="gotofamilyList" :class="{ active: isActive }">
-              <ul>
-                <li>
-                  <a href="https://app.mediance.co.kr/">
-                    <img src="@/assets/images/logo-2.png" />
-                  </a>
-                </li>
-                <li>
-                  <a href="http://influencer.mediance.co.kr/">
-                    <img src="@/assets/images/logo-1.png" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button @click="myFilter">패밀리 사이트 바로가기</button>
-          </div>
-
-          <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
-          <button
-            class="greyBtnFull"
-            @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
-          >
-            <span>중요</span>
-            {{ notice }}
-          </button>
-        </div>
         </div>
       </div>
     </div>
@@ -483,7 +445,7 @@ export default {
     // }, 5000);
   },
 
-  mounted() {
+  async mounted() {
     this.bannerService.getBannerList("home").then((res) => {
       this.bannerList = res;
       console.log("bannerList", this.bannerList);
@@ -495,9 +457,10 @@ export default {
     });
 
     this.getNoticeIsAuth();
-
-    window.callJsFunction = this.callJsFunction;
-    window.pushNotification = this.pushNotification;
+    let isLogedIn = await this.tokenService.isAuth();
+    if (isLogedIn) {
+      window.parent.postMessage('loginCompleted', '*');
+    }
   },
   methods: {
     onBrandSlideChange() {
@@ -597,6 +560,8 @@ export default {
         // console.log(lookBooks);
       });
     },
+
+
 
     setTags(items) {
       var filterItems = [];
@@ -1004,7 +969,7 @@ export default {
 .newItemWrap {
   margin-bottom: 48px;
 }
-.lookBokkWrap{
+.lookBokkWrap {
   background: #ffffff;
 }
 </style>

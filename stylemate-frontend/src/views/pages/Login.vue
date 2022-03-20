@@ -68,6 +68,7 @@ export default {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('tokenexpiresAt', token_expiresAt);
+      window.parent.postMessage('loginCompleted', '*');
       window.location.href = this.redirectlocalUrl;
       // window.location.href = this.redirectServerUrl;
     }
