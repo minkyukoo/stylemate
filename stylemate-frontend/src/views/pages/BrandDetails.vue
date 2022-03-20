@@ -178,7 +178,7 @@ export default {
         }
         // success
         else {
-          // console.log("res", res);
+          console.log("res", res);
           this.brandDetails = res;
         }
       });
