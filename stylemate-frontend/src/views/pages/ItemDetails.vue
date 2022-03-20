@@ -159,7 +159,7 @@
   </ion-page>
 </template>
 <script>
-// import { inject, onMounted } from "vue";
+// import { inject, onMounted } from "vue"; 주의사항 
 import {
   IonPage,
   // IonInfiniteScroll,
