@@ -14,7 +14,10 @@
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
-          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
+          <swiper-slide
+            v-for="(slide, i) of productDetails.productImageFile"
+            :key="i + 1"
+          >
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
@@ -51,11 +54,13 @@
 
           <div class="product-description">
             <!-- <h2>{{ productDetails.description }}</h2> -->
-            <h2>{{productDetails.name}}</h2>
+            <h2>{{ productDetails.name }}</h2>
 
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
+              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
+                "#" + hash.tag
+              }}</span>
               <!-- <span>hi</span> -->
             </div>
             <p>
@@ -66,13 +71,17 @@
               <span v-for="(item, i) of productDetails.campaign" :key="i">
                 {{
                   item.campaignSchedule
-                    ? moment(item.campaignSchedule.startedAt).format("YYYY.MM.DD")
+                    ? moment(item.campaignSchedule.startedAt).format(
+                        "YYYY.MM.DD"
+                      )
                     : null
                 }}
                 ~
                 {{
                   item.campaignSchedule
-                    ? moment(item.campaignSchedule.finishedAt).format("YYYY.MM.DD")
+                    ? moment(item.campaignSchedule.finishedAt).format(
+                        "YYYY.MM.DD"
+                      )
                     : null
                 }}
               </span>
@@ -87,7 +96,10 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+          <img
+            v-if="productDetails.isInfluenceLike"
+            src="@/assets/icons/heart-filled.svg"
+          />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
@@ -96,13 +108,29 @@
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- {{ sponsorship }} -->
-        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">협찬 신청</button>
+        <button
+          v-if="sponsorship"
+          @click="sponsorshipApplication"
+          class="black-btn"
+        >
+          협찬 신청
+        </button>
         <!-- Cancellation of sponsorship application -->
-        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">협찬 신청 취소</button>
+        <button
+          v-else-if="cancel_spon"
+          @click="sponsorshipCancellation"
+          class="white-btn"
+        >
+          협찬 신청 취소
+        </button>
         <!-- Sponsorship application completed -->
-        <button v-else-if="complete_spon" class="grey-btn">협찬 신청 완료</button>
+        <button v-else-if="complete_spon" class="grey-btn">
+          협찬 신청 완료
+        </button>
         <!-- Sponsorship has ended. -->
-        <button v-else-if="end_spon" class="grey-btn">협찬이 종료되었습니다.</button>
+        <button v-else-if="end_spon" class="grey-btn">
+          협찬이 종료되었습니다.
+        </button>
 
         <!-- use 'white-btn' class for white outline button & 'grey-btn' class for grey button -->
       </div>
@@ -124,26 +152,6 @@
 
         <template v-slot:body>
           <div class="modal-content">
-            <!-- <ul class="shareList">
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-fb.svg" />
-                        <span>페이스북</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-kakaotalk.svg" />
-                        <span>카카오톡</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img src="@/assets/icons/icon-url.svg" />
-                        <span>URL</span>
-                      </a>
-                    </li>
-            </ul>-->
             <p>
               스타일 메이트는 승인된 회원만
               <br />이용할 수 있는 서비스 입니다.
@@ -214,7 +222,7 @@ export default {
       isModalVisible: false,
       isActive: false,
       productDetails: [],
-      productBrand: '',
+      productBrand: "",
       productCampaign: null,
       userToken: "",
       isCancelspon: false,
@@ -222,7 +230,7 @@ export default {
       cancel_spon: false,
       complete_spon: false,
       end_spon: false,
-      platform: 'other',
+      platform: "other",
     };
   },
   setup() {
@@ -258,21 +266,23 @@ export default {
     // this.getURL();
     window.productShare = this.productShare;
     this.getMobileOS();
-    if (this.getMobileOS() == 'Other') {
-      this.platform = 'other';
+    if (this.getMobileOS() == "Other") {
+      this.platform = "other";
     }
-    console.log('getMobileOS', this.getMobileOS());
+    console.log("getMobileOS", this.getMobileOS());
   },
   methods: {
     getMobileOS() {
-      const ua = navigator.userAgent
+      const ua = navigator.userAgent;
       if (/android/i.test(ua)) {
-        return "Android"
+        return "Android";
+      } else if (
+        /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+      ) {
+        return "iOS";
       }
-      else if ((/iPad|iPhone|iPod/.test(ua)) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-        return "iOS"
-      }
-      return "Other"
+      return "Other";
     },
     showModal() {
       this.isModalVisible = true;
@@ -333,7 +343,9 @@ export default {
           //sponsership complete button
           else if (
             res.campaign[0].processStatus == "progress" &&
-            ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
+            ["announce", "posting"].includes(
+              res.campaign[0].processDetailStatus
+            ) &&
             res.campaign[0].booking[0]?.bookingStatus == "join" &&
             [
               "ready",
@@ -370,7 +382,7 @@ export default {
             this.productCampaign = item;
           });
           this.productBrand = this.productDetails.brand;
-          console.log('productBrand:', this.productBrand);
+          console.log("productBrand:", this.productBrand);
         }
       });
     },
@@ -379,7 +391,10 @@ export default {
       let isProductCamp = false;
       if (!pdata) return isProductCamp;
       pdata.forEach((item) => {
-        if (item.processStatus === "progress" && item.channelType === "instagram") {
+        if (
+          item.processStatus === "progress" &&
+          item.channelType === "instagram"
+        ) {
           isProductCamp = true;
           return isProductCamp;
         }
@@ -462,17 +477,24 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService.influencelikes(uid, "product", productId).then((res) => {
-            // console.log(res.response.data.error);
-            // console.log(res.response);
-            this.getProductDetails();
-            if (res.response.data.error) {
-              Toast.fire({ title: res.response.data.error.message });
-            }
-          });
+          if (!this.productDetails.isInfluenceLike) {
+            this.itemService
+              .influencelikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                this.getProductDetails();
+              });
+          } else {
+            this.itemService
+              .influencedislikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                this.getProductDetails();
+              });
+          }
         });
       }
-      console.log("likeProduct");
+      // console.log("likeProduct");
     },
     sponsorshipCancellation() {
       this.isCancelspon = true;
