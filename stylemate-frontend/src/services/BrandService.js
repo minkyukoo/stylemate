@@ -30,7 +30,7 @@ export default class BrandService {
   }
 
   async brandSearchHistory(uid, page) {
-    return await axios.get(`/stylemates/users/${uid}/influence-search-history?type=brand&perPage=10&page=${page}`, {
+    return await axios.get(`/stylemates/users/${uid}/influence-search-history?sort=ascend&type=brand&perPage=10&page=${page}`, {
       headers: {
         'Authorization': 'Bearer ' + token
       }

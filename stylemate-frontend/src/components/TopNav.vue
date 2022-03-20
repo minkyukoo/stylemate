@@ -63,7 +63,7 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
-      if (this.$route.name === 'Notice' || this.$route.name === 'NewMemberJoining') {
+      if (this.$route.name === 'NewMemberJoining') {
         this.$router.push({
           path: "/mypage",
         });
