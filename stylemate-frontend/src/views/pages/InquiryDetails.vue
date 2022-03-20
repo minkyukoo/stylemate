@@ -133,6 +133,7 @@ export default {
       this.details = "";
       this.subjectError = false;
       this.detailsError = false;
+      this.$router.go(-1);
     },
     submitHendler() {
       if (!this.subject || !this.details) {
