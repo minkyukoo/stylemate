@@ -1,7 +1,7 @@
 <template>
   <div class="mypage-liked">
     <!-- header -->
-    <TopNav headerTitle="like" />
+    <TopNav headerTitle="좋아요" />
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
@@ -11,7 +11,7 @@
       <!-- <Login/> -->
       <!-- <ion-button  @click="$router.push({name: 'LinkChannel'})">Link with</ion-button> -->
       <LikedTab />
-      <LikedFilter />
+      <LikedFilter v-if="store.state.likedTabState === 'item'" />
       <LikedItems />
     </div>
     <!-- </ion-content> -->
@@ -34,7 +34,7 @@ import LikedFilter from "@/components/MyPage/liked/likedFilter.vue";
 // import "swiper/css/free-mode";
 // import "swiper/css/scrollbar";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
-
+import { inject } from "vue";
 export default {
   name: "MypageLiked",
   components: {
@@ -51,7 +51,13 @@ export default {
       tabstate: "item",
     };
   },
+  setup() {
+    const store = inject("store");
 
+    return {
+      store,
+    };
+  },
   methods: {
     // setLikeTab(tab) {
     //   this.tabState = tab;

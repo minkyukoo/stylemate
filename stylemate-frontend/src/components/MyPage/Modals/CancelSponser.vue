@@ -45,12 +45,17 @@ export default {
     this.myPageService = new MyPageService();
   },
   methods: {
-    confirmDelete() {
-      let res = this.myPageService.deleteSponsor(
+    async confirmDelete() {
+      let res = await this.myPageService.deleteSponsor(
         this.store.MyPageModals.campaignUID,
         this.store.MyPageModals.bookingID
       );
-      console.log("delete",res);
+      if (res.status === 204) {
+        this.store.state.FltCampaignData = [];
+        this.$emit("cancelSponsor");
+        console.log("delete", res);
+        // this.store.methods.getcampList();
+      }
     },
   },
   unmounted() {

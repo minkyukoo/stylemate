@@ -38,7 +38,7 @@
         <MyPageTopButton
           :name="'채널 연결하기'"
           :style="'btn-dark'"
-          v-on:buttonEvent="fireButton"
+          v-on:buttonEvent="checklinkedChannel"
         />
       </div>
       <div
@@ -142,6 +142,10 @@ export default {
     fireButton() {
       console.log("fireButton");
     },
+    checklinkedChannel() {
+      console.log("checklinkedChannel");
+      this.$router.push({ name: 'NewMemberJoining' });
+    },
   },
 };
 </script>
@@ -217,6 +221,8 @@ export default {
   font-size: 12px;
   line-height: 12px;
   opacity: 0.6;
+  text-align: center;
+  margin-top: 8px;
 }
 .social-media {
   display: flex;

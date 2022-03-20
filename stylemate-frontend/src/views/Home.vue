@@ -17,182 +17,197 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <div class="mainslide-banner-wrap">
-              <img :src="slide.pcImagePath" alt />
-            </div>
+            <router-link
+              to=""
+              class="mainslide-banner-wrap"
+              @click="bannerRedirect(slide.mobileLink)"
+            >
+              <img :src="slide.mobileImagePath" alt="Banner" />
+            </router-link>
           </swiper-slide>
         </swiper>
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
         <div class="fixed-container">
-          <div class="headerLine">
-            <h4>NEW ITEM</h4>
+          <div class="newItemWrap">
+            <div class="headerLine">
+              <h4>NEW ITEM</h4>
+            </div>
+            <swiper
+              :modules="modules"
+              :slides-per-view="1"
+              :space-between="50"
+              :pagination="{ clickable: true }"
+              @swiper="onSwiper"
+              @slideChange="onSlideChange"
+            >
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
+                  <div
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newEvanItems"
+                    :key="index"
+                  >
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'n')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
+                  <div
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newOddItems"
+                    :key="index"
+                  >
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'o')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+
+              <swiper-slide>
+                <div class="multiSlideWrap product-list">
+                  <div
+                    class="slideItem product-list-item cursor-pointer"
+                    v-for="(item, index) in newStartItems"
+                    :key="index"
+                  >
+                    <div class="top-float-div">
+                      <div class="social-icon">
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
+                      </div>
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 's')"
+                      >
+                        <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
+                        <img v-else src="@/assets/icons/heart-outline.svg" />
+                      </div>
+                    </div>
+                    <figure
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <img :src="item.imageThumbnailPath" />
+                    </figure>
+                    <div
+                      class="details-wrap"
+                      @click="
+                        $router.push({
+                          name: 'ItemDetails',
+                          params: { id: item.id },
+                        })
+                      "
+                    >
+                      <h3>{{ item.brand.engName }}</h3>
+                      <p>{{ item.name }}</p>
+                      <div class="hashWrap">
+                        <span>{{ setTags(item.tag) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </swiper-slide>
+            </swiper>
           </div>
-          <swiper
-            :modules="modules"
-            :slides-per-view="1"
-            :space-between="50"
-            :pagination="{ clickable: true }"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newEvanItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
-                  <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newOddItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
-                  <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-
-            <swiper-slide>
-              <div class="multiSlideWrap product-list">
-                <div
-                  class="slideItem product-list-item cursor-pointer"
-                  v-for="(item, index) in newStartItems"
-                  :key="index"
-                >
-                  <div class="top-float-div">
-                    <div class="social-icon">
-                      <img
-                        v-if="isChannelIg(item.campaign)"
-                        src="@/assets/icons/instagram.svg"
-                      />
-                    </div>
-                    <div class="favorite" @click="likeProduct(item.id)">
-                      <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                      <img
-                        v-if="item.isInfluenceLike"
-                        src="@/assets/icons/heart-filled.svg"
-                      />
-                      <img v-else src="@/assets/icons/heart-outline.svg" />
-                    </div>
-                  </div>
-                  <figure
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <img :src="item.imageThumbnailPath" />
-                  </figure>
-                  <div
-                    class="details-wrap"
-                    @click="
-                      $router.push({
-                        name: 'ItemDetails',
-                        params: { id: item.id },
-                      })
-                    "
-                  >
-                    <h3>{{ item.brand.engName }}</h3>
-                    <p>{{ item.name }}</p>
-                    <div class="hashWrap">
-                      <span>{{ setTags(item.tag) }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </swiper-slide>
-          </swiper>
         </div>
         <!-- new Brand section -->
         <div
@@ -205,21 +220,25 @@
           <swiper
             :modules="modules"
             :centeredSlides="true"
-            :slidesPerGroup="1"
+            :loop="true"
+            :centerInsufficientSlides="true"
+            :initialSlide="0"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
             :pagination="{
               clickable: true,
-              dynamicBullets: true,
             }"
             @slideChange="onBrandSlideChange"
+            
+            @swiper="onBrandSwiper"
             class="newBrandSwiper"
           >
             <swiper-slide
               class="brandSliderimg"
               v-for="item in brandList"
+              v-slot="{ isVisible }"
               :key="item.id"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
@@ -227,7 +246,10 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img :src="item.imageThumbnailPath" />
+                  <img
+                    :src="item.imageThumbnailPath"
+                    :id="[isVisible ? 'activeImg' : 'inactive']"
+                  />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.engName">
@@ -243,13 +265,14 @@
                     </b>
                   </h3>
                   <p>{{ setTags(item.tag) }}</p>
-                  <span>{{ truncate(item.description, 56) }}</span>
+                  <span>{{ truncate(item.description, 36) }}</span>
                 </div>
               </div>
             </swiper-slide>
           </swiper>
         </div>
         <!-- lookbook -->
+        <div class="lookBokkWrap">
         <div class="fixed-container lookbook">
           <div class="headerLine">
             <h4>LOOKBOOK</h4>
@@ -346,13 +369,12 @@
           <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
           <button
             class="greyBtnFull"
-            @click="
-              $router.push({ name: 'NoticeDetails', params: { id: id } })
-            "
+            @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
           >
             <span>중요</span>
             {{ notice }}
           </button>
+        </div>
         </div>
       </div>
     </div>
@@ -381,7 +403,7 @@ import UserInfoService from "@/services/UserInfoService";
 import ContentDetails from "@/components/ContentDetails.vue";
 import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
-import { inject } from "vue";
+import { inject, ref } from "vue";
 export default {
   name: "Home",
   components: {
@@ -393,20 +415,37 @@ export default {
   },
   setup() {
     const store = inject("store");
+    const img = ref("");
     const onSwiper = (swiper) => {
       console.log(swiper);
     };
     const onSlideChange = () => {
       console.log("slide change");
     };
-    const onBrandSlideChange = () => {
-      console.log("slide change");
+
+    // onMounted(() => {
+
+    // })
+
+    // onBeforeUpdate(() => {
+    //   img.value = "";
+    // });
+
+    // const onBrandSlideChange = (e) => {
+    //   console.log("slider change", e);
+    //   img.value = document.getElementById("activeImg").src;
+    //   console.log(img.value);
+    // };
+    const onBrandSwiper = (event) => {
+      console.log("brand swiper", event);
     };
     return {
       onSwiper,
       onSlideChange,
-      onBrandSlideChange,
-      modules: [Pagination, EffectCoverflow, Pagination],
+      // onBrandSlideChange,
+      onBrandSwiper,
+      img,
+      modules: [Pagination, EffectCoverflow],
       // modules: [EffectCoverflow, Pagination],
       store,
     };
@@ -447,6 +486,7 @@ export default {
   mounted() {
     this.bannerService.getBannerList("home").then((res) => {
       this.bannerList = res;
+      console.log("bannerList", this.bannerList);
     });
     this.getProductItemList();
     this.getLookBook();
@@ -460,11 +500,23 @@ export default {
     window.pushNotification = this.pushNotification;
   },
   methods: {
+    onBrandSlideChange() {
+      console.log("slider change");
+      this.image = "";
+      this.image = document.getElementById("activeImg").src;
+      console.log(this.image);
+    },
+
     truncate(input, length) {
       if (input.length > length) {
         return input.substring(0, length) + "...";
       }
       return input;
+    },
+
+    bannerRedirect(url) {
+      alert(url);
+      window.open(url, "_blank");
     },
 
     async getNoticeIsAuth() {
@@ -572,7 +624,7 @@ export default {
         });
       }
     },
-    async likeProduct(productId) {
+    async likeProduct(productId, i, a) {
       // condition 1 login check
       let isLogedIn = await this.isLogedIn();
       if (!isLogedIn) {
@@ -581,20 +633,39 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          this.itemService
-            .influencelikes(uid, "product", productId)
-            .then((res) => {
-              // console.log(res.response.data.error);
-              // console.log(res.response);
-              this.getProductItemList();
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+
+          if (a === "n") {
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newEvanItems[i];
+          } else if (a === "o") {
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newOddItems[i];
+          } else if (a === "s") {
+            // eslint-disable-next-line no-redeclare
+            var selfItem = this.newStartItems[i];
+          }
+
+          if (selfItem.isInfluenceLike) {
+            this.itemService
+              .influencedislikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                // console.log(res);
+                selfItem.isInfluenceLike = false;
+              });
+          } else {
+            this.itemService
+              .influencelikes(uid, "product", productId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                selfItem.isInfluenceLike = true;
+              });
+          }
         });
       }
-      console.log("likeProduct");
+      // console.log("likeProduct");
     },
+
     // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
@@ -653,7 +724,7 @@ export default {
   padding: 7px;
 }
 .top-float-div .favorite {
-  margin-right: 12px;
+  margin-right: 5px;
   cursor: pointer;
 }
 .top-float-div .favorite img {
@@ -806,7 +877,7 @@ export default {
 }
 .gotofamilyList {
   position: absolute;
-  bottom: 100%;
+  bottom: 98%;
   width: 100%;
   display: none;
 }
@@ -924,7 +995,16 @@ export default {
   z-index: 2;
 }
 .greyBtnFull {
-  padding: 12px 0;
+  padding: 12px 15px;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.newItemWrap {
+  margin-bottom: 48px;
+}
+.lookBokkWrap{
+  background: #ffffff;
 }
 </style>

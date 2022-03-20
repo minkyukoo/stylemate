@@ -1,7 +1,7 @@
 @import url("https://use.typekit.net/ijr1wam.css");
 @import "./resets";
 @import "./font";
-@import "./Variables";
+@import "./variables";
 @import "./mixins";
 @import "./icons";
 @import "./spacing";
@@ -32,8 +32,10 @@ img:hover {
   justify-content: space-between;
   margin: 40px 0 20px 0;
   h4 {
+    font-family: 'Pretendard-Bold';
     font-size: 24px;
     font-weight: 700;
+    font-weight: bold;
     line-height: 150%;
     color: $black-1;
   }
@@ -250,7 +252,7 @@ img:hover {
     justify-content: space-between;
     width: 100%;
     div {
-      width: 32%;
+      width: 31.5%;
     }
     &.pattern3 {
       div {
@@ -266,7 +268,7 @@ img:hover {
     }
   }
   .pattern1 {
-    width: 67%;
+    width: 66%;
   }
   .pattern2 {
     width: 31%;
@@ -524,10 +526,14 @@ img:hover {
     .selectWrap {
       .vue-select {
         border: none;
+        width: 116px;
         .vue-select-header{
+          .vue-input{
+            padding: 0;
+          }
           .icon.arrow-downward{
             background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
-            width: 9px;
+            width: 10px;
             height: 6px;
             color: transparent;
             border: 0;
@@ -742,4 +748,24 @@ input:checked + .slider:before {
 
 .modal-content p{
   text-align: center;
+}
+
+.channelconnectionmodal {
+  .modal{
+    background: linear-gradient(159.45deg, rgba(255, 255, 255, 0.5) -37.31%, #FFFFFF 43.98%);
+    backdrop-filter: blur(10px);
+  }
+  .modal-header{
+    padding: 28px 0 24px;
+    h2{
+      margin-top: 0;
+    }
+  }
+  .modal-content{
+    padding: 0 32px 28px;
+  }
+}
+
+body.swal2-toast-shown .swal2-container.swal2-bottom{
+  bottom: 85px !important;
 }

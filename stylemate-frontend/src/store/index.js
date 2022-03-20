@@ -11,7 +11,6 @@ const state = reactive({
   AppData: [],
   productMeta: null,
   AppFltData: undefined,
-  FltCampaignData: undefined,
   campaignEmpty: false,
   number: 13,
   UserId: "",
@@ -20,11 +19,10 @@ const state = reactive({
   noticeTabPageName: "Notice",
   likedTabState: "item",
   likedTabBrand: [],
-  likedTabProduct: [], 
+  likedTabProduct: [],
   likedTabProductLength: 0,
   likedTabBrandLength: 0,
-  likedTabAllCategories: [
-    {
+  likedTabAllCategories: [{
       id: "all",
       name: "all",
       active: true,
@@ -43,8 +41,10 @@ const state = reactive({
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
   sponcerFilterNo: 1,
+  FltCampaignData: [],
+  sponcerMeta: null,
   sponcerChannelType: "instagram",
-  isPostModalVisible: false,
+  isPostModalVisible: true,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
@@ -75,6 +75,7 @@ const MyPageModals = reactive({
   campaignId: null,
   productID: null,
   bookingId: null,
+  channelId: null,
 });
 
 var itemService = new ItemService();
@@ -82,18 +83,27 @@ var myPageService = new MyPageService();
 
 const methods = {
   async getData(order, page, categoryId) {
-    return await itemService.getProductList(order,page,categoryId).then((res) => {
-      console.log("ItemList from store", res);
-      console.log("ItemList from store res", res.response);
-      state.productMeta = res.meta;
-      state.AppData.push(...res.data);
-      return state.AppData;
-    });
+    if (categoryId === 'All') {
+      return await itemService.getProductList(order, page, null).then((res) => {
+        console.log("ItemList from store", res);
+        state.productMeta = res.meta;
+        state.AppData.push(...res.data);
+        return state.AppData;
+      });
+    } else {
+      return await itemService.getProductList(order, page, categoryId).then((res) => {
+        console.log("ItemList from store", res);
+        state.productMeta = res.meta;
+        state.AppData.push(...res.data);
+        return state.AppData;
+      });
+    }
   },
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
     state.sponcerFilterNo = 0;
     state.sponcerFilterId = "";
+    state.FltCampaignData = [];
     methods.getcampList();
   },
   setContentsDetailsModal(id, tab) {
@@ -102,9 +112,10 @@ const methods = {
     state.hideBar = true;
     console.log(state.contentDetailsId);
   },
-  async getcampList() {
+  async getcampList(pageNo) {
     return await myPageService
       .getCampaignData(
+        pageNo,
         state.UserId,
         state.sponsorTabState,
         state.sponcerFilterId,
@@ -112,7 +123,9 @@ const methods = {
       )
       .then((data) => {
         console.log("CampaignList from store", data);
-        state.FltCampaignData = data.data.data;
+        let resData = data.data.data;
+        state.FltCampaignData.push(...resData);
+        state.sponcerMeta = data.data.meta;
         // console.log("CampaignList from store", state.FltCampaignData);
         state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
         console.log("0th", state.campaignEmpty);
@@ -123,6 +136,7 @@ const methods = {
     state.sponcerFilterId = id;
     state.sponcerFilterNo = index;
     // console.log(index);
+    state.FltCampaignData = [];
     methods.getcampList();
     console.log(
       "setSponsorFilter",

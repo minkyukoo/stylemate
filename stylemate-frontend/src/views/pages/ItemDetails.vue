@@ -36,12 +36,13 @@
         <div class="item-wrapper">
           <div class="top-section">
             <div class="left-section">
-              <h3>{{ productDetails.name }}</h3>
+              <h3>{{ productBrand.korName }}</h3>
+              <!-- <h3>{{ productDetails.name }}</h3> -->
               <span>
                 <img src="@/assets/icons/arrow-left.svg" />
               </span>
             </div>
-            <div class="right-section" v-if="!platform=='other'">
+            <div class="right-section" v-if="!platform == 'other'">
               <button @click="showModal">
                 <img src="@/assets/icons/share.svg" />
               </button>
@@ -49,7 +50,8 @@
           </div>
 
           <div class="product-description">
-            <h2>{{ productDetails.description }}</h2>
+            <!-- <h2>{{ productDetails.description }}</h2> -->
+            <h2>{{productDetails.name}}</h2>
 
             <div class="hashwrap">
               <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
@@ -110,6 +112,7 @@
         class="bottomDrawer"
         :class="{ active: isActive }"
         :isCancelspon="isCancelspon"
+        v-if="isActive"
         v-on:closePopup="closeDrawerBottom($event)"
       />
 
@@ -211,10 +214,11 @@ export default {
       isModalVisible: false,
       isActive: false,
       productDetails: [],
+      productBrand: '',
       productCampaign: null,
       userToken: "",
       isCancelspon: false,
-      sponsorship: false,
+      sponsorship: true,
       cancel_spon: false,
       complete_spon: false,
       end_spon: false,
@@ -236,11 +240,15 @@ export default {
       modules: [Pagination],
     };
   },
-  created() {
+  async created() {
     this.moment = moment;
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
+    let isLogedIn = await this.tokenService.isAuth();
+    if (isLogedIn) {
+      this.sponsorship = false;
+    }
     this.getProductDetails();
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/item');
@@ -282,8 +290,10 @@ export default {
     },
     getProductDetails() {
       var proId = this.$route.params.id;
+
       this.itemService.getProductDetails(proId).then((res) => {
         // catch error
+        console.log(res);
         if (res.response) {
           if (res.response.status == 404) {
             this.$router.push("/item");
@@ -292,18 +302,18 @@ export default {
         // success
         else {
           this.productDetails = res;
-          // console.log("productDetails:-", this.productDetails);
+          console.log("productDetails:-", this.productDetails);
           // console.log("processStatus:-", res.campaign[0].processStatus);
           // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
-          // console.log("bookingStatus:-", res.campaign[0].booking[0].bookingStatus);
-          // console.log("postStatus:-", res.campaign[0].booking[0].postStatus);
+          // console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
+          // console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
             res.campaign[0].processDetailStatus == "booking" &&
             res.campaign[0].booking.length > 0 &&
-            res.campaign[0].booking[0].bookingStatus == "booking" &&
-            res.campaign[0].booking[0].postStatus == "ready"
+            res.campaign[0].booking[0]?.bookingStatus == "booking" &&
+            res.campaign[0].booking[0]?.postStatus == "ready"
           ) {
             this.sponsorship = false;
             this.cancel_spon = true;
@@ -324,7 +334,7 @@ export default {
           else if (
             res.campaign[0].processStatus == "progress" &&
             ["announce", "posting"].includes(res.campaign[0].processDetailStatus) &&
-            res.campaign[0].booking[0].bookingStatus == "join" &&
+            res.campaign[0].booking[0]?.bookingStatus == "join" &&
             [
               "ready",
               "post_request",
@@ -347,8 +357,8 @@ export default {
           else if (
             res.campaign[0].processStatus == "finish" &&
             res.campaign[0].processDetailStatus == "finish" &&
-            res.campaign[0].booking[0].bookingStatus == "finish" &&
-            res.campaign[0].booking[0].postStatus == "finish"
+            res.campaign[0].booking[0]?.bookingStatus == "finish" &&
+            res.campaign[0].booking[0]?.postStatus == "finish"
           ) {
             this.sponsorship = false;
             this.cancel_spon = false;
@@ -359,6 +369,8 @@ export default {
           this.productDetails.campaign.map((item) => {
             this.productCampaign = item;
           });
+          this.productBrand = this.productDetails.brand;
+          console.log('productBrand:', this.productBrand);
         }
       });
     },
@@ -473,6 +485,7 @@ export default {
         this.isCancelspon = false;
         this.isActive = false;
       }
+      this.getProductDetails();
     },
 
     // for productShare

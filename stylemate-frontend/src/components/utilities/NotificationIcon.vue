@@ -2,7 +2,7 @@
   <div class="notification" to="/notification" @click="alertConfirm()">
     <div class="notification-inner">
       <i class="icon-notification"></i>
-      <span class="badge">{{ notificationCount }}</span>
+      <!-- <span class="badge">{{ notificationCount }}</span> -->
       <i class="icon-blue-dot"></i>
     </div>
   </div>
@@ -68,8 +68,8 @@ export default {
   font-size: 14px;
   line-height: 14px;
 }
-.inner-header .notification .badge,
+/* .inner-header .notification .badge,
 .main-header .notification .icon-blue-dot {
   display: none;
-}
+} */
 </style>

@@ -41,6 +41,17 @@ export default {
       redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
       localUrl: 'http://localhost:8100/login',
       redirectlocalUrl: 'http://localhost:8100/home',
+
+      // clent server setting don't remove
+      // develop branch >
+      //https://stylemate.alloo.cc
+      //main branch >
+      //https://stylemate.mediance.co.kr
+      
+      // serverUrl: 'https://stylemate.alloo.cc/login',
+      // redirectServerUrl: 'https://stylemate.alloo.cc/home',
+      // localUrl: 'http://localhost:8100/login',
+      // redirectlocalUrl: 'http://localhost:8100/home',
     }
   },
   mounted() {

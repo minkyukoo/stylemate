@@ -60,7 +60,7 @@ export default {
   );
   border-radius: 20px;
   backdrop-filter: blur(30px);
-  padding: 20px 40px;
+  padding: 20px;
   /* position: relative;
   top: -50px; */
   margin-top: -50px;

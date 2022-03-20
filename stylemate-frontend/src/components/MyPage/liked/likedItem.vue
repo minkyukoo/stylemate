@@ -6,13 +6,15 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.name }}</h2>
+        <h2>{{ progressDetails.brand.korName }}</h2>
+        <!-- <h2>{{ progressDetails.name }}</h2> -->
         <button class="like" @click="dislikeProduct(progressDetails.id)">
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>
       </div>
       <div>
-        <h4>{{ progressDetails.description }}</h4>
+        <!-- <h4>{{ progressDetails.description }}</h4> -->
+        <h4>{{progressDetails.name}}</h4>
         <h6>End date {{ dateFormat(progressDetails.createdAt) }}</h6>
       </div>
     </div>
@@ -62,15 +64,15 @@ export default {
       }
     },
     async dislikeProduct(productId) {
-      console.log('productId', productId);
+      // console.log('productId', productId);
       let uid;
 
       await this.isUserid().then((res) => {
         uid = res;
-        console.log('uid', uid);
+        // console.log('uid', uid);
 
         this.itemservice.influencedislikes(uid, 'product', productId).then((res) => {
-          console.log('dres', res);
+          // console.log('dres', res);
           if (res) {
             if (res.response.status && res.response.status !== 204) {
               Toast.fire({ title: res.response.data.error.message });
@@ -80,7 +82,7 @@ export default {
           }
         });
       });
-      console.log('dislike');
+      // console.log('dislike');
     }
   },
 };
@@ -93,7 +95,7 @@ export default {
 }
 .item-card .img-con {
   width: 100px;
-  height: 120px;
+  height: 100px;
   border-radius: 6px;
   position: relative;
 }

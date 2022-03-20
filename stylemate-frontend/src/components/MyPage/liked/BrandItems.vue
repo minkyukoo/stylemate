@@ -6,7 +6,7 @@
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.engName }}</h2>
+        <h2>{{ progressDetails.korName }}</h2>
         <button class="like" @click="dislikeBrand(progressDetails.id)">
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>
@@ -60,7 +60,7 @@ export default {
       }
     },
     async dislikeBrand(brandId) {
-      console.log('brandId', brandId);
+      // console.log('brandId', brandId);
       let uid;
 
       await this.isUserid().then((res) => {
@@ -68,7 +68,7 @@ export default {
         console.log('uid', uid);
 
         this.brandService.influencedislikes(uid, 'brand', brandId).then((res) => {
-          console.log('dres', res);
+          // console.log('dres', res);
           if (res) {
             if (res.response.status && res.response.status !== 204) {
               Toast.fire({ title: res.response.data.error.message });
@@ -78,7 +78,7 @@ export default {
           }
         });
       });
-      console.log('brand dislike');
+      // console.log('brand dislike');
     }
   },
 };

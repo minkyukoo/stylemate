@@ -42,7 +42,7 @@
             {{ answer }}
           </p>
         </div>
-        <div class="buttongrp">
+        <div class="buttongrp p-16">
           <button
             class="inqList-btn"
             @click="
@@ -56,38 +56,19 @@
       </div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button
-            class="main-btn"
-            @click="$router.push({ path: '/notice', hash: '#inquiry' })"
-          >
-            목록으로
-          </button>
+          <button class="main-btn" @click="$router.go(-1)">목록으로</button>
         </div>
         <div class="pagination-wrap">
           <a
             :class="{ 'cursor-pointer': previousId !== null }"
-            @click="
-              previousId !== null
-                ? $router.push({
-                    name: 'InquiryRegisterDetails',
-                    params: { id: previousId },
-                  })
-                : false
-            "
+            @click="PageRedirect(previousId)"
           >
             <img src="@/assets/icons/arrow-left-thin.svg" />
             이전글
           </a>
           <a
             :class="{ 'cursor-pointer': nextId !== null }"
-            @click="
-              nextId !== null
-                ? $router.push({
-                    name: 'InquiryRegisterDetails',
-                    params: { id: nextId },
-                  })
-                : false
-            "
+            @click="PageRedirect(nextId)"
           >
             다음글
             <img src="@/assets/icons/arrow-right-thin.svg" />
@@ -174,6 +155,25 @@ export default {
           break;
       }
     },
+
+    PageRedirect(id) {
+      if (id !== null) {
+        this.service
+          .QNAsCheckById(id)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$router.push({
+                name: "InquiryRegisterDetails",
+                params: { id: id },
+              });
+            }
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
   },
 };
 </script>
@@ -241,6 +241,9 @@ export default {
   align-items: center;
   justify-content: flex-end;
   margin: 9px 0;
+}
+.buttongrp.p-16 {
+  padding: 0 16px;
 }
 .inqList-btn {
   font-weight: bold;

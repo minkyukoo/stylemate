@@ -3,11 +3,7 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img
-            src="@/assets/images/logo-black.svg"
-            class="siteLogo"
-            alt="Logo"
-          />
+          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
           <NotificationIcon :notificationCount="notificationLength" />
         </div>
       </div>
@@ -19,13 +15,11 @@
       <div class="container">
         <div class="flex items-center justify-center relative">
           <ion-buttons slot="start" class="back-btn-wrap">
-            <button class="back-btn" @click="$router.go(-1)">
+            <button class="back-btn" @click="backMainpage">
               <i class="icon-left-arrow"></i>
             </button>
           </ion-buttons>
-          <h1 v-if="headerTitle" class="header-title text-center">
-            {{ headerTitle }}
-          </h1>
+          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
           <NotificationIcon :notificationCount="notificationLength" />
         </div>
@@ -61,13 +55,23 @@ export default {
   },
   mounted() {
     this.getNotificationLength();
+    console.log(this.$route.name);
   },
   methods: {
     // isLogedIn
     async isLogedIn() {
       return await this.tokenService.isAuth();
     },
-
+    backMainpage() {
+      if (this.$route.name === 'Notice' || this.$route.name === 'NewMemberJoining') {
+        this.$router.push({
+          path: "/mypage",
+        });
+      }
+      else {
+        this.$router.go(-1);
+      }
+    },
     async getNotificationLength() {
       let isLogedIn = await this.isLogedIn();
       if (isLogedIn) {

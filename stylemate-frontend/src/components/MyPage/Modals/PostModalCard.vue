@@ -8,30 +8,19 @@
     <label class="custom-radio" :for="`radio-${e}`"
       ><div class="Post-header">
         <div class="img-con">
-          <img
-            :src="
-              i.instagramPost.thumbnailUrl
-                ? i.instagramPost.thumbnailUrl
-                : i.instagramPost.thumbnailOriginalUrl
-            "
-            alt=""
-          />
+          <img :src="i.media_url" alt="" />
         </div>
         <div class="item-desc">
           <div>
             <h4>
-              {{
-                moment(i.campaign.campaignSchedule.finishedAt).format(
-                  "YYYY.MM.DD  h:mm"
-                )
-              }}
+              {{ moment(i.timestamp).format("YYYY.MM.DD  h:mm") }}
             </h4>
-            <ul>
+            <!-- <ul>
               <li v-for="(tags, index) in i.instagramPost.hashTag" :key="index">
                 {{ tags }}
               </li>
-            </ul>
-            <h6>{{ i.desc }}</h6>
+            </ul> -->
+            <h6>{{ truncate(i.caption, 40) }}</h6>
           </div>
         </div>
       </div>
@@ -68,6 +57,12 @@ export default {
   methods: {
     choosePost(event) {
       this.$emit("choosePost", event);
+    },
+    truncate(input, length) {
+      if (input.length > length) {
+        return input.substring(0, length) + "...";
+      }
+      return input;
     },
     setActive(e) {
       console.log(e);
@@ -125,7 +120,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
-.Post-header .item-desc ul li {
+.Post-header .item-desc h6 {
   font-size: 10px;
   line-height: 12px;
   color: #595959;

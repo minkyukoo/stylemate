@@ -11,6 +11,7 @@ const state = reactive({
   fbDetails: undefined,
   igDetails: undefined,
   extendToken: undefined,
+  fbaccessTokenType: undefined,
 });
 
 
@@ -48,13 +49,19 @@ const methods = {
       if (response.authResponse) {
         // alert("You are logged in &amp; cookie set!");
         let ftoken = response.authResponse.accessToken;
+        console.log('ftoken:--', ftoken);
+        console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
         channelService.igTokenExtend(ftoken).then((res) => {
-          console.log('igTokenExtend: ', res.data);
-          // localStorage.setItem('fbaccessToken', res.data.token.access_token);
+          // console.log('igTokenExtend: ', res.data);
+          localStorage.setItem('fbaccessToken', res.data.token.access_token);
+          state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
-          channelService.getIgTokenRenew(response.authResponse);
-          this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          // channelService.getIgTokenRenew(res.data.token.access_token).then((res) => {
+          //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);
+          // });
+          // channelService.getIgTokenRenew(response.authResponse);
+          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
         });
         this.statusChangeCallback(response);
         return true;
@@ -67,7 +74,8 @@ const methods = {
     }, { scope: 'public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights' });
     return false;
   },
-
+  // public_profile,email,pages_show_list,pages_read_engagement,instagram_basic,instagram_manage_insights -- scope
+  
   setIgrenewaltoken(fextoken, fextokenName) {
     userInfoService.getUserInfo().then((res) => {
       console.log('getUserInfo: ', res.data);

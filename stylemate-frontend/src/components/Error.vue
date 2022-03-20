@@ -1,5 +1,5 @@
 <template>
-  <div class="empty">{{ errors }}</div>
+  <div class="empty" v-html="errors"></div>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 <style scoped>
 .empty {
   text-align: center;
-  padding: 30px 0;
+  padding: 45px 0;
   font-size: 14px;
   line-height: 17px;
   color: #c4c4c4;

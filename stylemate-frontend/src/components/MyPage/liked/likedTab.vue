@@ -8,7 +8,7 @@
             : 'sponsor-btn',
         ]"
       >
-        item
+        아이템
       </button>
     </div>
     <div class="sponsor-tab-item" @click="setBrandTab()">
@@ -19,7 +19,7 @@
             : 'sponsor-btn',
         ]"
       >
-        brand
+        브랜드
       </button>
     </div>
   </div>
@@ -27,7 +27,7 @@
 
 <script>
 import UserInfoService from "@/services/UserInfoService";
-import { inject, onMounted } from "vue";
+import { inject } from "vue";
 export default {
   name: "likedTab",
   data() {
@@ -37,10 +37,7 @@ export default {
   },
   setup() {
     const store = inject("store");
-    onMounted(() => {
-      console.log("from Store", store.state.likedTabState);
-    });
-
+    
     return {
       store,
     };

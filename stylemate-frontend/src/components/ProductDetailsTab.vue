@@ -1,8 +1,20 @@
 <template>
   <div class="tab-wrap">
     <div class="tabs">
-      <button class="tab" @click="layout = 'tab1'" :class="{ active: layout === 'tab1' }">캠페인</button>
-      <button class="tab" @click="layout = 'tab2'" :class="{ active: layout === 'tab2' }">가이드</button>
+      <button
+        class="tab"
+        @click="layout = 'tab1'"
+        :class="{ active: layout === 'tab1' }"
+      >
+        캠페인
+      </button>
+      <button
+        class="tab"
+        @click="layout = 'tab2'"
+        :class="{ active: layout === 'tab2' }"
+      >
+        가이드
+      </button>
     </div>
     <!-- tab content 1 -->
     <div class="tab-content" v-if="layout === 'tab1'">
@@ -52,6 +64,15 @@
 
     <!-- tab content 2 -->
     <div class="tab-content" v-if="layout === 'tab2'">
+      <div class="tag-info-head">
+        <h3>
+        <span>
+          <img src="@/assets/icons/warning.svg" />
+        </span>
+        필수입력 태그
+      </h3>
+      </div>
+      
       <div class="tag-info" v-for="(item, i) of productData.campaign" :key="i">
         <div class="tag-info-row">
           <div class="top">
@@ -62,7 +83,8 @@
             <span
               v-for="(hastag, i) of item.campaignMission.requiredHashtag"
               :key="i"
-            >{{ '#' + hastag }}</span>
+              >{{ "#" + hastag }}</span
+            >
           </div>
         </div>
         <div class="tag-info-row">
@@ -74,7 +96,8 @@
             <span
               v-for="(account, i) of item.campaignMission.requiredAccount"
               :key="i"
-            >{{ '@' + account }}</span>
+              >{{ "@" + account }}</span
+            >
           </div>
         </div>
       </div>
@@ -190,7 +213,10 @@
           </ul>
         </div>
 
-        <div class="guide" v-if="productCampaign.campaignMission.isBrandedGuide">
+        <div
+          class="guide"
+          v-if="productCampaign.campaignMission.isBrandedGuide"
+        >
           <div class="heading">
             <span>
               <img src="@/assets/icons/icon-check-2.svg" />
@@ -198,8 +224,15 @@
             <h3>브랜디드 콘텐츠 광고 레이블 가이드</h3>
           </div>
           <div class="desc guide-body">
-            <p>브랜디드 콘텐츠 광고 레이블 추가는 필수사항이며 미추가 시, 레이블 추가 요청을 드릴 수 있습니다.</p>
-            <a class="see-more" href="https://www.instagram.com/stories/highlights/18258294373070596/">추가방법 보러가기</a>
+            <p>
+              브랜디드 콘텐츠 광고 레이블 추가는 필수사항이며 미추가 시, 레이블
+              추가 요청을 드릴 수 있습니다.
+            </p>
+            <a
+              class="see-more"
+              href="https://www.instagram.com/stories/highlights/18258294373070596/"
+              >추가방법 보러가기</a
+            >
           </div>
         </div>
       </div>
@@ -212,7 +245,7 @@ import Toast from "@/alert/alert.js";
 export default {
   name: "ProductDetailsTab",
   props: {
-    productData: null
+    productData: null,
   },
   data() {
     return {
@@ -244,44 +277,41 @@ export default {
     };
   },
   mounted() {
-    console.log('ProductDetailsTab mounted', this.$props.productData);
-
+    console.log("ProductDetailsTab mounted", this.$props.productData);
   },
   updated() {
     if (this.$props.productData.campaign) {
       // this.productCampaign = this.$props.productData.campaign;
-      this.$props.productData.campaign.map(item => this.productCampaign=item);
-      console.log('productCampaign', this.productCampaign);
+      this.$props.productData.campaign.map(
+        (item) => (this.productCampaign = item)
+      );
+      console.log("productCampaign", this.productCampaign);
     }
   },
   methods: {
     copyHastags() {
       var copiedtext = document.querySelector(".hastags span").innerHTML;
       if (copiedtext) {
-        console.log('copiedtext', copiedtext);
+        console.log("copiedtext", copiedtext);
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
           const copyTxtValue = navigator.clipboard.writeText(copiedtext);
-          copyTxtValue.then(
-            function () {
-              Toast.fire({ title: "Copied to clipboard" });
-              return copyTxtValue;
-            }
-          );
+          copyTxtValue.then(function () {
+            Toast.fire({ title: "Copied to clipboard" });
+            return copyTxtValue;
+          });
         }
       }
     },
     copyAccounttags() {
       var copiedtext = document.querySelector(".accounttags span").innerHTML;
       if (copiedtext) {
-        console.log('copiedtext', copiedtext);
+        console.log("copiedtext", copiedtext);
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
           const copyTxtValue = navigator.clipboard.writeText(copiedtext);
-          copyTxtValue.then(
-            function () {
-              Toast.fire({ title: "Copied to clipboard" });
-              return copyTxtValue;
-            }
-          );
+          copyTxtValue.then(function () {
+            Toast.fire({ title: "Copied to clipboard" });
+            return copyTxtValue;
+          });
         }
       }
     },
@@ -375,6 +405,7 @@ export default {
   border: 1px solid #797979;
   padding: 0 20px;
   border-radius: 6px;
+  margin-top: 13px;
 }
 .tag-info .tag-info-row {
   border-top: solid 1px #f6f6f6;
@@ -418,17 +449,17 @@ export default {
   margin-top: 58px;
 }
 
-.terms-wrap .guide .heading {
+.terms-wrap .guide .heading, .tag-info-head h3 {
   display: flex;
   align-items: center;
 }
-.terms-wrap .guide .heading h3 {
-  font-weight: bold;
+.terms-wrap .guide .heading h3, .tag-info-head h3 {
+  font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   color: #25282b;
 }
-.terms-wrap .guide .heading span {
+.terms-wrap .guide .heading span, .tag-info-head h3 span {
   margin-right: 4px;
 }
 .terms-wrap .guide .guide-body {
