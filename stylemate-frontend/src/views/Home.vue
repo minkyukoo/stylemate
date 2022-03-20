@@ -14,6 +14,7 @@
           :space-between="0"
           :pagination="{ clickable: true }"
           :autoplay="autoplay"
+          :initialSlide="0"
           :centeredSlides=true
           @swiper="onSwiper"
           @slideChange="onSlideChange"
@@ -230,6 +231,7 @@
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
+            :autoplay="autoplay"
             :pagination="{
               clickable: true,
             }"
