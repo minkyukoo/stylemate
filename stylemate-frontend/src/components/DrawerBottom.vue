@@ -18,7 +18,6 @@
           v-model="selected"
           @toggle="control(i)"
           :close-on-select="true"
-          class="xyz"
         ></vue-select>
       </div>
     </div>

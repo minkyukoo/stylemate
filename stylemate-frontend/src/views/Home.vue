@@ -11,13 +11,19 @@
         <swiper
           :modules="modules"
           :slides-per-view="1"
-          :space-between="50"
+          :space-between="0"
           :pagination="{ clickable: true }"
+          :autoplay="autoplay"
+          :centeredSlides=true
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+            <router-link
+              to
+              class="mainslide-banner-wrap"
+              @click="bannerRedirect(slide.mobileLink)"
+            >
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -34,6 +40,7 @@
               :modules="modules"
               :slides-per-view="1"
               :space-between="50"
+              :loop="loop"
               :pagination="{ clickable: true }"
               @swiper="onSwiper"
               @slideChange="onSlideChange"
@@ -47,11 +54,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'n')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'n')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -93,11 +109,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'o')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'o')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -139,11 +164,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 's')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 's')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -214,7 +248,10 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img :src="item.imageThumbnailPath" :id="[isVisible ? 'activeImg' : 'inactive']" />
+                  <img
+                    :src="item.imageThumbnailPath"
+                    :id="[isVisible ? 'activeImg' : 'inactive']"
+                  />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.engName">
@@ -285,7 +322,10 @@
               </div>
             </div>
 
-            <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+            <div
+              v-if="lookBooks.lineThree.normal.length !== 0"
+              class="lookBookMain"
+            >
               <div class="bookLabel1 pattern2">
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
@@ -331,7 +371,9 @@
             <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
             <button
               class="greyBtnFull"
-              @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
+              @click="
+                $router.push({ name: 'NoticeDetails', params: { id: id } })
+              "
             >
               <span>중요</span>
               {{ notice }}
@@ -348,9 +390,8 @@
 
 <script>
 // Import Swiper Vue.js components
-import { Pagination, EffectCoverflow } from "swiper";
+import SwiperCore, { Pagination, EffectCoverflow, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -366,6 +407,7 @@ import ContentDetails from "@/components/ContentDetails.vue";
 import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
 import { inject, ref } from "vue";
+SwiperCore.use([EffectCoverflow, Pagination, Autoplay]);
 export default {
   name: "Home",
   components: {
@@ -426,6 +468,12 @@ export default {
         lineTwo: { normal: [] },
         lineThree: { big: [], normal: [] },
       },
+      centeredSlides: true,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
       newProItems: null,
       isActive: false,
       notificationLength: 0,
@@ -459,7 +507,7 @@ export default {
     this.getNoticeIsAuth();
     let isLogedIn = await this.tokenService.isAuth();
     if (isLogedIn) {
-      window.parent.postMessage('loginCompleted', '*');
+      window.parent.postMessage("loginCompleted", "*");
     }
   },
   methods: {
@@ -560,8 +608,6 @@ export default {
         // console.log(lookBooks);
       });
     },
-
-
 
     setTags(items) {
       var filterItems = [];
