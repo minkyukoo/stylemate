@@ -12,8 +12,7 @@
         <a
           :class="{ active: category.id === activeId }"
           @click="handleClick(category.childCategory, category.id)"
-          >{{ category.name }}</a
-        >
+        >{{ category.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -26,22 +25,31 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide
-        v-for="childCategory in childCategoryArray"
-        :key="childCategory.name"
-      >
+      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
         <a
           :class="{ active: childCategory.id === childactiveId }"
           @click="handleClick2(childCategory.id)"
-          >{{ childCategory.name }}</a
-        >
+        >{{ childCategory.name }}</a>
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
   </div>
 
   <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
-    <img src="@/assets/images/product-banner.jpg" />
+    <swiper
+      :modules="modules"
+      :slides-per-view="1"
+      :space-between="50"
+      :pagination="{ clickable: true }"
+      @swiper="onSwiper"
+      @slideChange="onSlideChange"
+    >
+      <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
+        <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+          <img :src="slide.mobileImagePath" alt="Banner" />
+        </router-link>
+      </swiper-slide>
+    </swiper>
   </div>
 
   <!-- <div class="product-main-banner" v-if="!childCategory" v-show="!listproduct">
@@ -52,6 +60,7 @@
 <script>
 import { inject } from "vue";
 import ItemService from "@/services/ItemService";
+import BannerService from "@/services/BannerService";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/scrollbar";
@@ -88,7 +97,7 @@ export default {
       categorylist: null,
       nofltData: false,
       filterproductList: null,
-
+      bannerList: null,
       childCategories2: null,
       activeId: -1,
       childactiveId: -1,
@@ -98,11 +107,16 @@ export default {
 
   created() {
     this.itemServices = new ItemService();
+    this.bannerService = new BannerService();
     this.itemServices.getProductCategories().then((data) => {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
       this.activeId = "All"; //To highlight the button default
+    });
+    this.bannerService.getBannerList("item").then((res) => {
+      this.bannerList = res;
+      console.log("bannerList", this.bannerList);
     });
   },
 
@@ -130,7 +144,7 @@ export default {
         this.$emit("pageResetcat", this.spage);
 
         this.store.state.AppData = [];
-        
+
         var self = this;
 
         this.store.methods.getData(null, this.spage, ids).then(function (data) {
