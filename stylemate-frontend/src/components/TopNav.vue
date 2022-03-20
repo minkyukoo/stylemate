@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     this.getNotificationLength();
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
   },
   methods: {
     // isLogedIn
