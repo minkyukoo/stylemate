@@ -169,11 +169,7 @@ export default {
     if (!fbaccessToken) {
       this.$router.push({ name: 'NewMemberJoining' });
     }
-
     this.getUserinfo2();
-
-
-
   },
   async updated() {
     let fbaccessToken = await this.channelService.getfbaccessToken();

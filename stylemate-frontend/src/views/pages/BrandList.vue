@@ -32,9 +32,7 @@
         @reachEnd="onSlideChange"
       >
         <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
-          <a @click="sreachWithHistory(item.searchKeyword)">
-            {{ item.searchKeyword }}
-          </a>
+          <a @click="sreachWithHistory(item.searchKeyword)">{{ item.searchKeyword }}</a>
         </swiper-slide>
       </swiper>
     </div>
@@ -67,14 +65,9 @@
                     params: { id: info.id },
                   })
                 "
-              >
-                {{ info.korName }}
-              </h3>
+              >{{ info.korName }}</h3>
               <div class="text-box" @click="likeBrand(info.id, i)">
-                <img
-                  v-if="info.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </ion-card-title>
@@ -84,15 +77,13 @@
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="maincontent"
-            >{{ info.description }}</ion-card-content
-          >
+          >{{ info.description }}</ion-card-content>
           <ion-card-content
             @click="
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="subcontent"
-            >{{ setTags(info.tag) }}</ion-card-content
-          >
+          >{{ setTags(info.tag) }}</ion-card-content>
         </div>
       </div>
     </div>
@@ -152,7 +143,8 @@ export default {
     this.tokenService = new TokenService();
   },
   mounted() {
-    window.keyboardHide = this.keyboardHide;
+    // window.keyboardHide = this.keyboardHide;
+    // window.parent.postMessage(this.keyboardHide(), "*");
     this.setUser();
     this.getBrandList();
   },
@@ -202,6 +194,10 @@ export default {
       });
     },
 
+    keyboardHide(e) {
+      window.parent.postMessage( e, '*');
+    },
+
     sreachWord(keyword) {
       if (keyword.length > 0) {
         this.brandService.searchBrand(keyword).then((res) => {
@@ -217,6 +213,7 @@ export default {
         this.notFound = false;
         this.getBrandList();
       }
+      this.keyboardHide('keyboardHide');
     },
 
     sreachWithHistory(history) {

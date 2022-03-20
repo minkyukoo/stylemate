@@ -164,6 +164,7 @@ export default class ChannelService {
 
 
   //fb token exted for long term
+  // https://api.alloo.cc/commons/instagram-token --local
   async igTokenExtend(fbToken) {
     return axios.get(`https://api.alloo.cc/commons/instagram-token`, {
       params: {
