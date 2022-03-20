@@ -769,3 +769,9 @@ input:checked + .slider:before {
 body.swal2-toast-shown .swal2-container.swal2-bottom{
   bottom: 85px !important;
 }
+
+.listmain .searchbar-search-icon.sc-ion-searchbar-md,
+ion-searchbar ion-icon {
+  right: 5px !important;
+  left: auto !important;
+}
