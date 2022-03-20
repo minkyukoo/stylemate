@@ -113,7 +113,7 @@ const methods = {
     console.log(state.contentDetailsId);
   },
   async getcampList(pageNo) {
-    state.FltCampaignData = []
+    
     return await myPageService
       .getCampaignData(
         pageNo,
