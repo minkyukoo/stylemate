@@ -15,7 +15,7 @@
       <div>
         <!-- <h4>{{ progressDetails.description }}</h4> -->
         <h4>{{progressDetails.name}}</h4>
-        <h6>End date {{ dateFormat(progressDetails.createdAt) }}</h6>
+        <h6>종료일 {{ dateFormat(progressDetails.createdAt) }}</h6>
       </div>
     </div>
   </div>

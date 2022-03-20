@@ -66,18 +66,20 @@
     <div class="tab-content" v-if="layout === 'tab2'">
       <div class="tag-info-head">
         <h3>
-        <span>
-          <img src="@/assets/icons/warning.svg" />
-        </span>
-        필수입력 태그
-      </h3>
+          <span>
+            <img src="@/assets/icons/warning.svg" />
+          </span>
+          필수입력 태그
+        </h3>
       </div>
-      
+
       <div class="tag-info" v-for="(item, i) of productData.campaign" :key="i">
         <div class="tag-info-row">
           <div class="top">
             <h3>해시태그</h3>
-            <span @click="copyHastags">복사</span>
+            <span @click="copyHastags(item.campaignMission.requiredHashtag)"
+              >복사</span
+            >
           </div>
           <div class="tag-content hastags">
             <span
@@ -90,7 +92,7 @@
         <div class="tag-info-row">
           <div class="top">
             <h3>계정태그</h3>
-            <span @click="copyAccounttags">복사</span>
+            <span @click="copyAccounttags(item.campaignMission.requiredAccount)">복사</span>
           </div>
           <div class="tag-content accounttags">
             <span
@@ -289,27 +291,31 @@ export default {
     }
   },
   methods: {
-    copyHastags() {
-      var copiedtext = document.querySelector(".hastags span").innerHTML;
+    copyHastags(hash) {
+      console.log(hash);
+      var hasgtag = hash.map((m) => `#${m}`);
+      var copiedtext = hasgtag.join("").toString();
       if (copiedtext) {
         console.log("copiedtext", copiedtext);
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
           const copyTxtValue = navigator.clipboard.writeText(copiedtext);
           copyTxtValue.then(function () {
-            Toast.fire({ title: "Copied to clipboard" });
+            Toast.fire({ title: "클립보드에 복사되었습니다." });
             return copyTxtValue;
           });
         }
       }
     },
-    copyAccounttags() {
-      var copiedtext = document.querySelector(".accounttags span").innerHTML;
+    copyAccounttags(hash) {
+      console.log(hash);
+      var hasgtag = hash.map((m) => `@${m}`);
+      var copiedtext = hasgtag.join("").toString();
       if (copiedtext) {
         console.log("copiedtext", copiedtext);
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
           const copyTxtValue = navigator.clipboard.writeText(copiedtext);
           copyTxtValue.then(function () {
-            Toast.fire({ title: "Copied to clipboard" });
+            Toast.fire({ title: "클립보드에 복사되었습니다." });
             return copyTxtValue;
           });
         }
@@ -449,17 +455,20 @@ export default {
   margin-top: 58px;
 }
 
-.terms-wrap .guide .heading, .tag-info-head h3 {
+.terms-wrap .guide .heading,
+.tag-info-head h3 {
   display: flex;
   align-items: center;
 }
-.terms-wrap .guide .heading h3, .tag-info-head h3 {
+.terms-wrap .guide .heading h3,
+.tag-info-head h3 {
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   color: #25282b;
 }
-.terms-wrap .guide .heading span, .tag-info-head h3 span {
+.terms-wrap .guide .heading span,
+.tag-info-head h3 span {
   margin-right: 4px;
 }
 .terms-wrap .guide .guide-body {
