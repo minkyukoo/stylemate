@@ -17,13 +17,15 @@
           :slides-per-view="1"
           :space-between="50"
           :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
         >
           <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
-                <img v-if="this.brandDetails.imageMainPath" :src="brandDetails.imageMainPath" alt />
+                <img
+                  v-if="this.brandDetails.imageMainPath"
+                  :src="brandDetails.imageMainPath"
+                  alt
+                />
                 <!-- <div class="top-social-icon">
                    <router-link to>
                     <img src="@/assets/icons/instagram.svg" />
@@ -40,9 +42,7 @@
           <div class="itemMain">
             <div class="itemHeader">
               <h2>
-                {{
-                  brandDetails.korName
-                }}
+                {{ brandDetails.korName }}
                 <span>
                   <img src="@/assets/icons/arrow-left.svg" />
                 </span>
@@ -50,7 +50,10 @@
 
               <!-- <img src="@/assets/icons/Vector.svg" alt="img" style="height: 20px" /> -->
               <div @click="likeBrand(brandDetails.id)" role="button">
-                <img v-if="brandDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="brandDetails.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -67,12 +70,16 @@
                   class="tab"
                   @click="layout = 'tab1'"
                   :class="{ active: layout === 'tab1' }"
-                >브랜드 소개</button>
+                >
+                  브랜드 소개
+                </button>
                 <button
                   class="tab"
                   @click="layout = 'tab2'"
                   :class="{ active: layout === 'tab2' }"
-                >아이템 보기</button>
+                >
+                  아이템 보기
+                </button>
               </div>
 
               <!-- tab content 1 -->
@@ -151,9 +158,8 @@ export default {
     var proId = this.$route.params.id;
 
     this.getBrandDetails(proId);
-
   },
-  mounted() { },
+  mounted() {},
   methods: {
     show() {
       this.display = true;
@@ -172,7 +178,7 @@ export default {
         }
         // success
         else {
-          console.log("res", res);
+          // console.log("res", res);
           this.brandDetails = res;
         }
       });
@@ -199,19 +205,27 @@ export default {
         let uid;
         await this.isUserid().then((res) => {
           uid = res;
-          console.log("brand uid", uid);
-          this.brandService
-            .influencelikes(uid, "brand", brandId)
-            .then((res) => {
-              let proId = this.$route.params.id;
-              this.getBrandDetails(proId);
-              if (res.response.data.error) {
-                Toast.fire({ title: res.response.data.error.message });
-              }
-            });
+          // console.log("brand uid", uid);
+          if (!this.brandDetails.isInfluenceLike) {
+            this.brandService
+              .influencelikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                let proId = this.$route.params.id;
+                this.getBrandDetails(proId);
+              });
+          } else {
+            this.brandService
+              .influencedislikes(uid, "brand", brandId)
+              // eslint-disable-next-line no-unused-vars
+              .then((res) => {
+                let proId = this.$route.params.id;
+                this.getBrandDetails(proId);
+              });
+          }
         });
       }
-      console.log("likeProduct");
+      // console.log("likeProduct");
     },
   },
 };

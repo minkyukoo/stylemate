@@ -7,10 +7,7 @@
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->
     <div class="main-wrap" @scroll="windowScroll">
-      <BrandList
-        @searchInputBlur="getBlur($event)"
-        @searchInputFocus="getFocus($event)"
-      />
+      <BrandList @searchInputBlur="getBlur($event)" @searchInputFocus="getFocus($event)" />
     </div>
     <!-- </ion-content> -->
     <!-- End page content -->
@@ -47,6 +44,7 @@ export default {
       if (e) {
         dataBlur.value = true;
         dataFocus.value = false;
+        // alert(e);
         // console.log("Input Blur");
       }
     };
@@ -56,12 +54,13 @@ export default {
         dataFocus.value = true;
         dataBlur.value = false;
         data.value = 0;
+        // alert(e);
         // console.log("Input Focus");
       }
     };
 
     const keyboardHide = (e) => {
-      dataBlur.value = true; 
+      dataBlur.value = true;
       dataFocus.value = false;
       console.log(e);
       // alert(e);
@@ -73,9 +72,6 @@ export default {
       keyboardHide,
       getFocus,
     };
-  },
-  mounted() {
-    window.keyboardHide = this.keyboardHide;
   },
 };
 </script>
