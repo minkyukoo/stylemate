@@ -44,7 +44,7 @@ const state = reactive({
   FltCampaignData: [],
   sponcerMeta: null,
   sponcerChannelType: "instagram",
-  isPostModalVisible: true,
+  isPostModalVisible: false,
   cancelPopup: false,
   isReRegisterModalVisible: false,
   contentDetailsModal: false,
@@ -113,6 +113,7 @@ const methods = {
     console.log(state.contentDetailsId);
   },
   async getcampList(pageNo) {
+    state.FltCampaignData = []
     return await myPageService
       .getCampaignData(
         pageNo,
