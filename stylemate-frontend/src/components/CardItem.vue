@@ -368,6 +368,7 @@ export default defineComponent({
     rgba(241, 241, 241, 0.1) 100.78%
   );
   backdrop-filter: blur(30px);
+  z-index: 2;
 }
 .item-wrapper.withoutbanner {
   top: 90px;

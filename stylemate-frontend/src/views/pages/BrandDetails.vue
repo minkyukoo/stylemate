@@ -313,6 +313,7 @@ img {
   /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
   /* backdrop-filter: blur(30px); */
+  z-index: 2;
 }
 .item-wrapper .product-list {
   display: flex;
