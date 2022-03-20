@@ -513,7 +513,7 @@ export default {
     // for productShare
     productShare(res) {
       alert(res);
-      console.log("res", res);
+      // console.log("res", res);
       if (res) {
         window.location.href = res;
       }
