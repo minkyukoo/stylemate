@@ -104,7 +104,7 @@ const methods = {
     state.sponcerFilterNo = 0;
     state.sponcerFilterId = "";
     state.FltCampaignData = [];
-    methods.getcampList();
+    methods.getcampList(1);
   },
   setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
