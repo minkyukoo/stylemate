@@ -180,7 +180,7 @@ export default defineComponent({
   border-radius: 6px;
 }
 .vue-select:focus {
-  border: 1px solid blue !important;
+  border: 1px solid #5700FF;
 }
 .button-group {
   display: flex;

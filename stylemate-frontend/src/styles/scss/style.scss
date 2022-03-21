@@ -406,6 +406,10 @@ img:hover {
 .drawer-top {
   .selectWrap {
     .vue-select {
+      &:focus, &:focus-visible{
+        border: 1px solid #5700FF !important;
+        outline: none;
+      }
       .vue-select-header {
         .vue-input {
           padding: 12px 20px;
@@ -424,6 +428,7 @@ img:hover {
         border-radius: 6px;
         background: #ffffff;
         border: none;
+        bottom: 101%;
         .vue-dropdown-item {
           padding: 18px 19px;
           span {
@@ -431,7 +436,7 @@ img:hover {
             line-height: 14px;
             color: #000000;
           }
-          &.highlighted {
+          &.highlighted, &:hover {
             background: rgba(229, 229, 229, 0.5);
           }
         }
