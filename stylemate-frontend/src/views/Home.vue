@@ -226,7 +226,7 @@
             :centeredSlides="true"
             :loop="true"
             :centerInsufficientSlides="true"
-            :initialSlide="0"
+            :initialSlide="6"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
@@ -241,19 +241,16 @@
           >
             <swiper-slide
               class="brandSliderimg"
-              v-for="item in brandList"
-              v-slot="{ isVisible }"
-              :key="item.id"
+              v-for="(item,index) in brandList"
+              v-slot="{ isNext }"
+              :key="item.id || index"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
               "
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img
-                    :src="item.imageThumbnailPath"
-                    :id="[isVisible ? 'activeImg' : 'inactive']"
-                  />
+                  <img :src="item.imageThumbnailPath" :id="[isNext ? 'activeImg' : 'inactive']" />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.korName">
@@ -511,12 +508,18 @@ export default {
     if (isLogedIn) {
       window.parent.postMessage("loginCompleted", "*");
     }
+    this.onBrandSlideChange();
   },
   methods: {
-    onBrandSlideChange() {
-      console.log("slider change");
+    onBrandSlideChange(e) {
+      console.log("slider change",e);
       this.image = "";
-      this.image = document.getElementById("activeImg").src;
+      if(document.getElementById("activeImg")){
+        this.image = document.getElementById("activeImg").src;
+      }
+      else if (document.getElementById("activeBack")){
+        this.image = document.getElementById("activeImg").src;
+      }
       console.log(this.image);
     },
 

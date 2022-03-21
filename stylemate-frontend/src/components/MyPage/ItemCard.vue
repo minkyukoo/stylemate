@@ -14,7 +14,7 @@
           'dark-bg': getImgTag(progressDetails) === 'unselected',
         }"
         id="imgTag"
-        :style="{ backgroundColor: `${getColor(progressDetails)}` }"
+        
         >{{ getImgTag(progressDetails) }}</span
       >
     </div>
@@ -216,8 +216,7 @@ export default {
           return "re-registration";
         } else if (
           progressDetails.processStatus === "progress" &&
-          (progressDetails.processDetailStatus === "announce" ||
-            progressDetails.processDetailStatus === "booking") &&
+          progressDetails.processDetailStatus === "posting" &&
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
           progressDetails.booking[progressDetails.booking.length - 1]
@@ -253,70 +252,70 @@ export default {
         }
       }
     },
-    getColor(progressDetails) {
-      if (
-        progressDetails.processStatus === "progress" &&
-        progressDetails.processDetailStatus === "posting" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "join" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "post_modify_request"
-      ) {
-        return "#addad9bf";
-      } else if (
-        progressDetails.processStatus === "progress" &&
-        progressDetails.processDetailStatus === "posting" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "join" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "ready"
-      ) {
-        return "rgba(87, 0, 255, 0.75)";
-      } else if (
-        progressDetails.processStatus === "progress" &&
-        (progressDetails.processDetailStatus === "announce" ||
-          progressDetails.processDetailStatus === "booking") &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "join" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "ready"
-      ) {
-        return "rgba(226, 153, 195, 0.75)";
-      } else if (
-        progressDetails.processStatus === "progress" &&
-        progressDetails.processDetailStatus === "posting" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "join" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "postProgress"
-      ) {
-        return "rgba(255, 214, 123, 0.75)";
-      } else if (
-        (progressDetails.processStatus === "progress" ||
-          progressDetails.processStatus === "finish") &&
-        progressDetails.processDetailStatus === "posting" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "join" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "finish"
-      ) {
-        return "rgba(188, 212, 108, 0.75)";
-      } else if (
-        (progressDetails.processStatus === "progress" ||
-          progressDetails.processStatus === "finish") &&
-        (progressDetails.processDetailStatus === "announce" ||
-          progressDetails.processDetailStatus === "posting" ||
-          progressDetails.processDetailStatus === "finish") &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .bookingStatus === "booking" &&
-        progressDetails.booking[progressDetails.booking.length - 1]
-          .postStatus === "ready"
-      ) {
-        return "rgba(196, 196, 196, 0.75)";
-      } else {
-        return "";
-      }
-    },
+    // getColor(progressDetails) {
+    //   if (
+    //     progressDetails.processStatus === "progress" &&
+    //     progressDetails.processDetailStatus === "posting" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "join" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "post_modify_request"
+    //   ) {
+    //     return "#addad9bf";
+    //   } else if (
+    //     progressDetails.processStatus === "progress" &&
+    //     progressDetails.processDetailStatus === "posting" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "join" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "ready"
+    //   ) {
+    //     return "rgba(87, 0, 255, 0.75)";
+    //   } else if (
+    //     progressDetails.processStatus === "progress" &&
+    //     (progressDetails.processDetailStatus === "announce" ||
+    //       progressDetails.processDetailStatus === "booking") &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "join" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "ready"
+    //   ) {
+    //     return "rgba(226, 153, 195, 0.75)";
+    //   } else if (
+    //     progressDetails.processStatus === "progress" &&
+    //     progressDetails.processDetailStatus === "posting" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "join" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "postProgress"
+    //   ) {
+    //     return "rgba(255, 214, 123, 0.75)";
+    //   } else if (
+    //     (progressDetails.processStatus === "progress" ||
+    //       progressDetails.processStatus === "finish") &&
+    //     progressDetails.processDetailStatus === "posting" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "join" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "finish"
+    //   ) {
+    //     return "rgba(188, 212, 108, 0.75)";
+    //   } else if (
+    //     (progressDetails.processStatus === "progress" ||
+    //       progressDetails.processStatus === "finish") &&
+    //     (progressDetails.processDetailStatus === "announce" ||
+    //       progressDetails.processDetailStatus === "posting" ||
+    //       progressDetails.processDetailStatus === "finish") &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .bookingStatus === "booking" &&
+    //     progressDetails.booking[progressDetails.booking.length - 1]
+    //       .postStatus === "ready"
+    //   ) {
+    //     return "rgba(196, 196, 196, 0.75)";
+    //   } else {
+    //     return "";
+    //   }
+    // },
   },
 };
 </script>
