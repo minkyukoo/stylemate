@@ -1,20 +1,44 @@
 <template>
   <div class="item-card">
-    <div class="img-con">
-      <img :src="progressDetails.imageThumbnailPath" :alt="progressDetails.name" />
+    <div
+      class="img-con cursor-pointer"
+      @click="
+        $router.push({
+          name: 'ItemDetails',
+          params: { id: progressDetails.id },
+        })
+      "
+    >
+      <img
+        :src="progressDetails.imageThumbnailPath"
+        :alt="progressDetails.name"
+      />
       <img src="../../../assets/icons/instagram.svg" class="img-tag" alt />
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.brand.korName }}</h2>
+        <h2
+          class="cursor-pointer"
+          @click="
+            $router.push({
+              name: 'ItemDetails',
+              params: { id: progressDetails.id },
+            })
+          "
+        >
+          {{ progressDetails.brand.korName }}
+        </h2>
         <!-- <h2>{{ progressDetails.name }}</h2> -->
-        <button class="like" @click="dislikeProduct(progressDetails.id)">
+        <button
+          type="button"
+          class="like"
+          @click="dislikeProduct(progressDetails.id)"
+        >
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>
       </div>
       <div>
-        <!-- <h4>{{ progressDetails.description }}</h4> -->
-        <h4>{{progressDetails.name}}</h4>
+        <h4>{{ progressDetails.name }}</h4>
         <h6>종료일 {{ dateFormat(progressDetails.createdAt) }}</h6>
       </div>
     </div>
@@ -71,24 +95,30 @@ export default {
         uid = res;
         // console.log('uid', uid);
 
-        this.itemservice.influencedislikes(uid, 'product', productId).then((res) => {
-          // console.log('dres', res);
-          if (res) {
-            if (res.response.status && res.response.status !== 204) {
-              Toast.fire({ title: res.response.data.error.message });
+        this.itemservice
+          .influencedislikes(uid, "product", productId)
+          .then((res) => {
+            // console.log('dres', res);
+            if (res) {
+              if (res.response.status && res.response.status !== 204) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            } else {
+              this.$emit("productDislike", true);
             }
-          } else {
-            this.$emit("productDislike", true);
-          }
-        });
+          });
       });
+      // return false;
       // console.log('dislike');
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .item-card {
   display: flex;
   margin-bottom: 24px;

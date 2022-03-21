@@ -7,9 +7,6 @@
           :progressDetails="item"
           :key="index"
           v-on:productDislike="dislike($event)"
-          @click="
-            $router.push({ name: 'ItemDetails', params: { id: item.id } })
-          "
         />
       </div>
       <div v-else>
