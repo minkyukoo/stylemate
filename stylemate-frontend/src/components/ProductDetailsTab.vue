@@ -294,33 +294,41 @@ export default {
   },
   methods: {
     copyHastags(hash) {
-      var hasgtag = hash.map((m) => `#${m}`);
-      var copiedtext = hasgtag.join("").toString();
-      if (copiedtext) {
-        navigator.clipboard.writeText(copiedtext).then(
-          () => {
-            console.log(`clipboard: ${copiedtext}`);
-            Toast.fire({ title: "클립보드에 복사되었습니다." });
-          },
-          (err) => {
-            console.error("clipboard: Could not copy text: ", err);
-          }
-        );
+      if (hash.length > 0) {
+        var hasgtag = hash.map((m) => `#${m}`);
+        var copiedtext = hasgtag.join("").toString();
+        if (copiedtext) {
+          navigator.clipboard.writeText(copiedtext).then(
+            () => {
+              console.log(`clipboard: ${copiedtext}`);
+              Toast.fire({ title: "클립보드에 복사되었습니다." });
+            },
+            (err) => {
+              console.error("clipboard: Could not copy text: ", err);
+            }
+          );
+        } 
+      } else {
+        Toast.fire({ title: "해시 태그가 비어 있습니다." });
       }
     },
     copyAccounttags(hash) {
-      var hasgtag = hash.map((m) => `#${m}`);
-      var copiedtext = hasgtag.join("").toString();
-      if (copiedtext) {
-        navigator.clipboard.writeText(copiedtext).then(
-          () => {
-            console.log(`clipboard: ${copiedtext}`);
-            Toast.fire({ title: "클립보드에 복사되었습니다." });
-          },
-          (err) => {
-            console.error("clipboard: Could not copy text: ", err);
-          }
-        );
+      if (hash.length > 0) {
+        var hasgtag = hash.map((m) => `#${m}`);
+        var copiedtext = hasgtag.join("").toString();
+        if (copiedtext) {
+          navigator.clipboard.writeText(copiedtext).then(
+            () => {
+              console.log(`clipboard: ${copiedtext}`);
+              Toast.fire({ title: "클립보드에 복사되었습니다." });
+            },
+            (err) => {
+              console.error("clipboard: Could not copy text: ", err);
+            }
+          );
+        }
+      } else {
+        Toast.fire({ title: "해시 태그가 비어 있습니다." });
       }
     },
   },
