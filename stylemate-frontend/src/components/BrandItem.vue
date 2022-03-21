@@ -18,7 +18,7 @@
             </div>
           </div>
         </figure>
-        <!-- <h3>{{ product.title }}</h3> -->
+        <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
         <!-- <span>{{ product.hashtags }}</span> -->
         <div class="hashWrap">
@@ -46,6 +46,9 @@ export default {
       products: null,
     };
   },
+  // mounted() {
+  //   console.log(this.$props.brandItem);
+  // }
 };
 </script>
 <style scoped>
