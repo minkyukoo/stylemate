@@ -14,7 +14,7 @@
       <div>
         <h4>{{ progressDetails.campaign.product.name }}</h4>
         <h6>
-          End date
+          종료일
           {{
             moment(progressDetails.campaign.campaignSchedule.finishedAt).format(
               "YYYY.MM.DD  h:mm"
@@ -121,7 +121,11 @@ export default {
   font-size: 12px;
   line-height: 14px;
   color: #25282b;
+  width: 100%;
   margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .item-desc h6 {
   font-size: 12px;

@@ -1,16 +1,31 @@
 <template>
   <div class="inner-container listmain">
-    <!-- <ion-searchbar
-      @keyup.enter="sreachWord($event.target.value)"
+    <!-- <div class="search-group">
+      <input
+        type="text"
+        placeholder="브랜드 이름으로 검색해 보세요."
+        class="search-field"
+        v-model="searchValue"
+        @ionClear="sreachWordClear"
+        @ionBlur="$emit('searchInputBlur', $event)"
+        @ionFocus="$emit('searchInputFocus', $event)"
+        @keyup.enter="sreachWord($event.target.value)"
+      />
+      <button class="search-icon">
+        <img src="@/assets/icons/search.png" alt="search" />
+      </button>
+    </div> -->
+    <ion-searchbar
+      @keyup="sreachWord($event.target.value)"
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요"
       @ionClear="sreachWordClear"
       @ionBlur="$emit('searchInputBlur', $event)"
       @ionFocus="$emit('searchInputFocus', $event)"
     ></ion-searchbar> -->
-    <div class="search-wrapper">
+    <!-- <div class="search-wrapper">
         <input type="text" name="search" placeholder="브랜드 이름으로 검색해 보세요" />
-    </div>
+    </div> -->
     <div class="history-keywords" v-if="history">
       <swiper
         class="main-menu"
@@ -277,6 +292,22 @@ export default {
   font-family: Pretendard;
   color: #c4c4c4;
   font-size: 10px;
+}
+.search-group {
+  position: relative;
+}
+.search-field {
+  height: 40px;
+  padding: 10px 13px;
+  border: 1px solid #c4c4c4;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 20px;
+}
+.search-icon {
+  position: absolute;
+  top: 46%;
+  right: 10px;
 }
 .maincontent {
   font-size: 14px;

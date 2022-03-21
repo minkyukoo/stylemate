@@ -20,7 +20,7 @@
             </div>
             <div>
               <h4>{{ description }}</h4>
-              <h6>End date {{ date }}</h6>
+              <h6>종료일 {{ date }}</h6>
             </div>
           </div>
         </div>

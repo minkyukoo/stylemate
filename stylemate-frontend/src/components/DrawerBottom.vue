@@ -5,8 +5,8 @@
       <h2>캠페인 협찬 신청을 취소하시겠어요?</h2>
     </div>
     <div class="button-group">
-      <button class="grey-btn" @click="cancelspon">취소</button>
-      <button class="black-btn" @click="applycancelspon(uid, bookingId)">신청하기</button>
+      <button class="grey-btn" @click="cancelspon">아니요</button>
+      <button class="black-btn" @click="applycancelspon(uid, bookingId)">예</button>
     </div>
   </div>
   <div class="drawer-wrap" v-else>
@@ -174,12 +174,14 @@ export default defineComponent({
 .drawer-top .selectWrap:first-child {
   margin-top: 0;
 }
-.drawer-top .selectWrap .vue-select {
+.drawer-top .selectWrap .vue-select{
   width: 100%;
   border: 1px solid #c4c4c4;
   border-radius: 6px;
 }
-
+.vue-select:focus {
+  border: 1px solid blue !important;
+}
 .button-group {
   display: flex;
 }
@@ -200,5 +202,8 @@ export default defineComponent({
 .button-group button.black-btn {
   color: #ffffff;
   background: #090909;
+}
+.xyz{
+  border: 1px solid red;
 }
 </style>

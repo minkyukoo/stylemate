@@ -28,7 +28,7 @@
               <img src="@/assets/icons/instagram-list.svg" /> Instagram
             </h4>
             <!-- if selected channel -->
-            <ul class="newChannel" v-if="selChannelType === 'instagram'">
+            <ul class="newChannel" v-if="selChannelType === 'instagram' || userChannel.length > 0">
               <li>
                 <div class="channelLeft">
                   <div class="channelImg">
@@ -111,7 +111,10 @@
                 </div>
               </li>
             </ul>
-            <div class="adddivwrap" v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1">
+            <div
+              class="adddivwrap"
+              v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1"
+            >
               <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
             </div>
           </li>
@@ -256,11 +259,11 @@ export default {
       userUID: null,
       userId: null,
       selChannel: null,
-      selChannelType: null,
+      selChannelType: '',
       fbToken: null,
       instagramChannelInfo: null,
       isReApplication: Boolean,
-      stylemateStatus: null,
+      stylemateStatus: '',
       igAccInfo: null,
       channelId: null,
       isCampaignsOngoing: '',
@@ -283,6 +286,7 @@ export default {
     return { linkedChannel };
   },
   async created() {
+    // this.refreshChannel();
     this.channelService = new ChannelService();
     this.userInfoService = new UserInfoService();
     this.channelService.loadFacebookSDK(document, "script", "facebook-jssdk");
@@ -313,6 +317,9 @@ export default {
     // }
     // this.upadteStatus(this.userID, this.channelId);
 
+  },
+  unmounted() {
+    this.getUserChannelInfo();
   },
   methods: {
     openlink() {
@@ -406,7 +413,6 @@ export default {
           this.stylemateStatus = item.stylemateStatus;
           this.channelId = item.id;
           this.selChannel = item
-
           this.instagramChannelInfo = item.instagramChannel;
           this.isReApplication = item.isReApplication;
           this.channelId = item.id;
@@ -433,11 +439,14 @@ export default {
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
+        console.log('ELSE');
+        console.log('this.userChannel.LENGTH: ---', this.userChannel.length);
         if (this.userChannel.length > 0) {
           this.setNewchannel = true;
         } else {
           this.$router.push({ name: 'NewMemberChannel' });
         }
+        // this.$router.push({ name: 'NewMemberChannel' });
       }
       // this.applyActivity();
     },
@@ -447,7 +456,12 @@ export default {
       if (!this.isCampaignsOngoing) {
         console.log('disconnected');
         this.channelService.channelDisconnect(uid, channelId).then((res) => {
-          this.getUserChannelInfo();
+          setTimeout(() => {
+            this.selChannelType = '';
+            this.stylemateStatus = '';
+            this.getUserChannelInfo();
+            console.log('1selChannelType', this.selChannelType);
+          }, 2000);
           this.closepop();
           console.log('channelDisconnect', res);
           console.log('channelDisconnect status:', res.response);
@@ -589,6 +603,7 @@ export default {
     upadteStatus(uid, channelId) {
       this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
         console.log('applyActivity res:', res);
+        this.refreshChannel();
       });
     },
 

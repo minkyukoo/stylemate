@@ -28,7 +28,7 @@
         <img src="@/assets/images/product-details.jpg" />-->
       </figure>
       <div class="product-desc">
-        <p>{{ productData.description }}</p>
+        <div class="p-cont" v-html="productData.description"></div>
       </div>
       <div class="pre-div">
         <h3>
@@ -66,18 +66,20 @@
     <div class="tab-content" v-if="layout === 'tab2'">
       <div class="tag-info-head">
         <h3>
-        <span>
-          <img src="@/assets/icons/warning.svg" />
-        </span>
-        필수입력 태그
-      </h3>
+          <span>
+            <img src="@/assets/icons/warning.svg" />
+          </span>
+          필수입력 태그
+        </h3>
       </div>
-      
+
       <div class="tag-info" v-for="(item, i) of productData.campaign" :key="i">
         <div class="tag-info-row">
           <div class="top">
             <h3>해시태그</h3>
-            <span @click="copyHastags">복사</span>
+            <span @click="copyHastags(item.campaignMission.requiredHashtag)"
+              >복사</span
+            >
           </div>
           <div class="tag-content hastags">
             <span
@@ -90,7 +92,9 @@
         <div class="tag-info-row">
           <div class="top">
             <h3>계정태그</h3>
-            <span @click="copyAccounttags">복사</span>
+            <span @click="copyAccounttags(item.campaignMission.requiredAccount)"
+              >복사</span
+            >
           </div>
           <div class="tag-content accounttags">
             <span
@@ -115,7 +119,7 @@
               {{ productCampaign.campaignMission.essentialGuide }}
               <!-- {{
                 productData.campaign.map(item => item.campaignMission.essentialGuide)
-              }} -->
+              }}-->
             </li>
           </ul>
         </div>
@@ -128,9 +132,7 @@
             <h3>이미지 가이드</h3>
           </div>
           <ul class="guide-body">
-            <li>
-              {{ productCampaign.campaignMission.imageGuide }}
-            </li>
+            <li>{{ productCampaign.campaignMission.imageGuide }}</li>
             <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
@@ -147,7 +149,7 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li> -->
+            </li>-->
           </ul>
         </div>
 
@@ -159,9 +161,7 @@
             <h3>텍스트 가이드</h3>
           </div>
           <ul class="guide-body">
-            <li>
-              {{ productCampaign.campaignMission.textGuide }}
-            </li>
+            <li>{{ productCampaign.campaignMission.textGuide }}</li>
             <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
@@ -178,7 +178,7 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li> -->
+            </li>-->
           </ul>
         </div>
 
@@ -190,9 +190,7 @@
             <h3>일정 가이드</h3>
           </div>
           <ul class="guide-body">
-            <li>
-              {{ productCampaign.campaignMission.scheduleGuide }}
-            </li>
+            <li>{{ productCampaign.campaignMission.scheduleGuide }}</li>
             <!-- <li>
               ※ 원활한 제품 배송을 위하여 미디언스에 등록되어 있는 주소지와
               연락처를 최신화 해주세요.
@@ -209,7 +207,7 @@
             <li>
               ※ 가이드 내용을 준수하지 않을 시, 담당자가 콘텐츠 수정 요청을 드릴
               수 있습니다.
-            </li> -->
+            </li>-->
           </ul>
         </div>
 
@@ -288,31 +286,41 @@ export default {
       console.log("productCampaign", this.productCampaign);
     }
   },
+  computed: {
+    handleNewLine: function () {
+      const doc = this.$props.productData.description;
+      return doc.replace(/(\\r)*\\n/g, "<br>");
+    },
+  },
   methods: {
-    copyHastags() {
-      var copiedtext = document.querySelector(".hastags span").innerHTML;
+    copyHastags(hash) {
+      var hasgtag = hash.map((m) => `#${m}`);
+      var copiedtext = hasgtag.join("").toString();
       if (copiedtext) {
-        console.log("copiedtext", copiedtext);
-        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-          const copyTxtValue = navigator.clipboard.writeText(copiedtext);
-          copyTxtValue.then(function () {
-            Toast.fire({ title: "Copied to clipboard" });
-            return copyTxtValue;
-          });
-        }
+        navigator.clipboard.writeText(copiedtext).then(
+          () => {
+            console.log(`clipboard: ${copiedtext}`);
+            Toast.fire({ title: "클립보드에 복사되었습니다." });
+          },
+          (err) => {
+            console.error("clipboard: Could not copy text: ", err);
+          }
+        );
       }
     },
-    copyAccounttags() {
-      var copiedtext = document.querySelector(".accounttags span").innerHTML;
+    copyAccounttags(hash) {
+      var hasgtag = hash.map((m) => `#${m}`);
+      var copiedtext = hasgtag.join("").toString();
       if (copiedtext) {
-        console.log("copiedtext", copiedtext);
-        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-          const copyTxtValue = navigator.clipboard.writeText(copiedtext);
-          copyTxtValue.then(function () {
-            Toast.fire({ title: "Copied to clipboard" });
-            return copyTxtValue;
-          });
-        }
+        navigator.clipboard.writeText(copiedtext).then(
+          () => {
+            console.log(`clipboard: ${copiedtext}`);
+            Toast.fire({ title: "클립보드에 복사되었습니다." });
+          },
+          (err) => {
+            console.error("clipboard: Could not copy text: ", err);
+          }
+        );
       }
     },
   },
@@ -365,11 +373,13 @@ export default {
   color: #797979;
   text-align: left;
 }
+.product-desc .p-cont,
 .product-desc p {
   font-size: 12px;
   line-height: 16px;
   color: #797979;
   text-align: left;
+  white-space: pre-line;
 }
 .pre-div {
   margin-top: 42px;
@@ -449,17 +459,20 @@ export default {
   margin-top: 58px;
 }
 
-.terms-wrap .guide .heading, .tag-info-head h3 {
+.terms-wrap .guide .heading,
+.tag-info-head h3 {
   display: flex;
   align-items: center;
 }
-.terms-wrap .guide .heading h3, .tag-info-head h3 {
+.terms-wrap .guide .heading h3,
+.tag-info-head h3 {
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   color: #25282b;
 }
-.terms-wrap .guide .heading span, .tag-info-head h3 span {
+.terms-wrap .guide .heading span,
+.tag-info-head h3 span {
   margin-right: 4px;
 }
 .terms-wrap .guide .guide-body {

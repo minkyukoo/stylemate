@@ -167,7 +167,7 @@
   </ion-page>
 </template>
 <script>
-// import { inject, onMounted } from "vue";
+// import { inject, onMounted } from "vue"; 주의사항 
 import {
   IonPage,
   // IonInfiniteScroll,
@@ -588,6 +588,7 @@ export default {
   /* background: #ffffff; */
   transition: all 0.5s ease-in-out;
   backdrop-filter: blur(30px);
+  z-index: 2;
 }
 
 .top-section {
