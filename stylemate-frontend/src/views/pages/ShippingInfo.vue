@@ -46,7 +46,7 @@
           </li> -->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox" checked disabled />
+              <input type="checkbox"  />
               <span class="checkmark"></span>기본 배송지
             </label>
           </li>
