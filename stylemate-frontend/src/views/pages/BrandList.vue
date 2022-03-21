@@ -22,7 +22,7 @@
       @ionClear="sreachWordClear"
       @ionBlur="$emit('searchInputBlur', $event)"
       @ionFocus="$emit('searchInputFocus', $event)"
-    ></ion-searchbar> -->
+    ></ion-searchbar> 
     <!-- <div class="search-wrapper">
         <input type="text" name="search" placeholder="브랜드 이름으로 검색해 보세요" />
     </div> -->

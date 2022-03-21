@@ -7,7 +7,6 @@
         :key="index"
         class="product-list-item"
         @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
-      >
         <figure>
           <img :src="product.imageThumbnailPath" />
           <div class="top-float-div">
@@ -19,7 +18,7 @@
             </div>
           </div>
         </figure>
-        <!-- <h3>{{ product.title }}</h3> -->
+        <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
         <!-- <span>{{ product.hashtags }}</span> -->
         <div class="hashWrap">
@@ -47,9 +46,17 @@ export default {
       products: null,
     };
   },
+  // mounted() {
+  //   console.log(this.$props.brandItem);
+  // }
 };
 </script>
 <style scoped>
+.brand-product{
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+}
 .brand-product .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -76,14 +83,18 @@ export default {
   width: 100%;
 }
 .brand-product .product-list .product-list-item h3 {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
   line-height: 14px;
   color: #25282b;
   margin-bottom: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .brand-product .product-list .product-list-item p {
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 14px;
   color: #25282b;
@@ -104,7 +115,7 @@ export default {
   margin-left: 0;
 }
 .brand-product .product-list .product-list-item figure{
-  height: 256px;
+  height: 156px;
 }
 
 .brand-product .product-list .product-list-item figure img{
