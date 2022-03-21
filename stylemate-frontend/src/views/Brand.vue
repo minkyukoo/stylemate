@@ -60,10 +60,11 @@ export default {
     };
 
     const keyboardHide = (e) => {
+      window.parent.postMessage( e, '*');
       dataBlur.value = true;
       dataFocus.value = false;
       console.log(e);
-      // alert(e);
+      alert(e);
     };
 
     return {
