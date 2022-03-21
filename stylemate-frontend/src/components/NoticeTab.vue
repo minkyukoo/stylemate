@@ -184,7 +184,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        // console.log("inquiry", res.data);
+        console.log("inquiry", res.data);
       });
     }
   },

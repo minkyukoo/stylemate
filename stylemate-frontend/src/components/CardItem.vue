@@ -193,7 +193,7 @@ export default defineComponent({
       product_details: [],
       banner: [],
       filtervalue: [],
-      books: ["최신순", "마감임박순"],
+      books: ["최신순", "인기순"],
       camp: [],
       products: [],
       bookOption: null,
@@ -230,7 +230,7 @@ export default defineComponent({
           //   this.store.state.AppData = data;
           //   // this.store.state.AppData.push(...data);
           // });
-        } else if (type == "마감임박순") {
+        } else if (type == "인기순") {
           this.spage = 1;
           // console.log("page from carditem popular:-:", this.page);
           this.$emit("bookOption", "popular");
@@ -302,7 +302,7 @@ export default defineComponent({
                   this.itemService.getProductList("latest", 1).then((data) => {
                     this.store.state.AppData = data;
                   });
-                } else if (this.bookOption == "마감임박순") {
+                } else if (this.bookOption == "인기순") {
                   this.itemService.getProductList("popular", 1).then((data) => {
                     this.store.state.AppData = data;
                   });
