@@ -7,7 +7,6 @@
         :key="index"
         class="product-list-item"
         @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
-      >
         <figure>
           <img :src="product.imageThumbnailPath" />
           <div class="top-float-div">
