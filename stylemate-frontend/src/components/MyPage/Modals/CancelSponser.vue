@@ -87,6 +87,7 @@ export default {
   );
   backdrop-filter: blur(30px);
   border-radius: 20px 20px 0px 0px;
+  width: 100%;
 }
 .popup-body {
   padding: 30px 20px 40px;
