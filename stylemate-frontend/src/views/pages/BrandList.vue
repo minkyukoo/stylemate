@@ -16,7 +16,7 @@
       </button>
     </div> -->
     <ion-searchbar
-      @keyup.enter="sreachWord($event.target.value)"
+      @keyup="sreachWord($event.target.value)"
       v-model="searchValue"
       placeholder="브랜드 이름으로 검색해 보세요."
       @ionClear="sreachWordClear"
