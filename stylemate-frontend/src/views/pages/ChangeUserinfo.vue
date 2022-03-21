@@ -396,13 +396,21 @@ export default {
 .inlineForm div {
   margin: 0 2px;
 }
+.notiWrap{
+  min-width: 90px;
+  width: 25%;
+}
+.notiWrap .vue-select{
+  width: 100%;
+}
 .codeWrap {
   position: relative;
+  flex-grow: 1;
 }
 .codeWrap span {
   position: absolute;
   left: 15px;
-  top: 11px;
+  top: 13px;
   color: #000;
   font-size: 14px;
 }

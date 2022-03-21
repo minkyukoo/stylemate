@@ -101,6 +101,7 @@ export default {
   },
   methods: {
     rerun() {
+      this.store.state.FltCampaignData = [];
       this.store.methods.getcampList();
       this.store.state.cancelPopup = false;
     },
