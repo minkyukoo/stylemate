@@ -113,7 +113,6 @@ const methods = {
     console.log(state.contentDetailsId);
   },
   async getcampList(pageNo) {
-    
     return await myPageService
       .getCampaignData(
         pageNo,

@@ -775,6 +775,7 @@ export default {
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
+  font-weight: 700;
 }
 .brandSlider .multiSlideWrap {
   display: inherit;
