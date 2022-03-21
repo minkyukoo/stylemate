@@ -1,6 +1,7 @@
 import { reactive } from "vue";
 import ChannelService from "../services/ChannelService";
 import UserInfoService from "../services/UserInfoService";
+import router from "../router/index.js";
 
 const channelService = new ChannelService();
 const userInfoService = new UserInfoService();
@@ -26,6 +27,7 @@ const methods = {
       // Logged into your webpage and Facebook.
       state.loginRes = response;
       state.isConnected = response.status;
+      router.push({ name: 'NewMemberChannel' });
       // localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
       // localStorage.setItem('userID', response.authResponse.userID);
 
@@ -57,13 +59,14 @@ const methods = {
           state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
+          this.statusChangeCallback(response);
           // channelService.getIgTokenRenew(res.data.token.access_token).then((res) => {
-          //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);
-          // });
-          // channelService.getIgTokenRenew(response.authResponse);
-          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
-        });
-        this.statusChangeCallback(response);
+            //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);
+            // });
+            // channelService.getIgTokenRenew(response.authResponse);
+            // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          });
+        // this.statusChangeCallback(response);
         return true;
         // Now you can redirect the user or do an AJAX request to
         // a PHP script that grabs the signed request from the cookie.

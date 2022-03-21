@@ -255,4 +255,16 @@ export default {
 .swiper-slide {
   width: auto;
 }
+.mainslide-banner-wrap {
+  max-height: 380px;
+  height: 380px;
+  background: #c4c4c4;
+  overflow: hidden;
+}
+.mainslide-banner-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 </style>

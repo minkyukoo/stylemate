@@ -230,7 +230,9 @@ export default {
           )
           setTimeout(() => {
             this.upadteStatus(this.userUID, this.channelId);
-          }, 1000);
+            this.$router.push({ name: 'NewMemberJoining' });
+
+          }, 2000);
         }
       });
     },
@@ -360,20 +362,10 @@ export default {
     // 7. Save the selected channel applyActivity
     async applyActivity() {
       console.log('applyActivity');
-
       // let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
       let userid = this.userId;
-
-
-      console.log('....applyActivity token info...:', uid, userid, this.linkedChannel.state.fbaccessTokenType);
-
-
-
-
-
-
       let token = {
         "accessToken": this.fbToken,
         "userID": userid,
@@ -384,7 +376,6 @@ export default {
           console.log('7. selectChannel res:', res);
           console.log('response:----', res.status);
           this.getUserinfo2();
-          this.$router.push({ name: 'NewMemberJoining' });
         });
         //  await this.getUserinfo2();
 

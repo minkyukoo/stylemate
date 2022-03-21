@@ -91,7 +91,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -146,7 +146,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -201,7 +201,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -256,7 +256,7 @@
                   />
                 </div>
                 <div class="brandDetails">
-                  <h3 v-if="item.engName">
+                  <h3 v-if="item.korName">
                     {{ item.engName }}
                     <b>
                       <img src="@/assets/icons/arrow-right.svg" />
@@ -823,6 +823,7 @@ export default {
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
+  
 }
 .brandSlider .multiSlideWrap {
   display: inherit;
@@ -918,7 +919,7 @@ export default {
 
 .brandDetails {
   background: #fff;
-  padding: 22px 16px;
+  padding: 22px 16px 24px 16px;
   min-height: 150px;
   cursor: pointer;
 }
