@@ -206,7 +206,7 @@
             <swiper-slide
               class="brandSliderimg"
               v-for="item in brandList"
-              v-slot="{ isVisible }"
+              v-slot="{ isNext, isPrev }"
               :key="item.id"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
@@ -214,7 +214,7 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img :src="item.imageThumbnailPath" :id="[isVisible ? 'activeImg' : 'inactive']" />
+                  <img :src="item.imageThumbnailPath" :id="[isNext ? 'activeImg' : isPrev ? 'activeBack' : 'inactive']" />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.engName">
@@ -466,7 +466,12 @@ export default {
     onBrandSlideChange() {
       console.log("slider change");
       this.image = "";
-      this.image = document.getElementById("activeImg").src;
+      if(document.getElementById("activeImg")){
+        this.image = document.getElementById("activeImg").src;
+      }
+      else if (document.getElementById("activeBack")){
+        this.image = document.getElementById("activeImg").src;
+      }
       console.log(this.image);
     },
 

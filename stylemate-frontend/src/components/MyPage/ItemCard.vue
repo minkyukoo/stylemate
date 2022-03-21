@@ -216,8 +216,7 @@ export default {
           return "re-registration";
         } else if (
           progressDetails.processStatus === "progress" &&
-          (progressDetails.processDetailStatus === "announce" ||
-            progressDetails.processDetailStatus === "booking") &&
+          progressDetails.processDetailStatus === "posting" &&
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
           progressDetails.booking[progressDetails.booking.length - 1]
