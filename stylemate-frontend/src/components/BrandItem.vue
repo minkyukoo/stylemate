@@ -83,14 +83,18 @@ export default {
   width: 100%;
 }
 .brand-product .product-list .product-list-item h3 {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
   line-height: 14px;
   color: #25282b;
   margin-bottom: 4px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .brand-product .product-list .product-list-item p {
-  font-weight: normal;
+  font-weight: 400;
   font-size: 14px;
   line-height: 14px;
   color: #25282b;
