@@ -10,7 +10,7 @@
         />
       </div>
       <div v-else>
-        <Error errors="You don't have a wishlist yet." />
+        <Error errors="아직 찜한 아이템이 없어요." />
       </div>
     </div>
     <div v-if="store.state.likedTabState === 'brand'">
@@ -24,7 +24,7 @@
         />
       </div>
       <div v-else>
-        <Error errors="You don't have a wishlist yet." />
+        <Error errors="아직 찜한 아이템이 없어요." />
       </div>
     </div>
   </div>
