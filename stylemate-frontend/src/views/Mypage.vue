@@ -63,12 +63,12 @@ export default {
         res.data.influence.channel[0].instagramChannel.engagementRate / 100
       }%`;
       globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
-      let channelStats = res.data.influence.channel[0].channelStat;
-      if (Object.keys(channelStats).length > 0) {
+      let influenceStat = res.data.influence.influenceStat;
+      if (Object.keys(influenceStat).length > 0) {
         globalState.MyPageSponsorBox.sponsorship =
-          channelStats.stylemateBookingCount;
+          influenceStat.stylemateBookingCount;
         globalState.MyPageSponsorBox.Post_activity =
-          channelStats.stylematePostCount;
+          influenceStat.stylematePostCount;
         // console.log("asdf", channelStats.stylemateBookingCount);
       } else {
         globalState.MyPageSponsorBox.sponsorship = 0;

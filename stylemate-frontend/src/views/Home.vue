@@ -823,6 +823,7 @@ export default {
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
+  
 }
 .brandSlider .multiSlideWrap {
   display: inherit;
@@ -918,7 +919,7 @@ export default {
 
 .brandDetails {
   background: #fff;
-  padding: 22px 16px;
+  padding: 22px 16px 24px 16px;
   min-height: 150px;
   cursor: pointer;
 }
