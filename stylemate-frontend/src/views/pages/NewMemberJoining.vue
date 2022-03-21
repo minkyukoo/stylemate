@@ -29,15 +29,15 @@
             </h4>
             <!-- if selected channel -->
             <ul class="newChannel" v-if="selChannelType === 'instagram' || userChannel.length > 0">
-              <li>
+              <li v-for="(channel, i) of userChannel" :key="i+1">
                 <div class="channelLeft">
                   <div class="channelImg">
                     <!-- <img src="@/assets/icons/refresh.svg" /> -->
-                    <img :src="selChannel.instagramChannel.thumbnailOriginalUrl" />
+                    <img :src="channel.instagramChannel.thumbnailOriginalUrl" />
                   </div>
                   <div class="channelDec">
-                    <h4>{{ selChannel.instagramChannel.pageName }}</h4>
-                    <p>{{ selChannel.channelName }}</p>
+                    <h4>{{ channel.instagramChannel.pageName }}</h4>
+                    <p>{{ channel.channelName }}</p>
                   </div>
                 </div>
                 <div class="btn-wrap">
@@ -225,7 +225,7 @@
       <div class="overlay" :class="{ active: isActive }"></div>
 
       <div class="info-toast-wrap">
-        <div class="info-toast" v-if="stylemateStatus === 'request'">관리자가 승인하면 협찬활동이 가능합니다.</div>
+        <div class="info-toast" v-if="stylemateStatus === 'request' || userChannel.length > 0">관리자가 승인하면 협찬활동이 가능합니다.</div>
         <div
           class="info-toast"
           v-else-if="stylemateStatus === 'hold' && !isReApplication"
@@ -317,9 +317,6 @@ export default {
     // }
     // this.upadteStatus(this.userID, this.channelId);
 
-  },
-  unmounted() {
-    this.getUserChannelInfo();
   },
   methods: {
     openlink() {

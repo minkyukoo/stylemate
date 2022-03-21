@@ -18,8 +18,8 @@
         <figure>
           <img :src="product.imageThumbnailPath" />
         </figure>
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
+        <h3>{{ brandName }}</h3>
+        <p>{{ product.name }}</p>
         <!-- <span>{{ product.hashtags }}</span> -->
         <div class="hashWrap">
           <span v-for="(hash, index) in product.tag" :key="index">
@@ -40,15 +40,18 @@ export default {
     brandItem: {
       type: Array,
     },
+    brandName: {
+      type: String,
+    },
   },
   data() {
     return {
       products: null,
     };
   },
-  // mounted() {
-  //   console.log(this.$props.brandItem);
-  // }
+  mounted() {
+    console.log('vdavsvsdvdsfvsdfv--',this.$props.brandItem);
+  }
 };
 </script>
 <style scoped>
