@@ -97,7 +97,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  // IonSearchbar,
+  IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 import Toast from "@/alert/alert";
@@ -115,7 +115,7 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    // IonSearchbar,
+    IonSearchbar,
     Swiper,
     SwiperSlide,
   },
