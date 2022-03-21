@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <button class="channelBtn" type="button">Linked Account</button>
                     <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
@@ -407,14 +407,16 @@ export default {
         let channelData = res.data.influence.channel;
         this.userChannel = channelData;
         this.userChannellength = channelData.length;
+        this.stylemateStatus = res.data.influence.stylemateStatus;
+        this.isReApplication = res.data.influence.isReApplication;
         console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
           this.selChannelType = item.type;
-          this.stylemateStatus = item.stylemateStatus;
+          // this.stylemateStatus = item.stylemateStatus;
           this.channelId = item.id;
           this.selChannel = item
           this.instagramChannelInfo = item.instagramChannel;
-          this.isReApplication = item.isReApplication;
+          // this.isReApplication = item.isReApplication;
           this.channelId = item.id;
           this.fbToken = item.instagramChannel.accessToken;
         });

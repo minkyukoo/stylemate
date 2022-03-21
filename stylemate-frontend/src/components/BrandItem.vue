@@ -6,7 +6,7 @@
         v-for="(product, index) in brandItem"
         :key="index"
         class="product-list-item"
-        @click="$router.push({ name: 'ItemDetails' })"
+        @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
       >
         <figure>
           <img :src="product.imageThumbnailPath" />
