@@ -10,9 +10,9 @@
         <figure>
           <img :src="product.imageThumbnailPath" />
           <div class="top-float-div">
-            <!-- <div class="social-icon">
+            <div class="social-icon">
               <img src="@/assets/icons/instagram.svg" />
-            </div> -->
+            </div>
             <div class="favorite">
               <img src="@/assets/icons/heart-outline.svg" />
             </div>
