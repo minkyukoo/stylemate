@@ -1,13 +1,16 @@
 <template>
   <div class="inner-container listmain">
-    <ion-searchbar
+    <!-- <ion-searchbar
       @keyup.enter="sreachWord($event.target.value)"
       v-model="searchValue"
-      placeholder="브랜드 이름으로 검색해 보세요."
+      placeholder="브랜드 이름으로 검색해 보세요"
       @ionClear="sreachWordClear"
       @ionBlur="$emit('searchInputBlur', $event)"
       @ionFocus="$emit('searchInputFocus', $event)"
-    ></ion-searchbar>
+    ></ion-searchbar> -->
+    <div class="search-wrapper">
+        <input type="text" name="search" placeholder="브랜드 이름으로 검색해 보세요" />
+    </div>
     <div class="history-keywords" v-if="history">
       <swiper
         class="main-menu"
@@ -79,7 +82,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonSearchbar,
+  // IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 import Toast from "@/alert/alert";
@@ -97,7 +100,7 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    IonSearchbar,
+    // IonSearchbar,
     Swiper,
     SwiperSlide,
   },
@@ -385,4 +388,18 @@ ion-card-title h3 {
   color: white;
   transition: all 0.3s;
 }
+
+.search-wrapper{
+  width: 100%;
+  margin: 20px 0 0 0;
+}
+
+.search-wrapper input{
+  background: #fff url('@/assets/icons/search.png') no-repeat 97% center;
+  padding: 10px 13px;
+  border: 1px solid #C4C4C4;
+  border-radius: 10px;
+  width: 100%;
+}
+
 </style>
