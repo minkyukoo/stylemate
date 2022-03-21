@@ -1,10 +1,8 @@
 import { reactive } from "vue";
 import ChannelService from "../services/ChannelService";
 import UserInfoService from "../services/UserInfoService";
-// import { useRouter } from "vue-router";
 import router from "../router/index.js";
 
-// const router = useRouter();
 const channelService = new ChannelService();
 const userInfoService = new UserInfoService();
 
@@ -22,7 +20,6 @@ const state = reactive({
 const methods = {
 
   statusChangeCallback(response) {
-    // const router = useRouter();
     // Called with the results from FB.getLoginStatus().
     console.log("statusChangeCallback");
     console.log(response); // The current login status of the person.
@@ -31,7 +28,6 @@ const methods = {
       state.loginRes = response;
       state.isConnected = response.status;
       router.push({ name: 'NewMemberChannel' });
-      // window.location.href = "/newmemberchannel";
       // localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
       // localStorage.setItem('userID', response.authResponse.userID);
 
