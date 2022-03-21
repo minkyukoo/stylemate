@@ -7,9 +7,7 @@
         :key="index"
         class="product-list-item"
         @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
-        <figure>
-          <img :src="product.imageThumbnailPath" />
-          <div class="top-float-div">
+        <div class="top-float-div">
             <div class="social-icon">
               <img src="@/assets/icons/instagram.svg" />
             </div>
@@ -17,6 +15,8 @@
               <img src="@/assets/icons/heart-outline.svg" />
             </div>
           </div>
+        <figure>
+          <img :src="product.imageThumbnailPath" />
         </figure>
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -70,6 +70,7 @@ export default {
   padding: 0 4px;
   margin-bottom: 24px;
   text-align: left;
+  position: relative;
 }
 .brand-product .product-list .product-list-item figure {
   position: relative;
@@ -127,17 +128,26 @@ export default {
   position: relative;
   width: 120px;
 }
-.brand-product .product-list-item .social-icon {
+/* .brand-product .product-list-item .social-icon {
   position: absolute;
   top: 0;
   padding: 7px;
 }
 .brand-product .product-list-item .social-icon img {
   cursor: pointer;
-}
+}*/
 .brand-product .product-list-item .favorite {
+  margin-right: 12px;
+  cursor: pointer;
+} 
+ .top-float-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  padding: 7px;
+  z-index: 1;
 }
 </style>
