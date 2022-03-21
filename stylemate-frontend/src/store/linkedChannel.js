@@ -1,7 +1,10 @@
 import { reactive } from "vue";
 import ChannelService from "../services/ChannelService";
 import UserInfoService from "../services/UserInfoService";
+// import { useRouter } from "vue-router";
+import router from "../router/index.js";
 
+// const router = useRouter();
 const channelService = new ChannelService();
 const userInfoService = new UserInfoService();
 
@@ -19,6 +22,7 @@ const state = reactive({
 const methods = {
 
   statusChangeCallback(response) {
+    // const router = useRouter();
     // Called with the results from FB.getLoginStatus().
     console.log("statusChangeCallback");
     console.log(response); // The current login status of the person.
@@ -26,6 +30,8 @@ const methods = {
       // Logged into your webpage and Facebook.
       state.loginRes = response;
       state.isConnected = response.status;
+      router.push({ name: 'NewMemberChannel' });
+      // window.location.href = "/newmemberchannel";
       // localStorage.setItem('fbaccessToken', response.authResponse.accessToken);
       // localStorage.setItem('userID', response.authResponse.userID);
 
@@ -57,13 +63,14 @@ const methods = {
           state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
+          this.statusChangeCallback(response);
           // channelService.getIgTokenRenew(res.data.token.access_token).then((res) => {
-          //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);
-          // });
-          // channelService.getIgTokenRenew(response.authResponse);
-          // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
-        });
-        this.statusChangeCallback(response);
+            //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);
+            // });
+            // channelService.getIgTokenRenew(response.authResponse);
+            // this.setIgrenewaltoken(res.data.token.access_token, res.data.token.token_type);
+          });
+        // this.statusChangeCallback(response);
         return true;
         // Now you can redirect the user or do an AJAX request to
         // a PHP script that grabs the signed request from the cookie.

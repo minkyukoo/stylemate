@@ -32,7 +32,7 @@ img:hover {
   justify-content: space-between;
   margin: 40px 0 20px 0;
   h4 {
-    font-family: 'Pretendard-Bold';
+    font-family: "Pretendard-Bold";
     font-size: 24px;
     font-weight: 700;
     font-weight: bold;
@@ -64,6 +64,7 @@ img:hover {
 
 /* home page css */
 
+.product-main-banner,
 .mainslide {
   // position: fixed;
   // z-index: 1;
@@ -127,11 +128,7 @@ img:hover {
   z-index: 2;
   border-radius: 20px 20px 0 0;
   margin-top: -20px;
-  background: linear-gradient(
-    93.21deg,
-    rgba(241, 241, 241, 0.5) 0.78%,
-    rgba(241, 241, 241, 0.1) 100.78%
-  );
+  background: linear-gradient(93.21deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
   backdrop-filter: blur(30px);
   position: relative;
   padding-bottom: 40px;
@@ -274,15 +271,15 @@ img:hover {
     width: 31%;
   }
 }
-.scrollDiv{
+.scrollDiv {
   overflow-y: auto;
   background-color: #ffffff;
   height: 100vh;
   &::-webkit-scrollbar {
     display: none;
   }
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .main-wrap {
@@ -294,8 +291,8 @@ img:hover {
   &::-webkit-scrollbar {
     display: none;
   }
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .inner-container {
   padding: 0 20px;
@@ -415,8 +412,7 @@ img:hover {
         }
         .icon.arrow-downward {
           border: none;
-          background: url("../../../src/assets/icons/arrow-down-select.svg")
-            no-repeat center center;
+          background: url("../../../src/assets/icons/arrow-down-select.svg") no-repeat center center;
           background-size: 100%;
           height: 24px;
           width: 24px;
@@ -449,25 +445,24 @@ img:hover {
     .vue-select-header {
       .vue-input {
         padding: 12px 2px 12px 20px;
-        input{
+        input {
           &::placeholder {
-            color: #25282B;
-            opacity: 1; 
+            color: #25282b;
+            opacity: 1;
           }
-          
-          &:-ms-input-placeholder { 
-            color: #25282B;
+
+          &:-ms-input-placeholder {
+            color: #25282b;
           }
-          
+
           &::-ms-input-placeholder {
-            color: #25282B;
+            color: #25282b;
           }
         }
       }
       .icon.arrow-downward {
         border: none;
-        background: url("../../../src/assets/icons/arrow-down-select.svg")
-          no-repeat center center;
+        background: url("../../../src/assets/icons/arrow-down-select.svg") no-repeat center center;
         background-size: 100%;
         height: 24px;
         width: 24px;
@@ -490,7 +485,7 @@ img:hover {
           color: #595959;
         }
         &.highlighted {
-          background: #E5E5E5;
+          background: #e5e5e5;
         }
       }
     }
@@ -512,8 +507,7 @@ img:hover {
   border-radius: 6px;
   height: 40px;
 }
-.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h
-  .searchbar-clear-button.sc-ion-searchbar-md {
+.searchbar-has-value.searchbar-should-show-clear.sc-ion-searchbar-md-h .searchbar-clear-button.sc-ion-searchbar-md {
   display: none !important;
 }
 .listmain ion-searchbar .searchbar-input {
@@ -527,11 +521,11 @@ img:hover {
       .vue-select {
         border: none;
         width: 116px;
-        .vue-select-header{
-          .vue-input{
+        .vue-select-header {
+          .vue-input {
             padding: 0;
           }
-          .icon.arrow-downward{
+          .icon.arrow-downward {
             background: url(../../../src/assets/icons/select-arrow-down.svg) no-repeat;
             width: 10px;
             height: 6px;
@@ -562,8 +556,9 @@ img:hover {
   }
 }
 
-.form-control, input{
-  &:focus-visible{
+.form-control,
+input {
+  &:focus-visible {
     outline: none;
   }
 }
@@ -574,13 +569,13 @@ img:hover {
     align-items: center;
     justify-content: center;
     bottom: 55px;
-    .swiper-pagination-bullet{
-      background: #E4E4E7;
+    .swiper-pagination-bullet {
+      background: #e4e4e7;
       width: 4px;
       height: 4px;
       position: relative;
-      &::before{
-        background: #E4E4E7;
+      &::before {
+        background: #e4e4e7;
         width: 11px;
         height: 2px;
         content: "";
@@ -588,18 +583,18 @@ img:hover {
         position: absolute;
         top: 1.5px;
       }
-      &:last-child{
-        &::before{
+      &:last-child {
+        &::before {
           display: none;
         }
       }
     }
-    .swiper-pagination-bullet-active{
-      background: #0CBFCA;
+    .swiper-pagination-bullet-active {
+      background: #0cbfca;
       width: 8px;
       height: 8px;
-      &::before{
-        background: #0CBFCA;
+      &::before {
+        background: #0cbfca;
         width: 12px;
         height: 2px;
         content: "";
@@ -609,13 +604,13 @@ img:hover {
       }
     }
   }
-  .swiper-button-next::after{
+  .swiper-button-next::after {
     content: "";
     background: url(../../../src/assets/icons/slider-arrow-right.svg) no-repeat;
     width: 24px;
     height: 24px;
   }
-  .swiper-button-prev::after{
+  .swiper-button-prev::after {
     content: "";
     background: url(../../../src/assets/icons/slider-arrow-left.svg) no-repeat;
     width: 24px;
@@ -632,7 +627,7 @@ img:hover {
   cursor: pointer;
   font-size: 14px;
   line-height: 18px;
-  color: #25282B !important;
+  color: #25282b !important;
   font-weight: normal;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -682,7 +677,6 @@ img:hover {
   }
 }
 
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -708,7 +702,7 @@ img:hover {
 }
 
 input:checked + .slider {
-  background-color: #0CBFCA;
+  background-color: #0cbfca;
 }
 
 /* input:focus + .slider {
@@ -730,43 +724,46 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-.mainslide .swiper-pagination{
+.product-main-banner .swiper-pagination {
+  bottom: 22px !important;
+}
+.mainslide .swiper-pagination {
   bottom: 42px !important;
 }
 .overLapmodal .modal {
   width: 100% !important;
   top: 50%;
   position: absolute;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
 }
-.vue-daum-postcode{
+.vue-daum-postcode {
   min-height: 450px;
-  .vue-daum-postcode-container{
+  .vue-daum-postcode-container {
     min-height: 450px;
   }
 }
 
-.modal-content p{
+.modal-content p {
   text-align: center;
 }
 
 .channelconnectionmodal {
-  .modal{
-    background: linear-gradient(159.45deg, rgba(255, 255, 255, 0.5) -37.31%, #FFFFFF 43.98%);
+  .modal {
+    background: linear-gradient(159.45deg, rgba(255, 255, 255, 0.5) -37.31%, #ffffff 43.98%);
     backdrop-filter: blur(10px);
   }
-  .modal-header{
+  .modal-header {
     padding: 28px 0 24px;
-    h2{
+    h2 {
       margin-top: 0;
     }
   }
-  .modal-content{
+  .modal-content {
     padding: 0 32px 28px;
   }
 }
 
-body.swal2-toast-shown .swal2-container.swal2-bottom{
+body.swal2-toast-shown .swal2-container.swal2-bottom {
   bottom: 85px !important;
 }
 
