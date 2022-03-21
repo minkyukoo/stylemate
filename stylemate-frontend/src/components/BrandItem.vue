@@ -49,6 +49,11 @@ export default {
 };
 </script>
 <style scoped>
+.brand-product{
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+}
 .brand-product .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -103,7 +108,7 @@ export default {
   margin-left: 0;
 }
 .brand-product .product-list .product-list-item figure{
-  height: 256px;
+  height: 156px;
 }
 
 .brand-product .product-list .product-list-item figure img{
