@@ -32,7 +32,7 @@
                   v-model="address2"
                 />
                 <small v-show="render" style="color: red"
-                  >don't keep it blank</small
+                  >입력하지 않은 항목이 있습니다.</small
                 >
               </span>
             </div>
@@ -46,7 +46,11 @@
           </li> -->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox"  />
+              <input
+                type="checkbox"
+                v-model="isDefault"
+                :disabled="isdisabled"
+              />
               <span class="checkmark"></span>기본 배송지
             </label>
           </li>
@@ -66,7 +70,12 @@
           <div class="overHeader">
             <h2></h2>
             <!-- <span @click="close">Close</span> -->
-            <button type="button" @click="closeModal" aria-label="Close modal" style="white-space: nowrap;">
+            <button
+              type="button"
+              @click="closeModal"
+              aria-label="Close modal"
+              style="white-space: nowrap"
+            >
               닫기
             </button>
           </div>
@@ -137,11 +146,25 @@ export default {
       addressZipcode: "",
       address1: "",
       address2: "",
-      isDefault: true,
+      isDefault: false,
+      isdisabled: false,
     };
   },
   created() {
     this.userInfoService = new UserInfoService();
+  },
+  mounted() {
+    this.userInfoService
+      .getUserdeliveries(localStorage.getItem("userId"))
+      .then((res) => {
+        if (res.length > 0) {
+          this.isDefault = false;
+          this.isdisabled = false;
+        } else {
+          this.isDefault = true;
+          this.isdisabled = true;
+        }
+      });
   },
   methods: {
     handleAddress(data) {
@@ -149,7 +172,7 @@ export default {
       (this.addressZipcode = data.zonecode),
         (this.address1 = data.jibunAddress),
         //  alert('xcx')
-        console.log(data);
+        // console.log(data);
       this.closeModal();
     },
 
@@ -174,6 +197,7 @@ export default {
           )
           .then(() => {});
         this.render = false;
+        this.$router.push({ name: "Userinfo" });
       }
     },
     showModal() {
@@ -203,7 +227,7 @@ export default {
   width: 100% !important;
   top: 50%;
   position: absolute;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
 }
 
 .overLapmodal .overHeader {
