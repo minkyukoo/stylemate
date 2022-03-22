@@ -52,6 +52,7 @@ export default {
   unmounted() {
     this.store.state.FltCampaignData = [];
     this.store.state.sponcerMeta = null;
+    this.store.state.sponcerPageNo = 1;
   },
 };
 </script>
