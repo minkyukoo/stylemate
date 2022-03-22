@@ -68,7 +68,7 @@
     <div class="tab-content" v-if="layout === '#faq'">
       <div class="faq-wrap">
         <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
-          <h2>{{ item }}</h2>
+          <h2>{{ item === 'sponsorship' ? '서비스 이용' : (item === 'user' ? '회원정보' : (item === 'channel' ? '채널연결' : (item === 'etc' ? '기타' : item))) }}</h2>
           <NoticeAccordion
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
