@@ -231,38 +231,36 @@
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
-            
+            :init="true"
             :pagination="{
               clickable: true,
             }"
             @slideChange="onBrandSlideChange"
             @swiper="onBrandSwiper"
+            @afterInit="mountRun"
             class="newBrandSwiper"
           >
-          <!-- :autoplay="autoplay" -->
+            <!-- :autoplay="autoplay" -->
             <swiper-slide
               class="brandSliderimg"
               v-for="(item, index) in brandList"
+              ref="items"
               v-slot="{ isActive }"
               :key="item.id || index"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
               "
             >
-            
               <div class="carousel__item">
                 <div class="nb-img-wrap">
                   <img
                     :src="item.imageThumbnailPath"
-                    ref="backImg"
-                    :id="[
-                      isActive ? 'activeImg' : 'inactive',
-                    ]"
+                    ref="itemImg"
+                    :id="[isActive ? 'activeImg' : 'inactive']"
                   />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.korName">
-                    {{isActive}}
                     {{ item.engName }}
                     <b>
                       <img src="@/assets/icons/arrow-right.svg" />
@@ -486,8 +484,7 @@ export default {
       isActive: false,
       activeId: null,
       notificationLength: 0,
-      image:
-        "",
+      image: "",
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -518,22 +515,32 @@ export default {
     if (isLogedIn) {
       window.parent.postMessage("loginCompleted", "*");
     }
-    this.onBrandSlideChange();
+    // let lengthArr = (this.brandList.length)/2;
+    // let xyz = this.brandList[lengthArr];
+    // console.log(xyz);
+    setTimeout(() => {
+      if (document.getElementById("activeImg")) {
+        console.log("something", document.getElementById("activeImg").src);
+      }
+    }, 100);
   },
   methods: {
     mountRun() {
-      this.image = document.getElementById("activeImg").src;
-      console.log(this.image);
+      setTimeout(() => {
+        if (document.getElementById("activeImg")) {
+          console.log("something", document.getElementById("activeImg").src);
+        }
+      }, 100);
     },
     onBrandSlideChange(e) {
       console.log("slider change", e);
       this.image = "";
       this.activeId = e.activeIndex;
       console.log(this.activeId);
-      this.$nextTick(() => {
+      setTimeout(() => {
         this.image = document.getElementById("activeImg").src;
         console.log(this.image);
-      });
+      }, 100);
       // if (document.getElementById("activeImg")) {
       //   this.image = document.getElementById("activeImg").src;
       // }
