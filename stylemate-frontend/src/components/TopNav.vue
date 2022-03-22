@@ -55,7 +55,7 @@ export default {
   },
   mounted() {
     this.getNotificationLength();
-    console.log(this.$route.name);
+    // console.log(this.$route.name);
   },
   methods: {
     // isLogedIn
@@ -63,7 +63,7 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
-      if (this.$route.name === 'Notice' || this.$route.name === 'NewMemberJoining') {
+      if (this.$route.name === 'NewMemberJoining') {
         this.$router.push({
           path: "/mypage",
         });

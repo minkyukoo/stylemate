@@ -46,7 +46,7 @@
           </li> -->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox" checked disabled />
+              <input type="checkbox"  />
               <span class="checkmark"></span>기본 배송지
             </label>
           </li>
@@ -64,10 +64,10 @@
       >
         <template v-slot:header>
           <div class="overHeader">
-            <h2>Modal heading</h2>
+            <h2></h2>
             <!-- <span @click="close">Close</span> -->
-            <button type="button" @click="closeModal" aria-label="Close modal">
-              Close
+            <button type="button" @click="closeModal" aria-label="Close modal" style="white-space: nowrap;">
+              닫기
             </button>
           </div>
         </template>

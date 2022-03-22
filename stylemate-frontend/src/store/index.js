@@ -24,17 +24,17 @@ const state = reactive({
   likedTabBrandLength: 0,
   likedTabAllCategories: [{
       id: "all",
-      name: "all",
+      name: "전체",
       active: true,
     },
     {
       id: "Progress",
-      name: "Progress",
+      name: "진행",
       active: false,
     },
     {
       id: "end",
-      name: "end",
+      name: "종료",
       active: false,
     },
   ],

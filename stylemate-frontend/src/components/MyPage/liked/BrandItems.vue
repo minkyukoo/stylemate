@@ -1,12 +1,29 @@
 <template>
   <div class="item-card">
-    <div class="img-con">
+    <div
+      class="img-con cursor-pointer"
+      @click="
+        $router.push({
+          name: 'BrandDetails',
+          params: { id: progressDetails.id },
+        })
+      "
+    >
       <img :src="progressDetails.imageThumbnailPath" alt />
-      <!-- <img src="../../../assets/icons/instagram.svg" class="img-tag" alt="" /> -->
     </div>
     <div class="item-desc">
       <div class="heading-wrap">
-        <h2>{{ progressDetails.korName }}</h2>
+        <h2
+          class="cursor-pointer"
+          @click="
+            $router.push({
+              name: 'BrandDetails',
+              params: { id: progressDetails.id },
+            })
+          "
+        >
+          {{ progressDetails.korName }}
+        </h2>
         <button class="like" @click="dislikeBrand(progressDetails.id)">
           <img src="../../../assets/icons/heart-filled.svg" alt />
         </button>
@@ -65,26 +82,31 @@ export default {
 
       await this.isUserid().then((res) => {
         uid = res;
-        console.log('uid', uid);
+        console.log("uid", uid);
 
-        this.brandService.influencedislikes(uid, 'brand', brandId).then((res) => {
-          // console.log('dres', res);
-          if (res) {
-            if (res.response.status && res.response.status !== 204) {
-              Toast.fire({ title: res.response.data.error.message });
+        this.brandService
+          .influencedislikes(uid, "brand", brandId)
+          .then((res) => {
+            // console.log('dres', res);
+            if (res) {
+              if (res.response.status && res.response.status !== 204) {
+                Toast.fire({ title: res.response.data.error.message });
+              }
+            } else {
+              this.$emit("brandDislike", true);
             }
-          } else {
-            this.$emit("brandDislike", true);
-          }
-        });
+          });
       });
       // console.log('brand dislike');
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 .item-card {
   display: flex;
   margin-bottom: 24px;

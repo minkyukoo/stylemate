@@ -10,7 +10,7 @@
         />
       </div>
       <div v-else>
-        <Error errors="You don't have a wishlist yet." />
+        <Error errors="아직 찜한 아이템이 없어요." />
       </div>
     </div>
     <div v-if="store.state.likedTabState === 'brand'">
@@ -24,7 +24,7 @@
         />
       </div>
       <div v-else>
-        <Error errors="You don't have a wishlist yet." />
+        <Error errors="아직 찜한 아이템이 없어요." />
       </div>
     </div>
   </div>
@@ -60,7 +60,10 @@ export default {
     this.getInfluenceList();
   },
   mounted() {
-    console.log('store.state.likedTabProduct', this.store.state.likedTabProduct);
+    console.log(
+      "store.state.likedTabProduct",
+      this.store.state.likedTabProduct
+    );
   },
   methods: {
     setTags(items) {
@@ -79,14 +82,20 @@ export default {
           this.store.state.likedTabProduct = res.data.data;
           this.store.state.likedTabProductLength =
             res.data.data.length > 0 ? true : false;
-            console.log('store.state.likedTabProduct', this.store.state.likedTabProduct);
+          console.log(
+            "store.state.likedTabProduct",
+            this.store.state.likedTabProduct
+          );
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
           // console.log("brand", res);
           this.store.state.likedTabBrand = res.data.data;
           this.store.state.likedTabBrandLength =
             res.data.data.length > 0 ? true : false;
-            console.log(' this.store.state.likedTabBrand ', this.store.state.likedTabBrand );
+          console.log(
+            " this.store.state.likedTabBrand ",
+            this.store.state.likedTabBrand
+          );
         });
       });
     },

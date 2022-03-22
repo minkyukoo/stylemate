@@ -16,6 +16,7 @@
         FAQ
       </a>
       <a
+        v-if="isLoggedIn"
         class="tab"
         @click="(layout = '#inquiry'), stateUp('1:1 문의')"
         :class="{ active: layout === '#inquiry' }"
@@ -76,7 +77,7 @@
     </div>
 
     <!-- tab content 3 -->
-    <div class="tab-content" v-if="layout === '#inquiry'">
+    <div class="tab-content" v-if="layout === '#inquiry' && isLoggedIn">
       <div class="top-sec">
         <h3>궁금한 점은 언제든지 문의해주세요.</h3>
         <button class="black-btn" @click="sendInquiryDetails()">
@@ -142,6 +143,7 @@ export default {
       noticelist: [],
       inquirylist: [],
       inquiryLength: 0,
+      isLoggedIn: false,
     };
   },
   setup() {
@@ -160,11 +162,12 @@ export default {
     this.service = new UserInfoService();
     this.tokenService = new TokenService();
   },
-  mounted() {
+  async mounted() {
+    this.isLoggedIn = await this.isLogedIn();
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
-      console.log(this.noticelist);
+      // console.log(this.noticelist);
     });
 
     this.service.FAQs().then((res) => {
@@ -172,17 +175,18 @@ export default {
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
-        console.log(this.faqCategory);
+      // console.log(this.faqCategory);
       this.service.FAQs().then((res) => {
         this.faqs = res.data;
       });
     });
-
-    this.service.QNAs().then((res) => {
-      this.inquiryLength = res.data.length;
-      this.inquirylist = res.data;
-      console.log("inquiry", res.data);
-    });
+    if (this.isLoggedIn) {
+      this.service.QNAs().then((res) => {
+        this.inquiryLength = res.data.length;
+        this.inquirylist = res.data;
+        console.log("inquiry", res.data);
+      });
+    }
   },
   methods: {
     camelToSpace(str) {

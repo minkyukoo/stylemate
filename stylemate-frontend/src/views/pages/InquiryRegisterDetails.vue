@@ -56,7 +56,7 @@
       </div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button class="main-btn" @click="$router.go(-1)">목록으로</button>
+          <button class="main-btn" @click="asAList()">목록으로</button>
         </div>
         <div class="pagination-wrap">
           <a
@@ -122,6 +122,10 @@ export default {
     });
   },
   methods: {
+    asAList() {
+      this.$router.back()
+      // this.$router.go({ name: "Notice", hash: "#inquiry" });
+    },
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;

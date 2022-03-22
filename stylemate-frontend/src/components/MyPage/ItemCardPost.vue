@@ -14,7 +14,7 @@
       <div>
         <h4>{{ progressDetails.campaign.product.name }}</h4>
         <h6>
-          End date
+          종료일
           {{
             moment(progressDetails.campaign.campaignSchedule.finishedAt).format(
               "YYYY.MM.DD  h:mm"

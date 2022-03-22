@@ -11,8 +11,11 @@
         <swiper
           :modules="modules"
           :slides-per-view="1"
-          :space-between="50"
+          :space-between="0"
           :pagination="{ clickable: true }"
+          :autoplay="autoplay"
+          :initialSlide="0"
+          :centeredSlides="true"
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
@@ -34,6 +37,7 @@
               :modules="modules"
               :slides-per-view="1"
               :space-between="50"
+              :loop="loop"
               :pagination="{ clickable: true }"
               @swiper="onSwiper"
               @slideChange="onSlideChange"
@@ -74,7 +78,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -120,7 +124,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -166,7 +170,7 @@
                         })
                       "
                     >
-                      <h3>{{ item.brand.engName }}</h3>
+                      <h3>{{ item.brand.korName }}</h3>
                       <p>{{ item.name }}</p>
                       <div class="hashWrap">
                         <span>{{ setTags(item.tag) }}</span>
@@ -192,11 +196,11 @@
             :loop="true"
             :centerInsufficientSlides="true"
             :initialSlide="6"
-            :autoplay="true"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
+            :autoplay="autoplay"
             :pagination="{
               clickable: true,
             }"
@@ -206,7 +210,7 @@
           >
             <swiper-slide
               class="brandSliderimg"
-              v-for="(item,index) in brandList"
+              v-for="(item, index) in brandList"
               v-slot="{ isNext }"
               :key="item.id || index"
               @click="
@@ -218,7 +222,7 @@
                   <img :src="item.imageThumbnailPath" :id="[isNext ? 'activeImg' : 'inactive']" />
                 </div>
                 <div class="brandDetails">
-                  <h3 v-if="item.engName">
+                  <h3 v-if="item.korName">
                     {{ item.engName }}
                     <b>
                       <img src="@/assets/icons/arrow-right.svg" />
@@ -332,7 +336,9 @@
             <!-- <button class="outlineBtnFull mt-6">패밀리 사이트 바로가기</button> -->
             <button
               class="greyBtnFull"
-              @click="$router.push({ name: 'NoticeDetails', params: { id: id } })"
+              @click="
+                $router.push({ name: 'NoticeDetails', params: { id: id } })
+              "
             >
               <span>중요</span>
               {{ notice }}
@@ -349,9 +355,8 @@
 
 <script>
 // Import Swiper Vue.js components
-import { Pagination, EffectCoverflow } from "swiper";
+import SwiperCore, { Pagination, EffectCoverflow, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -367,6 +372,7 @@ import ContentDetails from "@/components/ContentDetails.vue";
 import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
 import { inject, ref } from "vue";
+SwiperCore.use([EffectCoverflow, Pagination, Autoplay]);
 export default {
   name: "Home",
   components: {
@@ -427,6 +433,12 @@ export default {
         lineTwo: { normal: [] },
         lineThree: { big: [], normal: [] },
       },
+      centeredSlides: true,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
       newProItems: null,
       isActive: false,
       notificationLength: 0,
@@ -460,18 +472,18 @@ export default {
     this.getNoticeIsAuth();
     let isLogedIn = await this.tokenService.isAuth();
     if (isLogedIn) {
-      window.parent.postMessage('loginCompleted', '*');
+      window.parent.postMessage("loginCompleted", "*");
     }
     this.onBrandSlideChange();
   },
   methods: {
     onBrandSlideChange(e) {
-      console.log("slider change",e);
+      console.log("slider change", e);
       this.image = "";
-      if(document.getElementById("activeImg")){
+      if (document.getElementById("activeImg")) {
         this.image = document.getElementById("activeImg").src;
       }
-      else if (document.getElementById("activeBack")){
+      else if (document.getElementById("activeBack")) {
         this.image = document.getElementById("activeImg").src;
       }
       console.log(this.image);
@@ -567,8 +579,6 @@ export default {
         // console.log(lookBooks);
       });
     },
-
-
 
     setTags(items) {
       var filterItems = [];
@@ -782,7 +792,6 @@ export default {
 }
 .brandSlider .headerLine h4 {
   color: #f6f6f6;
-  
 }
 .brandSlider .multiSlideWrap {
   display: inherit;
