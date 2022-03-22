@@ -68,11 +68,7 @@ export default defineComponent({
 
     return { getOptionValue };
   },
-  watch: {
-    selected: function (v) {
-      console.log(v);
-    },
-  },
+  
   created() {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
@@ -119,8 +115,9 @@ export default defineComponent({
           this.deliveryId,
           this.option
         )
+        // eslint-disable-next-line no-unused-vars
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           this.$emit("closePopup", true);
         });
     },
@@ -130,9 +127,10 @@ export default defineComponent({
     },
     // Apply cancel sponsership popup
     applycancelspon(campUid, campbookingId) {
-      console.log("applycancelspon");
+      // console.log("applycancelspon");
+      // eslint-disable-next-line no-unused-vars
       this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
-        console.log("rescel:", res);
+        // console.log("rescel:", res);
         this.$emit("closePopup", true);
       });
     },
