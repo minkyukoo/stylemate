@@ -109,11 +109,7 @@ export default defineComponent({
         this.disable = true;
       }
     },
-    cancel() {
-      console.log(this.selected);
-      //   alert(this.selected);
-      // this.$router.go(-1);
-    },
+    
     apply() {
       this.itemService
         .applySponsership(
