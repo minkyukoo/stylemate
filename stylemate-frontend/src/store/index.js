@@ -43,6 +43,7 @@ const state = reactive({
   sponcerFilterNo: 1,
   FltCampaignData: [],
   sponcerMeta: null,
+  sponcerPageNo: 1,
   sponcerChannelType: "instagram",
   isPostModalVisible: false,
   cancelPopup: false,
@@ -104,7 +105,8 @@ const methods = {
     state.sponcerFilterNo = 0;
     state.sponcerFilterId = "";
     state.FltCampaignData = [];
-    methods.getcampList(1);
+    state.sponcerPageNo = 1;
+    methods.getcampList();
   },
   setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
@@ -112,10 +114,10 @@ const methods = {
     state.hideBar = true;
     console.log(state.contentDetailsId);
   },
-  async getcampList(pageNo) {
+  async getcampList(page) {
     return await myPageService
       .getCampaignData(
-        pageNo,
+        page,
         state.UserId,
         state.sponsorTabState,
         state.sponcerFilterId,
@@ -137,6 +139,7 @@ const methods = {
     state.sponcerFilterNo = index;
     // console.log(index);
     state.FltCampaignData = [];
+    state.sponcerPageNo = 1;
     methods.getcampList();
     console.log(
       "setSponsorFilter",
