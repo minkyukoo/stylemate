@@ -237,9 +237,10 @@
             }"
             @slideChange="onBrandSlideChange"
             @swiper="onBrandSwiper"
-            @afterInit="mountRun"
+            
             class="newBrandSwiper"
           >
+          <!-- @afterInit="mountRun" -->
             <!-- :autoplay="autoplay" -->
             <swiper-slide
               class="brandSliderimg"
@@ -494,16 +495,33 @@ export default {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
+    this.bannerService.getBannerList("home").then((res) => {
+      this.bannerList = res;
+      if (this.bannerList.length > 0) {
+        this.mountRun();
+      }
+      console.log("bannerList", this.bannerList);
+    });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
   },
 
+  watch: {
+    bannerList: function () {
+      setTimeout(() => {
+        this.image = document.getElementById("activeImg").src;
+        console.log(this.image);
+      }, 1000);
+    },
+  },
+
   async mounted() {
-    this.bannerService.getBannerList("home").then((res) => {
-      this.bannerList = res;
-      console.log("bannerList", this.bannerList);
-    });
+    // this.bannerService.getBannerList("home").then((res) => {
+    //   this.bannerList = res;
+    //   console.log("bannerList", this.bannerList);
+
+    // });
     this.getProductItemList();
     this.getLookBook();
     this.brandService.getBrandList().then((res) => {
@@ -518,19 +536,18 @@ export default {
     // let lengthArr = (this.brandList.length)/2;
     // let xyz = this.brandList[lengthArr];
     // console.log(xyz);
-    setTimeout(() => {
-      if (document.getElementById("activeImg")) {
-        console.log("something", document.getElementById("activeImg").src);
-      }
-    }, 100);
+    // setTimeout(() => {
+    //   if (document.getElementById("activeImg")) {
+    //     console.log("something", document.getElementById("activeImg").src);
+    //   }
+    // }, 100);
   },
   methods: {
     mountRun() {
-      setTimeout(() => {
-        if (document.getElementById("activeImg")) {
-          console.log("something", document.getElementById("activeImg").src);
-        }
-      }, 100);
+      if (document.getElementById("activeImg")) {
+        console.log("something", document.getElementById("activeImg").src);
+      }
+      console.log("mounted");
     },
     onBrandSlideChange(e) {
       console.log("slider change", e);
