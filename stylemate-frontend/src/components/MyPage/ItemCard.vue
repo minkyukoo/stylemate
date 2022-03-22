@@ -5,13 +5,13 @@
       <span
         class="img-tag"
         :class="{
-          'aqua-bg': getImgTag(progressDetails) === 're-registration',
-          'green-bg': getImgTag(progressDetails) == 'Application completed',
-          'pink-bg': getImgTag(progressDetails) === 'Sponcer Selection',
-          'blue-bg': getImgTag(progressDetails) === 'Post Registration',
-          'yellow-bg': getImgTag(progressDetails) === 'Checking',
-          'grey-bg': getImgTag(progressDetails) === 'Sponsorship completed',
-          'dark-bg': getImgTag(progressDetails) === 'unselected',
+          'aqua-bg': getImgTag(progressDetails) === '재등록',
+          'green-bg': getImgTag(progressDetails) == '신청완료',
+          'pink-bg': getImgTag(progressDetails) === '협찬선정',
+          'blue-bg': getImgTag(progressDetails) === '포스트 등록',
+          'yellow-bg': getImgTag(progressDetails) === '확인중',
+          'grey-bg': getImgTag(progressDetails) === '협찬완료',
+          'dark-bg': getImgTag(progressDetails) === '미선정',
         }"
         id="imgTag"
         
@@ -24,7 +24,7 @@
         <span
           class="cancel-tag"
           v-if="
-            store.state.sponsorTabState === 'progressHistory' &&
+            
             this.progressDetails.processStatus === 'progress' &&
             this.progressDetails.processDetailStatus === 'booking' &&
             this.progressDetails.booking[
@@ -181,7 +181,7 @@ export default {
             .postStatus === "ready"
         ) {
           this.tagShow = true;
-          return "Application completed";
+          return "신청완료";
         } else if (
           progressDetails.processStatus === "progress" &&
           progressDetails.processDetailStatus === "posting" &&
@@ -192,7 +192,7 @@ export default {
         ) {
           this.tagShow = true;
           this.Modaltype = "post-registration";
-          return "Post Registration";
+          return "포스트 등록";
         } else if (
           progressDetails.processStatus === "progress" &&
           progressDetails.processDetailStatus === "posting" &&
@@ -202,7 +202,7 @@ export default {
             .postStatus === "post_progress"
         ) {
           this.tagShow = true;
-          return "Checking";
+          return "확인중";
         } else if (
           progressDetails.processStatus === "progress" &&
           progressDetails.processDetailStatus === "posting" &&
@@ -213,7 +213,7 @@ export default {
         ) {
           this.tagShow = true;
           this.Modaltype = "re-registration";
-          return "re-registration";
+          return "재등록";
         } else if (
           progressDetails.processStatus === "progress" &&
           progressDetails.processDetailStatus === "posting" &&
@@ -224,7 +224,7 @@ export default {
         ) {
           this.tagShow = true;
           this.Modaltype = "sponsor-selection";
-          return "Sponcer Selection";
+          return "협찬선정";
         } else if (
           (progressDetails.processStatus === "progress" ||
             progressDetails.processStatus === "finish") &&
@@ -237,7 +237,7 @@ export default {
             .postStatus === "ready"
         ) {
           this.tagShow = true;
-          return "unselected";
+          return "미선정";
         } else if (
           (progressDetails.processStatus === "progress" ||
             progressDetails.processStatus === "finish") &&
@@ -248,7 +248,7 @@ export default {
             .postStatus === "finish"
         ) {
           this.tagShow = true;
-          return "Sponsorship completed";
+          return "협찬완료";
         }
       }
     },

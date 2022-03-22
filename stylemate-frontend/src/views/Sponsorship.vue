@@ -40,7 +40,7 @@ export default {
         console.log('end reached');
         let last_page = this.store.state.sponcerMeta.last_page;
         if (this.page < last_page) {
-          this.page = this.page + 1;
+          this.page = this.store.state.sponcerPageNo + 1;
           console.log('page from itemvue:-:', this.page);
           this.store.methods.getcampList(this.page);
         } else {

@@ -78,6 +78,7 @@ export default {
   z-index: 9;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
 }
 .popup-container {
   background: linear-gradient(
