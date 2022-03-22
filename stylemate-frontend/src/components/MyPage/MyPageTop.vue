@@ -216,6 +216,7 @@ export default {
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
+  text-align: center;
 }
 .profile-desc p {
   font-size: 12px;
