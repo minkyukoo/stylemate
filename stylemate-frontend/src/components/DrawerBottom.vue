@@ -6,24 +6,28 @@
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancelspon">아니요</button>
-      <button class="black-btn" @click="applycancelspon(uid, bookingId)">예</button>
+      <button class="black-btn" @click="applycancelspon(uid, bookingId)">
+        예
+      </button>
     </div>
   </div>
   <div class="drawer-wrap" v-else>
     <div class="drawer-top">
-      <div class="selectWrap" v-for="(item, i) in productColor" :key="item.optionName">
+      <div class="selectWrap" v-for="(item, i) in productColor" :key="i">
         <vue-select
           :placeholder="item.optionName"
           :options="item.optionValues"
-          v-model="selected"
-          @toggle="control(i)"
+          v-model="selected[i]"
+          @toggle="control()"
           :close-on-select="true"
         ></vue-select>
       </div>
     </div>
     <div class="button-group">
       <button class="grey-btn" @click="cancelspon">취소</button>
-      <button class="black-btn" @click="apply" :disabled="disable">신청하기</button>
+      <button class="black-btn" @click="apply" :disabled="disable">
+        신청하기
+      </button>
     </div>
   </div>
 </template>
@@ -50,7 +54,7 @@ export default defineComponent({
       bookingId: "",
       deliveryId: "",
       productColor: "",
-      selected: "",
+      selected: [],
       disable: true,
       option: "",
       selected1: "",
@@ -58,11 +62,16 @@ export default defineComponent({
     };
   },
   setup() {
-    // const selectedItem = ref("Black");
-    // const options = [
-    //    'Black', 'White', 'Green', 'Yellow', 'Bright blue','Black', 'White', 'Green', 'Yellow', 'Bright blue'
-    // ];
-    // return { options };
+    const getOptionValue = (e) => {
+      console.log(e.target.value);
+    };
+
+    return { getOptionValue };
+  },
+  watch: {
+    selected: function (v) {
+      console.log(v);
+    },
   },
   created() {
     this.itemService = new ItemService();
@@ -72,13 +81,13 @@ export default defineComponent({
     var proId = this.$route.params.id;
     this.itemService.getProductDetails(proId).then((data) => {
       this.productColor = data.productOption;
+      // console.log("this.productColor", data.productOption);
       this.compainId = data.campaign[0].id;
       this.uid = data.campaign[0].uid;
       if (data.campaign[0].booking.length > 0) {
         this.bookingId = data.campaign[0].booking[0].id;
-        console.log('bookingID:', this.bookingId);
+        // console.log("bookingID:", this.bookingId);
       }
-      // console.log("this.productColor", this.productColor);
       // console.log(this.compainId)
     });
     this.userInfoService.getUserInfo().then((res) => {
@@ -90,26 +99,12 @@ export default defineComponent({
     });
   },
   methods: {
-    control(i) {
-      if (this.selected != "") {
-        this.disable = false;
-      } else {
-        this.disable = true;
+    control() {
+      var option = this.selected.filter((f) => f !== null && f !== undefined);
+      if (option.length > 0 && this.option !== option.join("/")) {
+        this.option = option.join("/");
+        // console.log(this.option);
       }
-      if (this.selected != "" && i == 0) {
-        this.selected1 = this.selected;
-      }
-      if (this.selected != "" && i == 1) {
-        this.selected2 = this.selected;
-      }
-
-      this.option =
-        this.selected1 == ""
-          ? this.selected2
-          : this.selected2 == ""
-            ? this.selected1
-            : `${this.selected1}/${this.selected2}`;
-      console.log(this.option);
     },
     cancel() {
       console.log(this.selected);
@@ -136,12 +131,12 @@ export default defineComponent({
     },
     // Apply cancel sponsership popup
     applycancelspon(campUid, campbookingId) {
-      console.log('applycancelspon');
+      console.log("applycancelspon");
       this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
-        console.log('rescel:', res);
+        console.log("rescel:", res);
         this.$emit("closePopup", true);
       });
-    }
+    },
   },
 });
 </script>
@@ -174,13 +169,13 @@ export default defineComponent({
 .drawer-top .selectWrap:first-child {
   margin-top: 0;
 }
-.drawer-top .selectWrap .vue-select{
+.drawer-top .selectWrap .vue-select {
   width: 100%;
   border: 1px solid #c4c4c4;
   border-radius: 6px;
 }
 .vue-select:focus {
-  border: 1px solid #5700FF;
+  border: 1px solid #5700ff;
 }
 .button-group {
   display: flex;
@@ -203,7 +198,7 @@ export default defineComponent({
   color: #ffffff;
   background: #090909;
 }
-.xyz{
+.xyz {
   border: 1px solid red;
 }
 </style>

@@ -122,6 +122,8 @@ export default {
         return "연결이 끊긴";
       } else if (arg === "finish") {
         return "마치다";
+      } else if (arg === "postCancel"){
+        return "게시물 취소"
       }
     },
   },
