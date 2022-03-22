@@ -36,7 +36,7 @@
           </li>
         </ul>
         <ul class="secList">
-          <li v-show="addr">
+          <li>
             <div>
               <label>배송지(기본)</label>
             </div>
