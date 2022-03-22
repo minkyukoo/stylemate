@@ -11,7 +11,7 @@ const state = reactive({
   AppData: [],
   productMeta: null,
   AppFltData: undefined,
-  campaignEmpty: false,
+  campaignEmpty: "",
   number: 13,
   UserId: "",
   influenceId: null,
@@ -129,8 +129,16 @@ const methods = {
         state.FltCampaignData.push(...resData);
         state.sponcerMeta = data.data.meta;
         // console.log("CampaignList from store", state.FltCampaignData);
-        state.campaignEmpty = state.FltCampaignData.length > 0 ? false : true;
-        console.log("0th", state.campaignEmpty);
+        if(!state.FltCampaignData.length && state.sponcerFilterId === "" ){
+          state.campaignEmpty = "아직 협찬에 선정되지 못하였습니다.<br/>다른 브랜드의 제품들도 협찬을 신청해보세요."
+        }
+        else if(!state.FltCampaignData.length && state.sponcerFilterId ) {
+          state.campaignEmpty = "해당하는 제품이 없습니다."
+        }
+        else {
+          state.campaignEmpty = ""
+        }
+        
         // return state.FltCampaignData;
       });
   },

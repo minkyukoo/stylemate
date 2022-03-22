@@ -2,7 +2,7 @@
   <div>
     <SponsorTab />
   </div>
-  <div v-if="!store.state.campaignEmpty">
+  <div>
     <SponsorFilter />
   </div>
   <div>
