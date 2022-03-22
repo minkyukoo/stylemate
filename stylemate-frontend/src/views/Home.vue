@@ -248,10 +248,7 @@
               ref="items"
               v-slot="{ isActive }"
               :key="item.id || index"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
-            >
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })">
               <div class="carousel__item">
                 <div class="nb-img-wrap">
                   <img

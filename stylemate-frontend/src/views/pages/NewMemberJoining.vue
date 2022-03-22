@@ -45,7 +45,7 @@
                   <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
-                    <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                    <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
                   </div>
                   <button
                     v-else-if="stylemateStatus === 'request'"
@@ -63,7 +63,7 @@
                     v-else-if="stylemateStatus === 'hold' && isReApplication"
                   >
                     <button class="channelBtn" type="button" @click="selectPage(account, i)">선택</button>
-                    <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                    <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
                   </div>
                 </div>
               </li>
