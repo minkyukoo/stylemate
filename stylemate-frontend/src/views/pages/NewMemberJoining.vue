@@ -425,7 +425,6 @@ export default {
         let channelData = res.data.influence.channel;
         this.userChannel = channelData;
         this.userChannellength = channelData.length;
-        // this.stylemateStatus = res.data.influence.stylemateStatus;
         this.isReApplication = res.data.influence.isReApplication;
         console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
@@ -434,7 +433,6 @@ export default {
           this.channelId = item.id;
           this.selChannel = item
           this.instagramChannelInfo = item.instagramChannel;
-          // this.isReApplication = item.isReApplication;
           this.channelId = item.id;
           this.fbToken = item.instagramChannel.accessToken;
         });

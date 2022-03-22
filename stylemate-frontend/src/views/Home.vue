@@ -20,7 +20,11 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+            <router-link
+              to
+              class="mainslide-banner-wrap"
+              @click="bannerRedirect(slide.mobileLink)"
+            >
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -51,11 +55,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'n')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'n')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -97,11 +110,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'o')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'o')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -143,11 +165,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 's')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 's')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -200,18 +231,22 @@
             :loopFillGroupWithBlank="true"
             :slidesPerView="1.5"
             :space-between="12"
-            :autoplay="autoplay"
+            :init="true"
             :pagination="{
               clickable: true,
             }"
             @slideChange="onBrandSlideChange"
             @swiper="onBrandSwiper"
+            
             class="newBrandSwiper"
           >
+          <!-- @afterInit="mountRun" -->
+            <!-- :autoplay="autoplay" -->
             <swiper-slide
               class="brandSliderimg"
               v-for="(item, index) in brandList"
-              v-slot="{ isNext }"
+              ref="items"
+              v-slot="{ isActive }"
               :key="item.id || index"
               @click="
                 $router.push({ name: 'BrandDetails', params: { id: item.id } })
@@ -219,7 +254,11 @@
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
-                  <img :src="item.imageThumbnailPath" :id="[isNext ? 'activeImg' : 'inactive']" />
+                  <img
+                    :src="item.imageThumbnailPath"
+                    ref="itemImg"
+                    :id="[isActive ? 'activeImg' : 'inactive']"
+                  />
                 </div>
                 <div class="brandDetails">
                   <h3 v-if="item.korName">
@@ -290,7 +329,10 @@
               </div>
             </div>
 
-            <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+            <div
+              v-if="lookBooks.lineThree.normal.length !== 0"
+              class="lookBookMain"
+            >
               <div class="bookLabel1 pattern2">
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
@@ -441,9 +483,9 @@ export default {
       },
       newProItems: null,
       isActive: false,
+      activeId: null,
       notificationLength: 0,
-      image:
-        "https://alloo.s3.ap-northeast-2.amazonaws.com/brand/f/15/1645748657916_20220225092418.jpg",
+      image: "",
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -453,16 +495,33 @@ export default {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
+    this.bannerService.getBannerList("home").then((res) => {
+      this.bannerList = res;
+      if (this.bannerList.length > 0) {
+        this.mountRun();
+      }
+      console.log("bannerList", this.bannerList);
+    });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
     // }, 5000);
   },
 
+  watch: {
+    bannerList: function () {
+      setTimeout(() => {
+        this.image = document.getElementById("activeImg").src;
+        console.log(this.image);
+      }, 1000);
+    },
+  },
+
   async mounted() {
-    this.bannerService.getBannerList("home").then((res) => {
-      this.bannerList = res;
-      console.log("bannerList", this.bannerList);
-    });
+    // this.bannerService.getBannerList("home").then((res) => {
+    //   this.bannerList = res;
+    //   console.log("bannerList", this.bannerList);
+
+    // });
     this.getProductItemList();
     this.getLookBook();
     this.brandService.getBrandList().then((res) => {
@@ -474,18 +533,34 @@ export default {
     if (isLogedIn) {
       window.parent.postMessage("loginCompleted", "*");
     }
-    this.onBrandSlideChange();
+    // let lengthArr = (this.brandList.length)/2;
+    // let xyz = this.brandList[lengthArr];
+    // console.log(xyz);
+    // setTimeout(() => {
+    //   if (document.getElementById("activeImg")) {
+    //     console.log("something", document.getElementById("activeImg").src);
+    //   }
+    // }, 100);
   },
   methods: {
+    mountRun() {
+      if (document.getElementById("activeImg")) {
+        console.log("something", document.getElementById("activeImg").src);
+      }
+      console.log("mounted");
+    },
     onBrandSlideChange(e) {
       console.log("slider change", e);
       this.image = "";
-      if (document.getElementById("activeImg")) {
+      this.activeId = e.activeIndex;
+      console.log(this.activeId);
+      setTimeout(() => {
         this.image = document.getElementById("activeImg").src;
-      }
-      else if (document.getElementById("activeBack")) {
-        this.image = document.getElementById("activeImg").src;
-      }
+        console.log(this.image);
+      }, 100);
+      // if (document.getElementById("activeImg")) {
+      //   this.image = document.getElementById("activeImg").src;
+      // }
       console.log(this.image);
     },
 
