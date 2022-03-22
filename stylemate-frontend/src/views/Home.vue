@@ -229,6 +229,7 @@
             :initialSlide="6"
             :watchSlidesProgress="true"
             :loopFillGroupWithBlank="true"
+            :autoplay="autoplay"
             :slidesPerView="1.5"
             :space-between="12"
             :init="true"
@@ -248,10 +249,7 @@
               ref="items"
               v-slot="{ isActive }"
               :key="item.id || index"
-              @click="
-                $router.push({ name: 'BrandDetails', params: { id: item.id } })
-              "
-            >
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })">
               <div class="carousel__item">
                 <div class="nb-img-wrap">
                   <img

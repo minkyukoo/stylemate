@@ -199,7 +199,7 @@ export default {
     savepassword() {
       this.confirmBtn = false;
       if (this.oldPass == "" || this.newPass == "" || this.confirmPass == "") {
-        Toast.fire({ title: "please don't keep password feilds blank" });
+        Toast.fire({ title: "비밀번호를 입력해주세요." });
       } else if (this.newPass !== this.confirmPass) {
         Toast.fire({ title: "비밀번호가 일치하지 않습니다." });
       }else if(this.oldPass == this.newPass){
@@ -238,7 +238,7 @@ export default {
     // },
     sendOtp() {
       if (this.mobile == "") {
-        Toast.fire({ title: "please fill mmobile Number feild" });
+        Toast.fire({ title: "휴대폰번호를 입력해주세요." });
       } else if (this.mobile.length !== 9) {
         Toast.fire({ title: "Enter a valid mobile number" });
       } else {
