@@ -9,7 +9,9 @@
         <div class="topGreyBox">
           <div class="top-row">
             <label>처리 상태</label>
-            <span class="notice-tag grey-solid">{{ answerStatus }}</span>
+            <span class="notice-tag grey-solid">{{
+              answerStatus === "ready" ? "확인중" : "답변완료"
+            }}</span>
           </div>
           <div class="top-row">
             <label>등록일</label>
@@ -38,9 +40,7 @@
         </div>
         <div v-if="answer !== null" class="answer-cont">
           <h4>답변내용</h4>
-          <p>
-            {{ answer }}
-          </p>
+          <p v-html="answer"></p>
         </div>
         <div class="buttongrp p-16">
           <button
@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     asAList() {
-      this.$router.back()
+      this.$router.back();
       // this.$router.go({ name: "Notice", hash: "#inquiry" });
     },
     dateFormat(date) {

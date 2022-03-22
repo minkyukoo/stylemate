@@ -15,21 +15,27 @@
               'dark-solid': notice.category !== 'notification',
             }"
             >{{
-              notice.category === "notification" ? "notice" : notice.category
+              notice.category === "notification"
+                ? "공지"
+                : notice.category === "event"
+                ? "이벤트"
+                : notice.category
             }}</span
           >
           <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
         </div>
         <h2>{{ notice.title }}</h2>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span
-          ><span>{{ notice.createdAt }}</span>
+          <span>mediance</span><span>{{ notice.createdAt }}</span>
         </div>
       </div>
       <div class="content-details" v-html="notice.body"></div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button class="main-btn" @click="$router.push({ name: 'Notice', hash: '#notice' })">
+          <button
+            class="main-btn"
+            @click="$router.push({ name: 'Notice', hash: '#notice' })"
+          >
             목록으로
           </button>
         </div>
