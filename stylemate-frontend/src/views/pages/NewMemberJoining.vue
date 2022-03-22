@@ -44,7 +44,7 @@
                   <!-- <button class="channelBtn" type="button">선택</button> -->
                   <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
-                    <button class="channelBtn" type="button">Linked Account</button>
+                    <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   </div>
                   <button
@@ -52,17 +52,17 @@
                     class="channelBtn greyBg"
                     type="button"
                     disabled="true"
-                  >checking</button>
+                  >확인중</button>
                   <button
                     v-else-if="stylemateStatus === 'hold' && !isReApplication"
                     class="channelBtn greyBg"
                     type="button"
-                  >hold</button>
+                  >보류</button>
                   <div
                     class="dbl-btn-wrap"
                     v-else-if="stylemateStatus === 'hold' && isReApplication"
                   >
-                    <button class="channelBtn" type="button" @click="selectPage(account, i)">selete</button>
+                    <button class="channelBtn" type="button" @click="selectPage(account, i)">선택</button>
                     <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   </div>
                 </div>
@@ -115,7 +115,7 @@
               class="adddivwrap"
               v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1"
             >
-              <button class="connectBtn" type="button" @click="addIgChannel">+ 연결방법 보기</button>
+              <button class="connectBtn" type="button" @click="addIgChannel">+ 채널 추가하기</button>
             </div>
           </li>
           <li>
@@ -123,7 +123,7 @@
               <img src="@/assets/icons/youtube.svg" /> Youtube
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button">+ 연결방법 보기</button>
+              <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
           <li>
@@ -131,7 +131,7 @@
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button">+ 연결방법 보기</button>
+              <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
         </ul>
@@ -156,19 +156,19 @@
                   <li class="checkboxWrap">
                     <label class="check-container">
                       <input type="checkbox" v-model="checkValue_2" @change="checkALL" />
-                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      <span class="checkmark"></span>페이스북 페이지를 생성하였나요?
                     </label>
                   </li>
                   <li class="checkboxWrap">
                     <label class="check-container">
                       <input type="checkbox" v-model="checkValue_3" @change="checkALL" />
-                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      <span class="checkmark"></span>페이스북 페이지와 인스타그램 계정을 연동하였나요?
                     </label>
                   </li>
                   <li class="checkboxWrap">
                     <label class="check-container">
                       <input type="checkbox" v-model="checkValue_4" @change="checkALL" />
-                      <span class="checkmark"></span>인스타그램 계정이 프로페셔널/비즈니스 계정인가요?
+                      <span class="checkmark"></span>인스타그램과 페이스북 소유자가 일치하나요?
                     </label>
                   </li>
                 </ul>
@@ -225,10 +225,10 @@
       <div class="overlay" :class="{ active: isActive }"></div>
 
       <div class="info-toast-wrap">
-        <div class="info-toast" v-if="stylemateStatus === 'request' || userChannel.length > 0">관리자가 승인하면 협찬활동이 가능합니다.</div>
+        <div class="info-toast" v-show="stylemateStatus === 'request'">관리자가 승인하면 협찬활동이 가능합니다.</div>
         <div
           class="info-toast"
-          v-else-if="stylemateStatus === 'hold' && !isReApplication"
+          v-show="stylemateStatus === 'hold' && !isReApplication"
         >15일이 지난 후에 재신청이 가능합니다.</div>
       </div>
     </div>
@@ -404,12 +404,12 @@ export default {
         let channelData = res.data.influence.channel;
         this.userChannel = channelData;
         this.userChannellength = channelData.length;
-        this.stylemateStatus = res.data.influence.stylemateStatus;
+        // this.stylemateStatus = res.data.influence.stylemateStatus;
         this.isReApplication = res.data.influence.isReApplication;
         console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
           this.selChannelType = item.type;
-          // this.stylemateStatus = item.stylemateStatus;
+          this.stylemateStatus = item.stylemateStatus;
           this.channelId = item.id;
           this.selChannel = item
           this.instagramChannelInfo = item.instagramChannel;
