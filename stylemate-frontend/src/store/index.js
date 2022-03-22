@@ -16,7 +16,7 @@ const state = reactive({
   UserId: "",
   influenceId: null,
   status: "NotEmpty",
-  noticeTabPageName: "Notice",
+  noticeTabPageName: "공지사항",
   likedTabState: "item",
   likedTabBrand: [],
   likedTabProduct: [],
