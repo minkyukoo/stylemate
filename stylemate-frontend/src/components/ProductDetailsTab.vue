@@ -120,6 +120,7 @@
               <!-- {{
                 productData.campaign.map(item => item.campaignMission.essentialGuide)
               }}-->
+              <!-- <div class="sample" v-html="productCampaign.campaignMission.essentialGuide"></div> -->
             </li>
           </ul>
         </div>
@@ -493,6 +494,7 @@ export default {
   font-size: 12px;
   line-height: 18px;
   color: #797979;
+  white-space: pre-line;
 }
 .terms-wrap .guide .desc {
   /* margin-top: 26px; */
