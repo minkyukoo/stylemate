@@ -269,6 +269,7 @@ export default {
       isCampaignsOngoing: '',
       isapplyAct: false,
       igResData: null,
+      ignormalAccount:[],
       fbResData: null,
       setNewchannel: false
       // igResData: null,
@@ -353,15 +354,35 @@ export default {
       });
 
       // 3. page id 
+      // this.channelService.getIgchannels().then(res => {
+      //   console.log('3. Igchannels list:', res);
+      //   let existchannelId = this.instagramChannelInfo.fbid;
+      //   let allChannel = res.data;
+      //   let freshChannel = allChannel.filter(channel => {
+      //     return channel.instagram_business_account.id !== existchannelId;
+      //   });
+      //   this.igResData = freshChannel;
+      // });
       this.channelService.getIgchannels().then(res => {
         console.log('3. Igchannels list:', res);
+        let igBAcc = res.data;
         let existchannelId = this.instagramChannelInfo.fbid;
-        let allChannel = res.data;
-        let freshChannel = allChannel.filter(channel => {
+        let freshChannel = igBAcc.filter(channel => {
+          if(typeof channel.instagram_business_account == 'undefined') {
+            this.ignormalAccount.push(channel);
+          }
+          return typeof channel.instagram_business_account !== 'undefined';
+        });
+        let restFreshChannel = freshChannel.filter(channel => {
           return channel.instagram_business_account.id !== existchannelId;
         });
-        this.igResData = freshChannel;
+        this.igResData = restFreshChannel;
+        
+        console.log('3. Igchannels list:', this.igResData);
+        console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
+
+
     },
 
     getUserinfo2() {
