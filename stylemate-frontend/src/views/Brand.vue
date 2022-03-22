@@ -64,7 +64,7 @@ export default {
       dataBlur.value = true;
       dataFocus.value = false;
       console.log(e);
-      alert(e);
+      // alert(e);
     };
 
     return {

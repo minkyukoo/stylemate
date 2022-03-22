@@ -1,7 +1,7 @@
 <template>
   <div class="main-container relative">
     <!-- header -->
-    <TopNav headerTitle="My page"></TopNav>
+    <TopNav headerTitle="고객센터"></TopNav>
     <!-- End header -->
     <!-- page content -->
     <!-- <ion-content :fullscreen="true"> -->

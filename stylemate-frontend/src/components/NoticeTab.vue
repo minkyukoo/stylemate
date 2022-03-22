@@ -44,7 +44,11 @@
                 'dark-solid': notice.category !== 'notification',
               }"
               >{{
-                notice.category === "notification" ? "notice" : notice.category
+                notice.category === "notification"
+                  ? "공지"
+                  : notice.category === "event"
+                  ? "이벤트"
+                  : notice.category
               }}</span
             >
             <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
@@ -64,7 +68,7 @@
     <div class="tab-content" v-if="layout === '#faq'">
       <div class="faq-wrap">
         <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
-          <h2>{{ item }}</h2>
+          <h2>{{ item === 'sponsorship' ? '서비스 이용' : (item === 'user' ? '회원정보' : (item === 'channel' ? '채널연결' : (item === 'etc' ? '기타' : item))) }}</h2>
           <NoticeAccordion
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
@@ -109,7 +113,9 @@
                 'grey-solid': inquiry.answerStatus !== 'ready',
                 'dark-outline': inquiry.answerStatus === 'ready',
               }"
-              >{{ inquiry.answerStatus }}</span
+              >{{
+                inquiry.answerStatus === "ready" ? "확인중" : "답변완료"
+              }}</span
             >
           </div>
           <div class="text-desc">
@@ -167,7 +173,7 @@ export default {
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
-      // console.log(this.noticelist);
+      console.log(this.noticelist);
     });
 
     this.service.FAQs().then((res) => {
@@ -184,7 +190,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        console.log("inquiry", res.data);
+        // console.log("inquiry", res.data);
       });
     }
   },

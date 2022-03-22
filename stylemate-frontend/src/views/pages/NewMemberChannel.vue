@@ -71,14 +71,14 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="disable">
+          <li class="disable" v-for="(account, i) of ignormalAccount" :key="i+1">
             <div class="channelLeft">
               <div class="channelImg">
-                <img src="@/assets/icons/refresh.svg" />
+                <img :src="account.picture.data.url" />
               </div>
               <div class="channelDec">
-                <h4>일이삼사오육칠팔...</h4>
-                <p>일이삼사오육칠팔구십...</p>
+                <h4>{{account.name}}</h4>
+                <p>{{ fbResData.name }}</p>
               </div>
             </div>
             <div>
@@ -127,6 +127,7 @@ export default {
     return {
       isActive: false,
       igResData: null,
+      ignormalAccount: [],
       fbResData: null,
       stylemateStatus: '',
       isReApplication: null,
@@ -257,7 +258,16 @@ export default {
       // 3. page id 
       this.channelService.getIgchannels().then(res => {
         console.log('3. Igchannels list:', res);
-        this.igResData = res.data;
+        let igBAcc = res.data;
+        let freshChannel = igBAcc.filter(channel => {
+          if(typeof channel.instagram_business_account == 'undefined') {
+            this.ignormalAccount.push(channel);
+          }
+          return typeof channel.instagram_business_account !== 'undefined';
+        });
+        this.igResData = freshChannel;
+        console.log('3. Igchannels list:', this.igResData);
+        console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
     },
 
@@ -496,6 +506,7 @@ export default {
 .newChannel li.disable {
   background: #f7f7f7;
   border: 1px solid #e5e5e5;
+  pointer-events: none;
 }
 .newChannel li.disable .channelImg {
   position: relative;
@@ -522,6 +533,7 @@ export default {
   border: 1px solid #e5e5e5;
   background: #f7f7f7;
   color: #797979;
+  cursor: not-allowed;
 }
 .newChannel li .channelImg {
   width: 56px;
