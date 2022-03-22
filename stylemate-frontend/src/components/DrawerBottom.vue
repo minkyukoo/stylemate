@@ -102,8 +102,11 @@ export default defineComponent({
     control() {
       var option = this.selected.filter((f) => f !== null && f !== undefined);
       if (option.length > 0 && this.option !== option.join("/")) {
+        this.disable = false;
         this.option = option.join("/");
         // console.log(this.option);
+      } else {
+        this.disable = true;
       }
     },
     cancel() {
