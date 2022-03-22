@@ -167,7 +167,7 @@ export default {
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
-      // console.log(this.noticelist);
+      console.log(this.noticelist);
     });
 
     this.service.FAQs().then((res) => {

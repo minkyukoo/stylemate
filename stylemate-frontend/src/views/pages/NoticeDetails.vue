@@ -22,7 +22,7 @@
         </div>
         <h2>{{ notice.title }}</h2>
         <div class="bottom-row">
-          <span>{{ notice.category }}</span
+          <span>mediance</span
           ><span>{{ notice.createdAt }}</span>
         </div>
       </div>
