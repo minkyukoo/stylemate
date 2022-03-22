@@ -44,7 +44,11 @@
                 'dark-solid': notice.category !== 'notification',
               }"
               >{{
-                notice.category === "notification" ? "notice" : notice.category
+                notice.category === "notification"
+                  ? "공지"
+                  : notice.category === "event"
+                  ? "이벤트"
+                  : notice.category
               }}</span
             >
             <span v-if="notice.fixed" class="notice-tag red-outline">중요</span>
@@ -109,7 +113,9 @@
                 'grey-solid': inquiry.answerStatus !== 'ready',
                 'dark-outline': inquiry.answerStatus === 'ready',
               }"
-              >{{ inquiry.answerStatus }}</span
+              >{{
+                inquiry.answerStatus === "ready" ? "확인중" : "답변완료"
+              }}</span
             >
           </div>
           <div class="text-desc">
@@ -184,7 +190,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        console.log("inquiry", res.data);
+        // console.log("inquiry", res.data);
       });
     }
   },

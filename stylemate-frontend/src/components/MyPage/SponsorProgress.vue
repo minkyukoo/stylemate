@@ -8,10 +8,7 @@
       />
     </div>
     <div v-else>
-      <Error
-        errors="아직 협찬에 선정되지 못하였습니다.<br/>
-                다른 브랜드의 제품들도 협찬을 신청해보세요."
-      />
+      <Error :errors="store.state.campaignEmpty" />
     </div>
     <RegisterPostModal v-if="store.state.isPostModalVisible" />
     <ReRegisterModal v-if="store.state.isReRegisterModalVisible" />
