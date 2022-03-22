@@ -89,7 +89,7 @@ export default class ChannelService {
   //3. page id - 페이지 아이디
   async getIgchannels() {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},tasks') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(this.channelBaseUrl() + '/' + this.getfbuserId() + '/accounts?fields=' + encodeURI('instagram_business_account{id,name,username,profile_picture_url},name,id,picture,tasks') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
   //4. Check your business page
