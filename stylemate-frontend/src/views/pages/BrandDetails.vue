@@ -92,7 +92,7 @@
 
               <!-- tab content 2 -->
               <div class="tab-content" v-if="layout === 'tab2'">
-                <BrandItem :brandItem="brandDetails.product" />
+                <BrandItem :brandItem="brandDetails.product" :brandName="brandDetails.korName" />
               </div>
             </div>
           </div>

@@ -97,7 +97,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  // IonSearchbar,
+  IonSearchbar,
 } from "@ionic/vue";
 import { heart } from "ionicons/icons";
 import Toast from "@/alert/alert";
@@ -115,7 +115,7 @@ export default {
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
-    // IonSearchbar,
+    IonSearchbar,
     Swiper,
     SwiperSlide,
   },
@@ -197,9 +197,9 @@ export default {
       });
     },
 
-    keyboardHide(e) {
-      window.parent.postMessage( e, '*');
-    },
+    // keyboardHide(e) {
+    //   window.parent.postMessage( e, '*');
+    // },
 
     sreachWord(keyword) {
       if (keyword.length > 0) {
@@ -216,7 +216,7 @@ export default {
         this.notFound = false;
         this.getBrandList();
       }
-      this.keyboardHide('keyboardHide');
+      // this.keyboardHide('keyboardHide');
     },
 
     sreachWithHistory(history) {

@@ -4,20 +4,19 @@
       <div class="popup-container">
         <div class="popup-body">
           <h3>
-            Are you sure you want to cancel the sponsorship you have applied
-            for?
+            신청하신 협찬을 취소하시겠습니까?
           </h3>
-          <p>Click OK to cancel the sponsorship.</p>
+          <p>확인을 클릭하시면 협찬이 취소됩니다.</p>
         </div>
         <div class="popup-footer">
           <button
             class="btn-grey"
             @click="() => (store.state.cancelPopup = false)"
           >
-            cancellation
+            취소
           </button>
           <button type="button" class="btn-black" @click="confirmDelete">
-            Confirm
+            확인
           </button>
         </div>
       </div>
@@ -88,6 +87,7 @@ export default {
   );
   backdrop-filter: blur(30px);
   border-radius: 20px 20px 0px 0px;
+  width: 100%;
 }
 .popup-body {
   padding: 30px 20px 40px;
