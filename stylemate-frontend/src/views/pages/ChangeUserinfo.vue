@@ -68,11 +68,23 @@
             <label>휴대폰 번호 </label>
             <div class="inlineForm">
               <div class="notiWrap">
-                <vue-select placeholder="SKT" :options="options" :close-on-select="true"> </vue-select>
+                <vue-select
+                  placeholder="SKT"
+                  :options="options"
+                  :close-on-select="true"
+                >
+                </vue-select>
               </div>
               <div class="codeWrap">
                 <span>010-</span>
-                <input type="text" maxlength="9" v-model="mobile" :close-on-select="true" id="tbNum" @input="acceptNumber"/>
+                <input
+                  type="text"
+                  maxlength="9"
+                  v-model="mobile"
+                  :close-on-select="true"
+                  id="tbNum"
+                  @input="acceptNumber"
+                />
               </div>
               <div class="contWrapbtn">
                 <button type="button" @click="sendOtp">인증번호</button>
@@ -148,7 +160,7 @@ export default {
       confirmPass: "",
       mobile: "",
       ids: "",
-      countd:true,
+      countd: true,
       counting: false,
       verificationCode: "",
       error: {
@@ -179,8 +191,8 @@ export default {
   // },
   methods: {
     acceptNumber() {
-        var x = this.mobile.replace(/\D/g, '').match(/(\d{0,4})(\d{0,4})/);
-  this.mobile = !x[2] ? x[1] :  x[1] + (x[2] ? '-' + x[2] : '');
+      var x = this.mobile.replace(/\D/g, "").match(/(\d{0,4})(\d{0,4})/);
+      this.mobile = !x[2] ? x[1] : x[1] + (x[2] ? "-" + x[2] : "");
     },
     changepassword() {
       this.confirmBtn = false;
@@ -202,7 +214,7 @@ export default {
         Toast.fire({ title: "비밀번호를 입력해주세요." });
       } else if (this.newPass !== this.confirmPass) {
         Toast.fire({ title: "비밀번호가 일치하지 않습니다." });
-      }else if(this.oldPass == this.newPass){
+      } else if (this.oldPass == this.newPass) {
         Toast.fire({ title: "기존비밀번호를 사용하실 수 없습니다." });
       } else {
         this.userInfoService
@@ -247,13 +259,13 @@ export default {
         let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
         this.userInfoService
           .telAuth(
-            `010${this.mobile.replace(/-/g,'')}`,
+            `010${this.mobile.replace(/-/g, "")}`,
             this.email,
             this.ids,
             this.formatDate(futureDate)
           )
           .then(() => {
-            this.countd=true;
+            this.countd = true;
             this.confirmBtn = false;
             this.otp = true;
             this.counting = true;
@@ -267,23 +279,26 @@ export default {
       this.counting = false;
     },
     confirmOtp() {
-      this.userInfoService
-        .confirmPass(this.verificationCode, this.email, `010${this.mobile}`)
-        .then((res) => {
-          // alert("password confirmed");
-          console.log(res.response.status);
-          if (res.response.status === 200) {
-            this.countd=false;
-            Toast.fire({ title: "휴대폰인증이 완료되었습니다." });
-            // Swal.fire("Good job!", "You are verified!", "success");
-          } else if (res.response.status === 412) {
-            Toast.fire({
-              title: "인증번호가 잘못 입력되었습니다.",
-            });
-          } else {
-            Toast.fire({ title: "페이지를 표시할 수 없습니다." });
-          }
-        });
+      if (this.verificationCode == "") {
+        Toast.fire({ title: "인증번호를 입력해주세요." });
+        // Toast.fire({ title: "verification code is not found." });
+      } else {
+        this.userInfoService
+          .confirmPass(this.verificationCode, this.email, `010${this.mobile}`)
+          .then((res) => {
+            // alert("password confirmed");
+            console.log(res.response.status);
+            if (res.response.status === 200) {
+              this.countd = false;
+              Toast.fire({ title: "휴대폰인증이 완료되었습니다." });
+              // Swal.fire("Good job!", "You are verified!", "success");
+            } else if (res.response.status === 412) {
+              Toast.fire({
+                title: "인증번호가 잘못 입력되었습니다.",
+              });
+            }
+          });
+      }
     },
     formatDate(value) {
       const date = new Date(value);
@@ -396,11 +411,11 @@ export default {
 .inlineForm div {
   margin: 0 2px;
 }
-.notiWrap{
+.notiWrap {
   min-width: 90px;
   width: 25%;
 }
-.notiWrap .vue-select{
+.notiWrap .vue-select {
   width: 100%;
 }
 .codeWrap {
@@ -435,8 +450,8 @@ export default {
   color: #ffffff;
   background: #090909;
 }
-.button-group .black-btn-fixed[disabled]{
-  cursor:not-allowed;
+.button-group .black-btn-fixed[disabled] {
+  cursor: not-allowed;
 }
 button {
   white-space: nowrap;
