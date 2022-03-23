@@ -71,9 +71,9 @@ export default {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
         console.log(notice.data.data);
-        this.options = notice.data.data
-          .map((option) => option.type)
-          .filter((v, i, a) => a.indexOf(v) === i);
+        // this.options = notice.data.data
+        //   .map((option) => option.type)
+        //   .filter((v, i, a) => a.indexOf(v) === i);
       });
     });
   },
@@ -81,11 +81,19 @@ export default {
   watch: {
     noticeOption: function (type) {
       this.userInfoService.getUserInfo().then((userInfo) => {
-        this.userInfoService
-          .getFilterNotice(userInfo.data.uid, type)
-          .then((notice) => {
+        var typeValue = this.getValue(type);
+        if (typeValue.value === "all") {
+          this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
             this.notifications = notice.data.data;
+            // console.log(notice.data.data);
           });
+        } else {
+          this.userInfoService
+            .getFilterNotice(userInfo.data.uid, typeValue)
+            .then((notice) => {
+              this.notifications = notice.data.data;
+            });
+        }
       });
     },
   },
@@ -122,19 +130,55 @@ export default {
         return "연결이 끊긴";
       } else if (arg === "finish") {
         return "마치다";
-      } else if (arg === "postCancel"){
-        return "게시물 취소"
+      } else if (arg === "postCancel") {
+        return "게시물 취소";
+      }
+    },
+
+    getValue(opt) {
+      switch (opt) {
+        case "모두":
+          return { data: "type", value: "all" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬선정":
+          return { data: "subType", value: "announce" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "포스트 등록요청":
+          return { data: "subType", value: "postRequest" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "포스트 수정요청":
+          return { data: "subType", value: "postModifyRequest" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬취소":
+          return { data: "subType", value: "postCancel" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬완료":
+          return { data: "subType", value: "finish" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "연결해제확인":
+          return { data: "subType", value: "disconnection" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        default:
+          break;
       }
     },
   },
   setup() {
     const options = [
-      "all",
-      "Campaign",
-      "Selection",
-      "Sample Post Registration",
-      "Edit sample post",
-      "Post registration",
+      "모두",
+      "협찬선정",
+      "포스트 등록요청",
+      "포스트 수정요청",
+      "협찬취소",
+      "협찬완료",
+      "연결해제확인",
     ];
     return { options };
   },
