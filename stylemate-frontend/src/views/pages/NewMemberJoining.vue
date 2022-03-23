@@ -627,12 +627,8 @@ export default {
 
     //getCampaignsOngoing
     campaignsOngoing(uid) {
-      console.log(uid);
       this.channelService.getCampaignsOngoing(uid).then((res) => {
-        console.log(res.data.data.length);
-        console.log('getCampaignsOngoing res:', res.data.data.length > 0 ? true : false);
         this.isCampaignsOngoing = res.data.data.length > 0 ? true : false;
-        console.log('this.isCampaignsOngoing', !this.isCampaignsOngoing);
       });
     }
 
