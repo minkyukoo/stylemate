@@ -69,7 +69,8 @@ export default {
         });
       }
       else {
-        this.$router.go(-1);
+        this.$router.back();
+        // this.$router.go(-1);
       }
     },
     async getNotificationLength() {

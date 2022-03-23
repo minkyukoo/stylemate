@@ -2,28 +2,29 @@
   <div class="termsWrap">
     <!-- <h3>스타일메이트 이용약관</h3> -->
     <div class="box">
-      <p>
-        {{termsUSe}}
-      </p>
+      <p v-html="termsUSe"></p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "TermsUse",
-  data(){
-    return{
-      termsUSe:'',
-    }
+  data() {
+    return {
+      termsUSe: "",
+    };
   },
   mounted() {
-    axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/recently?type=terms`)
+    axios
+      .get(
+        `https://elsa.beta.mediance.co.kr/stylemates/boards/recently?type=terms`
+      )
       .then((res) => {
-        console.log("this.termsUSe",res.data.body);
+        console.log("this.termsUSe", res.data.body);
         this.termsUSe = res.data.body;
-    });
+      });
   },
 };
 </script>
