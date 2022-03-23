@@ -294,7 +294,7 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineOne.big"
                   :key="book.id"
-                  :src="book.post.instagramPost.thumbnailUrl"
+                  :src="book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -304,7 +304,7 @@
                 <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-                    :src="book.post.instagramPost.thumbnailUrl"
+                    :src="book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl"
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -318,7 +318,7 @@
                 <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-                    :src="book.post.instagramPost.thumbnailUrl"
+                    :src="book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl"
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -335,7 +335,7 @@
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-                    :src="book.post.instagramPost.thumbnailUrl"
+                    :src="book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl"
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -347,7 +347,7 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineThree.big"
                   :key="book.id"
-                  :src="book.post.instagramPost.thumbnailUrl"
+                  :src="book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl"
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
