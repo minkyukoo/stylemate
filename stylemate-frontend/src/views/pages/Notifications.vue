@@ -17,7 +17,7 @@
           >
           </vue-select>
         </div>
-        <ul class="loopList">
+        <ul v-if="notifications.length > 0" class="loopList">
           <li v-for="item in notifications" :key="item.id">
             <span class="circle">
               <img src="@/assets/icons/calender.svg" />
@@ -38,6 +38,7 @@
             </div>
           </li>
         </ul>
+        <p v-else class="emptyNotice">알림 내역이 없습니다.</p>
       </div>
     </div>
     <!-- </ion-content> -->
@@ -70,10 +71,7 @@ export default {
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
-        console.log(notice.data.data);
-        this.options = notice.data.data
-          .map((option) => option.type)
-          .filter((v, i, a) => a.indexOf(v) === i);
+        // console.log(notice.data.data);
       });
     });
   },
@@ -81,11 +79,29 @@ export default {
   watch: {
     noticeOption: function (type) {
       this.userInfoService.getUserInfo().then((userInfo) => {
-        this.userInfoService
-          .getFilterNotice(userInfo.data.uid, type)
-          .then((notice) => {
-            this.notifications = notice.data.data;
-          });
+        var typeValue = this.getValue(type);
+        if (typeValue.value === "all") {
+          this.userInfoService
+            .getNotice(userInfo.data.uid)
+            .then((notice) => {
+              this.notifications = notice.data.data;
+              // console.log(notice.data.data);
+            })
+            .catch((error) => {
+              this.notifications = [];
+              console.log(error);
+            });
+        } else {
+          this.userInfoService
+            .getFilterNotice(userInfo.data.uid, typeValue)
+            .then((notice) => {
+              this.notifications = notice.data.data;
+            })
+            .catch((error) => {
+              this.notifications = [];
+              console.log(error);
+            });
+        }
       });
     },
   },
@@ -122,19 +138,55 @@ export default {
         return "연결이 끊긴";
       } else if (arg === "finish") {
         return "마치다";
-      } else if (arg === "postCancel"){
-        return "게시물 취소"
+      } else if (arg === "postCancel") {
+        return "게시물 취소";
+      }
+    },
+
+    getValue(opt) {
+      switch (opt) {
+        case "전체알림":
+          return { data: "type", value: "all" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬선정":
+          return { data: "subType", value: "announce" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "포스트 등록요청":
+          return { data: "subType", value: "postRequest" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "포스트 수정요청":
+          return { data: "subType", value: "postModifyRequest" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬취소":
+          return { data: "subType", value: "postCancel" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "협찬완료":
+          return { data: "subType", value: "finish" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        case "연결해제확인":
+          return { data: "subType", value: "disconnection" };
+          // eslint-disable-next-line no-unreachable
+          break;
+        default:
+          break;
       }
     },
   },
   setup() {
     const options = [
-      "all",
-      "Campaign",
-      "Selection",
-      "Sample Post Registration",
-      "Edit sample post",
-      "Post registration",
+      "전체알림",
+      "협찬선정",
+      "포스트 등록요청",
+      "포스트 수정요청",
+      "협찬취소",
+      "협찬완료",
+      "연결해제확인",
     ];
     return { options };
   },
@@ -142,6 +194,11 @@ export default {
 </script>
 
 <style>
+.emptyNotice {
+  text-align: center;
+  color: #c4c4c4;
+  margin-top: 25px;
+}
 .main-container {
   max-width: 500px;
   min-width: 360px;

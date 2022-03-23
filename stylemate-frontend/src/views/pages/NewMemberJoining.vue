@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -628,10 +628,10 @@ export default {
     //getCampaignsOngoing
     campaignsOngoing(uid) {
       console.log(uid);
-      // this.channelService.getCampaignsOngoing(uid).then((res) => {
-      //   console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
-      //   this.isCampaignsOngoing = res.data.length > 0 ? false : true;
-      // });
+      this.channelService.getCampaignsOngoing(uid).then((res) => {
+        console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
+        this.isCampaignsOngoing = res.data.length > 0 ? false : true;
+      });
     }
 
 
