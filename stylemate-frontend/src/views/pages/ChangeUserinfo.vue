@@ -203,7 +203,7 @@ export default {
       } else if (this.newPass !== this.confirmPass) {
         Toast.fire({ title: "비밀번호가 일치하지 않습니다." });
       }else if(this.oldPass == this.newPass){
-        Toast.fire({ title: "old password & new password should not match" });
+        Toast.fire({ title: "기존비밀번호를 사용하실 수 없습니다." });
       } else {
         this.userInfoService
           .changePassword(
@@ -214,7 +214,7 @@ export default {
           )
           .then(() => {
             // Swal.fire("Good job!", "password changed!", "success");
-            Toast.fire({ title: "password changed!" });
+            Toast.fire({ title: "비밀번호가 변경되었습니다." });
             this.oldPass = "";
             this.newPass = "";
             this.confirmPass = "";
@@ -240,7 +240,7 @@ export default {
       if (this.mobile == "") {
         Toast.fire({ title: "휴대폰번호를 입력해주세요." });
       } else if (this.mobile.length !== 9) {
-        Toast.fire({ title: "Enter a valid mobile number" });
+        Toast.fire({ title: "올바른 휴대폰번호를 입력해주세요." });
       } else {
         let minutesToAdd = 3;
         let currentDate = new Date();
@@ -274,14 +274,14 @@ export default {
           console.log(res.response.status);
           if (res.response.status === 200) {
             this.countd=false;
-            Toast.fire({ title: "You are verified!" });
+            Toast.fire({ title: "휴대폰인증이 완료되었습니다." });
             // Swal.fire("Good job!", "You are verified!", "success");
           } else if (res.response.status === 412) {
             Toast.fire({
               title: "인증번호가 잘못 입력되었습니다.",
             });
           } else {
-            Toast.fire({ title: "Not Found." });
+            Toast.fire({ title: "페이지를 표시할 수 없습니다." });
           }
         });
     },
