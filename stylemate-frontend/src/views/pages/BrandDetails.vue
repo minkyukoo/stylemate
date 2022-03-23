@@ -21,7 +21,7 @@
           <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
-                <img style="object-fit:cover !important"
+                <img 
                   v-if="this.brandDetails.imageMainPath"
                   :src="brandDetails.imageMainPath"
                   alt
