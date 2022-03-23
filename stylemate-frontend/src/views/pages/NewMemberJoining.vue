@@ -266,7 +266,7 @@ export default {
       stylemateStatus: '',
       igAccInfo: null,
       channelId: null,
-      isCampaignsOngoing: '',
+      isCampaignsOngoing: Boolean,
       isapplyAct: false,
       igResData: null,
       ignormalAccount:[],
@@ -629,8 +629,10 @@ export default {
     campaignsOngoing(uid) {
       console.log(uid);
       this.channelService.getCampaignsOngoing(uid).then((res) => {
-        console.log('getCampaignsOngoing res:', res.data.length > 0 ? false : true);
-        this.isCampaignsOngoing = res.data.length > 0 ? false : true;
+        console.log(res.data.data.length);
+        console.log('getCampaignsOngoing res:', res.data.data.length > 0 ? true : false);
+        this.isCampaignsOngoing = res.data.data.length > 0 ? true : false;
+        console.log('this.isCampaignsOngoing', !this.isCampaignsOngoing);
       });
     }
 
