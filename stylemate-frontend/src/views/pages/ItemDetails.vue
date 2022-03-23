@@ -567,9 +567,9 @@ export default {
   /* background: rgb(101, 101, 101); */
 }
 .mainslide-banner-wrap img {
-  height: 380px;
+  height: auto;
   width: 100%;
-  max-height: 380px;
+  /* max-height: 380px; */
   object-fit: cover;
 }
 .item-wrapper {
