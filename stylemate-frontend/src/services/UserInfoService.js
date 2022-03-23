@@ -13,7 +13,7 @@ export default class UserInfoService {
   }
 
   async getNotice(uid) {
-    return await axios.get(`/stylemates/users/${uid}/alarms`, {
+    return await axios.get(`/stylemates/users/${uid}/alarms?sort=descend`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -28,7 +28,14 @@ export default class UserInfoService {
   }
 
   async getFilterNotice(uid, filter) {
-    return await axios.get(`/stylemates/users/${uid}/alarms?filters={"type":"${filter}"}`, {
+    if (filter.data === 'subType') {
+      // eslint-disable-next-line no-redeclare
+      var data = `{"${filter.data}":["${filter.value}"]}`;
+    } else {
+      // eslint-disable-next-line no-redeclare
+      var data = `{"${filter.data}":"${filter.value}"}`;
+    }
+    return await axios.get(`/stylemates/users/${uid}/alarms?filters=${data}&sort=descend`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
