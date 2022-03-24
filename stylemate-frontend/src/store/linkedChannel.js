@@ -59,6 +59,7 @@ const methods = {
           state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token;
           response.authResponse.accessToken = state.extendToken;
+          // alert('localstorage:', localStorage.getItem('fbaccessToken'));
           this.statusChangeCallback(response);
           // channelService.getIgTokenRenew(res.data.token.access_token).then((res) => {
             //   console.log(' https://elsa.beta.mediance.co.kr/commons/instagram-token- -igTokenRenew: ', res);

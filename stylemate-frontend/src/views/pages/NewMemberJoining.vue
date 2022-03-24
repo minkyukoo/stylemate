@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
