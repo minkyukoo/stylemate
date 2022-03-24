@@ -40,7 +40,7 @@
             <swiper
               :modules="modules"
               :slides-per-view="1"
-              :space-between="50"
+              :space-between="0"
               :loop="loop"
               :pagination="{ clickable: true }"
               @swiper="onSwiper"
