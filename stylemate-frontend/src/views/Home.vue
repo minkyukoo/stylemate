@@ -32,7 +32,7 @@
       </div>
       <!-- New item sectinon -->
       <div class="overlapSlide">
-        <div class="fixed-container">
+        <div class="fixed-container new-item-wrap">
           <div class="newItemWrap">
             <div class="headerLine">
               <h4>NEW ITEM</h4>
@@ -40,7 +40,7 @@
             <swiper
               :modules="modules"
               :slides-per-view="1"
-              :space-between="50"
+              :space-between="0"
               :loop="loop"
               :pagination="{ clickable: true }"
               @swiper="onSwiper"
@@ -1066,5 +1066,19 @@ export default {
 }
 .lookBokkWrap {
   background: #ffffff;
+}
+
+.new-item-wrap .multiSlideWrap{
+  padding: 0 calc(100% - 410px) 45px;
+  margin: 0;
+  justify-content: center;
+}
+.new-item-wrap .multiSlideWrap .slideItem{
+  width: 156px;
+  padding: 0 4px;
+}
+.new-item-wrap .headerLine{
+  max-width: 320px;
+  margin: 0 auto;
 }
 </style>
