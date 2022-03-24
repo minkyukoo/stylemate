@@ -103,7 +103,7 @@ export default {
             this.progressdata = res.data.data;
             if (!this.progressdata.length) {
               this.ErrMsg =
-                "아직 협찬에 선정되지 못하였습니다. 다른 브랜드의 제품들도 협찬을 신청해보세요.";
+                "아직 협찬에 선정되지 못하였습니다. <br/>다른 브랜드의 제품들도 협찬을 신청해보세요.";
             }
             let last_page = res.data.meta.last_page;
             this.$emit("lastPage", last_page);
@@ -121,7 +121,7 @@ export default {
             this.progressdata = res.data.data;
             if (!this.progressdata.length) {
               this.ErrMsg =
-                "아직 협찬에 선정되지 못하였습니다. 다른 브랜드의 제품들도 협찬을 신청해보세요.";
+                "아직 협찬에 선정되지 못하였습니다.<br/> 다른 브랜드의 제품들도 협찬을 신청해보세요.";
             }
             let last_page = res.data.meta.last_page;
             this.$emit("lastPage", last_page);
