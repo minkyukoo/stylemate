@@ -524,4 +524,5 @@ export default defineComponent({
 .wrapSec2{
   height: 100%;
 }
+
 </style>
