@@ -172,7 +172,7 @@ export default {
         // catch error
         if (res.response) {
           if (res.response.status == 404) {
-            alert(res.response.data.error.message);
+            // alert(res.response.data.error.message);
             this.$router.push("/brands");
           }
         }

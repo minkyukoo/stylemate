@@ -56,7 +56,7 @@ const methods = {
         channelService.igTokenExtend(ftoken).then((res) => {
           // console.log('igTokenExtend: ', res.data);
           // localStorage.setItem('fbaccessToken', res.data.token.access_token);
-          alert('You are logged in &amp; cookie set!');
+          // alert('You are logged in &amp; cookie set!');
           state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token.access_token;
           response.authResponse.accessToken = state.extendToken;

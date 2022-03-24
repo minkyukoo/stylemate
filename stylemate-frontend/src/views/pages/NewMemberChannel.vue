@@ -396,7 +396,8 @@ export default {
         //  await this.getUserinfo2();
 
       } else {
-        alert('no page selected');
+        // alert('no page selected');
+        console.log('no page selected');
       }
     },
 

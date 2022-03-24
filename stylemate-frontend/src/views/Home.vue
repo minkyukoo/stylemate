@@ -764,7 +764,7 @@ export default {
     //   }, "*");
     // },
     callJsFunction(res) {
-      alert(res);
+      // alert(res);
     },
   },
 };
