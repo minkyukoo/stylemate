@@ -82,6 +82,23 @@ export default class UserInfoService {
       })
       .then((res) => res)
   }
+  async updateaddress(uid, nm, rec, loc, zip, adr1, adr2, def,ids) {
+    return await axios.put(`/stylemates/users/${uid}/deliveries/${ids}`, {
+        name: nm,
+        recipient: rec,
+        addressLocale: loc,
+        addressZipcode: zip,
+        address1: adr1,
+        address2: adr2,
+        isDefault: def,
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+
+      })
+      .then((res) => res)
+  }
   async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
     return await axios.put(`/stylemates/users/${uid}`, {
         id: ids,
@@ -142,6 +159,13 @@ export default class UserInfoService {
   }
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
+  }
+  async addressDetails(uid,ids) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/users/${uid}/deliveries/${ids}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 
   async FAQs() {
