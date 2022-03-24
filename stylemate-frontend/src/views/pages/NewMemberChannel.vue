@@ -71,13 +71,13 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="disable" v-for="(account, i) of ignormalAccount" :key="i+1">
+          <li class="disable" v-for="(account, i) of ignormalAccount" :key="i + 1">
             <div class="channelLeft">
               <div class="channelImg">
                 <img :src="account.picture.data.url" />
               </div>
               <div class="channelDec">
-                <h4>{{account.name}}</h4>
+                <h4>{{ account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
             </div>
@@ -206,12 +206,18 @@ export default {
     getUserinfo2() {
       this.userInfoservice.getUserInfo().then(res => {
         if (res.data.influence.channel.length < 1) {
-          if (localStorage.getItem('fbaccessToken')) {
-            let fbtoken = localStorage.getItem('fbaccessToken');
+          if (this.linkedChannel.state.extendToken) {
+            let fbtoken = this.linkedChannel.state.extendToken;
             this.fbToken = fbtoken;
           } else {
             this.$router.push({ name: 'NewMemberJoining' });
           }
+          // if (localStorage.getItem('fbaccessToken')) {
+          //   let fbtoken = localStorage.getItem('fbaccessToken');
+          //   this.fbToken = fbtoken;
+          // } else {
+          //   this.$router.push({ name: 'NewMemberJoining' });
+          // }
         } else {
           console.log('infores data:', res.data);
           console.log('infores channel:', res.data.influence.channel);
@@ -260,7 +266,7 @@ export default {
         console.log('3. Igchannels list:', res);
         let igBAcc = res.data;
         let freshChannel = igBAcc.filter(channel => {
-          if(typeof channel.instagram_business_account == 'undefined') {
+          if (typeof channel.instagram_business_account == 'undefined') {
             this.ignormalAccount.push(channel);
           }
           return typeof channel.instagram_business_account !== 'undefined';

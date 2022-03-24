@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -388,12 +388,18 @@ export default {
     getUserinfo2() {
       this.userInfoService.getUserInfo().then(res => {
         if (res.data.influence.channel.length < 1) {
-          if (localStorage.getItem('fbaccessToken')) {
-            let fbtoken = localStorage.getItem('fbaccessToken');
+          if (this.linkedChannel.state.extendToken) {
+            let fbtoken = this.linkedChannel.state.extendToken;
             this.fbToken = fbtoken;
           } else {
             this.$router.push({ name: 'NewMemberJoining' });
           }
+          // if (localStorage.getItem('fbaccessToken')) {
+          //   let fbtoken = localStorage.getItem('fbaccessToken');
+          //   this.fbToken = fbtoken;
+          // } else {
+          //   this.$router.push({ name: 'NewMemberJoining' });
+          // }
         } else {
           console.log('infores data:', res.data);
           console.log('infores channel:', res.data.influence.channel);

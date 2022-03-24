@@ -1,5 +1,6 @@
 import axios from "axios";
 import UserInfoService from "./UserInfoService";
+import linkedChannel from "../store/linkedChannel";
 var fbBaseUrl = 'https://graph.facebook.com';
 var version = 'v10.0';
 var userInfoService = new UserInfoService();
@@ -44,14 +45,19 @@ export default class ChannelService {
   // get fb access token
   async getfbaccessToken() {
     // return localStorage.getItem('fbaccessToken');
-
+    console.log('state.extendToken', linkedChannel.state.extendToken);
     let myInfo = await userInfoService.getUserInfo();
     if (myInfo.data.influence.channel.length < 1) {
-      if (localStorage.getItem('fbaccessToken')) {
-        return localStorage.getItem('fbaccessToken');
+      if (linkedChannel.state.extendToken) {
+        return linkedChannel.state.extendToken;
       } else {
         return null;
       }
+      // if (localStorage.getItem('fbaccessToken')) {
+      //   return localStorage.getItem('fbaccessToken');
+      // } else {
+      //   return null;
+      // }
     } else {
       let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
       console.log('myInfo', myInfo);
@@ -246,7 +252,7 @@ export default class ChannelService {
   // Ig posts 
   async getIgPosts(igID, limit) {
     let myfbaccesstoken = await this.getfbaccessToken();
-    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=`+ encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,offset,username,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
+    return await axios.get(`https://graph.facebook.com/v10.0/${igID}/media?fields=` + encodeURI(`caption,thumbnail_url,media_url,shortcode,comments_count,like_count,id,ig_id,is_comment_enabled,media_type,permalink,owner,media_product_type,timestamp,offset,username,children&limit=${limit}`) + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
 
