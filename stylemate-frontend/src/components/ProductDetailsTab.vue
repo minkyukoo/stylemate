@@ -315,7 +315,7 @@ export default {
     },
     copyAccounttags(hash) {
       if (hash.length > 0) {
-        var hasgtag = hash.map((m) => `#${m}`);
+        var hasgtag = hash.map((m) => `@${m}`);
         var copiedtext = hasgtag.join("").toString();
         if (copiedtext) {
           navigator.clipboard.writeText(copiedtext).then(

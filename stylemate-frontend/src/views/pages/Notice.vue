@@ -4,31 +4,36 @@
     <TopNav headerTitle="고객센터"></TopNav>
     <!-- End header -->
     <!-- page content -->
-    <ion-content :fullscreen="true">
+    <div class="main-wrap">
       <NoticeTab />
-    </ion-content>
+    </div>
     <!-- End page content -->
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent } from "@ionic/vue";
+import { IonPage } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
 import NoticeTab from "@/components/NoticeTab.vue";
 export default {
   name: "Notice",
-  components: { TopNav, IonContent, IonPage, NoticeTab },
-  // mounted() {
-  //   var queryString = window.location.search;
-  //   const urlParams = new URLSearchParams(queryString);
-  //   var token = urlParams.get('token')
-  //   localStorage.setItem('token', token);
-  //   console.log(urlParams);
-  //   console.log(token);
-  // }
-  
+  components: { TopNav, IonPage, NoticeTab },
+  // data() {
+  //   return {
+  //     page: 1,
+  //     currentPageUrl: 1,
+  //   };
+  // },
   methods: {
+    // onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
+    //   if (scrollTop + clientHeight >= scrollHeight) {
+    //     console.log("end reached");
+    //     this.page++;
+    //     this.currentPageUrl = this.page;
+    //     console.log(this.page);
+    //   }
+    // },
     openlink() {
       console.log("clivk");
     },
