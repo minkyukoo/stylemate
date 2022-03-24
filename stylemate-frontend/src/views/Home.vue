@@ -763,9 +763,9 @@ export default {
     //     data: res
     //   }, "*");
     // },
-    callJsFunction(res) {
-      // alert(res);
-    },
+    // callJsFunction(res) {
+    //   // alert(res);
+    // },
   },
 };
 </script>
