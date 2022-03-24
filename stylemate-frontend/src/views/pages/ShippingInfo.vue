@@ -57,7 +57,7 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="grey-btn">취소</button>
+        <button class="grey-btn" @click="$router.go(-1)">취소</button>
         <button class="black-btn" @click="submitAddress">신청하기</button>
       </div>
 
