@@ -99,6 +99,15 @@ export default class UserInfoService {
       })
       .then((res) => res)
   }
+  async deleteaddress(uid,ids) {
+    return await axios.delete(`/stylemates/users/${uid}/deliveries/${ids}`,  {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+
+      })
+      .then((res) => res)
+  }
   async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
     return await axios.put(`/stylemates/users/${uid}`, {
         id: ids,

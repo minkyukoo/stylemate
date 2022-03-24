@@ -56,7 +56,7 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="grey-btn" @click="$router.go(-1)">취소</button>
+        <button class="grey-btn" @click="deleteAddress">삭제</button>
         <button class="black-btn" @click="submitAddress">확인</button>
       </div>
 
@@ -120,7 +120,7 @@ import TopNav from "@/components/TopNav.vue";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 import FullCustomModal from "@/components/FullModal.vue";
-
+import Toast from "@/alert/alert.js";
 export default {
   name: "ShippingInfo",
   components: { TopNav, IonContent, IonPage, FullCustomModal, VueDaumPostcode },
@@ -166,6 +166,15 @@ export default {
       });
   },
   methods: {
+    deleteAddress(){
+      this.userInfoService
+      .deleteaddress(localStorage.getItem("userId"),this.$route.params.id)
+      .then(() => {
+       this.$router.push({ name: "DeliveryAddress" });
+      }).catch((err)=>{
+        Toast.fire({ title: err.response.data.error.message });
+      });
+    },
     handleAddress(data) {
       this.addnew = data.address;
       (this.addressZipcode = data.zonecode),
