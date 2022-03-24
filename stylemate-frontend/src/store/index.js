@@ -40,7 +40,7 @@ const state = reactive({
   ],
   sponsorTabState: "progressHistory",
   sponcerFilterId: "",
-  sponcerFilterNo: 1,
+  sponcerFilterNo: "전체",
   FltCampaignData: [],
   sponcerMeta: null,
   sponcerPageNo: 1,
@@ -102,7 +102,7 @@ const methods = {
   },
   setSponsorTab(tab) {
     state.sponsorTabState = tab;
-    state.sponcerFilterNo = 0;
+    state.sponcerFilterNo = "전체";
     state.sponcerFilterId = "";
     state.FltCampaignData = [];
     state.sponcerPageNo = 1;

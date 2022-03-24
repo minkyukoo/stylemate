@@ -108,6 +108,8 @@ export default {
       date: "",
       brand_name: "",
       brand_desc: "",
+      userId: null,
+      postId: null,
     };
   },
 
@@ -291,10 +293,12 @@ export default {
       this.caption = `${event.caption} ${
         this.requiredAccount ? `#${this.requiredAccount}` : ""
       } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
+      this.userId = event.owner.id;
+      this.postId = event.id;
     },
     async isSubmit() {
-      let res = await this.channelService.getIguserinfo();
-      let res2 = await this.channelService.getIgusermediainfo();
+      let res = await this.channelService.getIguserinfo(this.userId);
+      let res2 = await this.channelService.getIgusermediainfo(this.postId);
       console.log("res2", res2);
       this.userProfile = res;
       // this.ig_id = res2.ig_id;
