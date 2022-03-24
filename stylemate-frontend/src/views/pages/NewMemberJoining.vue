@@ -321,7 +321,7 @@ export default {
   },
   methods: {
     openlink() {
-      console.log("clivk");
+      // console.log("clivk");
     },
     showModal() {
       this.isModalVisible = true;
@@ -349,13 +349,13 @@ export default {
     channelData() {
       // 1. Check Username
       this.channelService.getfbUser().then(res => {
-        console.log('1. fbUser res:', res);
+        // console.log('1. fbUser res:', res);
         this.fbResData = res;
       });
 
       // 3. page id 
       // this.channelService.getIgchannels().then(res => {
-      //   console.log('3. Igchannels list:', res);
+        // console.log('3. Igchannels list:', res);
       //   let existchannelId = this.instagramChannelInfo.fbid;
       //   let allChannel = res.data;
       //   let freshChannel = allChannel.filter(channel => {
@@ -364,7 +364,7 @@ export default {
       //   this.igResData = freshChannel;
       // });
       this.channelService.getIgchannels().then(res => {
-        console.log('3. Igchannels list:', res);
+        // console.log('3. Igchannels list:', res);
         let igBAcc = res.data;
         let existchannelId = this.instagramChannelInfo.fbid;
         let freshChannel = igBAcc.filter(channel => {
@@ -378,8 +378,8 @@ export default {
         });
         this.igResData = restFreshChannel;
         
-        console.log('3. Igchannels list:', this.igResData);
-        console.log('3. ignormalAccount list:', this.ignormalAccount);
+        // console.log('3. Igchannels list:', this.igResData);
+        // console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
 
 
@@ -401,15 +401,15 @@ export default {
           //   this.$router.push({ name: 'NewMemberJoining' });
           // }
         } else {
-          console.log('infores data:', res.data);
-          console.log('infores channel:', res.data.influence.channel);
+          // console.log('infores data:', res.data);
+          // console.log('infores channel:', res.data.influence.channel);
           this.userUID = res.data.uid;
           this.userId = res.data.id;
           this.userChanneldata = res.data.influence.channel;
           let channelData = res.data.influence.channel;
           channelData.map(
             (item) => {
-              console.log('channel data:--', item);
+              // console.log('channel data:--', item);
               this.instagramChannelInfo = item.instagramChannel;
               this.stylemateStatus = item.stylemateStatus;
               this.isReApplication = item.isReApplication;
@@ -432,7 +432,7 @@ export default {
         this.userChannel = channelData;
         this.userChannellength = channelData.length;
         this.isReApplication = res.data.influence.isReApplication;
-        console.log('userChannel:', this.userChannel);
+        // console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
           this.selChannelType = item.type;
           this.stylemateStatus = item.stylemateStatus;
@@ -463,8 +463,8 @@ export default {
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
-        console.log('ELSE');
-        console.log('this.userChannel.LENGTH: ---', this.userChannel.length);
+        // console.log('ELSE');
+        // console.log('this.userChannel.LENGTH: ---', this.userChannel.length);
         if (this.userChannel.length > 0) {
           this.setNewchannel = true;
         } else {
@@ -478,27 +478,27 @@ export default {
     // channel disconnect
     disconnected(uid, channelId) {
       if (!this.isCampaignsOngoing) {
-        console.log('disconnected');
-        this.channelService.channelDisconnect(uid, channelId).then((res) => {
+        // console.log('disconnected');
+        this.channelService.channelDisconnect(uid, channelId).then(() => {
           setTimeout(() => {
             this.selChannelType = '';
             this.stylemateStatus = '';
             this.getUserChannelInfo();
-            console.log('1selChannelType', this.selChannelType);
+            // console.log('1selChannelType', this.selChannelType);
           }, 2000);
           this.closepop();
-          console.log('channelDisconnect', res);
-          console.log('channelDisconnect status:', res.response);
+          // console.log('channelDisconnect', res);
+          // console.log('channelDisconnect status:', res.response);
         });
       } else {
-        console.log('not disconnected');
+        // console.log('not disconnected');
       }
     },
 
     // 4. Check your business page
     getPageInfo(pageId) {
       this.channelService.getIgBusinessPage(pageId).then(res => {
-        console.log('4. igBusinessPageInfo res:', res);
+        // console.log('4. igBusinessPageInfo res:', res);
         this.igBusinessPageInfo = res;
         let cates = res.category_list
         cates.map((item) => {
@@ -513,11 +513,11 @@ export default {
       // let igInfo = this.instagramChannelInfo;
       let igcategory = this.igBusinessPageInfo;
       let igcategoryname = this.igpagecategoryname;
-      console.log('igcategory--', igcategory);
+      // console.log('igcategory--', igcategory);
       // let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
-          console.log('5. IgUser res:', res);
+          // console.log('5. IgUser res:', res);
           // let accinfo = {
           //   accessToken: token,
           //   accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
@@ -577,14 +577,14 @@ export default {
             username: res.username,
           }
           this.igAccInfo = accinfo;
-          console.log('this.igAccInfo', this.igAccInfo);
+          // console.log('this.igAccInfo', this.igAccInfo);
         });
       }
     },
 
     // applyActivity
     async applyActivity() {
-      console.log('applyActivity');
+      // console.log('applyActivity');
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -595,9 +595,9 @@ export default {
         "name": igInfo.accountType,
       };
       if (this.seletedPageId) {
-        this.channelService.selectChannel(uid, token, info).then((res) => {
-          console.log('7. selectChannel res:', res);
-          console.log('response:----', res.status);
+        this.channelService.selectChannel(uid, token, info).then(() => {
+          // console.log('7. selectChannel res:', res);
+          // console.log('response:----', res.status);
           this.getUserinfo2();
           this.$router.push({ name: 'NewMemberJoining' });
         });
@@ -605,13 +605,13 @@ export default {
 
       } else {
         // alert('no page selected');
-        console.log('no page selected');
+        // console.log('no page selected');
       }
     },
 
     // page selected
     selectPage(pageinfo, i) {
-      console.log('selectPage:', pageinfo);
+      // console.log('selectPage:', pageinfo);
       this.isapplyAct = true;
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
@@ -626,8 +626,8 @@ export default {
 
     // //patch
     upadteStatus(uid, channelId) {
-      this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
-        console.log('applyActivity res:', res);
+      this.channelService.getIgApproveRequest(uid, channelId).then(() => {
+        // console.log('applyActivity res:', res);
         this.refreshChannel();
       });
     },
