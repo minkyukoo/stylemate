@@ -144,8 +144,12 @@ export default class UserInfoService {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }
 
-  async FAQs() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq`).then((res) => res.data).catch((err) => err);
+  async FAQsGetLength() {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq`).then((res) => res.data.meta.total).catch((err) => err);
+  }
+
+  async FAQs(p) {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq&perPage=${p}`).then((res) => res.data).catch((err) => err);
   }
 
   async QNAs() {
