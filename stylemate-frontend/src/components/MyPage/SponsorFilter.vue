@@ -126,7 +126,7 @@ export default {
         },
         {
           no: 1,
-          id: "finish",
+          id: "booking",
           name: "신청완료",
         },
         {

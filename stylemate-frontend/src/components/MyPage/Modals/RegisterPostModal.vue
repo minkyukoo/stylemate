@@ -341,14 +341,14 @@ export default {
           )
           .then(async (res) => {
             console.log("if true res", res);
-            if (res.status == 200) {
-              let res3 = this.myPageService.patchCampaign(
-                this.store.MyPageModals.reRegistrationNo,
-                this.campaignId,
-                this.bookingId
-              );
-              console.log(res3);
-            }
+            // if (res.status == 200) {
+            //   let res3 = this.myPageService.patchCampaign(
+            //     this.store.MyPageModals.reRegistrationNo,
+            //     this.campaignId,
+            //     this.bookingId
+            //   );
+            //   console.log(res3);
+            // }
           });
         // console.log("if true unique state", this.userProfile);
       } else {

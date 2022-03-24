@@ -1,6 +1,4 @@
-import {
-  reactive
-} from "vue";
+import { reactive } from "vue";
 // import axios from "axios";
 import ItemService from "@/services/ItemService";
 import MyPageService from "@/services/MyPageService";
@@ -22,7 +20,8 @@ const state = reactive({
   likedTabProduct: [],
   likedTabProductLength: 0,
   likedTabBrandLength: 0,
-  likedTabAllCategories: [{
+  likedTabAllCategories: [
+    {
       id: "all",
       name: "전체",
       active: true,
@@ -84,7 +83,7 @@ var myPageService = new MyPageService();
 
 const methods = {
   async getData(order, page, categoryId) {
-    if (categoryId === 'All') {
+    if (categoryId === "All") {
       return await itemService.getProductList(order, page, null).then((res) => {
         console.log("ItemList from store", res);
         state.productMeta = res.meta;
@@ -92,21 +91,25 @@ const methods = {
         return state.AppData;
       });
     } else {
-      return await itemService.getProductList(order, page, categoryId).then((res) => {
-        console.log("ItemList from store", res);
-        state.productMeta = res.meta;
-        state.AppData.push(...res.data);
-        return state.AppData;
-      });
+      return await itemService
+        .getProductList(order, page, categoryId)
+        .then((res) => {
+          console.log("ItemList from store", res);
+          state.productMeta = res.meta;
+          state.AppData.push(...res.data);
+          return state.AppData;
+        });
     }
   },
   setSponsorTab(tab) {
+    state.FltCampaignData = [];
     state.sponsorTabState = tab;
     state.sponcerFilterNo = "전체";
     state.sponcerFilterId = "";
-    state.FltCampaignData = [];
     state.sponcerPageNo = 1;
-    methods.getcampList();
+    setTimeout(() => {
+      methods.getcampList();
+    }, 10);
   },
   setContentsDetailsModal(id, tab) {
     state.contentDetailsId = id;
@@ -129,16 +132,15 @@ const methods = {
         state.FltCampaignData.push(...resData);
         state.sponcerMeta = data.data.meta;
         // console.log("CampaignList from store", state.FltCampaignData);
-        if(!state.FltCampaignData.length && state.sponcerFilterId === "" ){
-          state.campaignEmpty = "아직 협찬에 선정되지 못하였습니다.<br/>다른 브랜드의 제품들도 협찬을 신청해보세요."
+        if (!state.FltCampaignData.length && state.sponcerFilterId === "") {
+          state.campaignEmpty =
+            "아직 협찬에 선정되지 못하였습니다.<br/>다른 브랜드의 제품들도 협찬을 신청해보세요.";
+        } else if (!state.FltCampaignData.length && state.sponcerFilterId) {
+          state.campaignEmpty = "해당하는 제품이 없습니다.";
+        } else {
+          state.campaignEmpty = "";
         }
-        else if(!state.FltCampaignData.length && state.sponcerFilterId ) {
-          state.campaignEmpty = "해당하는 제품이 없습니다."
-        }
-        else {
-          state.campaignEmpty = ""
-        }
-        
+
         // return state.FltCampaignData;
       });
   },
