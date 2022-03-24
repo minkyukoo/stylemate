@@ -374,8 +374,8 @@ export default {
           .then((res) => {
             console.log("if false res", res);
             if(res.status === 201) {
-              // this.store.state.FltCampaignData = [];
-              // this.store.methods.getcampList(1);
+              this.store.state.FltCampaignData = [];
+              this.store.methods.getcampList();
               this.store.state.isPostModalVisible = false;
             }
           });
