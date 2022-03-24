@@ -393,7 +393,14 @@ const routes = [
       innerHeader: true,
     }
   },
-  
+  {
+    path: "/test-page",
+    name: "Tab1List",
+    component: () => import("@/components/Tab1List.vue"),
+    meta: {
+      innerHeader: true,
+    }
+  },
 
 
 

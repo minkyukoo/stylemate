@@ -46,7 +46,7 @@
         </ul>
       </div>
       <div class="button-group">
-        <button class="black-btn">확인</button>
+        <button class="black-btn" @click="$router.go(-1)">확인</button>
       </div>
     </ion-content>
     <!-- End page content -->
@@ -81,13 +81,22 @@ export default {
   // }
   data() {
     return {
-      addressList: JSON.parse(localStorage.getItem("del_list")),
+      addressList:"",
       // isModalVisible: false,
       // isActive: false,
     };
   },
   created() {
     this.userInfoService = new UserInfoService();
+  },
+  mounted(){
+   this.userInfoService.getUserInfo().then((res) => {
+      // localStorage.setItem("userId", res.data.uid);
+      this.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
+        this.addressList=res;
+        // localStorage.setItem("del_list", JSON.stringify(res));
+      });
+    });
   },
   methods: {
     showId(ids) {
@@ -97,9 +106,7 @@ export default {
       console.log("clivk");
     },
   },
-  mounted() {
-    console.log();
-  },
+  
 };
 </script>
 

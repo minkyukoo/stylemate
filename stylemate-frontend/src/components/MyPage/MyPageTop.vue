@@ -49,7 +49,7 @@
           <a href="#" class="btn-instagram media-icons">
             <img src="@/assets/icons/instagram.svg" />
           </a>
-          <span>150k</span>
+          <!-- <span>150k</span> -->
         </div>
         <!-- <div class="media-item">
           <a href="#" class="btn-facebook media-icons">

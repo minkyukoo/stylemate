@@ -151,13 +151,13 @@ export default class ChannelService {
     return await axios.get(this.channelBaseUrl() + '/' + ig_postId + '?fields=' + encodeURI('ig_id,media_type,media_product_type,media_url,permalink,shortcode,username,timestamp,like_count,comments_count,caption') + '&access_token=' + myfbaccesstoken).then((res) => res.data).catch((err) => err);
   }
 
-  async getIguserinfo() {
-    let ig_userId = '17841452123566228';
+  async getIguserinfo(ig_userId) {
+    // let ig_userId = '17841452123566228';
     return await this.getIgUser(ig_userId);
   }
 
-  async getIgusermediainfo() {
-    let ig_postId = '17988602920443231';
+  async getIgusermediainfo(ig_postId) {
+    // let ig_postId = '17988602920443231';
     return await this.getIgUsermedia(ig_postId);
   }
 

@@ -744,4 +744,5 @@ export default {
 .tab-wrap .tab-content {
   padding-bottom: 0;
 }
+
 </style>

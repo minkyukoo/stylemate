@@ -17,7 +17,7 @@
               <span @click="showModal">
                 <input
                   type="text"
-                  placeholder="서울특별시 강남구 삼성로 95길 6"
+                  placeholder="배송지를 등록해 주세요"
                   v-model="addnew"
                 />
               </span>
@@ -32,27 +32,31 @@
                   v-model="address2"
                 />
                 <small v-show="render" style="color: red"
-                  >don't keep it blank</small
+                  >입력하지 않은 항목이 있습니다.</small
                 >
               </span>
             </div>
           </li>
-          <!-- <li class="checkBoxWrap">
+          <!-- <li>
             <div class="checkLabel">
-              <ion-checkbox color="primary" checked disabled></ion-checkbox>
+              <input type="checkbox" checked disabled />
+              <ion-checkbox color="primary" checked disabled></ion-checkbox> 
               <label style="color: #000">기본 배송지</label>
             </div>
           </li> -->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input type="checkbox" checked disabled />
+              <input
+                type="checkbox"
+                v-model="isDefault"
+              />
               <span class="checkmark"></span>기본 배송지
             </label>
           </li>
         </ul>
       </div>
       <div class="button-group">
-        <button class="grey-btn">삭제</button>
+        <button class="grey-btn" @click="deleteAddress">삭제</button>
         <button class="black-btn" @click="submitAddress">확인</button>
       </div>
 
@@ -63,10 +67,15 @@
       >
         <template v-slot:header>
           <div class="overHeader">
-            <h2>Modal heading</h2>
+            <h2></h2>
             <!-- <span @click="close">Close</span> -->
-            <button type="button" @click="closeModal" aria-label="Close modal">
-              Close
+            <button
+              type="button"
+              @click="closeModal"
+              aria-label="Close modal"
+              style="white-space: nowrap"
+            >
+              닫기
             </button>
           </div>
         </template>
@@ -111,7 +120,7 @@ import TopNav from "@/components/TopNav.vue";
 // import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 import FullCustomModal from "@/components/FullModal.vue";
-
+import Toast from "@/alert/alert.js";
 export default {
   name: "ShippingInfo",
   components: { TopNav, IonContent, IonPage, FullCustomModal, VueDaumPostcode },
@@ -136,19 +145,42 @@ export default {
       addressZipcode: "",
       address1: "",
       address2: "",
-      isDefault: true,
+      isDefault: false,
     };
   },
   created() {
     this.userInfoService = new UserInfoService();
   },
+  mounted() {
+    // console.log(this.$route.params.id)
+    this.userInfoService
+      .addressDetails(localStorage.getItem("userId"),this.$route.params.id)
+      .then((res) => {
+       console.log(res)
+       this.addnew=res.address1;
+       this.address1=res.address1;
+       this.address2=res.address2;
+       this.isDefault=res.isDefault;
+       this.addressZipcode = res.addressZipcode;
+      // this.address1 = data.jibunAddress;
+      });
+  },
   methods: {
+    deleteAddress(){
+      this.userInfoService
+      .deleteaddress(localStorage.getItem("userId"),this.$route.params.id)
+      .then(() => {
+       this.$router.push({ name: "DeliveryAddress" });
+      }).catch((err)=>{
+        Toast.fire({ title: err.response.data.error.message });
+      });
+    },
     handleAddress(data) {
       this.addnew = data.address;
       (this.addressZipcode = data.zonecode),
         (this.address1 = data.jibunAddress),
         //  alert('xcx')
-        console.log(data);
+        // console.log(data);
       this.closeModal();
     },
 
@@ -161,7 +193,7 @@ export default {
         this.render = true;
       } else {
         this.userInfoService
-          .addaddress(
+          .updateaddress(
             this.uid,
             this.name,
             this.recipient,
@@ -169,10 +201,12 @@ export default {
             this.addressZipcode,
             this.address1,
             this.address2,
-            this.isDefault
+            this.isDefault,
+            this.$route.params.id
           )
           .then(() => {});
         this.render = false;
+        this.$router.push({ name: "Userinfo" });
       }
     },
     showModal() {
@@ -202,7 +236,7 @@ export default {
   width: 100% !important;
   top: 50%;
   position: absolute;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
 }
 
 .overLapmodal .overHeader {
@@ -252,7 +286,7 @@ export default {
   color: #00c3ff;
 }
 .contWrap {
-  padding: 20px 20px 150px;
+  padding: 20px;
 }
 .codeWrap {
   position: relative;
@@ -313,10 +347,8 @@ export default {
   /* justify-content: space-between; */
   /* align-items: center; */
   flex-direction: column;
-  padding: 10px 0;
-}
-.contWrap ul li:first-child {
   border-bottom: 1px solid #f6f6f6;
+  padding: 10px 0;
 }
 .contWrap li label {
   color: #c4c4c4;
@@ -384,8 +416,5 @@ export default {
 .button-group button.black-btn {
   color: #ffffff;
   background: #090909;
-}
-.checkBoxWrap {
-  border: none !important;
 }
 </style>
