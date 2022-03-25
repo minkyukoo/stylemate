@@ -110,6 +110,7 @@ export default {
       brand_desc: "",
       userId: null,
       postId: null,
+      reRegisterId: null,
     };
   },
 
@@ -155,6 +156,7 @@ export default {
         console.log(res);
         this.brand_name = res.brand.korName;
         this.brand_desc = res.brand.description;
+        this.reRegisterId = res.campaign[0]?.booking[0]?.post?.id;
         this.date = moment(res.campaign[0].campaignSchedule.finishedAt).format(
           "YYYY-MM-DD HH:mm"
         );
@@ -320,7 +322,7 @@ export default {
       ) {
         this.myPageService
           .putCampaignDetail(
-            this.store.MyPageModals.reRegistrationNo,
+            this.reRegisterId,
             this.campaignId,
             this.bookingId,
             this.channelId,
@@ -341,14 +343,16 @@ export default {
           )
           .then(async (res) => {
             console.log("if true res", res);
-            // if (res.status == 200) {
-            //   let res3 = this.myPageService.patchCampaign(
-            //     this.store.MyPageModals.reRegistrationNo,
-            //     this.campaignId,
-            //     this.bookingId
-            //   );
-            //   console.log(res3);
-            // }
+            let modify_postId = res.data.instagramPost.postId;
+            if (res.status == 200) {
+              let res3 = this.myPageService.patchCampaign(
+                modify_postId,
+                this.campaignId,
+                this.bookingId,
+                // this.id,
+              );
+              console.log(res3);
+            }
           });
         // console.log("if true unique state", this.userProfile);
       } else {
