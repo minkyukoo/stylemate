@@ -25,6 +25,14 @@ export default class BrandService {
     }
   }
 
+  async brandProducts(brand) {
+    return await axios.get(`/stylemates/products?brandId=${brand}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
+  }
+
   async searchBrand(brand) {
     return await axios.get(`/stylemates/brands?filters={"keyword":"${brand}"}`).then((res) => res.data.data).catch((err) => err);
   }
@@ -43,7 +51,10 @@ export default class BrandService {
 
   // post influencelikes
   async influencelikes(uid, type, taggableId) {
-    return await axios.post(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+    return await axios.post(`/stylemates/users/${uid}/influence-likes`, {
+      type: type,
+      taggableId: taggableId
+    }, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -51,16 +62,14 @@ export default class BrandService {
   }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
-    return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
-      {
-        params: {
-          type: type,
-          taggableId: taggableId
-        },
-        headers: {
-          Authorization: 'Bearer ' + token //the token is a variable which holds the token
-        }
+    return await axios.delete(`/stylemates/users/${uid}/influence-likes`, {
+      params: {
+        type: type,
+        taggableId: taggableId
+      },
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
-    ).then((res) => res.data).catch((err) => err);
+    }).then((res) => res.data).catch((err) => err);
   }
 }
