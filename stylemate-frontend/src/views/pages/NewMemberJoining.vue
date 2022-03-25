@@ -122,7 +122,7 @@
                 @click="addIgChannel"
               >+ 채널 추가하기</button>
 
-              <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기 for App</button>
+              <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기</button>
             </div>
           </li>
           <li>
@@ -141,10 +141,6 @@
               <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
-          <li>
-            <button class="connectBtn" type="button" @click="sendAccessToken">sendAccessToken</button>
-          </li>
-          <li>{{ testres }}</li>
         </ul>
       </div>
       <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="channelconnectionmodal">
