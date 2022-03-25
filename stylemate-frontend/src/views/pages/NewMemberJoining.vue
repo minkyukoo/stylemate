@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -315,6 +315,7 @@ export default {
     this.refreshChannel();
 
     this.checkMbfblogin();
+    this.sendAccessToken();
 
     // this.reAgain();
 
@@ -655,11 +656,6 @@ export default {
 
     //r&D test
 
-    // window.addEventListener('message', function() {
-    //   return 'mobileOS';
-    //  })
-
-
     Mbfblogin() {
       window.parent.postMessage('fbLoginMobile', '*');
     },
@@ -685,10 +681,14 @@ export default {
       }
     },
 
-
-
-
-
+    sendAccessToken(res){
+      if(res) {
+        console.log('sendAccessToken res:', res);
+      } else {
+        console.log('no response');
+        return false
+      }
+    },
 
     // async reAgain() {
     //   var queryString = window.location.search;
