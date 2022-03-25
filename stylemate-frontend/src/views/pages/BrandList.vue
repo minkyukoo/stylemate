@@ -265,20 +265,20 @@ export default {
           uid = res;
           // console.log(brandId);
           if (selfItem.isInfluenceLike === false) {
+            selfItem.isInfluenceLike = true;
             this.brandService
               .influencelikes(uid, "brand", brandId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res)
-                selfItem.isInfluenceLike = true;
               });
           } else {
+            selfItem.isInfluenceLike = false;
             this.brandService
               .influencedislikes(uid, "brand", brandId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res);
-                selfItem.isInfluenceLike = false;
               });
           }
         });
@@ -378,7 +378,7 @@ ion-card-title h3 {
   text-align: center;
   font-family: Pretendard;
   /* position: absolute; */
-  width: 50%;
+  /* width: 50%; */
   margin: auto;
   height: auto;
   padding-top: 10px;

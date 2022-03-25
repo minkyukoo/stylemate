@@ -100,19 +100,20 @@ export default {
         await this.isUserid().then((res) => {
           uid = res;
           if (this.$props.brandItem[index].isInfluenceLike) {
+            this.$props.brandItem[index].isInfluenceLike = false;
             this.itemService
               .influencedislikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res);
-                this.$props.brandItem[index].isInfluenceLike = false;
               });
           } else {
+            this.$props.brandItem[index].isInfluenceLike = true;
             this.itemService
               .influencelikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
-                this.$props.brandItem[index].isInfluenceLike = true;
+                // this.$props.brandItem[index].isInfluenceLike = true;
               });
           }
         });
