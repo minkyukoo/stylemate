@@ -71,13 +71,13 @@
           </li>
         </ul>
         <ul class="newChannel">
-          <li class="disable" v-for="(account, i) of ignormalAccount" :key="i+1">
+          <li class="disable" v-for="(account, i) of ignormalAccount" :key="i + 1">
             <div class="channelLeft">
               <div class="channelImg">
                 <img :src="account.picture.data.url" />
               </div>
               <div class="channelDec">
-                <h4>{{account.name}}</h4>
+                <h4>{{ account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
             </div>
@@ -150,10 +150,10 @@ export default {
 
     onMounted(() => {
       // if (linkedChannel.state.isConnected === 'connected') {
-      //   console.log('connected:', linkedChannel.state.isConnected);
+        console.log('connected:', linkedChannel.state.isConnected);
       //   linkedChannel.methods.checkLoginState();
       // } else {
-      //   console.log('connected:', linkedChannel.state.isConnected);
+        console.log('connected:', linkedChannel.state.isConnected);
       //   router.push({ name: 'NewMemberJoining' });
       // }
 
@@ -184,20 +184,20 @@ export default {
   },
   methods: {
     openlink() {
-      console.log("clivk");
+      // console.log("clivk");
     },
     hideSponserButton() {
       this.isActive = !this.isActive;
     },
 
     openD() {
-      console.log('openD');
+      // console.log('openD');
       this.hideSponserButton();
     },
 
     getLogUserInfo() {
       this.userInfoservice.getUserInfo().then(res => {
-        console.log('getLogUserInfo:', res);
+        // console.log('getLogUserInfo:', res);
         this.userUID = res.data.uid;
         this.userId = res.data.id;
       });
@@ -206,22 +206,28 @@ export default {
     getUserinfo2() {
       this.userInfoservice.getUserInfo().then(res => {
         if (res.data.influence.channel.length < 1) {
-          if (localStorage.getItem('fbaccessToken')) {
-            let fbtoken = localStorage.getItem('fbaccessToken');
+          if (this.linkedChannel.state.extendToken) {
+            let fbtoken = this.linkedChannel.state.extendToken;
             this.fbToken = fbtoken;
           } else {
             this.$router.push({ name: 'NewMemberJoining' });
           }
+          // if (localStorage.getItem('fbaccessToken')) {
+          //   let fbtoken = localStorage.getItem('fbaccessToken');
+          //   this.fbToken = fbtoken;
+          // } else {
+          //   this.$router.push({ name: 'NewMemberJoining' });
+          // }
         } else {
-          console.log('infores data:', res.data);
-          console.log('infores channel:', res.data.influence.channel);
+          // console.log('infores data:', res.data);
+          // console.log('infores channel:', res.data.influence.channel);
           this.userUID = res.data.uid;
           this.userId = res.data.id;
           this.userChanneldata = res.data.influence.channel;
           let channelData = res.data.influence.channel;
           channelData.map(
             (item) => {
-              console.log('channel data:--', item);
+              // console.log('channel data:--', item);
               this.instagramChannelInfo = item.instagramChannel;
               this.stylemateStatus = item.stylemateStatus;
               this.isReApplication = item.isReApplication;
@@ -251,23 +257,23 @@ export default {
     channelData() {
       // 1. Check Username
       this.channelService.getfbUser().then(res => {
-        console.log('1. fbUser res:', res);
+        // console.log('1. fbUser res:', res);
         this.fbResData = res;
       });
 
       // 3. page id 
       this.channelService.getIgchannels().then(res => {
-        console.log('3. Igchannels list:', res);
+        // console.log('3. Igchannels list:', res);
         let igBAcc = res.data;
         let freshChannel = igBAcc.filter(channel => {
-          if(typeof channel.instagram_business_account == 'undefined') {
+          if (typeof channel.instagram_business_account == 'undefined') {
             this.ignormalAccount.push(channel);
           }
           return typeof channel.instagram_business_account !== 'undefined';
         });
         this.igResData = freshChannel;
-        console.log('3. Igchannels list:', this.igResData);
-        console.log('3. ignormalAccount list:', this.ignormalAccount);
+        // console.log('3. Igchannels list:', this.igResData);
+        // console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
     },
 
@@ -276,7 +282,7 @@ export default {
     // 4. Check your business page
     getPageInfo(pageId) {
       this.channelService.getIgBusinessPage(pageId).then(res => {
-        console.log('4. igBusinessPageInfo res:', res);
+        // console.log('4. igBusinessPageInfo res:', res);
         this.igBusinessPageInfo = res;
         let cates = res.category_list
         cates.map((item) => {
@@ -291,11 +297,11 @@ export default {
       // let igInfo = this.instagramChannelInfo;
       let igcategory = this.igBusinessPageInfo;
       let igcategoryname = this.igpagecategoryname;
-      console.log('igcategory--', igcategory);
+      // console.log('igcategory--', igcategory);
       // let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
-          console.log('5. IgUser res:', res);
+          // console.log('5. IgUser res:', res);
           // let accinfo = {
           //   accessToken: token,
           //   accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
@@ -355,14 +361,14 @@ export default {
             username: res.username,
           }
           this.igAccInfo = accinfo;
-          console.log('this.igAccInfo', this.igAccInfo);
+          // console.log('this.igAccInfo', this.igAccInfo);
         });
       }
     },
 
     // page selected
     selectPage(pageinfo, i) {
-      console.log('selectPage:', pageinfo);
+      // console.log('selectPage:', pageinfo);
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
       this.seletedIguserId = pageinfo.instagram_business_account.id;
@@ -371,7 +377,7 @@ export default {
 
     // 7. Save the selected channel applyActivity
     async applyActivity() {
-      console.log('applyActivity');
+      // console.log('applyActivity');
       // let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -382,22 +388,23 @@ export default {
         "name": this.linkedChannel.state.fbaccessTokenType,
       };
       if (this.seletedPageId) {
-        this.channelService.selectChannel(uid, token, info).then((res) => {
-          console.log('7. selectChannel res:', res);
-          console.log('response:----', res.status);
+        this.channelService.selectChannel(uid, token, info).then(() => {
+          // console.log('7. selectChannel res:', res);
+          // console.log('response:----', res.status);
           this.getUserinfo2();
         });
         //  await this.getUserinfo2();
 
       } else {
-        alert('no page selected');
+        // alert('no page selected');
+        // console.log('no page selected');
       }
     },
 
     // //patch
     upadteStatus(uid, channelId) {
-      this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
-        console.log('applyActivity res:', res);
+      this.channelService.getIgApproveRequest(uid, channelId).then(() => {
+        // console.log('applyActivity res:', res);
       });
     }
 
