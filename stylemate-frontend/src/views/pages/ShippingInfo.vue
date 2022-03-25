@@ -58,7 +58,7 @@
       </div>
       <div class="button-group">
         <button class="grey-btn" @click="$router.go(-1)">취소</button>
-        <button class="black-btn" @click="submitAddress">신청하기</button>
+        <button class="black-btn" @click="submitAddress">확인</button>
       </div>
 
       <FullCustomModal

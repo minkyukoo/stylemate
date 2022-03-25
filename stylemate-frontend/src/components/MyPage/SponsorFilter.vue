@@ -13,8 +13,8 @@
         :key="index || category.name"
       >
         <a
-          :class="category.no === store.state.sponcerFilterNo ? 'active' : ''"
-          @click="store.methods.setSponsorFilter(category.id , index)"
+          :class="category.name === store.state.sponcerFilterNo ? 'active' : ''"
+          @click="store.methods.setSponsorFilter(category.id , category.name)"
           >{{ category.name }}</a
         >
       </swiper-slide>
@@ -32,8 +32,8 @@
         :key="index || category.name"
       >
         <a
-          :class="[category.no === store.state.sponcerFilterNo ? 'active' : '']"
-          @click="store.methods.setSponsorFilter(category.id, index)"
+          :class="[category.name === store.state.sponcerFilterNo ? 'active' : '']"
+          @click="store.methods.setSponsorFilter(category.id, category.name)"
           >{{ category.name }}</a
         >
       </swiper-slide>
@@ -75,7 +75,7 @@ export default {
 
     onMounted(() => {
       // store.methods.setCampaignEncodeUrl();
-      store.methods.setSponsorFilter("");
+      store.methods.setSponsorFilter("","전체");
     });
     return {
       onSwiper,
@@ -126,7 +126,7 @@ export default {
         },
         {
           no: 1,
-          id: "finish",
+          id: "booking",
           name: "신청완료",
         },
         {

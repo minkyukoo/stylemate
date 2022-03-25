@@ -29,7 +29,7 @@
             </h4>
             <!-- if selected channel -->
             <ul class="newChannel" v-if="selChannelType === 'instagram' || userChannel.length > 0">
-              <li v-for="(channel, i) of userChannel" :key="i+1">
+              <li v-for="(channel, i) of userChannel" :key="i + 1">
                 <div class="channelLeft">
                   <div class="channelImg">
                     <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -115,7 +115,14 @@
               class="adddivwrap"
               v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1"
             >
-              <button class="connectBtn" type="button" @click="addIgChannel">+ 채널 추가하기</button>
+              <button
+                class="connectBtn"
+                type="button"
+                v-if="!isMobile"
+                @click="addIgChannel"
+              >+ 채널 추가하기</button>
+
+              <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기 for App</button>
             </div>
           </li>
           <li>
@@ -269,9 +276,10 @@ export default {
       isCampaignsOngoing: Boolean,
       isapplyAct: false,
       igResData: null,
-      ignormalAccount:[],
+      ignormalAccount: [],
       fbResData: null,
-      setNewchannel: false
+      setNewchannel: false,
+      isMobile: localStorage.getItem('isMobile') === 'true',
       // igResData: null,
       // fbResData: null,
     }
@@ -306,6 +314,10 @@ export default {
     this.channelData();
     this.refreshChannel();
 
+    this.checkMbfblogin();
+
+    // this.reAgain();
+
 
   },
   updated() {
@@ -321,7 +333,7 @@ export default {
   },
   methods: {
     openlink() {
-      console.log("clivk");
+      // console.log("clivk");
     },
     showModal() {
       this.isModalVisible = true;
@@ -349,13 +361,13 @@ export default {
     channelData() {
       // 1. Check Username
       this.channelService.getfbUser().then(res => {
-        console.log('1. fbUser res:', res);
+        // console.log('1. fbUser res:', res);
         this.fbResData = res;
       });
 
       // 3. page id 
       // this.channelService.getIgchannels().then(res => {
-      //   console.log('3. Igchannels list:', res);
+      // console.log('3. Igchannels list:', res);
       //   let existchannelId = this.instagramChannelInfo.fbid;
       //   let allChannel = res.data;
       //   let freshChannel = allChannel.filter(channel => {
@@ -364,11 +376,11 @@ export default {
       //   this.igResData = freshChannel;
       // });
       this.channelService.getIgchannels().then(res => {
-        console.log('3. Igchannels list:', res);
+        // console.log('3. Igchannels list:', res);
         let igBAcc = res.data;
         let existchannelId = this.instagramChannelInfo.fbid;
         let freshChannel = igBAcc.filter(channel => {
-          if(typeof channel.instagram_business_account == 'undefined') {
+          if (typeof channel.instagram_business_account == 'undefined') {
             this.ignormalAccount.push(channel);
           }
           return typeof channel.instagram_business_account !== 'undefined';
@@ -377,9 +389,9 @@ export default {
           return channel.instagram_business_account.id !== existchannelId;
         });
         this.igResData = restFreshChannel;
-        
-        console.log('3. Igchannels list:', this.igResData);
-        console.log('3. ignormalAccount list:', this.ignormalAccount);
+
+        // console.log('3. Igchannels list:', this.igResData);
+        // console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
 
 
@@ -388,22 +400,28 @@ export default {
     getUserinfo2() {
       this.userInfoService.getUserInfo().then(res => {
         if (res.data.influence.channel.length < 1) {
-          if (localStorage.getItem('fbaccessToken')) {
-            let fbtoken = localStorage.getItem('fbaccessToken');
+          if (this.linkedChannel.state.extendToken) {
+            let fbtoken = this.linkedChannel.state.extendToken;
             this.fbToken = fbtoken;
           } else {
             this.$router.push({ name: 'NewMemberJoining' });
           }
+          // if (localStorage.getItem('fbaccessToken')) {
+          //   let fbtoken = localStorage.getItem('fbaccessToken');
+          //   this.fbToken = fbtoken;
+          // } else {
+          //   this.$router.push({ name: 'NewMemberJoining' });
+          // }
         } else {
-          console.log('infores data:', res.data);
-          console.log('infores channel:', res.data.influence.channel);
+          // console.log('infores data:', res.data);
+          // console.log('infores channel:', res.data.influence.channel);
           this.userUID = res.data.uid;
           this.userId = res.data.id;
           this.userChanneldata = res.data.influence.channel;
           let channelData = res.data.influence.channel;
           channelData.map(
             (item) => {
-              console.log('channel data:--', item);
+              // console.log('channel data:--', item);
               this.instagramChannelInfo = item.instagramChannel;
               this.stylemateStatus = item.stylemateStatus;
               this.isReApplication = item.isReApplication;
@@ -426,7 +444,7 @@ export default {
         this.userChannel = channelData;
         this.userChannellength = channelData.length;
         this.isReApplication = res.data.influence.isReApplication;
-        console.log('userChannel:', this.userChannel);
+        // console.log('userChannel:', this.userChannel);
         channelData.map((item) => {
           this.selChannelType = item.type;
           this.stylemateStatus = item.stylemateStatus;
@@ -457,8 +475,8 @@ export default {
       if (!fbaccessToken) {
         this.linkedChannel.methods.logInWithFacebook();
       } else {
-        console.log('ELSE');
-        console.log('this.userChannel.LENGTH: ---', this.userChannel.length);
+        // console.log('ELSE');
+        // console.log('this.userChannel.LENGTH: ---', this.userChannel.length);
         if (this.userChannel.length > 0) {
           this.setNewchannel = true;
         } else {
@@ -472,27 +490,27 @@ export default {
     // channel disconnect
     disconnected(uid, channelId) {
       if (!this.isCampaignsOngoing) {
-        console.log('disconnected');
-        this.channelService.channelDisconnect(uid, channelId).then((res) => {
+        // console.log('disconnected');
+        this.channelService.channelDisconnect(uid, channelId).then(() => {
           setTimeout(() => {
             this.selChannelType = '';
             this.stylemateStatus = '';
             this.getUserChannelInfo();
-            console.log('1selChannelType', this.selChannelType);
+            // console.log('1selChannelType', this.selChannelType);
           }, 2000);
           this.closepop();
-          console.log('channelDisconnect', res);
-          console.log('channelDisconnect status:', res.response);
+          // console.log('channelDisconnect', res);
+          // console.log('channelDisconnect status:', res.response);
         });
       } else {
-        console.log('not disconnected');
+        // console.log('not disconnected');
       }
     },
 
     // 4. Check your business page
     getPageInfo(pageId) {
       this.channelService.getIgBusinessPage(pageId).then(res => {
-        console.log('4. igBusinessPageInfo res:', res);
+        // console.log('4. igBusinessPageInfo res:', res);
         this.igBusinessPageInfo = res;
         let cates = res.category_list
         cates.map((item) => {
@@ -507,11 +525,11 @@ export default {
       // let igInfo = this.instagramChannelInfo;
       let igcategory = this.igBusinessPageInfo;
       let igcategoryname = this.igpagecategoryname;
-      console.log('igcategory--', igcategory);
+      // console.log('igcategory--', igcategory);
       // let token = this.fbToken;
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
-          console.log('5. IgUser res:', res);
+          // console.log('5. IgUser res:', res);
           // let accinfo = {
           //   accessToken: token,
           //   accessTokenExpiredAt: igInfo.accessTokenExpiredAt,
@@ -571,14 +589,14 @@ export default {
             username: res.username,
           }
           this.igAccInfo = accinfo;
-          console.log('this.igAccInfo', this.igAccInfo);
+          // console.log('this.igAccInfo', this.igAccInfo);
         });
       }
     },
 
     // applyActivity
     async applyActivity() {
-      console.log('applyActivity');
+      // console.log('applyActivity');
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -589,22 +607,23 @@ export default {
         "name": igInfo.accountType,
       };
       if (this.seletedPageId) {
-        this.channelService.selectChannel(uid, token, info).then((res) => {
-          console.log('7. selectChannel res:', res);
-          console.log('response:----', res.status);
+        this.channelService.selectChannel(uid, token, info).then(() => {
+          // console.log('7. selectChannel res:', res);
+          // console.log('response:----', res.status);
           this.getUserinfo2();
           this.$router.push({ name: 'NewMemberJoining' });
         });
         //  await this.getUserinfo2();
 
       } else {
-        alert('no page selected');
+        // alert('no page selected');
+        // console.log('no page selected');
       }
     },
 
     // page selected
     selectPage(pageinfo, i) {
-      console.log('selectPage:', pageinfo);
+      // console.log('selectPage:', pageinfo);
       this.isapplyAct = true;
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
@@ -619,8 +638,8 @@ export default {
 
     // //patch
     upadteStatus(uid, channelId) {
-      this.channelService.getIgApproveRequest(uid, channelId).then((res) => {
-        console.log('applyActivity res:', res);
+      this.channelService.getIgApproveRequest(uid, channelId).then(() => {
+        // console.log('applyActivity res:', res);
         this.refreshChannel();
       });
     },
@@ -630,7 +649,78 @@ export default {
       this.channelService.getCampaignsOngoing(uid).then((res) => {
         this.isCampaignsOngoing = res.data.data.length > 0 ? true : false;
       });
-    }
+    },
+
+
+
+    //r&D test
+
+    // window.addEventListener('message', function() {
+    //   return 'mobileOS';
+    //  })
+
+
+    Mbfblogin() {
+      window.parent.postMessage('fbLoginMobile', '*');
+    },
+
+    checkMbfblogin() {
+      window.onmessage = (event) => {
+        console.log(`Received message: ${event.data}`);
+        let response = event.data;
+        if (response.authResponse) {
+          let ftoken = response.authResponse.accessToken;
+          console.log('ftoken:--', ftoken);
+          console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
+          this.channelService.igTokenExtend(ftoken).then((res) => {
+            this.linkedChannel.state.fbaccessTokenType = res.data.token.token_type;
+            this.linkedChannel.state.extendToken = res.data.token.access_token;
+            response.authResponse.accessToken = this.linkedChannel.state.extendToken;
+            this.linkedChannel.methods.statusChangeCallback(response);
+          });
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
+
+
+
+
+
+
+    // async reAgain() {
+    //   var queryString = window.location.search;
+    //   console.log('queryString', queryString);
+    //   const urlParams = new URLSearchParams(queryString);
+    //   var code = urlParams.get('code')
+    //   if (code) {
+    //     console.log('code', code);
+    //     localStorage.setItem('fbcode', code);
+    //     this.channelService.igTokenExtend(code).then((res) => {
+    //       console.log('res', res);
+    //       this.linkedChannel.state.extendToken = res.data.token.access_token;
+    //     });
+    //   }
+
+    //   let fbaccessToken = await this.channelService.getfbaccessToken();
+    //   if (!fbaccessToken) {
+    //     // this.linkedChannel.methods.logInWithFacebook();
+    //   } else {
+    //     if (this.userChannel.length > 0) {
+    //       this.setNewchannel = true;
+    //     } else {
+    //       this.$router.push({ name: 'NewMemberChannel' });
+    //     }
+    //   }
+    // },
+
+    // testFun() {
+    //   alert('testFun');
+    //   window.location.href = 'https://www.facebook.com/v10.0/dialog/oauth?client_id=662067494654261&display=popup&redirect_uri=' + encodeURI('http://localhost:8100/newmember');
+
+    // }
 
 
   },
