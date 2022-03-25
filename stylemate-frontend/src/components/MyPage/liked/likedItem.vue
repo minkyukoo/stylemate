@@ -39,7 +39,10 @@
       </div>
       <div>
         <h4>{{ progressDetails.name }}</h4>
-        <h6>종료일 {{ dateFormat(progressDetails.createdAt) }}</h6>
+        <!-- <h6>종료일 {{ dateFormat(progressDetails.createdAt) }}</h6> -->
+        <div class="hashWrap">
+          <span>{{ setTags(progressDetails.tag) }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -64,6 +67,16 @@ export default {
     dateFormat(date) {
       let dt = new Date(date);
       return `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()} ${dt.getHours()}:${dt.getMinutes()}`;
+    },
+
+    setTags(items) {
+      var filterItems = [];
+      items.forEach((value) => {
+        if (value.status === "active") {
+          filterItems.push("#" + value.tag);
+        }
+      });
+      return filterItems.join(" ").toString();
     },
     getColor() {
       if (this.progressDetails.status === "re-registration") {
@@ -116,6 +129,11 @@ export default {
 </script>
 
 <style scoped>
+.hashWrap span {
+  font-size: 10px;
+  color: #c4c4c4;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

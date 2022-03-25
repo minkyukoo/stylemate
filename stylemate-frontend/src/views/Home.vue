@@ -263,7 +263,9 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineOne.big"
                   :key="book.id"
+
                   :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -273,7 +275,9 @@
                 <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -287,7 +291,9 @@
                 <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -301,7 +307,9 @@
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -313,7 +321,9 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineThree.big"
                   :key="book.id"
+
                   :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -621,7 +631,7 @@ export default {
         console.log("lookbook", res);
         let lookbookData = res;
         let fltd = lookbookData.filter((value) => {
-          console.log('v----', value.post);
+          console.log("v----", value.post);
         });
         console.log("fltd---", fltd);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
@@ -698,20 +708,19 @@ export default {
           }
 
           if (selfItem.isInfluenceLike) {
+            selfItem.isInfluenceLike = false;
             this.itemService
               .influencedislikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res);
-                selfItem.isInfluenceLike = false;
               });
           } else {
+            selfItem.isInfluenceLike = true;
             this.itemService
               .influencelikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
-              .then((res) => {
-                selfItem.isInfluenceLike = true;
-              });
+              .then((res) => {});
           }
         });
       }
@@ -763,6 +772,7 @@ export default {
 </script>
 
 <style scoped>
+
 .cursor-pointer {
   cursor: pointer;
 }

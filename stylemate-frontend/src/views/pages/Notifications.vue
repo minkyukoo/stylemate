@@ -71,7 +71,7 @@ export default {
     this.userInfoService.getUserInfo().then((userInfo) => {
       this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
         this.notifications = notice.data.data;
-        // console.log(notice.data.data);
+        console.log(notice.data.data);
       });
     });
   },

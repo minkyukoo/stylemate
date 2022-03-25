@@ -285,19 +285,19 @@ export default defineComponent({
         await this.isUserid().then((res) => {
           uid = res;
           if (this.store.state.AppData[index].isInfluenceLike) {
+            this.store.state.AppData[index].isInfluenceLike = false;
             this.itemService
               .influencedislikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res);
-                this.store.state.AppData[index].isInfluenceLike = false;
               });
           } else {
+            this.store.state.AppData[index].isInfluenceLike = true;
             this.itemService
               .influencelikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
-                this.store.state.AppData[index].isInfluenceLike = true;
                 if (this.bookOption == "최신순") {
                   this.itemService.getProductList("latest", 1).then((data) => {
                     this.store.state.AppData = data;
