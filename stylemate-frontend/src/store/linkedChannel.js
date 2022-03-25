@@ -13,6 +13,7 @@ const state = reactive({
   igDetails: undefined,
   extendToken: undefined,
   fbaccessTokenType: undefined,
+  isMobile: false,
 });
 
 

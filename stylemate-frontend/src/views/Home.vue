@@ -20,11 +20,7 @@
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link
-              to
-              class="mainslide-banner-wrap"
-              @click="bannerRedirect(slide.mobileLink)"
-            >
+            <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -55,20 +51,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 'n')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 'n')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -110,20 +97,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 'o')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 'o')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -165,20 +143,11 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img
-                          v-if="isChannelIg(item.campaign)"
-                          src="@/assets/icons/instagram.svg"
-                        />
+                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
                       </div>
-                      <div
-                        class="favorite"
-                        @click="likeProduct(item.id, index, 's')"
-                      >
+                      <div class="favorite" @click="likeProduct(item.id, index, 's')">
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img
-                          v-if="item.isInfluenceLike"
-                          src="@/assets/icons/heart-filled.svg"
-                        />
+                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -238,10 +207,9 @@
             }"
             @slideChange="onBrandSlideChange"
             @swiper="onBrandSwiper"
-            
             class="newBrandSwiper"
           >
-          <!-- @afterInit="mountRun" -->
+            <!-- @afterInit="mountRun" -->
             <!-- :autoplay="autoplay" -->
             <swiper-slide
               class="brandSliderimg"
@@ -249,7 +217,8 @@
               ref="items"
               v-slot="{ isActive }"
               :key="item.id || index"
-              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })">
+              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
+            >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
                   <img
@@ -294,7 +263,9 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineOne.big"
                   :key="book.id"
+
                   :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -304,7 +275,9 @@
                 <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -318,7 +291,9 @@
                 <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -327,15 +302,14 @@
               </div>
             </div>
 
-            <div
-              v-if="lookBooks.lineThree.normal.length !== 0"
-              class="lookBookMain"
-            >
+            <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
               <div class="bookLabel1 pattern2">
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
+
                     :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -347,7 +321,9 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineThree.big"
                   :key="book.id"
+
                   :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
+
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -424,6 +400,7 @@ export default {
   },
   setup() {
     const store = inject("store");
+    const linkedChannel = inject("linkedChannel");
     const img = ref("");
     const onSwiper = (swiper) => {
       console.log(swiper);
@@ -457,6 +434,7 @@ export default {
       modules: [Pagination, EffectCoverflow],
       // modules: [EffectCoverflow, Pagination],
       store,
+      linkedChannel,
     };
   },
   data() {
@@ -484,6 +462,7 @@ export default {
       activeId: null,
       notificationLength: 0,
       image: "",
+      isMobile: false,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -520,6 +499,7 @@ export default {
     //   console.log("bannerList", this.bannerList);
 
     // });
+    this.isFromApp();
     this.getProductItemList();
     this.getLookBook();
     this.brandService.getBrandList().then((res) => {
@@ -541,6 +521,28 @@ export default {
     // }, 100);
   },
   methods: {
+
+    // check if it's from APP
+
+    isFromApp() {
+      var queryString = window.location.search;
+      console.log('queryString', queryString);
+      const urlParams = new URLSearchParams(queryString);
+      var mobile = urlParams.get('mobile')
+      if (mobile) {
+        this.isMobile = true;
+        this.linkedChannel.state.isMobile = true;
+        localStorage.setItem('isMobile', true);
+      }
+
+      setTimeout(() => {
+        console.log('this.linkedChannel.state.isMobile', this.linkedChannel.state.isMobile);
+      }, 4000);
+    },
+
+
+    // ENdx check if it's from APP
+
     mountRun() {
       if (document.getElementById("activeImg")) {
         console.log("something", document.getElementById("activeImg").src);
@@ -629,7 +631,7 @@ export default {
         console.log("lookbook", res);
         let lookbookData = res;
         let fltd = lookbookData.filter((value) => {
-          console.log('v----', value.post);
+          console.log("v----", value.post);
         });
         console.log("fltd---", fltd);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
@@ -706,20 +708,19 @@ export default {
           }
 
           if (selfItem.isInfluenceLike) {
+            selfItem.isInfluenceLike = false;
             this.itemService
               .influencedislikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
               .then((res) => {
                 // console.log(res);
-                selfItem.isInfluenceLike = false;
               });
           } else {
+            selfItem.isInfluenceLike = true;
             this.itemService
               .influencelikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
-              .then((res) => {
-                selfItem.isInfluenceLike = true;
-              });
+              .then((res) => {});
           }
         });
       }
@@ -771,6 +772,7 @@ export default {
 </script>
 
 <style scoped>
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1068,16 +1070,16 @@ export default {
   background: #ffffff;
 }
 
-.new-item-wrap .multiSlideWrap{
+.new-item-wrap .multiSlideWrap {
   padding: 0 calc(100% - 410px) 45px;
   margin: 0;
   justify-content: center;
 }
-.new-item-wrap .multiSlideWrap .slideItem{
+.new-item-wrap .multiSlideWrap .slideItem {
   width: 156px;
   padding: 0 4px;
 }
-.new-item-wrap .headerLine{
+.new-item-wrap .headerLine {
   max-width: 320px;
   margin: 0 auto;
 }
