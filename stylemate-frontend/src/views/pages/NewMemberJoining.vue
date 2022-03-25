@@ -115,7 +115,14 @@
               class="adddivwrap"
               v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1"
             >
-              <button class="connectBtn" type="button" @click="addIgChannel">+ 채널 추가하기</button>
+              <button
+                class="connectBtn"
+                type="button"
+                v-if="!isMobile"
+                @click="addIgChannel"
+              >+ 채널 추가하기</button>
+
+              <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기 for App</button>
             </div>
           </li>
           <li>
@@ -131,7 +138,7 @@
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button" @click="testFun">+ 채널 추가하기</button>
+              <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
         </ul>
@@ -271,7 +278,8 @@ export default {
       igResData: null,
       ignormalAccount: [],
       fbResData: null,
-      setNewchannel: false
+      setNewchannel: false,
+      isMobile: localStorage.getItem('isMobile') === 'true',
       // igResData: null,
       // fbResData: null,
     }
@@ -305,6 +313,8 @@ export default {
     this.getUserChannelInfo();
     this.channelData();
     this.refreshChannel();
+
+    this.checkMbfblogin();
 
     // this.reAgain();
 
@@ -644,6 +654,41 @@ export default {
 
 
     //r&D test
+
+    // window.addEventListener('message', function() {
+    //   return 'mobileOS';
+    //  })
+
+
+    Mbfblogin() {
+      window.parent.postMessage('fbLoginMobile', '*');
+    },
+
+    checkMbfblogin() {
+      window.onmessage = (event) => {
+        console.log(`Received message: ${event.data}`);
+        let response = event.data;
+        if (response.authResponse) {
+          let ftoken = response.authResponse.accessToken;
+          console.log('ftoken:--', ftoken);
+          console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
+          this.channelService.igTokenExtend(ftoken).then((res) => {
+            this.linkedChannel.state.fbaccessTokenType = res.data.token.token_type;
+            this.linkedChannel.state.extendToken = res.data.token.access_token;
+            response.authResponse.accessToken = this.linkedChannel.state.extendToken;
+            this.linkedChannel.methods.statusChangeCallback(response);
+          });
+          return true;
+        } else {
+          return false;
+        }
+      }
+    },
+
+
+
+
+
 
     // async reAgain() {
     //   var queryString = window.location.search;
