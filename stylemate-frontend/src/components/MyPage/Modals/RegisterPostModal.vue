@@ -346,10 +346,10 @@ export default {
             let modify_postId = res.data.instagramPost.postId;
             if (res.status == 200) {
               let res3 = this.myPageService.patchCampaign(
-                modify_postId,
+                this.reRegisterId,
                 this.campaignId,
                 this.bookingId,
-                // this.id,
+                modify_postId,
               );
               console.log(res3);
             }
