@@ -4,7 +4,7 @@
       <div class="container">
         <div class="flex items-center justify-center relative">
           <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
-          <NotificationIcon :notificationCount="notificationLength" />
+          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -21,7 +21,7 @@
           </ion-buttons>
           <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
-          <NotificationIcon :notificationCount="notificationLength" />
+          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -43,6 +43,7 @@ export default {
   },
   data() {
     return {
+      userLoggedIn: false,
       mainHeader: false,
       innerHeader: true,
       siteLogo: "@/assets/images/logo-black.svg",
@@ -75,6 +76,7 @@ export default {
     },
     async getNotificationLength() {
       let isLogedIn = await this.isLogedIn();
+      this.userLoggedIn = isLogedIn;
       if (isLogedIn) {
         this.userInfoService.getUserInfo().then((userInfo) => {
           this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {

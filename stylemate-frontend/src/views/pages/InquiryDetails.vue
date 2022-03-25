@@ -158,7 +158,7 @@ export default {
               //   name: "InquiryRegisterDetails",
               //   params: { id: res.data.id },
               // });
-              this.$router.go(-1)
+              this.$router.back();
             }
           })
           .catch((err) => console.log(err));
@@ -170,7 +170,7 @@ export default {
               //   name: "InquiryRegisterDetails",
               //   params: { id: res.data.id },
               // });
-              this.$router.go(-1)
+              this.$router.back();
             }
           })
           .catch((err) => console.log(err));

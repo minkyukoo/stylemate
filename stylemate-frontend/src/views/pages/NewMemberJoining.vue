@@ -29,7 +29,7 @@
             </h4>
             <!-- if selected channel -->
             <ul class="newChannel" v-if="selChannelType === 'instagram' || userChannel.length > 0">
-              <li v-for="(channel, i) of userChannel" :key="i+1">
+              <li v-for="(channel, i) of userChannel" :key="i + 1">
                 <div class="channelLeft">
                   <div class="channelImg">
                     <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -131,7 +131,7 @@
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button">+ 채널 추가하기</button>
+              <button class="connectBtn" type="button" @click="testFun">+ 채널 추가하기</button>
             </div>
           </li>
         </ul>
@@ -269,7 +269,7 @@ export default {
       isCampaignsOngoing: Boolean,
       isapplyAct: false,
       igResData: null,
-      ignormalAccount:[],
+      ignormalAccount: [],
       fbResData: null,
       setNewchannel: false
       // igResData: null,
@@ -305,6 +305,8 @@ export default {
     this.getUserChannelInfo();
     this.channelData();
     this.refreshChannel();
+
+    // this.reAgain();
 
 
   },
@@ -355,7 +357,7 @@ export default {
 
       // 3. page id 
       // this.channelService.getIgchannels().then(res => {
-        // console.log('3. Igchannels list:', res);
+      // console.log('3. Igchannels list:', res);
       //   let existchannelId = this.instagramChannelInfo.fbid;
       //   let allChannel = res.data;
       //   let freshChannel = allChannel.filter(channel => {
@@ -368,7 +370,7 @@ export default {
         let igBAcc = res.data;
         let existchannelId = this.instagramChannelInfo.fbid;
         let freshChannel = igBAcc.filter(channel => {
-          if(typeof channel.instagram_business_account == 'undefined') {
+          if (typeof channel.instagram_business_account == 'undefined') {
             this.ignormalAccount.push(channel);
           }
           return typeof channel.instagram_business_account !== 'undefined';
@@ -377,7 +379,7 @@ export default {
           return channel.instagram_business_account.id !== existchannelId;
         });
         this.igResData = restFreshChannel;
-        
+
         // console.log('3. Igchannels list:', this.igResData);
         // console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
@@ -637,7 +639,43 @@ export default {
       this.channelService.getCampaignsOngoing(uid).then((res) => {
         this.isCampaignsOngoing = res.data.data.length > 0 ? true : false;
       });
-    }
+    },
+
+
+
+    //r&D test
+
+    // async reAgain() {
+    //   var queryString = window.location.search;
+    //   console.log('queryString', queryString);
+    //   const urlParams = new URLSearchParams(queryString);
+    //   var code = urlParams.get('code')
+    //   if (code) {
+    //     console.log('code', code);
+    //     localStorage.setItem('fbcode', code);
+    //     this.channelService.igTokenExtend(code).then((res) => {
+    //       console.log('res', res);
+    //       this.linkedChannel.state.extendToken = res.data.token.access_token;
+    //     });
+    //   }
+
+    //   let fbaccessToken = await this.channelService.getfbaccessToken();
+    //   if (!fbaccessToken) {
+    //     // this.linkedChannel.methods.logInWithFacebook();
+    //   } else {
+    //     if (this.userChannel.length > 0) {
+    //       this.setNewchannel = true;
+    //     } else {
+    //       this.$router.push({ name: 'NewMemberChannel' });
+    //     }
+    //   }
+    // },
+
+    // testFun() {
+    //   alert('testFun');
+    //   window.location.href = 'https://www.facebook.com/v10.0/dialog/oauth?client_id=662067494654261&display=popup&redirect_uri=' + encodeURI('http://localhost:8100/newmember');
+
+    // }
 
 
   },
