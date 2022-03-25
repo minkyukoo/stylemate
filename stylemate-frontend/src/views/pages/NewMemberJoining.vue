@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -141,6 +141,10 @@
               <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
+          <li>
+            <button class="connectBtn" type="button" @click="sendAccessToken">sendAccessToken</button>
+          </li>
+          <li>{{ testres }}</li>
         </ul>
       </div>
       <ConfirmationModal v-show="isModalVisible" @close="closeModal" class="channelconnectionmodal">
@@ -280,6 +284,7 @@ export default {
       fbResData: null,
       setNewchannel: false,
       isMobile: localStorage.getItem('isMobile') === 'true',
+      // testres: null,
       // igResData: null,
       // fbResData: null,
     }
@@ -314,14 +319,16 @@ export default {
     this.channelData();
     this.refreshChannel();
 
-    this.checkMbfblogin();
-    this.sendAccessToken();
+    window["sendAccessToken"] = (res) => {
+      this.sendAccessToken(res);
+    };
 
     // this.reAgain();
 
 
   },
   updated() {
+    // this.sendAccessToken();
     this.campaignsOngoing(this.userUID);
     // let fbaccessToken = await this.channelService.getfbaccessToken();
     // if (!fbaccessToken) {
@@ -654,41 +661,32 @@ export default {
 
 
 
-    //r&D test
+    //Facebook login from Mobile App
 
     Mbfblogin() {
       window.parent.postMessage('fbLoginMobile', '*');
     },
 
-    checkMbfblogin() {
-      window.onmessage = (event) => {
-        console.log(`Received message: ${event.data}`);
-        let response = event.data;
-        if (response.authResponse) {
-          let ftoken = response.authResponse.accessToken;
-          console.log('ftoken:--', ftoken);
-          console.log('response.authResponse:--', response.authResponse.accessToken.access_token);
-          this.channelService.igTokenExtend(ftoken).then((res) => {
-            this.linkedChannel.state.fbaccessTokenType = res.data.token.token_type;
-            this.linkedChannel.state.extendToken = res.data.token.access_token;
-            response.authResponse.accessToken = this.linkedChannel.state.extendToken;
-            this.linkedChannel.methods.statusChangeCallback(response);
-          });
-          return true;
-        } else {
-          return false;
-        }
-      }
+    checkMbfblogin(token) {
+      let ftoken = token;
+      console.log('ftoken:--', ftoken);
+      this.channelService.igTokenExtend(ftoken).then((res) => {
+        this.linkedChannel.state.fbaccessTokenType = res.data.token.token_type;
+        this.linkedChannel.state.extendToken = res.data.token.access_token;
+        this.linkedChannel.state.isConnected = 'connected';
+        this.$router.push({ name: 'NewMemberChannel' });
+      });
     },
 
-    sendAccessToken(res){
-      if(res) {
-        console.log('sendAccessToken res:', res);
+    sendAccessToken(res) {
+      if (res) {
+        this.testres = res;
+        this.checkMbfblogin(res);
       } else {
-        console.log('no response');
         return false
       }
     },
+
 
     // async reAgain() {
     //   var queryString = window.location.search;
