@@ -50,17 +50,17 @@ export default {
       globalState.MyPageTopDetails.email = res.data.email;
       globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       globalState.MyPageTopState =
-        res.data.influence.channel[0]?.stylemateStatus;
+        res.data.influence.channel[0].stylemateStatus;
       globalState.isChannelExists = res.data.influence.channel.length > 0;
-      globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0]?.instagramChannel?.thumbnailUrl
-        ? res.data.influence.channel[0]?.instagramChannel?.thumbnailUrl
-        : res.data.influence.channel[0]?.instagramChannel?.thumbnailOriginalUrl;
+      globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0].instagramChannel.thumbnailUrl
+        ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
+        : res.data.influence.channel[0].instagramChannel.thumbnailOriginalUrl;
       globalState.MyPageRateBox.Avg_like =
-        res.data.influence.channel[0]?.instagramChannel?.latelyEngagementAvg;
+        res.data.influence.channel[0].instagramChannel.latelyEngagementAvg;
       globalState.MyPageRateBox.Avg_comment =
-        res.data.influence.channel[0]?.instagramChannel?.latelyCommentCountAvg;
+        res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity = `${
-        res.data.influence.channel[0]?.instagramChannel?.engagementRate / 100
+        res.data.influence.channel[0].instagramChannel.engagementRate / 100
       }%`;
       let influenceStat = res.data.influence.influenceStat;
       if (Object.keys(influenceStat).length > 0) {

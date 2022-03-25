@@ -1072,7 +1072,7 @@ export default {
 
 .new-item-wrap .multiSlideWrap {
   padding: 0 calc(100% - 410px) 45px;
-  margin: 0;
+  margin: 0 -4px;
   justify-content: center;
 }
 .new-item-wrap .multiSlideWrap .slideItem {
