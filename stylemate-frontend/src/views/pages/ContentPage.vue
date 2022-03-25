@@ -36,7 +36,7 @@
             ]"
             v-bind:alt="img"
             @click="
-              store.methods.setContentsDetailsModal(image.campaign.id,true)
+              store.methods.setContentsDetailsModal(image.instagramPost.postId,true)
             "
           />
         </div>
