@@ -323,7 +323,7 @@ export default {
 
     copyToClipBoard() {
       // ! android and ios device copy to clipboard function
-      window.parent.postMessage("{ copyToClipBoard: this.copyText }", "*");
+      window.parent.postMessage(`{ copyToClipBoard: ${this.copyText} }`, "*");
       Toast.fire({ title: "클립보드에 복사되었습니다." });
     },
   },
