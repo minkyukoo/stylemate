@@ -4,10 +4,10 @@
     <div class="main-wrap">
       <div class="accountconnectionWrap">
         <div class="inner">
-          <h2>
+          <!-- <h2>
             1단계
             <span>인스타그램 계정 설정하기</span>
-          </h2>
+          </h2>-->
           <div class="sliderBox">
             <swiper
               :modules="modules"
@@ -17,6 +17,7 @@
               :navigation="true"
             >
               <swiper-slide v-for="(citem, i) of connectionInfo" :key="i + 1">
+                <h2 v-html="citem.title"></h2>
                 <div class="mainslide-banner-wrap">
                   <img :src="citem.imagePath" alt />
                 </div>
@@ -111,6 +112,7 @@ export default {
   line-height: 20px;
   color: #24252b;
   text-align: center;
+  margin-bottom: 40px;
 }
 .accountconnectionWrap h2 span {
   color: #00b295;

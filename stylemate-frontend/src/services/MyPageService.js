@@ -147,11 +147,11 @@ export default class MyPageService {
     );
   }
 
-  async patchCampaign (postId, campaignId, bookingId ) {
+  async patchCampaign (postId, campaignId, bookingId, id ) {
     return await axios.patch(`/stylemates/posts/${postId}/modify-complete`,{
       campaignId: campaignId,
       bookingId: bookingId,
-      postId: postId,
+      postId: id,
     },{
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

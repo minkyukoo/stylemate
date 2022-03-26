@@ -313,10 +313,10 @@ export default {
         else {
           this.productDetails = res;
           console.log("productDetails:-", this.productDetails);
-          // console.log("processStatus:-", res.campaign[0].processStatus);
-          // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
-          // console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
-          // console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
+          console.log("processStatus:-", res.campaign[0].processStatus);
+          console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
+          console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
+          console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&

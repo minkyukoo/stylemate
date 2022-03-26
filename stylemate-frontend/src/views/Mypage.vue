@@ -48,11 +48,11 @@ export default {
       globalState.influenceId = res.data.influence.influenceStat.influenceId;
       globalState.MyPageTopDetails.name = res.data.name;
       globalState.MyPageTopDetails.email = res.data.email;
+      globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       globalState.MyPageTopState =
         res.data.influence.channel[0].stylemateStatus;
       globalState.isChannelExists = res.data.influence.channel.length > 0;
-      globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0]
-        .instagramChannel.thumbnailUrl
+      globalState.MyPageTopDetails.profile_img = res.data.influence.channel[0].instagramChannel.thumbnailUrl
         ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
         : res.data.influence.channel[0].instagramChannel.thumbnailOriginalUrl;
       globalState.MyPageRateBox.Avg_like =
@@ -62,7 +62,6 @@ export default {
       globalState.MyPageRateBox.EGR_activity = `${
         res.data.influence.channel[0].instagramChannel.engagementRate / 100
       }%`;
-      globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
       let influenceStat = res.data.influence.influenceStat;
       if (Object.keys(influenceStat).length > 0) {
         globalState.MyPageSponsorBox.sponsorship =
