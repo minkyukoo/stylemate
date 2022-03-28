@@ -14,7 +14,6 @@
           'dark-bg': getImgTag(progressDetails) === '미선정',
         }"
         id="imgTag"
-        
         >{{ getImgTag(progressDetails) }}</span
       >
     </div>
@@ -24,7 +23,6 @@
         <span
           class="cancel-tag"
           v-if="
-            
             this.progressDetails.processStatus === 'progress' &&
             this.progressDetails.processDetailStatus === 'booking' &&
             this.progressDetails.booking[
@@ -198,8 +196,10 @@ export default {
           progressDetails.processDetailStatus === "posting" &&
           progressDetails.booking[progressDetails.booking.length - 1]
             .bookingStatus === "join" &&
-          progressDetails.booking[progressDetails.booking.length - 1]
-            .postStatus === "post_progress"
+          (progressDetails.booking[progressDetails.booking.length - 1]
+            .postStatus === "post_progress" ||
+            progressDetails.booking[progressDetails.booking.length - 1]
+              .postStatus === "post_modify_completed")
         ) {
           this.tagShow = true;
           return "확인중";
