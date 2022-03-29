@@ -60,6 +60,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import UserInfoService from "@/services/UserInfoService";
 import { inject } from "vue";
+import moment from "moment";
 
 export default {
   name: "NoticeDetails",
@@ -85,6 +86,7 @@ export default {
   },
   created() {
     this.service = new UserInfoService();
+    this.moment = moment;
   },
   mounted() {
     this.service.NoticeById(this.$route.params.id).then((res) => {
@@ -119,8 +121,7 @@ export default {
       }
     },
     dateFormat(date) {
-      let dt = new Date(date);
-      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+      return moment(date).format("YYYY.MM.DD");
     },
   },
 };
