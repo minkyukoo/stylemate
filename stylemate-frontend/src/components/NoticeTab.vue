@@ -192,7 +192,7 @@ export default {
     });
 
     this.service.FAQs(null).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
@@ -205,7 +205,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        // console.log("inquiry", res.data);
+        console.log("inquiry", res.data);
       });
     }
   },

@@ -23,12 +23,12 @@ export default {
   },
   methods: {
     alertConfirm() {
-      // this.user.getUserInfo().then((userInfo) => {
-      //   this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
-      //     console.log(res.response.status);
-      //   });
-      // });
-      this.$router.push({ path: "/notification" });
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
+          console.log(res.response.status);
+        });
+      });
+      // this.$router.push({ path: "/notification" });
       // alert("test")
     },
   },
