@@ -60,7 +60,7 @@ export default {
       globalState.MyPageRateBox.Avg_comment =
         res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity = `${
-        res.data.influence.channel[0].instagramChannel.engagementRate / 100
+        res.data.influence.channel[0].instagramChannel.engagementRate
       }%`;
       let influenceStat = res.data.influence.influenceStat;
       if (Object.keys(influenceStat).length > 0) {
