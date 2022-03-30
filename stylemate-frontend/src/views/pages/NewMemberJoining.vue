@@ -42,11 +42,17 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
                   </div>
+                  <button
+                    v-else-if="!stylemateStatus && !isReApplication"
+                    class="channelBtn"
+                    type="button"
+                    @click="selectPageMed(channel, i)"
+                  >select</button>
                   <button
                     v-else-if="stylemateStatus === 'request'"
                     class="channelBtn greyBg"
@@ -203,6 +209,7 @@
 
       <div class="subscribe-wrap">
         <button class="black-btn" @click="applyActivity" v-if="isapplyAct">활동 신청하기</button>
+        <button class="black-btn" @click="applyActivityMed" v-if="isapplyActMed">활동 신청하기</button>
       </div>
 
       <div class="bottomDrawer" :class="{ active: isActive }">
@@ -275,6 +282,7 @@ export default {
       channelId: null,
       isCampaignsOngoing: Boolean,
       isapplyAct: false,
+      isapplyActMed: false,
       igResData: null,
       ignormalAccount: [],
       fbResData: null,
@@ -318,6 +326,8 @@ export default {
     window["sendAccessToken"] = (res) => {
       this.sendAccessToken(res);
     };
+
+    console.log('this.userChannel', this.userChannel);
 
     // this.reAgain();
 
@@ -513,6 +523,7 @@ export default {
 
     // 4. Check your business page
     getPageInfo(pageId) {
+      console.log('pageId:', pageId);
       this.channelService.getIgBusinessPage(pageId).then(res => {
         // console.log('4. igBusinessPageInfo res:', res);
         this.igBusinessPageInfo = res;
@@ -625,13 +636,34 @@ export default {
       }
     },
 
+    async applyActivityMed() {
+      console.log('applyActivityMed');
+      if (this.seletedPageId) {
+        alert('page selected');
+        this.getUserinfo2();
+      } else {
+        alert('no page selected');
+        console.log('no page selected');
+      }
+    },
+
     // page selected
     selectPage(pageinfo, i) {
-      // console.log('selectPage:', pageinfo);
+      console.log('selectPage:', pageinfo);
+
       this.isapplyAct = true;
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
       this.seletedIguserId = pageinfo.instagram_business_account.id;
+      this.getPageInfo(this.seletedPageId);
+    },
+
+    selectPageMed(pageinfo, i) {
+      console.log('selectPage:', pageinfo);
+      this.isapplyActMed = true;
+      this.isSeleted = i;
+      this.seletedPageId = pageinfo.instagramChannel.pageId;
+      this.seletedIguserId = pageinfo.instagramChannel.fbid;
       this.getPageInfo(this.seletedPageId);
     },
 
