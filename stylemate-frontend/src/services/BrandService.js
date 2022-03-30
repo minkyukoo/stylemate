@@ -27,7 +27,8 @@ export default class BrandService {
   }
 
   async brandProducts(brand) {
-    return await axios.get(`/stylemates/products?brandId=${brand}`, {
+    var perPage = null;
+    return await axios.get(`/stylemates/products?brandId=${brand}?perPage=${perPage}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }

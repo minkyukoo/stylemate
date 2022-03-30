@@ -14,6 +14,7 @@
           :space-between="0"
           :pagination="{ clickable: true }"
           :autoplay="autoplay"
+          :loop="true"
           :initialSlide="0"
           :centeredSlides="true"
           @swiper="onSwiper"
@@ -284,9 +285,9 @@
         <!-- lookbook -->
         <div class="lookBokkWrap">
           <div class="fixed-container lookbook">
-            <div class="headerLine">
+            <div class="headerLine" @click="$router.push({ name: 'Contents' })">
               <h4>LOOKBOOK</h4>
-              <span @click="$router.push({ name: 'Contents' })">
+              <span>
                 <img src="@/assets/icons/arrow-right.svg" />
               </span>
             </div>
@@ -630,7 +631,7 @@ export default {
     },
 
     bannerRedirect(url) {
-      alert(url);
+      // alert(url);
       window.open(url, "_blank");
     },
 
