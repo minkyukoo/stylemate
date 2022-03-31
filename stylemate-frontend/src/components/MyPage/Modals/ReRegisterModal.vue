@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="post-body">
-          <div class="edit-btn">Post edit request</div>
+          <div class="edit-btn">포스트 수정 요청</div>
           <div class="post-card-con">
             <div class="hashtagBox">
               <p>
@@ -74,7 +74,7 @@
             }
           "
         >
-          to close
+          닫기
         </button>
         <button
           type="button"

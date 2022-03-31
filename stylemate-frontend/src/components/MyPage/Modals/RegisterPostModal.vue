@@ -108,6 +108,9 @@ export default {
       date: "",
       brand_name: "",
       brand_desc: "",
+      userId: null,
+      postId: null,
+      reRegisterId: null,
     };
   },
 
@@ -153,6 +156,7 @@ export default {
         console.log(res);
         this.brand_name = res.brand.korName;
         this.brand_desc = res.brand.description;
+        this.reRegisterId = res.campaign[0]?.booking[0]?.post?.id;
         this.date = moment(res.campaign[0].campaignSchedule.finishedAt).format(
           "YYYY-MM-DD HH:mm"
         );
@@ -291,10 +295,12 @@ export default {
       this.caption = `${event.caption} ${
         this.requiredAccount ? `#${this.requiredAccount}` : ""
       } ${this.requiredHashtag ? `#${this.requiredHashtag} ` : ""}`;
+      this.userId = event.owner.id;
+      this.postId = event.id;
     },
     async isSubmit() {
-      let res = await this.channelService.getIguserinfo();
-      let res2 = await this.channelService.getIgusermediainfo();
+      let res = await this.channelService.getIguserinfo(this.userId);
+      let res2 = await this.channelService.getIgusermediainfo(this.postId);
       console.log("res2", res2);
       this.userProfile = res;
       // this.ig_id = res2.ig_id;
@@ -316,7 +322,7 @@ export default {
       ) {
         this.myPageService
           .putCampaignDetail(
-            this.store.MyPageModals.reRegistrationNo,
+            this.reRegisterId,
             this.campaignId,
             this.bookingId,
             this.channelId,
@@ -337,13 +343,19 @@ export default {
           )
           .then(async (res) => {
             console.log("if true res", res);
+            // let modify_postId = res.data.instagramPost.postId;
             if (res.status == 200) {
-              let res3 = this.myPageService.patchCampaign(
-                this.store.MyPageModals.reRegistrationNo,
-                this.campaignId,
-                this.bookingId
-              );
-              console.log(res3);
+              // let res3 = await this.myPageService.patchCampaign(
+              //   // this.reRegisterId,
+              //   modify_postId,
+              //   this.campaignId,
+              //   this.bookingId,
+              //   // modify_postId,
+              // );
+              // console.log(res3);
+              this.store.state.FltCampaignData = [];
+              this.store.methods.getcampList();
+              this.store.state.isPostModalVisible = false;
             }
           });
         // console.log("if true unique state", this.userProfile);
@@ -370,8 +382,8 @@ export default {
           .then((res) => {
             console.log("if false res", res);
             if(res.status === 201) {
-              // this.store.state.FltCampaignData = [];
-              // this.store.methods.getcampList(1);
+              this.store.state.FltCampaignData = [];
+              this.store.methods.getcampList();
               this.store.state.isPostModalVisible = false;
             }
           });

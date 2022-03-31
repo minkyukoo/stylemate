@@ -78,6 +78,13 @@
           v-on:buttonEvent="fireButton"
         />
       </div>
+       <div class="btn-con" v-else-if="!store.state.MyPageTopState">
+        <MyPageTopButton
+          :name="'채널 선택하기'"
+          :style="'btn-dark'"
+          v-on:buttonEvent="checkSelectChannel"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -144,6 +151,10 @@ export default {
     },
     checklinkedChannel() {
       console.log("checklinkedChannel");
+      this.$router.push({ name: 'NewMemberJoining' });
+    },
+    checkSelectChannel() {
+      console.log("checkSelectChannel");
       this.$router.push({ name: 'NewMemberJoining' });
     },
   },

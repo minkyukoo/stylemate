@@ -21,7 +21,7 @@
           <swiper-slide>
             <div class="mainslide-banner-wrap">
               <figure>
-                <img 
+                <img
                   v-if="this.brandDetails.imageMainPath"
                   :src="brandDetails.imageMainPath"
                   alt
@@ -92,7 +92,10 @@
 
               <!-- tab content 2 -->
               <div class="tab-content" v-if="layout === 'tab2'">
-                <BrandItem :brandItem="brandDetails.product" :brandName="brandDetails.korName" />
+                <BrandItem
+                  :brandItem="brandProducts"
+                  :brandName="brandDetails.korName"
+                />
               </div>
             </div>
           </div>
@@ -133,6 +136,7 @@ export default {
       visible: false,
       layout: "tab1",
       brandDetails: Object,
+      brandProducts: [],
     };
   },
   setup() {
@@ -159,7 +163,11 @@ export default {
 
     this.getBrandDetails(proId);
   },
-  mounted() {},
+  mounted() {
+    this.brandService.brandProducts(this.$route.params.id).then((res) => {
+      this.brandProducts = res.data;
+    });
+  },
   methods: {
     show() {
       this.display = true;
@@ -172,7 +180,7 @@ export default {
         // catch error
         if (res.response) {
           if (res.response.status == 404) {
-            alert(res.response.data.error.message);
+            // alert(res.response.data.error.message);
             this.$router.push("/brands");
           }
         }

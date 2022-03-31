@@ -68,7 +68,19 @@
     <div class="tab-content" v-if="layout === '#faq'">
       <div class="faq-wrap">
         <div v-for="item in faqCategory" :key="item" class="faq-wrapper">
-          <h2>{{ item === 'sponsorship' ? '서비스 이용' : (item === 'user' ? '회원정보' : (item === 'channel' ? '채널연결' : (item === 'etc' ? '기타' : item))) }}</h2>
+          <h2>
+            {{
+              item === "sponsorship"
+                ? "서비스 이용"
+                : item === "user"
+                ? "회원정보"
+                : item === "channel"
+                ? "채널연결"
+                : item === "etc"
+                ? "기타"
+                : item
+            }}
+          </h2>
           <NoticeAccordion
             v-for="faq in faqs.filter((v) => v.category === item)"
             :key="faq.id"
@@ -136,8 +148,10 @@ import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
 import { inject } from "vue";
+import moment from "moment";
 export default {
   name: "NoticeTab",
+  props: { currentPageUrl :{type: Number, default: 1}},
   components: {
     NoticeAccordion,
   },
@@ -167,16 +181,17 @@ export default {
   created() {
     this.service = new UserInfoService();
     this.tokenService = new TokenService();
+    this.moment = moment;
   },
   async mounted() {
     this.isLoggedIn = await this.isLogedIn();
     this.layout = this.$route.hash;
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
-      console.log(this.noticelist);
+      // console.log(this.noticelist);
     });
 
-    this.service.FAQs().then((res) => {
+    this.service.FAQs(null).then((res) => {
       // console.log(res.data);
       this.faqCategory = res.data
         .map((option) => option.category)
@@ -190,7 +205,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        // console.log("inquiry", res.data);
+        console.log("inquiry", res.data);
       });
     }
   },
@@ -213,8 +228,7 @@ export default {
     },
 
     dateFormat(date) {
-      let dt = new Date(date);
-      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+      return moment(date).format("YYYY.MM.DD");
     },
 
     // isLogedIn

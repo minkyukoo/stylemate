@@ -86,7 +86,8 @@ export default {
 <style>
 .main-container {
   max-width: 500px;
-  min-width: 360px;
+ /* min-width: 360px; */
+  min-width: 280px;
   width: 100%;
   height: 100vh;
   margin: 0 auto;

@@ -42,7 +42,7 @@
           <h4>답변내용</h4>
           <p v-html="answer"></p>
         </div>
-        <div class="buttongrp p-16">
+        <div v-if="answer === null" class="buttongrp p-16">
           <button
             class="inqList-btn"
             @click="
@@ -85,6 +85,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import UserInfoService from "@/services/UserInfoService";
 import { API } from "@/services/AxiosInstance";
+import moment from "moment";
 
 export default {
   name: "InquiryRegisterDetails",
@@ -105,6 +106,7 @@ export default {
   },
   created() {
     this.service = new UserInfoService();
+    this.moment = moment;
   },
   mounted() {
     this.service.QNAsById(this.$route.params.id).then((res) => {
@@ -118,7 +120,7 @@ export default {
       this.nextId = res.nextId;
       this.previousId = res.previousId;
       this.id = res.id;
-      // console.log(res);
+      console.log(res);
     });
   },
   methods: {
@@ -127,8 +129,9 @@ export default {
       // this.$router.go({ name: "Notice", hash: "#inquiry" });
     },
     dateFormat(date) {
-      let dt = new Date(date);
-      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+      // let dt = new Date(Date.parse(date));
+      // return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+      return moment(date).format("YYYY.MM.DD");
     },
 
     deleteInquiry(id) {

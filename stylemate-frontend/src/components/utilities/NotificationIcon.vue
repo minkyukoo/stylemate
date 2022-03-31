@@ -2,8 +2,8 @@
   <div class="notification" to="/notification" @click="alertConfirm()">
     <div class="notification-inner">
       <i class="icon-notification"></i>
-      <!-- <span class="badge">{{ notificationCount }}</span> -->
-      <i class="icon-blue-dot"></i>
+      <span v-if="userLoggedIn" class="badge">{{ notificationCount }}</span>
+      <i v-else class="icon-blue-dot"></i>
     </div>
   </div>
 </template>
@@ -16,18 +16,19 @@ export default {
   // components: { IonPopover },
   props: {
     notificationCount: Number,
+    userLoggedIn: Boolean,
   },
   created() {
     this.user = new UserInfoService();
   },
   methods: {
     alertConfirm() {
-      // this.user.getUserInfo().then((userInfo) => {
-      //   this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
-      //     console.log(res.response.status);
-      //   });
-      // });
-      this.$router.push({ path: "/notification" });
+      this.user.getUserInfo().then((userInfo) => {
+        this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
+          console.log(res.response.status);
+        });
+      });
+      // this.$router.push({ path: "/notification" });
       // alert("test")
     },
   },

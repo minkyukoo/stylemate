@@ -2,10 +2,11 @@ import axios from 'axios';
 var token = localStorage.getItem('token');
 export default class BrandService {
   async getBrandList() {
-    if(!token) {
-      return await axios.get(`/stylemates/brands`).then((res) => res.data.data);
+    var perPage= null;
+    if (!token) {
+      return await axios.get(`/stylemates/brands?perPage=${perPage}`).then((res) => res.data.data);
     } else {
-      return await axios.get(`/stylemates/brands`, {
+      return await axios.get(`/stylemates/brands?perPage=${perPage}`, {
         headers: {
           Authorization: 'Bearer ' + token //the token is a variable which holds the token
         }
@@ -14,15 +15,24 @@ export default class BrandService {
   }
 
   async getBrandDetails(ids) {
-    if(!token) {
-    return await axios.get(`/stylemates/brands/${ids}`).then((res) => res.data).catch((err) => err);
-  } else {
+    if (!token) {
+      return await axios.get(`/stylemates/brands/${ids}`).then((res) => res.data).catch((err) => err);
+    } else {
       return await axios.get(`/stylemates/brands/${ids}`, {
         headers: {
           Authorization: 'Bearer ' + token //the token is a variable which holds the token
         }
       }).then((res) => res.data).catch((err) => err);
     }
+  }
+
+  async brandProducts(brand) {
+    var perPage = null;
+    return await axios.get(`/stylemates/products?brandId=${brand}?perPage=${perPage}`, {
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
+      }
+    }).then((res) => res.data).catch((err) => err);
   }
 
   async searchBrand(brand) {
@@ -43,7 +53,10 @@ export default class BrandService {
 
   // post influencelikes
   async influencelikes(uid, type, taggableId) {
-    return await axios.post(`/stylemates/users/${uid}/influence-likes`, { type: type, taggableId: taggableId }, {
+    return await axios.post(`/stylemates/users/${uid}/influence-likes`, {
+      type: type,
+      taggableId: taggableId
+    }, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -51,16 +64,14 @@ export default class BrandService {
   }
   // delete influencelikes
   async influencedislikes(uid, type, taggableId) {
-    return await axios.delete(`/stylemates/users/${uid}/influence-likes`,
-      {
-        params: {
-          type: type,
-          taggableId: taggableId
-        },
-        headers: {
-          Authorization: 'Bearer ' + token //the token is a variable which holds the token
-        }
+    return await axios.delete(`/stylemates/users/${uid}/influence-likes`, {
+      params: {
+        type: type,
+        taggableId: taggableId
+      },
+      headers: {
+        Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
-    ).then((res) => res.data).catch((err) => err);
+    }).then((res) => res.data).catch((err) => err);
   }
 }

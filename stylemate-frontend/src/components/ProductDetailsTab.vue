@@ -248,29 +248,7 @@ export default {
   },
   data() {
     return {
-      // tagrow: [
-      //   {
-      //     name: "해시태그",
-      //     hashtag: [
-      //       { name: "#스트릿패션" },
-      //       { name: "#스우파" },
-      //       { name: "#후디" },
-      //       { name: "#스트릿패션" },
-      //       { name: "#스우파" },
-      //       { name: "#후디" },
-      //       { name: "#스트릿패션" },
-      //       { name: "#스우파" },
-      //       { name: "#후디" },
-      //     ],
-      //   },
-      //   {
-      //     name: "계정태그",
-      //     hashtag: [
-      //       { name: "@stylemate_official" },
-      //       { name: "@oef__official" },
-      //     ],
-      //   },
-      // ],
+      copyText: null,
       layout: "tab1",
       productCampaign: null,
     };
@@ -298,39 +276,54 @@ export default {
       if (hash.length > 0) {
         var hasgtag = hash.map((m) => `#${m}`);
         var copiedtext = hasgtag.join("").toString();
-        if (copiedtext) {
-          navigator.clipboard.writeText(copiedtext).then(
-            () => {
-              console.log(`clipboard: ${copiedtext}`);
-              Toast.fire({ title: "클립보드에 복사되었습니다." });
-            },
-            (err) => {
-              console.error("clipboard: Could not copy text: ", err);
-            }
-          );
-        } 
+        if (localStorage.getItem("isMobile") === "true") {
+          this.copyText = copiedtext;
+          if (this.copyText) this.copyToClipBoard();
+        } else {
+          if (copiedtext) {
+            navigator.clipboard.writeText(copiedtext).then(
+              () => {
+                console.log(`clipboard: ${copiedtext}`);
+                Toast.fire({ title: "클립보드에 복사되었습니다." });
+              },
+              (err) => {
+                console.error("clipboard: Could not copy text: ", err);
+              }
+            );
+          }
+        }
       } else {
         Toast.fire({ title: "해시 태그가 비어 있습니다." });
       }
     },
     copyAccounttags(hash) {
       if (hash.length > 0) {
-        var hasgtag = hash.map((m) => `#${m}`);
+        var hasgtag = hash.map((m) => `@${m}`);
         var copiedtext = hasgtag.join("").toString();
-        if (copiedtext) {
-          navigator.clipboard.writeText(copiedtext).then(
-            () => {
-              console.log(`clipboard: ${copiedtext}`);
-              Toast.fire({ title: "클립보드에 복사되었습니다." });
-            },
-            (err) => {
-              console.error("clipboard: Could not copy text: ", err);
-            }
-          );
+        if (localStorage.getItem("isMobile") === "true") {
+          this.copyText = copiedtext;
+          if (this.copyText) this.copyToClipBoard();
+        } else {
+          if (copiedtext) {
+            navigator.clipboard.writeText(copiedtext).then(
+              () => {
+                console.log(`clipboard: ${copiedtext}`);
+                Toast.fire({ title: "클립보드에 복사되었습니다." });
+              },
+              (err) => {
+                console.error("clipboard: Could not copy text: ", err);
+              }
+            );
+          }
         }
       } else {
-        Toast.fire({ title: "해시 태그가 비어 있습니다." });
+        Toast.fire({ title: "계정 태그가 비어 있습니다." });
       }
+    },
+
+    copyToClipBoard() { // ! android and ios device copy to clipboard function
+      window.parent.postMessage(`{ "copyToClipBoard": "${this.copyText}" }`, "*");
+      Toast.fire({ title: "클립보드에 복사되었습니다." });
     },
   },
 };

@@ -31,6 +31,7 @@ import './styles/css/main.css';
 import './styles/scss/style.scss';
 
 
+// axios.defaults.baseURL = 'https://elsa.beta.mediance.co.kr';
 axios.defaults.baseURL = 'https://elsa.beta.mediance.co.kr';
 // axios.defaults.headers = {
 //     // source: 'dvcon',
