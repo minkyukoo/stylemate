@@ -1136,6 +1136,7 @@ export default {
 }
 .lookBokkWrap {
   background: #ffffff;
+  padding-bottom: 40px;
 }
 
 .new-item-wrap .multiSlideWrap {
