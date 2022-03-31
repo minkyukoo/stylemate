@@ -577,6 +577,16 @@ input {
     align-items: center;
     justify-content: center;
     bottom: 55px;
+    top: auto;
+    &.swiper-pagination-progressbar{
+      background: #E4E4E7;
+      max-width: 200px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      .swiper-pagination-progressbar-fill{
+        background: #0cbfca;
+      }
+    }
     .swiper-pagination-bullet {
       background: #e4e4e7;
       width: 4px;
