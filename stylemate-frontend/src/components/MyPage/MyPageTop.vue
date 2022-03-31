@@ -80,7 +80,7 @@
       </div>
        <div class="btn-con" v-else-if="!store.state.MyPageTopState">
         <MyPageTopButton
-          :name="'selecte a channel'"
+          :name="'채널 선택하기'"
           :style="'btn-dark'"
           v-on:buttonEvent="checkSelectChannel"
         />

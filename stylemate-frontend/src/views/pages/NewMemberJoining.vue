@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -52,7 +52,7 @@
                     class="channelBtn"
                     type="button"
                     @click="selectPageMed(channel, i)"
-                  >select</button>
+                  >선택</button>
                   <button
                     v-else-if="stylemateStatus === 'request'"
                     class="channelBtn greyBg"
@@ -639,10 +639,11 @@ export default {
     async applyActivityMed() {
       console.log('applyActivityMed');
       if (this.seletedPageId) {
-        alert('page selected');
+        // alert('page selected');
         this.getUserinfo2();
+        this.isapplyActMed = false;
       } else {
-        alert('no page selected');
+        // alert('no page selected');
         console.log('no page selected');
       }
     },
@@ -650,7 +651,6 @@ export default {
     // page selected
     selectPage(pageinfo, i) {
       console.log('selectPage:', pageinfo);
-
       this.isapplyAct = true;
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
