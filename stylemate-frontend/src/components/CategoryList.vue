@@ -138,6 +138,7 @@ export default {
     // Child category click
     handleClick2(ids) {
       // alert(ids);
+      this.childactiveId = ids;
       let last_page = this.store.state.productMeta.last_page;
       if (this.spage <= last_page) {
         this.spage = 1;
