@@ -285,9 +285,17 @@
         <!-- lookbook -->
         <div class="lookBokkWrap">
           <div class="fixed-container lookbook">
-            <div class="headerLine" @click="$router.push({ name: 'Contents' })">
-              <h4>LOOKBOOK</h4>
-              <span>
+            <div class="headerLine">
+              <h4
+                style="cursor: pointer;"
+                @click="$router.push({ name: 'Contents' })"
+              >
+                LOOKBOOK
+              </h4>
+              <span
+                style="cursor: pointer;"
+                @click="$router.push({ name: 'Contents' })"
+              >
                 <img src="@/assets/icons/arrow-right.svg" />
               </span>
             </div>
