@@ -32,17 +32,16 @@ export default {
     return { store };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
     onScroll2(e) {
-      // console.log(e);
+      console.log(e);
     },
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
-        // console.log('end reached');
+        console.log('end reached');
         let last_page = this.store.state.sponcerMeta.last_page;
         if (this.page < last_page) {
           this.page = this.store.state.sponcerPageNo + 1;
-          // console.log('page from itemvue:-:', this.page);
+          console.log('page from itemvue:-:', this.page);
           this.store.methods.getcampList(this.page);
         } else {
           this.page = last_page;

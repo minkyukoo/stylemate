@@ -131,7 +131,7 @@ img:hover {
   background: linear-gradient(180deg, rgba(241, 241, 241, 0.5) 0.78%, rgba(241, 241, 241, 0.1) 100.78%);
   backdrop-filter: blur(30px);
   position: relative;
-  // padding-bottom: 40px;
+  padding-bottom: 40px;
   .headerLine {
     margin: 0;
     padding: 60px 0 20px;
@@ -577,16 +577,6 @@ input {
     align-items: center;
     justify-content: center;
     bottom: 55px;
-    top: auto;
-    &.swiper-pagination-progressbar{
-      background: #E4E4E7;
-      max-width: 200px;
-      left: 50%;
-      transform: translate(-50%, 0);
-      .swiper-pagination-progressbar-fill{
-        background: #0cbfca;
-      }
-    }
     .swiper-pagination-bullet {
       background: #e4e4e7;
       width: 4px;
@@ -789,53 +779,4 @@ body.swal2-toast-shown .swal2-container.swal2-bottom {
 ion-searchbar ion-icon {
   right: 5px !important;
   left: auto !important;
-}
-.newCustomSelect {
-  position: relative;
-  h4{
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: #797979;
-    cursor: pointer;
-    &::after{
-      background: url("../../../src/assets/icons/select-down.svg") no-repeat center center;
-      width: 9px;
-      height: 7px;
-      display: inline-block;
-      margin-left: 5px;
-      content: "";
-    }
-    &.active{
-      &::after{
-        transform: rotate(180deg);
-      }
-    }
-  }
-  .customDropList{
-    width: 116px;
-    background: #FFFFFF;
-    border: 1px solid #F7F7F7;
-    position: absolute;
-    top: 110%;
-    z-index: 2;
-    display: none;
-    &.active{
-      display: block;
-    }
-    li{
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 14px;
-      color: #090909;
-      padding: 12px 11px;
-      cursor: pointer;
-      &:hover{
-        background: #F7F7F7;
-      }
-      &.active{
-        color: #5700FF;
-      }
-    }
-  }
 }

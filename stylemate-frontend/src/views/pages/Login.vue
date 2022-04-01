@@ -37,21 +37,21 @@ export default {
   },
   data() {
     return {
-      serverUrl: 'http://stylemate.dvconsulting.org/login',
-      redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
-      localUrl: 'http://localhost:8100/login',
-      redirectlocalUrl: 'http://localhost:8100/home',
+      // serverUrl: 'http://stylemate.dvconsulting.org/login',
+      // redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
+      // localUrl: 'http://localhost:8100/login',
+      // redirectlocalUrl: 'http://localhost:8100/home',
 
-      // clent server setting don't remove
+      // // clent server setting don't remove
       // develop branch >
       //https://stylemate.alloo.cc
       //main branch >
       //https://stylemate.mediance.co.kr
       
-      // serverUrl: 'https://stylemate.alloo.cc/login',
-      // redirectServerUrl: 'https://stylemate.alloo.cc/home',
-      // localUrl: 'http://localhost:8100/login',
-      // redirectlocalUrl: 'http://localhost:8100/home',
+      serverUrl: 'https://stylemate.alloo.cc/login',
+      redirectServerUrl: 'https://stylemate.alloo.cc/home',
+      localUrl: 'http://localhost:8080/login',
+      redirectlocalUrl: 'http://localhost:8080/home',
     }
   },
   mounted() {
@@ -86,8 +86,7 @@ export default {
 <style>
 .main-container {
   max-width: 500px;
- /* min-width: 360px; */
-  min-width: 280px;
+  min-width: 360px;
   width: 100%;
   height: 100vh;
   margin: 0 auto;

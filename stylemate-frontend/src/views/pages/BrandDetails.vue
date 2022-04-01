@@ -20,7 +20,7 @@
         >
           <swiper-slide>
             <div class="mainslide-banner-wrap">
-              <!-- <figure> -->
+              <figure>
                 <img
                   v-if="this.brandDetails.imageMainPath"
                   :src="brandDetails.imageMainPath"
@@ -32,7 +32,7 @@
                   </router-link>
                   <img src="@/assets/icons/instagram.svg" />
                 </div> -->
-              <!-- </figure> -->
+              </figure>
             </div>
           </swiper-slide>
         </swiper>
@@ -238,7 +238,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style scoped>
 /* .main-wrap {
   height: 100vh;
   overflow: hidden;
@@ -288,25 +288,11 @@ export default {
   background-color: rgb(238, 230, 230);
   font-size: 36px;
 }
-.mainslide-banner-wrap {
+img {
   width: 100%;
-  height: 360px;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  height: 300px;
+  object-fit: fill;
 }
-// img {
-//   width: 100%;
-//   height: 360px;
-//   object-fit: fill;
-// }
-// @media screen and (max-width: 380px) {
-//   img {
-//     height: 300px;
-//   }
-// }
 
 .product-main-banner {
   position: fixed;

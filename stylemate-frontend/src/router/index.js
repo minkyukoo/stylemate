@@ -53,10 +53,10 @@ async function isAuth() {
         if (res.status && res.status !== 200) {
           return false;
         } else {
-          var d_expiresAt = res.data?.expiresAt;
+          var d_expiresAt = res.data.expiresAt;
           var token_expiresAt = new Date(d_expiresAt).getTime();
-          localStorage.setItem('token', res.data?.token);
-          localStorage.setItem('refreshToken', res.data?.refreshToken);
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('refreshToken', res.data.refreshToken);
           localStorage.setItem('tokenexpiresAt', token_expiresAt);
           return true;
         }

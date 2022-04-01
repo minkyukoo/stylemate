@@ -3,10 +3,7 @@
   <div class="main-container relative">
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar
-        id="ionTabBar"
-        :style="{ visibility: `${store.state.hideBar ? 'hidden' : ''}` }"
-      >
+      <ion-tab-bar id="ionTabBar" :style="{visibility : `${store.state.hideBar? 'hidden' :''}`}">
         <ion-tab-button class="tab-button" tab="tab1" href="/home" key="tab1">
           <!-- <ion-icon src="../assets/icons/home.svg" /> -->
           <i class="icon icon-dft icon-home" />
@@ -40,13 +37,7 @@
           <ion-label>CONTENTS</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          class="tab-button"
-          tab="tab5"
-          href="/mypage"
-          key="tab5"
-          @click="goToMypage"
-        >
+        <ion-tab-button class="tab-button" tab="tab5" href="/mypage" key="tab5" @click="goToMypage">
           <!-- <ion-icon :src="require(`@/assets/icons/mypage.svg`)" /> -->
           <i class="icon icon-dft icon-mypage" />
           <i class="icon icon-hvr icon-mypage-white" />
@@ -107,10 +98,12 @@ export default {
       activeId: "tab1",
     };
   },
-  methods: {
-    goToMypage() {
-      this.$router.push("/mypage");
-    },
+  methods() {
+    return {
+      goToMypage() {
+        this.$router.push("/mypage");
+      },
+    };
   },
 };
 </script>
