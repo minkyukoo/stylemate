@@ -21,6 +21,7 @@
                 label="title"
                 :close-on-select="true"
               ></vue-select>
+              <!-- label="title" -->
             </div>
           </div>
           <div class="right-section">
@@ -373,7 +374,7 @@ export default defineComponent({
 .item-wrapper.withoutbanner {
   top: 90px;
   transition: all 0.5s ease-in-out;
-  margin-top: 0;
+  margin-top: 0 !important;
   border-radius: 0;
   height: 100%;
 }
