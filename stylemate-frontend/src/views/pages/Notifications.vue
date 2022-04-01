@@ -133,7 +133,7 @@ export default {
       } else if (arg === "announce") {
         return "발표하다";
       } else if (arg === "postModifyRequest") {
-        return "수정 요청 게시";
+        return "포스트 수정 요청";
       } else if (arg === "disconnected") {
         return "연결이 끊긴";
       } else if (arg === "finish") {
@@ -201,7 +201,8 @@ export default {
 }
 .main-container {
   max-width: 500px;
-  min-width: 360px;
+  /* min-width: 360px; */
+  min-width: 280px;
   width: 100%;
   height: 100vh;
   margin: 0 auto;

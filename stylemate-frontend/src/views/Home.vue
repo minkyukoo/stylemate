@@ -14,13 +14,18 @@
           :space-between="0"
           :pagination="{ clickable: true }"
           :autoplay="autoplay"
+          :loop="dynamicLoop"
           :initialSlide="0"
           :centeredSlides="true"
           @swiper="onSwiper"
           @slideChange="onSlideChange"
         >
           <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-            <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+            <router-link
+              to
+              class="mainslide-banner-wrap"
+              @click="bannerRedirect(slide.mobileLink)"
+            >
               <img :src="slide.mobileImagePath" alt="Banner" />
             </router-link>
           </swiper-slide>
@@ -46,16 +51,25 @@
                 <div class="multiSlideWrap product-list">
                   <div
                     class="slideItem product-list-item cursor-pointer"
-                    v-for="(item, index) in newEvanItems"
+                    v-for="(item, index) in newStartItems"
                     :key="index"
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'n')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 's')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -97,11 +111,20 @@
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 'o')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'o')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -138,16 +161,25 @@
                 <div class="multiSlideWrap product-list">
                   <div
                     class="slideItem product-list-item cursor-pointer"
-                    v-for="(item, index) in newStartItems"
+                    v-for="(item, index) in newEvanItems"
                     :key="index"
                   >
                     <div class="top-float-div">
                       <div class="social-icon">
-                        <img v-if="isChannelIg(item.campaign)" src="@/assets/icons/instagram.svg" />
+                        <img
+                          v-if="isChannelIg(item.campaign)"
+                          src="@/assets/icons/instagram.svg"
+                        />
                       </div>
-                      <div class="favorite" @click="likeProduct(item.id, index, 's')">
+                      <div
+                        class="favorite"
+                        @click="likeProduct(item.id, index, 'n')"
+                      >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                        <img v-if="item.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                        <img
+                          v-if="item.isInfluenceLike"
+                          src="@/assets/icons/heart-filled.svg"
+                        />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
                       </div>
                     </div>
@@ -211,13 +243,16 @@
           >
             <!-- @afterInit="mountRun" -->
             <!-- :autoplay="autoplay" -->
+
             <swiper-slide
               class="brandSliderimg"
               v-for="(item, index) in brandList"
               ref="items"
               v-slot="{ isActive }"
               :key="item.id || index"
-              @click="$router.push({ name: 'BrandDetails', params: { id: item.id } })"
+              @click="
+                $router.push({ name: 'BrandDetails', params: { id: item.id } })
+              "
             >
               <div class="carousel__item">
                 <div class="nb-img-wrap">
@@ -251,8 +286,16 @@
         <div class="lookBokkWrap">
           <div class="fixed-container lookbook">
             <div class="headerLine">
-              <h4>LOOKBOOK</h4>
-              <span @click="$router.push({ name: 'Contents' })">
+              <h4
+                style="cursor: pointer;"
+                @click="$router.push({ name: 'Contents' })"
+              >
+                LOOKBOOK
+              </h4>
+              <span
+                style="cursor: pointer;"
+                @click="$router.push({ name: 'Contents' })"
+              >
                 <img src="@/assets/icons/arrow-right.svg" />
               </span>
             </div>
@@ -263,9 +306,13 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineOne.big"
                   :key="book.id"
-
-                  :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
-
+                  :src="
+                    !book.post
+                      ? ''
+                      : book.post.instagramPost.thumbnailUrl
+                      ? book.post.instagramPost.thumbnailUrl
+                      : book.post.instagramPost.thumbnailOriginalUrl
+                  "
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -275,9 +322,13 @@
                 <div v-for="book in lookBooks.lineOne.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-
-                    :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
-
+                    :src="
+                      !book.post
+                        ? ''
+                        : book.post.instagramPost.thumbnailUrl
+                        ? book.post.instagramPost.thumbnailUrl
+                        : book.post.instagramPost.thumbnailOriginalUrl
+                    "
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -291,9 +342,13 @@
                 <div v-for="book in lookBooks.lineTwo.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-
-                    :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
-
+                    :src="
+                      !book.post
+                        ? ''
+                        : book.post.instagramPost.thumbnailUrl
+                        ? book.post.instagramPost.thumbnailUrl
+                        : book.post.instagramPost.thumbnailOriginalUrl
+                    "
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -302,14 +357,21 @@
               </div>
             </div>
 
-            <div v-if="lookBooks.lineThree.normal.length !== 0" class="lookBookMain">
+            <div
+              v-if="lookBooks.lineThree.normal.length !== 0"
+              class="lookBookMain"
+            >
               <div class="bookLabel1 pattern2">
                 <div v-for="book in lookBooks.lineThree.normal" :key="book.id">
                   <img
                     class="cursor-pointer"
-
-                    :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
-
+                    :src="
+                      !book.post
+                        ? ''
+                        : book.post.instagramPost.thumbnailUrl
+                        ? book.post.instagramPost.thumbnailUrl
+                        : book.post.instagramPost.thumbnailOriginalUrl
+                    "
                     @click="
                       store.methods.setContentsDetailsModal(book.post.id, true)
                     "
@@ -321,9 +383,13 @@
                   class="cursor-pointer"
                   v-for="book in lookBooks.lineThree.big"
                   :key="book.id"
-
-                  :src="!book.post ? '' : (book.post.instagramPost.thumbnailUrl ? book.post.instagramPost.thumbnailUrl : book.post.instagramPost.thumbnailOriginalUrl)"
-
+                  :src="
+                    !book.post
+                      ? ''
+                      : book.post.instagramPost.thumbnailUrl
+                      ? book.post.instagramPost.thumbnailUrl
+                      : book.post.instagramPost.thumbnailOriginalUrl
+                  "
                   @click="
                     store.methods.setContentsDetailsModal(book.post.id, true)
                   "
@@ -402,11 +468,12 @@ export default {
     const store = inject("store");
     const linkedChannel = inject("linkedChannel");
     const img = ref("");
+    // eslint-disable-next-line no-unused-vars
     const onSwiper = (swiper) => {
-      console.log(swiper);
+      // console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log("slide change");
+      // console.log("slide change");
     };
 
     // onMounted(() => {
@@ -422,8 +489,9 @@ export default {
     //   img.value = document.getElementById("activeImg").src;
     //   console.log(img.value);
     // };
+    // eslint-disable-next-line no-unused-vars
     const onBrandSwiper = (event) => {
-      console.log("brand swiper", event);
+      // console.log("brand swiper", event);
     };
     return {
       onSwiper,
@@ -463,6 +531,7 @@ export default {
       notificationLength: 0,
       image: "",
       isMobile: false,
+      dynamicLoop: true,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -473,11 +542,20 @@ export default {
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.bannerService.getBannerList("home").then((res) => {
+      if(res.length == 1) {
+        this.dynamicLoop = false;
+      }
       this.bannerList = res;
       if (this.bannerList.length > 0) {
         this.mountRun();
+        // if (this.bannerList.length <= 1) {
+        //   this.dynamicLoop = false;
+        // }
+        // else {
+        //   this.dynamicLoop = true;
+        // }
       }
-      console.log("bannerList", this.bannerList);
+      // console.log("bannerList", this.bannerList);
     });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
@@ -488,7 +566,7 @@ export default {
     bannerList: function () {
       setTimeout(() => {
         this.image = document.getElementById("activeImg").src;
-        console.log(this.image);
+        // console.log(this.image);
       }, 1000);
     },
   },
@@ -521,33 +599,34 @@ export default {
     // }, 100);
   },
   methods: {
-
     // check if it's from APP
 
     isFromApp() {
       var queryString = window.location.search;
-      console.log('queryString', queryString);
+      // console.log("queryString", queryString);
       const urlParams = new URLSearchParams(queryString);
-      var mobile = urlParams.get('mobile')
+      var mobile = urlParams.get("mobile");
       if (mobile) {
         this.isMobile = true;
         this.linkedChannel.state.isMobile = true;
-        localStorage.setItem('isMobile', true);
+        localStorage.setItem("isMobile", true);
       }
 
       setTimeout(() => {
-        console.log('this.linkedChannel.state.isMobile', this.linkedChannel.state.isMobile);
+        // console.log(
+        //   "this.linkedChannel.state.isMobile",
+        //   this.linkedChannel.state.isMobile
+        // );
       }, 4000);
     },
-
 
     // ENdx check if it's from APP
 
     mountRun() {
       if (document.getElementById("activeImg")) {
-        console.log("something", document.getElementById("activeImg").src);
+        // console.log("something", document.getElementById("activeImg").src);
       }
-      console.log("mounted");
+      // console.log("mounted");
     },
     onBrandSlideChange(e) {
       // console.log("slider change", e);
@@ -555,7 +634,7 @@ export default {
       this.activeId = e.activeIndex;
       // console.log(this.activeId);
       setTimeout(() => {
-        this.image = document.getElementById("activeImg").src;
+        this.image = document.getElementById("activeImg")?.src !== undefined ? document.getElementById("activeImg")?.src : '';
         // console.log(this.image);
       }, 100);
       // if (document.getElementById("activeImg")) {
@@ -572,8 +651,8 @@ export default {
     },
 
     bannerRedirect(url) {
-      alert(url);
-      window.open(url, "_blank");
+      // alert(url);
+      window.location.href = url;
     },
 
     async getNoticeIsAuth() {
@@ -597,7 +676,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        console.log(res);
+        // console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -605,10 +684,12 @@ export default {
         let newOddIndex = 0;
         let newEvanIndex = 0;
         res.forEach((value, i) => {
-          if (i % 3 === 0) {
+          if (i <= 3) {
+            // if (i % 3 === 0) {
             startArray[newStartArray] = value;
             newStartArray++;
-          } else if (i % 2 === 0) {
+            // } else if (i % 2 === 0) {
+          } else if (i <= 7) {
             OddArray[newOddIndex] = value;
             newOddIndex++;
           } else {
@@ -620,20 +701,21 @@ export default {
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
 
-        console.log("this.newStartItems", startArray);
-        console.log("this.newOddItems", OddArray);
-        console.log("this.newEvanItems", EvanArray);
+        // console.log("this.newStartItems", startArray);
+        // console.log("this.newOddItems", OddArray);
+        // console.log("this.newEvanItems", EvanArray);
       });
     },
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
-        console.log("lookbook", res);
+        // console.log("lookbook", res);
         let lookbookData = res;
+        // eslint-disable-next-line no-unused-vars
         let fltd = lookbookData.filter((value) => {
-          console.log("v----", value.post);
+          // console.log("v----", value.post);
         });
-        console.log("fltd---", fltd);
+        // console.log("fltd---", fltd);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
@@ -772,7 +854,6 @@ export default {
 </script>
 
 <style scoped>
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -1064,10 +1145,11 @@ export default {
   white-space: nowrap;
 }
 .newItemWrap {
-  margin-bottom: 48px;
+  margin-bottom: 34px;
 }
 .lookBokkWrap {
   background: #ffffff;
+  padding-bottom: 40px;
 }
 
 .new-item-wrap .multiSlideWrap {
@@ -1082,5 +1164,6 @@ export default {
 .new-item-wrap .headerLine {
   max-width: 320px;
   margin: 0 auto;
+  padding-left: 7px;
 }
 </style>

@@ -1,39 +1,33 @@
 <template>
   <div class="wrapSec2">
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">
-      카테고리에 해당하는 제품이 없습니다
-    </div>
-    <div
-      v-else
-      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`"
-      @scroll="onScroll2"
-    >
+    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
+    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`" @scroll="onScroll2">
       <div class="fixed-container">
         <div class="top-section">
           {{ loadMore }}
           <div class="left-section">
-            <div class="selectWrap">
-              <vue-select
+            <div class="selectWrap newCustomSelect">
+              <!-- <vue-select
                 :placeholder="'인기순'"
                 v-model="bookOption"
                 :options="books"
                 label="title"
                 :close-on-select="true"
-              ></vue-select>
+              ></vue-select> -->
+              <h4 :class="{ active: isActive }" @click="showDropdown">인기순</h4>
+              <ul class="customDropList" :class="{ active: isActive }">
+                <li @click="showDropdown" class="active">최신순</li>
+                <li @click="showDropdown">인기순</li>
+                <li @click="showDropdown">마감임박순</li>
+              </ul>
             </div>
           </div>
           <div class="right-section">
-            <button
-              @click="layout = 'list'"
-              :class="{ active: layout === 'grid' }"
-            >
+            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button
-              @click="layout = 'grid'"
-              :class="{ active: layout === 'list' }"
-            >
+            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -48,17 +42,11 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img
-                  v-if="isChannelIg(product.campaign)"
-                  src="@/assets/icons/instagram.svg"
-                />
+                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
               </div>
               <div class="favorite" @click="likeProduct(index, product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img
-                  v-if="product.isInfluenceLike"
-                  src="@/assets/icons/heart-filled.svg"
-                />
+                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -84,9 +72,11 @@
               <h3>{{ product.brand.korName }}</h3>
               <p>{{ product.name }}</p>
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  "#" + hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    "#" + hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -115,10 +105,7 @@
             </figure>
 
             <div class="favorite" @click="likeProduct(index, product.id)">
-              <img
-                v-if="product.isInfluenceLike"
-                src="@/assets/icons/heart-filled.svg"
-              />
+              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -136,9 +123,11 @@
               <p>{{ product.name }}</p>
               <!-- <span>{{ product.hashtags }}</span> -->
               <div class="hashWrap">
-                <span v-for="(hash, index) in product.tag" :key="index">{{
-                  "#" + hash.tag
-                }}</span>
+                <span v-for="(hash, index) in product.tag" :key="index">
+                  {{
+                    "#" + hash.tag
+                  }}
+                </span>
               </div>
             </div>
           </li>
@@ -151,7 +140,7 @@
 <script>
 import { defineComponent, inject, onMounted } from "vue";
 import Toast from "@/alert/alert";
-import VueNextSelect from "vue-next-select";
+// import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
 import TokenService from "@/services/TokenService";
 import UserInfoService from "@/services/UserInfoService";
@@ -166,8 +155,9 @@ export default defineComponent({
     categoryId: { type: Number },
   },
   components: {
-    "vue-select": VueNextSelect,
+    // "vue-select": VueNextSelect,
   },
+  
   setup() {
     const store = inject("store");
 
@@ -199,6 +189,7 @@ export default defineComponent({
       bookOption: null,
       spage: this.$props.page,
       scategoryId: this.$props.categoryId,
+      isActive: false,
     };
   },
   created() {
@@ -309,11 +300,14 @@ export default defineComponent({
                 }
               });
           }
-        
+
         });
       }
       // console.log("likeProduct");
     },
+    showDropdown: function () {
+      this.isActive = !this.isActive;
+    }
   },
   async updated() {
     // if (this.isproductfilter) {
@@ -329,6 +323,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 .top-section {
   display: flex;
   align-items: center;
@@ -373,7 +368,7 @@ export default defineComponent({
 .item-wrapper.withoutbanner {
   top: 90px;
   transition: all 0.5s ease-in-out;
-  margin-top: 0;
+  margin-top: 0 !important;
   border-radius: 0;
   height: 100%;
 }
@@ -518,11 +513,10 @@ export default defineComponent({
 .selectWrap .vue-select {
   width: 100%;
 } */
-.list-view .product-list-item .desc-box p{
+.list-view .product-list-item .desc-box p {
   margin-bottom: 8px;
 }
-.wrapSec2{
+.wrapSec2 {
   height: 100%;
 }
-
 </style>

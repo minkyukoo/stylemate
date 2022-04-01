@@ -343,15 +343,19 @@ export default {
           )
           .then(async (res) => {
             console.log("if true res", res);
-            let modify_postId = res.data.instagramPost.postId;
+            // let modify_postId = res.data.instagramPost.postId;
             if (res.status == 200) {
-              let res3 = this.myPageService.patchCampaign(
-                this.reRegisterId,
-                this.campaignId,
-                this.bookingId,
-                modify_postId,
-              );
-              console.log(res3);
+              // let res3 = await this.myPageService.patchCampaign(
+              //   // this.reRegisterId,
+              //   modify_postId,
+              //   this.campaignId,
+              //   this.bookingId,
+              //   // modify_postId,
+              // );
+              // console.log(res3);
+              this.store.state.FltCampaignData = [];
+              this.store.methods.getcampList();
+              this.store.state.isPostModalVisible = false;
             }
           });
         // console.log("if true unique state", this.userProfile);

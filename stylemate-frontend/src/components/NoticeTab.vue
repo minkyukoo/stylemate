@@ -148,6 +148,7 @@ import NoticeAccordion from "@/components/NoticeAccordion.vue";
 import UserInfoService from "@/services/UserInfoService";
 import TokenService from "@/services/TokenService";
 import { inject } from "vue";
+import moment from "moment";
 export default {
   name: "NoticeTab",
   props: { currentPageUrl :{type: Number, default: 1}},
@@ -180,6 +181,7 @@ export default {
   created() {
     this.service = new UserInfoService();
     this.tokenService = new TokenService();
+    this.moment = moment;
   },
   async mounted() {
     this.isLoggedIn = await this.isLogedIn();
@@ -190,7 +192,7 @@ export default {
     });
 
     this.service.FAQs(null).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
@@ -203,7 +205,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        // console.log("inquiry", res.data);
+        console.log("inquiry", res.data);
       });
     }
   },
@@ -226,8 +228,7 @@ export default {
     },
 
     dateFormat(date) {
-      let dt = new Date(date);
-      return `${dt.getFullYear()}.${dt.getMonth()}.${dt.getDate()}`;
+      return moment(date).format("YYYY.MM.DD");
     },
 
     // isLogedIn

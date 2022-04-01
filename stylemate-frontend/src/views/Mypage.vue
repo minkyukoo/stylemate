@@ -41,11 +41,11 @@ export default {
 
   mounted() {
     this.myPageServices.getMyPageData().then((res) => {
-      console.log("res", res);
+      // console.log("res", res);
       let globalState = this.store.state;
       // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
-      globalState.influenceId = res.data.influence.influenceStat.influenceId;
+      globalState.influenceId = res.data.influence.channel[0]?.influenceId;
       globalState.MyPageTopDetails.name = res.data.name;
       globalState.MyPageTopDetails.email = res.data.email;
       globalState.MyPageSponsorBox.like = res.data.influence.influenceLikeCount;
@@ -60,7 +60,7 @@ export default {
       globalState.MyPageRateBox.Avg_comment =
         res.data.influence.channel[0].instagramChannel.latelyCommentCountAvg;
       globalState.MyPageRateBox.EGR_activity = `${
-        res.data.influence.channel[0].instagramChannel.engagementRate / 100
+        res.data.influence.channel[0].instagramChannel.engagementRate
       }%`;
       let influenceStat = res.data.influence.influenceStat;
       if (Object.keys(influenceStat).length > 0) {
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     openlink() {
-      console.log("clivk");
+      // console.log("clivk");
     },
   },
 };
