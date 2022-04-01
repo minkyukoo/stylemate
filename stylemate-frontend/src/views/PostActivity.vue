@@ -42,15 +42,16 @@ export default {
     setlastPage(event){
       this.last_page = event;
     },
+    // eslint-disable-next-line no-unused-vars
     onScroll2(e) {
-      console.log(e);
+      // console.log(e);
     },
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
         // console.log('end reached');
         if (this.page < this.last_page) {
           this.page = this.page + 1;
-          console.log('page from itemvue:-', this.page);
+          // console.log('page from itemvue:-', this.page);
         } else {
           this.page = this.last_page;
         }

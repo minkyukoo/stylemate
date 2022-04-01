@@ -41,7 +41,7 @@ export default {
 
   mounted() {
     this.myPageServices.getMyPageData().then((res) => {
-      console.log("res", res);
+      // console.log("res", res);
       let globalState = this.store.state;
       // localStorage.setItem("User_id", res.data.uid);
       globalState.UserId = res.data.uid;
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     openlink() {
-      console.log("clivk");
+      // console.log("clivk");
     },
   },
 };
