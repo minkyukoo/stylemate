@@ -35,7 +35,11 @@
         @reachEnd="onSlideChange"
       >
         <swiper-slide v-for="(item, i) in searchKeywords" :key="i">
-          <a :class="{ active: historyActiveIndex === i }" @click="sreachWithHistory(item.searchKeyword, i)">{{ item.searchKeyword }}</a>
+          <a
+            :class="{ active: historyActiveIndex === i }"
+            @click="sreachWithHistory(item.searchKeyword, i)"
+            >{{ item.searchKeyword }}</a
+          >
         </swiper-slide>
       </swiper>
     </div>
@@ -68,9 +72,14 @@
                     params: { id: info.id },
                   })
                 "
-              >{{ info.korName }}</h3>
+              >
+                {{ info.korName }}
+              </h3>
               <div class="text-box" @click="likeBrand(info.id, i)">
-                <img v-if="info.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="info.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </ion-card-title>
@@ -80,13 +89,15 @@
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="maincontent"
-          >{{ info.description }}</ion-card-content>
+            >{{ info.description }}</ion-card-content
+          >
           <ion-card-content
             @click="
               $router.push({ name: 'BrandDetails', params: { id: info.id } })
             "
             class="subcontent"
-          >{{ setTags(info.tag) }}</ion-card-content>
+            >{{ setTags(info.tag) }}</ion-card-content
+          >
         </div>
       </div>
     </div>
@@ -151,6 +162,16 @@ export default {
     // window.parent.postMessage(this.keyboardHide(), "*");
     this.setUser();
     this.getBrandList();
+  },
+
+  watch: {
+    searchValue: function (val) {
+      // console.log(val)
+      if (val === "") {
+        this.notFound = false;
+        this.getBrandList();
+      }
+    },
   },
 
   methods: {
@@ -290,7 +311,7 @@ export default {
 };
 </script>
 <style scoped>
-input[type=search]::placeholder {
+input[type="search"]::placeholder {
   color: rgba(0, 0, 0, 0.753);
   font-weight: lighter;
 }
@@ -418,7 +439,7 @@ ion-card-title h3 {
   justify-content: center;
   cursor: pointer;
 }
-.history-keywords a.active{
+.history-keywords a.active {
   border: 1px solid #090909;
   background: #090909;
   font-weight: bold;
@@ -426,17 +447,16 @@ ion-card-title h3 {
   transition: all 0.3s;
 }
 
-.search-wrapper{
+.search-wrapper {
   width: 100%;
   margin: 20px 0 0 0;
 }
 
-.search-wrapper input{
-  background: #fff url('@/assets/icons/search.png') no-repeat 97% center;
+.search-wrapper input {
+  background: #fff url("@/assets/icons/search.png") no-repeat 97% center;
   padding: 10px 13px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   border-radius: 10px;
   width: 100%;
 }
-
 </style>
