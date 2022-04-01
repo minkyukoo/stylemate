@@ -11,7 +11,7 @@
     >
       <div class="fixed-container">
         <div class="top-section">
-          {{ loadMore }}
+          <!-- {{ loadMore }} -->
           <div class="left-section">
             <div class="selectWrap newCustomSelect">
               <!-- <vue-select
@@ -21,11 +21,18 @@
                 label="title"
                 :close-on-select="true"
               ></vue-select> -->
-              <h4 :class="{ active: isActive }" @click="showDropdown">인기순</h4>
+              <h4 :class="{ active: isActive }" @click="showDropdown">
+                인기순
+              </h4>
               <ul class="customDropList" :class="{ active: isActive }">
-                <li @click="showDropdown" class="active">최신순</li>
-                <li @click="showDropdown">인기순</li>
-                <li @click="showDropdown">마감임박순</li>
+                <li
+                  v-for="(book, i) in books"
+                  :key="i"
+                  @click="showDropdown(i, book)"
+                  :class="{ active: booksDropdownIndex === i }"
+                >
+                  {{ book }}
+                </li>
               </ul>
             </div>
           </div>
@@ -174,7 +181,7 @@ export default defineComponent({
   components: {
     // "vue-select": VueNextSelect,
   },
-  
+
   setup() {
     const store = inject("store");
 
@@ -207,6 +214,7 @@ export default defineComponent({
       spage: this.$props.page,
       scategoryId: this.$props.categoryId,
       isActive: false,
+      booksDropdownIndex: null,
     };
   },
   created() {
@@ -215,10 +223,19 @@ export default defineComponent({
     this.userInfoService = new UserInfoService();
   },
   mounted() {
+    // Attach event listener to the root vue element
+    // this.$el.addEventListener("click", this.onClick);
+    // Or if you want to affect everything
+    // document.addEventListener('click', this.onClick)
+
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
   },
+  // unmounted() {
+  //   this.$el.removeEventListener("click", this.onClick);
+  // document.removeEventListener('click', this.onClick)
+  // },
   watch: {
     bookOption: function (type) {
       let last_page = this.store.state.productMeta.last_page;
@@ -317,14 +334,19 @@ export default defineComponent({
                 }
               });
           }
-        
         });
       }
       // console.log("likeProduct");
     },
-    showDropdown: function () {
+    showDropdown(i, v) {
       this.isActive = !this.isActive;
-    }
+      this.booksDropdownIndex = i;
+      this.bookOption = v;
+    },
+
+    // onClick() {
+    //   if (this.isActive) this.isActive = !this.isActive;
+    // },
   },
   async updated() {
     // if (this.isproductfilter) {
@@ -340,7 +362,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .top-section {
   display: flex;
   align-items: center;
@@ -530,11 +551,10 @@ export default defineComponent({
 .selectWrap .vue-select {
   width: 100%;
 } */
-.list-view .product-list-item .desc-box p{
+.list-view .product-list-item .desc-box p {
   margin-bottom: 8px;
 }
-.wrapSec2{
+.wrapSec2 {
   height: 100%;
 }
-
 </style>
