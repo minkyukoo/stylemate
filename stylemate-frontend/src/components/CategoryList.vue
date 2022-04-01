@@ -185,7 +185,7 @@ export default {
           this.childCategories2 = arr1.unshift({ name: "All", id: ids });
           this.childCategory = true;
           this.onClickButton(false);
-          this.childactiveId = "Allchild"; //To highlight the child button default
+          this.childactiveId = ids; //To highlight the child button default
         } else {
           this.activeId = ids;
           this.childCategory = false;
