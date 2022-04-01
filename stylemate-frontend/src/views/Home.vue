@@ -14,7 +14,7 @@
           :space-between="0"
           :pagination="{ clickable: true }"
           :autoplay="autoplay"
-          :loop="true"
+          :loop="dynamicLoop"
           :initialSlide="0"
           :centeredSlides="true"
           @swiper="onSwiper"
@@ -521,6 +521,7 @@ export default {
       notificationLength: 0,
       image: "",
       isMobile: false,
+      dynamicLoop: true,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -531,11 +532,21 @@ export default {
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.bannerService.getBannerList("home").then((res) => {
+      if(res.length == 1) {
+        this.dynamicLoop = false;
+      }
       this.bannerList = res;
       if (this.bannerList.length > 0) {
         this.mountRun();
+        // if (this.bannerList.length <= 1) {
+        //   this.dynamicLoop = false;
+        // }
+        // else {
+        //   this.dynamicLoop = true;
+        // }
       }
-      console.log("bannerList", this.bannerList);
+
+      console.log("bannerList", this.bannerList, this.dynamicLoop);
     });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
@@ -632,7 +643,7 @@ export default {
 
     bannerRedirect(url) {
       // alert(url);
-      window.open(url, "_blank");
+      window.location.href = url;
     },
 
     async getNoticeIsAuth() {
@@ -1124,7 +1135,7 @@ export default {
   white-space: nowrap;
 }
 .newItemWrap {
-  margin-bottom: 48px;
+  margin-bottom: 34px;
 }
 .lookBokkWrap {
   background: #ffffff;
@@ -1143,5 +1154,6 @@ export default {
 .new-item-wrap .headerLine {
   max-width: 320px;
   margin: 0 auto;
+  padding-left: 7px;
 }
 </style>
