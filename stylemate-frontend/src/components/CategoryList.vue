@@ -138,6 +138,7 @@ export default {
     // Child category click
     handleClick2(ids) {
       // alert(ids);
+      this.childactiveId = ids;
       let last_page = this.store.state.productMeta.last_page;
       if (this.spage <= last_page) {
         this.spage = 1;
@@ -184,7 +185,7 @@ export default {
           this.childCategories2 = arr1.unshift({ name: "All", id: ids });
           this.childCategory = true;
           this.onClickButton(false);
-          this.childactiveId = "Allchild"; //To highlight the child button default
+          this.childactiveId = ids; //To highlight the child button default
         } else {
           this.activeId = ids;
           this.childCategory = false;
@@ -193,6 +194,10 @@ export default {
       } else {
         this.spage = last_page;
       }
+    },
+
+    bannerRedirect(url) {
+       window.location.href = url;
     },
 
     onClickButton(ve) {
