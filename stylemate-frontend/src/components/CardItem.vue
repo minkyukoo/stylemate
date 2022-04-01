@@ -13,14 +13,20 @@
         <div class="top-section">
           {{ loadMore }}
           <div class="left-section">
-            <div class="selectWrap">
-              <vue-select
+            <div class="selectWrap newCustomSelect">
+              <!-- <vue-select
                 :placeholder="'인기순'"
                 v-model="bookOption"
                 :options="books"
                 label="title"
                 :close-on-select="true"
-              ></vue-select>
+              ></vue-select> -->
+              <h4 :class="{ active: isActive }" @click="showDropdown">인기순</h4>
+              <ul class="customDropList" :class="{ active: isActive }">
+                <li @click="showDropdown" class="active">최신순</li>
+                <li @click="showDropdown">인기순</li>
+                <li @click="showDropdown">마감임박순</li>
+              </ul>
             </div>
           </div>
           <div class="right-section">
@@ -151,7 +157,7 @@
 <script>
 import { defineComponent, inject, onMounted } from "vue";
 import Toast from "@/alert/alert";
-import VueNextSelect from "vue-next-select";
+// import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
 import TokenService from "@/services/TokenService";
 import UserInfoService from "@/services/UserInfoService";
@@ -166,8 +172,9 @@ export default defineComponent({
     categoryId: { type: Number },
   },
   components: {
-    "vue-select": VueNextSelect,
+    // "vue-select": VueNextSelect,
   },
+  
   setup() {
     const store = inject("store");
 
@@ -199,6 +206,7 @@ export default defineComponent({
       bookOption: null,
       spage: this.$props.page,
       scategoryId: this.$props.categoryId,
+      isActive: false,
     };
   },
   created() {
@@ -314,6 +322,9 @@ export default defineComponent({
       }
       // console.log("likeProduct");
     },
+    showDropdown: function () {
+      this.isActive = !this.isActive;
+    }
   },
   async updated() {
     // if (this.isproductfilter) {
@@ -329,6 +340,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 .top-section {
   display: flex;
   align-items: center;
