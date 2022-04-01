@@ -632,7 +632,7 @@ export default {
 
     bannerRedirect(url) {
       // alert(url);
-      window.open(url, "_blank");
+      window.open(url);
     },
 
     async getNoticeIsAuth() {
