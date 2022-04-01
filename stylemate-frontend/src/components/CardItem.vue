@@ -1,8 +1,14 @@
 <template>
   <div class="wrapSec2">
     {{ item_list }}
-    <div class="nodata" v-if="!isFltData">카테고리에 해당하는 제품이 없습니다</div>
-    <div v-else :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`" @scroll="onScroll2">
+    <div class="nodata" v-if="!isFltData">
+      카테고리에 해당하는 제품이 없습니다
+    </div>
+    <div
+      v-else
+      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`"
+      @scroll="onScroll2"
+    >
       <div class="fixed-container">
         <div class="top-section">
           <!-- {{ loadMore }} -->
@@ -22,7 +28,7 @@
                 <li
                   v-for="(book, i) in books"
                   :key="i"
-                  @click="showDropdown(i, book)"
+                  @click="dropdownValue(i, book)"
                   :class="{ active: booksDropdownIndex === i }"
                 >
                   {{ book }}
@@ -31,10 +37,16 @@
             </div>
           </div>
           <div class="right-section">
-            <button @click="layout = 'list'" :class="{ active: layout === 'grid' }">
+            <button
+              @click="layout = 'list'"
+              :class="{ active: layout === 'grid' }"
+            >
               <img src="@/assets/icons/list-view.svg" />
             </button>
-            <button @click="layout = 'grid'" :class="{ active: layout === 'list' }">
+            <button
+              @click="layout = 'grid'"
+              :class="{ active: layout === 'list' }"
+            >
               <img src="@/assets/icons/grid-view.svg" />
             </button>
           </div>
@@ -49,11 +61,17 @@
             <!-- {{product.campaign.map(item => item.channelType)}} -->
             <div class="top-float-div">
               <div class="social-icon">
-                <img v-if="isChannelIg(product.campaign)" src="@/assets/icons/instagram.svg" />
+                <img
+                  v-if="isChannelIg(product.campaign)"
+                  src="@/assets/icons/instagram.svg"
+                />
               </div>
               <div class="favorite" @click="likeProduct(index, product.id)">
                 <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
-                <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+                <img
+                  v-if="product.isInfluenceLike"
+                  src="@/assets/icons/heart-filled.svg"
+                />
                 <img v-else src="@/assets/icons/heart-outline.svg" />
               </div>
             </div>
@@ -80,9 +98,7 @@
               <p>{{ product.name }}</p>
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">
-                  {{
-                    "#" + hash.tag
-                  }}
+                  {{ "#" + hash.tag }}
                 </span>
               </div>
             </div>
@@ -112,7 +128,10 @@
             </figure>
 
             <div class="favorite" @click="likeProduct(index, product.id)">
-              <img v-if="product.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
+              <img
+                v-if="product.isInfluenceLike"
+                src="@/assets/icons/heart-filled.svg"
+              />
               <img v-else src="@/assets/icons/heart-outline.svg" />
             </div>
             <div
@@ -131,9 +150,7 @@
               <!-- <span>{{ product.hashtags }}</span> -->
               <div class="hashWrap">
                 <span v-for="(hash, index) in product.tag" :key="index">
-                  {{
-                    "#" + hash.tag
-                  }}
+                  {{ "#" + hash.tag }}
                 </span>
               </div>
             </div>
@@ -206,19 +223,10 @@ export default defineComponent({
     this.userInfoService = new UserInfoService();
   },
   mounted() {
-    // Attach event listener to the root vue element
-    // this.$el.addEventListener("click", this.onClick);
-    // Or if you want to affect everything
-    // document.addEventListener('click', this.onClick)
-
     this.itemService.getProductCategories().then((data) => {
       this.categories_info = data;
     });
   },
-  // unmounted() {
-  //   this.$el.removeEventListener("click", this.onClick);
-  // document.removeEventListener('click', this.onClick)
-  // },
   watch: {
     bookOption: function (type) {
       let last_page = this.store.state.productMeta.last_page;
@@ -317,20 +325,19 @@ export default defineComponent({
                 }
               });
           }
-
         });
       }
       // console.log("likeProduct");
     },
-    showDropdown(i, v) {
+    showDropdown() {
       this.isActive = !this.isActive;
+    },
+
+    dropdownValue(i, v) {
+      this.isActive = false;
       this.booksDropdownIndex = i;
       this.bookOption = v;
     },
-
-    // onClick() {
-    //   if (this.isActive) this.isActive = !this.isActive;
-    // },
   },
   async updated() {
     // if (this.isproductfilter) {
