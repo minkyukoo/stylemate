@@ -196,6 +196,10 @@ export default {
       }
     },
 
+    bannerRedirect(url) {
+       window.location.href = url;
+    },
+
     onClickButton(ve) {
       this.$emit("clicked", ve);
     },
