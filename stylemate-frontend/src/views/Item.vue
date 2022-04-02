@@ -73,11 +73,11 @@ export default {
 
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
-        console.log('end reached');
+        // console.log('end reached');
         let last_page = this.store.state.productMeta.last_page;
         if (this.page < last_page) {
           this.page = this.page + 1;
-          console.log('page from itemvue:-:', this.page);
+          // console.log('page from itemvue:-:', this.page);
           this.store.methods.getData(this.bookOptionVal, this.page, this.dcategoryId);
 
           // if (this.bookOptionVal) {
@@ -102,38 +102,38 @@ export default {
 
     bookOption(event) {
       if (event) {
-        console.log('bookOption event:', event);
+        // console.log('bookOption event:', event);
         this.bookOptionVal = event;
       }
     },
 
     pageReset(event) {
       if (event) {
-        console.log('pageReset event:', event);
+        // console.log('pageReset event:', event);
         this.page = event;
       }
     },
 
     categoryId(event) {
       if (event) {
-        console.log('categoryId event:', event);
+        // console.log('categoryId event:', event);
         this.dcategoryId = event;
       }
     },
 
     onClickChild(value) {
-      console.log(value); // someValue
+      // console.log(value); // someValue
       this.isBanner = value;
     },
     fltData2(event) {
       this.isFltData = event;
-      console.log("this.isFltData", this.isFltData);
+      // console.log("this.isFltData", this.isFltData);
       // alert(event);
     },
 
     filterproductList(event) {
       this.isproductfilter = event;
-      console.log("this.isproductfilter", this.isproductfilter);
+      // console.log("this.isproductfilter", this.isproductfilter);
     },
 
   },

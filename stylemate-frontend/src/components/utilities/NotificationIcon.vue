@@ -28,7 +28,7 @@ export default {
           console.log(res.response.status);
         });
       });
-      // this.$router.push({ path: "/notification" });
+      this.$router.push({ path: "/notification" });
       // alert("test")
     },
   },

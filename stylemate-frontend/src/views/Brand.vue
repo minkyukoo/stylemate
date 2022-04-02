@@ -34,8 +34,8 @@ export default {
     const windowScroll = () => {
       if (data.value === 1 && dataFocus.value === true && dataBlur.value === false) {
         keyboardHide("keyboardHide");
-        console.log(data.value);
-        console.log('keyboardHide');
+        // console.log(data.value);
+        // console.log('keyboardHide');
       }
       data.value++;
     };
@@ -63,7 +63,7 @@ export default {
       window.parent.postMessage( e, '*');
       dataBlur.value = true;
       dataFocus.value = false;
-      console.log(e);
+      // console.log(e);
       // alert(e);
     };
 
