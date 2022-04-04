@@ -99,6 +99,10 @@ ion-toolbar,
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   z-index: 1;
+  border-bottom: 1px solid #F7F7F7;
+}
+.header-md::after{
+  background: transparent;
 }
 .header-title {
   font-style: normal;

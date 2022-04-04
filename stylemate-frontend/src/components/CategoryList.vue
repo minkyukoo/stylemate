@@ -127,17 +127,17 @@ export default {
       this.bannerList = res;
       console.log("bannerList", this.bannerList);
       if (this.bannerList.length == 0) {
-        this.onClickButton(false);
+        this.$emit('defaultbanner',true);
       }
     });
   },
 
   watch: {
-    bannerList: function (val) {
-      if (val.length == 0) {
-        this.onClickButton(false);
-      }
-    },
+    // bannerList: function (val) {
+    //   if (val.length == 0) {
+    //     this.onClickButton(false);
+    //   }
+    // },
   },
 
   methods: {
@@ -210,6 +210,12 @@ export default {
           this.activeId = ids;
           this.childCategory = false;
           this.onClickButton(true);
+          if (this.bannerList.length == 0) {
+            // this.onClickButton(false);
+            this.$emit('defaultbanner',true);
+          } else {
+            this.$emit('defaultbanner',false);
+          }
         }
       } else {
         this.spage = last_page;
