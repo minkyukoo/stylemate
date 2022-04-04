@@ -79,23 +79,37 @@ export default {
       this.user.getUserInfo().then((userInfo) => {
         this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
           // console.log("product", res);
-          this.store.state.likedTabProduct = res.data.data;
+          let uniqueObjArray = [
+            ...new Map(
+              res.data.data.map((item) => [item["id"], item])
+            ).values(),
+          ];
+          this.store.state.likedTabProduct = uniqueObjArray;
           this.store.state.likedTabProductLength =
             res.data.data.length > 0 ? true : false;
-          console.log(
-            "store.state.likedTabProduct",
-            this.store.state.likedTabProduct
-          );
+          // console.log(
+          //   "uniqueObjArray.likedTabProduct",
+          //   this.store.state.likedTabProduct
+          // );
+          // console.log(
+          //   ".likedTabProduct",
+          //   res.data.data
+          // );
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
           // console.log("brand", res);
-          this.store.state.likedTabBrand = res.data.data;
+          let uniqueObjArrayBrand = [
+            ...new Map(
+              res.data.data.map((item) => [item["id"], item])
+            ).values(),
+          ];
+          this.store.state.likedTabBrand = uniqueObjArrayBrand;
           this.store.state.likedTabBrandLength =
             res.data.data.length > 0 ? true : false;
-          console.log(
-            " this.store.state.likedTabBrand ",
-            this.store.state.likedTabBrand
-          );
+          // console.log(
+          //   " this.store.state.likedTabBrand ",
+          //   this.store.state.likedTabBrand
+          // );
         });
       });
     },
