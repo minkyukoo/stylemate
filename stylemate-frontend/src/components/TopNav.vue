@@ -64,9 +64,15 @@ export default {
       return await this.tokenService.isAuth();
     },
     backMainpage() {
+      let main = ['Item','Brand','Contents','Mypage','LoginPage']
       if (this.$route.name === 'NewMemberJoining') {
         this.$router.push({
           path: "/mypage",
+        });
+      }
+      else if (main.includes(this.$route.name)) {
+        this.$router.push({
+          path: "/home",
         });
       }
       else {
