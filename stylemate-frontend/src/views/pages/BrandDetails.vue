@@ -290,7 +290,7 @@ export default {
 }
 .mainslide-banner-wrap {
   width: 100%;
-  height: 360px;
+  height: 380px;
   img {
     width: 100%;
     height: 100%;

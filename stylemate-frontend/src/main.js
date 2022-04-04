@@ -6,6 +6,11 @@ import VueAxios from 'vue-axios';
 import { IonicVue } from '@ionic/vue';
 import VueDaumPostcode from 'vue-daum-postcode'
 // import Vue from 'vue';
+
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueNextSelect from 'vue-next-select';
 import "vue-next-select/dist/index.css";
@@ -43,6 +48,7 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router)
   .use(VueAxios, axios)
+  .use(VueLoading)
   .use(VueDaumPostcode)
   .use(VueSweetalert2)
   .component('vue-select', VueNextSelect);

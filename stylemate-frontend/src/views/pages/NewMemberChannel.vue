@@ -142,6 +142,7 @@ export default {
       instagramChannelInfo: null,
       igBusinessPageInfo: null,
       igpagecategoryname: null,
+      loader: undefined,
     };
   },
   setup() {
@@ -150,10 +151,10 @@ export default {
 
     onMounted(() => {
       // if (linkedChannel.state.isConnected === 'connected') {
-        console.log('connected:', linkedChannel.state.isConnected);
+      console.log('connected:', linkedChannel.state.isConnected);
       //   linkedChannel.methods.checkLoginState();
       // } else {
-        console.log('connected:', linkedChannel.state.isConnected);
+      console.log('connected:', linkedChannel.state.isConnected);
       //   router.push({ name: 'NewMemberJoining' });
       // }
 
@@ -238,7 +239,7 @@ export default {
           setTimeout(() => {
             this.upadteStatus(this.userUID, this.channelId);
             this.$router.push({ name: 'NewMemberJoining' });
-
+            this.loader.hide();
           }, 2000);
         }
       });
@@ -379,6 +380,14 @@ export default {
     async applyActivity() {
       // console.log('applyActivity');
       // let igInfo = this.instagramChannelInfo;
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       let info = this.igAccInfo;
       let uid = this.userUID;
       let userid = this.userId;
@@ -392,6 +401,7 @@ export default {
           // console.log('7. selectChannel res:', res);
           // console.log('response:----', res.status);
           this.getUserinfo2();
+          // loader.hide();
         });
         //  await this.getUserinfo2();
 

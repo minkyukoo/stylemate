@@ -6,7 +6,7 @@
     </div>
     <div
       v-else
-      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`"
+      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : isBannerEmpty ? 'bannerEmpty' :  ''}`"
       @scroll="onScroll2"
     >
       <div class="fixed-container">
@@ -177,6 +177,7 @@ export default defineComponent({
     isproductfilter: null,
     page: { type: Number },
     categoryId: { type: Number },
+    isBannerEmpty: { type: Boolean, default: false },
   },
   components: {
     // "vue-select": VueNextSelect,
@@ -398,6 +399,13 @@ export default defineComponent({
 }
 .item-wrapper.withoutbanner {
   top: 90px;
+  transition: all 0.5s ease-in-out;
+  margin-top: 0 !important;
+  border-radius: 0;
+  height: 100%;
+}
+.item-wrapper.bannerEmpty{
+  top: 0px;
   transition: all 0.5s ease-in-out;
   margin-top: 0 !important;
   border-radius: 0;
