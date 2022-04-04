@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -144,7 +144,7 @@
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button">+ 채널 추가하기</button>
+              <button class="connectBtn" type="button" @click="loadLoader()">+ 채널 추가하기</button>
             </div>
           </li>
         </ul>
@@ -288,6 +288,7 @@ export default {
       fbResData: null,
       setNewchannel: false,
       isMobile: localStorage.getItem('isMobile') === 'true',
+      loader: undefined,
       // testres: null,
       // igResData: null,
       // fbResData: null,
@@ -346,6 +347,21 @@ export default {
 
   },
   methods: {
+    loadLoader() {
+      console.log('loadLoader');
+      let loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
+      // simulate AJAX
+      setTimeout(() => {
+        loader.hide()
+      }, 5000)
+    },
     openlink() {
       // console.log("clivk");
     },
@@ -445,6 +461,7 @@ export default {
           )
           setTimeout(() => {
             this.upadteStatus(this.userUID, this.channelId);
+            this.loader.hide();
           }, 1000);
         }
       });
@@ -468,6 +485,7 @@ export default {
           this.channelId = item.id;
           this.fbToken = item.instagramChannel.accessToken;
         });
+        this.loader.hide();
       });
     },
 
@@ -503,6 +521,14 @@ export default {
 
     // channel disconnect
     disconnected(uid, channelId) {
+       this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       if (!this.isCampaignsOngoing) {
         // console.log('disconnected');
         this.channelService.channelDisconnect(uid, channelId).then(() => {
@@ -513,6 +539,7 @@ export default {
             // console.log('1selChannelType', this.selChannelType);
           }, 2000);
           this.closepop();
+          // this.loader.hide();
           // console.log('channelDisconnect', res);
           // console.log('channelDisconnect status:', res.response);
         });
@@ -612,6 +639,14 @@ export default {
     // applyActivity
     async applyActivity() {
       // console.log('applyActivity');
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       let igInfo = this.instagramChannelInfo;
       let info = this.igAccInfo;
       let uid = this.userUID;
@@ -637,6 +672,14 @@ export default {
     },
 
     async applyActivityMed() {
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       console.log('applyActivityMed');
       if (this.seletedPageId) {
         // alert('page selected');
