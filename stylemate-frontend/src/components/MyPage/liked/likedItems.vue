@@ -60,10 +60,10 @@ export default {
     this.getInfluenceList();
   },
   mounted() {
-    console.log(
-      "store.state.likedTabProduct",
-      this.store.state.likedTabProduct
-    );
+    // console.log(
+    //   "store.state.likedTabProduct",
+    //   this.store.state.likedTabProduct
+    // );
   },
   methods: {
     setTags(items) {
