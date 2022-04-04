@@ -197,8 +197,9 @@ export default {
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
       // console.log(this.faqCategory);
-      this.service.FAQs().then((res) => {
+      this.service.FAQs(null).then((res) => {
         this.faqs = res.data;
+        // console.log(res.data);
       });
     });
     if (this.isLoggedIn) {

@@ -6,7 +6,7 @@
     </div>
     <div
       v-else
-      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : ''}`"
+      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : isBannerEmpty ? 'bannerEmpty' :  ''}`"
       @scroll="onScroll2"
     >
       <div class="fixed-container">
@@ -22,7 +22,7 @@
                 :close-on-select="true"
               ></vue-select> -->
               <h4 :class="{ active: isActive }" @click="showDropdown">
-                인기순
+                {{ sortingPlaceholder }}
               </h4>
               <ul class="customDropList" :class="{ active: isActive }">
                 <li
@@ -177,6 +177,7 @@ export default defineComponent({
     isproductfilter: null,
     page: { type: Number },
     categoryId: { type: Number },
+    isBannerEmpty: { type: Boolean, default: false },
   },
   components: {
     // "vue-select": VueNextSelect,
@@ -215,6 +216,7 @@ export default defineComponent({
       scategoryId: this.$props.categoryId,
       isActive: false,
       booksDropdownIndex: null,
+      sortingPlaceholder: '인기순',
     };
   },
   created() {
@@ -337,6 +339,7 @@ export default defineComponent({
       this.isActive = false;
       this.booksDropdownIndex = i;
       this.bookOption = v;
+      this.sortingPlaceholder = v;
     },
   },
   async updated() {
@@ -396,6 +399,13 @@ export default defineComponent({
 }
 .item-wrapper.withoutbanner {
   top: 90px;
+  transition: all 0.5s ease-in-out;
+  margin-top: 0 !important;
+  border-radius: 0;
+  height: 100%;
+}
+.item-wrapper.bannerEmpty{
+  top: 0px;
   transition: all 0.5s ease-in-out;
   margin-top: 0 !important;
   border-radius: 0;

@@ -10,15 +10,17 @@
       <!-- <ExploreContainer name="Item page" /> -->
       <CategoryList
         @clicked="onClickChild"
+       @defaultbanner="onDefaultBanner($event)"
         v-on:fltData="fltData2($event)"
         v-on:filterproductList="filterproductList($event)"
         v-on:pageResetcat="pageReset($event)"
         v-on:categoryId="categoryId($event)"
         :page="page"
       />
-
+ <!-- @defaultbanner="onDefaultBanner($event)" -->
       <CardItem
         :isBanner="isBanner"
+        :isBannerEmpty="isBannerEmpty"
         :isFltData="isFltData"
         :isproductfilter="isproductfilter"
         v-on:bookOption="bookOption($event)"
@@ -54,7 +56,7 @@ export default {
       page: 1,
       bookOptionVal: null,
       dcategoryId: null,
-
+      isBannerEmpty: false,
     }
   },
   setup() {
@@ -105,6 +107,10 @@ export default {
         // console.log('bookOption event:', event);
         this.bookOptionVal = event;
       }
+    },
+    onDefaultBanner(event) {
+      // console.log('onDefaultBanner event:', event);
+      this.isBannerEmpty = event;
     },
 
     pageReset(event) {
