@@ -2,7 +2,7 @@ import axios from 'axios';
 var token = localStorage.getItem('token');
 export default class BrandService {
   async getBrandList() {
-    var perPage= null;
+    var perPage= 10;
     if (!token) {
       return await axios.get(`/stylemates/brands?perPage=${perPage}`).then((res) => res.data.data);
     } else {
