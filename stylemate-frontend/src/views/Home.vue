@@ -401,12 +401,12 @@
               <div class="gotofamilyList" :class="{ active: isActive }">
                 <ul>
                   <li>
-                    <a href="https://app.mediance.co.kr/">
+                    <a href="https://app.mediance.co.kr/" target="_blank">
                       <img src="@/assets/images/logo-2.png" />
                     </a>
                   </li>
                   <li>
-                    <a href="http://influencer.mediance.co.kr/">
+                    <a href="http://influencer.mediance.co.kr/" target="_blank">
                       <img src="@/assets/images/logo-1.png" />
                     </a>
                   </li>
