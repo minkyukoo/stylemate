@@ -285,17 +285,9 @@
         <!-- lookbook -->
         <div class="lookBokkWrap">
           <div class="fixed-container lookbook">
-            <div class="headerLine">
-              <h4
-                style="cursor: pointer;"
-                @click="$router.push({ name: 'Contents' })"
-              >
-                LOOKBOOK
-              </h4>
-              <span
-                style="cursor: pointer;"
-                @click="$router.push({ name: 'Contents' })"
-              >
+            <div class="headerLine" @click="$router.push({ name: 'Contents' })">
+              <h4>LOOKBOOK</h4>
+              <span>
                 <img src="@/assets/icons/arrow-right.svg" />
               </span>
             </div>
@@ -468,12 +460,11 @@ export default {
     const store = inject("store");
     const linkedChannel = inject("linkedChannel");
     const img = ref("");
-    // eslint-disable-next-line no-unused-vars
     const onSwiper = (swiper) => {
-      // console.log(swiper);
+      console.log(swiper);
     };
     const onSlideChange = () => {
-      // console.log("slide change");
+      console.log("slide change");
     };
 
     // onMounted(() => {
@@ -489,9 +480,8 @@ export default {
     //   img.value = document.getElementById("activeImg").src;
     //   console.log(img.value);
     // };
-    // eslint-disable-next-line no-unused-vars
     const onBrandSwiper = (event) => {
-      // console.log("brand swiper", event);
+      console.log("brand swiper", event);
     };
     return {
       onSwiper,
@@ -555,7 +545,8 @@ export default {
         //   this.dynamicLoop = true;
         // }
       }
-      // console.log("bannerList", this.bannerList);
+
+      console.log("bannerList", this.bannerList, this.dynamicLoop);
     });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
@@ -566,7 +557,7 @@ export default {
     bannerList: function () {
       setTimeout(() => {
         this.image = document.getElementById("activeImg").src;
-        // console.log(this.image);
+        console.log(this.image);
       }, 1000);
     },
   },
@@ -603,7 +594,7 @@ export default {
 
     isFromApp() {
       var queryString = window.location.search;
-      // console.log("queryString", queryString);
+      console.log("queryString", queryString);
       const urlParams = new URLSearchParams(queryString);
       var mobile = urlParams.get("mobile");
       if (mobile) {
@@ -613,10 +604,10 @@ export default {
       }
 
       setTimeout(() => {
-        // console.log(
-        //   "this.linkedChannel.state.isMobile",
-        //   this.linkedChannel.state.isMobile
-        // );
+        console.log(
+          "this.linkedChannel.state.isMobile",
+          this.linkedChannel.state.isMobile
+        );
       }, 4000);
     },
 
@@ -624,9 +615,9 @@ export default {
 
     mountRun() {
       if (document.getElementById("activeImg")) {
-        // console.log("something", document.getElementById("activeImg").src);
+        console.log("something", document.getElementById("activeImg").src);
       }
-      // console.log("mounted");
+      console.log("mounted");
     },
     onBrandSlideChange(e) {
       // console.log("slider change", e);
@@ -634,7 +625,7 @@ export default {
       this.activeId = e.activeIndex;
       // console.log(this.activeId);
       setTimeout(() => {
-        this.image = document.getElementById("activeImg")?.src !== undefined ? document.getElementById("activeImg")?.src : '';
+        this.image = document.getElementById("activeImg").src;
         // console.log(this.image);
       }, 100);
       // if (document.getElementById("activeImg")) {
@@ -676,7 +667,7 @@ export default {
     getProductItemList() {
       let perPage = 12;
       this.bannerService.getProductItemList(perPage).then((res) => {
-        // console.log(res);
+        console.log(res);
         let startArray = [];
         let OddArray = [];
         let EvanArray = [];
@@ -701,21 +692,20 @@ export default {
         this.newOddItems = OddArray;
         this.newEvanItems = EvanArray;
 
-        // console.log("this.newStartItems", startArray);
-        // console.log("this.newOddItems", OddArray);
-        // console.log("this.newEvanItems", EvanArray);
+        console.log("this.newStartItems", startArray);
+        console.log("this.newOddItems", OddArray);
+        console.log("this.newEvanItems", EvanArray);
       });
     },
 
     getLookBook() {
       this.brandService.lookBook().then((res) => {
-        // console.log("lookbook", res);
+        console.log("lookbook", res);
         let lookbookData = res;
-        // eslint-disable-next-line no-unused-vars
         let fltd = lookbookData.filter((value) => {
-          // console.log("v----", value.post);
+          console.log("v----", value.post);
         });
-        // console.log("fltd---", fltd);
+        console.log("fltd---", fltd);
         let i = { ob: 0, on: 0, tn: 0, thb: 0, thn: 0 };
         res.forEach((value, key) => {
           switch (true) {
