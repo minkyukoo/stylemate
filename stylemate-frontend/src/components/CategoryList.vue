@@ -12,7 +12,8 @@
         <a
           :class="{ active: category.id === activeId }"
           @click="handleClick(category.childCategory, category.id)"
-        >{{ category.name }}</a>
+          >{{ category.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Category -->
@@ -25,11 +26,15 @@
       @swiper="onSwiper"
       @slideChange="onSlideChange"
     >
-      <swiper-slide v-for="childCategory in childCategoryArray" :key="childCategory.name">
+      <swiper-slide
+        v-for="childCategory in childCategoryArray"
+        :key="childCategory.name"
+      >
         <a
           :class="{ active: childCategory.id === childactiveId }"
           @click="handleClick2(childCategory.id)"
-        >{{ childCategory.name }}</a>
+          >{{ childCategory.name }}</a
+        >
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
@@ -45,7 +50,11 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide v-for="(slide, i) of bannerList" :key="i + 1">
-        <router-link to class="mainslide-banner-wrap" @click="bannerRedirect(slide.mobileLink)">
+        <router-link
+          to
+          class="mainslide-banner-wrap"
+          @click="bannerRedirect(slide.mobileLink)"
+        >
           <img :src="slide.mobileImagePath" alt="Banner" />
         </router-link>
       </swiper-slide>
@@ -117,7 +126,18 @@ export default {
     this.bannerService.getBannerList("item").then((res) => {
       this.bannerList = res;
       console.log("bannerList", this.bannerList);
+      if (this.bannerList.length == 0) {
+        this.onClickButton(false);
+      }
     });
+  },
+
+  watch: {
+    bannerList: function (val) {
+      if (val.length == 0) {
+        this.onClickButton(false);
+      }
+    },
   },
 
   methods: {
@@ -197,7 +217,7 @@ export default {
     },
 
     bannerRedirect(url) {
-       window.location.href = url;
+      window.location.href = url;
     },
 
     onClickButton(ve) {
