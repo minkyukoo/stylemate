@@ -3,8 +3,15 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
-          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
+          <img
+            src="@/assets/images/logo-black.svg"
+            class="siteLogo"
+            alt="Logo"
+          />
+          <NotificationIcon
+            :userLoggedIn="userLoggedIn"
+            :notificationCount="notificationLength"
+          />
         </div>
       </div>
     </ion-toolbar>
@@ -19,9 +26,14 @@
               <i class="icon-left-arrow"></i>
             </button>
           </ion-buttons>
-          <h1 v-if="headerTitle" class="header-title text-center">{{ headerTitle }}</h1>
+          <h1 v-if="headerTitle" class="header-title text-center">
+            {{ headerTitle }}
+          </h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
-          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
+          <NotificationIcon
+            :userLoggedIn="userLoggedIn"
+            :notificationCount="notificationLength"
+          />
         </div>
       </div>
     </ion-toolbar>
@@ -59,28 +71,25 @@ export default {
     // console.log(this.$route.name);
   },
   methods: {
-    // isLogedIn
-    async isLogedIn() {
-      return await this.tokenService.isAuth();
-    },
     backMainpage() {
-      if (this.$route.name === 'NewMemberJoining') {
+      if (this.$route.name === "NewMemberJoining") {
         this.$router.push({
           path: "/mypage",
         });
-      }
-      else {
+      } else {
         this.$router.back();
         // this.$router.go(-1);
       }
     },
     async getNotificationLength() {
-      let isLogedIn = await this.isLogedIn();
+      let isLogedIn = await this.tokenService.isAuth();
       this.userLoggedIn = isLogedIn;
       if (isLogedIn) {
         this.userInfoService.getUserInfo().then((userInfo) => {
           this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
-            this.notificationLength = notice.data.data.length;
+            this.notificationLength = notice.data.data.filter(
+              (f) => f.confirmedAt !== null
+            ).length;
           });
         });
       } else this.notificationLength = 0;

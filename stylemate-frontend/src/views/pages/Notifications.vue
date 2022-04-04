@@ -52,6 +52,7 @@ import TopNav from "@/components/TopNav.vue";
 
 import VueNextSelect from "vue-next-select";
 import UserInfoService from "@/services/UserInfoService";
+import TokenService from "@/services/TokenService";
 
 export default {
   name: "Notifications",
@@ -65,15 +66,28 @@ export default {
 
   created() {
     this.userInfoService = new UserInfoService();
+    this.tokenService = new TokenService();
   },
 
-  mounted() {
+  async mounted() {
     this.userInfoService.getUserInfo().then((userInfo) => {
-      this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
-        this.notifications = notice.data.data;
-        console.log(notice.data.data);
+        this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
+          this.notifications = notice.data.data;
+          console.log(notice);
+        });
       });
-    });
+    // let isLogedIn = await this.tokenService.isAuth();
+    // if (isLogedIn) {
+    //   this.userInfoService.getUserInfo().then((userInfo) => {
+    //     this.userInfoService.getNotice(userInfo.data.uid).then((notice) => {
+    //       this.notifications = notice.data.data;
+    //       // console.log(notice.data.data);
+    //     });
+    //   });
+    // } else {
+    //   this.notifications = [];
+    //   console.log(this.notifications);
+    // }
   },
 
   watch: {
