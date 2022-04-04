@@ -531,7 +531,7 @@ export default {
       notificationLength: 0,
       image: "",
       isMobile: false,
-      dynamicLoop: true,
+      dynamicLoop: false,
       // jdata: { "URL": "https://www.youtube.com", "id": "ABC", "product_URL": "http://stylemate.dvconsulting.org/contents", "product_id": "1", "type": "product" },
     };
   },
@@ -542,9 +542,8 @@ export default {
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.bannerService.getBannerList("home").then((res) => {
-      if(res.length == 1) {
-        this.dynamicLoop = false;
-      }
+      this.dynamicLoop = res.length > 1 ? true : false;
+     
       this.bannerList = res;
       if (this.bannerList.length > 0) {
         this.mountRun();
