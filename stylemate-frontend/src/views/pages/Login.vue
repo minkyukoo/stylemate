@@ -39,8 +39,8 @@ export default {
     return {
       serverUrl: 'http://stylemate.dvconsulting.org/login',
       redirectServerUrl: 'http://stylemate.dvconsulting.org/home',
-      localUrl: 'http://localhost:8100/login',
-      redirectlocalUrl: 'http://localhost:8100/home',
+      localUrl: 'http://localhost:8080/login',
+      redirectlocalUrl: 'http://localhost:8080/home',
 
       // clent server setting don't remove
       // develop branch >
