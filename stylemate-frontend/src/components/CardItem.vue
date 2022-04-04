@@ -22,7 +22,7 @@
                 :close-on-select="true"
               ></vue-select> -->
               <h4 :class="{ active: isActive }" @click="showDropdown">
-                인기순
+                {{ sortingPlaceholder }}
               </h4>
               <ul class="customDropList" :class="{ active: isActive }">
                 <li
@@ -216,6 +216,7 @@ export default defineComponent({
       scategoryId: this.$props.categoryId,
       isActive: false,
       booksDropdownIndex: null,
+      sortingPlaceholder: '인기순',
     };
   },
   created() {
@@ -338,6 +339,7 @@ export default defineComponent({
       this.isActive = false;
       this.booksDropdownIndex = i;
       this.bookOption = v;
+      this.sortingPlaceholder = v;
     },
   },
   async updated() {
