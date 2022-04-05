@@ -2,8 +2,10 @@
   <div class="notification" to="/notification" @click="alertConfirm()">
     <div class="notification-inner">
       <i class="icon-notification"></i>
-      <span v-if="userLoggedIn" class="badge">{{ notificationCount }}</span>
-      <i v-else class="icon-blue-dot"></i>
+      <!-- <span v-if="userLoggedIn && notificationCount > 1" class="badge">{{
+        notificationCount
+      }}</span> -->
+      <i v-if="userLoggedIn && notificationCount > 1" class="icon-blue-dot"></i>
     </div>
   </div>
 </template>
@@ -11,6 +13,8 @@
 <script>
 // import { IonPopover } from '@ionic/vue';
 import UserInfoService from "@/services/UserInfoService";
+import { API } from "@/services/AxiosInstance";
+
 export default {
   name: "NotificationIcon",
   // components: { IonPopover },
@@ -23,11 +27,17 @@ export default {
   },
   methods: {
     alertConfirm() {
-      this.user.getUserInfo().then((userInfo) => {
-        this.user.getNoticeConfirm(userInfo.data.uid).then((res) => {
-          console.log(res.response.status);
+      if (this.$props.userLoggedIn) {
+        this.user.getUserInfo().then((userInfo) => {
+          API.patch(`/users/${userInfo.data.uid}/alarm-confirm`)
+            .then((alarm) => {
+              console.log(alarm);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         });
-      });
+      }
       this.$router.push({ path: "/notification" });
       // alert("test")
     },

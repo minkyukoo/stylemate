@@ -1163,6 +1163,6 @@ export default {
 .new-item-wrap .headerLine {
   max-width: 320px;
   margin: 0 auto;
-  padding-left: 7px;
+  padding-left: 8px;
 }
 </style>
