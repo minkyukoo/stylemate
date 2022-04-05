@@ -579,7 +579,7 @@ export default {
     this.isFromApp();
     this.getProductItemList();
     this.getLookBook();
-    this.brandService.getBrandList().then((res) => {
+    this.brandService.getBrandList(10).then((res) => {
       this.brandList = res;
     });
 

@@ -205,7 +205,7 @@ export default {
 
     getBrandList() {
       // console.log("call from likeBrand");
-      this.brandService.getBrandList().then((data) => {
+      this.brandService.getBrandList(null).then((data) => {
         this.brands = data;
         // console.log('this.brands list', data);
       });
