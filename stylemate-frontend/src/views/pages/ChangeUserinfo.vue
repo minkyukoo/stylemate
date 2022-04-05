@@ -85,6 +85,7 @@
                   id="tbNum"
                   @input="acceptNumber"
                 />
+                <!-- :value="mobile" -->
               </div>
               <div class="contWrapbtn">
                 <button type="button" @click="sendOtp">인증번호</button>
@@ -176,9 +177,13 @@ export default {
   },
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
-      // console.log(res.data.email);
+      console.log("asdsdasd", res);
       this.email = res.data.email;
       this.ids = res.data.id;
+      let number = res.data.tel;
+      this.mobile = number.substring(3, number.length);
+      this.acceptNumber();
+      console.log("mobile", this.mobile);
     });
   },
   // mounted() {
