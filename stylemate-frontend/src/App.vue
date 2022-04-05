@@ -43,14 +43,14 @@ export default defineComponent({
   transform: translatey(50px);
 }
 .route-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.6s ease-out;
 }
 .route-leave-to {
   opacity: 0;
   transform: translateX(-100px);
 }
 .route-leave-active {
-  transition: all 0.3s ease-in;
+  transition: all 0.6s ease-in;
 }
 
 ::-webkit-scrollbar {
