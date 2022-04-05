@@ -264,7 +264,7 @@ export default {
 
       // 3. page id 
       this.channelService.getIgchannels().then(res => {
-        // console.log('3. Igchannels list:', res);
+        console.log('3. Ig channels list:', res);
         let igBAcc = res.data;
         let freshChannel = igBAcc.filter(channel => {
           if (typeof channel.instagram_business_account == 'undefined') {
@@ -347,6 +347,7 @@ export default {
           //   updatedAt: igInfo.updatedAt,
           //   userName: res.username,
           // }
+          console.log('IG USER DETAILS: ', res);
           let accinfo = {
             biography: res.biography,
             page_id: pageId,
