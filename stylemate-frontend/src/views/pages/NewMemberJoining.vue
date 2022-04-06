@@ -13,7 +13,7 @@
             <div>
               <label>채널연결</label>
             </div>
-            <div @click="refreshChannel">
+            <div @click="refreshChannel" class="refreshBtn">
               <img src="@/assets/icons/refresh.svg" />
             </div>
           </li>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -89,7 +89,7 @@
                   </div>
                   <div class="channelDec">
                     <!-- <h4>Acc ID: {{ account.instagram_business_account.id }}</h4> -->
-                    <h4>{{ account.instagram_business_account.name }}</h4>
+                    <h4>{{ account.instagram_business_account.name ? account.instagram_business_account.name : account.name }}</h4>
                     <p>{{ fbResData.name }}</p>
                   </div>
                 </div>
@@ -144,7 +144,7 @@
               <img src="@/assets/icons/tiktok.svg" /> TikTok
             </h4>
             <div class="adddivwrap">
-              <button class="connectBtn" type="button" @click="loadLoader()">+ 채널 추가하기</button>
+              <button class="connectBtn" type="button">+ 채널 추가하기</button>
             </div>
           </li>
         </ul>
@@ -521,7 +521,7 @@ export default {
 
     // channel disconnect
     disconnected(uid, channelId) {
-       this.loader = this.$loading.show({
+      this.loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
         canCancel: false,
@@ -565,10 +565,17 @@ export default {
     // 5. Check user information
     getAccountInfo(pageId) {
       // let igInfo = this.instagramChannelInfo;
+      let fbPageinfos = this.igResData;
       let igcategory = this.igBusinessPageInfo;
       let igcategoryname = this.igpagecategoryname;
       // console.log('igcategory--', igcategory);
       // let token = this.fbToken;
+      let fbPageinfo = fbPageinfos.filter(page => {
+        if (page.id == pageId) {
+          return page;
+        }
+      });
+      let fbpinfo = fbPageinfo[0];
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
           // console.log('5. IgUser res:', res);
@@ -621,7 +628,7 @@ export default {
             page_id: pageId,
             category: igcategoryname,
             category_list: igcategory.category_list,
-            name: res.name ? res.name : '',
+            name: res.name ? res.name : fbpinfo.name,
             id: res.id,
             ig_id: res.ig_id,
             follows_count: res.follows_count,
@@ -631,6 +638,7 @@ export default {
             username: res.username,
           }
           this.igAccInfo = accinfo;
+          this.loader.hide();
           // console.log('this.igAccInfo', this.igAccInfo);
         });
       }
@@ -661,6 +669,7 @@ export default {
           // console.log('7. selectChannel res:', res);
           // console.log('response:----', res.status);
           this.getUserinfo2();
+          this.setNewchannel = false;
           this.$router.push({ name: 'NewMemberJoining' });
         });
         //  await this.getUserinfo2();
@@ -684,6 +693,7 @@ export default {
       if (this.seletedPageId) {
         // alert('page selected');
         this.getUserinfo2();
+        this.setNewchannel = false;
         this.isapplyActMed = false;
       } else {
         // alert('no page selected');
@@ -693,6 +703,14 @@ export default {
 
     // page selected
     selectPage(pageinfo, i) {
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       console.log('selectPage:', pageinfo);
       this.isapplyAct = true;
       this.isSeleted = i;
@@ -702,6 +720,14 @@ export default {
     },
 
     selectPageMed(pageinfo, i) {
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       console.log('selectPage:', pageinfo);
       this.isapplyActMed = true;
       this.isSeleted = i;
@@ -712,6 +738,14 @@ export default {
 
     // refreshChannel
     refreshChannel() {
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       this.getUserChannelInfo();
     },
 
@@ -890,6 +924,10 @@ export default {
   color: #25282b;
   font-size: 14px;
   font-weight: 400;
+}
+
+.refreshBtn {
+  cursor: pointer;
 }
 
 .howtoConnect {
