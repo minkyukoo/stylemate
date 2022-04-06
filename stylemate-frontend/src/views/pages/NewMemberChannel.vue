@@ -296,10 +296,16 @@ export default {
     // 5. Check user information
     getAccountInfo(pageId) {
       // let igInfo = this.instagramChannelInfo;
+      let fbPageinfos = this.igResData;
       let igcategory = this.igBusinessPageInfo;
       let igcategoryname = this.igpagecategoryname;
       // console.log('igcategory--', igcategory);
       // let token = this.fbToken;
+      let fbPageinfo = fbPageinfos.filter(page => {
+        if (page.id == pageId) {
+          return page;
+        }
+      });
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
           // console.log('5. IgUser res:', res);
@@ -348,12 +354,14 @@ export default {
           //   userName: res.username,
           // }
           console.log('IG USER DETAILS: ', res);
+          console.log('IG USER DETAILS: ', fbPageinfo);
           let accinfo = {
             biography: res.biography,
             page_id: pageId,
             category: igcategoryname,
             category_list: igcategory.category_list,
-            name: res.name ? res.name : '',
+            // name: res.name ? res.name : '',
+            name: fbPageinfo.name,
             id: res.id,
             ig_id: res.ig_id,
             follows_count: res.follows_count,

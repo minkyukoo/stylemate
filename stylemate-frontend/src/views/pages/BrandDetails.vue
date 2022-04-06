@@ -327,7 +327,7 @@ export default {
   z-index: 1;
   /* top: 270px; */
   background: linear-gradient(
-    93.21deg,
+    180deg,
     rgba(241, 241, 241, 0.5) 0.78%,
     rgba(241, 241, 241, 0.1) 100.78%
   );
