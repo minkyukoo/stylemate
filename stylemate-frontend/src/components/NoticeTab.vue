@@ -213,7 +213,7 @@ export default {
   methods: {
     tabChange(tb) {
       this.layout = `#${tb}`;
-      this.$router.push({ name: "Notice", hash: `#${tb}` });
+      // this.$router.push({ name: "Notice", hash: `#${tb}` });
     },
 
     camelToSpace(str) {
