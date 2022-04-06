@@ -56,7 +56,9 @@ export default defineComponent({
 ::-webkit-scrollbar {
   width: 0px !important;
 }
-.green{
+.green {
   background-color: green;
 }
+
+
 </style>

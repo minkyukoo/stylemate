@@ -147,7 +147,7 @@ export default {
       } else if (arg === "announce") {
         return "발표하다";
       } else if (arg === "postModifyRequest") {
-        return "포스트 수정 요청";
+        return "수정 요청 게시";
       } else if (arg === "disconnected") {
         return "연결이 끊긴";
       } else if (arg === "finish") {

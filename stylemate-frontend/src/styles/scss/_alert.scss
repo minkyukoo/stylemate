@@ -4,6 +4,8 @@
   opacity: 0.9;
   border-radius: 6px;
   padding: 8px 40px !important;
+  animation: none !important;
+  transition: all 0.6 ease !important;
 }
 .swal2-container >.swal2-popup {
   background-color: #25282B;
