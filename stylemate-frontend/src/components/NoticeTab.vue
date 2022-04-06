@@ -3,14 +3,14 @@
     <div class="tabs">
       <a
         class="tab"
-        @click="(layout = '#notice'), stateUp('공지사항')"
+        @click="tabChange('notice'), stateUp('공지사항')"
         :class="{ active: layout === '#notice' }"
       >
         공지사항
       </a>
       <a
         class="tab"
-        @click="layout = '#faq'"
+        @click="tabChange('faq')"
         :class="{ active: layout === '#faq' }"
       >
         FAQ
@@ -18,7 +18,7 @@
       <a
         v-if="isLoggedIn"
         class="tab"
-        @click="(layout = '#inquiry'), stateUp('1:1 문의')"
+        @click="tabChange('inquiry'), stateUp('1:1 문의')"
         :class="{ active: layout === '#inquiry' }"
       >
         1:1문의
@@ -151,7 +151,7 @@ import { inject } from "vue";
 import moment from "moment";
 export default {
   name: "NoticeTab",
-  props: { currentPageUrl :{type: Number, default: 1}},
+  props: { currentPageUrl: { type: Number, default: 1 } },
   components: {
     NoticeAccordion,
   },
@@ -199,18 +199,23 @@ export default {
       // console.log(this.faqCategory);
       this.service.FAQs(null).then((res) => {
         this.faqs = res.data;
-        // console.log(res.data);
+        console.log(res.data);
       });
     });
     if (this.isLoggedIn) {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        console.log("inquiry", res.data);
+        // console.log("inquiry", res.data);
       });
     }
   },
   methods: {
+    tabChange(tb) {
+      this.layout = `#${tb}`;
+      this.$router.push({ name: "Notice", hash: `#${tb}` });
+    },
+
     camelToSpace(str) {
       switch (str) {
         case "stylemateCampaign":

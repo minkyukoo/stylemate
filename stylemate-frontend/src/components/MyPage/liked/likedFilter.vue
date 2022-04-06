@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="item-scroller-nav"
-  >
+  <div class="item-scroller-nav">
     <swiper
       class="main-menu"
       :slides-per-view="'auto'"
@@ -82,9 +80,14 @@ export default {
         this.user.getUserInfo().then((userInfo) => {
           this.user.getInfluence(userInfo.data.uid, "product").then((res) => {
             // console.log("product", res);
-            this.store.state.likedTabProduct = res.data.data;
+            var uniqueObjArray = [
+              ...new Map(
+                res.data.data.map((item) => [item["id"], item])
+              ).values(),
+            ];
+            this.store.state.likedTabProduct = uniqueObjArray;
             this.store.state.likedTabProductLength =
-              res.data.data.length > 0 ? true : false;
+              uniqueObjArray.length > 0 ? true : false;
           });
         });
       } else if (categoryId === "Progress") {
@@ -98,9 +101,14 @@ export default {
               )
               .then((res) => {
                 // console.log("product", res);
-                this.store.state.likedTabProduct = res.data.data;
+                var uniqueObjArray = [
+                  ...new Map(
+                    res.data.data.map((item) => [item["id"], item])
+                  ).values(),
+                ];
+                this.store.state.likedTabProduct = uniqueObjArray;
                 this.store.state.likedTabProductLength =
-                  res.data.data.length > 0 ? true : false;
+                  uniqueObjArray.length > 0 ? true : false;
               });
           }
         });
@@ -111,9 +119,14 @@ export default {
               .getInfluenceWithCategory(userInfo.data.uid, "product", "finish")
               .then((res) => {
                 // console.log("product", res);
-                this.store.state.likedTabProduct = res.data.data;
+                var uniqueObjArray = [
+                  ...new Map(
+                    res.data.data.map((item) => [item["id"], item])
+                  ).values(),
+                ];
+                this.store.state.likedTabProduct = uniqueObjArray;
                 this.store.state.likedTabProductLength =
-                  res.data.data.length > 0 ? true : false;
+                  uniqueObjArray.length > 0 ? true : false;
               });
           }
         });

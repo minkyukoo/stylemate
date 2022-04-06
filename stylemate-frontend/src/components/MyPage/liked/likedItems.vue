@@ -86,15 +86,7 @@ export default {
           ];
           this.store.state.likedTabProduct = uniqueObjArray;
           this.store.state.likedTabProductLength =
-            res.data.data.length > 0 ? true : false;
-          // console.log(
-          //   "uniqueObjArray.likedTabProduct",
-          //   this.store.state.likedTabProduct
-          // );
-          // console.log(
-          //   ".likedTabProduct",
-          //   res.data.data
-          // );
+            uniqueObjArray.length > 0 ? true : false;
         });
         this.user.getInfluence(userInfo.data.uid, "brand").then((res) => {
           // console.log("brand", res);
@@ -105,11 +97,7 @@ export default {
           ];
           this.store.state.likedTabBrand = uniqueObjArrayBrand;
           this.store.state.likedTabBrandLength =
-            res.data.data.length > 0 ? true : false;
-          // console.log(
-          //   " this.store.state.likedTabBrand ",
-          //   this.store.state.likedTabBrand
-          // );
+            uniqueObjArrayBrand.length > 0 ? true : false;
         });
       });
     },
