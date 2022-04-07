@@ -570,7 +570,7 @@ export default {
     this.isFromApp();
     this.getProductItemList();
     this.getLookBook();
-    this.brandService.getBrandList(10).then((res) => {
+    this.brandService.getBrandList(10, 'latest').then((res) => {
       this.brandList = res;
     });
 
