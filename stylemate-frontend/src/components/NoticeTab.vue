@@ -185,7 +185,8 @@ export default {
   },
   async mounted() {
     this.isLoggedIn = await this.isLogedIn();
-    this.layout = this.$route.hash;
+    // this.layout = this.$route.hash;
+    this.layout = localStorage.getItem("noticeTabPageName");
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
       // console.log(this.noticelist);
@@ -213,7 +214,8 @@ export default {
   methods: {
     tabChange(tb) {
       this.layout = `#${tb}`;
-      // this.$router.push({ name: "Notice", hash: `#${tb}` });
+      localStorage.setItem("noticeTabPageName", `#${tb}`);
+      // this.$router.({ name: "Notice", hash: `#${tb}` });
     },
 
     camelToSpace(str) {

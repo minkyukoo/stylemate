@@ -412,6 +412,7 @@ export default {
         return null;
       } else {
         return await this.userInfoService.getUserInfo().then((res) => {
+          console.log("isAuthorized---", res.data.influence.stylemateApprovedAt);
           return res.data.influence.stylemateApprovedAt;
         });
       }

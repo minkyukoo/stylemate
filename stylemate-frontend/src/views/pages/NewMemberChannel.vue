@@ -382,7 +382,7 @@ export default {
     // page selected
     selectPage(pageinfo, i) {
       // console.log('selectPage:', pageinfo);
-       this.loader = this.$loading.show({
+      this.loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
         canCancel: false,
@@ -400,14 +400,7 @@ export default {
     async applyActivity() {
       // console.log('applyActivity');
       // let igInfo = this.instagramChannelInfo;
-      this.loader = this.$loading.show({
-        // Optional parameters
-        container: this.fullPage ? null : this.$refs.formContainer,
-        canCancel: false,
-        width: 30,
-        height: 30,
-        onCancel: this.onCancel,
-      });
+
       let info = this.igAccInfo;
       let uid = this.userUID;
       let userid = this.userId;
@@ -417,6 +410,14 @@ export default {
         "name": this.linkedChannel.state.fbaccessTokenType,
       };
       if (this.seletedPageId) {
+        this.loader = this.$loading.show({
+          // Optional parameters
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: false,
+          width: 30,
+          height: 30,
+          onCancel: this.onCancel,
+        });
         this.channelService.selectChannel(uid, token, info).then(() => {
           // console.log('7. selectChannel res:', res);
           // console.log('response:----', res.status);
