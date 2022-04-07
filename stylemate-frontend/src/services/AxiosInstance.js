@@ -10,6 +10,11 @@ const API = axios.create({
     },
 });
 
+const UAPI = axios.create({
+    baseURL: "https://elsa.beta.mediance.co.kr/stylemates",
+});
+
 export {
-    API
+    API,
+    UAPI
 }
