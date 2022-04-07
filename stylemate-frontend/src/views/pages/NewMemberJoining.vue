@@ -681,16 +681,16 @@ export default {
     },
 
     async applyActivityMed() {
-      this.loader = this.$loading.show({
-        // Optional parameters
-        container: this.fullPage ? null : this.$refs.formContainer,
-        canCancel: false,
-        width: 30,
-        height: 30,
-        onCancel: this.onCancel,
-      });
       console.log('applyActivityMed');
       if (this.seletedPageId) {
+        this.loader = this.$loading.show({
+          // Optional parameters
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: false,
+          width: 30,
+          height: 30,
+          onCancel: this.onCancel,
+        });
         // alert('page selected');
         this.getUserinfo2();
         this.setNewchannel = false;
@@ -785,7 +785,7 @@ export default {
 
     sendAccessToken(res) {
       if (res) {
-        this.testres = res;
+        // this.testres = res;
         this.checkMbfblogin(res);
       } else {
         return false
