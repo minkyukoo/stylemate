@@ -1,11 +1,11 @@
 import axios from 'axios';
 var token = localStorage.getItem('token');
 export default class BrandService {
-  async getBrandList(perPage) {
+  async getBrandList(perPage, order = null) {
     if (!token) {
-      return await axios.get(`/stylemates/brands?perPage=${perPage}`).then((res) => res.data.data);
+      return await axios.get(`/stylemates/brands?perPage=${perPage}&${order !== null ? 'order='+order : ''}`).then((res) => res.data.data);
     } else {
-      return await axios.get(`/stylemates/brands?perPage=${perPage}`, {
+      return await axios.get(`/stylemates/brands?perPage=${perPage}&${order !== null ? 'order='+order : ''}`, {
         headers: {
           Authorization: 'Bearer ' + token //the token is a variable which holds the token
         }

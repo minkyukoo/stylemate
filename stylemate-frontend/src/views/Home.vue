@@ -446,6 +446,8 @@ import ContentDetails from "@/components/ContentDetails.vue";
 import TokenService from "@/services/TokenService";
 // import ContentDetails from "@/components/ContentDetails.vue";
 import { inject, ref } from "vue";
+import FrontManage from "@/services/FrontManage";
+
 SwiperCore.use([EffectCoverflow, Pagination, Autoplay]);
 export default {
   name: "Home",
@@ -468,8 +470,8 @@ export default {
     };
 
     // onMounted(() => {
-
-    // })
+     
+    // });
 
     // onBeforeUpdate(() => {
     //   img.value = "";
@@ -527,13 +529,14 @@ export default {
   },
   created() {
     this.bannerService = new BannerService();
+    this.frontManage = new FrontManage();
     this.brandService = new BrandService();
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
     this.tokenService = new TokenService();
     this.bannerService.getBannerList("home").then((res) => {
       this.dynamicLoop = res.length > 1 ? true : false;
-     
+
       this.bannerList = res;
       if (this.bannerList.length > 0) {
         this.mountRun();
@@ -545,7 +548,7 @@ export default {
         // }
       }
 
-      console.log("bannerList", this.bannerList, this.dynamicLoop);
+      // console.log("bannerList", this.bannerList, this.dynamicLoop);
     });
     // setTimeout(() => {
     //   this.pushNotification('http://stylemate.dvconsulting.org/product-details');
@@ -570,9 +573,17 @@ export default {
     this.isFromApp();
     this.getProductItemList();
     this.getLookBook();
-    this.brandService.getBrandList(10).then((res) => {
+    this.brandService.getBrandList(10, "latest").then((res) => {
       this.brandList = res;
     });
+
+    this.frontManage.newItems(await this.tokenService.isAuth()).then((res) => {
+      console.log("frontManage -------- ITEM", res)
+    })
+
+    this.frontManage.newBrands(await this.tokenService.isAuth()).then((res) => {
+      console.log("frontManage -------- BRAND", res)
+    })
 
     this.getNoticeIsAuth();
     let isLogedIn = await this.tokenService.isAuth();
