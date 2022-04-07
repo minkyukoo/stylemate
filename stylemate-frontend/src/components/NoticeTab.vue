@@ -200,7 +200,7 @@ export default {
       // console.log(this.faqCategory);
       this.service.FAQs(null).then((res) => {
         this.faqs = res.data;
-        console.log(res.data);
+        // console.log(res.data);
       });
     });
     if (this.isLoggedIn) {
