@@ -17,7 +17,7 @@
             <label>등록일</label>
             <span>{{ dateFormat(createdAt) }}</span>
           </div>
-          <div v-if="isAnswerReceiving" class="top-row">
+          <div v-if="answeredAt !== null" class="top-row">
             <label>답변일</label>
             <span>{{ dateFormat(answeredAt) }}</span>
           </div>
@@ -38,11 +38,11 @@
             {{ inquiry }}
           </p>
         </div>
-        <div v-if="isAnswerReceiving" class="answer-cont">
+        <div v-if="answeredAt !== null" class="answer-cont">
           <h4>답변내용</h4>
           <p v-html="answer"></p>
         </div>
-        <div v-if="!isAnswerReceiving" class="buttongrp p-16">
+        <div v-if="answeredAt === null" class="buttongrp p-16">
           <button
             class="inqList-btn"
             @click="

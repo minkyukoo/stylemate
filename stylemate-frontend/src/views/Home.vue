@@ -578,11 +578,12 @@ export default {
     });
 
     this.frontManage.newItems(await this.tokenService.isAuth()).then((res) => {
-      console.log("frontManage -------- ITEM", res)
+      console.log("frontManage -------- ITEM", res.map((m) => m.product));
     })
 
     this.frontManage.newBrands(await this.tokenService.isAuth()).then((res) => {
-      console.log("frontManage -------- BRAND", res)
+  
+      console.log("frontManage -------- BRAND", res.map((m) => m.brand));
     })
 
     this.getNoticeIsAuth();
