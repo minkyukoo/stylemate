@@ -582,7 +582,6 @@ export default {
     })
 
     this.frontManage.newBrands(await this.tokenService.isAuth()).then((res) => {
-  
       console.log("frontManage -------- BRAND", res.map((m) => m.brand));
     })
 

@@ -19,3 +19,5 @@ export default class FrontManage {
         return await inst.get(`/front-manages?type=product&limit=12`).then((res) => res.data).catch((err) => err);
     }
 }
+
+
