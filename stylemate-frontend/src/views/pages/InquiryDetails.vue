@@ -145,11 +145,11 @@ export default {
         type: this.option,
         title: this.subject,
         inquiry: this.details,
-        isAnswerReceiving: false,
+        isAnswerReceiving: true,
       };
       if (this.id !== null) {
         API.put(
-          `https://elsa.beta.mediance.co.kr/stylemates/qnas/${this.id}`,
+          `/qnas/${this.id}`,
           formData
         )
           .then((res) => {
@@ -163,7 +163,7 @@ export default {
           })
           .catch((err) => console.log(err));
       } else {
-        API.post(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, formData)
+        API.post(`/qnas`, formData)
           .then((res) => {
             if (res.status === 201) {
               // this.$router.push({
