@@ -811,6 +811,7 @@ export default {
       // console.log("likeProduct");
     },
 
+
     // isChannelIg
     isChannelIg(pdata) {
       let isProductCamp = false;
