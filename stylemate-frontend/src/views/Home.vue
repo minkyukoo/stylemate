@@ -67,7 +67,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.isInfluenceLike"
+                          v-if="item.influenceLike.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -122,7 +122,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.isInfluenceLike"
+                          v-if="item.influenceLike.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -177,7 +177,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.isInfluenceLike"
+                          v-if="item.influenceLike.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -470,7 +470,7 @@ export default {
     };
 
     // onMounted(() => {
-     
+
     // });
 
     // onBeforeUpdate(() => {
@@ -573,17 +573,14 @@ export default {
     this.isFromApp();
     this.getProductItemList();
     this.getLookBook();
-    this.brandService.getBrandList(10, "latest").then((res) => {
-      this.brandList = res;
-    });
-
-    this.frontManage.newItems(await this.tokenService.isAuth()).then((res) => {
-      console.log("frontManage -------- ITEM", res.map((m) => m.product));
-    })
+    // this.brandService.getBrandList(10, "latest").then((res) => {
+    //   this.brandList = res;
+    // });
 
     this.frontManage.newBrands(await this.tokenService.isAuth()).then((res) => {
-      console.log("frontManage -------- BRAND", res.map((m) => m.brand));
-    })
+      this.brandList = res.map((m) => m.brand);
+      console.log("frontManage -------- BRAND", this.brandList);
+    });
 
     this.getNoticeIsAuth();
     let isLogedIn = await this.tokenService.isAuth();
@@ -674,38 +671,43 @@ export default {
     //     this.$router.push({ name: "Notice" });
     //   } else this.$router.push({ name: "LoginPage" });
     // },
-    getProductItemList() {
-      let perPage = 12;
-      this.bannerService.getProductItemList(perPage).then((res) => {
-        console.log(res);
-        let startArray = [];
-        let OddArray = [];
-        let EvanArray = [];
-        let newStartArray = 0;
-        let newOddIndex = 0;
-        let newEvanIndex = 0;
-        res.forEach((value, i) => {
-          if (i <= 3) {
-            // if (i % 3 === 0) {
-            startArray[newStartArray] = value;
-            newStartArray++;
-            // } else if (i % 2 === 0) {
-          } else if (i <= 7) {
-            OddArray[newOddIndex] = value;
-            newOddIndex++;
-          } else {
-            EvanArray[newEvanIndex] = value;
-            newEvanIndex++;
-          }
-        });
-        this.newStartItems = startArray;
-        this.newOddItems = OddArray;
-        this.newEvanItems = EvanArray;
+    async getProductItemList() {
+      this.frontManage
+        .newItems(await this.tokenService.isAuth())
+        .then((res) => {
+          console.log(
+            "frontManage -------- ITEM",
+            res.map((m) => m.product)
+          );
+          let items = res.map((m) => m.product);
+          let startArray = [];
+          let OddArray = [];
+          let EvanArray = [];
+          let newStartArray = 0;
+          let newOddIndex = 0;
+          let newEvanIndex = 0;
+          items.forEach((value, i) => {
+            if (i <= 3) {
+              // if (i % 3 === 0) {
+              startArray[newStartArray] = value;
+              newStartArray++;
+              // } else if (i % 2 === 0) {
+            } else if (i <= 7) {
+              OddArray[newOddIndex] = value;
+              newOddIndex++;
+            } else {
+              EvanArray[newEvanIndex] = value;
+              newEvanIndex++;
+            }
+          });
+          this.newStartItems = startArray;
+          this.newOddItems = OddArray;
+          this.newEvanItems = EvanArray;
 
-        console.log("this.newStartItems", startArray);
-        console.log("this.newOddItems", OddArray);
-        console.log("this.newEvanItems", EvanArray);
-      });
+          console.log("this.newStartItems", startArray);
+          console.log("this.newOddItems", OddArray);
+          console.log("this.newEvanItems", EvanArray);
+        });
     },
 
     getLookBook() {
@@ -789,8 +791,8 @@ export default {
             var selfItem = this.newStartItems[i];
           }
 
-          if (selfItem.isInfluenceLike) {
-            selfItem.isInfluenceLike = false;
+          if (selfItem.influenceLike.length > 0) {
+            selfItem.influenceLike.length = 0;
             this.itemService
               .influencedislikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
@@ -798,7 +800,7 @@ export default {
                 // console.log(res);
               });
           } else {
-            selfItem.isInfluenceLike = true;
+            selfItem.influenceLike.push(selfItem);
             this.itemService
               .influencelikes(uid, "product", productId)
               // eslint-disable-next-line no-unused-vars
