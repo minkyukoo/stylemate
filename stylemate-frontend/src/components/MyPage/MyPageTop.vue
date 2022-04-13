@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class>
     <div
       class="top-container"
       :style="{
@@ -17,34 +17,21 @@
         <h3>안녕하세요, {{ store.state.MyPageTopDetails.name }}</h3>
         <p>{{ store.state.MyPageTopDetails.email }}</p>
       </div>
-      <div
-        class="btn-con"
-        v-if="
-          store.state.MyPageTopState === 'cancel'
-        "
-      >
-        <MyPageTopButton
-          :name="'재신청'"
-          :style="'btn-dark'"
-          v-on:buttonEvent="fireButton"
-        />
+      <div class="btn-con" v-if="
+        store.state.MyPageTopState === 'cancel'
+      ">
+        <MyPageTopButton :name="'재신청'" :style="'btn-dark'" v-on:buttonEvent="fireButton" />
       </div>
-      <div
-        class="btn-con"
-        v-else-if="
-          !store.state.isChannelExists 
-        "
-      >
+      <div class="btn-con" v-else-if="
+        !store.state.isChannelExists
+      ">
         <MyPageTopButton
           :name="'채널 연결하기'"
           :style="'btn-dark'"
           v-on:buttonEvent="checklinkedChannel"
         />
       </div>
-      <div
-        class="social-media"
-        v-else-if="store.state.MyPageTopState === 'approve'"
-      >
+      <div class="social-media" v-else-if="store.state.MyPageTopState === 'approve'">
         <div class="media-item">
           <a href="#" class="btn-instagram media-icons">
             <img src="@/assets/icons/instagram.svg" />
@@ -62,7 +49,7 @@
             <img src="@/assets/icons/youtube.svg" />
           </a>
           <span>150k</span>
-        </div> -->
+        </div>-->
       </div>
       <div class="btn-con" v-else-if="store.state.MyPageTopState === 'request'">
         <MyPageTopButton
@@ -71,14 +58,13 @@
           v-on:buttonEvent="fireButton"
         />
       </div>
-      <div class="btn-con" v-else-if="store.state.MyPageTopState === 'hold'">
-        <MyPageTopButton
-          :name="'보류'"
-          :style="'btn-grey-solid'"
-          v-on:buttonEvent="fireButton"
-        />
+      <div class="btn-con" v-else-if="!store.state.isReApplication && store.state.MyPageTopState === 'hold'">
+        <MyPageTopButton :name="'보류'" :style="'btn-grey-solid'" v-on:buttonEvent="fireButton" />
       </div>
-       <div class="btn-con" v-else-if="!store.state.MyPageTopState">
+      <div class="btn-con" v-else-if="store.state.isReApplication && store.state.MyPageTopState === 'hold'">
+        <MyPageTopButton :name="'재신청'" :style="'btn-dark'" v-on:buttonEvent="checkSelectChannel" />
+      </div>
+      <div class="btn-con" v-else-if="!store.state.MyPageTopState">
         <MyPageTopButton
           :name="'채널 선택하기'"
           :style="'btn-dark'"
@@ -129,6 +115,7 @@ export default {
         this.store.state.MyPageTopDetails.profile_img === ""
       ) {
         this.myPageServices.getMyPageData().then((res) => {
+          console.log('getMyPageData--',res);
           let globalState = this.store.state;
           globalState.UserId = res.data.uid;
           globalState.influenceId =
@@ -138,11 +125,13 @@ export default {
           globalState.isChannelExists = res.data.influence.channel.length > 0;
           globalState.MyPageTopState =
             res.data.influence.channel[0].stylemateStatus;
+          globalState.isReApplication =
+            res.data.influence.isReApplication;
           globalState.MyPageTopDetails.profile_img = res.data.influence
             .channel[0].instagramChannel.thumbnailUrl
             ? res.data.influence.channel[0].instagramChannel.thumbnailUrl
             : res.data.influence.channel[0].instagramChannel
-                .thumbnailOriginalUrl;
+              .thumbnailOriginalUrl;
         });
       }
     },

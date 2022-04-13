@@ -353,7 +353,7 @@ export default {
               "post_complete",
               "post_cancel",
               "post_modify_request",
-              "post_modify_complete",
+              "post_modify_completed",
             ].includes(res.campaign[0].booking[0].postStatus)
           ) {
             this.sponsorship = false;
@@ -412,6 +412,7 @@ export default {
         return null;
       } else {
         return await this.userInfoService.getUserInfo().then((res) => {
+          console.log("isAuthorized---", res.data.influence.stylemateApprovedAt);
           return res.data.influence.stylemateApprovedAt;
         });
       }

@@ -38,11 +38,11 @@
             {{ inquiry }}
           </p>
         </div>
-        <div v-if="answer !== null" class="answer-cont">
+        <div v-if="answeredAt !== null" class="answer-cont">
           <h4>답변내용</h4>
           <p v-html="answer"></p>
         </div>
-        <div v-if="answer === null" class="buttongrp p-16">
+        <div v-if="answeredAt === null" class="buttongrp p-16">
           <button
             class="inqList-btn"
             @click="
@@ -94,6 +94,7 @@ export default {
     return {
       answerStatus: null,
       answeredAt: null,
+      isAnswerReceiving: null,
       createdAt: null,
       type: null,
       title: null,
@@ -112,6 +113,7 @@ export default {
     this.service.QNAsById(this.$route.params.id).then((res) => {
       this.answerStatus = res.answerStatus;
       this.answeredAt = res.answeredAt;
+      this.isAnswerReceiving = res.isAnswerReceiving;
       this.createdAt = res.createdAt;
       this.type = res.type;
       this.title = res.title;
@@ -120,7 +122,7 @@ export default {
       this.nextId = res.nextId;
       this.previousId = res.previousId;
       this.id = res.id;
-      console.log(res);
+      // console.log(res);
     });
   },
   methods: {

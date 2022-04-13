@@ -185,7 +185,8 @@ export default {
   },
   async mounted() {
     this.isLoggedIn = await this.isLogedIn();
-    this.layout = this.$route.hash;
+    // this.layout = this.$route.hash;
+    this.layout = localStorage.getItem("noticeTabPageName");
     this.service.Notice().then((res) => {
       this.noticelist = res.data;
       // console.log(this.noticelist);
@@ -196,10 +197,10 @@ export default {
       this.faqCategory = res.data
         .map((option) => option.category)
         .filter((v, i, a) => a.indexOf(v) === i);
-      console.log(this.faqCategory);
+      // console.log(this.faqCategory);
       this.service.FAQs(null).then((res) => {
         this.faqs = res.data;
-        console.log(res.data);
+        // console.log(res.data);
       });
     });
     if (this.isLoggedIn) {
@@ -213,7 +214,8 @@ export default {
   methods: {
     tabChange(tb) {
       this.layout = `#${tb}`;
-      // this.$router.push({ name: "Notice", hash: `#${tb}` });
+      localStorage.setItem("noticeTabPageName", `#${tb}`);
+      // this.$router.({ name: "Notice", hash: `#${tb}` });
     },
 
     camelToSpace(str) {

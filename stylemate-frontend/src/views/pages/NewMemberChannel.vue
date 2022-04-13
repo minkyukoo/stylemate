@@ -32,7 +32,7 @@
               </div>
               <div class="channelDec">
                 <!-- <h4>Acc ID: {{ account.instagram_business_account.id }}</h4> -->
-                <h4>{{ account.instagram_business_account.name }}</h4>
+                <h4>{{ account.instagram_business_account.name ? account.instagram_business_account.name : account.name }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
             </div>
@@ -306,6 +306,8 @@ export default {
           return page;
         }
       });
+      let fbpinfo = fbPageinfo[0];
+      console.log('fbpinfo--', fbpinfo);
       if (this.seletedIguserId) {
         this.channelService.getIgUser(this.seletedIguserId).then(res => {
           // console.log('5. IgUser res:', res);
@@ -361,7 +363,7 @@ export default {
             category: igcategoryname,
             category_list: igcategory.category_list,
             // name: res.name ? res.name : '',
-            name: fbPageinfo.name,
+            name: res.name ? res.name : fbpinfo.name,
             id: res.id,
             ig_id: res.ig_id,
             follows_count: res.follows_count,
@@ -371,6 +373,7 @@ export default {
             username: res.username,
           }
           this.igAccInfo = accinfo;
+          this.loader.hide();
           // console.log('this.igAccInfo', this.igAccInfo);
         });
       }
@@ -379,6 +382,14 @@ export default {
     // page selected
     selectPage(pageinfo, i) {
       // console.log('selectPage:', pageinfo);
+      this.loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        width: 30,
+        height: 30,
+        onCancel: this.onCancel,
+      });
       this.isSeleted = i;
       this.seletedPageId = pageinfo.id;
       this.seletedIguserId = pageinfo.instagram_business_account.id;
@@ -389,14 +400,7 @@ export default {
     async applyActivity() {
       // console.log('applyActivity');
       // let igInfo = this.instagramChannelInfo;
-      this.loader = this.$loading.show({
-        // Optional parameters
-        container: this.fullPage ? null : this.$refs.formContainer,
-        canCancel: false,
-        width: 30,
-        height: 30,
-        onCancel: this.onCancel,
-      });
+
       let info = this.igAccInfo;
       let uid = this.userUID;
       let userid = this.userId;
@@ -406,6 +410,14 @@ export default {
         "name": this.linkedChannel.state.fbaccessTokenType,
       };
       if (this.seletedPageId) {
+        this.loader = this.$loading.show({
+          // Optional parameters
+          container: this.fullPage ? null : this.$refs.formContainer,
+          canCancel: false,
+          width: 30,
+          height: 30,
+          onCancel: this.onCancel,
+        });
         this.channelService.selectChannel(uid, token, info).then(() => {
           // console.log('7. selectChannel res:', res);
           // console.log('response:----', res.status);

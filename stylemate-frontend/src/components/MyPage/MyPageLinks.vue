@@ -1,6 +1,9 @@
 <template>
   <div v-for="(items, index) in links" :key="index">
-    <div :class="`link-box ${items.arrow ? '' : 'link-box-static'}`" @click="reDirectPage(items)">
+    <div
+      :class="`link-box ${items.arrow ? '' : 'link-box-static'}`"
+      @click="reDirectPage(items)"
+    >
       <h3>{{ items.name }}</h3>
       <div v-if="items.arrow != false">
         <img src="../../assets/icons/arrow-right.svg" alt />
@@ -35,21 +38,23 @@ export default {
     };
 
     const reDirectPage = (item) => {
-      store.state.noticeTabPageName = item.hash;
-
+      if (item.hash === "notice" || item.hash === "faq") {
+        localStorage.setItem("noticeTabPageName", `#${item.hash}`);
+        store.state.noticeTabPageName = item.hash;
+      }
       // isAuthorized
 
       if (item.hash === "inquiry") {
         if (!isLogedIn) {
           router.push({ name: "Login" });
         } else {
+          localStorage.setItem("noticeTabPageName", `#${item.hash}`);
+          store.state.noticeTabPageName = item.hash;
           router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
         }
       } else {
         router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });
       }
-
-
 
       // if (item.arrow) {
       // router.push({ name: `${item.Pagelink}`, hash: `#${item.hash}` });

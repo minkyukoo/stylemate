@@ -50,6 +50,7 @@ const state = reactive({
   contentDetailsModal: false,
   contentDetailsId: null,
   MyPageTopState: "",
+  isReApplication: false,
   isChannelExists: false,
   MyPageTopDetails: {
     name: "",
