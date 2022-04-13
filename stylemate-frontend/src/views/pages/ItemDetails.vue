@@ -37,57 +37,60 @@
       <ion-infinite-scroll-content loading-spinner="bubbles">-->
       <div class="main-wrap">
         <div class="item-wrapper">
-          <div class="top-section">
-            <div class="left-section">
-              <h3>{{ productBrand.korName }}</h3>
-              <!-- <h3>{{ productDetails.name }}</h3> -->
-              <span>
-                <img src="@/assets/icons/arrow-left.svg" />
-              </span>
+          <div class="item-bg">
+            <div class="top-section">
+              <div class="left-section">
+                <h3>{{ productBrand.korName }}</h3>
+                <!-- <h3>{{ productDetails.name }}</h3> -->
+                <span>
+                  <img src="@/assets/icons/arrow-left.svg" />
+                </span>
+              </div>
+              <div class="right-section" v-if="!platform == 'other'">
+                <button @click="showModal">
+                  <img src="@/assets/icons/share.svg" />
+                </button>
+              </div>
             </div>
-            <div class="right-section" v-if="!platform == 'other'">
-              <button @click="showModal">
-                <img src="@/assets/icons/share.svg" />
-              </button>
+
+            <div class="product-description">
+              <!-- <h2>{{ productDetails.description }}</h2> -->
+              <h2>{{ productDetails.name }}</h2>
+
+              <div class="hashwrap">
+                <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
+                <span
+                  v-for="(hash, index) in productDetails.tag"
+                  :key="index"
+                  >{{ "#" + hash.tag }}</span
+                >
+                <!-- <span>hi</span> -->
+              </div>
+              <p>
+                <span>
+                  <img src="@/assets/icons/calendar.svg" />
+                </span>
+                <!-- 2021.11.11 ~ 2021.12.25 -->
+                <span v-for="(item, i) of productDetails.campaign" :key="i">
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.startedAt).format(
+                          "YYYY.MM.DD"
+                        )
+                      : null
+                  }}
+                  ~
+                  {{
+                    item.campaignSchedule
+                      ? moment(item.campaignSchedule.finishedAt).format(
+                          "YYYY.MM.DD"
+                        )
+                      : null
+                  }}
+                </span>
+              </p>
             </div>
           </div>
-
-          <div class="product-description">
-            <!-- <h2>{{ productDetails.description }}</h2> -->
-            <h2>{{ productDetails.name }}</h2>
-
-            <div class="hashwrap">
-              <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-              <span v-for="(hash, index) in productDetails.tag" :key="index">{{
-                "#" + hash.tag
-              }}</span>
-              <!-- <span>hi</span> -->
-            </div>
-            <p>
-              <span>
-                <img src="@/assets/icons/calendar.svg" />
-              </span>
-              <!-- 2021.11.11 ~ 2021.12.25 -->
-              <span v-for="(item, i) of productDetails.campaign" :key="i">
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.startedAt).format(
-                        "YYYY.MM.DD"
-                      )
-                    : null
-                }}
-                ~
-                {{
-                  item.campaignSchedule
-                    ? moment(item.campaignSchedule.finishedAt).format(
-                        "YYYY.MM.DD"
-                      )
-                    : null
-                }}
-              </span>
-            </p>
-          </div>
-
           <ProductDetailsTab :productData="productDetails" />
         </div>
       </div>
@@ -167,7 +170,7 @@
   </ion-page>
 </template>
 <script>
-// import { inject, onMounted } from "vue"; 주의사항 
+// import { inject, onMounted } from "vue"; 주의사항
 import {
   IonPage,
   // IonInfiniteScroll,
@@ -314,8 +317,14 @@ export default {
           this.productDetails = res;
           console.log("productDetails:-", this.productDetails);
           console.log("processStatus:-", res.campaign[0].processStatus);
-          console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
-          console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
+          console.log(
+            "processDetailStatus:-",
+            res.campaign[0].processDetailStatus
+          );
+          console.log(
+            "bookingStatus:-",
+            res.campaign[0].booking[0]?.bookingStatus
+          );
           console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
           //cancel sponsership button
           if (
@@ -412,7 +421,10 @@ export default {
         return null;
       } else {
         return await this.userInfoService.getUserInfo().then((res) => {
-          console.log("isAuthorized---", res.data.influence.stylemateApprovedAt);
+          console.log(
+            "isAuthorized---",
+            res.data.influence.stylemateApprovedAt
+          );
           return res.data.influence.stylemateApprovedAt;
         });
       }
@@ -581,15 +593,20 @@ export default {
   position: relative;
   z-index: 1;
   /* top: 350px; */
+
+  background: #ffffff;
+  transition: all 0.5s ease-in-out;
+  backdrop-filter: blur(30px);
+  z-index: 2;
+}
+.item-wrapper .item-bg {
   background-image: linear-gradient(
     148.66deg,
     rgba(241, 241, 241, 0.5) 18.92%,
     rgba(255, 255, 255, 0.1) 80.41%
   );
-  /* background: #ffffff; */
-  transition: all 0.5s ease-in-out;
-  backdrop-filter: blur(30px);
-  z-index: 2;
+  margin: -40px -20px 0;
+  padding: 40px 20px 0;
 }
 
 .top-section {
@@ -612,7 +629,8 @@ export default {
 }
 .product-description {
   margin-top: 19px;
-  margin-bottom: 42px;
+  /* margin-bottom: 42px; */
+  padding-bottom: 42px;
   text-align: left;
 }
 .product-description h2 {
@@ -745,5 +763,4 @@ export default {
 .tab-wrap .tab-content {
   padding-bottom: 0;
 }
-
 </style>
