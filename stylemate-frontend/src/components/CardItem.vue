@@ -6,9 +6,12 @@
     </div>
     <div
       v-else
-      :class="`item-wrapper ${!isBanner ? 'withoutbanner' : isBannerEmpty ? 'bannerEmpty' :  ''}`"
+      :class="`item-wrapper ${
+        !isBanner ? 'withoutbanner' : isBannerEmpty ? 'withoutbanner' : ''
+      }`"
       @scroll="onScroll2"
     >
+      <!-- isBannerEmpty ? 'bannerEmpty' : '' -->
       <div class="fixed-container">
         <div class="top-section">
           <!-- {{ loadMore }} -->
@@ -216,7 +219,7 @@ export default defineComponent({
       scategoryId: this.$props.categoryId,
       isActive: false,
       booksDropdownIndex: null,
-      sortingPlaceholder: '인기순',
+      sortingPlaceholder: "인기순",
     };
   },
   created() {
@@ -391,7 +394,7 @@ export default defineComponent({
   transition: all 0.5s ease-in-out;
   background: linear-gradient(
     93.21deg,
-    rgba(241, 241, 241, 0.5) 0.78%,
+    rgba(241, 241, 241, 0.5) 0.48%,
     rgba(241, 241, 241, 0.1) 100.78%
   );
   backdrop-filter: blur(30px);
@@ -400,11 +403,12 @@ export default defineComponent({
 .item-wrapper.withoutbanner {
   top: 90px;
   transition: all 0.5s ease-in-out;
-  margin-top: 0 !important;
+  margin-top: 20px !important;
   border-radius: 0;
-  height: 100%;
+  height: 0px;
+  padding: 0;
 }
-.item-wrapper.bannerEmpty{
+.item-wrapper.bannerEmpty {
   top: 0px;
   transition: all 0.5s ease-in-out;
   margin-top: 0 !important;

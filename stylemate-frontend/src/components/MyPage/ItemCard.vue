@@ -1,6 +1,14 @@
 <template>
   <div class="item-card">
-    <div class="img-con">
+    <div
+      class="img-con"
+      @click="
+        $router.push({
+          name: 'ItemDetails',
+          params: { id: progressDetails.product.id },
+        })
+      "
+    >
       <img :src="progressDetails.product.imageThumbnailPath" alt="" />
       <span
         class="img-tag"
