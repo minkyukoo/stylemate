@@ -112,7 +112,7 @@ ion-toolbar,
   align-items: center;
   width: 100%;
   height: 60px;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 1);
   backdrop-filter: blur(10px);
   z-index: 1;
   border-bottom: 1px solid #F7F7F7;
