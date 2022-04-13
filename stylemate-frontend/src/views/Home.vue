@@ -1161,12 +1161,12 @@ export default {
   justify-content: center;
 }
 .new-item-wrap .multiSlideWrap .slideItem {
-  width: 156px;
+  width: 164px;
   padding: 0 4px;
 }
 .new-item-wrap .headerLine {
   max-width: 320px;
   margin: 0 auto;
-  padding-left: 8px;
+  /* padding-left: 8px; */
 }
 </style>

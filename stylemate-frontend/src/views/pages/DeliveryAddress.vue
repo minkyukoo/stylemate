@@ -15,14 +15,12 @@
         </ul>
         <ul>
           <li v-for="item in addressList" :key="item.id">
-            <div>{{ item.address1 }} , {{ item.address2 }}</div>
-            <div class="pointer">
-              <router-link :to="'/update-address/'+ item.id">
-              <img
-                src="@/assets/icons/arrow-right.svg"
-              />
-              </router-link>
-            </div>
+            <router-link :to="'/update-address/' + item.id">
+              <div>{{ item.address1 }} , {{ item.address2 }}</div>
+              <div class="pointer">
+                <img src="@/assets/icons/arrow-right.svg" />
+              </div>
+            </router-link>
           </li>
           <!-- <li>
             <div>서울특별시 강남구 삼성로 95길 6</div>
@@ -81,7 +79,7 @@ export default {
   // }
   data() {
     return {
-      addressList:"",
+      addressList: "",
       // isModalVisible: false,
       // isActive: false,
     };
@@ -89,11 +87,11 @@ export default {
   created() {
     this.userInfoService = new UserInfoService();
   },
-  mounted(){
-   this.userInfoService.getUserInfo().then((res) => {
+  mounted() {
+    this.userInfoService.getUserInfo().then((res) => {
       // localStorage.setItem("userId", res.data.uid);
       this.userInfoService.getUserdeliveries(res.data.uid).then((res) => {
-        this.addressList=res;
+        this.addressList = res;
         // localStorage.setItem("del_list", JSON.stringify(res));
       });
     });
@@ -106,7 +104,6 @@ export default {
       console.log("clivk");
     },
   },
-  
 };
 </script>
 
@@ -121,6 +118,13 @@ export default {
   border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
 }
+.contWrap ul li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .contWrap li label {
   color: #c4c4c4;
   font-size: 12px;
