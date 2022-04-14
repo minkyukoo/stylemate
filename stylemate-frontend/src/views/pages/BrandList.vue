@@ -314,6 +314,7 @@ export default {
 input[type="search"]::placeholder {
   color: rgba(0, 0, 0, 0.753);
   font-weight: lighter;
+  background-color: #ffffff !important;
 }
 .subcontent {
   font-family: Pretendard;
