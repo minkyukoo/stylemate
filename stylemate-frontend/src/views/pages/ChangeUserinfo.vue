@@ -146,7 +146,7 @@ export default {
     VueCountdown,
   },
   setup() {
-    const options = ["SKT", "SKT 1", "SKT 2", "SKT 3"];
+    const options = ["SKT", "KT", "LG U+", "SKT 알뜰폰", "KT 알뜰폰", "LG U+ 알뜰폰"];
     return { options };
   },
   data() {

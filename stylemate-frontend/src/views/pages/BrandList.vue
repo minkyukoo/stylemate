@@ -149,6 +149,7 @@ export default {
       user: null,
       defaultPage: 2,
       historyActiveIndex: null,
+      uid: null,
     };
   },
 
@@ -182,6 +183,7 @@ export default {
           this.$router.push({ name: "LoginPage" });
         } else if (res.status == 200) {
           this.user = res.data;
+          this.uid = res.data.uid;
           this.setHistoryKeywords(res.data.uid);
         }
       });
@@ -229,6 +231,7 @@ export default {
           if (res.length > 0) {
             this.brands = res;
             this.notFound = false;
+            this.setHistoryKeywords(this.uid);
           } else {
             this.getBrandList();
             this.notFound = true;
