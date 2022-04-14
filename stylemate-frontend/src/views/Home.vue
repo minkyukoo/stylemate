@@ -67,7 +67,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.influenceLike.length > 0"
+                          v-if="item.influenceLike?.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -122,7 +122,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.influenceLike.length > 0"
+                          v-if="item.influenceLike?.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -177,7 +177,7 @@
                       >
                         <!-- <img src="@/assets/icons/heart-outline.svg" /> -->
                         <img
-                          v-if="item.influenceLike.length > 0"
+                          v-if="item.influenceLike?.length > 0"
                           src="@/assets/icons/heart-filled.svg"
                         />
                         <img v-else src="@/assets/icons/heart-outline.svg" />
@@ -570,8 +570,9 @@ export default {
     //   console.log("bannerList", this.bannerList);
 
     // });
-    this.isFromApp();
     this.getProductItemList();
+    this.isFromApp();
+    
     this.getLookBook();
     // this.brandService.getBrandList(10, "latest").then((res) => {
     //   this.brandList = res;
