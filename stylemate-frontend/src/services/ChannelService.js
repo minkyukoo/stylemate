@@ -46,10 +46,13 @@ export default class ChannelService {
   // get fb access token
   async getfbaccessToken() {
     // return localStorage.getItem('fbaccessToken');
-    console.log('state.extendToken', linkedChannel.state.extendToken);
+    // console.log('state.extendToken', linkedChannel.state.extendToken);
     let myInfo = await userInfoService.getUserInfo();
+    // alert(myInfo.data.influence.channel.length);
     if (myInfo.data.influence.channel.length < 1) {
+      // alert('if');
       if (linkedChannel.state.extendToken) {
+        // alert('extendToken')
         return linkedChannel.state.extendToken;
       } else {
         return null;
@@ -60,6 +63,7 @@ export default class ChannelService {
       //   return null;
       // }
     } else {
+      // alert('else');
       let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
       console.log('myInfo', myInfo);
       console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);

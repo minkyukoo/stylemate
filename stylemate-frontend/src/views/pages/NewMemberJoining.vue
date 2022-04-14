@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
+                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -126,7 +126,7 @@
                 type="button"
                 v-if="!isMobile"
                 @click="addIgChannel"
-              >+ 채널 추가하기</button>
+              >+ 채널 추가하기 avcadsv</button>
 
               <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기</button>
             </div>
@@ -335,6 +335,7 @@ export default {
 
   },
   updated() {
+    //  this.channelData();
     // this.sendAccessToken();
     this.campaignsOngoing(this.userUID);
     // let fbaccessToken = await this.channelService.getfbaccessToken();
@@ -420,8 +421,8 @@ export default {
         });
         this.igResData = restFreshChannel;
 
-        // console.log('3. Igchannels list:', this.igResData);
-        // console.log('3. ignormalAccount list:', this.ignormalAccount);
+        console.log('3. Igchannels list:', this.igResData);
+        console.log('3. ignormalAccount list:', this.ignormalAccount);
       });
 
 

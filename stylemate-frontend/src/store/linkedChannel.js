@@ -60,6 +60,7 @@ const methods = {
           // alert('You are logged in &amp; cookie set!');
           state.fbaccessTokenType = res.data.token.token_type;
           state.extendToken = res.data.token.access_token;
+          console.log('state.extendToken: ', state.extendToken);
           response.authResponse.accessToken = state.extendToken;
           this.statusChangeCallback(response);
           // channelService.getIgTokenRenew(res.data.token.access_token).then((res) => {
