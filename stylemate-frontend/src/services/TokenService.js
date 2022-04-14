@@ -5,8 +5,7 @@ var refreshToken = localStorage.getItem('refreshToken');
 
 export default class TokenService {
   async getRefreshToken() {
-    // return await axiox.get(`https://mid.beta.mediance.co.kr/refresh-token-verified`, {
-      return await axiox.get(`https://mid.beta.mediance.co.kr /refresh-token-verified`, {
+    return await axiox.get(`https://mid.beta.mediance.co.kr/refresh-token-verified`, {
       headers: {
         'Authorization': 'Bearer ' + token,
         'refresh-token': 'Bearer ' + refreshToken,
@@ -23,7 +22,7 @@ export default class TokenService {
     } else if (localStorage.token && localStorage.tokenexpiresAt && localStorage.tokenexpiresAt < currentTime) {
       return await this.getRefreshToken()
         .then(function (res) {
-          console.log('res', res.status);
+          // console.log('res', res.status);
           if (res.status && res.status !== 200) {
             return false;
           } else {

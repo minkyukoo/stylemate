@@ -22,7 +22,7 @@ async function guest(to, from, next) {
     next();
   } else {
     next({ name: "Mypage" });
-    console.log("You already logged in");
+    // console.log("You already logged in");
   }
 }
 
@@ -32,7 +32,7 @@ async function guard(to, from, next) {
   console.log('isLogedIn', isLogedIn);
   if (!isLogedIn) {
     next({ name: "LoginPage" });
-    console.log("Please login to access");
+    // console.log("Please login to access");
   } else {
     next();
   }
