@@ -331,6 +331,7 @@ input[type="search"]::placeholder {
   height: 40px;
   padding: 10px 13px;
   border: 1px solid #c4c4c4;
+  background: #ffffff;
   border-radius: 6px;
   width: 100%;
   margin-top: 20px;
