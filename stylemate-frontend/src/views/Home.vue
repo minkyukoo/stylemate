@@ -672,6 +672,7 @@ export default {
     //     this.$router.push({ name: "Notice" });
     //   } else this.$router.push({ name: "LoginPage" });
     // },
+    
     async getProductItemList() {
       this.frontManage
         .newItems(await this.tokenService.isAuth())
