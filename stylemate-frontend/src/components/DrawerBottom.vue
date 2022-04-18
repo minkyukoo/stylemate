@@ -20,6 +20,7 @@
           v-model="selected[i]"
           @toggle="control()"
           :close-on-select="true"
+          :disabled="item.disabled"
         ></vue-select>
       </div>
     </div>
@@ -53,12 +54,13 @@ export default defineComponent({
       channelId: "",
       bookingId: "",
       deliveryId: "",
-      productColor: "",
+      productColor: [],
       selected: [],
       disable: true,
       option: "",
       selected1: "",
       selected2: "",
+      conditionDisable: false,
     };
   },
   setup() {
@@ -68,16 +70,37 @@ export default defineComponent({
 
     return { getOptionValue };
   },
-  
+
   created() {
     this.itemService = new ItemService();
     this.userInfoService = new UserInfoService();
+  },
+  watch: {
+    option: function (val) {
+      console.log("change", val, this.productColor.length);
+      if (val.length < 1) {
+        this.productColor[this.productColor.length - 1].disabled = true;
+      } 
+       else {
+        this.productColor[this.productColor.length - 1].disabled = false;
+      }
+    },
   },
   mounted() {
     var proId = this.$route.params.id;
     this.itemService.getProductDetails(proId).then((data) => {
       this.productColor = data.productOption;
-      // console.log("this.productColor", data.productOption);
+      if (data.productOption.length > 1 && this.selected.length < 1) {
+        for (var i = 1; i < data.productOption.length; i++) {
+          this.productColor[i].disabled = true;
+        }
+
+        // let lastproduct = data.productOption.pop()
+        // lastproduct.disabled = true;
+        // console.log("last", lastproduct);
+        // this.productColor = [...data.productOption, lastproduct];
+      }
+      console.log("this.productColor", this.productColor);
       this.compainId = data.campaign[0].id;
       this.uid = data.campaign[0].uid;
       if (data.campaign[0].booking.length > 0) {
@@ -98,6 +121,21 @@ export default defineComponent({
     control() {
       var option = this.selected.filter((f) => f !== null && f !== undefined);
       if (option.length > 0 && this.option !== option.join("/")) {
+        // if (option.length < 1) {
+        //   for (var j = 1; j < this.productColor.length; j++) {
+        //     this.productColor[j].disabled = true;
+        //   }
+        // } else if (0 < this.selected.length < this.productColor.length) {
+        //   // console.log("2nd");
+        //   this.productColor[this.selected.length].disabled = false;
+        //   for (var k = option.length + 1; k < this.productColor.length; k++) {
+        //     this.productColor[k].disabled = true;
+        //   }
+        //   console.log("2nd", this.productColor);
+        // } else {
+        //   console.log("end");
+        //   this.productColor[this.productColor.length - 1].disabled = false;
+        // }
         this.disable = false;
         this.option = option.join("/");
         // console.log(this.option);
@@ -105,7 +143,7 @@ export default defineComponent({
         this.disable = true;
       }
     },
-    
+
     apply() {
       this.itemService
         .applySponsership(
