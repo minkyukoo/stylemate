@@ -381,7 +381,7 @@ export default {
 
     // page selected
     selectPage(pageinfo, i) {
-      // console.log('selectPage:', pageinfo);
+      console.log('selectPage:', pageinfo);
       this.loader = this.$loading.show({
         // Optional parameters
         container: this.fullPage ? null : this.$refs.formContainer,
