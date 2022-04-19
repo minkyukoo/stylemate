@@ -67,6 +67,7 @@ const state = reactive({
     Post_activity: 0,
     like: 0,
   },
+  userPushNotify: false,
 });
 
 const MyPageModals = reactive({
