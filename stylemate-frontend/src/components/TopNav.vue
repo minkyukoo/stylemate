@@ -116,6 +116,7 @@ ion-toolbar,
   backdrop-filter: blur(10px);
   z-index: 1;
   border-bottom: 1px solid #F7F7F7;
+  margin-bottom: 2px;
 }
 .header-md::after{
   background: transparent;

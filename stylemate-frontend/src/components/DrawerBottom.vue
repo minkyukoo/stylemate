@@ -88,29 +88,30 @@ export default defineComponent({
         for (let i = 1; i < this.productColor.length; i++) {
           this.productColor[i].disabled = true;
         }
+      } else if (fillterArr.length === this.productColor.length) {
+        console.log("condition 3rd", fillterArr.length);
+        for (let i = 1; i < this.productColor.length; i++) {
+          this.productColor[i].disabled = false;
+          
+        }
       } else if (1 <= fillterArr.length < this.productColor.length) {
-        console.log("condition 2nd",fillterArr.length, this.productColor.length);
+        console.log(
+          "condition 2nd",
+          fillterArr.length,
+          this.productColor.length
+        );
         for (
           let i = fillterArr.length + 1;
           i <= this.productColor.length;
           i++
         ) {
           if (fillterArr.length + 1 === this.productColor.length) {
-            this.productColor[i-1].disabled = false;
+            this.productColor[i - 1].disabled = false;
           } else {
             this.productColor[i - 1].disabled = true;
           }
         }
-      } else if (fillterArr.length === this.productColor.length) {
-        console.log("condition 3rd",fillterArr.length);
-        for (let i = 1; i < this.productColor.length; i++) {
-          this.productColor[i].disabled = false;
-        }
-      }
-      // if (val.length < 1) {
-      //   this.productColor[this.productColor.length - 1].disabled = true;
-      // }
-      else {
+      } else {
         for (let i = 1; i < this.productColor.length; i++) {
           this.productColor[i].disabled = true;
         }
