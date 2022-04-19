@@ -78,11 +78,42 @@ export default defineComponent({
   watch: {
     option: function (val) {
       console.log("change", val, this.productColor.length);
-      if (val.length < 1) {
-        this.productColor[this.productColor.length - 1].disabled = true;
-      } 
-       else {
-        this.productColor[this.productColor.length - 1].disabled = false;
+      let arr = val.split("/");
+      let fillterArr = arr.filter((x) => {
+        return x !== "";
+      });
+      console.log(fillterArr);
+      if (!val || fillterArr.length < 1) {
+        console.log("condition 1st");
+        for (let i = 1; i < this.productColor.length; i++) {
+          this.productColor[i].disabled = true;
+        }
+      } else if (1 <= fillterArr.length < this.productColor.length) {
+        console.log("condition 2nd",fillterArr.length, this.productColor.length);
+        for (
+          let i = fillterArr.length + 1;
+          i <= this.productColor.length;
+          i++
+        ) {
+          if (fillterArr.length + 1 === this.productColor.length) {
+            this.productColor[i-1].disabled = false;
+          } else {
+            this.productColor[i - 1].disabled = true;
+          }
+        }
+      } else if (fillterArr.length === this.productColor.length) {
+        console.log("condition 3rd",fillterArr.length);
+        for (let i = 1; i < this.productColor.length; i++) {
+          this.productColor[i].disabled = false;
+        }
+      }
+      // if (val.length < 1) {
+      //   this.productColor[this.productColor.length - 1].disabled = true;
+      // }
+      else {
+        for (let i = 1; i < this.productColor.length; i++) {
+          this.productColor[i].disabled = true;
+        }
       }
     },
   },
@@ -121,24 +152,8 @@ export default defineComponent({
     control() {
       var option = this.selected.filter((f) => f !== null && f !== undefined);
       if (option.length > 0 && this.option !== option.join("/")) {
-        // if (option.length < 1) {
-        //   for (var j = 1; j < this.productColor.length; j++) {
-        //     this.productColor[j].disabled = true;
-        //   }
-        // } else if (0 < this.selected.length < this.productColor.length) {
-        //   // console.log("2nd");
-        //   this.productColor[this.selected.length].disabled = false;
-        //   for (var k = option.length + 1; k < this.productColor.length; k++) {
-        //     this.productColor[k].disabled = true;
-        //   }
-        //   console.log("2nd", this.productColor);
-        // } else {
-        //   console.log("end");
-        //   this.productColor[this.productColor.length - 1].disabled = false;
-        // }
         this.disable = false;
         this.option = option.join("/");
-        // console.log(this.option);
       } else {
         this.disable = true;
       }
