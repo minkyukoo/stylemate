@@ -158,6 +158,8 @@ export default {
       .then((res) => {
        console.log(res)
        this.addnew=res.address1;
+       this.name=res.name;
+       this.recipient=res.recipient;
        this.address1=res.address1;
        this.address2=res.address2;
        this.isDefault=res.isDefault;

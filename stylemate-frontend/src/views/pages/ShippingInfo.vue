@@ -140,8 +140,9 @@ export default {
       isModalVisible: false,
       // isActive: false,
       addnew: "",
+      //shipping-address
       name: "divii",
-      recipient: "school",
+      recipient: "school", //username
       addressLocale: "domestic",
       addressZipcode: "",
       address1: "",
@@ -154,6 +155,10 @@ export default {
     this.userInfoService = new UserInfoService();
   },
   mounted() {
+    this.userInfoService.getUserInfo().then((res) => {
+      // console.log(res.data.name)
+      this.recipient=res.data.name;
+    })
     this.userInfoService
       .getUserdeliveries(localStorage.getItem("userId"))
       .then((res) => {
@@ -171,9 +176,10 @@ export default {
       this.addnew = data.address;
       (this.addressZipcode = data.zonecode),
         (this.address1 = data.jibunAddress),
+        (this.name = data.jibunAddress),
         //  alert('xcx')
         // console.log(data);
-      this.closeModal();
+        this.closeModal();
     },
 
     openlink() {

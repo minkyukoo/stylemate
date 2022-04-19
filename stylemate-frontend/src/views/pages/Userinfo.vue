@@ -261,6 +261,7 @@ export default {
     this.userInfoService.getUserInfo().then((res) => {
       // console.log('userdetails', res);
       this.userDetails = res.data;
+      console.log(res.data)
       this.marketing = res.data.influence.agreeMarketing;
       this.compain = res.data.influence.agreeCampaign;
       this.newsletter = res.data.influence.agreeNewsletter;
