@@ -3,9 +3,7 @@
     <div class="popup-backdrop" v-show="store.state.cancelPopup">
       <div class="popup-container">
         <div class="popup-body">
-          <h3>
-            신청하신 협찬을 취소하시겠습니까?
-          </h3>
+          <h3>신청하신 협찬을 취소하시겠습니까?</h3>
           <p>확인을 클릭하시면 협찬이 취소됩니다.</p>
         </div>
         <div class="popup-footer">
@@ -45,16 +43,34 @@ export default {
   },
   methods: {
     async confirmDelete() {
-      let res = await this.myPageService.deleteSponsor(
-        this.store.MyPageModals.campaignUID,
-        this.store.MyPageModals.bookingID
-      );
-      if (res.status === 204) {
-        this.store.state.FltCampaignData = [];
-        this.$emit("cancelSponsor");
-        console.log("delete", res);
-        // this.store.methods.getcampList();
-      }
+      this.myPageService
+        .deleteSponsor(
+          this.store.MyPageModals.campaignUID,
+          this.store.MyPageModals.bookingID
+        )
+        .then((res) => {
+          this.store.state.FltCampaignData = [];
+          this.$emit("cancelSponsor");
+          console.log("delete", res);
+        })
+        .catch((err) => {
+          console.log("err", err);
+          this.store.state.cancelPopup = false;
+        });
+      // let res = await this.myPageService.deleteSponsor(
+      //   this.store.MyPageModals.campaignUID,
+      //   this.store.MyPageModals.bookingID
+      // );
+      // console.log("ssd", res); // status code 412
+      // if (res.status === 204) {
+        // this.store.state.FltCampaignData = [];
+      //   this.$emit("cancelSponsor");
+      //   console.log("delete", res);
+      //   // this.store.methods.getcampList();
+      // }
+      // else if(res.error) {
+      //   this.store.state.cancelPopup = false;
+      // }
     },
   },
   unmounted() {
