@@ -189,6 +189,7 @@
 </template>
 
 <script>
+import { inject } from "vue";
 import { IonPage, IonContent } from "@ionic/vue";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
@@ -214,6 +215,12 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
   data() {
     return {
       deleteAccount: false,
@@ -259,7 +266,7 @@ export default {
   },
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
-      // console.log('userdetails', res);
+      console.log('userdetails', res);
       this.userDetails = res.data;
       console.log(res.data)
       this.marketing = res.data.influence.agreeMarketing;
