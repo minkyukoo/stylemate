@@ -149,6 +149,7 @@ export default {
       address2: "",
       isDefault: false,
       isdisabled: false,
+      recipientTel:'',
     };
   },
   created() {
@@ -156,8 +157,9 @@ export default {
   },
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
-      // console.log(res.data.name)
+       console.log(res.data)
       this.recipient=res.data.name;
+      this.recipientTel=res.data.tel;
     })
     this.userInfoService
       .getUserdeliveries(localStorage.getItem("userId"))
@@ -199,7 +201,8 @@ export default {
             this.addressZipcode,
             this.address1,
             this.address2,
-            this.isDefault
+            this.isDefault,
+            this.recipientTel
           )
           .then(() => {});
         this.render = false;

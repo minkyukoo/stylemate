@@ -46,10 +46,7 @@
           </li> -->
           <li class="checkboxWrap">
             <label class="check-container">
-              <input
-                type="checkbox"
-                v-model="isDefault"
-              />
+              <input type="checkbox" v-model="isDefault" />
               <span class="checkmark"></span>기본 배송지
             </label>
           </li>
@@ -146,6 +143,7 @@ export default {
       address1: "",
       address2: "",
       isDefault: false,
+      recipientTel: "",
     };
   },
   created() {
@@ -154,28 +152,31 @@ export default {
   mounted() {
     // console.log(this.$route.params.id)
     this.userInfoService
-      .addressDetails(localStorage.getItem("userId"),this.$route.params.id)
+      .addressDetails(localStorage.getItem("userId"), this.$route.params.id)
       .then((res) => {
-       console.log(res)
-       this.addnew=res.address1;
-       this.name=res.name;
-       this.recipient=res.recipient;
-       this.address1=res.address1;
-       this.address2=res.address2;
-       this.isDefault=res.isDefault;
-       this.addressZipcode = res.addressZipcode;
-      // this.address1 = data.jibunAddress;
+        console.log(res);
+        this.addnew = res.address1;
+        this.name = res.name;
+        this.recipient = res.recipient;
+        this.address1 = res.address1;
+        this.address2 = res.address2;
+        this.isDefault = res.isDefault;
+        this.addressZipcode = res.addressZipcode;
+        // this.address1 = data.jibunAddress;
+        this.recipientTel = res.recipientTel;
+        console.log(this.recipientTel);
       });
   },
   methods: {
-    deleteAddress(){
+    deleteAddress() {
       this.userInfoService
-      .deleteaddress(localStorage.getItem("userId"),this.$route.params.id)
-      .then(() => {
-       this.$router.push({ name: "DeliveryAddress" });
-      }).catch((err)=>{
-        Toast.fire({ title: err.response.data.error.message });
-      });
+        .deleteaddress(localStorage.getItem("userId"), this.$route.params.id)
+        .then(() => {
+          this.$router.push({ name: "DeliveryAddress" });
+        })
+        .catch((err) => {
+          Toast.fire({ title: err.response.data.error.message });
+        });
     },
     handleAddress(data) {
       this.addnew = data.address;
@@ -183,7 +184,7 @@ export default {
         (this.address1 = data.jibunAddress),
         //  alert('xcx')
         // console.log(data);
-      this.closeModal();
+        this.closeModal();
     },
 
     openlink() {
@@ -204,7 +205,8 @@ export default {
             this.address1,
             this.address2,
             this.isDefault,
-            this.$route.params.id
+            this.$route.params.id,
+            this.recipientTel,
           )
           .then(() => {});
         this.render = false;

@@ -65,97 +65,99 @@ export default class UserInfoService {
       }
     }).then((res) => res.data.data).catch((err) => err);
   }
-  async addaddress(uid, nm, rec, loc, zip, adr1, adr2, def) {
+  async addaddress(uid, nm, rec, loc, zip, adr1, adr2, def, telNo) {
     return await axios.post(`/stylemates/users/${uid}/deliveries`, {
-        name: nm,
-        recipient: rec,
-        addressLocale: loc,
-        addressZipcode: zip,
-        address1: adr1,
-        address2: adr2,
-        isDefault: def,
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      name: nm,
+      recipient: rec,
+      addressLocale: loc,
+      addressZipcode: zip,
+      address1: adr1,
+      address2: adr2,
+      isDefault: def,
+      recipientTel: telNo,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
-  async updateaddress(uid, nm, rec, loc, zip, adr1, adr2, def,ids) {
+  async updateaddress(uid, nm, rec, loc, zip, adr1, adr2, def, ids, telNo) {
     return await axios.put(`/stylemates/users/${uid}/deliveries/${ids}`, {
-        name: nm,
-        recipient: rec,
-        addressLocale: loc,
-        addressZipcode: zip,
-        address1: adr1,
-        address2: adr2,
-        isDefault: def,
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      name: nm,
+      recipient: rec,
+      addressLocale: loc,
+      addressZipcode: zip,
+      address1: adr1,
+      address2: adr2,
+      isDefault: def,
+      recipientTel: telNo,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
-  async deleteaddress(uid,ids) {
-    return await axios.delete(`/stylemates/users/${uid}/deliveries/${ids}`,  {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+  async deleteaddress(uid, ids) {
+    return await axios.delete(`/stylemates/users/${uid}/deliveries/${ids}`, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
   async updatemyInfo(uid, ids, nm, tel, agency, certi, markt, cmpgn, newsl, info, push) {
     return await axios.put(`/stylemates/users/${uid}`, {
-        id: ids,
-        name: nm,
-        tel: tel,
-        telAgency: agency,
-        isTelCertified: certi,
-        agreeMarketing: markt,
-        agreeCampaign: cmpgn,
-        agreeNewsletter: newsl,
-        isInformationPoint: info,
-        agreeStylematePush: push,
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+      id: ids,
+      name: nm,
+      tel: tel,
+      telAgency: agency,
+      isTelCertified: certi,
+      agreeMarketing: markt,
+      agreeCampaign: cmpgn,
+      agreeNewsletter: newsl,
+      isInformationPoint: info,
+      agreeStylematePush: push,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
   async changePassword(uid, oldpass, newpass, confpass) {
     return await axios.patch(`stylemates/users/${uid}/password`, {
-        token: token,
-        oldPassword: oldpass,
-        password: newpass,
-        passwordConfirmation: confpass
+      token: token,
+      oldPassword: oldpass,
+      password: newpass,
+      passwordConfirmation: confpass
 
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
   async telAuth(telNo, mailId, ids, expiry) {
     return await axios.post(`/stylemates/tel-auth`, {
-        tel: telNo,
-        email: mailId,
-        expiredAt: expiry,
-        id: ids
+      tel: telNo,
+      email: mailId,
+      expiredAt: expiry,
+      id: ids
 
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
 
-      })
+    })
       .then((res) => res)
   }
 
@@ -169,7 +171,7 @@ export default class UserInfoService {
   async Notice() {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }
-  async addressDetails(uid,ids) {
+  async addressDetails(uid, ids) {
     return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/users/${uid}/deliveries/${ids}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
