@@ -80,12 +80,19 @@ const MyPageModals = reactive({
   channelId: null,
 });
 
+const ItemState = reactive({
+  categoryId: "All",
+  isChild: false,
+  childCategoryId: "All",
+  childCategoryArr: [],
+});
+
 var itemService = new ItemService();
 var myPageService = new MyPageService();
 
 const methods = {
-  async getData(order, page, categoryId) {
-    if (categoryId === "All") {
+  async getData(order, page, categoryId, childCategoryId) {
+    if (categoryId === "All" || childCategoryId === "All") {
       return await itemService.getProductList(order, page, null).then((res) => {
         console.log("ItemList from store", res);
         state.productMeta = res.meta;
@@ -93,8 +100,9 @@ const methods = {
         return state.AppData;
       });
     } else {
+      let setId = childCategoryId ? childCategoryId : categoryId;
       return await itemService
-        .getProductList(order, page, categoryId)
+        .getProductList(order, page, setId)
         .then((res) => {
           console.log("ItemList from store", res);
           state.productMeta = res.meta;
@@ -170,5 +178,6 @@ const methods = {
 export default {
   state,
   MyPageModals,
+  ItemState,
   methods,
 };
