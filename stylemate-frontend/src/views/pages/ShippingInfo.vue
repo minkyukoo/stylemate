@@ -141,8 +141,8 @@ export default {
       // isActive: false,
       addnew: "",
       //shipping-address
-      name: "divii",
-      recipient: "school", //username
+      name: "",
+      recipient: "", //username
       addressLocale: "domestic",
       addressZipcode: "",
       address1: "",
@@ -157,7 +157,8 @@ export default {
   },
   mounted() {
     this.userInfoService.getUserInfo().then((res) => {
-       console.log(res.data)
+       console.log('getUserInfo--', res.data)
+      this.name = res.data.name;
       this.recipient=res.data.name;
       this.recipientTel=res.data.tel;
     })

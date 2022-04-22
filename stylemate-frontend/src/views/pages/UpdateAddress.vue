@@ -136,8 +136,8 @@ export default {
       isModalVisible: false,
       // isActive: false,
       addnew: "",
-      name: "divii",
-      recipient: "school",
+      name: "",
+      recipient: "",
       addressLocale: "domestic",
       addressZipcode: "",
       address1: "",
@@ -154,7 +154,7 @@ export default {
     this.userInfoService
       .addressDetails(localStorage.getItem("userId"), this.$route.params.id)
       .then((res) => {
-        console.log(res);
+        console.log('addressDetails--', res);
         this.addnew = res.address1;
         this.name = res.name;
         this.recipient = res.recipient;
