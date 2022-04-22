@@ -101,11 +101,13 @@
 </template>
 
 <script>
+import {inject} from 'vue';
 import { IonPage, IonContent } from "@ionic/vue";
 import { VueDaumPostcode } from "vue-daum-postcode";
 import UserInfoService from "@/services/UserInfoService";
 // import ExploreContainer from '@/components/ExploreContainer.vue';
 import TopNav from "@/components/TopNav.vue";
+import MyPageServices from "../../services/MyPageService";
 // import MyTop from '@/components/MyPageTop.vue';
 // import MyPageDetails from '@/components/MyPageDetails.vue';
 // import Login from '@/views/pages/Login.vue'
@@ -129,6 +131,12 @@ export default {
   //   console.log(urlParams);
   //   console.log(token);
   // }
+  setup() {
+    const store = inject("store");
+    return {
+      store,
+    };
+  },
   data() {
     return {
       uid: localStorage.getItem("userId"),
@@ -144,19 +152,22 @@ export default {
       address2: "",
       isDefault: false,
       recipientTel: "",
+      myPageServices: null,
     };
   },
   created() {
     this.userInfoService = new UserInfoService();
+    this.myPageServices = new MyPageServices();
   },
-  mounted() {
+  async mounted() {
     // console.log(this.$route.params.id)
+    let { data } = await this.myPageServices.getMyPageData();
     this.userInfoService
       .addressDetails(localStorage.getItem("userId"), this.$route.params.id)
       .then((res) => {
         console.log('addressDetails--', res);
         this.addnew = res.address1;
-        this.name = res.name;
+        this.name = data.name;
         this.recipient = res.recipient;
         this.address1 = res.address1;
         this.address2 = res.address2;
