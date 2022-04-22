@@ -7,7 +7,7 @@
     <div
       v-else
       :class="`item-wrapper ${
-        !isBanner ? 'withoutbanner' : isBannerEmpty ? 'withoutbanner' : ''
+        store.ItemState.isChild ? 'withoutbanner' : isBannerEmpty ? 'withoutbanner' : ''
       }`"
       @scroll="onScroll2"
     >
@@ -197,7 +197,7 @@ export default defineComponent({
 
     onMounted(() => {
       store.state.AppData = [];
-      store.methods.getData(null, 1, null);
+      store.methods.getData(null, 1, store.ItemState.categoryId,store.ItemState.childCategoryId);
     });
 
     return { store, customPopoverOptions };

@@ -10,7 +10,7 @@
       <!-- <ExploreContainer name="Item page" /> -->
       <CategoryList
         @clicked="onClickChild"
-       @defaultbanner="onDefaultBanner($event)"
+        @defaultbanner="onDefaultBanner($event)"
         v-on:fltData="fltData2($event)"
         v-on:filterproductList="filterproductList($event)"
         v-on:pageResetcat="pageReset($event)"

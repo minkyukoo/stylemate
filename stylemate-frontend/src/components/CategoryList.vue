@@ -1,6 +1,7 @@
 <template>
   <div class="item-scroller-nav">
     <!-- for Category -->
+    <!-- {{store.ItemState.isChild}} -->
     <swiper
       class="main-menu"
       :slides-per-view="'auto'"
@@ -10,7 +11,7 @@
     >
       <swiper-slide v-for="category in allCategories" :key="category.name">
         <a
-          :class="{ active: category.id === activeId }"
+          :class="{ active: category.id === store.ItemState.categoryId }"
           @click="handleClick(category.childCategory, category.id)"
           >{{ category.name }}</a
         >
@@ -19,7 +20,7 @@
     <!-- End for Category -->
     <!-- for Child Category -->
     <swiper
-      v-if="childCategory"
+      v-if="store.ItemState.isChild"
       class="main-menu sub-menu"
       :slides-per-view="'auto'"
       :space-between="28"
@@ -27,20 +28,23 @@
       @slideChange="onSlideChange"
     >
       <swiper-slide
-        v-for="childCategory in childCategoryArray"
+        v-for="childCategory in store.ItemState.childCategoryArr"
         :key="childCategory.name"
       >
         <a
-          :class="{ active: childCategory.id === childactiveId }"
+          :class="{
+            active: childCategory.id === store.ItemState.childCategoryId,
+          }"
           @click="handleClick2(childCategory.id)"
           >{{ childCategory.name }}</a
         >
+        <!-- :class="{ active: childCategory.id === childactiveId }" -->
       </swiper-slide>
     </swiper>
     <!-- End for Child Category -->
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
+  <div class="product-main-banner" v-if="!store.ItemState.isChild" v-show="!nofltData">
     <swiper
       :modules="modules"
       :slides-per-view="1"
@@ -121,13 +125,14 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
+      console.log("list", this.allCategories);
       this.activeId = "All"; //To highlight the button default
     });
     this.bannerService.getBannerList("item").then((res) => {
       this.bannerList = res;
       console.log("bannerList", this.bannerList);
       if (this.bannerList.length == 0) {
-        this.$emit('defaultbanner',true);
+        this.$emit("defaultbanner", true);
       }
     });
   },
@@ -138,6 +143,9 @@ export default {
     //     this.onClickButton(false);
     //   }
     // },
+  },
+  mounted() {
+    // console.log("list", this.allCategories2);
   },
 
   methods: {
@@ -158,6 +166,7 @@ export default {
     // Child category click
     handleClick2(ids) {
       // alert(ids);
+      this.store.ItemState.childCategoryId = ids;
       this.childactiveId = ids;
       let last_page = this.store.state.productMeta.last_page;
       if (this.spage <= last_page) {
@@ -179,6 +188,11 @@ export default {
     // Category click
     handleClick(childCategory, ids) {
       let last_page = this.store.state.productMeta.last_page;
+      this.store.ItemState.categoryId = ids;
+      this.store.ItemState.childCategoryId = ids;
+      if(ids === "All"){
+        this.store.ItemState.isChild = false;
+      }
       console.log("spage", this.spage, "lastPage", last_page);
       if (this.spage <= last_page) {
         console.log("clicked");
@@ -198,12 +212,17 @@ export default {
           this.childCategoryArray = [];
           childCategory.forEach((element) => {
             this.childCategoryArray.push(element);
+            this.store.ItemState.childCategoryArr = [
+              { name: "All", id: ids },
+              ...this.childCategoryArray,
+            ];
           });
           this.activeId = ids;
           this.$emit("allbutton", this.activeId);
           let arr1 = this.childCategoryArray;
           this.childCategories2 = arr1.unshift({ name: "All", id: ids });
           this.childCategory = true;
+          this.store.ItemState.isChild = true;
           this.onClickButton(false);
           this.childactiveId = ids; //To highlight the child button default
         } else {
@@ -212,9 +231,9 @@ export default {
           this.onClickButton(true);
           if (this.bannerList.length == 0) {
             // this.onClickButton(false);
-            this.$emit('defaultbanner',true);
+            this.$emit("defaultbanner", true);
           } else {
-            this.$emit('defaultbanner',false);
+            this.$emit("defaultbanner", false);
           }
         }
       } else {
