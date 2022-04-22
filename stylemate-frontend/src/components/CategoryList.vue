@@ -190,6 +190,9 @@ export default {
       let last_page = this.store.state.productMeta.last_page;
       this.store.ItemState.categoryId = ids;
       this.store.ItemState.childCategoryId = ids;
+      if(ids === "All"){
+        this.store.ItemState.isChild = false;
+      }
       console.log("spage", this.spage, "lastPage", last_page);
       if (this.spage <= last_page) {
         console.log("clicked");
