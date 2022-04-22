@@ -7,7 +7,7 @@
     <div
       v-else
       :class="`item-wrapper ${
-        !isBanner ? 'withoutbanner' : isBannerEmpty ? 'withoutbanner' : ''
+        store.ItemState.isChild ? 'withoutbanner' : isBannerEmpty ? 'withoutbanner' : ''
       }`"
       @scroll="onScroll2"
     >

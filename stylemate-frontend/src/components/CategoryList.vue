@@ -32,7 +32,9 @@
         :key="childCategory.name"
       >
         <a
-        :class="{ active: childCategory.id === store.ItemState.childCategoryId }"
+          :class="{
+            active: childCategory.id === store.ItemState.childCategoryId,
+          }"
           @click="handleClick2(childCategory.id)"
           >{{ childCategory.name }}</a
         >
@@ -42,7 +44,7 @@
     <!-- End for Child Category -->
   </div>
 
-  <div class="product-main-banner" v-if="!childCategory" v-show="!nofltData">
+  <div class="product-main-banner" v-if="!store.ItemState.isChild" v-show="!nofltData">
     <swiper
       :modules="modules"
       :slides-per-view="1"
@@ -123,6 +125,7 @@ export default {
       let arr = data;
       this.allCategories2 = arr.unshift({ name: "All", id: "All" });
       this.allCategories = data;
+      console.log("list", this.allCategories);
       this.activeId = "All"; //To highlight the button default
     });
     this.bannerService.getBannerList("item").then((res) => {
@@ -140,6 +143,9 @@ export default {
     //     this.onClickButton(false);
     //   }
     // },
+  },
+  mounted() {
+    // console.log("list", this.allCategories2);
   },
 
   methods: {
@@ -183,6 +189,7 @@ export default {
     handleClick(childCategory, ids) {
       let last_page = this.store.state.productMeta.last_page;
       this.store.ItemState.categoryId = ids;
+      this.store.ItemState.childCategoryId = ids;
       console.log("spage", this.spage, "lastPage", last_page);
       if (this.spage <= last_page) {
         console.log("clicked");
@@ -202,7 +209,10 @@ export default {
           this.childCategoryArray = [];
           childCategory.forEach((element) => {
             this.childCategoryArray.push(element);
-            this.store.ItemState.childCategoryArr = [...this.childCategoryArray];
+            this.store.ItemState.childCategoryArr = [
+              { name: "All", id: ids },
+              ...this.childCategoryArray,
+            ];
           });
           this.activeId = ids;
           this.$emit("allbutton", this.activeId);
