@@ -179,7 +179,7 @@ export default {
       this.addnew = data.address;
       (this.addressZipcode = data.zonecode),
         (this.address1 = data.jibunAddress),
-        (this.name = data.jibunAddress),
+        // (this.name = data.jibunAddress),
         //  alert('xcx')
         // console.log(data);
         this.closeModal();
