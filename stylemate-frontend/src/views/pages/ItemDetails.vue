@@ -607,6 +607,8 @@ export default {
   );
   margin: -40px -20px 0;
   padding: 40px 20px 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .top-section {
