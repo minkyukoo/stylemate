@@ -188,7 +188,7 @@ export default class UserInfoService {
   }
 
   async QNAs() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
+    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas?sort=descend`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
