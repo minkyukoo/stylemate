@@ -32,12 +32,7 @@
       <div class="content-details" v-html="notice.body"></div>
       <div class="bottom-sec-scroll">
         <div class="btn-wrap">
-          <button
-            class="main-btn"
-            @click="$router.push({ name: 'Notice', hash: '#notice' })"
-          >
-            목록으로
-          </button>
+          <button class="main-btn" @click="goToList">목록으로</button>
         </div>
         <div class="pagination-wrap">
           <a href="#" @click.prevent="prev()">
@@ -104,6 +99,11 @@ export default {
     });
   },
   methods: {
+    goToList() {
+      localStorage.setItem("noticeTabPageName", `#notice`);
+      this.store.state.noticeTabPageName = "#notice";
+      this.$router.push({ name: "Notice", hash: "#notice" });
+    },
     prev() {
       if (this.notice.prev !== null) {
         this.$router.push({
