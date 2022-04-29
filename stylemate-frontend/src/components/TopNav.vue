@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     backMainpage() {
-      let main = ['Item','Brand','Contents','Mypage','LoginPage']
+      let main = ['Item','Brand','Contents','Mypage','LoginPage'];
       if (this.$route.name === 'NewMemberJoining') {
         this.$router.push({
           path: "/mypage",
@@ -81,6 +81,11 @@ export default {
       else if (main.includes(this.$route.name)) {
         this.$router.push({
           path: "/home",
+        });
+      }
+      else if (this.$route.name === 'Userinfo') {
+        this.$router.push({
+          path: "/mypage",
         });
       }
       else {
@@ -116,7 +121,7 @@ ion-toolbar,
   backdrop-filter: blur(10px);
   z-index: 1;
   border-bottom: 1px solid #F7F7F7;
-  margin-bottom: 2px;
+  /* margin-bottom: 2px; */
 }
 .header-md::after{
   background: transparent;

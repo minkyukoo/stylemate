@@ -33,9 +33,9 @@
       </div>
       <div class="social-media" v-else-if="store.state.MyPageTopState === 'approve'">
         <div class="media-item">
-          <a href="#" class="btn-instagram media-icons">
+          <span class="btn-instagram media-icons">
             <img src="@/assets/icons/instagram.svg" />
-          </a>
+          </span>
           <!-- <span>150k</span> -->
         </div>
         <!-- <div class="media-item">
