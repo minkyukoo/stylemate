@@ -11,20 +11,13 @@
         <ul class="connectionList">
           <li>
             <div>
-              <label>
-                스타일메이트와 연결할 인스타그램 비즈니스 계정을
-                선택하세요.
-              </label>
+              <label>스타일메이트와 연결할 인스타그램 비즈니스 계정을 선택하세요.</label>
             </div>
           </li>
         </ul>
         <ul class="newChannel">
-          <li
-            v-for="(account, i) of igResData"
-            :key="i + 1"
-            @click="selectPage(account, i)"
-            :class="(isSeleted === i) ? 'active' : ''"
-          >
+          <li v-for="(account, i) of igResData" :key="i + 1" @click="selectPage(account, i)"
+            :class="(isSeleted === i) ? 'active' : ''">
             <div class="channelLeft">
               <div class="channelImg">
                 <!-- <img src="@/assets/icons/refresh.svg" /> -->
@@ -32,7 +25,8 @@
               </div>
               <div class="channelDec">
                 <!-- <h4>Acc ID: {{ account.instagram_business_account.id }}</h4> -->
-                <h4>{{ account.instagram_business_account.name ? account.instagram_business_account.name : account.name }}</h4>
+                <h4>{{ account.instagram_business_account.name ? account.instagram_business_account.name : account.name
+                }}</h4>
                 <p>{{ fbResData.name }}</p>
               </div>
             </div>
@@ -63,10 +57,7 @@
         <ul class="connectionList">
           <li>
             <div>
-              <label>
-                스타일메이트와 연결할 인스타그램 비즈니스 계정을
-                선택하세요.
-              </label>
+              <label>페이스북 페이지와 연결되지 않은 인스타그램 계정은 선택할 수 없습니다.</label>
             </div>
           </li>
         </ul>
@@ -457,19 +448,24 @@ export default {
   max-width: 500px;
   transform: translate(-50%);
 }
+
 .bottomDrawer {
   display: none;
 }
+
 .bottomDrawer.active,
 .overlay.active {
   display: block;
 }
+
 .contWrap {
   padding: 20px;
 }
+
 .connectionList {
   margin-bottom: 10px;
 }
+
 .connectionList li {
   display: flex;
   justify-content: space-between;
@@ -477,11 +473,13 @@ export default {
   border-bottom: 1px solid #f6f6f6;
   padding: 10px 0;
 }
+
 .connectionList li label {
   color: #c4c4c4;
   font-size: 12px;
   font-weight: 700;
 }
+
 .connectionList li lspanabel {
   color: #25282b;
   font-size: 14px;
@@ -501,6 +499,7 @@ export default {
 .forthList {
   margin-top: 40px;
 }
+
 .secList button {
   display: block;
   width: 100%;
@@ -513,6 +512,7 @@ export default {
 .thirdList li {
   justify-content: flex-start !important;
 }
+
 .thirdList li ion-checkbox {
   margin-right: 10px;
 }
@@ -523,11 +523,13 @@ export default {
   align-items: inherit !important;
   margin-bottom: 40px;
 }
+
 .channelLeft {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
+
 .newChannel li {
   margin-bottom: 10px;
   justify-content: space-between;
@@ -537,18 +539,22 @@ export default {
   padding: 12px;
   border-radius: 8px;
 }
+
 .newChannel li:hover,
 .newChannel li.active {
   border-color: #5700ff;
 }
+
 .newChannel li.disable {
   background: #f7f7f7;
   border: 1px solid #e5e5e5;
   pointer-events: none;
 }
+
 .newChannel li.disable .channelImg {
   position: relative;
 }
+
 .newChannel li.disable .channelImg::after {
   position: absolute;
   width: 100%;
@@ -557,22 +563,23 @@ export default {
   top: 0;
   left: 0;
   border-radius: 50%;
-  background: linear-gradient(
-    0deg,
-    rgba(121, 121, 121, 0.8),
-    rgba(121, 121, 121, 0.8)
-  );
+  background: linear-gradient(0deg,
+      rgba(121, 121, 121, 0.8),
+      rgba(121, 121, 121, 0.8));
 }
+
 .newChannel li.disable .channelDec h4,
 .newChannel li.disable .channelDec p {
   color: #797979;
 }
+
 .newChannel li.disable .channelBtn {
   border: 1px solid #e5e5e5;
   background: #f7f7f7;
   color: #797979;
   cursor: not-allowed;
 }
+
 .newChannel li .channelImg {
   width: 56px;
   height: 56px;
@@ -582,17 +589,20 @@ export default {
   background: #797979;
   margin-right: 12px;
 }
+
 .newChannel li .channelLeft .channelDec h4 {
   font-size: 14px;
   font-weight: 700;
   line-height: 150%;
   margin-bottom: 3px;
 }
+
 .newChannel li .channelLeft .channelDec p {
   font-size: 12px;
   font-weight: 400;
   line-height: 150%;
 }
+
 .newChannel li .channelBtn {
   border: 1px solid #797979;
   color: #797979;
@@ -631,24 +641,25 @@ export default {
   z-index: 2;
   width: 100%;
   max-width: 500px;
-  background: linear-gradient(
-    150.57deg,
-    rgba(255, 255, 255, 0.5) -60.05%,
-    #ffffff 71.1%
-  );
+  background: linear-gradient(150.57deg,
+      rgba(255, 255, 255, 0.5) -60.05%,
+      #ffffff 71.1%);
   backdrop-filter: blur(30px);
   border-radius: 20px 20px 0px 0px;
 }
+
 .drawer-top {
   padding: 40px 20px;
   text-align: center;
 }
+
 .drawer-top h4 {
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
   color: #25282b;
 }
+
 .drawer-top p {
   font-weight: normal;
   font-size: 14px;
@@ -656,9 +667,11 @@ export default {
   color: #595959;
   margin-top: 24px;
 }
+
 .button-group {
   display: flex;
 }
+
 .button-group button {
   display: flex;
   align-items: center;
@@ -669,10 +682,12 @@ export default {
   line-height: 18px;
   padding: 21px;
 }
+
 .button-group button.grey-btn {
   color: #797979;
   background: #e5e5e5;
 }
+
 .button-group button.black-btn {
   color: #ffffff;
   background: #090909;
