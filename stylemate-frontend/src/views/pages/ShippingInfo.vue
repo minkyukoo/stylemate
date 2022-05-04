@@ -311,7 +311,7 @@ export default {
   font-size: 14px;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 15px;
+  padding: 13px 15px;
 }
 .labelGap {
   margin-bottom: 8px;

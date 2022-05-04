@@ -322,7 +322,7 @@ export default {
   font-size: 14px;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 15px;
+  padding: 13px 15px;
 }
 .chnageInfoHead {
   border-bottom: 1px solid #f7f7f7;
