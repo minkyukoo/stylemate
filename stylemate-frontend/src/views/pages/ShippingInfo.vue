@@ -181,7 +181,6 @@ export default {
         (this.address1 = data.jibunAddress ==''? data.address : data.jibunAddress),
         // (this.name = data.jibunAddress),
         //  alert('xcx')
-        console.log(data);
         this.closeModal();
     },
 
@@ -190,7 +189,6 @@ export default {
     },
     //rec, loc, zip, adr1, adr2, def
     submitAddress() {
-      alert(this.address1);
       if (this.address2 == "") {
         this.render = true;
       } else {
