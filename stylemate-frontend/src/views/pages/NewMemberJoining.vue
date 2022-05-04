@@ -42,7 +42,7 @@
                 </div>
                 <div class="btn-wrap">
                   <!-- <button class="channelBtn" type="button">선택</button> -->
-                  <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button>
+                  <!-- <button class="channelBtn" type="button" @click="disconnectpopup">disconnect</button> -->
                   <div class="dbl-btn-wrap" v-if="stylemateStatus === 'approve'">
                     <!-- <button class="channelBtn" type="button">Linked Account</button> -->
                     <button class="channelBtn" type="button" @click="disconnectpopup">연결해제</button>
@@ -84,7 +84,7 @@
             </ul> -->
             <!-- v-if="(stylemateStatus === 'hold' && isReApplication) || userChannel.length < 1" -->
             <div class="adddivwrap" v-if="userChannel.length < 1">
-              <button class="connectBtn" type="button" v-if="!isMobile" @click="addIgChannel">+ 채널 추가하기 avcadsv</button>
+              <button class="connectBtn" type="button" v-if="!isMobile" @click="addIgChannel">+ 채널 추가하기</button>
 
               <button class="connectBtn" type="button" v-else @click="Mbfblogin">+ 채널 추가하기</button>
             </div>
