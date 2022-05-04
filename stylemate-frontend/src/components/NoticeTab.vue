@@ -265,7 +265,7 @@ p.no-notice-data {
 }
 
 .tabs {
-  border: 1px solid #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
   display: flex;
   justify-content: space-around;
   background: #ffffff;

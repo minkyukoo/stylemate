@@ -83,7 +83,7 @@ export default {
           path: "/home",
         });
       }
-      else if (this.$route.name === 'Userinfo') {
+      else if (this.$route.name === 'Userinfo' || this.$route.name === 'ChangeUserinfo') {
         this.$router.push({
           path: "/mypage",
         });
