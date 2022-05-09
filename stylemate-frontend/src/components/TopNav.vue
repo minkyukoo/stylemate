@@ -72,23 +72,30 @@ export default {
   },
   methods: {
     backMainpage() {
-      let main = ['Item','Brand','Contents','Mypage','LoginPage'];
-      if (this.$route.name === 'NewMemberJoining') {
+      let main = ["Item", "Brand", "Contents", "Mypage", "LoginPage"];
+      if (this.$route.name === "NewMemberJoining") {
         this.$router.push({
           path: "/mypage",
         });
-      }
-      else if (main.includes(this.$route.name)) {
+      } else if (main.includes(this.$route.name)) {
         this.$router.push({
           path: "/home",
         });
-      }
-      else if (this.$route.name === 'Userinfo' || this.$route.name === 'ChangeUserinfo') {
+      } else if (
+        this.$route.name === "Userinfo" ||
+        this.$route.name === "ChangeUserinfo"
+      ) {
         this.$router.push({
           path: "/mypage",
         });
-      }
-      else {
+      } else if (
+        this.$route.name === "InquiryRegisterDetails" ||
+        this.$route.name === "NoticeDetails"
+      ) {
+        this.$router.push({
+          path: "/mypage",
+        });
+      } else {
         this.$router.back();
         // this.$router.go(-1);
       }
@@ -120,10 +127,10 @@ ion-toolbar,
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(10px);
   z-index: 1;
-  border-bottom: 1px solid #F7F7F7;
+  border-bottom: 1px solid #f7f7f7;
   /* margin-bottom: 2px; */
 }
-.header-md::after{
+.header-md::after {
   background: transparent;
 }
 .header-title {
