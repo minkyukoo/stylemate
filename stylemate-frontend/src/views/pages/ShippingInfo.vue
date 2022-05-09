@@ -178,10 +178,9 @@ export default {
     handleAddress(data) {
       this.addnew = data.address;
       (this.addressZipcode = data.zonecode),
-        (this.address1 = data.jibunAddress),
+        (this.address1 = data.jibunAddress ==''? data.address : data.jibunAddress),
         // (this.name = data.jibunAddress),
         //  alert('xcx')
-        // console.log(data);
         this.closeModal();
     },
 
@@ -311,7 +310,7 @@ export default {
   font-size: 14px;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 15px;
+  padding: 13px 15px;
 }
 .labelGap {
   margin-bottom: 8px;
