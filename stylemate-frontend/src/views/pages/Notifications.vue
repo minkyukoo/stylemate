@@ -145,7 +145,8 @@ export default {
       if (arg === "postRequest") {
         return "포스트 등록 요청";
       } else if (arg === "announce") {
-        return "발표하다";
+        // return "발표하다";
+        return "협찬 선정";
       } else if (arg === "postModifyRequest") {
         return "수정 요청 게시";
       } else if (arg === "disconnected") {
