@@ -6,26 +6,14 @@
     <!-- page content -->
     <div class="scrollDiv">
       <div class="mainslide">
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="50"
-          :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide
-            v-for="(slide, i) of productDetails.productImageFile"
-            :key="i + 1"
-          >
+        <swiper :modules="modules" :slides-per-view="1" :space-between="50" :pagination="{ clickable: true }"
+          @swiper="onSwiper" @slideChange="onSlideChange">
+          <swiper-slide v-for="(slide, i) of productDetails.productImageFile" :key="i + 1">
             <div class="mainslide-banner-wrap">
               <figure>
                 <img :src="slide.productImagePath" alt />
                 <div class="top-social-icon">
-                  <img
-                    v-if="isChannelIg(productDetails.campaign)"
-                    src="@/assets/icons/instagram.svg"
-                  />
+                  <img v-if="isChannelIg(productDetails.campaign)" src="@/assets/icons/instagram.svg" />
                 </div>
               </figure>
             </div>
@@ -59,11 +47,7 @@
 
               <div class="hashwrap">
                 <!-- <span v-for="hash in hashtag" :key="hash">{{ hash.name }}</span> -->
-                <span
-                  v-for="(hash, index) in productDetails.tag"
-                  :key="index"
-                  >{{ "#" + hash.tag }}</span
-                >
+                <span v-for="(hash, index) in productDetails.tag" :key="index">{{ "#" + hash.tag }}</span>
                 <!-- <span>hi</span> -->
               </div>
               <p>
@@ -73,19 +57,19 @@
                 <!-- 2021.11.11 ~ 2021.12.25 -->
                 <span v-for="(item, i) of productDetails.campaign" :key="i">
                   {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.startedAt).format(
+                      item.campaignSchedule
+                        ? moment(item.campaignSchedule.startedAt).format(
                           "YYYY.MM.DD"
                         )
-                      : null
+                        : null
                   }}
                   ~
                   {{
-                    item.campaignSchedule
-                      ? moment(item.campaignSchedule.finishedAt).format(
+                      item.campaignSchedule
+                        ? moment(item.campaignSchedule.finishedAt).format(
                           "YYYY.MM.DD"
                         )
-                      : null
+                        : null
                   }}
                 </span>
               </p>
@@ -99,10 +83,7 @@
 
       <div class="subscribe-wrap">
         <figure class="favorite" @click="likeProduct(productDetails.id)">
-          <img
-            v-if="productDetails.isInfluenceLike"
-            src="@/assets/icons/heart-filled.svg"
-          />
+          <img v-if="productDetails.isInfluenceLike" src="@/assets/icons/heart-filled.svg" />
           <img v-else src="@/assets/icons/heart-outline.svg" />
         </figure>
 
@@ -111,19 +92,11 @@
         <!-- Sponsorship application -->
         <!-- <button @click="sponsorshipApplication" class="black-btn">협찬 신청</button> -->
         <!-- {{ sponsorship }} -->
-        <button
-          v-if="sponsorship"
-          @click="sponsorshipApplication"
-          class="black-btn"
-        >
+        <button v-if="sponsorship" @click="sponsorshipApplication" class="black-btn">
           협찬 신청
         </button>
         <!-- Cancellation of sponsorship application -->
-        <button
-          v-else-if="cancel_spon"
-          @click="sponsorshipCancellation"
-          class="white-btn"
-        >
+        <button v-else-if="cancel_spon" @click="sponsorshipCancellation" class="white-btn">
           협찬 신청 취소
         </button>
         <!-- Sponsorship application completed -->
@@ -139,13 +112,8 @@
       </div>
 
       <!-- product option -->
-      <DrawerBottom
-        class="bottomDrawer"
-        :class="{ active: isActive }"
-        :isCancelspon="isCancelspon"
-        v-if="isActive"
-        v-on:closePopup="closeDrawerBottom($event)"
-      />
+      <DrawerBottom class="bottomDrawer" :class="{ active: isActive }" :isCancelspon="isCancelspon" v-if="isActive"
+        v-on:closePopup="closeDrawerBottom($event)" />
 
       <div class="overlay" :class="{ active: isActive }"></div>
       <CustomModal v-show="isModalVisible" @close="closeModal">
@@ -315,17 +283,16 @@ export default {
         // success
         else {
           this.productDetails = res;
-          console.log("productDetails:-", this.productDetails);
-          console.log("processStatus:-", res.campaign[0].processStatus);
-          console.log(
-            "processDetailStatus:-",
-            res.campaign[0].processDetailStatus
-          );
-          console.log(
-            "bookingStatus:-",
-            res.campaign[0].booking[0]?.bookingStatus
-          );
-          console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
+          this.productBrand = this.productDetails.brand;
+          this.productDetails.campaign.map((item) => {
+            this.productCampaign = item;
+          });
+          // console.log("productBrand-----:", this.productBrand);
+          // console.log("productDetails:-----", this.productDetails);
+          // console.log("processStatus:-", res.campaign[0].processStatus);
+          // console.log("processDetailStatus:-", res.campaign[0].processDetailStatus);
+          // console.log("bookingStatus:-", res.campaign[0].booking[0]?.bookingStatus);
+          // console.log("postStatus:-", res.campaign[0].booking[0]?.postStatus);
           //cancel sponsership button
           if (
             res.campaign[0].processStatus == "progress" &&
@@ -387,11 +354,8 @@ export default {
             this.end_spon = true;
           }
           // console.log('productDetails:', this.productDetails.campaign);
-          this.productDetails.campaign.map((item) => {
-            this.productCampaign = item;
-          });
-          this.productBrand = this.productDetails.brand;
-          console.log("productBrand:", this.productBrand);
+
+
         }
       });
     },
@@ -548,13 +512,16 @@ export default {
   max-width: 500px;
   transform: translate(-50%);
 }
+
 .bottomDrawer {
   display: none;
 }
+
 .bottomDrawer.active,
 .overlay.active {
   display: block;
 }
+
 .mainslide figure {
   /* display: flex;
   align-items: center;
@@ -562,15 +529,18 @@ export default {
   width: 100%;
   height: 100%;
 }
+
 .mainslide figure .top-social-icon {
   position: absolute;
   top: 13px;
   left: 13px;
 }
+
 .mainslide figure .top-social-icon img {
   width: 24px;
   height: 24px;
 }
+
 .mainslide-banner-wrap {
   position: relative;
   display: flex;
@@ -579,12 +549,14 @@ export default {
   height: 380px;
   /* background: rgb(101, 101, 101); */
 }
+
 .mainslide-banner-wrap img {
   height: auto;
   width: 100%;
   /* max-height: 380px; */
   object-fit: cover;
 }
+
 .item-wrapper {
   padding: 40px 20px 160px;
   border-top-left-radius: 20px;
@@ -599,12 +571,11 @@ export default {
   backdrop-filter: blur(30px);
   z-index: 2;
 }
+
 .item-wrapper .item-bg {
-  background-image: linear-gradient(
-    148.66deg,
-    rgba(241, 241, 241, 0.5) 18.92%,
-    rgba(255, 255, 255, 0.1) 80.41%
-  );
+  background-image: linear-gradient(148.66deg,
+      rgba(241, 241, 241, 0.5) 18.92%,
+      rgba(255, 255, 255, 0.1) 80.41%);
   margin: -40px -20px 0;
   padding: 40px 20px 0;
   border-top-left-radius: 20px;
@@ -616,46 +587,56 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+
 .left-section {
   display: flex;
   align-items: center;
 }
+
 .left-section h3 {
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
   color: #090909;
 }
-.left-section > span {
+
+.left-section>span {
   margin-right: 4px;
 }
+
 .product-description {
   margin-top: 19px;
   /* margin-bottom: 42px; */
   padding-bottom: 42px;
   text-align: left;
 }
+
 .product-description h2 {
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
   color: #595959;
 }
+
 .hashwrap {
   margin: 12px 0 15px;
 }
+
 .hashwrap span {
   font-size: 10px;
   line-height: 12px;
   color: #c4c4c4;
   margin-left: 4px;
 }
+
 .hashwrap span:first-child {
   margin-left: 0;
 }
+
 .product-description {
   margin-top: 12px;
 }
+
 .product-description p {
   display: flex;
   align-items: center;
@@ -663,37 +644,45 @@ export default {
   line-height: 14px;
   color: #797979;
 }
+
 .product-description p span {
   margin-right: 7px;
 }
+
 .shareList {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 24px 0 35px;
 }
+
 .shareList li {
   margin-left: 20px;
 }
+
 .shareList li:first-child {
   margin-left: 0;
 }
+
 .shareList li a {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
+
 .shareList li a img {
   width: 52px;
   height: 52px;
 }
+
 .shareList li a span {
   font-size: 10px;
   line-height: 12px;
   color: #595959;
   margin-top: 4px;
 }
+
 .subscribe-wrap {
   display: flex;
   align-items: center;
@@ -708,13 +697,16 @@ export default {
   border: 1px solid #f7f7f7;
   background: #ffffff;
 }
+
 .subscribe-wrap figure {
   margin-right: 10px;
 }
+
 .subscribe-wrap figure img {
   width: 36px;
   height: 36px;
 }
+
 .subscribe-wrap .black-btn {
   font-size: 14px;
   line-height: 18px;
@@ -727,6 +719,7 @@ export default {
   padding: 24px;
   width: calc(100% - 30px);
 }
+
 .subscribe-wrap .white-btn {
   font-size: 14px;
   line-height: 18px;
@@ -740,6 +733,7 @@ export default {
   width: calc(100% - 30px);
   border: 1px solid #595959;
 }
+
 .subscribe-wrap .grey-btn {
   font-size: 14px;
   line-height: 18px;
@@ -753,15 +747,18 @@ export default {
   width: calc(100% - 30px);
   border: 1px solid #c4c4c4;
 }
+
 .main-wrap {
   position: relative;
   z-index: 2;
   overflow: visible;
   background: transparent;
 }
+
 .mainslide .swiper-pagination {
   bottom: 42px !important;
 }
+
 .tab-wrap .tab-content {
   padding-bottom: 0;
 }
