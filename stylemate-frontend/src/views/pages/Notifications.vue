@@ -164,7 +164,7 @@ export default {
           return { data: "type", value: "all" };
           // eslint-disable-next-line no-unreachable
           break;
-        case "발표하다":
+        case "협찬선정":
           return { data: "subType", value: "announce" };
           // eslint-disable-next-line no-unreachable
           break;
@@ -196,7 +196,7 @@ export default {
   setup() {
     const options = [
       "전체알림",
-      "발표하다",
+      "협찬선정",
       "포스트 등록요청",
       "포스트 수정요청",
       "협찬취소",
