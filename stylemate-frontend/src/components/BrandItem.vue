@@ -21,22 +21,12 @@
           </div>
         </div>
         <figure>
-          <img
-            :src="product.imageThumbnailPath"
-            @click="
-              $router.push({ name: 'ItemDetails', params: { id: product.id } })
-            "
-          />
+          <img :src="product.imageThumbnailPath" @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })"/>
         </figure>
         <h3>{{ brandName }}</h3>
-        <p
-          @click="
-            $router.push({ name: 'ItemDetails', params: { id: product.id } })
-          "
-        >
+        <p @click="$router.push({ name: 'ItemDetails', params: { id: product.id } })">
           {{ product.name }}
         </p>
-        <!-- <span>{{ product.hashtags }}</span> -->
         <div class="hashWrap">
           <span v-for="(hash, index) in product.tag" :key="index">
             {{ "#" + hash.tag }}

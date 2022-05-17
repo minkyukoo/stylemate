@@ -185,7 +185,7 @@ export default {
           // eslint-disable-next-line no-unreachable
           break;
         case "연결해제확인":
-          return { data: "subType", value: "disconnection" };
+          return { data: "subType", value: "disconnected" };
           // eslint-disable-next-line no-unreachable
           break;
         default:
