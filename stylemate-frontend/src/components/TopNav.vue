@@ -88,6 +88,11 @@ export default {
           path: "/mypage",
         });
       }
+      else if (this.$route.name === 'ItemDetails') {
+        this.$router.push({
+          path: "/item",
+        });
+      }
       else {
         this.$router.back();
         // this.$router.go(-1);

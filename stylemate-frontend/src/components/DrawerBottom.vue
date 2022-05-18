@@ -186,6 +186,9 @@ export default defineComponent({
       this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
         // console.log("rescel:", res);
         this.$emit("closePopup", true);
+      }).catch((err) => {
+        console.log("err:", err);
+        this.$emit("closePopup", true);
       });
     },
   },
