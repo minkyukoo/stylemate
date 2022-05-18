@@ -162,17 +162,17 @@ export default class UserInfoService {
   }
 
   async confirmPass(vcode, mailId, telNo) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/tel-auth-confirm?verificationCode=${vcode}&email=${mailId}&tel=${telNo}`, {
+    return await axios.get(`/stylemates/tel-auth-confirm?verificationCode=${vcode}&email=${mailId}&tel=${telNo}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
     }).then((res) => res.data.data).catch((err) => err);
   }
   async Notice() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
+    return await axios.get(`/stylemates/boards?type=stylemateNotice`).then((res) => res.data).catch((err) => err);
   }
   async addressDetails(uid, ids) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/users/${uid}/deliveries/${ids}`, {
+    return await axios.get(`/stylemates/users/${uid}/deliveries/${ids}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -180,15 +180,15 @@ export default class UserInfoService {
   }
 
   async FAQsGetLength() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq`).then((res) => res.data.meta.total).catch((err) => err);
+    return await axios.get(`/stylemates/boards?type=stylemateFaq`).then((res) => res.data.meta.total).catch((err) => err);
   }
 
   async FAQs(p) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards?type=stylemateFaq&perPage=${p}`).then((res) => res.data).catch((err) => err);
+    return await axios.get(`/stylemates/boards?type=stylemateFaq&perPage=${p}`).then((res) => res.data).catch((err) => err);
   }
 
   async QNAs() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas`, {
+    return await axios.get(`/stylemates/qnas?sort=descend`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -196,15 +196,15 @@ export default class UserInfoService {
   }
 
   async NoticeById(id) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/boards/${id}`).then((res) => res.data).catch((err) => err);
+    return await axios.get(`/stylemates/boards/${id}`).then((res) => res.data).catch((err) => err);
   }
 
   async userDetails() {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/myInfo`).then((res) => res.data);
+    return await axios.get(`/stylemates/myInfo`).then((res) => res.data);
   }
 
   async QNAsById(id) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas/${id}`, {
+    return await axios.get(`/stylemates/qnas/${id}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }
@@ -212,7 +212,7 @@ export default class UserInfoService {
   }
 
   async QNAsCheckById(id) {
-    return await axios.get(`https://elsa.beta.mediance.co.kr/stylemates/qnas/${id}`, {
+    return await axios.get(`/stylemates/qnas/${id}`, {
       headers: {
         Authorization: 'Bearer ' + token //the token is a variable which holds the token
       }

@@ -15,17 +15,7 @@
         <img src="@/assets/icons/search.png" alt="search" />
       </button>
     </div>
-    <!-- <ion-searchbar
-      @keyup="sreachWord($event.target.value)"
-      v-model="searchValue"
-      placeholder="브랜드 이름으로 검색해 보세요"
-      @ionClear="sreachWordClear"
-      @ionBlur="$emit('searchInputBlur', $event)"
-      @ionFocus="$emit('searchInputFocus', $event)"
-    ></ion-searchbar>  -->
-    <!-- <div class="search-wrapper">
-        <input type="text" name="search" placeholder="브랜드 이름으로 검색해 보세요" />
-    </div> -->
+
     <div class="history-keywords" v-if="history">
       <swiper
         class="main-menu"
@@ -209,7 +199,11 @@ export default {
       // console.log("call from likeBrand");
       this.brandService.getBrandList(null).then((data) => {
         this.brands = data;
-        // console.log('this.brands list', data);
+        this.userInfoService.getUserInfo().then((res) => {
+          if (res.status == 200) {
+            this.setHistoryKeywords(res.data.uid);
+          }
+        });
       });
     },
 

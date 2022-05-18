@@ -131,7 +131,7 @@
             >
           </div>
           <div class="text-desc">
-            <p>{{ inquiry.inquiry }}</p>
+            <p>{{ inquiry.title }}</p>
           </div>
           <div class="bottom-row">
             <span class="text-capitalize">{{ camelToSpace(inquiry.type) }}</span
@@ -207,7 +207,7 @@ export default {
       this.service.QNAs().then((res) => {
         this.inquiryLength = res.data.length;
         this.inquirylist = res.data;
-        // console.log("inquiry", res.data);
+        // console.log("inquiry----", res.data);
       });
     }
   },
@@ -265,7 +265,7 @@ p.no-notice-data {
 }
 
 .tabs {
-  border: 1px solid #f7f7f7;
+  border-bottom: 1px solid #f7f7f7;
   display: flex;
   justify-content: space-around;
   background: #ffffff;

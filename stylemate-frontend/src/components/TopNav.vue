@@ -3,15 +3,8 @@
     <ion-toolbar>
       <div class="container">
         <div class="flex items-center justify-center relative">
-          <img
-            src="@/assets/images/logo-black.svg"
-            class="siteLogo"
-            alt="Logo"
-          />
-          <NotificationIcon
-            :userLoggedIn="userLoggedIn"
-            :notificationCount="notificationLength"
-          />
+          <img src="@/assets/images/logo-black.svg" class="siteLogo" alt="Logo" />
+          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -30,10 +23,7 @@
             {{ headerTitle }}
           </h1>
           <h1 v-else class="header-title text-center">Main Header</h1>
-          <NotificationIcon
-            :userLoggedIn="userLoggedIn"
-            :notificationCount="notificationLength"
-          />
+          <NotificationIcon :userLoggedIn="userLoggedIn" :notificationCount="notificationLength" />
         </div>
       </div>
     </ion-toolbar>
@@ -72,18 +62,19 @@ export default {
   },
   methods: {
     backMainpage() {
-      let main = ['Item','Brand','Contents','Mypage','LoginPage'];
-      if (this.$route.name === 'NewMemberJoining') {
+      let main = ["Item", "Brand", "Contents", "Mypage", "LoginPage"];
+      if (this.$route.name === "NewMemberJoining") {
         this.$router.push({
           path: "/mypage",
         });
-      }
-      else if (main.includes(this.$route.name)) {
+      } else if (main.includes(this.$route.name)) {
         this.$router.push({
           path: "/home",
         });
-      }
-      else if (this.$route.name === 'Userinfo') {
+      } else if (
+        this.$route.name === "Userinfo" ||
+        this.$route.name === "ChangeUserinfo"
+      ) {
         this.$router.push({
           path: "/mypage",
         });
@@ -92,10 +83,16 @@ export default {
         this.$router.push({
           path: "/item",
         });
-      }
-      else {
+      } else if (
+        this.$route.name === "InquiryRegisterDetails" ||
+        this.$route.name === "NoticeDetails"
+      ) {
+        this.$router.push({
+          path: "/mypage",
+        });
+      } else {
         this.$router.back();
-        // this.$router.go(-1);
+        // this.$router.go(-1); 
       }
     },
     async getNotificationLength() {
@@ -117,19 +114,35 @@ export default {
 
 <style scoped>
 ion-toolbar,
-.header {
+.header,
+.header-ios {
   display: flex;
   align-items: center;
   width: 100%;
   height: 60px;
   background-color: rgba(255, 255, 255, 0.85);
+  /* background-color: #ffffff; */
   backdrop-filter: blur(10px);
   z-index: 1;
-  border-bottom: 1px solid #F7F7F7;
+  /* border-bottom: 1px solid #f7f7f7; */
   /* margin-bottom: 2px; */
 }
-.header-md::after{
+
+/* .header,
+.header-ios {
+  border-bottom: 1px solid #f7f7f7;
+} */
+
+.header-md::after {
   background: transparent;
+  bottom: 0;
+}
+
+ion-toolbar:last-of-type {
+  border-width: 0;
+  --border-width: 0;
+  /* border: none; */
+  border-bottom: 1px solid #f7f7f7;
 }
 .header-title {
   font-style: normal;
@@ -140,15 +153,18 @@ ion-toolbar,
   text-transform: uppercase;
   color: #000000;
 }
+
 .back-btn-wrap {
   position: absolute;
   left: 0;
 }
+
 .back-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
+
 .siteLogo {
   max-width: 120px;
   width: 100%;

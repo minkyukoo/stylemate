@@ -65,8 +65,6 @@ export default class ChannelService {
     } else {
       // alert('else');
       let myInfofbaccesstoken = myInfo.data.influence.channel[0].instagramChannel.accessToken;
-      console.log('myInfo', myInfo);
-      console.log('myInfo token', myInfo.data.influence.channel[0].instagramChannel.accessToken);
       return myInfofbaccesstoken;
       // if (!myInfofbaccesstoken || myInfofbaccesstoken === '') {
       //   return null;
