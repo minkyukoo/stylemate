@@ -57,7 +57,7 @@ export default {
         .catch((err) => {
           console.log("err", err);
           this.store.state.cancelPopup = false;
-          if (err.message == "Request failed with status code 412") {
+          if (err.status == "412") {
             Toast.fire({ title: "신청마감일이 지나 신청 취소를 할 수 없습니다." });
           }
           else {
