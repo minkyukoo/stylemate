@@ -36,6 +36,7 @@
 <script>
 // import Vue from 'vue';
 import { defineComponent } from "vue";
+import Toast from "@/alert/alert.js";
 import VueNextSelect from "vue-next-select";
 import ItemService from "@/services/ItemService";
 import UserInfoService from "@/services/UserInfoService";
@@ -92,7 +93,6 @@ export default defineComponent({
         console.log("condition 3rd", fillterArr.length);
         for (let i = 1; i < this.productColor.length; i++) {
           this.productColor[i].disabled = false;
-          
         }
       } else if (1 <= fillterArr.length < this.productColor.length) {
         console.log(
@@ -183,13 +183,22 @@ export default defineComponent({
     applycancelspon(campUid, campbookingId) {
       // console.log("applycancelspon");
       // eslint-disable-next-line no-unused-vars
-      this.itemService.cancelSponsership(campUid, campbookingId).then((res) => {
-        // console.log("rescel:", res);
-        this.$emit("closePopup", true);
-      }).catch((err) => {
-        console.log("err:", err);
-        this.$emit("closePopup", true);
-      });
+      this.itemService
+        .cancelSponsership(campUid, campbookingId)
+        .then((res) => {
+          // console.log("rescel:", res);
+          this.$emit("closePopup", true);
+        })
+        .catch((err) => {
+          console.log("err:", err);
+          this.$emit("closePopup", true);
+          if (err.message == "Request failed with status code 412") {
+            Toast.fire({ title: "신청마감일이 지나 신청 취소를 할 수 없습니다." });
+          }
+          else {
+            Toast.fire({ title: err.message });
+          }
+        });
     },
   },
 });
