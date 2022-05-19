@@ -78,6 +78,11 @@ export default {
         this.$router.push({
           path: "/mypage",
         });
+      }
+      else if (this.$route.name === 'ItemDetails') {
+        this.$router.push({
+          path: "/item",
+        });
       } else if (
         this.$route.name === "InquiryRegisterDetails" ||
         this.$route.name === "NoticeDetails"

@@ -24,6 +24,7 @@
 
 <script>
 import MyPageService from "@/services/MyPageService.js";
+import Toast from "@/alert/alert.js";
 import { inject } from "vue";
 export default {
   name: "cancelPopUp",
@@ -56,6 +57,12 @@ export default {
         .catch((err) => {
           console.log("err", err);
           this.store.state.cancelPopup = false;
+          if (err.status == "412") {
+            Toast.fire({ title: "신청마감일이 지나 신청 취소를 할 수 없습니다." });
+          }
+          else {
+            Toast.fire({ title: err.message });
+          }
         });
       // let res = await this.myPageService.deleteSponsor(
       //   this.store.MyPageModals.campaignUID,
