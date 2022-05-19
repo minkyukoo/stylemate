@@ -107,6 +107,7 @@
 import { IonPage } from "@ionic/vue";
 import TopNav from "@/components/TopNav.vue";
 import { inject, onMounted } from 'vue';
+import Toast from "@/alert/alert.js";
 // import { useRouter } from 'vue-router';
 import ChannelService from "@/services/ChannelService";
 import UserInfoService from "@/services/UserInfoService";
@@ -409,9 +410,13 @@ export default {
           height: 30,
           onCancel: this.onCancel,
         });
-        this.channelService.selectChannel(uid, token, info).then(() => {
+        this.channelService.selectChannel(uid, token, info).then((res) => {
           // console.log('7. selectChannel res:', res);
-          // console.log('response:----', res.status);
+          // console.log('response:----', res.response);
+          if (res.response.data.error.code == 412) {
+            this.loader.hide();
+            Toast.fire({ title: res.response.data.error.message });
+          }
           this.getUserinfo2();
           // loader.hide();
         });
