@@ -173,6 +173,14 @@ export default defineComponent({
         .then((data) => {
           // console.log(data);
           this.$emit("closePopup", true);
+          if (data.message == "Request failed with status code 412") {
+            Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
+          }
+        }).catch((err) => {
+          console.log(err.message);
+          if (data.message == "Request failed with status code 412") {
+            Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
+          }
         });
     },
     // close cancel sponsership popup
