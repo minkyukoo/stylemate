@@ -171,17 +171,17 @@ export default defineComponent({
         )
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
-          // console.log(data);
+          console.log(data.response, "sdasdas");
           this.$emit("closePopup", true);
-          if (data.message == "Request failed with status code 412") {
-            Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
+          if (data.response.status === 412) {
+            Toast.fire({ title: data.response.data.error.message });
           }
         }).catch((err) => {
           console.log(err.message);
           this.$emit("closePopup", true);
-          if (data.message == "Request failed with status code 412") {
-            Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
-          }
+          // if (err.message == "Request failed with status code 412") {
+          //   Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
+          // }
         });
     },
     // close cancel sponsership popup
