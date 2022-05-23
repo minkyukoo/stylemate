@@ -178,6 +178,7 @@ export default defineComponent({
           }
         }).catch((err) => {
           console.log(err.message);
+          this.$emit("closePopup", true);
           if (data.message == "Request failed with status code 412") {
             Toast.fire({ title: "인스타그램 채널 연결 상태를 확인해주세요." });
           }
